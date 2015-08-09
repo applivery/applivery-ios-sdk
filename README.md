@@ -1,0 +1,1 @@
+# applivery-ios-sdk
