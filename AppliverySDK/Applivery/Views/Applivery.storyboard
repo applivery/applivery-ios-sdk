@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Wea-jC-1dn">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Lato-Light.ttf">
+            <string>Lato-Light</string>
+        </mutableArray>
+        <mutableArray key="Lato-Regular.ttf">
+            <string>Lato-Regular</string>
+        </mutableArray>
+        <mutableArray key="fontawesome-webfont.ttf">
+            <string>FontAwesome</string>
+        </mutableArray>
+    </customFonts>
+    <scenes>
+        <!--UpdateVC-->
+        <scene sceneID="47i-3Y-5CR">
+            <objects>
+                <viewController id="Wea-jC-1dn" customClass="UpdateVC" customModule="Applivery" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="obK-BI-9do"/>
+                        <viewControllerLayoutGuide type="bottom" id="DbW-ym-7hR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dCE-x5-bWe">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OVI-8d-BxC" userLabel="containerTitle">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mea-CY-gmA" userLabel="viewLogo">
+                                        <rect key="frame" x="227" y="24" width="147" height="27"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#Applivery#" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jYC-pG-uFO" userLabel="labelApplivery">
+                                                <rect key="frame" x="32" y="0.0" width="115" height="27"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="22"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="applivery-icon" translatesAutoresizingMaskIntoConstraints="NO" id="atj-c9-YwA">
+                                                <rect key="frame" x="0.0" y="2" width="24" height="24"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="jYC-pG-uFO" firstAttribute="leading" secondItem="atj-c9-YwA" secondAttribute="trailing" constant="8" id="GGN-NG-aiE"/>
+                                            <constraint firstItem="atj-c9-YwA" firstAttribute="centerY" secondItem="jYC-pG-uFO" secondAttribute="centerY" id="QLi-nl-PKs"/>
+                                            <constraint firstItem="atj-c9-YwA" firstAttribute="leading" secondItem="Mea-CY-gmA" secondAttribute="leading" id="a0M-V5-dqo"/>
+                                            <constraint firstAttribute="bottom" secondItem="jYC-pG-uFO" secondAttribute="bottom" id="gRn-PI-59v"/>
+                                            <constraint firstAttribute="trailing" secondItem="jYC-pG-uFO" secondAttribute="trailing" id="j5q-sn-WxO"/>
+                                            <constraint firstItem="jYC-pG-uFO" firstAttribute="top" secondItem="Mea-CY-gmA" secondAttribute="top" id="vro-ye-djB"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.3921568627" green="0.58039215690000001" blue="0.64705882349999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="Mea-CY-gmA" firstAttribute="centerY" secondItem="OVI-8d-BxC" secondAttribute="centerY" constant="5" id="4gv-I5-mcJ"/>
+                                    <constraint firstItem="Mea-CY-gmA" firstAttribute="centerX" secondItem="OVI-8d-BxC" secondAttribute="centerX" id="7mY-dx-Cib"/>
+                                    <constraint firstItem="Mea-CY-gmA" firstAttribute="top" secondItem="OVI-8d-BxC" secondAttribute="top" constant="20" symbolic="YES" id="D7w-pf-6le"/>
+                                    <constraint firstAttribute="height" constant="64" id="ZPE-KP-bwT"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="D7w-pf-6le"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FhN-Oy-KDs" userLabel="containerUpdate">
+                                <rect key="frame" x="20" y="215" width="560" height="171"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sorry this App is outdated. Please, update the App to continue using it" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8CI-zi-0Il" userLabel="labelMessage">
+                                        <rect key="frame" x="20" y="20" width="520" height="41"/>
+                                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zEI-sj-mbl" userLabel="buttonUpdate">
+                                        <rect key="frame" x="210" y="101" width="140" height="50"/>
+                                        <color key="backgroundColor" red="0.36078431372549019" green="0.72156862745098038" blue="0.36078431372549019" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="3L8-9g-bXq"/>
+                                            <constraint firstAttribute="width" constant="140" id="neY-5o-Eq4"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="17"/>
+                                        <state key="normal" title="#Update now#">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onButtonUpdateTap:" destination="Wea-jC-1dn" eventType="touchUpInside" id="uSP-DA-8wC"/>
+                                        </connections>
+                                    </button>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="OU4-Gt-Wbc">
+                                        <rect key="frame" x="262" y="107" width="37" height="37"/>
+                                        <color key="color" red="0.3921568627" green="0.58039215690000001" blue="0.64705882349999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="OU4-Gt-Wbc" firstAttribute="centerY" secondItem="zEI-sj-mbl" secondAttribute="centerY" id="0Ta-oF-MAs"/>
+                                    <constraint firstItem="zEI-sj-mbl" firstAttribute="top" secondItem="8CI-zi-0Il" secondAttribute="bottom" constant="40" id="2XF-c2-eqK"/>
+                                    <constraint firstAttribute="bottom" secondItem="zEI-sj-mbl" secondAttribute="bottom" constant="20" id="GF8-oa-k3n"/>
+                                    <constraint firstItem="8CI-zi-0Il" firstAttribute="top" secondItem="FhN-Oy-KDs" secondAttribute="top" constant="20" id="Nu9-4I-lk1"/>
+                                    <constraint firstItem="zEI-sj-mbl" firstAttribute="centerX" secondItem="FhN-Oy-KDs" secondAttribute="centerX" id="aJS-Rr-1Vj"/>
+                                    <constraint firstItem="8CI-zi-0Il" firstAttribute="leading" secondItem="FhN-Oy-KDs" secondAttribute="leading" constant="20" id="gUr-sx-yRg"/>
+                                    <constraint firstItem="OU4-Gt-Wbc" firstAttribute="centerX" secondItem="zEI-sj-mbl" secondAttribute="centerX" id="vKC-Ln-Ucf"/>
+                                    <constraint firstAttribute="trailing" secondItem="8CI-zi-0Il" secondAttribute="trailing" constant="20" id="wks-Of-gMH"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="FhN-Oy-KDs" firstAttribute="leading" secondItem="dCE-x5-bWe" secondAttribute="leading" constant="20" id="448-Et-zDZ"/>
+                            <constraint firstItem="OVI-8d-BxC" firstAttribute="leading" secondItem="dCE-x5-bWe" secondAttribute="leading" id="BZC-Z1-CUH"/>
+                            <constraint firstItem="OVI-8d-BxC" firstAttribute="top" secondItem="obK-BI-9do" secondAttribute="bottom" constant="-20" id="GED-kU-zIm"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="FhN-Oy-KDs" secondAttribute="trailing" constant="20" id="TGD-Ok-lwD"/>
+                            <constraint firstAttribute="trailing" secondItem="OVI-8d-BxC" secondAttribute="trailing" id="TrD-gJ-3lU"/>
+                            <constraint firstAttribute="trailing" secondItem="FhN-Oy-KDs" secondAttribute="trailing" constant="20" id="WkN-6S-Eaf"/>
+                            <constraint firstItem="FhN-Oy-KDs" firstAttribute="centerY" secondItem="dCE-x5-bWe" secondAttribute="centerY" id="qSP-AO-z90"/>
+                            <constraint firstItem="FhN-Oy-KDs" firstAttribute="leading" secondItem="dCE-x5-bWe" secondAttribute="leadingMargin" constant="20" id="xtq-nm-J0B"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="TGD-Ok-lwD"/>
+                                <exclude reference="xtq-nm-J0B"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="buttonUpdate" destination="zEI-sj-mbl" id="I2k-Cb-N1g"/>
+                        <outlet property="labelTitle" destination="jYC-pG-uFO" id="E3d-5L-TUj"/>
+                        <outlet property="labelUpdateMessage" destination="8CI-zi-0Il" id="u3j-Qu-kxk"/>
+                        <outlet property="spiner" destination="OU4-Gt-Wbc" id="QJz-Dq-Kfk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wfF-2J-FcP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="709" y="363"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="applivery-icon" width="24" height="24"/>
+    </resources>
+</document>

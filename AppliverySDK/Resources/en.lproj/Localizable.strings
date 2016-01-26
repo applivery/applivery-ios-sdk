@@ -1,0 +1,28 @@
+/* 
+  Localizable.strings
+  AppliverySDK
+
+  Created by Alejandro Jiménez on 18/1/16.
+  Copyright © 2016 Applivery S.L. All rights reserved.
+*/
+
+
+// GENERAL
+"sdk_name" = "Applivery";
+
+
+// ERRORS
+"error_unexpected" = "Unexpected error";
+
+
+// ALERTS
+"alert_button_later" = "Later";
+"alert_button_update" = "Update";
+"alert_button_cancel" = "Cancel";
+"alert_button_retry" = "Retry";
+"alert_button_ok" = "OK";
+
+
+// UPDATE VIEW
+"update_view_button_update" = "Update now";
+
