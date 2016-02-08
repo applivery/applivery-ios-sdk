@@ -25,14 +25,7 @@ You can get your ACCOUNT API KEY in the `Developers` section (left side menu).
 
 ![Application ID](https://github.com/applivery/applivery-ios-sdk/blob/master/documentation/application_id.png)
 
-### SDK Installation
-
-### iOS 7
-
-The framework is a dynamic embedded framework written  Swift, so it will only works with iOS 8 or later projects. But don't worry, you can use directly the sources (is open source!) and will work. 
-
-The easiest way is to import like a subproject inside yours.
-
+## SDK Installation
 
 ### iOS 8 and later
 
@@ -52,18 +45,8 @@ If your project is written in Objective-C, you should also enable the "_Embedded
 
 ![Embedded binaries](https://github.com/applivery/applivery-ios-sdk/blob/master/documentation/embedded_content.png)
 
-#### Applivery Script
 
-Applivery.framework is built with a fat universal library, this means that you can compile for devices or simulator without problems, but due to a possible (and strange) [Apple's bug](http://www.openradar.me/19209161), you can not submit an App to the AppleStore if it has inside an embedded framework with simulator slices.
-
-In this case, the solution is as simple as add [this script](https://github.com/applivery/applivery-ios-sdk/blob/master/script/applivery_script.sh) in "New Run Script Phase" you'll find inside _Build Phases_ tab.
-
-![Applivery script](https://github.com/applivery/applivery-ios-sdk/blob/master/documentation/applivery_script.png)
-
-This script is based on the [solution that Carthago](https://github.com/Carthage/Carthage/issues/188) found (thank guys!)
-
-
-### Ok! Let's rock it!
+### Ok! Let's go!
 
 At your application start up (for example in the _AppDelegate_) add the following code:
 
@@ -121,4 +104,22 @@ Logs level that the SDK will displayed in the debug console
 - **appStoreRelease**: Flag to mark that the build will be submitted to the AppStore. This is needed to prevent unwanted behavior like prompt to a final user that a new version is available on Applivery.com.
 	* True: Applivery SDK will not trigger automatic updates anymore. **Use this for AppStore**
 	* False: Applivery SDK will normally. Use this with builds distributed through Applivery.
+	
+## Advanced concepts
+
+### iOS 7
+
+The framework is a dynamic embedded framework written  Swift, so it will only works with iOS 8 or later projects. But don't worry, you can use directly the sources (is open source!) and will work. 
+
+The easiest way is to import like a subproject inside yours.
+
+### Embedded frameworks and AppStore submissions
+
+Applivery.framework is built with a fat universal library, this means that you can compile for devices or simulator without problems, but due to a possible (and strange) [Apple's bug](http://www.openradar.me/19209161), you can not submit an App to the AppStore if it has inside an embedded framework with simulator slices.
+
+In this case, the solution is as simple as add [this script](https://github.com/applivery/applivery-ios-sdk/blob/master/script/applivery_script.sh) in "New Run Script Phase" you'll find inside _Build Phases_ tab.
+
+![Applivery script](https://github.com/applivery/applivery-ios-sdk/blob/master/documentation/applivery_script.png)
+
+This script is based on the [solution that Carthago](https://github.com/Carthage/Carthage/issues/188) found (thank guys!)
 
