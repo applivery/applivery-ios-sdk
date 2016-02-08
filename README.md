@@ -13,7 +13,7 @@ With Applivery you can massively distribute your iOS Apps (both Ad-hoc or In-Hou
 First of all, you should create an account on [Applivery.com](https://dashboard.applivery.com/register) and then add a new Application.
 
 
-### Get yours credentials
+### Get your credentials
 
 **ACCOUNT API KEY**: that identifies and grants access to your account in order to use the [Applivery API](http://www.applivery.com/developers/api/). The API will aallow you to easily create an script to integrate your CI system with Applivery, but also is needed for this SDK.
 
@@ -21,9 +21,9 @@ You can get your ACCOUNT API KEY in the `Developers` section (left side menu).
 
 ![Developers section](https://github.com/applivery/applivery-ios-sdk/blob/master/documentation/developers_section.png)
 
-**App ID**: Is your application identifier. You can find it in the App details, going to `Applications` -> Click desired App -> (i) Box
+**APP ID**: Is your application identifier. You can find it in the App details, going to `Applications` -> Click desired App -> (i) Box
 
-![Application ID](https://github.com/applivery/applivery-ios-sdk/blob/master/documentation/application_id.png)
+![APP ID](https://github.com/applivery/applivery-ios-sdk/blob/master/documentation/application_id.png)
 
 ## SDK Installation
 
@@ -85,7 +85,9 @@ applivery.logLevel = LogLevelInfo;
 [applivery startWithApiKey:@"YOUR_API_KEY" appId:@"YOUR_APP_ID" appStoreRelease:NO];
 ```
 
-**IMPORTANT**: As you can suspect, you should replace the strings `YOUR_API_KEY` and `YOUR_APP_ID` with you api key and your app id respectively. Easy! Don't you think so?
+**IMPORTANT I:** As you can suspect, you should replace the strings `YOUR_API_KEY` and `YOUR_APP_ID` with you api key and your app id respectively. Easy! Don't you think so?
+
+**IMPORTANT II:** If you're using Swift don`t forguet to check this known issue about [Embedded Frameworks and AppStore submissions](https://github.com/applivery/applivery-ios-sdk#embedded-frameworks-and-appstore-submissions)
 
 
 ## About params
@@ -111,7 +113,7 @@ Logs level that the SDK will displayed in the debug console
 
 ### iOS 7
 
-The framework is a dynamic embedded framework written  Swift, so it will only works with iOS 8 or later projects. But don't worry, you can use directly the sources (is open source!) and will work. 
+The framework is a dynamic embedded framework written Swift, so it will only works with iOS 8 or later projects. But don't worry, you can use directly the sources (is open source!) and will work. 
 
 The easiest way is to import like a subproject inside yours.
 
