@@ -64,7 +64,6 @@ and then the magic:
 
 ``` swift
 let applivery = Applivery.sharedInstance
-applivery.logLevel = .Info
 applivery.start(apiKey: "YOUR_API_KEY", appId: "YOUR_APP_ID", appStoreRelease: false)
 ```
 
@@ -81,7 +80,6 @@ The magic:
 
 ``` objc
 Applivery *applivery = [Applivery sharedInstance];
-applivery.logLevel = LogLevelInfo;
 [applivery startWithApiKey:@"YOUR_API_KEY" appId:@"YOUR_APP_ID" appStoreRelease:NO];
 ```
 
@@ -92,23 +90,12 @@ applivery.logLevel = LogLevelInfo;
 
 ## About params
 
-### LogLevel property
-
-Logs level that the SDK will displayed in the debug console
-	
-- **None**: This is the default value. No logs will be shown. Recommended for production environments.
-- **Error**: Only warnings and errors. Recommended for develop environments.
-- **Info**: Errors and relevant information. Recommended for test integrating Applivery.
-- **Debug**: Request and Responses to Applivery's server will be displayed. Not recommended to use, only for debugging Applivery.
-
-### Start method
-
 - **apiKey**: Your developer's Api Key
 - **appId**: Your application's ID
 - **appStoreRelease**: Flag to mark that the build will be submitted to the AppStore. This is needed to prevent unwanted behavior like prompt to a final user that a new version is available on Applivery.com.
 	* True: Applivery SDK will not trigger automatic updates anymore. **Use this for AppStore**
 	* False: Applivery SDK will normally. Use this with builds distributed through Applivery.
-	
+
 ## Advanced concepts
 
 ### iOS 7
@@ -116,6 +103,28 @@ Logs level that the SDK will displayed in the debug console
 The framework is a dynamic embedded framework written Swift, so it will only works with iOS 8 or later projects. But don't worry, you can use directly the sources (is open source!) and will work. 
 
 The easiest way is to import like a subproject inside yours.
+
+### Logs and debugging
+
+In some cases you'll find usefull to see what is happening inside Applivery SDK. If so, you can enable logs for debugging purposes.
+
+**Swift**
+``` swift
+applivery.logLevel = .Info
+```
+
+**Objective-C**
+``` objc
+applivery.logLevel = LogLevelInfo;
+```
+
+Possible values are:
+	
+- **None**: Default value. No logs will be shown. Recommended for production environments.
+- **Error**: Only warnings and errors. Recommended for develop environments.
+- **Info**: Errors and relevant information. Recommended for test integrating Applivery.
+- **Debug**: Request and Responses to Applivery's server will be displayed. Not recommended to use, only for debugging Applivery.
+
 
 ### Embedded frameworks and AppStore submissions
 
