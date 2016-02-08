@@ -31,6 +31,8 @@ You can get your ACCOUNT API KEY in the `Developers` section (left side menu).
 
 Download the Applivery.framework and drag it to your frameworks folder.
 
+_Note: Take a look to the [iOS 7 Installation](#ios-7) guide_
+
 
 #### Embbeded binaries
 
