@@ -2,6 +2,8 @@ language: objective-c
 osx_image: xcode7.2
 script: ./test.sh
 notifications:
-  slack: applivery:KX1jJ5dWdGbw0xXOXImfKgSD
+  slack: applivery:KX1jJ5dWdGbw0xXOXImfKgSD#general
+    on_success: change
+    on_failure: always
 after_success:
 - bash <(curl -s https://codecov.io/bash)
