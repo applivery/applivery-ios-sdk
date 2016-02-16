@@ -1,6 +1,7 @@
 # Applivery iOS SDK
 ![Language](https://img.shields.io/badge/Language-Swift-orange.svg)
 ![Version](https://img.shields.io/badge/version-1.0 RC1-blue.svg)
+[![Build Status](https://travis-ci.org/applivery/applivery-ios-sdk.svg?branch=master)](https://travis-ci.org/applivery/applivery-ios-sdk)
 
 Framework to support [Applivery.com Mobile App distribution](http://www.applivery.com) for iOS Apps.
 
