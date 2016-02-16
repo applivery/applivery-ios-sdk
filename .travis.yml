@@ -1,5 +1,5 @@
 language: objective-c
-script: ./script/test.sh
+script: ./test.sh
 notifications:
   slack: applivery:KX1jJ5dWdGbw0xXOXImfKgSD
 after_success:
