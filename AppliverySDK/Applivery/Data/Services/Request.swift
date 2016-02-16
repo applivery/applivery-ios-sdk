@@ -42,9 +42,12 @@ class Request {
 	// MARK: Private Helpers
 	
 	private func setHeaders(request: NSMutableURLRequest) {
+		let version = NSBundle.AppliveryBundle().infoDictionary!["CFBundleShortVersionString"] as! String
+		
 		request.setValue("application/json",		 forHTTPHeaderField: "Content-Type")
 		request.setValue(GlobalConfig.shared.apiKey, forHTTPHeaderField: "Authorization")
 		request.setValue(App().getLanguage(),		 forHTTPHeaderField: "Accept-Language")
+		request.setValue("IOS_\(version)",			 forHTTPHeaderField: "x_sdk_version")
 	}
 	
 	
