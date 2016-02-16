@@ -1,6 +1,5 @@
 language: objective-c
-script:
-- xctool -project AppliverySDK.xcodeproj -scheme Applivery build test -sdk iphonesimulator GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
+script: ./script/test.sh
 notifications:
   slack: applivery:KX1jJ5dWdGbw0xXOXImfKgSD
 after_success:
