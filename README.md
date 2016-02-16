@@ -135,5 +135,7 @@ In this case, the solution is as simple as add [this script](https://github.com/
 
 ![Applivery script](https://github.com/applivery/applivery-ios-sdk/blob/master/documentation/applivery_script.png)
 
+Please note that you should edit the `APPLIVERY_FRAMEWORK_PATH` specifing where the framework is
+
 This script is based on the [solution that Carthago](https://github.com/Carthage/Carthage/issues/188) found (thank guys!)
 
