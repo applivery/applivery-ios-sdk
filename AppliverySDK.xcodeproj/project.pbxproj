@@ -22,6 +22,8 @@
 
 /* Begin PBXBuildFile section */
 		FA1EE2E61BEAADC800B6EE11 /* JsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1EE2E51BEAADC800B6EE11 /* JsonTests.swift */; };
+		FA232D2D1C75388A0097AE79 /* ConfigPersisterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA232D2C1C75388A0097AE79 /* ConfigPersisterTests.swift */; };
+		FA232D2F1C753A5F0097AE79 /* UserDefaultsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA232D2E1C753A5F0097AE79 /* UserDefaultsMock.swift */; };
 		FA2900E41C064DAD00778A4C /* Applivery.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA2900E31C064DAD00778A4C /* Applivery.storyboard */; };
 		FA2B3DCA1C178705002DC5C9 /* UpdatePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2B3DC91C178705002DC5C9 /* UpdatePresenterTests.swift */; };
 		FA2B3DCC1C1789AF002DC5C9 /* UpdateViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2B3DCB1C1789AF002DC5C9 /* UpdateViewMock.swift */; };
@@ -85,6 +87,8 @@
 
 /* Begin PBXFileReference section */
 		FA1EE2E51BEAADC800B6EE11 /* JsonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonTests.swift; sourceTree = "<group>"; };
+		FA232D2C1C75388A0097AE79 /* ConfigPersisterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigPersisterTests.swift; path = Persisters/ConfigPersisterTests.swift; sourceTree = "<group>"; };
+		FA232D2E1C753A5F0097AE79 /* UserDefaultsMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserDefaultsMock.swift; path = Mocks/UserDefaultsMock.swift; sourceTree = "<group>"; };
 		FA2900E31C064DAD00778A4C /* Applivery.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Applivery.storyboard; path = Applivery/Views/Applivery.storyboard; sourceTree = "<group>"; };
 		FA2B3DC91C178705002DC5C9 /* UpdatePresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdatePresenterTests.swift; path = Presenters/UpdatePresenterTests.swift; sourceTree = "<group>"; };
 		FA2B3DCB1C1789AF002DC5C9 /* UpdateViewMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateViewMock.swift; path = Mocks/UpdateViewMock.swift; sourceTree = "<group>"; };
@@ -158,6 +162,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FA232D2B1C7538540097AE79 /* Persisters */ = {
+			isa = PBXGroup;
+			children = (
+				FA232D2C1C75388A0097AE79 /* ConfigPersisterTests.swift */,
+			);
+			name = Persisters;
+			sourceTree = "<group>";
+		};
 		FA2B3DC81C178644002DC5C9 /* Presenters */ = {
 			isa = PBXGroup;
 			children = (
@@ -233,6 +245,7 @@
 				FA3211D71C3EE15E00668099 /* DownloadDataManagerMock.swift */,
 				FAFBE4601C3EEA9A0039BD8C /* UpdateInteractorOutputMock.swift */,
 				FAFBE4661C3EFEC40039BD8C /* DownloadServiceMock.swift */,
+				FA232D2E1C753A5F0097AE79 /* UserDefaultsMock.swift */,
 			);
 			name = Mocks;
 			sourceTree = "<group>";
@@ -302,6 +315,7 @@
 				FA2B3DC81C178644002DC5C9 /* Presenters */,
 				FA53DE2B1BC18D2200DF2EB1 /* Interactors */,
 				FA3A693B1BC2F99400179176 /* Data */,
+				FA232D2B1C7538540097AE79 /* Persisters */,
 				FAD2A16C1C01220E001967FD /* Utils */,
 				FA53DE2A1BC18D1800DF2EB1 /* Mocks */,
 				FA68D9031BC040B100589DE4 /* Info.plist */,
@@ -561,6 +575,7 @@
 			files = (
 				FA2B3DCE1C178A0F002DC5C9 /* UpdateInteractoMock.swift in Sources */,
 				FA68D9021BC040B100589DE4 /* AppliveryTests.swift in Sources */,
+				FA232D2F1C753A5F0097AE79 /* UserDefaultsMock.swift in Sources */,
 				FAF382041C25E828007AF670 /* UpdateInteractorTests.swift in Sources */,
 				FA53DE3C1BC1B38900DF2EB1 /* StartInteractorMock.swift in Sources */,
 				FA53DE351BC193EA00DF2EB1 /* ConfigDataManagerMock.swift in Sources */,
@@ -574,6 +589,7 @@
 				FAFBE4671C3EFEC40039BD8C /* DownloadServiceMock.swift in Sources */,
 				FA2B3DCC1C1789AF002DC5C9 /* UpdateViewMock.swift in Sources */,
 				FAFBE4651C3EFD890039BD8C /* DownloadDataManagerTests.swift in Sources */,
+				FA232D2D1C75388A0097AE79 /* ConfigPersisterTests.swift in Sources */,
 				FAFBE4611C3EEA9A0039BD8C /* UpdateInteractorOutputMock.swift in Sources */,
 				FA3A69421BC2FC6F00179176 /* AppMock.swift in Sources */,
 				FA4F1C5B1C53920300AC3E61 /* UpdateCoordinatorTests.swift in Sources */,

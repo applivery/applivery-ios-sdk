@@ -6,7 +6,15 @@
 //  Copyright © 2015 Applivery S.L. All rights reserved.
 //
 
-import UIKit
+import Foundation
+
+
+protocol UserDefaults {
+	func valueForKey(key: String) -> AnyObject?
+}
+
+extension NSUserDefaults: UserDefaults {}
+
 
 class ConfigPersister: NSObject {
 	
@@ -18,19 +26,27 @@ class ConfigPersister: NSObject {
 	private let kLastBuildVersion		= "APPLIVERY_LAST_BUILD_VERSION"
 	private let kOtaUpdateMessageKey	= "ApPLIVERY_OTA_UPDATE_MESSAGE"
 	
+	private var userDefaults: UserDefaults
+	
+	
+	init(userDefaults: UserDefaults = NSUserDefaults.standardUserDefaults()) {
+		self.userDefaults = userDefaults
+	}
+	
+	
+	// MARK - Initializers
 	
 	///  Get the current config stored on disk
 	///  - returns: config object with the data stored. Could be nil if no previus data was saved
 	func getConfig() -> Config? {
-		let userDefaults = NSUserDefaults.standardUserDefaults()
 		let config = Config()
 		
 		guard
-			let minVersion			= userDefaults.valueForKey(kMinVersionKey)		as? String,
-			let forceUpdate			= userDefaults.valueForKey(kForceUpdateKey)		as? Bool,
-			let lastBuildId			= userDefaults.valueForKey(kLastBuildId)		as? String,
-			let otaUpdate			= userDefaults.valueForKey(kOtaUpdateKey)		as? Bool,
-			let lastBuildVersion	= userDefaults.valueForKey(kLastBuildVersion)	as? String
+			let minVersion			= self.userDefaults.valueForKey(kMinVersionKey)		as? String,
+			let forceUpdate			= self.userDefaults.valueForKey(kForceUpdateKey)	as? Bool,
+			let lastBuildId			= self.userDefaults.valueForKey(kLastBuildId)		as? String,
+			let otaUpdate			= self.userDefaults.valueForKey(kOtaUpdateKey)		as? Bool,
+			let lastBuildVersion	= self.userDefaults.valueForKey(kLastBuildVersion)	as? String
 			else { return nil }
 		
 		config.forceUpdate	= forceUpdate
@@ -38,8 +54,8 @@ class ConfigPersister: NSObject {
 		config.lastBuildId	= lastBuildId
 		config.otaUpdate	= otaUpdate
 		config.lastVersion	= lastBuildVersion
-		config.forceUpdateMessage	= userDefaults.valueForKey(kForceUpdateMessageKey)	as? String
-		config.otaUpdateMessage		= userDefaults.valueForKey(kOtaUpdateMessageKey)	as? String
+		config.forceUpdateMessage	= self.userDefaults.valueForKey(kForceUpdateMessageKey)	as? String
+		config.otaUpdateMessage		= self.userDefaults.valueForKey(kOtaUpdateMessageKey)	as? String
 		
 		return config
 	}
