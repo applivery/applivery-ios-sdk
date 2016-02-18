@@ -20,6 +20,9 @@ let kOtaUpdateMessageKey	= "ApPLIVERY_OTA_UPDATE_MESSAGE"
 
 protocol UserDefaults {
 	func valueForKey(key: String) -> AnyObject?
+	func setValue(value: AnyObject?, forKey key: String)
+	func setBool(value: Bool, forKey key: String)
+	func synchronize() -> Bool
 }
 
 extension NSUserDefaults: UserDefaults {}
@@ -62,17 +65,15 @@ class ConfigPersister: NSObject {
 	}
 	
 	func saveConfig(config: Config) {
-		let userDefaults = NSUserDefaults.standardUserDefaults()
+		self.userDefaults.setValue(config.minVersion,		 forKey: kMinVersionKey)
+		self.userDefaults.setBool(config.forceUpdate,		 forKey: kForceUpdateKey)
+		self.userDefaults.setValue(config.lastBuildId,		 forKey: kLastBuildId)
+		self.userDefaults.setValue(config.forceUpdateMessage, forKey: kForceUpdateMessageKey)
+		self.userDefaults.setBool(config.otaUpdate,			 forKey: kOtaUpdateKey)
+		self.userDefaults.setValue(config.lastVersion,		 forKey: kLastBuildVersion)
+		self.userDefaults.setValue(config.otaUpdateMessage,	 forKey: kOtaUpdateMessageKey)
 		
-		userDefaults.setValue(config.minVersion,		 forKey: kMinVersionKey)
-		userDefaults.setBool( config.forceUpdate,		 forKey: kForceUpdateKey)
-		userDefaults.setValue(config.lastBuildId,		 forKey: kLastBuildId)
-		userDefaults.setValue(config.forceUpdateMessage, forKey: kForceUpdateMessageKey)
-		userDefaults.setBool(config.otaUpdate,			 forKey: kOtaUpdateKey)
-		userDefaults.setValue(config.lastVersion,		 forKey: kLastBuildVersion)
-		userDefaults.setValue(config.otaUpdateMessage,	 forKey: kOtaUpdateMessageKey)
-		
-		userDefaults.synchronize()
+		self.userDefaults.synchronize()
 		
 		LogInfo("Applivery configuration was updated")
 	}

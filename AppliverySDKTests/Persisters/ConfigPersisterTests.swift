@@ -36,7 +36,7 @@ class ConfigPersisterTests: XCTestCase {
     }
 
 	
-	// MARK - Get Config
+	// MARK - Get Config Tests
 	
 	func test_getConfig_returnsNil_whenUserDefaultsIsEmpty() {
 		let config = self.configPersister.getConfig()
@@ -129,6 +129,22 @@ class ConfigPersisterTests: XCTestCase {
 			XCTAssert(config! == expectedConfig)
 		}
 	}
+
+	
+	// MARK - Save Config Tests
+	
+	func test_saveConfig_synchronizeSameDataAsConfigDataPassed() {
+		let config = self.fullDataConfig()
+		
+		self.configPersister.saveConfig(config)
+		
+		XCTAssert(self.userDefaultsMock.outSyncedDictionary != nil)
+		
+		if self.userDefaultsMock.outSyncedDictionary != nil {
+			let fullData = self.fullData()
+			XCTAssert(self.userDefaultsMock.outSyncedDictionary! == fullData)
+		}
+	}
 	
 	
 	// MARK - Helpers
@@ -164,4 +180,8 @@ class ConfigPersisterTests: XCTestCase {
 		return dictionary
 	}
 	
+}
+
+func ==(a: [String: AnyObject], b: [String: AnyObject]) -> Bool {
+	return NSDictionary(dictionary: a).isEqualToDictionary(b)
 }
