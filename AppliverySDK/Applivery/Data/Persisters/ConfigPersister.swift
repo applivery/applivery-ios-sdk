@@ -33,12 +33,12 @@ class ConfigPersister: NSObject {
 	private var userDefaults: UserDefaults
 	
 	
+	// MARK - Initializers
+	
 	init(userDefaults: UserDefaults = NSUserDefaults.standardUserDefaults()) {
 		self.userDefaults = userDefaults
 	}
 	
-	
-	// MARK - Initializers
 	
 	///  Get the current config stored on disk
 	///  - returns: config object with the data stored. Could be nil if no previus data was saved
