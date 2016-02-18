@@ -51,6 +51,8 @@ func ==(a: Config, b: Config) -> Bool {
 	areEquals = areEquals && a.minVersion == b.minVersion
 	areEquals = areEquals && a.lastBuildId == b.lastBuildId
 	areEquals = areEquals && a.forceUpdateMessage == b.forceUpdateMessage
+	areEquals = areEquals && a.otaUpdate == b.otaUpdate
+	areEquals = areEquals && a.otaUpdateMessage == b.otaUpdateMessage
 	
 	return areEquals
 }

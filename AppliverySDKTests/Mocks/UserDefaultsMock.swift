@@ -12,8 +12,10 @@ import Foundation
 
 class UserDefaultsMock: UserDefaults {
 	
+	var inDictionary: [String: AnyObject]?
+	
 	func valueForKey(key: String) -> AnyObject? {
-		return nil
+		return self.inDictionary?[key]
 	}
 	
 }

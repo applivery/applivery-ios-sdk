@@ -9,6 +9,15 @@
 import Foundation
 
 
+let kMinVersionKey			= "APPLIVERY_MIN_VERSION"
+let kForceUpdateKey			= "APPLIVERY_FORCE_UPDATE"
+let kLastBuildId			= "APPLIVERY_LAST_BUILD_ID"
+let kForceUpdateMessageKey	= "APPLIVERY_FORCE_UPDATE_MESSAGE"
+let kOtaUpdateKey			= "APPLIVERY_OTA_UPDATE_KEY"
+let kLastBuildVersion		= "APPLIVERY_LAST_BUILD_VERSION"
+let kOtaUpdateMessageKey	= "ApPLIVERY_OTA_UPDATE_MESSAGE"
+
+
 protocol UserDefaults {
 	func valueForKey(key: String) -> AnyObject?
 }
@@ -17,14 +26,6 @@ extension NSUserDefaults: UserDefaults {}
 
 
 class ConfigPersister: NSObject {
-	
-	private let kMinVersionKey			= "APPLIVERY_MIN_VERSION"
-	private let kForceUpdateKey			= "APPLIVERY_FORCE_UPDATE"
-	private let kLastBuildId			= "APPLIVERY_LAST_BUILD_ID"
-	private let kForceUpdateMessageKey	= "APPLIVERY_FORCE_UPDATE_MESSAGE"
-	private let kOtaUpdateKey			= "APPLIVERY_OTA_UPDATE_KEY"
-	private let kLastBuildVersion		= "APPLIVERY_LAST_BUILD_VERSION"
-	private let kOtaUpdateMessageKey	= "ApPLIVERY_OTA_UPDATE_MESSAGE"
 	
 	private var userDefaults: UserDefaults
 	
