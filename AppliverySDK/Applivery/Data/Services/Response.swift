@@ -13,27 +13,26 @@ class Response {
 	
 	var success = false
 	var url: NSURL?
-	var code: Int!
+	var code: Int
 	var error: NSError?
 	var body: JSON?
 	var data: NSData?
 	var headers: [String: String]?
 	
-	private let UnexpectedError = "Unexpected error"
 	private let UnexpectedErrorJson = "Unexpected error trying to parse Json"
 	private let InvalidCredentials = "Invalid credentials"
 	
 	
 	init(data: NSData?, response: NSURLResponse?, error: NSError?) {
 		self.data = data
-		self.url = NSURL()
+		self.code = -1
 		
 		if let response = response as? NSHTTPURLResponse {
 			self.url = response.URL
 			self.headers = response.allHeaderFields as? [String: String]
 			
 			if response.statusCode == 200 {
-				self.responseOK(data)
+				responseOK(data)
 			}
 			else {
 				self.success = false
@@ -42,8 +41,8 @@ class Response {
 			}
 		}
 		else {
-			self.error = error
-			self.code = error?.code
+			self.error = error ?? NSError.UnexpectedError()
+			self.code = self.error!.code
 		}
 		
 		self.logResponse()
@@ -63,14 +62,14 @@ class Response {
 			}
 			else {
 				self.body = json
-				self.code = json["error.code"]?.toInt()
+				self.code = json["error.code"]?.toInt() ?? -1
 				let userInfo: [String: String]
 				
 				if let message = json["error.msg"]?.toString() {
 					userInfo = [GlobalConfig.AppliveryErrorKey: message]
 				}
 				else {
-					userInfo = [GlobalConfig.AppliveryErrorKey: self.UnexpectedErrorJson]
+					userInfo = [GlobalConfig.AppliveryErrorDebugKey: self.UnexpectedErrorJson]
 				}
 				
 				self.error = NSError (
@@ -91,7 +90,7 @@ class Response {
 			self.error = NSError (
 				domain: GlobalConfig.ErrorDomain,
 				code: self.code,
-				userInfo: [GlobalConfig.AppliveryErrorKey: self.UnexpectedErrorJson]
+				userInfo: [GlobalConfig.AppliveryErrorDebugKey: self.UnexpectedErrorJson]
 			)
 		}
 	}
@@ -108,7 +107,7 @@ class Response {
 			case 401:
 				userInfo = [GlobalConfig.AppliveryErrorKey: self.InvalidCredentials]
 			default:
-				userInfo = [GlobalConfig.AppliveryErrorKey: self.UnexpectedError]
+				userInfo = [GlobalConfig.AppliveryErrorKey: Localize("error_unexpected")]
 			}
 			
 			self.error = NSError (
