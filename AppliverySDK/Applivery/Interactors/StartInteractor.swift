@@ -18,16 +18,20 @@ protocol StartInteractorOutput {
 class StartInteractor {
 	
 	var output: StartInteractorOutput!
-
+	
 	private let configDataManager: PConfigDataManager
 	private let globalConfig: GlobalConfig
+	private let eventDetector: EventDetector
 	
 	
 	// MARK: Initializers
 	
-	init(configDataManager: PConfigDataManager = ConfigDataManager(), globalConfig: GlobalConfig = GlobalConfig.shared) {
-		self.configDataManager = configDataManager
-		self.globalConfig = globalConfig
+	init(configDataManager: PConfigDataManager = ConfigDataManager(),
+		globalConfig: GlobalConfig = GlobalConfig.shared,
+		eventDetector: EventDetector = ScreenshotDetector()) {
+			self.configDataManager = configDataManager
+			self.globalConfig = globalConfig
+			self.eventDetector = eventDetector
 	}
 	
 	
@@ -39,8 +43,10 @@ class StartInteractor {
 			return
 		}
 		
-		LogInfo("Applivery is starting...")
 		self.configDataManager.updateConfig { response in
+			LogInfo("Applivery is starting...")
+			self.eventDetector.listenEvent()
+			
 			switch response {
 				
 			case .Success(let config, let version):
@@ -66,7 +72,7 @@ class StartInteractor {
 		
 		if self.isOlder(version, minVersion: conf.minVersion) {
 			self.output.forceUpdate()
-
+			
 			return true
 		}
 		

@@ -54,6 +54,17 @@ class App: PApp {
 		UIApplication.sharedApplication().networkActivityIndicatorVisible = false
 	}
 	
+	func showAlert(message: String) {
+		let alert = UIAlertController(title: Localize("sdk_name"), message: message, preferredStyle: .Alert)
+		
+		let actionLater = UIAlertAction(title: Localize("alert_button_ok"), style: .Cancel, handler: nil)
+		alert.addAction(actionLater)
+		
+		let topVC = self.topViewController()
+		
+		topVC?.presentViewController(alert, animated: true, completion: nil)
+	}
+	
 	func showOtaAlert(message: String, downloadHandler: () -> Void ) {
 		self.alertOta = UIAlertController(title: Localize("sdk_name"), message: message, preferredStyle: .Alert)
 		
