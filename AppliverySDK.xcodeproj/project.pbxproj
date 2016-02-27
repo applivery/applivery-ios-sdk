@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		FA19E48B1C822CA900DC31E8 /* Environments.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA19E48A1C822CA900DC31E8 /* Environments.swift */; };
 		FA1EE2E61BEAADC800B6EE11 /* JsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1EE2E51BEAADC800B6EE11 /* JsonTests.swift */; };
 		FA232D2D1C75388A0097AE79 /* ConfigPersisterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA232D2C1C75388A0097AE79 /* ConfigPersisterTests.swift */; };
 		FA232D2F1C753A5F0097AE79 /* UserDefaultsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA232D2E1C753A5F0097AE79 /* UserDefaultsMock.swift */; };
@@ -88,6 +89,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FA19E48A1C822CA900DC31E8 /* Environments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Environments.swift; path = Applivery/Utils/Environments.swift; sourceTree = "<group>"; };
 		FA1EE2E51BEAADC800B6EE11 /* JsonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonTests.swift; sourceTree = "<group>"; };
 		FA232D2C1C75388A0097AE79 /* ConfigPersisterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigPersisterTests.swift; path = Persisters/ConfigPersisterTests.swift; sourceTree = "<group>"; };
 		FA232D2E1C753A5F0097AE79 /* UserDefaultsMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserDefaultsMock.swift; path = Mocks/UserDefaultsMock.swift; sourceTree = "<group>"; };
@@ -417,6 +419,7 @@
 				FA929A081C4AF13700130DF4 /* Font+Load.swift */,
 				FA2C455D1C4D228A00E72847 /* NSBundle+Applivery.swift */,
 				FAA50D4D1C7D232500CE7B65 /* NSError+Applivery.swift */,
+				FA19E48A1C822CA900DC31E8 /* Environments.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -579,6 +582,7 @@
 				FA3211D41C3EA11700668099 /* DownloadDataManager.swift in Sources */,
 				FAFA857A1BCC07B6004E1974 /* Log.swift in Sources */,
 				FAD2A1631C011DFD001967FD /* UpdatePresenter.swift in Sources */,
+				FA19E48B1C822CA900DC31E8 /* Environments.swift in Sources */,
 				FA53DE301BC18ECB00DF2EB1 /* ConfigDataManager.swift in Sources */,
 				FAD2A1651C011E2B001967FD /* UpdateInteractor.swift in Sources */,
 			);
