@@ -45,7 +45,7 @@ Make sure that everything is OK by checking the embedded binaries:
 
 #### Objective-C
 
-If your project is written in Objective-C, you should also enable the "_Embedded Content Contains Swift Code_" option you'll find in the _Build Settings_ section:
+If your project is written in Objective-C, you should also enable the "_Embedded Content Contains Swift Code_" option. You'll find it in the _Build Settings_ section:
 
 ![Embedded binaries](https://github.com/applivery/applivery-ios-sdk/blob/master/documentation/embedded_content.png)
 
@@ -87,7 +87,7 @@ Applivery *applivery = [Applivery sharedInstance];
 
 **IMPORTANT I:** As you can suspect, you should replace the strings `YOUR_API_KEY` and `YOUR_APP_ID` with you api key and your app id respectively. Easy! Don't you think so?
 
-**IMPORTANT II:** If you're using Swift don`t forguet to check this known issue about [Embedded Frameworks and AppStore submissions](https://github.com/applivery/applivery-ios-sdk#embedded-frameworks-and-appstore-submissions)
+**IMPORTANT II:** If you are experimenting problems submitting your app to the AppStore, please check this known issue about [Embedded Frameworks and AppStore submissions](https://github.com/applivery/applivery-ios-sdk#embedded-frameworks-and-appstore-submissions)
 
 
 ## About params
@@ -130,13 +130,13 @@ Possible values are:
 
 ### Embedded frameworks and AppStore submissions
 
-Applivery.framework is built with a fat universal library, this means that you can compile for devices or simulator without problems, but due to a possible (and strange) [Apple's bug](http://www.openradar.me/19209161), you can not submit an App to the AppStore if it has inside an embedded framework with simulator slices.
+Applivery.framework is built with a fat universal library, this means that you can compile for devices or simulator without any problem, but due to a possible (and strange) [Apple's bug](http://www.openradar.me/19209161), you can not submit an App to the AppStore if it has inside an embedded framework with simulator slices.
 
 In this case, the solution is as simple as add [this script](https://github.com/applivery/applivery-ios-sdk/blob/master/script/applivery_script.sh) in "New Run Script Phase" you'll find inside _Build Phases_ tab.
 
 ![Applivery script](https://github.com/applivery/applivery-ios-sdk/blob/master/documentation/applivery_script.png)
 
-Please note that you should edit the `APPLIVERY_FRAMEWORK_PATH` specifing where the framework is
+Please note that you should edit the `APPLIVERY_FRAMEWORK_PATH` specifing where the framework is, inside your project path.
 
 This script is based on the [solution that Carthago](https://github.com/Carthage/Carthage/issues/188) found (thank guys!)
 
