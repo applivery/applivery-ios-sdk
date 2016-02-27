@@ -13,6 +13,7 @@
 
 // ERRORS
 "error_unexpected" = "Unexpected error";
+"error_invalid_credentials" = "Invalid credentials";
 
 
 // ALERTS

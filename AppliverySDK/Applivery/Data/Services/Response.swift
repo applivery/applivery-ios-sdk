@@ -13,27 +13,26 @@ class Response {
 	
 	var success = false
 	var url: NSURL?
-	var code: Int!
+	var code: Int
 	var error: NSError?
 	var body: JSON?
 	var data: NSData?
 	var headers: [String: String]?
 	
-	private let UnexpectedError = "Unexpected error"
 	private let UnexpectedErrorJson = "Unexpected error trying to parse Json"
 	private let InvalidCredentials = "Invalid credentials"
 	
 	
 	init(data: NSData?, response: NSURLResponse?, error: NSError?) {
 		self.data = data
-		self.url = NSURL()
+		self.code = -1
 		
 		if let response = response as? NSHTTPURLResponse {
 			self.url = response.URL
 			self.headers = response.allHeaderFields as? [String: String]
 			
 			if response.statusCode == 200 {
-				self.responseOK(data)
+				responseOK(data)
 			}
 			else {
 				self.success = false
@@ -42,8 +41,8 @@ class Response {
 			}
 		}
 		else {
-			self.error = error
-			self.code = error?.code
+			self.error = error ?? NSError.UnexpectedError()
+			self.code = self.error!.code
 		}
 		
 		self.logResponse()
@@ -53,49 +52,37 @@ class Response {
 	// MARK: Private Helpers
 	private func responseOK(data: NSData?) {
 		do {
-			let json = try JSON.dataToJson(data!)
-			let status = json["status"]!.toBool()
-			self.success = status != nil ? status! : false
+			guard data != nil else {
+				throw NSError.UnexpectedError("data is nil")
+			}
 			
+			let json = try JSON.dataToJson(data!)
+			
+			guard let status = json["status"]?.toBool() else {
+				throw NSError.UnexpectedError(self.UnexpectedErrorJson)
+			}
+			
+			self.success = status
 			if self.success {
 				self.code = 200
 				self.body = json["response"]
 			}
 			else {
-				self.body = json
-				self.code = json["error.code"]?.toInt()
-				let userInfo: [String: String]
+				self.code = json["error.code"]?.toInt() ?? -1
 				
-				if let message = json["error.msg"]?.toString() {
-					userInfo = [GlobalConfig.AppliveryErrorKey: message]
-				}
-				else {
-					userInfo = [GlobalConfig.AppliveryErrorKey: self.UnexpectedErrorJson]
-				}
-				
-				self.error = NSError (
-					domain: GlobalConfig.ErrorDomain,
-					code: self.code,
-					userInfo: userInfo
-				)
+				let debugMessage = json["error.msg"]?.toString() ?? self.UnexpectedErrorJson
+				self.error = NSError.AppliveryError(debugMessage: debugMessage, code: self.code)
 			}
 		}
 		catch let error as NSError {
 			self.success = false
-			self.code = 10000
+			self.code = error.code
 			self.error = error
-		}
-		catch {
-			self.success = false
-			self.code = 10000
-			self.error = NSError (
-				domain: GlobalConfig.ErrorDomain,
-				code: self.code,
-				userInfo: [GlobalConfig.AppliveryErrorKey: self.UnexpectedErrorJson]
-			)
 		}
 	}
 	
+	
+	// MARK - Private Helpers
 	
 	private func parseError(error: NSError?) {
 		if error != nil {
@@ -106,9 +93,9 @@ class Response {
 			
 			switch self.code {
 			case 401:
-				userInfo = [GlobalConfig.AppliveryErrorKey: self.InvalidCredentials]
+				userInfo = [GlobalConfig.AppliveryErrorKey: Localize("error_invalid_credentials")]
 			default:
-				userInfo = [GlobalConfig.AppliveryErrorKey: self.UnexpectedError]
+				userInfo = [GlobalConfig.AppliveryErrorKey: Localize("error_unexpected")]
 			}
 			
 			self.error = NSError (

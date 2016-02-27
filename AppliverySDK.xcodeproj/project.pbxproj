@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		FA19E48B1C822CA900DC31E8 /* Environments.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA19E48A1C822CA900DC31E8 /* Environments.swift */; };
 		FA1EE2E61BEAADC800B6EE11 /* JsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1EE2E51BEAADC800B6EE11 /* JsonTests.swift */; };
 		FA232D2D1C75388A0097AE79 /* ConfigPersisterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA232D2C1C75388A0097AE79 /* ConfigPersisterTests.swift */; };
 		FA232D2F1C753A5F0097AE79 /* UserDefaultsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA232D2E1C753A5F0097AE79 /* UserDefaultsMock.swift */; };
@@ -56,6 +57,8 @@
 		FA8D78161BC46064005741D8 /* ConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D78151BC46064005741D8 /* ConfigService.swift */; };
 		FA8D78181BC46584005741D8 /* ConfigServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D78171BC46584005741D8 /* ConfigServiceMock.swift */; };
 		FA929A091C4AF13700130DF4 /* Font+Load.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA929A081C4AF13700130DF4 /* Font+Load.swift */; };
+		FAA50D4C1C7D21D300CE7B65 /* ResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA50D4B1C7D21D300CE7B65 /* ResponseTests.swift */; };
+		FAA50D4E1C7D232500CE7B65 /* NSError+Applivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA50D4D1C7D232500CE7B65 /* NSError+Applivery.swift */; };
 		FACEF8C81C14663B00B03FC0 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACEF8C71C14663B00B03FC0 /* Background.swift */; };
 		FAD2A15B1C010D8B001967FD /* UpdateCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2A15A1C010D8B001967FD /* UpdateCoordinator.swift */; };
 		FAD2A15D1C010EA6001967FD /* UpdateCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2A15C1C010EA6001967FD /* UpdateCoordinatorMock.swift */; };
@@ -88,6 +91,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FA19E48A1C822CA900DC31E8 /* Environments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Environments.swift; path = Applivery/Utils/Environments.swift; sourceTree = "<group>"; };
 		FA1EE2E51BEAADC800B6EE11 /* JsonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonTests.swift; sourceTree = "<group>"; };
 		FA232D2C1C75388A0097AE79 /* ConfigPersisterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigPersisterTests.swift; path = Persisters/ConfigPersisterTests.swift; sourceTree = "<group>"; };
 		FA232D2E1C753A5F0097AE79 /* UserDefaultsMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserDefaultsMock.swift; path = Mocks/UserDefaultsMock.swift; sourceTree = "<group>"; };
@@ -126,6 +130,8 @@
 		FA8D78151BC46064005741D8 /* ConfigService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigService.swift; path = Applivery/Data/Services/ConfigService.swift; sourceTree = "<group>"; };
 		FA8D78171BC46584005741D8 /* ConfigServiceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigServiceMock.swift; path = Mocks/ConfigServiceMock.swift; sourceTree = "<group>"; };
 		FA929A081C4AF13700130DF4 /* Font+Load.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Font+Load.swift"; path = "Applivery/Utils/Font+Load.swift"; sourceTree = "<group>"; };
+		FAA50D4B1C7D21D300CE7B65 /* ResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResponseTests.swift; path = Network/ResponseTests.swift; sourceTree = "<group>"; };
+		FAA50D4D1C7D232500CE7B65 /* NSError+Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSError+Applivery.swift"; path = "Applivery/Utils/NSError+Applivery.swift"; sourceTree = "<group>"; };
 		FACEF8C71C14663B00B03FC0 /* Background.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Background.swift; path = Applivery/Utils/Background.swift; sourceTree = "<group>"; };
 		FAD2A15A1C010D8B001967FD /* UpdateCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateCoordinator.swift; path = Applivery/Coordinators/UpdateCoordinator.swift; sourceTree = "<group>"; };
 		FAD2A15C1C010EA6001967FD /* UpdateCoordinatorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateCoordinatorMock.swift; path = Mocks/UpdateCoordinatorMock.swift; sourceTree = "<group>"; };
@@ -321,6 +327,7 @@
 				FA2B3DC81C178644002DC5C9 /* Presenters */,
 				FA53DE2B1BC18D2200DF2EB1 /* Interactors */,
 				FA3A693B1BC2F99400179176 /* Data */,
+				FAA50D4A1C7D21B500CE7B65 /* Network */,
 				FA232D2B1C7538540097AE79 /* Persisters */,
 				FAD2A16C1C01220E001967FD /* Utils */,
 				FA53DE2A1BC18D1800DF2EB1 /* Mocks */,
@@ -354,6 +361,14 @@
 				FAFBE4621C3EF66E0039BD8C /* DownloadService.swift */,
 			);
 			name = Services;
+			sourceTree = "<group>";
+		};
+		FAA50D4A1C7D21B500CE7B65 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				FAA50D4B1C7D21D300CE7B65 /* ResponseTests.swift */,
+			);
+			name = Network;
 			sourceTree = "<group>";
 		};
 		FAD2A1591C010D3F001967FD /* Coordinators */ = {
@@ -409,6 +424,8 @@
 				FA3211D51C3EA6D300668099 /* Localize.swift */,
 				FA929A081C4AF13700130DF4 /* Font+Load.swift */,
 				FA2C455D1C4D228A00E72847 /* NSBundle+Applivery.swift */,
+				FAA50D4D1C7D232500CE7B65 /* NSError+Applivery.swift */,
+				FA19E48A1C822CA900DC31E8 /* Environments.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -560,6 +577,7 @@
 				FAFBE4631C3EF66E0039BD8C /* DownloadService.swift in Sources */,
 				FA388B6B1C7CF3D500004042 /* EventDetector.swift in Sources */,
 				FA8D78161BC46064005741D8 /* ConfigService.swift in Sources */,
+				FAA50D4E1C7D232500CE7B65 /* NSError+Applivery.swift in Sources */,
 				FAD2A1611C011D6C001967FD /* UpdateVC.swift in Sources */,
 				FA3211D61C3EA6D300668099 /* Localize.swift in Sources */,
 				FA53DE331BC18F6D00DF2EB1 /* Config.swift in Sources */,
@@ -571,6 +589,7 @@
 				FA3211D41C3EA11700668099 /* DownloadDataManager.swift in Sources */,
 				FAFA857A1BCC07B6004E1974 /* Log.swift in Sources */,
 				FAD2A1631C011DFD001967FD /* UpdatePresenter.swift in Sources */,
+				FA19E48B1C822CA900DC31E8 /* Environments.swift in Sources */,
 				FA53DE301BC18ECB00DF2EB1 /* ConfigDataManager.swift in Sources */,
 				FAD2A1651C011E2B001967FD /* UpdateInteractor.swift in Sources */,
 			);
@@ -580,6 +599,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAA50D4C1C7D21D300CE7B65 /* ResponseTests.swift in Sources */,
 				FA2B3DCE1C178A0F002DC5C9 /* UpdateInteractoMock.swift in Sources */,
 				FA68D9021BC040B100589DE4 /* AppliveryTests.swift in Sources */,
 				FA232D2F1C753A5F0097AE79 /* UserDefaultsMock.swift in Sources */,
