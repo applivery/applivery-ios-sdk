@@ -43,7 +43,7 @@ import Foundation
 
 	- seealso: [Applivery's README on GitHub](https://github.com/applivery/applivery-ios-sdk/blob/master/README.md)
 	- Since: 1.0
-	- Version: 1.0
+	- Version: 1.1
 	- Author: Alejandro Jiménez Agudo
 	- Copyright: Applivery
 */
@@ -99,7 +99,7 @@ public class Applivery: NSObject, StartInteractorOutput {
 	
 		- Attention: Be sure that the param **appStoreRelease** is true before submitting to the AppStore
 		- Since: 1.0
-		- Version: 1.0
+		- Version: 1.1
 	*/
 	public func start(apiKey apiKey: String, appId: String, appStoreRelease: Bool) {
 		self.loadFonts()
