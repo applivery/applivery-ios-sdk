@@ -14,6 +14,7 @@ class StartInteractorOutputMock: StartInteractorOutput {
 	// OUTPUTS
 	var outForceUpdateCalled = false
 	var outOtaUpdateCalled = false
+	var outFeedbackEventCalled = false
 	
 	
 	func forceUpdate() {
@@ -22,5 +23,9 @@ class StartInteractorOutputMock: StartInteractorOutput {
 	
 	func otaUpdate() {
 		self.outOtaUpdateCalled = true
+	}
+	
+	func feedbackEvent() {
+		self.outFeedbackEventCalled = true
 	}
 }

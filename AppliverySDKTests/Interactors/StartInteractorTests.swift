@@ -447,7 +447,16 @@ class StartInteractorTests: XCTestCase {
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == false)
 		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == false)
 		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == false)
-		XCTAssert(self.eventDetectorMock.outListenEventCalled == false)
+		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
+	}
+	
+	// MARK - OnDetection Event
+	func test_startInteractor_callsOutputFeedback_whenEventDetected() {
+		self.startInteractor.start() // Mock should get onDetection closure
+		
+		self.eventDetectorMock.outOnDetectionClosure()
+		
+		XCTAssert(self.startInteractorOutputMock.outFeedbackEventCalled == true)
 	}
 	
 	

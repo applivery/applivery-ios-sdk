@@ -12,6 +12,7 @@ import Foundation
 protocol StartInteractorOutput {
 	func forceUpdate()
 	func otaUpdate()
+	func feedbackEvent()
 }
 
 
@@ -38,15 +39,22 @@ class StartInteractor {
 	// MARK: Internal Methods
 	
 	func start() {
+		LogInfo("Applivery is starting...")
+		self.eventDetector.listenEvent(self.output.feedbackEvent)
+		
 		guard !self.globalConfig.appStoreRelease else {
-			LogWarn("The build is marked like an AppStore Release. Applivery SDK is disabled")
+			LogWarn("The build is marked like an AppStore Release. Applivery won't present any update (or force update) message to the user")
 			return
 		}
 		
+		self.updateConfig()
+	}
+	
+	
+	// MARK: Private Methods
+	
+	private func updateConfig() {
 		self.configDataManager.updateConfig { response in
-			LogInfo("Applivery is starting...")
-			self.eventDetector.listenEvent()
-			
 			switch response {
 				
 			case .Success(let config, let version):
@@ -62,9 +70,6 @@ class StartInteractor {
 			}
 		}
 	}
-	
-	
-	// MARK: Private Methods
 	
 	private func checkForceUpdate(config: Config?, version: String) -> Bool {
 		guard let conf = config else { return false }

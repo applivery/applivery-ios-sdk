@@ -25,10 +25,7 @@ class UpdateVC: UIViewController, UpdateView {
 	// MARK - Factory method
 	
 	class func viewController() -> UpdateVC {
-		let storyboard = UIStoryboard(name: "Applivery", bundle: NSBundle.AppliveryBundle())
-		let vc = storyboard.instantiateInitialViewController() as! UpdateVC
-		
-		return vc
+		return UIStoryboard.initialViewController() as! UpdateVC
 	}
 	
 	
