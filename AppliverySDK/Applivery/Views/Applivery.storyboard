@@ -152,13 +152,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FEEDBACK" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="enR-aR-KQO">
-                                <rect key="frame" x="258" y="289" width="85" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="89a-zf-xIp">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Kap-QR-Oxj" userLabel="imageScreenshot">
+                                <rect key="frame" x="40" y="0.0" width="520" height="600"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="89a-zf-xIp" userLabel="buttonClose">
                                 <rect key="frame" x="20" y="20" width="48" height="30"/>
                                 <state key="normal" title="CLOSE"/>
                                 <connections>
@@ -168,12 +165,17 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Kap-QR-Oxj" firstAttribute="centerY" secondItem="mfp-uX-ah8" secondAttribute="centerY" id="6op-K4-Lnx"/>
                             <constraint firstItem="89a-zf-xIp" firstAttribute="top" secondItem="lpX-e2-pzj" secondAttribute="bottom" id="J7c-qE-sgg"/>
-                            <constraint firstItem="enR-aR-KQO" firstAttribute="centerX" secondItem="mfp-uX-ah8" secondAttribute="centerX" id="PCB-du-eZo"/>
-                            <constraint firstItem="enR-aR-KQO" firstAttribute="centerY" secondItem="mfp-uX-ah8" secondAttribute="centerY" id="uBq-Qc-RAd"/>
+                            <constraint firstAttribute="trailing" secondItem="Kap-QR-Oxj" secondAttribute="trailing" constant="40" id="MdR-L3-lEh"/>
+                            <constraint firstItem="Kap-QR-Oxj" firstAttribute="leading" secondItem="mfp-uX-ah8" secondAttribute="leading" constant="40" id="c53-Cc-xJC"/>
+                            <constraint firstItem="dpI-Nq-OK4" firstAttribute="top" secondItem="Kap-QR-Oxj" secondAttribute="bottom" id="ia3-SH-FFC"/>
                             <constraint firstItem="89a-zf-xIp" firstAttribute="leading" secondItem="mfp-uX-ah8" secondAttribute="leadingMargin" id="yqw-0h-hQJ"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="imageScreenshot" destination="Kap-QR-Oxj" id="eod-kJ-fEk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xgC-N2-fpu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

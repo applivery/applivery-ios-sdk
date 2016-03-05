@@ -10,7 +10,7 @@ import Foundation
 
 
 protocol FeedbackView {
-	
+	func showScreenshot(screenshot: UIImage)
 }
 
 
@@ -19,7 +19,14 @@ class FeedbackPresenter {
 	var view: FeedbackView!
 	var feedbackInteractor: FeedbackInteractor!
 	var feedbackCoordinator: FeedbackCoordinator!
+
+	private var screenshotInteractor = ScreenshotInteractor()
 	
+	
+	func viewDidLoad() {
+		let screenshot = self.screenshotInteractor.getScreenshot()
+		self.view.showScreenshot(screenshot.image)
+	}
 	
 	func userDidTapCloseButton() {
 		self.feedbackCoordinator.closeFeedback()

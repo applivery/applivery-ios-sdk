@@ -23,6 +23,7 @@
 /* Begin PBXBuildFile section */
 		FA19E48B1C822CA900DC31E8 /* Environments.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA19E48A1C822CA900DC31E8 /* Environments.swift */; };
 		FA1EE2E61BEAADC800B6EE11 /* JsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1EE2E51BEAADC800B6EE11 /* JsonTests.swift */; };
+		FA2257E31C8B56E2000B0333 /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2257E21C8B56E2000B0333 /* Screenshot.swift */; };
 		FA232D2D1C75388A0097AE79 /* ConfigPersisterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA232D2C1C75388A0097AE79 /* ConfigPersisterTests.swift */; };
 		FA232D2F1C753A5F0097AE79 /* UserDefaultsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA232D2E1C753A5F0097AE79 /* UserDefaultsMock.swift */; };
 		FA2900E41C064DAD00778A4C /* Applivery.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA2900E31C064DAD00778A4C /* Applivery.storyboard */; };
@@ -54,6 +55,8 @@
 		FA68D8FD1BC040B100589DE4 /* Applivery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA68D8F21BC040B000589DE4 /* Applivery.framework */; };
 		FA68D9021BC040B100589DE4 /* AppliveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA68D9011BC040B100589DE4 /* AppliveryTests.swift */; };
 		FA68D90F1BC046E300589DE4 /* Applivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA68D90E1BC046E300589DE4 /* Applivery.swift */; };
+		FA73BF7D1C8B02E800619258 /* ScreenshotInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA73BF7C1C8B02E800619258 /* ScreenshotInteractor.swift */; };
+		FA73BF801C8B040D00619258 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA73BF7F1C8B040D00619258 /* ImageManager.swift */; };
 		FA8D78161BC46064005741D8 /* ConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D78151BC46064005741D8 /* ConfigService.swift */; };
 		FA8D78181BC46584005741D8 /* ConfigServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D78171BC46584005741D8 /* ConfigServiceMock.swift */; };
 		FA929A091C4AF13700130DF4 /* Font+Load.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA929A081C4AF13700130DF4 /* Font+Load.swift */; };
@@ -99,6 +102,7 @@
 /* Begin PBXFileReference section */
 		FA19E48A1C822CA900DC31E8 /* Environments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Environments.swift; path = Applivery/Utils/Environments.swift; sourceTree = "<group>"; };
 		FA1EE2E51BEAADC800B6EE11 /* JsonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonTests.swift; sourceTree = "<group>"; };
+		FA2257E21C8B56E2000B0333 /* Screenshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Screenshot.swift; path = Applivery/Wrappers/Screenshot.swift; sourceTree = "<group>"; };
 		FA232D2C1C75388A0097AE79 /* ConfigPersisterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigPersisterTests.swift; path = Persisters/ConfigPersisterTests.swift; sourceTree = "<group>"; };
 		FA232D2E1C753A5F0097AE79 /* UserDefaultsMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserDefaultsMock.swift; path = Mocks/UserDefaultsMock.swift; sourceTree = "<group>"; };
 		FA2900E31C064DAD00778A4C /* Applivery.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Applivery.storyboard; path = Applivery/Views/Applivery.storyboard; sourceTree = "<group>"; };
@@ -133,6 +137,8 @@
 		FA68D9011BC040B100589DE4 /* AppliveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppliveryTests.swift; sourceTree = "<group>"; };
 		FA68D9031BC040B100589DE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA68D90E1BC046E300589DE4 /* Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Applivery.swift; path = Applivery/Applivery.swift; sourceTree = "<group>"; };
+		FA73BF7C1C8B02E800619258 /* ScreenshotInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScreenshotInteractor.swift; path = Applivery/Interactors/ScreenshotInteractor.swift; sourceTree = "<group>"; };
+		FA73BF7F1C8B040D00619258 /* ImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageManager.swift; path = Applivery/Managers/ImageManager.swift; sourceTree = "<group>"; };
 		FA8D78151BC46064005741D8 /* ConfigService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigService.swift; path = Applivery/Data/Services/ConfigService.swift; sourceTree = "<group>"; };
 		FA8D78171BC46584005741D8 /* ConfigServiceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigServiceMock.swift; path = Mocks/ConfigServiceMock.swift; sourceTree = "<group>"; };
 		FA929A081C4AF13700130DF4 /* Font+Load.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Font+Load.swift"; path = "Applivery/Utils/Font+Load.swift"; sourceTree = "<group>"; };
@@ -214,6 +220,7 @@
 			children = (
 				FA3A693F1BC2FC1200179176 /* App.swift */,
 				FA388B6A1C7CF3D500004042 /* EventDetector.swift */,
+				FA2257E21C8B56E2000B0333 /* Screenshot.swift */,
 			);
 			name = Wrappers;
 			sourceTree = "<group>";
@@ -250,6 +257,7 @@
 				FA53DE261BC188E200DF2EB1 /* StartInteractor.swift */,
 				FAD2A1641C011E2B001967FD /* UpdateInteractor.swift */,
 				FA952FDB1C83909000C32DD0 /* FeedbackInteractor.swift */,
+				FA73BF7C1C8B02E800619258 /* ScreenshotInteractor.swift */,
 			);
 			name = Interactors;
 			sourceTree = "<group>";
@@ -360,10 +368,19 @@
 				FA53DE231BC1884500DF2EB1 /* Interactors */,
 				FA53DE311BC18F5000DF2EB1 /* Model */,
 				FA53DE2E1BC18E9A00DF2EB1 /* Data */,
+				FA73BF7E1C8B03DC00619258 /* Managers */,
 				FA3A693E1BC2FBE500179176 /* Wrappers */,
 				FAFA85781BCC0789004E1974 /* Utils */,
 			);
 			name = Applivery;
+			sourceTree = "<group>";
+		};
+		FA73BF7E1C8B03DC00619258 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				FA73BF7F1C8B040D00619258 /* ImageManager.swift */,
+			);
+			name = Managers;
 			sourceTree = "<group>";
 		};
 		FA8D78141BC46037005741D8 /* Services */ = {
@@ -602,6 +619,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA68D90F1BC046E300589DE4 /* Applivery.swift in Sources */,
+				FA73BF7D1C8B02E800619258 /* ScreenshotInteractor.swift in Sources */,
 				FA3A69451BC2FCFB00179176 /* ConfigPersister.swift in Sources */,
 				FA929A091C4AF13700130DF4 /* Font+Load.swift in Sources */,
 				FA952FDA1C83904100C32DD0 /* FeedbackPresenter.swift in Sources */,
@@ -611,11 +629,13 @@
 				FA952FD81C83901000C32DD0 /* FeedbackVC.swift in Sources */,
 				FAD911001BCEE58B00D56617 /* Json.swift in Sources */,
 				FACEF8C81C14663B00B03FC0 /* Background.swift in Sources */,
+				FA73BF801C8B040D00619258 /* ImageManager.swift in Sources */,
 				FAEC86661C83824D00A43298 /* FeedbackCoordinator.swift in Sources */,
 				FAFBE4631C3EF66E0039BD8C /* DownloadService.swift in Sources */,
 				FA388B6B1C7CF3D500004042 /* EventDetector.swift in Sources */,
 				FA8D78161BC46064005741D8 /* ConfigService.swift in Sources */,
 				FAA50D4E1C7D232500CE7B65 /* NSError+Applivery.swift in Sources */,
+				FA2257E31C8B56E2000B0333 /* Screenshot.swift in Sources */,
 				FA3211D61C3EA6D300668099 /* Localize.swift in Sources */,
 				FA952FD41C838FB500C32DD0 /* UpdatePresenter.swift in Sources */,
 				FA53DE331BC18F6D00DF2EB1 /* Config.swift in Sources */,
