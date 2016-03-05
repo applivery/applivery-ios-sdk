@@ -16,7 +16,7 @@ protocol PFeedbackCoordinator {
 
 class FeedbackCoordinator: PFeedbackCoordinator {
 
-	private lazy var feedbackVC = FeedbackVC.viewController()
+	private var feedbackVC: FeedbackVC!
 	private lazy var app = App()
 	private var isFeedbackPresented = false
 	
@@ -26,8 +26,9 @@ class FeedbackCoordinator: PFeedbackCoordinator {
 			LogWarn("Feedback view is already presented")
 			return
 		}
-		
 		self.isFeedbackPresented = true
+		
+		self.feedbackVC = FeedbackVC.viewController()
 		
 		self.feedbackVC.presenter = FeedbackPresenter()
 		self.feedbackVC.presenter.view = self.feedbackVC
@@ -40,7 +41,16 @@ class FeedbackCoordinator: PFeedbackCoordinator {
 	func closeFeedback() {
 		self.feedbackVC.dismissViewControllerAnimated(true) {
 			self.isFeedbackPresented = false
+			self.destroyFeedback()
 		}
+	}
+	
+	private func destroyFeedback() {
+		self.feedbackVC.presenter.view = nil
+		self.feedbackVC.presenter.feedbackInteractor = nil
+		self.feedbackVC.presenter.feedbackCoordinator = nil
+		self.feedbackVC.presenter = nil
+		self.feedbackVC = nil
 	}
 	
 }
