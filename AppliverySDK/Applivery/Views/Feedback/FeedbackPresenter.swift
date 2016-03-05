@@ -11,6 +11,7 @@ import Foundation
 
 protocol FeedbackView {
 	func showScreenshot(screenshot: UIImage)
+	func showFeedbackFormulary()
 }
 
 
@@ -30,6 +31,10 @@ class FeedbackPresenter {
 	
 	func userDidTapCloseButton() {
 		self.feedbackCoordinator.closeFeedback()
+	}
+	
+	func userDidTapSendFeedbackButton() {
+		self.view.showFeedbackFormulary()
 	}
 	
 }

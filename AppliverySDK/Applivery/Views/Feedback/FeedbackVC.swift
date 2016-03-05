@@ -11,28 +11,40 @@ import UIKit
 
 class FeedbackVC: UIViewController, FeedbackView {
 	
+	
+	var presenter: FeedbackPresenter!
+	
+	
+	// MARK - UI Properties
+	
+	@IBOutlet weak private var imageScreenshot: UIImageView!
+	@IBOutlet weak private var feedbackForm: UIView!
+	
+	
 	class func viewController() -> FeedbackVC {
 		return UIStoryboard.viewController("FeedbackVC") as! FeedbackVC
 	}
 	
-	var presenter: FeedbackPresenter!
 	
-	@IBOutlet weak private var imageScreenshot: UIImageView!
+	// MARK - View Lifecycle
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		self.presenter.viewDidLoad()
+
+		self.setupView()
 	}
 	
-	override func viewDidAppear(animated: Bool) {
-		super.viewDidAppear(animated)
-		
-	}
 	
+	// MARK - UI Actions
 	
 	@IBAction func onButtonCloseTap(sender: UIButton) {
 		self.presenter.userDidTapCloseButton()
+	}
+	
+	@IBAction func onButtonSendFeedback(sender: AnyObject) {
+		self.presenter.userDidTapSendFeedbackButton()
 	}
 	
 	
@@ -41,4 +53,20 @@ class FeedbackVC: UIViewController, FeedbackView {
 	func showScreenshot(screenshot: UIImage) {
 		self.imageScreenshot.image = screenshot
 	}
+	
+	func showFeedbackFormulary() {
+		self.imageScreenshot.hidden = true
+		self.feedbackForm.hidden = false
+	}
+	
+	
+	// MARK - Private Helper
+	
+	private func setupView() {
+		self.imageScreenshot.hidden = false
+		self.feedbackForm.hidden = true
+	}
+	
+	
+	
 }
