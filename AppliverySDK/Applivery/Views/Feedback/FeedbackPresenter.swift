@@ -12,6 +12,8 @@ import Foundation
 protocol FeedbackView {
 	func showScreenshot(screenshot: UIImage)
 	func showFeedbackFormulary()
+	func showScreenshotPreview()
+	func hideScreenshotPreview()
 }
 
 
@@ -37,4 +39,12 @@ class FeedbackPresenter {
 		self.view.showFeedbackFormulary()
 	}
 	
+	func userDidChangedAttachScreenshot(on: Bool) {
+		if on {
+			self.view.showScreenshotPreview()
+		}
+		else {
+			self.view.hideScreenshotPreview()
+		}
+	}
 }

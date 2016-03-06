@@ -23,6 +23,8 @@ class FeedbackVC: UIViewController, FeedbackView {
 	
 	// MARK - UI Constraints
 	@IBOutlet weak var bottomFeedbackFormConstraint: NSLayoutConstraint!
+	@IBOutlet weak var widthScreenshotConstraint: NSLayoutConstraint!
+	private var widthScreenshotConstant: CGFloat!
 	
 	
 	class func viewController() -> FeedbackVC {
@@ -55,6 +57,10 @@ class FeedbackVC: UIViewController, FeedbackView {
 		self.presenter.userDidTapSendFeedbackButton()
 	}
 	
+	@IBAction func onAttachSwitchChanged(sender: UISwitch) {
+		self.presenter.userDidChangedAttachScreenshot(sender.on)
+	}
+	
 	
 	// MARK - Presenter
 	
@@ -66,6 +72,24 @@ class FeedbackVC: UIViewController, FeedbackView {
 	func showFeedbackFormulary() {
 		self.imageScreenshot.hidden = true
 		self.feedbackForm.hidden = false
+	}
+	
+	func showScreenshotPreview() {
+		self.widthScreenshotConstraint.constant = 0
+		
+		UIView.animateWithDuration(0.4) {
+			self.imageScreenshotPreview.alpha = 1
+			self.view.layoutIfNeeded()
+		}
+	}
+	
+	func hideScreenshotPreview() {
+		self.widthScreenshotConstraint.constant = -self.imageScreenshotPreview.frame.size.width
+		
+		UIView.animateWithDuration(0.4) {
+			self.imageScreenshotPreview.alpha = 0
+			self.view.layoutIfNeeded()
+		}
 	}
 	
 	

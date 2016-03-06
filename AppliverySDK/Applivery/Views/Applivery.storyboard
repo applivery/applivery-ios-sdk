@@ -275,7 +275,7 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </imageView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="XTu-E8-GkR" userLabel="textMessage">
-                                                <rect key="frame" x="0.0" y="0.0" width="406" height="430"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="401" height="430"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -285,7 +285,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="gyg-Pd-3jI" secondAttribute="trailing" id="92g-PV-QCh"/>
-                                            <constraint firstItem="gyg-Pd-3jI" firstAttribute="leading" secondItem="XTu-E8-GkR" secondAttribute="trailing" id="BAm-SS-0qM"/>
+                                            <constraint firstItem="gyg-Pd-3jI" firstAttribute="leading" secondItem="XTu-E8-GkR" secondAttribute="trailing" constant="5" id="BAm-SS-0qM"/>
                                             <constraint firstItem="gyg-Pd-3jI" firstAttribute="top" secondItem="5u6-US-edA" secondAttribute="top" id="XG4-fj-ts4"/>
                                             <constraint firstAttribute="bottom" secondItem="XTu-E8-GkR" secondAttribute="bottom" id="jLz-ux-W12"/>
                                             <constraint firstItem="XTu-E8-GkR" firstAttribute="top" secondItem="5u6-US-edA" secondAttribute="top" id="nCS-8t-zQp"/>
@@ -305,6 +305,9 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AeG-tE-7DN" userLabel="switchAttach">
                                                 <rect key="frame" x="521" y="0.0" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="onAttachSwitchChanged:" destination="Oa8-bc-K33" eventType="valueChanged" id="SPk-ZG-s1n"/>
+                                                </connections>
                                             </switch>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -352,6 +355,7 @@
                         <outlet property="feedbackForm" destination="Efi-hL-Mrq" id="ZQf-Rt-lfT"/>
                         <outlet property="imageScreenshot" destination="Kap-QR-Oxj" id="eod-kJ-fEk"/>
                         <outlet property="imageScreenshotPreview" destination="gyg-Pd-3jI" id="uhz-Si-v2u"/>
+                        <outlet property="widthScreenshotConstraint" destination="xQC-R9-jrv" id="pOI-aK-h64"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xgC-N2-fpu" userLabel="First Responder" sceneMemberID="firstResponder"/>
