@@ -9,7 +9,7 @@
 import UIKit
 
 
-class FeedbackVC: UIViewController, FeedbackView {
+class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	
 	
 	var presenter: FeedbackPresenter!
@@ -20,6 +20,8 @@ class FeedbackVC: UIViewController, FeedbackView {
 	@IBOutlet weak private var imageScreenshot: UIImageView!
 	@IBOutlet weak private var feedbackForm: UIView!
 	@IBOutlet weak private var imageScreenshotPreview: UIImageView!
+	@IBOutlet weak private var textViewMessage: UITextView!
+	private var isMessagePlaceholderShown = true
 	
 	// MARK - UI Constraints
 	@IBOutlet weak var bottomFeedbackFormConstraint: NSLayoutConstraint!
@@ -59,6 +61,15 @@ class FeedbackVC: UIViewController, FeedbackView {
 	
 	@IBAction func onAttachSwitchChanged(sender: UISwitch) {
 		self.presenter.userDidChangedAttachScreenshot(sender.on)
+	}
+	
+	// MARK - TextView
+	
+	func textViewDidBeginEditing(textView: UITextView) {
+		if self.isMessagePlaceholderShown {
+			self.textViewMessage.text = nil
+			self.isMessagePlaceholderShown = false
+		}
 	}
 	
 	
