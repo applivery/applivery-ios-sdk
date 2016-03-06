@@ -27,7 +27,7 @@
 		FA232D2D1C75388A0097AE79 /* ConfigPersisterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA232D2C1C75388A0097AE79 /* ConfigPersisterTests.swift */; };
 		FA232D2F1C753A5F0097AE79 /* UserDefaultsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA232D2E1C753A5F0097AE79 /* UserDefaultsMock.swift */; };
 		FA2900E41C064DAD00778A4C /* Applivery.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA2900E31C064DAD00778A4C /* Applivery.storyboard */; };
-		FA2A61C71C8CB4DB00DC21FD /* NSNotificationCenter+Applivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2A61C61C8CB4DB00DC21FD /* NSNotificationCenter+Applivery.swift */; };
+		FA2A61CB1C8CE59800DC21FD /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2A61CA1C8CE59800DC21FD /* Keyboard.swift */; };
 		FA2B3DCA1C178705002DC5C9 /* UpdatePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2B3DC91C178705002DC5C9 /* UpdatePresenterTests.swift */; };
 		FA2B3DCC1C1789AF002DC5C9 /* UpdateViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2B3DCB1C1789AF002DC5C9 /* UpdateViewMock.swift */; };
 		FA2B3DCE1C178A0F002DC5C9 /* UpdateInteractoMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2B3DCD1C178A0F002DC5C9 /* UpdateInteractoMock.swift */; };
@@ -107,7 +107,7 @@
 		FA232D2C1C75388A0097AE79 /* ConfigPersisterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigPersisterTests.swift; path = Persisters/ConfigPersisterTests.swift; sourceTree = "<group>"; };
 		FA232D2E1C753A5F0097AE79 /* UserDefaultsMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserDefaultsMock.swift; path = Mocks/UserDefaultsMock.swift; sourceTree = "<group>"; };
 		FA2900E31C064DAD00778A4C /* Applivery.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Applivery.storyboard; path = Applivery/Views/Applivery.storyboard; sourceTree = "<group>"; };
-		FA2A61C61C8CB4DB00DC21FD /* NSNotificationCenter+Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSNotificationCenter+Applivery.swift"; path = "Applivery/Utils/NSNotificationCenter+Applivery.swift"; sourceTree = "<group>"; };
+		FA2A61CA1C8CE59800DC21FD /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Keyboard.swift; path = Applivery/Wrappers/Keyboard.swift; sourceTree = "<group>"; };
 		FA2B3DC91C178705002DC5C9 /* UpdatePresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdatePresenterTests.swift; path = Presenters/UpdatePresenterTests.swift; sourceTree = "<group>"; };
 		FA2B3DCB1C1789AF002DC5C9 /* UpdateViewMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateViewMock.swift; path = Mocks/UpdateViewMock.swift; sourceTree = "<group>"; };
 		FA2B3DCD1C178A0F002DC5C9 /* UpdateInteractoMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateInteractoMock.swift; path = Mocks/UpdateInteractoMock.swift; sourceTree = "<group>"; };
@@ -223,6 +223,7 @@
 				FA3A693F1BC2FC1200179176 /* App.swift */,
 				FA388B6A1C7CF3D500004042 /* EventDetector.swift */,
 				FA2257E21C8B56E2000B0333 /* Screenshot.swift */,
+				FA2A61CA1C8CE59800DC21FD /* Keyboard.swift */,
 			);
 			name = Wrappers;
 			sourceTree = "<group>";
@@ -479,7 +480,6 @@
 				FAA50D4D1C7D232500CE7B65 /* NSError+Applivery.swift */,
 				FA19E48A1C822CA900DC31E8 /* Environments.swift */,
 				FA952FDD1C83929100C32DD0 /* Storyboard+Applivery.swift */,
-				FA2A61C61C8CB4DB00DC21FD /* NSNotificationCenter+Applivery.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -622,7 +622,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA68D90F1BC046E300589DE4 /* Applivery.swift in Sources */,
-				FA2A61C71C8CB4DB00DC21FD /* NSNotificationCenter+Applivery.swift in Sources */,
+				FA2A61CB1C8CE59800DC21FD /* Keyboard.swift in Sources */,
 				FA73BF7D1C8B02E800619258 /* ScreenshotInteractor.swift in Sources */,
 				FA3A69451BC2FCFB00179176 /* ConfigPersister.swift in Sources */,
 				FA929A091C4AF13700130DF4 /* Font+Load.swift in Sources */,

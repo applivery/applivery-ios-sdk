@@ -74,12 +74,12 @@ class FeedbackVC: UIViewController, FeedbackView {
 	private func setupView() {
 		self.imageScreenshot.hidden = false
 		self.feedbackForm.hidden = true
-		self.manageKeyboardEvents()
+		self.manageKeyboardEvent()
 	}
 	
-	private func manageKeyboardEvents() {
-		NSNotificationCenter.keyboardWillShow { notification in
-			guard let size = self.keyboardSize(notification) else {
+	private func manageKeyboardEvent() {
+		Keyboard.keyboardWillShow { notification in
+			guard let size = Keyboard.keyboardSize(notification) else {
 				LogWarn("Couldn't get keyboard size")
 				return
 			}
@@ -89,20 +89,9 @@ class FeedbackVC: UIViewController, FeedbackView {
 		}
 	}
 	
-	
-	private func keyboardSize(notification: NSNotification) -> CGSize? {
-		guard
-			let info = notification.userInfo,
-			let frame = info[UIKeyboardFrameEndUserInfoKey] as? NSValue
-			else { return nil }
-		
-		return frame.CGRectValue().size
-	}
-	
-	
 	private func animateKeyboardChanges(notification: NSNotification) {
-		let duration = self.keyboardAnimationDuration(notification)
-		let curve = self.keyboardAnimationCurve(notification)
+		let duration = Keyboard.keyboardAnimationDuration(notification)
+		let curve = Keyboard.keyboardAnimationCurve(notification)
 		
 		UIView.animateWithDuration(duration,
 			delay: 0,
@@ -113,40 +102,5 @@ class FeedbackVC: UIViewController, FeedbackView {
 			completion: nil
 		)
 	}
-	
-	private func keyboardAnimationDuration(notification: NSNotification) -> NSTimeInterval {
-		guard
-			let info = notification.userInfo,
-			let value = info[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber
-			else {
-				LogWarn("Couldn't get keyboard animation duration")
-				return 0
-		}
-		
-		return value.doubleValue
-	}
-	
-	private func keyboardAnimationCurve(notification: NSNotification) -> UIViewAnimationOptions {
-		guard
-			let info = notification.userInfo,
-			let curve = info[UIKeyboardAnimationCurveUserInfoKey] as? UIViewAnimationCurve
-			else {
-				LogWarn("Couldn't get keyboard animation curve")
-				return .CurveEaseIn
-		}
-		
-		switch curve {
-		case .EaseInOut:
-			return .CurveEaseInOut
-		case .EaseIn:
-			return .CurveEaseIn
-		case .EaseOut:
-			return .CurveEaseOut
-		case .Linear:
-			return .CurveLinear
-		}
-		
-	}
-	
 	
 }
