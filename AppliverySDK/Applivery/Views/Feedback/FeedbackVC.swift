@@ -21,6 +21,9 @@ class FeedbackVC: UIViewController, FeedbackView {
 	@IBOutlet weak private var feedbackForm: UIView!
 	@IBOutlet weak private var imageScreenshotPreview: UIImageView!
 	
+	// MARK - UI Constraints
+	@IBOutlet weak var bottomFeedbackFormConstraint: NSLayoutConstraint!
+	
 	
 	class func viewController() -> FeedbackVC {
 		return UIStoryboard.viewController("FeedbackVC") as! FeedbackVC
@@ -33,8 +36,12 @@ class FeedbackVC: UIViewController, FeedbackView {
 		super.viewDidLoad()
 		
 		self.presenter.viewDidLoad()
-
+		
 		self.setupView()
+	}
+	
+	override func preferredStatusBarStyle() -> UIStatusBarStyle {
+		return .LightContent
 	}
 	
 	
@@ -67,8 +74,79 @@ class FeedbackVC: UIViewController, FeedbackView {
 	private func setupView() {
 		self.imageScreenshot.hidden = false
 		self.feedbackForm.hidden = true
+		self.manageKeyboardEvents()
 	}
 	
+	private func manageKeyboardEvents() {
+		NSNotificationCenter.keyboardWillShow { notification in
+			guard let size = self.keyboardSize(notification) else {
+				LogWarn("Couldn't get keyboard size")
+				return
+			}
+			
+			self.bottomFeedbackFormConstraint.constant = size.height
+			self.animateKeyboardChanges(notification)
+		}
+	}
+	
+	
+	private func keyboardSize(notification: NSNotification) -> CGSize? {
+		guard
+			let info = notification.userInfo,
+			let frame = info[UIKeyboardFrameEndUserInfoKey] as? NSValue
+			else { return nil }
+		
+		return frame.CGRectValue().size
+	}
+	
+	
+	private func animateKeyboardChanges(notification: NSNotification) {
+		let duration = self.keyboardAnimationDuration(notification)
+		let curve = self.keyboardAnimationCurve(notification)
+		
+		UIView.animateWithDuration(duration,
+			delay: 0,
+			options: curve,
+			animations: {
+				self.view.layoutIfNeeded()
+			},
+			completion: nil
+		)
+	}
+	
+	private func keyboardAnimationDuration(notification: NSNotification) -> NSTimeInterval {
+		guard
+			let info = notification.userInfo,
+			let value = info[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber
+			else {
+				LogWarn("Couldn't get keyboard animation duration")
+				return 0
+		}
+		
+		return value.doubleValue
+	}
+	
+	private func keyboardAnimationCurve(notification: NSNotification) -> UIViewAnimationOptions {
+		guard
+			let info = notification.userInfo,
+			let curve = info[UIKeyboardAnimationCurveUserInfoKey] as? UIViewAnimationCurve
+			else {
+				LogWarn("Couldn't get keyboard animation curve")
+				return .CurveEaseIn
+		}
+		
+		switch curve {
+		case .EaseInOut:
+			return .CurveEaseInOut
+		case .EaseIn:
+			return .CurveEaseIn
+		case .EaseOut:
+			return .CurveEaseOut
+		case .Linear:
+			return .CurveLinear
+		}
+		
+	}
 	
 	
 }
