@@ -19,6 +19,7 @@ class FeedbackVC: UIViewController, FeedbackView {
 	
 	@IBOutlet weak private var imageScreenshot: UIImageView!
 	@IBOutlet weak private var feedbackForm: UIView!
+	@IBOutlet weak private var imageScreenshotPreview: UIImageView!
 	
 	
 	class func viewController() -> FeedbackVC {
@@ -52,6 +53,7 @@ class FeedbackVC: UIViewController, FeedbackView {
 	
 	func showScreenshot(screenshot: UIImage) {
 		self.imageScreenshot.image = screenshot
+		self.imageScreenshotPreview.image = screenshot
 	}
 	
 	func showFeedbackFormulary() {
