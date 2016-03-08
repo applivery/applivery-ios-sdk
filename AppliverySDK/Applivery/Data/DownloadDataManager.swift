@@ -38,10 +38,7 @@ class DownloadDataManager: PDownloadDataManager {
 				completionHandler(response: .Success(url: "\(itms_service)\(GlobalConfig.Host)/download/\(lastBuildId)/manifest/\(token)"))
 				
 			case .Error(let error):
-				var message = error.userInfo[GlobalConfig.AppliveryErrorKey] as? String
-				message = message ?? Localize("error_unexpected")
-				
-				completionHandler(response: .Error(message: message!))
+				completionHandler(response: .Error(message: error.message()))
 			}
 		}
 	}
