@@ -73,13 +73,19 @@ class UpdateInteractor: PUpdateInteractor {
 			switch response {
 
 			case .Success(let url):
-				self.app.openUrl(url)
-				self.output.downloadDidEnd()
+				if self.app.openUrl(url) {
+					self.output.downloadDidEnd()
+				}
+				else {
+					let error = NSError.AppliveryError(Localize("error_download_url"))
+					LogError(error)
+					
+					self.output.downloadDidFail(error.message())
+				}
 
 			case .Error(let message):
 				self.output.downloadDidFail(message)
 			}
 		}
 	}
-	
 }

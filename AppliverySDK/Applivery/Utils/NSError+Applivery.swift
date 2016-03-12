@@ -36,4 +36,12 @@ extension NSError {
 		
 		return error
 	}
+	
+	func message() -> String {
+		guard let message = self.userInfo[GlobalConfig.AppliveryErrorKey] as? String else {
+			return Localize("error_unexpected")
+		}
+		
+		return message
+	}
 }
