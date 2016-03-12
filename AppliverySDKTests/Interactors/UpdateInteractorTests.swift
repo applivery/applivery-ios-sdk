@@ -133,6 +133,7 @@ class UpdateInteractorTests: XCTestCase {
 		self.configDataManagerMock.inCurrentConfig = Config()
 		self.configDataManagerMock.inCurrentConfig?.lastBuildId = "123456"
 		self.downloadDataManagerMock.inDownloadResponse = DownloadUrlResponse.Success(url: "url_test")
+		self.appMock.inOpenUrlResult = true
 		
 		self.updateInteractor.downloadLastBuild()
 		
@@ -143,6 +144,24 @@ class UpdateInteractorTests: XCTestCase {
 		XCTAssert(self.updateInteractorOutputMock.outDownloadDidEndCalled == true)
 		XCTAssert(self.updateInteractorOutputMock.outDownloadDidFail.called == false)
 	}
+	
+	func test_downloadBuild_fails_whenCanNotOpenUrl() {
+		self.configDataManagerMock.inCurrentConfig = Config()
+		self.configDataManagerMock.inCurrentConfig?.lastBuildId = "123456"
+		self.downloadDataManagerMock.inDownloadResponse = DownloadUrlResponse.Success(url: "url_test")
+		self.appMock.inOpenUrlResult = false
+		
+		self.updateInteractor.downloadLastBuild()
+		
+		XCTAssert(self.downloadDataManagerMock.outDownloadUrl.called == true)
+		XCTAssert(self.downloadDataManagerMock.outDownloadUrl.lastBuildId == "123456")
+		XCTAssert(self.appMock.outOpenUrl.called == true)
+		XCTAssert(self.appMock.outOpenUrl.url == "url_test")
+		XCTAssert(self.updateInteractorOutputMock.outDownloadDidEndCalled == false)
+		XCTAssert(self.updateInteractorOutputMock.outDownloadDidFail.called == true)
+		XCTAssert(self.updateInteractorOutputMock.outDownloadDidFail.message == Localize("error_download_url"))
+	}
+
 	
 	func test_downloadBuild_nilConfig_returnsFail() {
 		self.updateInteractor.downloadLastBuild()

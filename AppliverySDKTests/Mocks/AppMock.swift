@@ -14,6 +14,7 @@ class AppMock: PApp {
 	
 	// Inputs
 	var inVersion: String!
+	var inOpenUrlResult = false
 	
 	// Outputs
 	var outOpenUrl = (called: false, url: "")
@@ -36,8 +37,9 @@ class AppMock: PApp {
 		return ""
 	}
 	
-	func openUrl(url: String) {
+	func openUrl(url: String) -> Bool {
 		self.outOpenUrl = (true, url)
+		return self.inOpenUrlResult
 	}
 	
 	func showLoading() {

@@ -14,7 +14,7 @@
 // ERRORS
 "error_unexpected" = "Unexpected error";
 "error_invalid_credentials" = "Invalid credentials";
-
+"error_download_url" = "Couldn't start download. Invalid url";
 
 // ALERTS
 "alert_button_later" = "Later";
