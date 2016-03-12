@@ -12,7 +12,7 @@ With Applivery you can massively distribute your iOS Apps (both Ad-hoc or In-Hou
 
 **Features:**
 * **Automatic OTA Updates** when uploading new versions to Applivery.
-* **Force update** if the app version is lower than the minimum version configured in Applivery.
+* **Force update** if App version is lower than the minimum version configured in Applivery.
 
 ## Getting Started
 
