@@ -11,7 +11,7 @@ Framework to support [Applivery.com Mobile App distribution](http://www.appliver
 With Applivery you can massively distribute your iOS Apps (both Ad-hoc or In-House/Enterprise) through a customizable distribution site with no need of your users have to be registered in the platform. Combined with [Apple Developer Enterprise Program](https://developer.apple.com/programs/enterprise/) and Enterprise certificates, Applivery is perfect not only for beta testing distribute to your QA team, but also for In-House Enterprise distribution for beta testing users, prior to a release, or even for corporative Apps to the employees of a company.
 
 **Features:**
-* **Automatic OTA Updates** when uploading new version to Applivery.
+* **Automatic OTA Updates** when uploading new versions to Applivery.
 * **Force update** if the app version is lower than the minimum version configured in Applivery.
 
 ## Getting Started
