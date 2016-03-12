@@ -14,7 +14,7 @@ import Foundation
 protocol PApp {
 	func getVersion() -> String
 	func getLanguage() -> String
-	func openUrl(url: String)
+	func openUrl(url: String) -> Bool
 	func showLoading()
 	func hideLoading()
 	func showOtaAlert(message: String, downloadHandler: () -> Void)
@@ -41,9 +41,9 @@ class App: PApp {
 		return NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode)! as! String
 	}
 	
-	func openUrl(url: String) {
+	func openUrl(url: String) -> Bool {
 		LogInfo("Opening \(url)")
-		UIApplication.sharedApplication().openURL(NSURL(string: url)!)
+		return UIApplication.sharedApplication().openURL(NSURL(string: url)!)
 	}
 	
 	func showLoading() {
