@@ -10,7 +10,6 @@
 // GENERAL
 "sdk_name" = "Applivery";
 
-
 // ERRORS
 "error_unexpected" = "Unexpected error";
 "error_invalid_credentials" = "Invalid credentials";
@@ -23,7 +22,15 @@
 "alert_button_retry" = "Retry";
 "alert_button_ok" = "OK";
 
-
 // UPDATE VIEW
 "update_view_button_update" = "Update now";
 
+// FEEDBACK VIEW
+"feedback_button_close" = "Close";
+"feedback_button_add" = "Add Feedback";
+"feedback_button_send" = "Send Feedback";
+"feedback_label_select_type" = "Select type";
+"feedback_button_bug" = "Bug";
+"feedback_button_feedback" = "Feedback";
+"feedback_text_message_placeholder" = "Add a message";
+"feedback_label_attach" = "Attach Screenshot";

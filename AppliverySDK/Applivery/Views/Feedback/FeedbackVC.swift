@@ -11,21 +11,23 @@ import UIKit
 
 class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	
-	
 	var presenter: FeedbackPresenter!
 	
+	private var isMessagePlaceholderShown = true
 	
 	// MARK - UI Properties
-	
+	@IBOutlet weak private var buttonClose: UIButton!
+	@IBOutlet weak private var labelApplivery: UILabel!
 	@IBOutlet weak private var buttonAddFeedback: UIButton!
-	@IBOutlet weak private var imageScreenshot: UIImageView!
 	@IBOutlet weak private var buttonSendFeedback: UIButton!
+	@IBOutlet weak private var imageScreenshot: UIImageView!
+	@IBOutlet weak private var labelFeedbackType: UILabel!
 	@IBOutlet weak private var buttonBug: ButtonFeedbackType!
 	@IBOutlet weak private var buttonFeedback: ButtonFeedbackType!
 	@IBOutlet weak private var feedbackForm: UIView!
 	@IBOutlet weak private var imageScreenshotPreview: UIImageView!
 	@IBOutlet weak private var textViewMessage: UITextView!
-	private var isMessagePlaceholderShown = true
+	@IBOutlet weak private var labelAttach: UILabel!
 	
 	// MARK - UI Constraints
 	@IBOutlet weak var bottomFeedbackFormConstraint: NSLayoutConstraint!
@@ -124,7 +126,21 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		self.feedbackForm.hidden = true
 		self.buttonBug.exclusive = self.buttonFeedback
 		self.buttonBug.selected = true
+		
+		self.localizeView()
 		self.manageKeyboardEvent()
+	}
+	
+	private func localizeView() {
+		self.buttonClose.setTitle(Localize("feedback_button_close"), forState: .Normal)
+		self.labelApplivery.text = Localize("sdk_name")
+		self.buttonAddFeedback.setTitle(Localize("feedback_button_add"), forState: .Normal)
+		self.buttonSendFeedback.setTitle(Localize("feedback_button_send"), forState: .Normal)
+		self.labelFeedbackType.text = Localize("feedback_label_select_type")
+		self.buttonBug.setTitle(Localize("feedback_button_bug"), forState: .Normal)
+		self.buttonFeedback.setTitle(Localize("feedback_button_feedback"), forState: .Normal)
+		self.textViewMessage.text = Localize("feedback_text_message_placeholder")
+		self.labelAttach.text = Localize("feedback_label_attach")
 	}
 	
 	private func manageKeyboardEvent() {
