@@ -16,6 +16,7 @@ protocol FeedbackView {
 	func hideScreenshotPreview()
 	func textMessage() -> String?
 	func needMessage()
+	func showMessage(message: String)
 }
 
 
@@ -56,7 +57,15 @@ class FeedbackPresenter {
 		let screenshot = self.attachScreenshot ? self.screenshot : nil
 		let feedback = Feedback(feedbackType: self.feedbackType, message: message, screenshot: screenshot)
 
-		self.feedbackInteractor.sendFeedback(feedback)
+		self.feedbackInteractor.sendFeedback(feedback) { result in
+			switch result {
+			case .Success:
+				self.feedbackCoordinator.closeFeedback()
+				
+			case .Error(let message):
+				self.view.showMessage(message)
+			}
+		}
 	}
 	
 	func userDidSelectedFeedbackType(type: FeedbackType) {

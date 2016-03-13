@@ -135,6 +135,24 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		self.textViewMessage.becomeFirstResponder()
 	}
 	
+	func showMessage(message: String) {
+		let alert = UIAlertController(
+			title: Localize("sdk_name"),
+			message: message,
+			preferredStyle: .Alert
+		)
+		
+		alert.addAction(
+			UIAlertAction(
+				title: Localize("alert_button_ok"),
+				style: .Cancel,
+				handler: nil
+			)
+		)
+		
+		self.presentViewController(alert, animated: true, completion: nil)
+	}
+	
 	
 	// MARK - Private Helper
 	

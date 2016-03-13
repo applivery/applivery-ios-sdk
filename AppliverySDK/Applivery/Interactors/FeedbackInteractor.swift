@@ -9,18 +9,23 @@
 import Foundation
 
 
+enum FeedbackInteractorResult {
+	case Success
+	case Error(String)
+}
+
 class FeedbackInteractor {
 	
 	private var service = FeedbackService()
 	
-	func sendFeedback(feedback: Feedback) {
+	func sendFeedback(feedback: Feedback, completionHandler: FeedbackInteractorResult -> Void) {
 		self.service.postFeedback(feedback) { result in
 			switch result {
 			case .Success:
-				LogInfo("Success")
+				completionHandler(.Success)
 				
 			case .Error(let error):
-				LogError(error)
+				completionHandler(.Error(error.message()))
 			}
 		}
 	}

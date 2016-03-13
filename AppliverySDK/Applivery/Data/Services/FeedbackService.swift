@@ -24,7 +24,7 @@ class FeedbackService {
 		
 		let app = App()
 		let screenshot = feedback.screenshot?.base64() ?? ""
-			
+		
 		request.bodyParams = [
 			"app": GlobalConfig.shared.appId,
 			"type": feedback.feedbackType.rawValue,
@@ -47,7 +47,6 @@ class FeedbackService {
 			],
 			"screenshot": screenshot
 		]
-		
 		
 		request.sendAsync { response in
 			if response.success {
