@@ -23,6 +23,8 @@ class FeedbackService {
 		request.method = "POST"
 		
 		let app = App()
+		let screenshot = feedback.screenshot?.base64() ?? ""
+			
 		request.bodyParams = [
 			"app": GlobalConfig.shared.appId,
 			"type": feedback.feedbackType.rawValue,
@@ -43,7 +45,7 @@ class FeedbackService {
 					"version": UIDevice.currentDevice().systemVersion
 				]
 			],
-			"screenshot": ""
+			"screenshot": screenshot
 		]
 		
 		

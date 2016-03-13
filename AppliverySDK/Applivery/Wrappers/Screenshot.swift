@@ -33,12 +33,22 @@ class Screenshot {
 		
 		return image
 	}
-	
+
 	
 	// MARK - Initializers
 	
 	private init(image: UIImage) {
 		self.image = image
+	}
+	
+	
+	// MARK - Public Methods
+	
+	func base64() -> String? {
+		let imageData = UIImagePNGRepresentation(self.image)
+		let base64String = imageData?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength) 
+		
+		return base64String
 	}
 	
 }
