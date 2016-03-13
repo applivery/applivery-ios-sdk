@@ -18,8 +18,10 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	// MARK - UI Properties
 	
 	@IBOutlet weak private var buttonAddFeedback: UIButton!
-	@IBOutlet weak private var buttonSendFeedback: UIButton!
 	@IBOutlet weak private var imageScreenshot: UIImageView!
+	@IBOutlet weak private var buttonSendFeedback: UIButton!
+	@IBOutlet weak private var buttonBug: ButtonFeedbackType!
+	@IBOutlet weak private var buttonFeedback: ButtonFeedbackType!
 	@IBOutlet weak private var feedbackForm: UIView!
 	@IBOutlet weak private var imageScreenshotPreview: UIImageView!
 	@IBOutlet weak private var textViewMessage: UITextView!
@@ -63,6 +65,11 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	
 	@IBAction func onAttachSwitchChanged(sender: UISwitch) {
 		self.presenter.userDidChangedAttachScreenshot(sender.on)
+	}
+	
+	
+	@IBAction func onButtonFeedbackTap(sender: ButtonFeedbackType) {
+		sender.selected = true
 	}
 	
 	// MARK - TextView
@@ -115,6 +122,8 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		self.buttonAddFeedback.hidden = false
 		self.imageScreenshot.hidden = false
 		self.feedbackForm.hidden = true
+		self.buttonBug.exclusive = self.buttonFeedback
+		self.buttonBug.selected = true
 		self.manageKeyboardEvent()
 	}
 	

@@ -252,14 +252,19 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gGH-3f-2Pc" userLabel="viewFeedback">
                                                 <rect key="frame" x="490" y="0.0" width="90" height="30"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fWL-QC-7SL" userLabel="buttonFeedback">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fWL-QC-7SL" userLabel="buttonFeedback" customClass="ButtonFeedbackType" customModule="Applivery" customModuleProvider="target">
                                                         <rect key="frame" x="10" y="0.0" width="70" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="70" id="5Yh-BA-xMg"/>
                                                             <constraint firstAttribute="height" constant="30" id="EBq-bY-9zN"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
-                                                        <state key="normal" title="Feedback"/>
+                                                        <state key="normal" title="Feedback">
+                                                            <color key="titleColor" red="0.23529411852359772" green="0.26274511218070984" blue="0.32549020648002625" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="onButtonFeedbackTap:" destination="Oa8-bc-K33" eventType="touchUpInside" id="zVv-wS-FHq"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -273,15 +278,20 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="drZ-Ks-Ci3" userLabel="viewBug">
                                                 <rect key="frame" x="400" y="0.0" width="90" height="30"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KoN-TZ-42Q" userLabel="buttonBug">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KoN-TZ-42Q" userLabel="buttonBug" customClass="ButtonFeedbackType" customModule="Applivery" customModuleProvider="target">
                                                         <rect key="frame" x="10" y="0.0" width="70" height="30"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="Y54-4L-RnT"/>
                                                             <constraint firstAttribute="width" constant="70" id="Z02-5W-W2X"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
-                                                        <state key="normal" title="Bug"/>
+                                                        <state key="normal" title="Bug">
+                                                            <color key="titleColor" red="0.23529411852359772" green="0.26274511218070984" blue="0.32549020648002625" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="onButtonFeedbackTap:" destination="Oa8-bc-K33" eventType="touchUpInside" id="rp2-f2-Z5u"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -395,6 +405,8 @@
                     <connections>
                         <outlet property="bottomFeedbackFormConstraint" destination="L0R-uF-uBS" id="peS-jd-L1L"/>
                         <outlet property="buttonAddFeedback" destination="VLa-oq-kkA" id="msl-jI-eg0"/>
+                        <outlet property="buttonBug" destination="KoN-TZ-42Q" id="UOp-wk-jcF"/>
+                        <outlet property="buttonFeedback" destination="fWL-QC-7SL" id="M41-Lm-KJ5"/>
                         <outlet property="buttonSendFeedback" destination="9zJ-G3-jRu" id="eQG-bM-Rf9"/>
                         <outlet property="feedbackForm" destination="Efi-hL-Mrq" id="ZQf-Rt-lfT"/>
                         <outlet property="imageScreenshot" destination="Kap-QR-Oxj" id="eod-kJ-fEk"/>
