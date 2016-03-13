@@ -17,6 +17,8 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	
 	// MARK - UI Properties
 	
+	@IBOutlet weak private var buttonAddFeedback: UIButton!
+	@IBOutlet weak private var buttonSendFeedback: UIButton!
 	@IBOutlet weak private var imageScreenshot: UIImageView!
 	@IBOutlet weak private var feedbackForm: UIView!
 	@IBOutlet weak private var imageScreenshotPreview: UIImageView!
@@ -83,6 +85,8 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	func showFeedbackFormulary() {
 		self.imageScreenshot.hidden = true
 		self.feedbackForm.hidden = false
+		self.buttonAddFeedback.hidden = true
+		self.buttonSendFeedback.hidden = false
 	}
 	
 	func showScreenshotPreview() {
@@ -107,6 +111,8 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	// MARK - Private Helper
 	
 	private func setupView() {
+		self.buttonSendFeedback.hidden = true
+		self.buttonAddFeedback.hidden = false
 		self.imageScreenshot.hidden = false
 		self.feedbackForm.hidden = true
 		self.manageKeyboardEvent()
