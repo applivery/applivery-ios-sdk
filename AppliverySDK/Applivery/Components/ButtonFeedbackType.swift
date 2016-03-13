@@ -11,11 +11,22 @@ import Foundation
 
 class ButtonFeedbackType: UIButton {
 	
+	var feedbackType: FeedbackType!
+	
+	var exclusive: ButtonFeedbackType? {
+		didSet {
+			self.exclusive?.exclusive = self
+		}
+	}
+	
 	override var selected: Bool {
 		willSet(newValue) {
 			self.toState(newValue)
 		}
 	}
+	
+	
+	// MARK - Initializers
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -27,11 +38,8 @@ class ButtonFeedbackType: UIButton {
 		self.setupView()
 	}
 	
-	var exclusive: ButtonFeedbackType? {
-		didSet {
-			self.exclusive?.exclusive = self
-		}
-	}
+	
+	// MARK - Private Helpers
 	
 	private func setupView() {
 		self.setTitleColor(UIColor.whiteColor(), forState: .Selected)

@@ -75,6 +75,7 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	
 	@IBAction func onButtonFeedbackTap(sender: ButtonFeedbackType) {
 		sender.selected = true
+		self.presenter.userDidSelectedFeedbackType(sender.feedbackType)
 	}
 	
 	
@@ -161,6 +162,9 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		self.buttonAddFeedback.hidden = false
 		self.imageScreenshot.hidden = false
 		self.feedbackForm.hidden = true
+		
+		self.buttonBug.feedbackType = .Bug
+		self.buttonFeedback.feedbackType = .Feedback
 		self.buttonBug.exclusive = self.buttonFeedback
 		self.buttonBug.selected = true
 		
