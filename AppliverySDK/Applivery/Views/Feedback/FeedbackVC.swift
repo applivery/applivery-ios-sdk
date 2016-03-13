@@ -61,7 +61,11 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		self.presenter.userDidTapCloseButton()
 	}
 	
-	@IBAction func onButtonSendFeedback(sender: AnyObject) {
+	@IBAction func onButtonAddFeedback(sender: AnyObject) {
+		self.presenter.userDidTapAddFeedbackButton()
+	}
+	
+	@IBAction func onButtonSendFeedbackTap(sender: AnyObject) {
 		self.presenter.userDidTapSendFeedbackButton()
 	}
 	
@@ -69,10 +73,10 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		self.presenter.userDidChangedAttachScreenshot(sender.on)
 	}
 	
-	
 	@IBAction func onButtonFeedbackTap(sender: ButtonFeedbackType) {
 		sender.selected = true
 	}
+	
 	
 	// MARK - TextView
 	
@@ -114,6 +118,21 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 			self.imageScreenshotPreview.alpha = 0
 			self.view.layoutIfNeeded()
 		}
+	}
+	
+	func textMessage() -> String? {
+		guard
+			!self.isMessagePlaceholderShown &&
+				self.textViewMessage.text.characters.count > 0
+			else {
+				return nil
+		}
+		
+		return self.textViewMessage.text
+	}
+	
+	func needMessage() {
+		self.textViewMessage.becomeFirstResponder()
 	}
 	
 	

@@ -207,7 +207,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="onButtonSendFeedback:" destination="Oa8-bc-K33" eventType="touchUpInside" id="4KM-Wr-baW"/>
+                                            <action selector="onButtonAddFeedback:" destination="Oa8-bc-K33" eventType="touchUpInside" id="YwL-tS-r59"/>
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9zJ-G3-jRu" userLabel="buttonSendFeedback">
@@ -216,6 +216,9 @@
                                         <state key="normal" title="#Send Feedback#">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="onButtonSendFeedbackTap:" destination="Oa8-bc-K33" eventType="touchUpInside" id="Ta1-e7-phT"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.39215686917304993" green="0.58039218187332153" blue="0.64705884456634521" alpha="1" colorSpace="calibratedRGB"/>

@@ -32,8 +32,22 @@ class App: PApp {
 	
 	// MARK - Public Methods
 	
+	func bundleId() -> String {
+		guard let bundleId = NSBundle.mainBundle().bundleIdentifier else {
+			LogWarn("No bundle identifier found")
+			return "no_id"
+		}
+		
+		return bundleId
+	}
+	
 	func getVersion() -> String {
 		let version = NSBundle.mainBundle().infoDictionary?["CFBundleVersion"] as! String
+		return version
+	}
+	
+	func getVersionName() -> String {
+		let version = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as! String
 		return version
 	}
 	

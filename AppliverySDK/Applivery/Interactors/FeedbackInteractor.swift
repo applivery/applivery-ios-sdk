@@ -11,6 +11,18 @@ import Foundation
 
 class FeedbackInteractor {
 	
+	private var service = FeedbackService()
 	
+	func sendFeedback(feedback: Feedback) {
+		self.service.postFeedback(feedback) { result in
+			switch result {
+			case .Success:
+				LogInfo("Success")
+				
+			case .Error(let error):
+				LogError(error)
+			}
+		}
+	}
 	
 }

@@ -71,6 +71,17 @@ class JSON: CustomStringConvertible {
 	
 	// MARK - Public methods
 	
+	func toData() -> NSData? {
+		do {
+			let data = try NSJSONSerialization.dataWithJSONObject(self.json, options:.PrettyPrinted)
+			return data
+		}
+		catch let error as NSError {
+			LogError(error)
+			return nil
+		}
+	}
+	
 	func toBool() -> Bool? {
 		return self.json as? Bool
 	}

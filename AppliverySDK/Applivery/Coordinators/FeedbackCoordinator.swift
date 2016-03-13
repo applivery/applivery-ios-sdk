@@ -33,6 +33,7 @@ class FeedbackCoordinator: PFeedbackCoordinator {
 		self.feedbackVC.presenter = FeedbackPresenter()
 		self.feedbackVC.presenter.view = self.feedbackVC
 		self.feedbackVC.presenter.feedbackInteractor = FeedbackInteractor()
+		self.feedbackVC.presenter.screenshotInteractor = ScreenshotInteractor()
 		self.feedbackVC.presenter.feedbackCoordinator = self
 		
 		self.app.presentModal(self.feedbackVC)
@@ -49,6 +50,7 @@ class FeedbackCoordinator: PFeedbackCoordinator {
 		self.feedbackVC.presenter.view = nil
 		self.feedbackVC.presenter.feedbackInteractor = nil
 		self.feedbackVC.presenter.feedbackCoordinator = nil
+		self.feedbackVC.presenter.screenshotInteractor = nil
 		self.feedbackVC.presenter = nil
 		self.feedbackVC = nil
 	}
