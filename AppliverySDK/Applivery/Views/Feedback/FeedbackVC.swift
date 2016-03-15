@@ -154,7 +154,7 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 			UIAlertAction(
 				title: Localize("alert_button_ok"),
 				style: .Cancel,
-				handler: nil
+				handler: { _ in runOnMainThread(self.stopLoading) }
 			)
 		)
 		
@@ -192,7 +192,8 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		self.buttonBug.selected = true
 		
 		self.localizeView()
-		self.manageKeyboardEvent()
+		self.manageKeyboardShowEvent()
+		self.manageKeyboardHideEvent()
 	}
 	
 	private func localizeView() {
@@ -207,9 +208,9 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		self.labelAttach.text = Localize("feedback_label_attach")
 	}
 	
-	private func manageKeyboardEvent() {
-		Keyboard.keyboardWillShow { notification in
-			guard let size = Keyboard.keyboardSize(notification) else {
+	private func manageKeyboardShowEvent() {
+		Keyboard.willShow { notification in
+			guard let size = Keyboard.size(notification) else {
 				LogWarn("Couldn't get keyboard size")
 				return
 			}
@@ -219,9 +220,16 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		}
 	}
 	
+	private func manageKeyboardHideEvent() {
+		Keyboard.willHide { notification in
+			self.bottomFeedbackFormConstraint.constant = 0
+			self.animateKeyboardChanges(notification)
+		}
+	}
+	
 	private func animateKeyboardChanges(notification: NSNotification) {
-		let duration = Keyboard.keyboardAnimationDuration(notification)
-		let curve = Keyboard.keyboardAnimationCurve(notification)
+		let duration = Keyboard.animationDuration(notification)
+		let curve = Keyboard.animationCurve(notification)
 		
 		UIView.animateWithDuration(duration,
 			delay: 0,

@@ -68,7 +68,6 @@ class FeedbackPresenter {
 				self.feedbackCoordinator.closeFeedback()
 				
 			case .Error(let message):
-				self.view.stopLoading()
 				self.view.showMessage(message)
 			}
 		}
