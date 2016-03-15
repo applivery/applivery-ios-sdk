@@ -17,6 +17,8 @@ protocol FeedbackView {
 	func textMessage() -> String?
 	func needMessage()
 	func showMessage(message: String)
+	func showLoading()
+	func stopLoading()
 }
 
 
@@ -57,12 +59,16 @@ class FeedbackPresenter {
 		let screenshot = self.attachScreenshot ? self.screenshot : nil
 		let feedback = Feedback(feedbackType: self.feedbackType, message: message, screenshot: screenshot)
 
+		self.view.showLoading()
+		
 		self.feedbackInteractor.sendFeedback(feedback) { result in
 			switch result {
 			case .Success:
+				self.view.stopLoading()
 				self.feedbackCoordinator.closeFeedback()
 				
 			case .Error(let message):
+				self.view.stopLoading()
 				self.view.showMessage(message)
 			}
 		}

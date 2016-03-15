@@ -50,6 +50,13 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		self.setupView()
 	}
 	
+	override func viewWillDisappear(animated: Bool) {
+		App().hideLoading()
+		
+		super.viewWillDisappear(animated)
+	}
+	
+	
 	override func preferredStatusBarStyle() -> UIStatusBarStyle {
 		return .LightContent
 	}
@@ -152,6 +159,22 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		)
 		
 		self.presentViewController(alert, animated: true, completion: nil)
+	}
+	
+	func showLoading() {
+		self.buttonSendFeedback.enabled = false
+		self.buttonSendFeedback.alpha = 0.5
+		self.feedbackForm.userInteractionEnabled = false
+		self.feedbackForm.alpha = 0.5
+		App().showLoading()
+	}
+	
+	func stopLoading() {
+		self.buttonSendFeedback.enabled = true
+		self.buttonSendFeedback.alpha = 1
+		self.feedbackForm.userInteractionEnabled = true
+		self.feedbackForm.alpha = 1
+		App().hideLoading()
 	}
 	
 	
