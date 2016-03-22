@@ -15,6 +15,9 @@ extension UIFont
 {
 	internal static func registerFontWithFilenameString(filenameString: String, bundle: NSBundle)
 	{
+		// Workaround to Apple's bug: http://stackoverflow.com/questions/24900979/cgfontcreatewithdataprovider-hangs-in-airplane-mode
+		self.familyNames()
+		
 		if let pathForResourceString = bundle.pathForResource(filenameString, ofType: nil)
 		{
 			if let fontData = NSData(contentsOfFile: pathForResourceString)
