@@ -119,11 +119,12 @@ class StartInteractor {
 		}
 	}
 	
-	private func fillWithZeros(var s: [String], length: Int) -> String {
+	private func fillWithZeros(s: [String], length: Int) -> String {
+		var string = s
 		for _ in 1...length {
-			s.append("0")
+			string.append("0")
 		}
 		
-		return s.joinWithSeparator(".")
+		return string.joinWithSeparator(".")
 	}
 }

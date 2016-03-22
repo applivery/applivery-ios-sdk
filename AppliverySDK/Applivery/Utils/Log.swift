@@ -29,7 +29,7 @@ func LogInfo(log: String) {
 	Log(log)
 }
 
-func LogWarn(message: String, filename: NSString = __FILE__, line: Int = __LINE__, funcname: String = __FUNCTION__) {
+func LogWarn(message: String, filename: NSString = #file, line: Int = #line, funcname: String = #function) {
 	guard GlobalConfig.shared.logLevel >= .Error else { return }
 	
 	let caller = "\(filename.lastPathComponent)(\(line)) \(funcname)"
@@ -38,7 +38,7 @@ func LogWarn(message: String, filename: NSString = __FILE__, line: Int = __LINE_
 }
 
 
-func LogError(error: NSError?, filename: NSString = __FILE__, line: Int = __LINE__, funcname: String = __FUNCTION__) {
+func LogError(error: NSError?, filename: NSString = #file, line: Int = #line, funcname: String = #function) {
 	guard
 		GlobalConfig.shared.logLevel >= .Error,
 		let err = error
