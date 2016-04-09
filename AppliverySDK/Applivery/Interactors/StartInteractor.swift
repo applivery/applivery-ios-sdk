@@ -12,34 +12,48 @@ import Foundation
 protocol StartInteractorOutput {
 	func forceUpdate()
 	func otaUpdate()
+	func feedbackEvent()
 }
 
 
 class StartInteractor {
 	
 	var output: StartInteractorOutput!
-
+	
 	private let configDataManager: PConfigDataManager
 	private let globalConfig: GlobalConfig
+	private let eventDetector: EventDetector
 	
 	
 	// MARK: Initializers
 	
-	init(configDataManager: PConfigDataManager = ConfigDataManager(), globalConfig: GlobalConfig = GlobalConfig.shared) {
-		self.configDataManager = configDataManager
-		self.globalConfig = globalConfig
+	init(configDataManager: PConfigDataManager = ConfigDataManager(),
+		globalConfig: GlobalConfig = GlobalConfig.shared,
+		eventDetector: EventDetector = ScreenshotDetector()) {
+			self.configDataManager = configDataManager
+			self.globalConfig = globalConfig
+			self.eventDetector = eventDetector
 	}
 	
 	
 	// MARK: Internal Methods
 	
 	func start() {
+		LogInfo("Applivery is starting...")
+		self.eventDetector.listenEvent(self.output.feedbackEvent)
+		
 		guard !self.globalConfig.appStoreRelease else {
-			LogWarn("The build is marked like an AppStore Release. Applivery SDK is disabled")
+			LogWarn("The build is marked like an AppStore Release. Applivery won't present any update (or force update) message to the user")
 			return
 		}
 		
-		LogInfo("Applivery is starting...")
+		self.updateConfig()
+	}
+	
+	
+	// MARK: Private Methods
+	
+	private func updateConfig() {
 		self.configDataManager.updateConfig { response in
 			switch response {
 				
@@ -57,16 +71,13 @@ class StartInteractor {
 		}
 	}
 	
-	
-	// MARK: Private Methods
-	
 	private func checkForceUpdate(config: Config?, version: String) -> Bool {
 		guard let conf = config else { return false }
 		guard conf.forceUpdate else { return false }
 		
 		if self.isOlder(version, minVersion: conf.minVersion) {
 			self.output.forceUpdate()
-
+			
 			return true
 		}
 		

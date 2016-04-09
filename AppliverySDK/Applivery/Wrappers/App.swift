@@ -32,8 +32,22 @@ class App: PApp {
 	
 	// MARK - Public Methods
 	
+	func bundleId() -> String {
+		guard let bundleId = NSBundle.mainBundle().bundleIdentifier else {
+			LogWarn("No bundle identifier found")
+			return "no_id"
+		}
+		
+		return bundleId
+	}
+	
 	func getVersion() -> String {
 		let version = NSBundle.mainBundle().infoDictionary?["CFBundleVersion"] as! String
+		return version
+	}
+	
+	func getVersionName() -> String {
+		let version = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as! String
 		return version
 	}
 	
@@ -52,6 +66,17 @@ class App: PApp {
 	
 	func hideLoading() {
 		UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+	}
+	
+	func showAlert(message: String) {
+		let alert = UIAlertController(title: Localize("sdk_name"), message: message, preferredStyle: .Alert)
+		
+		let actionLater = UIAlertAction(title: Localize("alert_button_ok"), style: .Cancel, handler: nil)
+		alert.addAction(actionLater)
+		
+		let topVC = self.topViewController()
+		
+		topVC?.presentViewController(alert, animated: true, completion: nil)
 	}
 	
 	func showOtaAlert(message: String, downloadHandler: () -> Void ) {
