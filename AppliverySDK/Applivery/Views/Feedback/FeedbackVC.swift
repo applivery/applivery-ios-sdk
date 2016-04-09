@@ -15,6 +15,10 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	
 	private var isMessagePlaceholderShown = true
 	
+	// MARK - Constants
+	private let BugTypeIndex = 0
+	private let FeedbackTypeIndex = 1
+	
 	// MARK - UI Properties
 	@IBOutlet weak private var buttonClose: UIButton!
 	@IBOutlet weak private var labelApplivery: UILabel!
@@ -22,8 +26,7 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	@IBOutlet weak private var buttonSendFeedback: UIButton!
 	@IBOutlet weak private var imageScreenshot: UIImageView!
 	@IBOutlet weak private var labelFeedbackType: UILabel!
-	@IBOutlet weak private var buttonBug: ButtonFeedbackType!
-	@IBOutlet weak private var buttonFeedback: ButtonFeedbackType!
+	@IBOutlet weak private var segmentedControlType: UISegmentedControl!
 	@IBOutlet weak private var feedbackForm: UIView!
 	@IBOutlet weak private var imageScreenshotPreview: UIImageView!
 	@IBOutlet weak private var textViewMessage: UITextView!
@@ -56,7 +59,6 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		super.viewWillDisappear(animated)
 	}
 	
-	
 	override func preferredStatusBarStyle() -> UIStatusBarStyle {
 		return .LightContent
 	}
@@ -71,21 +73,29 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	@IBAction func onButtonAddFeedback(sender: AnyObject) {
 		self.presenter.userDidTapAddFeedbackButton()
 	}
+
+	@IBAction func onAttachSwitchChanged(sender: UISwitch) {
+		self.presenter.userDidChangedAttachScreenshot(sender.on)
+	}
 	
 	@IBAction func onButtonSendFeedbackTap(sender: AnyObject) {
 		self.presenter.userDidTapSendFeedbackButton()
 	}
 	
-	@IBAction func onAttachSwitchChanged(sender: UISwitch) {
-		self.presenter.userDidChangedAttachScreenshot(sender.on)
+	@IBAction func onSegmentedControlChanged(sender: UISegmentedControl) {
+		switch sender.selectedSegmentIndex {
+		case self.BugTypeIndex:
+			self.presenter.userDidSelectedFeedbackType(.Bug)
+		
+		case self.FeedbackTypeIndex:
+			self.presenter.userDidSelectedFeedbackType(.Feedback)
+			
+		default:
+			LogWarn("Selected segment index out of bounds")
+		}
 	}
-	
-	@IBAction func onButtonFeedbackTap(sender: ButtonFeedbackType) {
-		sender.selected = true
-		self.presenter.userDidSelectedFeedbackType(sender.feedbackType)
-	}
-	
-	
+
+
 	// MARK - TextView
 	
 	func textViewDidBeginEditing(textView: UITextView) {
@@ -186,11 +196,6 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		self.imageScreenshot.hidden = false
 		self.feedbackForm.hidden = true
 		
-		self.buttonBug.feedbackType = .Bug
-		self.buttonFeedback.feedbackType = .Feedback
-		self.buttonBug.exclusive = self.buttonFeedback
-		self.buttonBug.selected = true
-		
 		self.localizeView()
 		self.manageKeyboardShowEvent()
 		self.manageKeyboardHideEvent()
@@ -202,8 +207,8 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		self.buttonAddFeedback.setTitle(Localize("feedback_button_add"), forState: .Normal)
 		self.buttonSendFeedback.setTitle(Localize("feedback_button_send"), forState: .Normal)
 		self.labelFeedbackType.text = Localize("feedback_label_select_type")
-		self.buttonBug.setTitle(Localize("feedback_button_bug"), forState: .Normal)
-		self.buttonFeedback.setTitle(Localize("feedback_button_feedback"), forState: .Normal)
+		self.segmentedControlType.setTitle(Localize("feedback_button_bug"), forSegmentAtIndex: self.BugTypeIndex)
+		self.segmentedControlType.setTitle(Localize("feedback_button_feedback"), forSegmentAtIndex: self.FeedbackTypeIndex)
 		self.textViewMessage.text = Localize("feedback_text_message_placeholder")
 		self.labelAttach.text = Localize("feedback_label_attach")
 	}
