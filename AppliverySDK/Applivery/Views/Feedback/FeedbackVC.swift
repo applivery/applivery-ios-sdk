@@ -118,6 +118,7 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		self.feedbackForm.hidden = false
 		self.buttonAddFeedback.hidden = true
 		self.buttonSendFeedback.hidden = false
+		self.textViewMessage.becomeFirstResponder()
 	}
 	
 	func showScreenshotPreview() {
