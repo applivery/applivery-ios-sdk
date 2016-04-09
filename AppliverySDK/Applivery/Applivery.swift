@@ -25,27 +25,27 @@ import Foundation
 
 
 /**
-	The Applivery's class provides the entry point to the Applivery service.
+The Applivery's class provides the entry point to the Applivery service.
 
-	### Usage
+### Usage
 
-	You should use the `sharedInstance` property to get a unique singleton instance, then set your `logLevel` configuration and finally call to the method:
+You should use the `sharedInstance` property to get a unique singleton instance, then set your `logLevel` configuration and finally call to the method:
 
-		start(apiKey apiKey: String, appId: String, appStoreRelease: Bool)
+start(apiKey apiKey: String, appId: String, appStoreRelease: Bool)
 
 
-	### Overview 
+### Overview
 
-	When Applivery's starts, the latests configuration for your build will be retrieved, and the build version of your app will be checked. Then applivery could:
-	1. Do nothing if the app is in the latest version or any update is checked in the app configuration.
-	2. Shows a cancellable alert if there is a new available update in Applivery, giving the user the chance to update to the latest build.
-	3. Shows a modal screen, that user can not dismiss, with the only option to update to the latest build. This will force yours users to update giving them any chance to continue using the app.
+When Applivery's starts, the latests configuration for your build will be retrieved, and the build version of your app will be checked. Then applivery could:
+1. Do nothing if the app is in the latest version or any update is checked in the app configuration.
+2. Shows a cancellable alert if there is a new available update in Applivery, giving the user the chance to update to the latest build.
+3. Shows a modal screen, that user can not dismiss, with the only option to update to the latest build. This will force yours users to update giving them any chance to continue using the app.
 
-	- seealso: [Applivery's README on GitHub](https://github.com/applivery/applivery-ios-sdk/blob/master/README.md)
-	- Since: 1.0
-	- Version: 1.1
-	- Author: Alejandro Jiménez Agudo
-	- Copyright: Applivery
+- seealso: [Applivery's README on GitHub](https://github.com/applivery/applivery-ios-sdk/blob/master/README.md)
+- Since: 1.0
+- Version: 1.1
+- Author: Alejandro Jiménez Agudo
+- Copyright: Applivery
 */
 public class Applivery: NSObject, StartInteractorOutput {
 	
@@ -53,12 +53,12 @@ public class Applivery: NSObject, StartInteractorOutput {
 	public static let sharedInstance = Applivery()
 	
 	/**
-		Type of Applivery's logs you want displayed in the debug console
+	Type of Applivery's logs you want displayed in the debug console
 	
-		- **None**: No log will be shown. Recommended for production environments.
-		- **Error**: Only warnings and errors. Recommended for develop environments.
-		- **Info**: Errors and relevant information. Recommended for test integrating Applivery.
-		- **Debug**: Request and Responses to Applivery's server will be displayed. Not recommended to use, only for debugging Applivery.
+	- **None**: No log will be shown. Recommended for production environments.
+	- **Error**: Only warnings and errors. Recommended for develop environments.
+	- **Info**: Errors and relevant information. Recommended for test integrating Applivery.
+	- **Debug**: Request and Responses to Applivery's server will be displayed. Not recommended to use, only for debugging Applivery.
 	*/
 	public var logLevel: LogLevel {
 		didSet {
@@ -69,37 +69,48 @@ public class Applivery: NSObject, StartInteractorOutput {
 	private let startInteractor: StartInteractor
 	private let globalConfig: GlobalConfig
 	private let updateCoordinator: PUpdateCoordinator
+	private let feedbackCoordinator: PFeedbackCoordinator
 	
 	
 	// MARK: Initializers
 	override convenience init() {
-		self.init(startInteractor: StartInteractor(), globalConfig: GlobalConfig.shared, updateCoordinator: UpdateCoordinator())
+		self.init(
+			startInteractor: StartInteractor(),
+			globalConfig: GlobalConfig.shared,
+			updateCoordinator: UpdateCoordinator(),
+			feedbackCoordinator: FeedbackCoordinator()
+		)
 		self.startInteractor.output = self
 	}
 	
-	internal init(startInteractor: StartInteractor, globalConfig: GlobalConfig, updateCoordinator: PUpdateCoordinator) {
-		self.startInteractor = startInteractor
-		self.globalConfig = globalConfig
-		self.updateCoordinator = updateCoordinator
-		self.logLevel = .None
+	internal init (
+		startInteractor: StartInteractor,
+		globalConfig: GlobalConfig,
+		updateCoordinator: PUpdateCoordinator,
+		feedbackCoordinator: PFeedbackCoordinator) {
+			self.startInteractor = startInteractor
+			self.globalConfig = globalConfig
+			self.updateCoordinator = updateCoordinator
+			self.feedbackCoordinator = feedbackCoordinator
+			self.logLevel = .None
 	}
 	
 	
 	// MARK: Public method
 	
 	/**
-		Starts Applivery's framework
-		
-		- Parameters:
-			- apiKey: Your developer's Api Key
-			- appId: Your application's ID
-			- appStoreRelease: Flag to mark the build as a build that will be submitted to the AppStore. This is needed to prevent unwanted behavior like prompt to a final user that a new version is available on Applivery.
-				* True: Applivery will stop any activity. **Use this for AppStore**
-				* False: Applivery will works as normally. Use this with distributed builds in Applivery.
+	Starts Applivery's framework
 	
-		- Attention: Be sure that the param **appStoreRelease** is true before submitting to the AppStore
-		- Since: 1.0
-		- Version: 1.1
+	- Parameters:
+	- apiKey: Your developer's Api Key
+	- appId: Your application's ID
+	- appStoreRelease: Flag to mark the build as a build that will be submitted to the AppStore. This is needed to prevent unwanted behavior like prompt to a final user that a new version is available on Applivery.
+	* True: Applivery will stop any activity. **Use this for AppStore**
+	* False: Applivery will works as normally. Use this with distributed builds in Applivery.
+	
+	- Attention: Be sure that the param **appStoreRelease** is true before submitting to the AppStore
+	- Since: 1.0
+	- Version: 1.1
 	*/
 	public func start(apiKey apiKey: String, appId: String, appStoreRelease: Bool) {
 		self.loadFonts()
@@ -121,6 +132,11 @@ public class Applivery: NSObject, StartInteractorOutput {
 	internal func otaUpdate() {
 		LogInfo("New OTA update available!")
 		self.updateCoordinator.otaUpdate()
+	}
+	
+	internal func feedbackEvent() {
+		LogInfo("Presenting feedback formulary")
+		self.feedbackCoordinator.showFeedack()
 	}
 	
 	

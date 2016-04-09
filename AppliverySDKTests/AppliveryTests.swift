@@ -15,6 +15,7 @@ class AppliveryTests: XCTestCase {
 	var startInteractorMock: StartInteractorMock!
 	var globalConfigMock: GlobalConfig!
 	var updateCoordinatorMock: UpdateCoordinatorMock!
+	var feedbackCoordinatorMock: FeedbackCoordinatorMock!
 	
 	
     override func setUp() {
@@ -23,11 +24,18 @@ class AppliveryTests: XCTestCase {
 		self.globalConfigMock = GlobalConfig()
 		self.startInteractorMock = StartInteractorMock()
 		self.updateCoordinatorMock = UpdateCoordinatorMock()
+		self.feedbackCoordinatorMock = FeedbackCoordinatorMock()
 		
-		self.applivery = Applivery(startInteractor: self.startInteractorMock, globalConfig: globalConfigMock, updateCoordinator: self.updateCoordinatorMock)
+		self.applivery = Applivery(
+			startInteractor: self.startInteractorMock,
+			globalConfig: globalConfigMock,
+			updateCoordinator: self.updateCoordinatorMock,
+			feedbackCoordinator: self.feedbackCoordinatorMock
+		)
     }
     
     override func tearDown() {
+		self.feedbackCoordinatorMock = nil
 		self.globalConfigMock = nil
 		self.startInteractorMock = nil
 		self.updateCoordinatorMock = nil
@@ -76,6 +84,13 @@ class AppliveryTests: XCTestCase {
 		self.applivery.otaUpdate()
 		
 		XCTAssert(self.updateCoordinatorMock.outOtaUpdateCalled == true)
+	}
+	
+	// MARK - Show Feedback
+	func test_showFeedback() {
+		self.applivery.feedbackEvent()
+		
+		XCTAssert(self.feedbackCoordinatorMock.outShowFeedbackCalled == true)
 	}
 	
 }

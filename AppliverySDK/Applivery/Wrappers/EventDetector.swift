@@ -10,19 +10,19 @@ import Foundation
 
 
 protocol EventDetector {
-	func listenEvent()
+	func listenEvent(onDectention: () -> Void)
 }
 
 class ScreenshotDetector: EventDetector {
 	
-	func listenEvent() {
+	func listenEvent(onDetection: () -> Void) {
 		LogInfo("Applivery is listening for screenshot event")
 		
 		NSNotificationCenter.defaultCenter().addObserverForName(
 				UIApplicationUserDidTakeScreenshotNotification,
 				object: nil,
 				queue: NSOperationQueue.mainQueue()) { _ in
-					App().showAlert("Screenshot!")
+					onDetection()
 		}
 	}
 	

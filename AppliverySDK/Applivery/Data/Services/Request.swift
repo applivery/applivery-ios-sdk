@@ -14,7 +14,7 @@ class Request {
 	var method = "GET"
 	var headers: [String: String]!
 	var urlParams: [String: String]?
-	var bodyParams: [String: String]?
+	var bodyParams: [String: AnyObject]?
 	
 	private var url: NSURL!
 	private var request: NSMutableURLRequest!
@@ -24,6 +24,12 @@ class Request {
 		self.url = NSURL(string: GlobalConfig.Host + self.endpoint)
 		let session = NSURLSession.sharedSession()
 		self.request = NSMutableURLRequest(URL: url!)
+		self.request.HTTPMethod = self.method
+		
+		if let bodyParams = self.bodyParams {
+			request.HTTPBody = JSON(json: bodyParams).toData()
+		}
+		
 		self.setHeaders(self.request)
 		self.logRequest()
 
@@ -58,9 +64,19 @@ class Request {
 		
 		Log("******** REQUEST ********")
 		Log(" - URL:\t" + self.url.absoluteString)
-		Log(" - METHOD:\t" + self.method)
+		Log(" - METHOD:\t" + self.request.HTTPMethod)
+		self.logBody()
 		self.logHeaders()
 		Log("*************************\n")
+	}
+	
+	private func logBody() {
+		guard
+		let body = self.request.HTTPBody,
+		let json = try? JSON.dataToJson(body)
+		else { return }
+		
+		Log(" - BODY:\n\(json)")
 	}
 	
 	private func logHeaders() {
