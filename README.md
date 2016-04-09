@@ -1,6 +1,6 @@
 # Applivery iOS SDK
 ![Language](https://img.shields.io/badge/Language-Swift-orange.svg)
-![Version](https://img.shields.io/badge/version-1.0.2-blue.svg)
+![Version](https://img.shields.io/badge/version-1.1-blue.svg)
 [![Build Status](https://travis-ci.org/applivery/applivery-ios-sdk.svg?branch=master)](https://travis-ci.org/applivery/applivery-ios-sdk)
 [![codecov.io](https://codecov.io/github/applivery/applivery-ios-sdk/coverage.svg?branch=master)](https://codecov.io/github/applivery/applivery-ios-sdk?branch=master)
 
