@@ -14,9 +14,15 @@ enum FeedbackInteractorResult {
 	case Error(String)
 }
 
+
 class FeedbackInteractor {
 	
-	private var service = FeedbackService()
+	private var service: PFeedbackService
+	
+	
+	init(service: PFeedbackService = FeedbackService()) {
+		self.service = service
+	}
 	
 	func sendFeedback(feedback: Feedback, completionHandler: FeedbackInteractorResult -> Void) {
 		self.service.postFeedback(feedback) { result in

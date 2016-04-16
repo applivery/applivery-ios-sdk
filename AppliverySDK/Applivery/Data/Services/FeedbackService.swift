@@ -15,7 +15,12 @@ enum FeedbackServiceResult {
 }
 
 
-class FeedbackService {
+protocol PFeedbackService {
+	func postFeedback(feedback: Feedback, completionHandler: FeedbackServiceResult -> Void)
+}
+
+
+class FeedbackService: PFeedbackService {
 	
 	func postFeedback(feedback: Feedback, completionHandler: FeedbackServiceResult -> Void) {
 		let request = Request()

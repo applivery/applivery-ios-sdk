@@ -43,8 +43,7 @@ class StartInteractor {
 		self.eventDetector.listenEvent(self.output.feedbackEvent)
 		
 		guard !self.globalConfig.appStoreRelease else {
-			LogWarn("The build is marked like an AppStore Release. Applivery won't present any update (or force update) message to the user")
-			return
+			return LogWarn("The build is marked like an AppStore Release. Applivery won't present any update (or force update) message to the user")
 		}
 		
 		self.updateConfig()
@@ -75,6 +74,7 @@ class StartInteractor {
 		guard let conf = config else { return false }
 		guard conf.forceUpdate else { return false }
 		
+		LogInfo("Checking if app version: \(version) is older than minVersion: \(conf.minVersion)")
 		if self.isOlder(version, minVersion: conf.minVersion) {
 			self.output.forceUpdate()
 			
@@ -88,6 +88,7 @@ class StartInteractor {
 		guard let conf = config else { return }
 		guard conf.otaUpdate else { return }
 		
+		LogInfo("Checking if app version: \(version) is older than last build version: \(conf.lastVersion)")
 		if self.isOlder(version, minVersion: conf.lastVersion) {
 			self.output.otaUpdate()
 		}

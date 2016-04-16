@@ -37,7 +37,7 @@ class Screenshot {
 	
 	// MARK - Initializers
 	
-	private init(image: UIImage) {
+	init(image: UIImage) {
 		self.image = image
 	}
 	
