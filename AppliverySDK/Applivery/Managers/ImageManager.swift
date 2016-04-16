@@ -9,7 +9,12 @@
 import Foundation
 
 
-class ImageManager {
+protocol PImageManager {
+	func getScreenshot() -> Screenshot
+}
+
+
+class ImageManager: PImageManager {
 	
 	private var screenshot: Screenshot!
 	

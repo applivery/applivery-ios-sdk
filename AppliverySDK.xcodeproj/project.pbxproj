@@ -42,6 +42,8 @@
 		FA3A69421BC2FC6F00179176 /* AppMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A69411BC2FC6F00179176 /* AppMock.swift */; };
 		FA3A69451BC2FCFB00179176 /* ConfigPersister.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A69441BC2FCFB00179176 /* ConfigPersister.swift */; };
 		FA3A69471BC3064A00179176 /* ConfigPersisterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A69461BC3064A00179176 /* ConfigPersisterMock.swift */; };
+		FA48CB551CC2CCEF007A5293 /* ScreenshotInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA48CB541CC2CCEF007A5293 /* ScreenshotInteractorTests.swift */; };
+		FA48CB581CC2CE43007A5293 /* ImageManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA48CB561CC2CE24007A5293 /* ImageManagerMock.swift */; };
 		FA49AEBB1C4AF95B000D5DFF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA49AEBA1C4AF95B000D5DFF /* Images.xcassets */; };
 		FA4EBF531C7D009000664C1E /* EventDetectorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4EBF521C7D009000664C1E /* EventDetectorMock.swift */; };
 		FA4F1C5B1C53920300AC3E61 /* UpdateCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4F1C5A1C53920300AC3E61 /* UpdateCoordinatorTests.swift */; };
@@ -128,6 +130,8 @@
 		FA3A69411BC2FC6F00179176 /* AppMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppMock.swift; path = Mocks/AppMock.swift; sourceTree = "<group>"; };
 		FA3A69441BC2FCFB00179176 /* ConfigPersister.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigPersister.swift; path = Applivery/Data/Persisters/ConfigPersister.swift; sourceTree = "<group>"; };
 		FA3A69461BC3064A00179176 /* ConfigPersisterMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigPersisterMock.swift; path = Mocks/ConfigPersisterMock.swift; sourceTree = "<group>"; };
+		FA48CB541CC2CCEF007A5293 /* ScreenshotInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScreenshotInteractorTests.swift; path = Interactors/ScreenshotInteractorTests.swift; sourceTree = "<group>"; };
+		FA48CB561CC2CE24007A5293 /* ImageManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageManagerMock.swift; path = Mocks/ImageManagerMock.swift; sourceTree = "<group>"; };
 		FA49AEBA1C4AF95B000D5DFF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Resources/Images.xcassets; sourceTree = "<group>"; };
 		FA4EBF521C7D009000664C1E /* EventDetectorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventDetectorMock.swift; path = Mocks/EventDetectorMock.swift; sourceTree = "<group>"; };
 		FA4F1C5A1C53920300AC3E61 /* UpdateCoordinatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateCoordinatorTests.swift; path = Coordinators/UpdateCoordinatorTests.swift; sourceTree = "<group>"; };
@@ -295,6 +299,7 @@
 				FAFBE4661C3EFEC40039BD8C /* DownloadServiceMock.swift */,
 				FA232D2E1C753A5F0097AE79 /* UserDefaultsMock.swift */,
 				FA4EBF521C7D009000664C1E /* EventDetectorMock.swift */,
+				FA48CB561CC2CE24007A5293 /* ImageManagerMock.swift */,
 			);
 			name = Mocks;
 			sourceTree = "<group>";
@@ -304,6 +309,7 @@
 			children = (
 				FA53DE2C1BC18D4100DF2EB1 /* StartInteractorTests.swift */,
 				FAF382031C25E828007AF670 /* UpdateInteractorTests.swift */,
+				FA48CB541CC2CCEF007A5293 /* ScreenshotInteractorTests.swift */,
 			);
 			name = Interactors;
 			sourceTree = "<group>";
@@ -718,6 +724,8 @@
 				FA3A69421BC2FC6F00179176 /* AppMock.swift in Sources */,
 				FA4F1C5B1C53920300AC3E61 /* UpdateCoordinatorTests.swift in Sources */,
 				FA1EE2E61BEAADC800B6EE11 /* JsonTests.swift in Sources */,
+				FA48CB581CC2CE43007A5293 /* ImageManagerMock.swift in Sources */,
+				FA48CB551CC2CCEF007A5293 /* ScreenshotInteractorTests.swift in Sources */,
 				FA3211D81C3EE15E00668099 /* DownloadDataManagerMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
