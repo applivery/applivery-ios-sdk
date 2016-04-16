@@ -1,6 +1,6 @@
 # Applivery iOS SDK
 ![Language](https://img.shields.io/badge/Language-Swift-orange.svg)
-![Version](https://img.shields.io/badge/version-1.1-blue.svg)
+![Version](https://img.shields.io/badge/version-1.1.1-blue.svg)
 [![Build Status](https://travis-ci.org/applivery/applivery-ios-sdk.svg?branch=master)](https://travis-ci.org/applivery/applivery-ios-sdk)
 [![codecov.io](https://codecov.io/github/applivery/applivery-ios-sdk/coverage.svg?branch=master)](https://codecov.io/github/applivery/applivery-ios-sdk?branch=master)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
@@ -36,16 +36,22 @@ You can get your ACCOUNT API KEY in the `Developers` section (left side menu).
 
 ### iOS 8 and later
 
-Download the Applivery.framework and drag it to your frameworks folder.
+#### Using Carthage
+Add the following line to your's Cartfile
 
-_Note: Take a look to the [iOS 7 Installation](#ios-7) guide_
+```
+github "applivery/applivery-ios-sdk" ~> 1.1
+```
+and then run `carthage update`. More info about Carthage [here](https://github.com/Carthage/Carthage#installing-carthage).
 
 
-#### Embbeded binaries
+#### Or you can try manually
 
-Make sure that everything is OK by checking the embedded binaries:
+1. Download the Applivery.framework [here](https://github.com/applivery/applivery-ios-sdk/releases)
+1. Drag it to your frameworks folder
+1. Add it to the embedded binaries
 
-![Embbeded binaries](https://github.com/applivery/applivery-ios-sdk/blob/master/documentation/embbeded_binaries.png)
+	![Embbeded binaries](https://github.com/applivery/applivery-ios-sdk/blob/master/documentation/embbeded_binaries.png)
 
 
 #### Objective-C
@@ -54,6 +60,7 @@ If your project is written in Objective-C, you should also enable the "_Embedded
 
 ![Embedded binaries](https://github.com/applivery/applivery-ios-sdk/blob/master/documentation/embedded_content.png)
 
+_Note: Take a look to the [iOS 7 Installation](#ios-7) guide_
 
 ### Ok! Let's go!
 
@@ -116,11 +123,13 @@ The easiest way is to import like a subproject inside yours.
 In some cases you'll find usefull to see what is happening inside Applivery SDK. If so, you can enable logs for debugging purposes.
 
 **Swift**
+
 ``` swift
 applivery.logLevel = .Info
 ```
 
 **Objective-C**
+
 ``` objc
 applivery.logLevel = LogLevelInfo;
 ```
@@ -137,11 +146,19 @@ Possible values are:
 
 Applivery.framework is built with a fat universal library, this means that you can compile for devices or simulator without any problem, but due to a possible (and strange) [Apple's bug](http://www.openradar.me/19209161), you can not submit an App to the AppStore if it has inside an embedded framework with simulator slices.
 
-In this case, the solution is as simple as add [this script](https://github.com/applivery/applivery-ios-sdk/blob/master/script/applivery_script.sh) in "New Run Script Phase" you'll find inside _Build Phases_ tab.
+Depends of yours method integration, the solution is:
 
-![Applivery script](https://github.com/applivery/applivery-ios-sdk/blob/master/documentation/applivery_script.png)
+1. **If you are using Carthage**. 
 
-Please note that you should edit the `APPLIVERY_FRAMEWORK_PATH` specifing where the framework is, inside your project path.
+	Remember to run the `copy-frameworks` as described [here](https://github.com/Carthage/Carthage#if-youre-building-for-ios-tvos-or-watchos) in the step 4.
+1. **If you added Applivery manually**.
+ 
+	In this case, the solution is as simple as add [this script](https://github.com/applivery/applivery-ios-sdk/blob/master/script/applivery_script.sh) in "New Run Script Phase". 
+	You'll find inside _Build Phases_ tab.
 
-This script is based on the [solution that Carthago](https://github.com/Carthage/Carthage/issues/188) found (thank guys!)
+	![Applivery script](https://github.com/applivery/applivery-ios-sdk/blob/master/documentation/applivery_script.png)
+
+	Please note that you should edit the `APPLIVERY_FRAMEWORK_PATH` specifing where the framework is, inside your project path.
+
+	This script is based on the [solution that Carthage](https://github.com/Carthage/Carthage/issues/188) found (thank guys!)
 

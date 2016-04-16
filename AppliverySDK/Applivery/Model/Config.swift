@@ -29,32 +29,31 @@ class Config {
 		
 		guard
 			let forceUpdate = json["sdk.ios.forceUpdate"]?.toBool(),
-			let lastBuildId = json["sdk.ios.lastBuildId"]?.toString(),
 			let otaUpdate	= json["sdk.ios.ota"]?.toBool()
 			else { throw ConfigError.ParseJson }
 		
 		
 		self.forceUpdate = forceUpdate
 		self.otaUpdate = otaUpdate
-		self.lastBuildId = lastBuildId
 		self.otaUpdate = otaUpdate
 		self.forceUpdateMessage = json["sdk.ios.mustUpdateMsg"]?.toString()
 		self.otaUpdateMessage	= json["sdk.ios.updateMsg"]?.toString()
-		self.minVersion = self.getParam("sdk.ios.minVersion", json: json, errorValue: "-1", shouldExists: self.forceUpdate)
-		self.lastVersion = self.getParam("sdk.ios.lastBuildVersion", json: json, errorValue: "-1", shouldExists: self.otaUpdate)
+		self.minVersion = self.getParam("sdk.ios.minVersion", json: json, shouldExists: self.forceUpdate)
+		self.lastVersion = self.getParam("sdk.ios.lastBuildVersion", json: json, shouldExists: self.otaUpdate)
+		self.lastBuildId = self.getParam("sdk.ios.lastBuildId", json: json, shouldExists: self.otaUpdate)
 	}
 	
 	
 	// MARK - Private Helpers
 	
 	/// get an "optional" param that should exists
-	private func getParam(parameter: String, json: JSON, errorValue: String, shouldExists: Bool) -> String {
+	private func getParam(parameter: String, json: JSON, shouldExists: Bool) -> String {
 		guard let param = json[parameter]?.toString() else {
 			if shouldExists {
 				LogWarn("Error parsing JSON: \(parameter) parameter not found")
 			}
 			
-			return errorValue
+			return "-1"
 		}
 		
 		return param
