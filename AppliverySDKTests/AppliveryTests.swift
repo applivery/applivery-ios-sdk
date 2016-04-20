@@ -70,6 +70,12 @@ class AppliveryTests: XCTestCase {
 		XCTAssert(self.startInteractorMock.startCalled == true)
 	}
 	
+	func test_disableFeedback() {
+		self.applivery.disableFeedback()
+		
+		XCTAssert(self.startInteractorMock.outDisableFeedbackCalled == true)
+	}
+	
 	
 	// MARK - Force Update
 	func test_force_update() {

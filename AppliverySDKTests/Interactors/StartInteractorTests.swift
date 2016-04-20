@@ -460,6 +460,27 @@ class StartInteractorTests: XCTestCase {
 	}
 	
 	
+	// MARK - Disable Feedback test
+	
+	func test_disableFeedback_endListening_whenFeedbackIsEnabled() {
+		XCTAssert(self.globalConfigMock.feedbackEnabled == true)
+		
+		self.startInteractor.disableFeedback()
+		
+		XCTAssert(self.globalConfigMock.feedbackEnabled == false)
+		XCTAssert(self.eventDetectorMock.outEndListeningCalled == true)
+	}
+	
+	func test_disableFeedback_doNothing_whenFeedbackIsDisabled() {
+		self.globalConfigMock.feedbackEnabled = false
+		
+		self.startInteractor.disableFeedback()
+		
+		XCTAssert(self.globalConfigMock.feedbackEnabled == false)
+		XCTAssert(self.eventDetectorMock.outEndListeningCalled == false)
+	}
+	
+	
 	// MARK - Helpers
 	
 	// Force Update
