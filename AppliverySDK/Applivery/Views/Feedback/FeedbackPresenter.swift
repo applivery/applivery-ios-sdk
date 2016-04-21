@@ -25,9 +25,9 @@ protocol FeedbackView {
 class FeedbackPresenter {
 	
 	var view: FeedbackView!
-	var feedbackInteractor: FeedbackInteractor!
-	var feedbackCoordinator: FeedbackCoordinator!
-	var screenshotInteractor: ScreenshotInteractor!
+	var feedbackInteractor: PFeedbackInteractor!
+	var feedbackCoordinator: PFeedbackCoordinator!
+	var screenshotInteractor: PScreenshotInteractor!
 	
 	private var feedbackType: FeedbackType = .Bug
 	private var message: String?

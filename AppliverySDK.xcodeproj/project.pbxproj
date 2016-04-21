@@ -86,6 +86,10 @@
 		FAD2A1651C011E2B001967FD /* UpdateInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2A1641C011E2B001967FD /* UpdateInteractor.swift */; };
 		FAD911001BCEE58B00D56617 /* Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD910FF1BCEE58B00D56617 /* Json.swift */; };
 		FAEC86661C83824D00A43298 /* FeedbackCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEC86651C83824D00A43298 /* FeedbackCoordinator.swift */; };
+		FAED0E781CC97C99000FD5EB /* FeedbackPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED0E771CC97C99000FD5EB /* FeedbackPresenterTests.swift */; };
+		FAED0E7A1CC97EF2000FD5EB /* ScreenshotInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED0E791CC97EF2000FD5EB /* ScreenshotInteractorMock.swift */; };
+		FAED0E7C1CC980D2000FD5EB /* FeedbackViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED0E7B1CC980D2000FD5EB /* FeedbackViewMock.swift */; };
+		FAED0E7E1CC991DD000FD5EB /* FeedbackInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED0E7D1CC991DD000FD5EB /* FeedbackInteractorMock.swift */; };
 		FAF382041C25E828007AF670 /* UpdateInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF382031C25E828007AF670 /* UpdateInteractorTests.swift */; };
 		FAFA85761BCBDB26004E1974 /* GlobalConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFA85751BCBDB26004E1974 /* GlobalConfig.swift */; };
 		FAFA857A1BCC07B6004E1974 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFA85791BCC07B6004E1974 /* Log.swift */; };
@@ -179,6 +183,10 @@
 		FAD2A1641C011E2B001967FD /* UpdateInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateInteractor.swift; path = Applivery/Interactors/UpdateInteractor.swift; sourceTree = "<group>"; };
 		FAD910FF1BCEE58B00D56617 /* Json.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Json.swift; path = Applivery/Utils/Json.swift; sourceTree = "<group>"; };
 		FAEC86651C83824D00A43298 /* FeedbackCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackCoordinator.swift; path = Applivery/Coordinators/FeedbackCoordinator.swift; sourceTree = "<group>"; };
+		FAED0E771CC97C99000FD5EB /* FeedbackPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackPresenterTests.swift; path = Presenters/FeedbackPresenterTests.swift; sourceTree = "<group>"; };
+		FAED0E791CC97EF2000FD5EB /* ScreenshotInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScreenshotInteractorMock.swift; path = Mocks/ScreenshotInteractorMock.swift; sourceTree = "<group>"; };
+		FAED0E7B1CC980D2000FD5EB /* FeedbackViewMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackViewMock.swift; path = Mocks/FeedbackViewMock.swift; sourceTree = "<group>"; };
+		FAED0E7D1CC991DD000FD5EB /* FeedbackInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackInteractorMock.swift; path = Mocks/FeedbackInteractorMock.swift; sourceTree = "<group>"; };
 		FAF382031C25E828007AF670 /* UpdateInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateInteractorTests.swift; path = Interactors/UpdateInteractorTests.swift; sourceTree = "<group>"; };
 		FAFA85751BCBDB26004E1974 /* GlobalConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GlobalConfig.swift; path = Applivery/SDKConfig/GlobalConfig.swift; sourceTree = "<group>"; };
 		FAFA85791BCC07B6004E1974 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Log.swift; path = Applivery/Utils/Log.swift; sourceTree = "<group>"; };
@@ -224,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				FA2B3DC91C178705002DC5C9 /* UpdatePresenterTests.swift */,
+				FAED0E771CC97C99000FD5EB /* FeedbackPresenterTests.swift */,
 			);
 			name = Presenters;
 			sourceTree = "<group>";
@@ -305,6 +314,9 @@
 				FA4EBF521C7D009000664C1E /* EventDetectorMock.swift */,
 				FA48CB561CC2CE24007A5293 /* ImageManagerMock.swift */,
 				FA48CB5B1CC2D15B007A5293 /* FeedbackServiceMock.swift */,
+				FAED0E791CC97EF2000FD5EB /* ScreenshotInteractorMock.swift */,
+				FAED0E7B1CC980D2000FD5EB /* FeedbackViewMock.swift */,
+				FAED0E7D1CC991DD000FD5EB /* FeedbackInteractorMock.swift */,
 			);
 			name = Mocks;
 			sourceTree = "<group>";
@@ -709,6 +721,7 @@
 				FAA50D4C1C7D21D300CE7B65 /* ResponseTests.swift in Sources */,
 				FA2B3DCE1C178A0F002DC5C9 /* UpdateInteractoMock.swift in Sources */,
 				FA68D9021BC040B100589DE4 /* AppliveryTests.swift in Sources */,
+				FAED0E781CC97C99000FD5EB /* FeedbackPresenterTests.swift in Sources */,
 				FA48CB5A1CC2D08A007A5293 /* FeedbackInteractorTests.swift in Sources */,
 				FA232D2F1C753A5F0097AE79 /* UserDefaultsMock.swift in Sources */,
 				FAF382041C25E828007AF670 /* UpdateInteractorTests.swift in Sources */,
@@ -721,7 +734,9 @@
 				FA3A69471BC3064A00179176 /* ConfigPersisterMock.swift in Sources */,
 				FA8D78181BC46584005741D8 /* ConfigServiceMock.swift in Sources */,
 				FA4EBF531C7D009000664C1E /* EventDetectorMock.swift in Sources */,
+				FAED0E7A1CC97EF2000FD5EB /* ScreenshotInteractorMock.swift in Sources */,
 				FA952FD01C838CE000C32DD0 /* FeedbackCoordinatorMock.swift in Sources */,
+				FAED0E7E1CC991DD000FD5EB /* FeedbackInteractorMock.swift in Sources */,
 				FA53DE2D1BC18D4100DF2EB1 /* StartInteractorTests.swift in Sources */,
 				FAFBE4671C3EFEC40039BD8C /* DownloadServiceMock.swift in Sources */,
 				FA2B3DCC1C1789AF002DC5C9 /* UpdateViewMock.swift in Sources */,
@@ -731,6 +746,7 @@
 				FA3A69421BC2FC6F00179176 /* AppMock.swift in Sources */,
 				FA4F1C5B1C53920300AC3E61 /* UpdateCoordinatorTests.swift in Sources */,
 				FA1EE2E61BEAADC800B6EE11 /* JsonTests.swift in Sources */,
+				FAED0E7C1CC980D2000FD5EB /* FeedbackViewMock.swift in Sources */,
 				FA48CB5C1CC2D15B007A5293 /* FeedbackServiceMock.swift in Sources */,
 				FA48CB581CC2CE43007A5293 /* ImageManagerMock.swift in Sources */,
 				FA48CB551CC2CCEF007A5293 /* ScreenshotInteractorTests.swift in Sources */,

@@ -15,7 +15,11 @@ enum FeedbackInteractorResult {
 }
 
 
-class FeedbackInteractor {
+protocol PFeedbackInteractor {
+	func sendFeedback(feedback: Feedback, completionHandler: FeedbackInteractorResult -> Void)
+}
+
+class FeedbackInteractor: PFeedbackInteractor {
 	
 	private var service: PFeedbackService
 	

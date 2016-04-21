@@ -8,6 +8,7 @@
 
 import Foundation
 
+
 class Screenshot {
 	
 	var image: UIImage
