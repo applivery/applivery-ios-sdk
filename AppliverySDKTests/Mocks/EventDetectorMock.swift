@@ -14,10 +14,15 @@ class EventDetectorMock: EventDetector {
 
 	var outListenEventCalled = false
 	var outOnDetectionClosure: (() -> Void)!
+	var outEndListeningCalled = false
 	
 	func listenEvent(onDetection: () -> Void) {
 		self.outListenEventCalled = true
 		self.outOnDetectionClosure = onDetection
+	}
+	
+	func endListening() {
+		self.outEndListeningCalled = true
 	}
 	
 }

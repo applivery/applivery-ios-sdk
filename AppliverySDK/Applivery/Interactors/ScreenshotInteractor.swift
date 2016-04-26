@@ -9,7 +9,12 @@
 import Foundation
 
 
-class ScreenshotInteractor {
+protocol PScreenshotInteractor {
+	func getScreenshot() -> Screenshot
+}
+
+
+class ScreenshotInteractor: PScreenshotInteractor {
 	
 	private var imageManager: PImageManager
 	

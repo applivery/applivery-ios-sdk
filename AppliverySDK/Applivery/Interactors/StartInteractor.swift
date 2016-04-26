@@ -49,6 +49,13 @@ class StartInteractor {
 		self.updateConfig()
 	}
 	
+	func disableFeedback() {
+		guard self.globalConfig.feedbackEnabled else { return }
+		
+		self.globalConfig.feedbackEnabled = false
+		self.eventDetector.endListening()
+	}
+	
 	
 	// MARK: Private Methods
 	

@@ -11,6 +11,7 @@ import Foundation
 
 protocol PFeedbackCoordinator {
 	func showFeedack()
+	func closeFeedback()
 }
 
 

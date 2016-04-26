@@ -23,6 +23,7 @@ class GlobalConfig {
 	var apiKey: String!
 	var appId: String!
 	var appStoreRelease = false
+	var feedbackEnabled = true
 	var logLevel: LogLevel = .None
 	
 	

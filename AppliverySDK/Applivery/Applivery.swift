@@ -43,7 +43,7 @@ When Applivery's starts, the latests configuration for your build will be retrie
 
 - seealso: [Applivery's README on GitHub](https://github.com/applivery/applivery-ios-sdk/blob/master/README.md)
 - Since: 1.0
-- Version: 1.1
+- Version: 1.2
 - Author: Alejandro Jiménez Agudo
 - Copyright: Applivery
 */
@@ -122,6 +122,18 @@ public class Applivery: NSObject, StartInteractorOutput {
 		self.startInteractor.start()
 	}
 	
+	
+	/**
+	Disable Applivery's feedback.
+	
+	By default, Applivery will show a feedback formulary to your users when a screenshot is detected. If you want to avoid this, you can disable it calling this method
+	
+	- Since: 1.2
+	- Version: 1.2
+	*/
+	public func disableFeedback() {
+		self.startInteractor.disableFeedback()
+	}
 	
 	// MARK: Start Interactor
 	internal func forceUpdate() {

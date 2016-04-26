@@ -12,9 +12,14 @@ import UIKit
 class StartInteractorMock: StartInteractor {
 	
 	var startCalled = false
+	var outDisableFeedbackCalled = false
 	
 	override func start() {
 		self.startCalled = true
+	}
+	
+	override func disableFeedback() {
+		self.outDisableFeedbackCalled = true
 	}
 
 }
