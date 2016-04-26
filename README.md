@@ -1,6 +1,6 @@
 # Applivery iOS SDK
 ![Language](https://img.shields.io/badge/Language-Swift-orange.svg)
-![Version](https://img.shields.io/badge/version-1.1.1-blue.svg)
+![Version](https://img.shields.io/badge/version-1.2-blue.svg)
 [![Build Status](https://travis-ci.org/applivery/applivery-ios-sdk.svg?branch=master)](https://travis-ci.org/applivery/applivery-ios-sdk)
 [![codecov.io](https://codecov.io/github/applivery/applivery-ios-sdk/coverage.svg?branch=master)](https://codecov.io/github/applivery/applivery-ios-sdk?branch=master)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
@@ -40,7 +40,7 @@ You can get your ACCOUNT API KEY in the `Developers` section (left side menu).
 Add the following line to your's Cartfile
 
 ```
-github "applivery/applivery-ios-sdk" ~> 1.1
+github "applivery/applivery-ios-sdk" ~> 1.2
 ```
 and then run `carthage update`. More info about Carthage [here](https://github.com/Carthage/Carthage#installing-carthage).
 
@@ -140,6 +140,23 @@ Possible values are:
 - **Error**: Only warnings and errors. Recommended for develop environments.
 - **Info**: Errors and relevant information. Recommended for test integrating Applivery.
 - **Debug**: Request and Responses to Applivery's server will be displayed. Not recommended to use, only for debugging Applivery.
+
+### Disable feedback
+
+By default, Applivery will show a feedback formulary to your users when a screenshot is detected. If you want to avoid this, you can disable it calling the following method:
+
+**Swift**
+
+``` swift
+applivery.disableFeedback()
+```
+
+**Objective-C**
+
+``` objc
+[applivery disableFeedback];
+```
+
 
 
 ### Embedded frameworks and AppStore submissions
