@@ -110,7 +110,7 @@ public class Applivery: NSObject, StartInteractorOutput {
 	
 	- Attention: Be sure that the param **appStoreRelease** is true before submitting to the AppStore
 	- Since: 1.0
-	- Version: 1.2
+	- Version: 1.1
 	*/
 	public func start(apiKey apiKey: String, appId: String, appStoreRelease: Bool) {
 		self.loadFonts()
@@ -122,6 +122,15 @@ public class Applivery: NSObject, StartInteractorOutput {
 		self.startInteractor.start()
 	}
 	
+	
+	/**
+	Disable Applivery's feedback.
+	
+	By default, Applivery will show a feedback formulary to your users when a screenshot is detected. If you want to avoid this, you can disable it calling this method
+	
+	- Since: 1.2
+	- Version: 1.2
+	*/
 	public func disableFeedback() {
 		self.startInteractor.disableFeedback()
 	}
