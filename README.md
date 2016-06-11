@@ -60,7 +60,6 @@ If your project is written in Objective-C, you should also enable the "_Embedded
 
 ![Embedded binaries](https://github.com/applivery/applivery-ios-sdk/blob/master/documentation/embedded_content.png)
 
-_Note: Take a look to the [iOS 7 Installation](#ios-7) guide_
 
 ### Ok! Let's go!
 
@@ -112,11 +111,6 @@ Applivery *applivery = [Applivery sharedInstance];
 
 ## Advanced concepts
 
-### iOS 7
-
-The framework is a dynamic embedded framework written Swift, so it will only works with iOS 8 or later projects. But don't worry, you can use directly the sources (is open source!) and will work. 
-
-The easiest way is to import like a subproject inside yours.
 
 ### Logs and debugging
 
