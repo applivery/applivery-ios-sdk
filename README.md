@@ -2,7 +2,7 @@
 ![Language](https://img.shields.io/badge/Language-Swift-orange.svg)
 ![Version](https://img.shields.io/badge/version-1.2-blue.svg)
 [![Build Status](https://travis-ci.org/applivery/applivery-ios-sdk.svg?branch=master)](https://travis-ci.org/applivery/applivery-ios-sdk)
-[![codecov.io](https://codecov.io/github/applivery/applivery-ios-sdk/coverage.svg?branch=master)](https://codecov.io/github/applivery/applivery-ios-sdk?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/applivery/applivery-ios-sdk/badge.svg?branch=master)](https://coveralls.io/github/applivery/applivery-ios-sdk?branch=master)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 Framework to support [Applivery.com Mobile App distribution](http://www.applivery.com) for iOS Apps.
