@@ -155,9 +155,9 @@ public class Applivery: NSObject, StartInteractorOutput {
 	// MARK - Private Helpers
 	
 	private func loadFonts() {
-		UIFont.registerFontWithFilenameString("Lato-Light.ttf", bundle: NSBundle.AppliveryBundle())
-		UIFont.registerFontWithFilenameString("Lato-Regular.ttf", bundle: NSBundle.AppliveryBundle())
-		UIFont.registerFontWithFilenameString("fontawesome-webfont.ttf", bundle: NSBundle.AppliveryBundle())
+		UIFont.loadAppliveryFont("Lato-Light.ttf")
+		UIFont.loadAppliveryFont("Lato-Regular.ttf")
+		UIFont.loadAppliveryFont("fontawesome-webfont.ttf")
 	}
 	
 }
