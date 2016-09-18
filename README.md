@@ -1,6 +1,6 @@
 # Applivery iOS SDK
 ![Language](https://img.shields.io/badge/Language-Swift-orange.svg)
-![Version](https://img.shields.io/badge/version-1.2-blue.svg)
+![Version](https://img.shields.io/badge/version-2.0-blue.svg)
 [![Build Status](https://travis-ci.org/applivery/applivery-ios-sdk.svg?branch=master)](https://travis-ci.org/applivery/applivery-ios-sdk)
 [![Coverage Status](https://coveralls.io/repos/github/applivery/applivery-ios-sdk/badge.svg?branch=master)](https://coveralls.io/github/applivery/applivery-ios-sdk?branch=master)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
@@ -40,10 +40,11 @@ You can get your ACCOUNT API KEY in the `Developers` section (left side menu).
 Add the following line to your's Cartfile
 
 ```
-github "applivery/applivery-ios-sdk" ~> 1.2
+github "applivery/applivery-ios-sdk" ~> 2.0
 ```
 and then run `carthage update`. More info about Carthage [here](https://github.com/Carthage/Carthage#installing-carthage).
 
+*Note*: If you need to compile your app using XCode 7, you should use an 1.x version.
 
 #### Or you can try manually
 
