@@ -112,16 +112,15 @@ public class Applivery: NSObject, StartInteractorOutput {
 	- Since: 1.0
 	- Version: 1.1
 	*/
-	public func start(apiKey apiKey: String, appId: String, appStoreRelease: Bool) {
+	public func start(apiKey key: String, appId: String, appStoreRelease: Bool) {
 		self.loadFonts()
 		
-		self.globalConfig.apiKey = apiKey
+		self.globalConfig.apiKey = key
 		self.globalConfig.appId = appId
 		self.globalConfig.appStoreRelease = appStoreRelease
 		
 		self.startInteractor.start()
 	}
-	
 	
 	/**
 	Disable Applivery's feedback.
@@ -134,6 +133,7 @@ public class Applivery: NSObject, StartInteractorOutput {
 	public func disableFeedback() {
 		self.startInteractor.disableFeedback()
 	}
+	
 	
 	// MARK: Start Interactor
 	internal func forceUpdate() {
