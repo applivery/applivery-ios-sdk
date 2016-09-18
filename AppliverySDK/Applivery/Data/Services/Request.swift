@@ -63,7 +63,7 @@ class Request {
 		}
 		
 		Log("******** REQUEST ********")
-		Log(" - URL:\t" + self.url.absoluteString)
+		Log(" - URL:\t" + self.url.absoluteString!)
 		Log(" - METHOD:\t" + self.request.HTTPMethod)
 		self.logBody()
 		self.logHeaders()

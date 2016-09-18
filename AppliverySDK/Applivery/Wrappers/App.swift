@@ -55,9 +55,12 @@ class App: PApp {
 		return NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode)! as! String
 	}
 	
-	func openUrl(url: String) -> Bool {
-		LogInfo("Opening \(url)")
-		return UIApplication.sharedApplication().openURL(NSURL(string: url)!)
+	func openUrl(urlString: String) -> Bool {
+		LogInfo("Opening \(urlString)")
+		guard let url = NSURL(string: urlString) else { return false }
+		UIApplication.sharedApplication().openURL(url)
+		
+		return true
 	}
 	
 	func showLoading() {
