@@ -2,7 +2,7 @@
 ![Language](https://img.shields.io/badge/Language-Swift-orange.svg)
 ![Version](https://img.shields.io/badge/version-1.2-blue.svg)
 [![Build Status](https://travis-ci.org/applivery/applivery-ios-sdk.svg?branch=master)](https://travis-ci.org/applivery/applivery-ios-sdk)
-[![codecov.io](https://codecov.io/github/applivery/applivery-ios-sdk/coverage.svg?branch=master)](https://codecov.io/github/applivery/applivery-ios-sdk?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/applivery/applivery-ios-sdk/badge.svg?branch=master)](https://coveralls.io/github/applivery/applivery-ios-sdk?branch=master)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 Framework to support [Applivery.com Mobile App distribution](http://www.applivery.com) for iOS Apps.
@@ -60,7 +60,6 @@ If your project is written in Objective-C, you should also enable the "_Embedded
 
 ![Embedded binaries](https://github.com/applivery/applivery-ios-sdk/blob/master/documentation/embedded_content.png)
 
-_Note: Take a look to the [iOS 7 Installation](#ios-7) guide_
 
 ### Ok! Let's go!
 
@@ -112,11 +111,6 @@ Applivery *applivery = [Applivery sharedInstance];
 
 ## Advanced concepts
 
-### iOS 7
-
-The framework is a dynamic embedded framework written Swift, so it will only works with iOS 8 or later projects. But don't worry, you can use directly the sources (is open source!) and will work. 
-
-The easiest way is to import like a subproject inside yours.
 
 ### Logs and debugging
 

@@ -1,0 +1,27 @@
+comment:
+  layout: header, changes, diff, sunburst
+coverage:
+  precision: 2
+  round: down
+  range: "50...70"
+  ignore:
+  - Pods/.*
+  - Applications/Xcode.app/.*
+  - vendor/.*
+  - Carthage/.*
+  - build/.*
+  - .*Tests.m
+  - .*Tests.swift
+  - '# Add the folders containing your unit tests'
+  - '# This ensures any test utility classes you create are also ignored'
+  - AppliverySDKTests/.*
+  notify:
+    slack:
+      default:
+        branches:
+        - master
+        - develop
+        threshold: 0
+        url: https://hooks.slack.com/services/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
+  status:
+    patch: false
