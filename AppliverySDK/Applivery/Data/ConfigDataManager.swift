@@ -10,21 +10,21 @@ import UIKit
 
 
 enum UpdateConfigResponse {
-	case Success(config: Config, version: String)
-	case Error
+	case success(config: Config, version: String)
+	case error
 }
 
 protocol PConfigDataManager {
 	func getCurrentConfig() -> (config: Config?, version: String)
-	func updateConfig(completionHandler: (response: UpdateConfigResponse) -> Void)
+	func updateConfig(_ completionHandler: @escaping (_ response: UpdateConfigResponse) -> Void)
 }
 
 
 class ConfigDataManager: PConfigDataManager {
 	
-	private let appInfo: PApp
-	private let configPersister: ConfigPersister
-	private let configService: ConfigService
+	fileprivate let appInfo: PApp
+	fileprivate let configPersister: ConfigPersister
+	fileprivate let configService: ConfigService
 	
 	
 	// MARK: Initializers
@@ -54,7 +54,7 @@ class ConfigDataManager: PConfigDataManager {
 		return (config, version)
 	}
 	
-	func updateConfig(completionHandler: (response: UpdateConfigResponse) -> Void) {
+	func updateConfig(_ completionHandler: @escaping (_ response: UpdateConfigResponse) -> Void) {
 		self.configService.fetchConfig {
 			success, config, error in
 			
@@ -62,11 +62,11 @@ class ConfigDataManager: PConfigDataManager {
 				let version = self.appInfo.getVersion()
 				self.configPersister.saveConfig(config!)
 				
-				completionHandler(response: .Success(config: config!, version: version))
+				completionHandler(.success(config: config!, version: version))
 			}
 			else {
 				LogError(error)
-				completionHandler(response: .Error)
+				completionHandler(.error)
 			}
 		}
 	}

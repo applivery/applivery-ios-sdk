@@ -84,7 +84,7 @@ class ConfigDataManagerTests: XCTestCase {
 			responseConfig.forceUpdate = true
 			responseConfig.minVersion = "1.0.0"
 			responseConfig.lastBuildId = ""
-			XCTAssert(response == .Success(config: responseConfig, version: "2.0.0"))
+			XCTAssert(response == .success(config: responseConfig, version: "2.0.0"))
 		}
 		
 		XCTAssert(closureCalled == true)
@@ -101,7 +101,7 @@ class ConfigDataManagerTests: XCTestCase {
 			closureCalled = true
 			
 			XCTAssertTrue(self.configPersisterMock.saveCalled == false)
-			XCTAssert(response == .Error)
+			XCTAssert(response == .error)
 		}
 		
 		XCTAssert(closureCalled == true)
@@ -120,7 +120,7 @@ class ConfigDataManagerTests: XCTestCase {
 			closureCalled = true
 			
 			XCTAssertTrue(self.configPersisterMock.saveCalled == false)
-			XCTAssert(response == .Error)
+			XCTAssert(response == .error)
 		}
 		
 		XCTAssert(closureCalled == true)
@@ -130,11 +130,11 @@ class ConfigDataManagerTests: XCTestCase {
 
 func ==(a: UpdateConfigResponse, b: UpdateConfigResponse) -> Bool {
 	switch (a, b) {
-		case (.Success(let aConfig, let aVersion), .Success(let bConfig, let bVersion))
+		case (.success(let aConfig, let aVersion), .success(let bConfig, let bVersion))
 			where aConfig == bConfig && aVersion == bVersion:
 			return true
 		
-		case (.Error, .Error):
+		case (.error, .error):
 			return true
 		
 		default: return false

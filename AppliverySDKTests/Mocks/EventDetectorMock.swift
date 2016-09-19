@@ -16,7 +16,7 @@ class EventDetectorMock: EventDetector {
 	var outOnDetectionClosure: (() -> Void)!
 	var outEndListeningCalled = false
 	
-	func listenEvent(onDetection: () -> Void) {
+	func listenEvent(_ onDetection: @escaping () -> Void) {
 		self.outListenEventCalled = true
 		self.outOnDetectionClosure = onDetection
 	}

@@ -20,7 +20,7 @@ class FeedbackServiceMock: PFeedbackService {
 	var outPostFeedback: (called: Bool, feedback: Feedback?) = (false, nil)
 	
 	
-	func postFeedback(feedback: Feedback, completionHandler: FeedbackServiceResult -> Void) {
+	func postFeedback(_ feedback: Feedback, completionHandler: @escaping (FeedbackServiceResult) -> Void) {
 		self.outPostFeedback = (true, feedback)
 		completionHandler(self.inResult)
 	}

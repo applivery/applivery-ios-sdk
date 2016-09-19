@@ -18,9 +18,9 @@ class DownloadDataManagerMock: PDownloadDataManager {
 	// Outputs
 	var outDownloadUrl = (called: false, lastBuildId: "")
 	
-	func downloadUrl(lastBuildId: String, completionHandler: (response: DownloadUrlResponse) -> Void) {
+	func downloadUrl(_ lastBuildId: String, completionHandler: @escaping (_ response: DownloadUrlResponse) -> Void) {
 		self.outDownloadUrl = (true, lastBuildId)
-		completionHandler(response: self.inDownloadResponse)
+		completionHandler(self.inDownloadResponse)
 	}
 	
 }

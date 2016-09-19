@@ -16,7 +16,7 @@ protocol PScreenshotInteractor {
 
 class ScreenshotInteractor: PScreenshotInteractor {
 	
-	private var imageManager: PImageManager
+	fileprivate var imageManager: PImageManager
 	
 	init(imageManager: PImageManager = ImageManager()) {
 		self.imageManager = imageManager

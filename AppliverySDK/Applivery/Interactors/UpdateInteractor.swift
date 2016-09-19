@@ -11,7 +11,7 @@ import Foundation
 
 protocol UpdateInteractorOutput {
 	func downloadDidEnd()
-	func downloadDidFail(message: String)
+	func downloadDidFail(_ message: String)
 }
 
 
@@ -28,9 +28,9 @@ class UpdateInteractor: PUpdateInteractor {
 	
 	var output: UpdateInteractorOutput!
 	
-	private var configData: PConfigDataManager
-	private var downloadData: PDownloadDataManager
-	private var app: PApp
+	fileprivate var configData: PConfigDataManager
+	fileprivate var downloadData: PDownloadDataManager
+	fileprivate var app: PApp
 	
 	
 	init(configData: PConfigDataManager = ConfigDataManager(), downloadData: PDownloadDataManager = DownloadDataManager(), app: PApp = App()) {
@@ -72,7 +72,7 @@ class UpdateInteractor: PUpdateInteractor {
 		self.downloadData.downloadUrl(lastBuildId) { response in
 			switch response {
 
-			case .Success(let url):
+			case .success(let url):
 				if self.app.openUrl(url) {
 					self.output.downloadDidEnd()
 				}
@@ -83,7 +83,7 @@ class UpdateInteractor: PUpdateInteractor {
 					self.output.downloadDidFail(error.message())
 				}
 
-			case .Error(let message):
+			case .error(let message):
 				self.output.downloadDidFail(message)
 			}
 		}

@@ -20,7 +20,7 @@ class UpdateInteractorOutputMock: UpdateInteractorOutput {
 		self.outDownloadDidEndCalled = true
 	}
 	
-	func downloadDidFail(message: String) {
+	func downloadDidFail(_ message: String) {
 		self.outDownloadDidFail = (true, message)
 	}
 

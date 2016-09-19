@@ -10,10 +10,10 @@ import Foundation
 
 
 protocol UpdateView {
-	func showUpdateMessage(message: String)
+	func showUpdateMessage(_ message: String)
 	func showLoading()
 	func stopLoading()
-	func showErrorMessage(message: String)
+	func showErrorMessage(_ message: String)
 }
 
 
@@ -40,7 +40,7 @@ class UpdatePresenter: UpdateInteractorOutput {
 		self.view.stopLoading()
 	}
 	
-	func downloadDidFail(message: String) {
+	func downloadDidFail(_ message: String) {
 		self.view.stopLoading()
 		self.view.showErrorMessage(message)
 	}

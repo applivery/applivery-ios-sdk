@@ -10,7 +10,7 @@ import UIKit
 
 class ConfigService {
 
-	func fetchConfig(completionHandler: (Bool, Config?, NSError?) -> Void) {
+	func fetchConfig(_ completionHandler: @escaping (Bool, Config?, NSError?) -> Void) {
 		let request = Request()
 		request.endpoint = "/api/apps/" + GlobalConfig.shared.appId
 		

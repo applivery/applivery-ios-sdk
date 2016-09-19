@@ -11,16 +11,16 @@ import Foundation
 
 @objc public enum LogLevel: Int {
 	/// No log will be shown. Recommended for production environments.
-	case None = 0
+	case none = 0
 	
 	/// Only warnings and errors. Recommended for develop environments.
-	case Error = 1
+	case error = 1
 	
 	/// Errors and relevant information. Recommended for test integrating Applivery.
-	case Info = 2
+	case info = 2
 	
 	/// Request and Responses to Applivery's server will be displayed. Not recommended to use, only for debugging Applivery.
-	case Debug = 3
+	case debug = 3
 }
 
 
@@ -47,10 +47,10 @@ When Applivery's starts, the latests configuration for your build will be retrie
 - Author: Alejandro Jiménez Agudo
 - Copyright: Applivery
 */
-public class Applivery: NSObject, StartInteractorOutput {
+open class Applivery: NSObject, StartInteractorOutput {
 	
 	/// Singleton instance
-	public static let sharedInstance = Applivery()
+	open static let sharedInstance = Applivery()
 	
 	/**
 	Type of Applivery's logs you want displayed in the debug console
@@ -60,16 +60,16 @@ public class Applivery: NSObject, StartInteractorOutput {
 	- **Info**: Errors and relevant information. Recommended for test integrating Applivery.
 	- **Debug**: Request and Responses to Applivery's server will be displayed. Not recommended to use, only for debugging Applivery.
 	*/
-	public var logLevel: LogLevel {
+	open var logLevel: LogLevel {
 		didSet {
 			self.globalConfig.logLevel = self.logLevel
 		}
 	}
 	
-	private let startInteractor: StartInteractor
-	private let globalConfig: GlobalConfig
-	private let updateCoordinator: PUpdateCoordinator
-	private let feedbackCoordinator: PFeedbackCoordinator
+	fileprivate let startInteractor: StartInteractor
+	fileprivate let globalConfig: GlobalConfig
+	fileprivate let updateCoordinator: PUpdateCoordinator
+	fileprivate let feedbackCoordinator: PFeedbackCoordinator
 	
 	
 	// MARK: Initializers
@@ -92,7 +92,7 @@ public class Applivery: NSObject, StartInteractorOutput {
 			self.globalConfig = globalConfig
 			self.updateCoordinator = updateCoordinator
 			self.feedbackCoordinator = feedbackCoordinator
-			self.logLevel = .None
+			self.logLevel = .none
 	}
 	
 	
@@ -112,7 +112,7 @@ public class Applivery: NSObject, StartInteractorOutput {
 	- Since: 1.0
 	- Version: 2.0
 	*/
-	public func start(apiKey key: String, appId: String, appStoreRelease: Bool) {
+	open func start(apiKey key: String, appId: String, appStoreRelease: Bool) {
 		self.loadFonts()
 		
 		self.globalConfig.apiKey = key
@@ -130,7 +130,7 @@ public class Applivery: NSObject, StartInteractorOutput {
 	- Since: 1.2
 	- Version: 2.0
 	*/
-	public func disableFeedback() {
+	open func disableFeedback() {
 		self.startInteractor.disableFeedback()
 	}
 	
@@ -154,7 +154,7 @@ public class Applivery: NSObject, StartInteractorOutput {
 	
 	// MARK - Private Helpers
 	
-	private func loadFonts() {
+	fileprivate func loadFonts() {
 		UIFont.loadAppliveryFont("Lato-Light.ttf")
 		UIFont.loadAppliveryFont("Lato-Regular.ttf")
 		UIFont.loadAppliveryFont("fontawesome-webfont.ttf")

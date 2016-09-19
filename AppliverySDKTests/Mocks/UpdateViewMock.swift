@@ -19,7 +19,7 @@ class UpdateViewMock: UpdateView {
 	var outShowErrorMessage = (called: false, message: "")
 	
 	
-	func showUpdateMessage(message: String) {
+	func showUpdateMessage(_ message: String) {
 		self.outShowUpdateMessage = (true, message)
 	}
 	
@@ -31,7 +31,7 @@ class UpdateViewMock: UpdateView {
 		self.outStopLoadingCalled = true
 	}
 	
-	func showErrorMessage(message: String){
+	func showErrorMessage(_ message: String){
 		self.outShowErrorMessage = (true, message)
 	}
 

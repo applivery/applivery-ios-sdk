@@ -16,7 +16,7 @@ class FeedbackInteractorMock: PFeedbackInteractor {
 	var outSendFeedback: (called: Bool, feedback: Feedback?) = (false, nil)
 	
 	
-	func sendFeedback(feedback: Feedback, completionHandler: FeedbackInteractorResult -> Void) {
+	func sendFeedback(_ feedback: Feedback, completionHandler: @escaping (FeedbackInteractorResult) -> Void) {
 		self.outSendFeedback = (true, feedback)
 		completionHandler(self.inResult)
 	}

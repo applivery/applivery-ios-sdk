@@ -8,10 +8,10 @@
 
 import Foundation
 
-func runInBackground(code: () -> Void) {
-	dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), code)
+func runInBackground(_ code: @escaping () -> Void) {
+	DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: code)
 }
 
-func runOnMainThread(code: () -> Void) {
-	dispatch_async(dispatch_get_main_queue(), code)
+func runOnMainThread(_ code: @escaping () -> Void) {
+	DispatchQueue.main.async(execute: code)
 }

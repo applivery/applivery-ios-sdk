@@ -12,8 +12,8 @@ import Foundation
 class JSON: CustomStringConvertible {
 
 	var description: String {
-		if let data = try! NSJSONSerialization.dataWithJSONObject(self.json, options: .PrettyPrinted) as NSData? {
-			if let description = String(data: data, encoding: NSUTF8StringEncoding) {
+		if let data = try! JSONSerialization.data(withJSONObject: self.json, options: .prettyPrinted) as Data? {
+			if let description = String(data: data, encoding: String.Encoding.utf8) {
 				return description
 			}
 			else {
@@ -25,7 +25,7 @@ class JSON: CustomStringConvertible {
 		}
 	}
 	
-	private var json: AnyObject
+	fileprivate var json: AnyObject
 	
 	
 	// MARK - Initializers
@@ -41,7 +41,7 @@ class JSON: CustomStringConvertible {
 			}
 
 			var json = self.json
-			let pathArray = path.componentsSeparatedByString(".")
+			let pathArray = path.components(separatedBy: ".")
 			
 			for key in pathArray {
 				
@@ -61,9 +61,9 @@ class JSON: CustomStringConvertible {
 		}
 	}
 	
-	class func dataToJson(data: NSData) throws -> JSON {
-		let jsonObject = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
-		let json = JSON(json: jsonObject)
+	class func dataToJson(_ data: Data) throws -> JSON {
+		let jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+		let json = JSON(json: jsonObject as AnyObject)
 		
 		return json
 	}
@@ -71,9 +71,9 @@ class JSON: CustomStringConvertible {
 	
 	// MARK - Public methods
 	
-	func toData() -> NSData? {
+	func toData() -> Data? {
 		do {
-			let data = try NSJSONSerialization.dataWithJSONObject(self.json, options:.PrettyPrinted)
+			let data = try JSONSerialization.data(withJSONObject: self.json, options:.prettyPrinted)
 			return data
 		}
 		catch let error as NSError {
