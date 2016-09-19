@@ -1,5 +1,5 @@
 # Applivery iOS SDK
-![Version](https://img.shields.io/badge/version-1.3-blue.svg)
+![Version](https://img.shields.io/badge/version-2.0-blue.svg)
 ![Language](https://img.shields.io/badge/Language-Swift-orange.svg)
 [![Build Status](https://travis-ci.org/applivery/applivery-ios-sdk.svg?branch=master)](https://travis-ci.org/applivery/applivery-ios-sdk)
 
@@ -45,11 +45,10 @@ You can get your ACCOUNT API KEY in the `Developers` section (left side menu).
 Add the following line to your's Cartfile
 
 ```
-github "applivery/applivery-ios-sdk" ~> 1.3
+github "applivery/applivery-ios-sdk" ~> 2.0
 ```
 and then run `carthage update`. More info about Carthage [here](https://github.com/Carthage/Carthage#installing-carthage).
 
-*Note*: If you need to compile your app using XCode 7, you should use v1.2 version.
 
 #### Or you can try manually
 
@@ -65,6 +64,17 @@ and then run `carthage update`. More info about Carthage [here](https://github.c
 If your project is written in Objective-C, you should also enable the "_Embedded Content Contains Swift Code_" option. You'll find it in the _Build Settings_ section:
 
 ![Embedded binaries](https://github.com/applivery/applivery-ios-sdk/blob/master/documentation/embedded_content.png)
+
+
+### Swift & XCode version support
+
+The compatibility version is as follow:
+
+| Applivery Version | Xcode Version  | Swift Version |
+|-------------------|----------------|---------------|
+| **v1.2.x**        | 7.x            | 2.0, 2.1, 2.2 |
+| **v1.3.x**        | 8.x            | 2.3           |
+| **v2.x**          | 8.x            | 3.0           |
 
 
 ### Ok! Let's go!
