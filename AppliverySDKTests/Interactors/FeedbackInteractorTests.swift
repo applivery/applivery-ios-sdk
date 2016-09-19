@@ -36,7 +36,7 @@ class FeedbackInteractorTests: XCTestCase {
 	
 	
 	func test_postFeedback_resultSuccess_whenServiceResultSuccess() {
-		self.feedbackServiceMock.inResult = .Success
+		self.feedbackServiceMock.inResult = .success
 		let feedback = Feedback(
 			feedbackType: .Bug,
 			message: "test message",
@@ -47,7 +47,7 @@ class FeedbackInteractorTests: XCTestCase {
 		self.feedbackInteractor.sendFeedback(feedback) { result in
 			completionCalled = true
 			
-			XCTAssert(result == .Success)
+			XCTAssert(result == .success)
 			XCTAssert(self.feedbackServiceMock.outPostFeedback.called == true)
 			XCTAssert(self.feedbackServiceMock.outPostFeedback.feedback! == feedback)
 		}
@@ -57,7 +57,7 @@ class FeedbackInteractorTests: XCTestCase {
 	
 	
 	func test_postFeedback_resultError_whenServiceResultError() {
-		self.feedbackServiceMock.inResult = .Error(NSError.AppliveryError("error_test", code: -3))
+		self.feedbackServiceMock.inResult = .error(NSError.AppliveryError("error_test", code: -3))
 		let feedback = Feedback(
 			feedbackType: .Bug,
 			message: "test message",
@@ -68,7 +68,7 @@ class FeedbackInteractorTests: XCTestCase {
 		self.feedbackInteractor.sendFeedback(feedback) { result in
 			completionCalled = true
 			
-			XCTAssert(result == .Error("error_test"))
+			XCTAssert(result == .error("error_test"))
 			XCTAssert(self.feedbackServiceMock.outPostFeedback.called == true)
 			XCTAssert(self.feedbackServiceMock.outPostFeedback.feedback! == feedback)
 		}
@@ -81,8 +81,8 @@ class FeedbackInteractorTests: XCTestCase {
 
 func ==(lhs: FeedbackInteractorResult, rhs: FeedbackInteractorResult) -> Bool {
 	switch (lhs, rhs) {
-	case (.Success, .Success): return true
-	case (.Error(let messageLeft), .Error(let messageRight)) where messageLeft == messageRight: return true
+	case (.success, .success): return true
+	case (.error(let messageLeft), .error(let messageRight)) where messageLeft == messageRight: return true
 	default: return false
 	}
 }

@@ -8,8 +8,8 @@
 
 import Foundation
 
-func Localize(key: String) -> String {
-	let literal = NSLocalizedString(key, tableName: nil, bundle: NSBundle.AppliveryBundle(), value: "", comment: "")
+func Localize(_ key: String) -> String {
+	let literal = NSLocalizedString(key, tableName: nil, bundle: Bundle.AppliveryBundle(), value: "", comment: "")
 
 	return literal
 }

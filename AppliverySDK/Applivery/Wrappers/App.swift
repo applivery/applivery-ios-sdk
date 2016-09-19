@@ -14,26 +14,26 @@ import Foundation
 protocol PApp {
 	func getVersion() -> String
 	func getLanguage() -> String
-	func openUrl(url: String) -> Bool
+	func openUrl(_ url: String) -> Bool
 	func showLoading()
 	func hideLoading()
-	func showOtaAlert(message: String, downloadHandler: () -> Void)
-	func showErrorAlert(message: String, retryHandler: () -> Void)
-	func waitForReadyThen(onReady: () -> Void)
-	func presentModal(viewController: UIViewController)
+	func showOtaAlert(_ message: String, downloadHandler: @escaping () -> Void)
+	func showErrorAlert(_ message: String, retryHandler: @escaping () -> Void)
+	func waitForReadyThen(_ onReady: @escaping () -> Void)
+	func presentModal(_ viewController: UIViewController)
 }
 
 
 class App: PApp {
 	
-	private var alertOta: UIAlertController?
-	private var alertError: UIAlertController?
+	fileprivate var alertOta: UIAlertController?
+	fileprivate var alertError: UIAlertController?
 	
 	
 	// MARK - Public Methods
 	
 	func bundleId() -> String {
-		guard let bundleId = NSBundle.mainBundle().bundleIdentifier else {
+		guard let bundleId = Bundle.main.bundleIdentifier else {
 			LogWarn("No bundle identifier found")
 			return "no_id"
 		}
@@ -42,51 +42,51 @@ class App: PApp {
 	}
 	
 	func getVersion() -> String {
-		let version = NSBundle.mainBundle().infoDictionary?["CFBundleVersion"] as! String
+		let version = Bundle.main.infoDictionary?["CFBundleVersion"] as! String
 		return version
 	}
 	
 	func getVersionName() -> String {
-		let version = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as! String
+		let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
 		return version
 	}
 	
 	func getLanguage() -> String {
-		return NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode)! as! String
+		return (Locale.current as NSLocale).object(forKey: NSLocale.Key.languageCode)! as! String
 	}
 	
-	func openUrl(urlString: String) -> Bool {
+	func openUrl(_ urlString: String) -> Bool {
 		LogInfo("Opening \(urlString)")
-		guard let url = NSURL(string: urlString) else { return false }
-		UIApplication.sharedApplication().openURL(url)
+		guard let url = URL(string: urlString) else { return false }
+		UIApplication.shared.openURL(url)
 		
 		return true
 	}
 	
 	func showLoading() {
-		UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+		UIApplication.shared.isNetworkActivityIndicatorVisible = true
 	}
 	
 	func hideLoading() {
-		UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+		UIApplication.shared.isNetworkActivityIndicatorVisible = false
 	}
 	
-	func showAlert(message: String) {
-		let alert = UIAlertController(title: Localize("sdk_name"), message: message, preferredStyle: .Alert)
+	func showAlert(_ message: String) {
+		let alert = UIAlertController(title: Localize("sdk_name"), message: message, preferredStyle: .alert)
 		
-		let actionLater = UIAlertAction(title: Localize("alert_button_ok"), style: .Cancel, handler: nil)
+		let actionLater = UIAlertAction(title: Localize("alert_button_ok"), style: .cancel, handler: nil)
 		alert.addAction(actionLater)
 		
 		let topVC = self.topViewController()
 		
-		topVC?.presentViewController(alert, animated: true, completion: nil)
+		topVC?.present(alert, animated: true, completion: nil)
 	}
 	
-	func showOtaAlert(message: String, downloadHandler: () -> Void ) {
-		self.alertOta = UIAlertController(title: Localize("sdk_name"), message: message, preferredStyle: .Alert)
+	func showOtaAlert(_ message: String, downloadHandler: @escaping () -> Void ) {
+		self.alertOta = UIAlertController(title: Localize("sdk_name"), message: message, preferredStyle: .alert)
 		
-		let actionLater = UIAlertAction(title: Localize("alert_button_later"), style: .Cancel, handler: nil)
-		let actionDownload = UIAlertAction(title: Localize("alert_button_update"), style: .Default) { _ in
+		let actionLater = UIAlertAction(title: Localize("alert_button_later"), style: .cancel, handler: nil)
+		let actionDownload = UIAlertAction(title: Localize("alert_button_update"), style: .default) { _ in
 			downloadHandler()
 		}
 
@@ -95,14 +95,14 @@ class App: PApp {
 		
 		let topVC = self.topViewController()
 		
-		topVC?.presentViewController(self.alertOta!, animated: true, completion: nil)
+		topVC?.present(self.alertOta!, animated: true, completion: nil)
 	}
 	
-	func showErrorAlert(message: String, retryHandler: () -> Void) {
-		self.alertError = UIAlertController(title: Localize("sdk_name"), message: message, preferredStyle: .Alert)
+	func showErrorAlert(_ message: String, retryHandler: @escaping () -> Void) {
+		self.alertError = UIAlertController(title: Localize("sdk_name"), message: message, preferredStyle: .alert)
 		
-		let actionCancel = UIAlertAction(title: Localize("alert_button_cancel"), style: .Cancel, handler: nil)
-		let actionRetry = UIAlertAction(title: Localize("alert_button_retry"), style: .Default) { _ in
+		let actionCancel = UIAlertAction(title: Localize("alert_button_cancel"), style: .cancel, handler: nil)
+		let actionRetry = UIAlertAction(title: Localize("alert_button_retry"), style: .default) { _ in
 			retryHandler()
 		}
 		
@@ -110,40 +110,40 @@ class App: PApp {
 		self.alertError?.addAction(actionRetry)
 		
 		let topVC = self.topViewController()
-		topVC?.presentViewController(self.alertError!, animated: true, completion: nil)
+		topVC?.present(self.alertError!, animated: true, completion: nil)
 	}
 
-	func waitForReadyThen(onReady: () -> Void) {
+	func waitForReadyThen(_ onReady: @escaping () -> Void) {
 		runInBackground {
 			self.sleepUntilReady()
 			runOnMainThread(onReady)
 		}
 	}
 	
-	func presentModal(viewController: UIViewController) {
+	func presentModal(_ viewController: UIViewController) {
 		let topVC = self.topViewController()
-		topVC?.presentViewController(viewController, animated: true, completion: nil)
+		topVC?.present(viewController, animated: true, completion: nil)
 	}
 	
 	
 	// MARK - Private Helpers
 	
-	private func sleepUntilReady() {
+	fileprivate func sleepUntilReady() {
 		while !self.rootIsReady() {
-			NSThread.sleepForTimeInterval(0.1)
+			Thread.sleep(forTimeInterval: 0.1)
 		}
 	}
 	
-	private func rootIsReady() -> Bool {
-		let app = UIApplication.sharedApplication()
+	fileprivate func rootIsReady() -> Bool {
+		let app = UIApplication.shared
 		let window = app.keyWindow
 		guard let rootVC = window?.rootViewController else { return false }
 		
-		return rootVC.isViewLoaded()
+		return rootVC.isViewLoaded
 	}
 	
-	private func topViewController() -> UIViewController? {
-		let app = UIApplication.sharedApplication()
+	fileprivate func topViewController() -> UIViewController? {
+		let app = UIApplication.shared
 		let window = app.keyWindow
 		var rootVC = window?.rootViewController
 		while let presentedController = rootVC?.presentedViewController {

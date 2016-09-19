@@ -14,7 +14,7 @@ class Environments {
 	static let HOST_KEY = "APPLIVERY_HOST"
 	
 	class func Host() -> String? {
-		guard let host = NSProcessInfo.processInfo().environment["AppliveryHost"] else {
+		guard let host = ProcessInfo.processInfo.environment["AppliveryHost"] else {
 			if let host = self.readHost() {
 				return host
 			}
@@ -28,16 +28,16 @@ class Environments {
 	}
 	
 	
-	private class func writeHost(host: String) {
-		let userDefaults = NSUserDefaults.standardUserDefaults()
+	fileprivate class func writeHost(_ host: String) {
+		let userDefaults = Foundation.UserDefaults.standard
 		userDefaults.setValue(host, forKey: Environments.HOST_KEY)
 		
 		userDefaults.synchronize()
 	}
 	
-	private class func readHost() -> String? {
-		let userDefaults = NSUserDefaults.standardUserDefaults()
-		let host = userDefaults.valueForKey(Environments.HOST_KEY) as? String
+	fileprivate class func readHost() -> String? {
+		let userDefaults = Foundation.UserDefaults.standard
+		let host = userDefaults.value(forKey: Environments.HOST_KEY) as? String
 		
 		return host
 	}

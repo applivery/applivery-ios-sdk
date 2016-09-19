@@ -21,7 +21,7 @@ class ConfigPersisterMock: ConfigPersister {
 		return self.config
 	}
 	
-	override func saveConfig(config: Config) {
+	override func saveConfig(_ config: Config) {
 		self.saveCalled = true
 	}
 }

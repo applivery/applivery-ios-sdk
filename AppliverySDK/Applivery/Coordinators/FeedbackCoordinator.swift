@@ -17,9 +17,9 @@ protocol PFeedbackCoordinator {
 
 class FeedbackCoordinator: PFeedbackCoordinator {
 
-	private var feedbackVC: FeedbackVC!
-	private lazy var app = App()
-	private var isFeedbackPresented = false
+	fileprivate var feedbackVC: FeedbackVC!
+	fileprivate lazy var app = App()
+	fileprivate var isFeedbackPresented = false
 	
 	
 	func showFeedack() {
@@ -41,13 +41,13 @@ class FeedbackCoordinator: PFeedbackCoordinator {
 	}
 	
 	func closeFeedback() {
-		self.feedbackVC.dismissViewControllerAnimated(true) {
+		self.feedbackVC.dismiss(animated: true) {
 			self.isFeedbackPresented = false
 			self.destroyFeedback()
 		}
 	}
 	
-	private func destroyFeedback() {
+	fileprivate func destroyFeedback() {
 		self.feedbackVC.presenter.view = nil
 		self.feedbackVC.presenter.feedbackInteractor = nil
 		self.feedbackVC.presenter.feedbackCoordinator = nil

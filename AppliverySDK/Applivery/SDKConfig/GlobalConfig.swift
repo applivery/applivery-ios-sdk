@@ -24,7 +24,7 @@ class GlobalConfig {
 	var appId: String!
 	var appStoreRelease = false
 	var feedbackEnabled = true
-	var logLevel: LogLevel = .None
+	var logLevel: LogLevel = .none
 	
 	
 	// MARK: Static texts

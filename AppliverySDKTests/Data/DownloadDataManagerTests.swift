@@ -12,8 +12,8 @@ import XCTest
 
 func ==(a: DownloadUrlResponse, b: DownloadUrlResponse) -> Bool {
 	switch (a, b) {
-	case (.Success(let urlA),	.Success(let urlB))		where urlA == urlB:			return true
-	case (.Error(let messageA), .Error(let messageB))	where messageA == messageB: return true
+	case (.success(let urlA),	.success(let urlB))		where urlA == urlB:			return true
+	case (.error(let messageA), .error(let messageB))	where messageA == messageB: return true
 		
 	default: return false
 	}
@@ -46,14 +46,14 @@ class DownloadDataManagerTests: XCTestCase {
 
 
 	func test_downloadUrl_success() {
-		self.downloadServiceMock.inDownloadTokenResponse = .Success(token: "test_token")
+		self.downloadServiceMock.inDownloadTokenResponse = .success(token: "test_token")
 		
 		var completionCalled = false
 		self.downloadData.downloadUrl("test_build_id") { response in
 			completionCalled = true
 			
 			let itms_service = "itms-services://?action=download-manifest&url="
-			XCTAssert(response == .Success(url: "\(itms_service)\(GlobalConfig.Host)/download/test_build_id/manifest/test_token"))
+			XCTAssert(response == .success(url: "\(itms_service)\(GlobalConfig.Host)/download/test_build_id/manifest/test_token"))
 		}
 		
 		XCTAssert(completionCalled == true)
@@ -62,13 +62,13 @@ class DownloadDataManagerTests: XCTestCase {
 	}
 	
 	func test_downloadUrl_networkError_returnsFail() {
-		self.downloadServiceMock.inDownloadTokenResponse = .Error(self.networkError())
+		self.downloadServiceMock.inDownloadTokenResponse = .error(self.networkError())
 		
 		var completionCalled = false
 		self.downloadData.downloadUrl("test_build_id") { response in
 			completionCalled = true
 			
-			XCTAssert(response == .Error(message: "error message"))
+			XCTAssert(response == .error(message: "error message"))
 		}
 		
 		XCTAssert(completionCalled == true)
@@ -77,13 +77,13 @@ class DownloadDataManagerTests: XCTestCase {
 	}
 	
 	func test_downloadUrl_networkErrorWithoutMessage_returnsFail() {
-		self.downloadServiceMock.inDownloadTokenResponse = .Error(self.networkErrorNoMessage())
+		self.downloadServiceMock.inDownloadTokenResponse = .error(self.networkErrorNoMessage())
 		
 		var completionCalled = false
 		self.downloadData.downloadUrl("test_build_id") { response in
 			completionCalled = true
 			
-			XCTAssert(response == .Error(message: Localize("error_unexpected")))
+			XCTAssert(response == .error(message: Localize("error_unexpected")))
 		}
 		
 		XCTAssert(completionCalled == true)

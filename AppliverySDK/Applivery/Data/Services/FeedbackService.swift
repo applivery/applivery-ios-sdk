@@ -10,19 +10,19 @@ import Foundation
 
 
 enum FeedbackServiceResult {
-	case Success
-	case Error(NSError)
+	case success
+	case error(NSError)
 }
 
 
 protocol PFeedbackService {
-	func postFeedback(feedback: Feedback, completionHandler: FeedbackServiceResult -> Void)
+	func postFeedback(_ feedback: Feedback, completionHandler: @escaping (FeedbackServiceResult) -> Void)
 }
 
 
 class FeedbackService: PFeedbackService {
 	
-	func postFeedback(feedback: Feedback, completionHandler: FeedbackServiceResult -> Void) {
+	func postFeedback(_ feedback: Feedback, completionHandler: @escaping (FeedbackServiceResult) -> Void) {
 		let request = Request()
 		request.endpoint = "/api/feedback"
 		request.method = "POST"
@@ -31,7 +31,7 @@ class FeedbackService: PFeedbackService {
 		let screenshot = feedback.screenshot?.base64() ?? ""
 		
 		request.bodyParams = [
-			"app": GlobalConfig.shared.appId,
+			"app": GlobalConfig.shared.appId ,
 			"type": feedback.feedbackType.rawValue,
 			"message": feedback.message,
 			"packageInfo": [
@@ -41,13 +41,13 @@ class FeedbackService: PFeedbackService {
 			],
 			"deviceInfo": [
 				"device": [
-					"model": UIDevice.currentDevice().modelName,
+					"model": UIDevice.current.modelName,
 					"vendor": "Apple",
-					"type": UIDevice.currentDevice().model
+					"type": UIDevice.current.model
 				],
 				"os": [
 					"name": "iOS",
-					"version": UIDevice.currentDevice().systemVersion
+					"version": UIDevice.current.systemVersion
 				]
 			],
 			"screenshot": screenshot
@@ -55,11 +55,11 @@ class FeedbackService: PFeedbackService {
 		
 		request.sendAsync { response in
 			if response.success {
-				completionHandler(.Success)
+				completionHandler(.success)
 			}
 			else {
 				LogError(response.error)
-				completionHandler(.Error(NSError.UnexpectedError()))
+				completionHandler(.error(NSError.UnexpectedError()))
 			}
 		}
 	}

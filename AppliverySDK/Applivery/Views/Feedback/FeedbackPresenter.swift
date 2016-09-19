@@ -10,13 +10,13 @@ import Foundation
 
 
 protocol FeedbackView {
-	func showScreenshot(screenshot: UIImage)
+	func showScreenshot(_ screenshot: UIImage)
 	func showFeedbackFormulary()
 	func showScreenshotPreview()
 	func hideScreenshotPreview()
 	func textMessage() -> String?
 	func needMessage()
-	func showMessage(message: String)
+	func showMessage(_ message: String)
 	func showLoading()
 	func stopLoading()
 }
@@ -29,10 +29,10 @@ class FeedbackPresenter {
 	var feedbackCoordinator: PFeedbackCoordinator!
 	var screenshotInteractor: PScreenshotInteractor!
 	
-	private var feedbackType: FeedbackType = .Bug
-	private var message: String?
-	private var screenshot: Screenshot?
-	private var attachScreenshot = true
+	fileprivate var feedbackType: FeedbackType = .Bug
+	fileprivate var message: String?
+	fileprivate var screenshot: Screenshot?
+	fileprivate var attachScreenshot = true
 	
 	
 	// MARK - Public Methods
@@ -63,21 +63,21 @@ class FeedbackPresenter {
 		
 		self.feedbackInteractor.sendFeedback(feedback) { result in
 			switch result {
-			case .Success:
+			case .success:
 				self.view.stopLoading()
 				self.feedbackCoordinator.closeFeedback()
 				
-			case .Error(let message):
+			case .error(let message):
 				self.view.showMessage(message)
 			}
 		}
 	}
 	
-	func userDidSelectedFeedbackType(type: FeedbackType) {
+	func userDidSelectedFeedbackType(_ type: FeedbackType) {
 		self.feedbackType = type
 	}
 	
-	func userDidChangedAttachScreenshot(on: Bool) {
+	func userDidChangedAttachScreenshot(_ on: Bool) {
 		self.attachScreenshot = on
 		
 		if on {

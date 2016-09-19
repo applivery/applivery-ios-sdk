@@ -12,23 +12,23 @@ import Foundation
 class Response {
 	
 	var success = false
-	var url: NSURL?
+	var url: URL?
 	var code: Int
 	var error: NSError?
 	var body: JSON?
-	var data: NSData?
+	var data: Data?
 	var headers: [String: String]?
 	
-	private let UnexpectedErrorJson = "Unexpected error trying to parse Json"
-	private let InvalidCredentials = "Invalid credentials"
+	fileprivate let UnexpectedErrorJson = "Unexpected error trying to parse Json"
+	fileprivate let InvalidCredentials = "Invalid credentials"
 	
 	
-	init(data: NSData?, response: NSURLResponse?, error: NSError?) {
+	init(data: Data?, response: URLResponse?, error: NSError?) {
 		self.data = data
 		self.code = -1
 		
-		if let response = response as? NSHTTPURLResponse {
-			self.url = response.URL
+		if let response = response as? HTTPURLResponse {
+			self.url = response.url
 			self.headers = response.allHeaderFields as? [String: String]
 			
 			if response.statusCode == 200 {
@@ -50,7 +50,7 @@ class Response {
 	
 	
 	// MARK: Private Helpers
-	private func responseOK(data: NSData?) {
+	fileprivate func responseOK(_ data: Data?) {
 		do {
 			guard data != nil else {
 				throw NSError.UnexpectedError("data is nil")
@@ -84,7 +84,7 @@ class Response {
 	
 	// MARK - Private Helpers
 	
-	private func parseError(error: NSError?) {
+	fileprivate func parseError(_ error: NSError?) {
 		if error != nil {
 			self.error = error
 		}
@@ -106,8 +106,8 @@ class Response {
 		}
 	}
 	
-	private func logResponse() {
-		guard GlobalConfig.shared.logLevel == .Debug else { return }
+	fileprivate func logResponse() {
+		guard GlobalConfig.shared.logLevel == .debug else { return }
 		
 		Log("******** RESPONSE ********")
 		Log(" - URL:\t" + self.logURL())
@@ -117,7 +117,7 @@ class Response {
 		Log("*************************\n")
 	}
 	
-	private func logURL() -> String {
+	fileprivate func logURL() -> String {
 		guard let url = self.url?.absoluteString else {
 			return "NO URL"
 		}
@@ -125,7 +125,7 @@ class Response {
 		return url
 	}
 	
-	private func logHeaders() {
+	fileprivate func logHeaders() {
 		guard let headers = self.headers else { return }
 		
 		Log(" - HEADERS: {")
@@ -139,13 +139,13 @@ class Response {
 		Log("}")
 	}
 	
-	private func logData() -> String {
+	fileprivate func logData() -> String {
 		guard let data = self.data else {
 			return "NO DATA"
 		}
 		
 		guard let dataJson = try? JSON.dataToJson(data) else {
-			return String(data: data, encoding: NSUTF8StringEncoding)!
+			return String(data: data, encoding: String.Encoding.utf8)!
 		}
 		
 		return "\(dataJson)"

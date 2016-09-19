@@ -46,7 +46,7 @@ class ConfigPersisterTests: XCTestCase {
 	
 	func test_getConfig_returnsNil_whenOnlyMinVersionIsMissed() {
 		var dictionary = self.fullData()
-		dictionary.removeValueForKey(kMinVersionKey)
+		dictionary.removeValue(forKey: kMinVersionKey)
 		
 		self.userDefaultsMock.inDictionary = dictionary
 		
@@ -57,7 +57,7 @@ class ConfigPersisterTests: XCTestCase {
 	
 	func test_getConfig_returnsNil_whenOnlyForceUpdateIsMissed() {
 		var dictionary = self.fullData()
-		dictionary.removeValueForKey(kForceUpdateKey)
+		dictionary.removeValue(forKey: kForceUpdateKey)
 		
 		self.userDefaultsMock.inDictionary = dictionary
 		
@@ -68,7 +68,7 @@ class ConfigPersisterTests: XCTestCase {
 	
 	func test_getConfig_returnsNil_whenOnlyLasBuildIdIsMissed() {
 		var dictionary = self.fullData()
-		dictionary.removeValueForKey(kLastBuildId)
+		dictionary.removeValue(forKey: kLastBuildId)
 		
 		self.userDefaultsMock.inDictionary = dictionary
 		
@@ -79,7 +79,7 @@ class ConfigPersisterTests: XCTestCase {
 	
 	func test_getConfig_returnsNil_whenOnlyOtaUpdateIsMissed() {
 		var dictionary = self.fullData()
-		dictionary.removeValueForKey(kOtaUpdateKey)
+		dictionary.removeValue(forKey: kOtaUpdateKey)
 		
 		self.userDefaultsMock.inDictionary = dictionary
 		
@@ -90,7 +90,7 @@ class ConfigPersisterTests: XCTestCase {
 	
 	func test_getConfig_returnsNil_whenOnlyLastBuildVersionIsMissed() {
 		var dictionary = self.fullData()
-		dictionary.removeValueForKey(kLastBuildVersion)
+		dictionary.removeValue(forKey: kLastBuildVersion)
 		
 		self.userDefaultsMock.inDictionary = dictionary
 		
@@ -112,8 +112,8 @@ class ConfigPersisterTests: XCTestCase {
 	
 	func test_getConfig_returnsConfig_whenEveryFieldExistsButOptionals() {
 		var dictionary = self.fullData()
-		dictionary.removeValueForKey(kForceUpdateMessageKey)
-		dictionary.removeValueForKey(kOtaUpdateMessageKey)
+		dictionary.removeValue(forKey: kForceUpdateMessageKey)
+		dictionary.removeValue(forKey: kOtaUpdateMessageKey)
 		
 		self.userDefaultsMock.inDictionary = dictionary
 		
@@ -163,16 +163,16 @@ class ConfigPersisterTests: XCTestCase {
 		return config
 	}
 	
-	func fullData() -> [String: AnyObject] {
+	func fullData() -> [String: Any] {
 		let config = self.fullDataConfig()
 		
-		let dictionary: [String: AnyObject] =
+		let dictionary: [String: Any] =
 		[
 			kMinVersionKey: config.minVersion,
 			kForceUpdateKey: config.forceUpdate,
 			kLastBuildId: config.lastBuildId,
 			kForceUpdateMessageKey: config.forceUpdateMessage ?? "",
-			kOtaUpdateKey: config.otaUpdate ?? false,
+			kOtaUpdateKey: config.otaUpdate,
 			kLastBuildVersion: config.lastVersion,
 			kOtaUpdateMessageKey: config.otaUpdateMessage ?? ""
 		]
@@ -182,6 +182,6 @@ class ConfigPersisterTests: XCTestCase {
 	
 }
 
-func ==(a: [String: AnyObject], b: [String: AnyObject]) -> Bool {
-	return NSDictionary(dictionary: a).isEqualToDictionary(b)
+func ==(a: [String: Any], b: [String: Any]) -> Bool {
+	return NSDictionary(dictionary: a).isEqual(to: b)
 }

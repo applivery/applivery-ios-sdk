@@ -10,35 +10,35 @@ import Foundation
 
 
 enum DownloadTokenResponse {
-	case Success(token: String)
-	case Error(NSError)
+	case success(token: String)
+	case error(NSError)
 }
 
 
 protocol PDownloadService {
-	func fetchDownloadToken(buildId: String, completionHandler: (response: DownloadTokenResponse) -> Void)
+	func fetchDownloadToken(_ buildId: String, completionHandler: @escaping (_ response: DownloadTokenResponse) -> Void)
 }
 
 
 class DownloadService: PDownloadService {
 	
-	func fetchDownloadToken(buildId: String, completionHandler: (response: DownloadTokenResponse) -> Void) {
+	func fetchDownloadToken(_ buildId: String, completionHandler: @escaping (_ response: DownloadTokenResponse) -> Void) {
 		let request = Request()
 		request.endpoint = "/api/builds/\(buildId)/token"
 		
 		request.sendAsync { response in
 			if response.success {
 				guard let token = response.body?["token"]?.toString() else {
-					completionHandler(response: .Error(self.parseError()))
+					completionHandler(.error(self.parseError()))
 					return
 				}
 				
-				completionHandler(response: .Success(token: token))
+				completionHandler(.success(token: token))
 			}
 			else {
 				let error = response.error ?? self.unexpectedError()
 				LogError(error)
-				completionHandler(response: .Error(error))
+				completionHandler(.error(error))
 			}
 		}
 	}
@@ -46,7 +46,7 @@ class DownloadService: PDownloadService {
 	
 	// MARK - Private Helpers
 	
-	private func parseError() -> NSError {
+	fileprivate func parseError() -> NSError {
 		let error = NSError (
 			domain: GlobalConfig.ErrorDomain,
 			code: 10001,
@@ -55,7 +55,7 @@ class DownloadService: PDownloadService {
 		return error
 	}
 	
-	private func unexpectedError() -> NSError {
+	fileprivate func unexpectedError() -> NSError {
 		let error = NSError (
 			domain: GlobalConfig.ErrorDomain,
 			code: -1,

@@ -10,32 +10,32 @@ import Foundation
 
 
 enum FeedbackInteractorResult {
-	case Success
-	case Error(String)
+	case success
+	case error(String)
 }
 
 
 protocol PFeedbackInteractor {
-	func sendFeedback(feedback: Feedback, completionHandler: FeedbackInteractorResult -> Void)
+	func sendFeedback(_ feedback: Feedback, completionHandler: @escaping (FeedbackInteractorResult) -> Void)
 }
 
 class FeedbackInteractor: PFeedbackInteractor {
 	
-	private var service: PFeedbackService
+	fileprivate var service: PFeedbackService
 	
 	
 	init(service: PFeedbackService = FeedbackService()) {
 		self.service = service
 	}
 	
-	func sendFeedback(feedback: Feedback, completionHandler: FeedbackInteractorResult -> Void) {
+	func sendFeedback(_ feedback: Feedback, completionHandler: @escaping (FeedbackInteractorResult) -> Void) {
 		self.service.postFeedback(feedback) { result in
 			switch result {
-			case .Success:
-				completionHandler(.Success)
+			case .success:
+				completionHandler(.success)
 				
-			case .Error(let error):
-				completionHandler(.Error(error.message()))
+			case .error(let error):
+				completionHandler(.error(error.message()))
 			}
 		}
 	}

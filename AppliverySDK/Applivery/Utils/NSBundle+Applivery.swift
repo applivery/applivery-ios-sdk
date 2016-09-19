@@ -8,15 +8,15 @@
 
 import Foundation
 
-extension NSBundle {
+extension Bundle {
 	
-	class func AppliveryBundle() -> NSBundle {
-		if let bundle = NSBundle(identifier: "com.applivery.sdk") {
+	class func AppliveryBundle() -> Bundle {
+		if let bundle = Bundle(identifier: "com.applivery.sdk") {
 			return bundle
 		}
 		else {
 			LogWarn("Applivery bundle not found")
-			return NSBundle.mainBundle()
+			return Bundle.main
 		}
 	}
 	

@@ -10,30 +10,30 @@ import Foundation
 @testable import Applivery
 
 
-class UserDefaultsMock: UserDefaults {
+class UserDefaultsMock: UserDefaultsProtocol {
 	
 	// INPUTS
-	var inDictionary: [String: AnyObject]?
+	var inDictionary: [String: Any]?
 	
 	// OUTPUTS
-	var outSyncedDictionary: [String: AnyObject]?
+	var outSyncedDictionary: [String: Any]?
 	
 	
-	private var tempDictionary = [String: AnyObject]()
+	fileprivate var tempDictionary = [String: Any]()
 	
 	
 	// MARK - Public Methods
 	
-	func valueForKey(key: String) -> AnyObject? {
+	func value(forKey key: String) -> Any? {
 		return self.inDictionary?[key]
 	}
 	
-	func setValue(value: AnyObject?, forKey key: String) {
+	func setValue(_ value: Any?, forKey key: String) {
 		self.tempDictionary[key] = value
 	}
 	
-	func setBool(value: Bool, forKey key: String) {
-		self.tempDictionary[key] = value
+	func set(_ value: Bool, forKey key: String) {
+		self.tempDictionary[key] = value as AnyObject?
 	}
 	
 	func synchronize() -> Bool {

@@ -14,41 +14,41 @@ class Request {
 	var method = "GET"
 	var headers: [String: String]!
 	var urlParams: [String: String]?
-	var bodyParams: [String: AnyObject]?
+	var bodyParams: [String: Any]?
 	
-	private var url: NSURL!
-	private var request: NSMutableURLRequest!
+	fileprivate var url: URL!
+	fileprivate var request: NSMutableURLRequest!
 	
 	
-	func sendAsync(completionHandler: (Response) -> Void) {
-		self.url = NSURL(string: GlobalConfig.Host + self.endpoint)
-		let session = NSURLSession.sharedSession()
-		self.request = NSMutableURLRequest(URL: url!)
-		self.request.HTTPMethod = self.method
+	func sendAsync(_ completionHandler: @escaping (Response) -> Void) {
+		self.url = URL(string: GlobalConfig.Host + self.endpoint)
+		let session = URLSession.shared
+		self.request = NSMutableURLRequest(url: url!)
+		self.request.httpMethod = self.method
 		
 		if let bodyParams = self.bodyParams {
-			request.HTTPBody = JSON(json: bodyParams).toData()
+			request.httpBody = JSON(json: bodyParams as AnyObject).toData() as Data?
 		}
 		
 		self.setHeaders(self.request)
 		self.logRequest()
 
-		let dataTask = session.dataTaskWithRequest(self.request) { data, response, error in
-			let res = Response(data: data, response: response, error: error)
+		let task = session.dataTask(with: self.request as URLRequest, completionHandler: { data, response, error in
+			let res = Response(data: data, response: response, error: error as NSError?)
 
 			runOnMainThread {
 				completionHandler(res)
 			}
-		}
+		}) 
 		
-		dataTask.resume()
+		task.resume()
 	}
 	
 	
 	// MARK: Private Helpers
 	
-	private func setHeaders(request: NSMutableURLRequest) {
-		let version = NSBundle.AppliveryBundle().infoDictionary!["CFBundleShortVersionString"] as! String
+	fileprivate func setHeaders(_ request: NSMutableURLRequest) {
+		let version = Bundle.AppliveryBundle().infoDictionary!["CFBundleShortVersionString"] as! String
 		
 		request.setValue("application/json",		 forHTTPHeaderField: "Content-Type")
 		request.setValue(GlobalConfig.shared.apiKey, forHTTPHeaderField: "Authorization")
@@ -57,29 +57,29 @@ class Request {
 	}
 	
 	
-	private func logRequest() {
-		if GlobalConfig.shared.logLevel != .Debug {
+	fileprivate func logRequest() {
+		if GlobalConfig.shared.logLevel != .debug {
 			return
 		}
 		
 		Log("******** REQUEST ********")
-		Log(" - URL:\t" + self.url.absoluteString!)
-		Log(" - METHOD:\t" + self.request.HTTPMethod)
+		Log(" - URL:\t" + self.url.absoluteString)
+		Log(" - METHOD:\t" + self.request.httpMethod)
 		self.logBody()
 		self.logHeaders()
 		Log("*************************\n")
 	}
 	
-	private func logBody() {
+	fileprivate func logBody() {
 		guard
-		let body = self.request.HTTPBody,
+		let body = self.request.httpBody,
 		let json = try? JSON.dataToJson(body)
 		else { return }
 		
 		Log(" - BODY:\n\(json)")
 	}
 	
-	private func logHeaders() {
+	fileprivate func logHeaders() {
 		guard let headers = self.request.allHTTPHeaderFields else { return }
 		
 		Log(" - HEADERS: {")

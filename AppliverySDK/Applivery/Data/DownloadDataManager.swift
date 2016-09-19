@@ -10,35 +10,35 @@ import Foundation
 
 
 enum DownloadUrlResponse {
-	case Success(url: String)
-	case Error(message: String)
+	case success(url: String)
+	case error(message: String)
 }
 
 
 protocol PDownloadDataManager {
-	func downloadUrl(lastBuildId: String, completionHandler: (response: DownloadUrlResponse) -> Void)
+	func downloadUrl(_ lastBuildId: String, completionHandler: @escaping (_ response: DownloadUrlResponse) -> Void)
 }
 
 
 class DownloadDataManager: PDownloadDataManager {
 	
-	private var service: PDownloadService
+	fileprivate var service: PDownloadService
 	
 	init(service: PDownloadService = DownloadService()) {
 		self.service = service
 	}
 	
 	
-	func downloadUrl(lastBuildId: String, completionHandler: (response: DownloadUrlResponse) -> Void) {
+	func downloadUrl(_ lastBuildId: String, completionHandler: @escaping (_ response: DownloadUrlResponse) -> Void) {
 		self.service.fetchDownloadToken(lastBuildId) { response in
 			switch response {
 				
-			case .Success(let token):
+			case .success(let token):
 				let itms_service = "itms-services://?action=download-manifest&url="
-				completionHandler(response: .Success(url: "\(itms_service)\(GlobalConfig.Host)/download/\(lastBuildId)/manifest/\(token)"))
+				completionHandler(.success(url: "\(itms_service)\(GlobalConfig.Host)/download/\(lastBuildId)/manifest/\(token)"))
 				
-			case .Error(let error):
-				completionHandler(response: .Error(message: error.message()))
+			case .error(let error):
+				completionHandler(.error(message: error.message()))
 			}
 		}
 	}

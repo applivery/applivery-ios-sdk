@@ -20,9 +20,9 @@ class StartInteractor {
 	
 	var output: StartInteractorOutput!
 	
-	private let configDataManager: PConfigDataManager
-	private let globalConfig: GlobalConfig
-	private let eventDetector: EventDetector
+	fileprivate let configDataManager: PConfigDataManager
+	fileprivate let globalConfig: GlobalConfig
+	fileprivate let eventDetector: EventDetector
 	
 	
 	// MARK: Initializers
@@ -59,16 +59,16 @@ class StartInteractor {
 	
 	// MARK: Private Methods
 	
-	private func updateConfig() {
+	fileprivate func updateConfig() {
 		self.configDataManager.updateConfig { response in
 			switch response {
 				
-			case .Success(let config, let version):
+			case .success(let config, let version):
 				if !self.checkForceUpdate(config, version: version) {
 					self.checkOtaUpdate(config, version: version)
 				}
 				
-			case .Error:
+			case .error:
 				let currentConfig = self.configDataManager.getCurrentConfig()
 				if !self.checkForceUpdate(currentConfig.config, version: currentConfig.version) {
 					self.checkOtaUpdate(currentConfig.config, version: currentConfig.version)
@@ -77,7 +77,7 @@ class StartInteractor {
 		}
 	}
 	
-	private func checkForceUpdate(config: Config?, version: String) -> Bool {
+	fileprivate func checkForceUpdate(_ config: Config?, version: String) -> Bool {
 		guard let conf = config else { return false }
 		guard conf.forceUpdate else { return false }
 		
@@ -91,7 +91,7 @@ class StartInteractor {
 		return false
 	}
 	
-	private func checkOtaUpdate(config: Config?, version: String) {
+	fileprivate func checkOtaUpdate(_ config: Config?, version: String) {
 		guard let conf = config else { return }
 		guard conf.otaUpdate else { return }
 		
@@ -101,16 +101,16 @@ class StartInteractor {
 		}
 	}
 	
-	private func isOlder(currentVersion: String, minVersion: String) -> Bool {
+	fileprivate func isOlder(_ currentVersion: String, minVersion: String) -> Bool {
 		let (current, min) = self.equalLengthFillingWithZeros(currentVersion, b: minVersion)
-		let result = current.compare(min, options: NSStringCompareOptions.NumericSearch, range: nil, locale: nil)
+		let result = current.compare(min, options: NSString.CompareOptions.numeric, range: nil, locale: nil)
 		
-		return result == NSComparisonResult.OrderedAscending
+		return result == ComparisonResult.orderedAscending
 	}
 	
-	private func equalLengthFillingWithZeros(a: String, b: String) -> (String, String) {
-		let componentsA = a.componentsSeparatedByString(".")
-		let componentsB = b.componentsSeparatedByString(".")
+	fileprivate func equalLengthFillingWithZeros(_ a: String, b: String) -> (String, String) {
+		let componentsA = a.components(separatedBy: ".")
+		let componentsB = b.components(separatedBy: ".")
 		
 		if componentsA.count == componentsB.count {
 			return (a, b)
@@ -127,12 +127,12 @@ class StartInteractor {
 		}
 	}
 	
-	private func fillWithZeros(s: [String], length: Int) -> String {
+	fileprivate func fillWithZeros(_ s: [String], length: Int) -> String {
 		var string = s
 		for _ in 1...length {
 			string.append("0")
 		}
 		
-		return string.joinWithSeparator(".")
+		return string.joined(separator: ".")
 	}
 }
