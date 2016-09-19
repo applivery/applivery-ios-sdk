@@ -14,12 +14,12 @@ class UpdateVC: UIViewController, UpdateView {
 	var presenter: UpdatePresenter!
 	
 	// UI Properties
-	@IBOutlet private weak var labelTitle: UILabel!
-	@IBOutlet private weak var labelUpdateMessage: UILabel!
-	@IBOutlet private weak var buttonUpdate: UIButton!
-	@IBOutlet private weak var spiner: UIActivityIndicatorView!
+	@IBOutlet fileprivate weak var labelTitle: UILabel!
+	@IBOutlet fileprivate weak var labelUpdateMessage: UILabel!
+	@IBOutlet fileprivate weak var buttonUpdate: UIButton!
+	@IBOutlet fileprivate weak var spiner: UIActivityIndicatorView!
 	
-	private let alert = UIAlertController(title: Localize("sdk_name"), message: nil, preferredStyle: .Alert)
+	fileprivate let alert = UIAlertController(title: Localize("sdk_name"), message: nil, preferredStyle: .alert)
 	
 	
 	// MARK - Factory method
@@ -36,51 +36,51 @@ class UpdateVC: UIViewController, UpdateView {
 		self.presenter.viewDidLoad()
 	}
 	
-	override func preferredStatusBarStyle() -> UIStatusBarStyle {
-		return .LightContent
+	override var preferredStatusBarStyle : UIStatusBarStyle {
+		return .lightContent
 	}
 	
 	
 	// MARK - UI Actions
 	
-	@IBAction func onButtonUpdateTap(sender: UIButton) {
+	@IBAction func onButtonUpdateTap(_ sender: UIButton) {
 		self.presenter.userDidTapDownload()
 	}
 	
 	
 	// MARK - Presenter
 	
-	func showUpdateMessage(message: String) {
+	func showUpdateMessage(_ message: String) {
 		self.labelUpdateMessage.text = message
 	}
 	
 	func showLoading() {
 		self.spiner.startAnimating()
-		self.spiner.hidden = false
-		self.buttonUpdate.hidden = true
+		self.spiner.isHidden = false
+		self.buttonUpdate.isHidden = true
 	}
 	
 	func stopLoading() {
 		self.spiner.stopAnimating()
-		self.spiner.hidden = true
-		self.buttonUpdate.hidden = false
+		self.spiner.isHidden = true
+		self.buttonUpdate.isHidden = false
 	}
 	
-	func showErrorMessage(message: String) {
+	func showErrorMessage(_ message: String) {
 		self.alert.message = message
-		self.presentViewController(self.alert, animated: true, completion: nil)
+		self.present(self.alert, animated: true, completion: nil)
 	}
 	
 	
 	// MARK - Private Helpers
 	
-	private func setupView() {
+	fileprivate func setupView() {
 		self.labelTitle.text = Localize("sdk_name")
 		
-		self.buttonUpdate.setTitle(Localize("update_view_button_update"), forState: .Normal)
+		self.buttonUpdate.setTitle(Localize("update_view_button_update"), for: UIControlState())
 		self.buttonUpdate.layer.cornerRadius = 6
 		
-		self.alert.addAction(UIAlertAction(title: Localize("alert_button_ok"), style: UIAlertActionStyle.Default, handler: nil))
+		self.alert.addAction(UIAlertAction(title: Localize("alert_button_ok"), style: UIAlertActionStyle.default, handler: nil))
 	}
 	
 }

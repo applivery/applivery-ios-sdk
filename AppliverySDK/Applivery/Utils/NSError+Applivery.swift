@@ -11,13 +11,13 @@ import Foundation
 
 extension NSError {
 	
-	class func UnexpectedError(debugMessage: String? = nil, code: Int = -1) -> NSError {
+	class func UnexpectedError(_ debugMessage: String? = nil, code: Int = -1) -> NSError {
 		let error = AppliveryError(Localize("error_unexpected"), debugMessage: debugMessage, code: code)
 		
 		return error
 	}
 	
-	class func AppliveryError(message: String? = nil, debugMessage: String? = nil, code: Int = -1) -> NSError {
+	class func AppliveryError(_ message: String? = nil, debugMessage: String? = nil, code: Int = -1) -> NSError {
 		var userInfo: [String: String] = [:]
 		
 		if message != nil {

@@ -12,25 +12,25 @@ import Foundation
 
 extension UIFont
 {
-	internal static func loadAppliveryFont(filenameString: String)
+	internal static func loadAppliveryFont(_ filenameString: String)
 	{
 		// Workaround to Apple's bug: http://stackoverflow.com/questions/24900979/cgfontcreatewithdataprovider-hangs-in-airplane-mode
-		self.familyNames()
+//		self.familyNames
 		
-		let bundle = NSBundle.AppliveryBundle()
-		guard let pathForResourceString = bundle.pathForResource(filenameString, ofType: "ttf") else {
+		let bundle = Bundle.AppliveryBundle()
+		guard let pathForResourceString = bundle.path(forResource: filenameString, ofType: "ttf") else {
 			return LogWarn("UIFont+:  Failed to register font - path for resource not found.")
 		}
 		
-		guard let fontData = NSData(contentsOfFile: pathForResourceString) else	{
+		guard let fontData = try? Data(contentsOf: URL(fileURLWithPath: pathForResourceString)) else	{
 			return LogWarn("UIFont+:  Failed to register font - font data could not be loaded.")
 		}
 		
-		guard let dataProvider = CGDataProviderCreateWithCFData(fontData) else {
+		guard let dataProvider = CGDataProvider(data: fontData as CFData) else {
 			return LogWarn("UIFont+:  Failed to register font - data provider could not be loaded.")
 		}
 		
-		let fontRef = CGFontCreateWithDataProvider(dataProvider)
+		let fontRef = CGFont(dataProvider)
 		
 		var errorRef: Unmanaged<CFError>? = nil
 		if (CTFontManagerRegisterGraphicsFont(fontRef, &errorRef) == false)

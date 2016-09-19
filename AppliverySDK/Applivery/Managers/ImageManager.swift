@@ -16,7 +16,7 @@ protocol PImageManager {
 
 class ImageManager: PImageManager {
 	
-	private var screenshot: Screenshot!
+	fileprivate var screenshot: Screenshot!
 	
 	func getScreenshot() -> Screenshot {
 		self.screenshot = Screenshot.capture()

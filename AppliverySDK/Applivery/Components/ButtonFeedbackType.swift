@@ -19,7 +19,7 @@ class ButtonFeedbackType: UIButton {
 		}
 	}
 	
-	override var selected: Bool {
+	override var isSelected: Bool {
 		willSet(newValue) {
 			self.toState(newValue)
 		}
@@ -41,22 +41,22 @@ class ButtonFeedbackType: UIButton {
 	
 	// MARK - Private Helpers
 	
-	private func setupView() {
-		self.setTitleColor(UIColor.whiteColor(), forState: .Selected)
-		self.setTitleColor(UIColor.LabelBlack(), forState: .Normal)
+	fileprivate func setupView() {
+		self.setTitleColor(UIColor.white, for: .selected)
+		self.setTitleColor(UIColor.LabelBlack(), for: UIControlState())
 		
 	}
 	
-	private func toState(selected: Bool) {
+	fileprivate func toState(_ selected: Bool) {
 		if selected {
 			self.backgroundColor = UIColor.AppliveryBig()
 			
 			if let exclusive = self.exclusive {
-				exclusive.selected = false
+				exclusive.isSelected = false
 			}
 		}
 		else {
-			self.backgroundColor = UIColor.clearColor()
+			self.backgroundColor = UIColor.clear
 		}
 	}
 	

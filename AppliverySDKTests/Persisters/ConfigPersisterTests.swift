@@ -183,5 +183,5 @@ class ConfigPersisterTests: XCTestCase {
 }
 
 func ==(a: [String: AnyObject], b: [String: AnyObject]) -> Bool {
-	return NSDictionary(dictionary: a).isEqualToDictionary(b)
+	return NSDictionary(dictionary: a).isEqual(to: b)
 }

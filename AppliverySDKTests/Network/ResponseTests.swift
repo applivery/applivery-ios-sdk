@@ -52,7 +52,7 @@ class ResponseTests: XCTestCase {
 	}
 	
 	func test_init_returnsError_whenResponseIsNil() {
-		let data = NSData()
+		let data = Data()
 		let error = NSError.AppliveryError("TEST MESSAGE")
 		let response = Response(data: data, response: nil, error: error)
 		
@@ -80,7 +80,7 @@ class ResponseTests: XCTestCase {
 	}
 	
 	func test_init_returnsError_whenResponseIsError() {
-		let data = NSData()
+		let data = Data()
 		let error = NSError.AppliveryError("TEST MESSAGE")
 		let urlResponse = self.responseError()
 		
@@ -96,7 +96,7 @@ class ResponseTests: XCTestCase {
 	}
 	
 	func test_init_returnsInvalidCredentials_whenResponseIsErrorInvalidCrendentials_andErrorIsNil() {
-		let data = NSData()
+		let data = Data()
 		let urlResponse = self.responseInvalidCredentials()
 		
 		let response = Response(data: data, response: urlResponse, error: nil)
@@ -125,7 +125,7 @@ class ResponseTests: XCTestCase {
 	}
 	
 	func test_init_returnsErrorParsingJSON_whenResponseSuccess_butDataIsNotJSON() {
-		let data = NSData()
+		let data = Data()
 		let urlResponse = self.responseSuccess()
 		
 		let response = Response(data: data, response: urlResponse, error: nil)
@@ -219,14 +219,14 @@ class ResponseTests: XCTestCase {
 
 	// MARK - Helpers
 	
-	private let UnexpectedErrorJson = "Unexpected error trying to parse Json"
-	private let InvalidCredentials = "Invalid credentials"
+	fileprivate let UnexpectedErrorJson = "Unexpected error trying to parse Json"
+	fileprivate let InvalidCredentials = "Invalid credentials"
 	
-	func responseError() -> NSHTTPURLResponse {
-		let response = NSHTTPURLResponse(
-			URL: NSURL(string: "http://url_test")!,
+	func responseError() -> HTTPURLResponse {
+		let response = HTTPURLResponse(
+			url: URL(string: "http://url_test")!,
 			statusCode: 404,
-			HTTPVersion: nil,
+			httpVersion: nil,
 			headerFields: [
 				"header1": "test1",
 				"header2": "test2"
@@ -235,11 +235,11 @@ class ResponseTests: XCTestCase {
 		return response!
 	}
 	
-	func responseInvalidCredentials() -> NSHTTPURLResponse {
-		let response = NSHTTPURLResponse(
-			URL: NSURL(string: "http://url_test")!,
+	func responseInvalidCredentials() -> HTTPURLResponse {
+		let response = HTTPURLResponse(
+			url: URL(string: "http://url_test")!,
 			statusCode: 401,
-			HTTPVersion: nil,
+			httpVersion: nil,
 			headerFields: [
 				"header1": "test1",
 				"header2": "test2"
@@ -248,11 +248,11 @@ class ResponseTests: XCTestCase {
 		return response!
 	}
 	
-	func responseSuccess() -> NSHTTPURLResponse {
-		let response = NSHTTPURLResponse(
-			URL: NSURL(string: "http://url_test")!,
+	func responseSuccess() -> HTTPURLResponse {
+		let response = HTTPURLResponse(
+			url: URL(string: "http://url_test")!,
 			statusCode: 200,
-			HTTPVersion: nil,
+			httpVersion: nil,
 			headerFields: [
 				"header1": "test1",
 				"header2": "test2"
@@ -269,42 +269,42 @@ class ResponseTests: XCTestCase {
 		)
 	}
 	
-	func dataJsonUnexpected() -> NSData {
+	func dataJsonUnexpected() -> Data {
 		let json = ["UnexpectedJson": true]
-		let data = try! NSJSONSerialization.dataWithJSONObject(json, options: .PrettyPrinted)
+		let data = try! JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
 		
 		return data
 	}
 	
-	func dataJsonSuccess() -> NSData {
+	func dataJsonSuccess() -> Data {
 		let json = [
 			"status": true,
 			"response": "valid json response"
-		]
-		let data = try! NSJSONSerialization.dataWithJSONObject(json, options: .PrettyPrinted)
+		] as [String : Any]
+		let data = try! JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
 		
 		return data
 	}
 	
-	func dataJsonFail() -> NSData {
+	func dataJsonFail() -> Data {
 		let json = [
 			"status": false,
 			"error": [
 				"code": 10001,
 				"msg": "TEST ERROR MESSAGE"
 			]
-		]
-		let data = try! NSJSONSerialization.dataWithJSONObject(json, options: .PrettyPrinted)
+		] as [String : Any]
+		let data = try! JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
 		
 		return data
 	}
 	
-	func dataJsonFailWithourErrorField() -> NSData {
+	func dataJsonFailWithourErrorField() -> Data {
 		let json = [
 			"status": false,
 			"someIrrelevantField": "this field has no purpose"
-		]
-		let data = try! NSJSONSerialization.dataWithJSONObject(json, options: .PrettyPrinted)
+		] as [String : Any]
+		let data = try! JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
 		
 		return data
 	}
@@ -315,6 +315,6 @@ class ResponseTests: XCTestCase {
 }
 
 
-func ==(lhs: [String: String]?, rhs: [NSObject: AnyObject]) -> Bool {
-	return NSDictionary(dictionary: lhs!).isEqualToDictionary(rhs)
+func ==(lhs: [String: String]?, rhs: [AnyHashable: Any]) -> Bool {
+	return NSDictionary(dictionary: lhs!).isEqual(to: rhs)
 }

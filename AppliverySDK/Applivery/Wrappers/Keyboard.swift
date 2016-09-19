@@ -11,30 +11,30 @@ import Foundation
 
 class Keyboard {
 	
-	class func willShow(notificationHandler: (NSNotification) -> Void) {
-		self.keyboardEvent(UIKeyboardWillShowNotification, notificationHandler: notificationHandler)
+	class func willShow(_ notificationHandler: @escaping (Notification) -> Void) {
+		self.keyboardEvent(NSNotification.Name.UIKeyboardWillShow.rawValue, notificationHandler: notificationHandler)
 	}
 	
-	class func didShow(notificationHandler: (NSNotification) -> Void) {
-		self.keyboardEvent(UIKeyboardDidShowNotification, notificationHandler: notificationHandler)
+	class func didShow(_ notificationHandler: @escaping (Notification) -> Void) {
+		self.keyboardEvent(NSNotification.Name.UIKeyboardDidShow.rawValue, notificationHandler: notificationHandler)
 	}
 	
-	class func willHide(notificationHandler: (NSNotification) -> Void) {
-		self.keyboardEvent(UIKeyboardWillHideNotification, notificationHandler: notificationHandler)
+	class func willHide(_ notificationHandler: @escaping (Notification) -> Void) {
+		self.keyboardEvent(NSNotification.Name.UIKeyboardWillHide.rawValue, notificationHandler: notificationHandler)
 	}
 	
-	class func size(notification: NSNotification) -> CGSize? {
+	class func size(_ notification: Notification) -> CGSize? {
 		guard
-			let info = notification.userInfo,
+			let info = (notification as NSNotification).userInfo,
 			let frame = info[UIKeyboardFrameEndUserInfoKey] as? NSValue
 			else { return nil }
 		
-		return frame.CGRectValue().size
+		return frame.cgRectValue.size
 	}
 	
-	class func animationDuration(notification: NSNotification) -> NSTimeInterval {
+	class func animationDuration(_ notification: Notification) -> TimeInterval {
 		guard
-			let info = notification.userInfo,
+			let info = (notification as NSNotification).userInfo,
 			let value = info[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber
 			else {
 				LogWarn("Couldn't get keyboard animation duration")
@@ -44,14 +44,14 @@ class Keyboard {
 		return value.doubleValue
 	}
 	
-	class func animationCurve(notification: NSNotification) -> UIViewAnimationOptions {
+	class func animationCurve(_ notification: Notification) -> UIViewAnimationOptions {
 		guard
-			let info = notification.userInfo,
+			let info = (notification as NSNotification).userInfo,
 			let curveInt = info[UIKeyboardAnimationCurveUserInfoKey] as? Int,
 			let curve = UIViewAnimationCurve(rawValue: curveInt)
 			else {
 				LogWarn("Couldn't get keyboard animation curve")
-				return .CurveEaseIn
+				return .curveEaseIn
 		}
 		
 		return curve.toOptions()
@@ -60,13 +60,13 @@ class Keyboard {
 	
 	// MARK - Private Helpers
 	
-	private class func keyboardEvent(event: String, notificationHandler: (NSNotification) -> Void) {
-		NSNotificationCenter.defaultCenter()
-			.addObserverForName(
-				event,
+	fileprivate class func keyboardEvent(_ event: String, notificationHandler: @escaping (Notification) -> Void) {
+		NotificationCenter.default
+			.addObserver(
+				forName: NSNotification.Name(rawValue: event),
 				object: nil,
-				queue: .mainQueue(),
-				usingBlock: notificationHandler
+				queue: nil,
+				using: notificationHandler
 		)
 	}
 	

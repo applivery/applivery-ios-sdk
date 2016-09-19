@@ -10,7 +10,7 @@ import Foundation
 
 
 protocol EventDetector {
-	func listenEvent(onDectention: () -> Void)
+	func listenEvent(_ onDectention: @escaping () -> Void)
 	func endListening()
 }
 
@@ -18,17 +18,16 @@ class ScreenshotDetector: EventDetector {
 	
 	var observer:  AnyObject?
 	
-	func listenEvent(onDetection: () -> Void) {
+	func listenEvent(_ onDetection: @escaping () -> Void) {
 		guard GlobalConfig.shared.feedbackEnabled else { return }
 		
 		LogInfo("Applivery is listening for screenshot event")
 		
-		self.observer = NSNotificationCenter
-			.defaultCenter()
-			.addObserverForName(
-				UIApplicationUserDidTakeScreenshotNotification,
+		self.observer = NotificationCenter.default
+			.addObserver(
+				forName: NSNotification.Name.UIApplicationUserDidTakeScreenshot,
 				object: nil,
-				queue: NSOperationQueue.mainQueue()) { _ in
+				queue: OperationQueue.main) { _ in
 					onDetection()
 		}
 	}
@@ -38,7 +37,7 @@ class ScreenshotDetector: EventDetector {
 		
 		LogInfo("Applivery has stopped for screenshot event")
 		
-		NSNotificationCenter.defaultCenter().removeObserver(observer)
+		NotificationCenter.default.removeObserver(observer)
 	}
 	
 }

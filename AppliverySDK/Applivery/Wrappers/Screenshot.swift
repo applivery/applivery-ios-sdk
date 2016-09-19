@@ -23,12 +23,12 @@ class Screenshot {
 		return screenshot
 	}
 	
-	private class func takeScreenshot() -> UIImage {
-		let layer = UIApplication.sharedApplication().keyWindow!.layer
-		let scale = UIScreen.mainScreen().scale
+	fileprivate class func takeScreenshot() -> UIImage {
+		let layer = UIApplication.shared.keyWindow!.layer
+		let scale = UIScreen.main.scale
 		UIGraphicsBeginImageContextWithOptions(layer.frame.size, false, scale);
 		
-		layer.renderInContext(UIGraphicsGetCurrentContext()!)
+		layer.render(in: UIGraphicsGetCurrentContext()!)
 		let image = UIGraphicsGetImageFromCurrentImageContext()
 		UIGraphicsEndImageContext()
 		
@@ -47,7 +47,7 @@ class Screenshot {
 	
 	func base64() -> String? {
 		let imageData = UIImagePNGRepresentation(self.image)
-		let base64String = imageData?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength) 
+		let base64String = imageData?.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters) 
 		
 		return base64String
 	}

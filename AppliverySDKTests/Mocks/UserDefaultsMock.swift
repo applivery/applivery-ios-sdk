@@ -19,24 +19,24 @@ class UserDefaultsMock: UserDefaults {
 	var outSyncedDictionary: [String: AnyObject]?
 	
 	
-	private var tempDictionary = [String: AnyObject]()
+	fileprivate var tempDictionary = [String: AnyObject]()
 	
 	
 	// MARK - Public Methods
 	
-	func valueForKey(key: String) -> AnyObject? {
+	func valueForKey(_ key: String) -> AnyObject? {
 		return self.inDictionary?[key]
 	}
 	
-	func setValue(value: AnyObject?, forKey key: String) {
+	func setValue(_ value: AnyObject?, forKey key: String) {
 		self.tempDictionary[key] = value
 	}
 	
-	func setBool(value: Bool, forKey key: String) {
-		self.tempDictionary[key] = value
+	override func set(_ value: Bool, forKey key: String) {
+		self.tempDictionary[key] = value as AnyObject?
 	}
 	
-	func synchronize() -> Bool {
+	override func synchronize() -> Bool {
 		self.outSyncedDictionary = self.tempDictionary
 		return true
 	}

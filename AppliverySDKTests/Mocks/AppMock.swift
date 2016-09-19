@@ -37,7 +37,7 @@ class AppMock: PApp {
 		return ""
 	}
 	
-	func openUrl(url: String) -> Bool {
+	func openUrl(_ url: String) -> Bool {
 		self.outOpenUrl = (true, url)
 		return self.inOpenUrlResult
 	}
@@ -50,22 +50,22 @@ class AppMock: PApp {
 		self.outHideLoadingCalled = true
 	}
 
-	func showOtaAlert(message: String, downloadHandler: () -> Void) {
+	func showOtaAlert(_ message: String, downloadHandler: @escaping () -> Void) {
 		self.outOtaAlert = (true, message)
 		self.outDownloadClosure = downloadHandler
 	}
 	
-	func showErrorAlert(message: String, retryHandler: () -> Void) {
+	func showErrorAlert(_ message: String, retryHandler: @escaping () -> Void) {
 		self.outAlertError = (true, message)
 		self.outRetryClosure = retryHandler
 	}
 	
-	func waitForReadyThen(onReady: () -> Void) {
+	func waitForReadyThen(_ onReady: () -> Void) {
 		self.outWaitForReadyCalled = true
 		onReady()
 	}
 	
-	func presentModal(viewController: UIViewController) {
+	func presentModal(_ viewController: UIViewController) {
 		self.outPresentModal = (true, viewController)
 	}
 }

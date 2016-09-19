@@ -18,16 +18,16 @@ extension UIStoryboard {
 	}
 	
 	
-	class func viewController(identifier: String) -> UIViewController {
+	class func viewController(_ identifier: String) -> UIViewController {
 		let storyboard = UIStoryboard.storyBoard()
-		let vc = storyboard.instantiateViewControllerWithIdentifier(identifier)
+		let vc = storyboard.instantiateViewController(withIdentifier: identifier)
 		
 		return vc
 	}
 	
 	
-	private class func storyBoard() -> UIStoryboard {
-		return UIStoryboard(name: "Applivery", bundle: NSBundle.AppliveryBundle())
+	fileprivate class func storyBoard() -> UIStoryboard {
+		return UIStoryboard(name: "Applivery", bundle: Bundle.AppliveryBundle())
 	}
 	
 }

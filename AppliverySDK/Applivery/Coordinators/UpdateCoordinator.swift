@@ -19,10 +19,10 @@ protocol PUpdateCoordinator {
 
 class UpdateCoordinator: PUpdateCoordinator, UpdateInteractorOutput {
 	
-	private lazy var updateVC = UpdateVC.viewController()
-	private var updateInteractor: PUpdateInteractor
-	private var app: PApp
-	private var forceUpdateCalled = false
+	fileprivate lazy var updateVC = UpdateVC.viewController()
+	fileprivate var updateInteractor: PUpdateInteractor
+	fileprivate var app: PApp
+	fileprivate var forceUpdateCalled = false
 	
 	
 	// MARK - Initializers
@@ -66,7 +66,7 @@ class UpdateCoordinator: PUpdateCoordinator, UpdateInteractorOutput {
 		self.app.hideLoading()
 	}
 	
-	func downloadDidFail(message: String) {
+	func downloadDidFail(_ message: String) {
 		self.app.hideLoading()
 		self.app.showErrorAlert(message) {
 			self.downloadLastBuild()
@@ -76,7 +76,7 @@ class UpdateCoordinator: PUpdateCoordinator, UpdateInteractorOutput {
 	
 	// MARK - Private Helpers
 	
-	private func downloadLastBuild() {
+	fileprivate func downloadLastBuild() {
 		self.app.showLoading()
 		self.updateInteractor.downloadLastBuild()
 	}

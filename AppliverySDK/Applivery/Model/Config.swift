@@ -8,8 +8,8 @@
 
 import UIKit
 
-enum ConfigError: ErrorType {
-	case ParseJson
+enum ConfigError: Error {
+	case parseJson
 }
 
 class Config {
@@ -30,7 +30,7 @@ class Config {
 		guard
 			let forceUpdate = json["sdk.ios.forceUpdate"]?.toBool(),
 			let otaUpdate	= json["sdk.ios.ota"]?.toBool()
-			else { throw ConfigError.ParseJson }
+			else { throw ConfigError.parseJson }
 		
 		
 		self.forceUpdate = forceUpdate
@@ -47,7 +47,7 @@ class Config {
 	// MARK - Private Helpers
 	
 	/// get an "optional" param that should exists
-	private func getParam(parameter: String, json: JSON, shouldExists: Bool) -> String {
+	fileprivate func getParam(_ parameter: String, json: JSON, shouldExists: Bool) -> String {
 		guard let param = json[parameter]?.toString() else {
 			if shouldExists {
 				LogWarn("Error parsing JSON: \(parameter) parameter not found")

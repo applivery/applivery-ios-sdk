@@ -14,23 +14,23 @@ public func >=(levelA: LogLevel, levelB: LogLevel) -> Bool {
 }
 
 
-func Log(log: String) {
+func Log(_ log: String) {
 	guard
 		!GlobalConfig.shared.appStoreRelease
-		&& GlobalConfig.shared.logLevel != .None
+		&& GlobalConfig.shared.logLevel != .none
 		else { return }
 	
 	print("Applivery :: " + log)
 }
 
-func LogInfo(log: String) {
-	guard GlobalConfig.shared.logLevel >= .Info else { return }
+func LogInfo(_ log: String) {
+	guard GlobalConfig.shared.logLevel >= .info else { return }
 
 	Log(log)
 }
 
-func LogWarn(message: String, filename: NSString = #file, line: Int = #line, funcname: String = #function) {
-	guard GlobalConfig.shared.logLevel >= .Error else { return }
+func LogWarn(_ message: String, filename: NSString = #file, line: Int = #line, funcname: String = #function) {
+	guard GlobalConfig.shared.logLevel >= .error else { return }
 	
 	let caller = "\(filename.lastPathComponent)(\(line)) \(funcname)"
 	Log("🚸🚸🚸 WARNING: " + message)
@@ -38,9 +38,9 @@ func LogWarn(message: String, filename: NSString = #file, line: Int = #line, fun
 }
 
 
-func LogError(error: NSError?, filename: NSString = #file, line: Int = #line, funcname: String = #function) {
+func LogError(_ error: NSError?, filename: NSString = #file, line: Int = #line, funcname: String = #function) {
 	guard
-		GlobalConfig.shared.logLevel >= .Error,
+		GlobalConfig.shared.logLevel >= .error,
 		let err = error
 		else { return }
 	
