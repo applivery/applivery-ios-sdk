@@ -1,9 +1,14 @@
 # Applivery iOS SDK
+![Version](https://img.shields.io/badge/version-1.3-blue.svg)
 ![Language](https://img.shields.io/badge/Language-Swift-orange.svg)
-![Version](https://img.shields.io/badge/version-2.0-blue.svg)
 [![Build Status](https://travis-ci.org/applivery/applivery-ios-sdk.svg?branch=master)](https://travis-ci.org/applivery/applivery-ios-sdk)
-[![Coverage Status](https://coveralls.io/repos/github/applivery/applivery-ios-sdk/badge.svg?branch=master)](https://coveralls.io/github/applivery/applivery-ios-sdk?branch=master)
+
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Fastlane Plugin](https://img.shields.io/badge/Fastlane_Plugin-available-brightgreen.svg)](https://github.com/applivery/fastlane-applivery-plugin)
+
+<!--
+[![Coverage Status](https://coveralls.io/repos/github/applivery/applivery-ios-sdk/badge.svg?branch=master)](https://coveralls.io/github/applivery/applivery-ios-sdk?branch=master)
+-->
 
 Framework to support [Applivery.com Mobile App distribution](http://www.applivery.com) for iOS Apps.
 
@@ -40,11 +45,11 @@ You can get your ACCOUNT API KEY in the `Developers` section (left side menu).
 Add the following line to your's Cartfile
 
 ```
-github "applivery/applivery-ios-sdk" ~> 2.0
+github "applivery/applivery-ios-sdk" ~> 1.3
 ```
 and then run `carthage update`. More info about Carthage [here](https://github.com/Carthage/Carthage#installing-carthage).
 
-*Note*: If you need to compile your app using XCode 7, you should use an 1.x version.
+*Note*: If you need to compile your app using XCode 7, you should use v1.2 version.
 
 #### Or you can try manually
 
@@ -52,7 +57,7 @@ and then run `carthage update`. More info about Carthage [here](https://github.c
 1. Drag it to your frameworks folder
 1. Add it to the embedded binaries
 
-	![Embbeded binaries](https://github.com/applivery/applivery-ios-sdk/blob/master/documentation/embbeded_binaries.png)
+![Embbeded binaries](https://github.com/applivery/applivery-ios-sdk/blob/master/documentation/embbeded_binaries.png)
 
 
 #### Objective-C
