@@ -30,12 +30,12 @@ extension UserDefaults: UserDefaultsProtocol {}
 
 class ConfigPersister: NSObject {
 	
-	fileprivate var userDefaults: UserDefaults
+	fileprivate var userDefaults: UserDefaultsProtocol
 	
 	
 	// MARK - Initializers
 	
-	init(userDefaults: UserDefaults = Foundation.UserDefaults.standard) {
+	init(userDefaults: UserDefaultsProtocol = Foundation.UserDefaults.standard) {
 		self.userDefaults = userDefaults
 	}
 	
@@ -73,8 +73,11 @@ class ConfigPersister: NSObject {
 		self.userDefaults.setValue(config.lastVersion as AnyObject?,		 forKey: kLastBuildVersion)
 		self.userDefaults.setValue(config.otaUpdateMessage as AnyObject?,	 forKey: kOtaUpdateMessageKey)
 		
-		self.userDefaults.synchronize()
+		if self.userDefaults.synchronize() {
+			LogInfo("Applivery configuration was updated")
+		} else {
+			LogWarn("Couldn't syncronize Applivery configuration")
+		}
 		
-		LogInfo("Applivery configuration was updated")
 	}
 }

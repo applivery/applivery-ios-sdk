@@ -103,7 +103,7 @@ class FeedbackPresenterTests: XCTestCase {
 	func test_userDidTapSendFeedbackButton_closeFeedback_whenSuccess() {
 		// ARRANGE
 		self.feedbackViewMock.inMessage = "test message"
-		self.feedbackInteractorMock.inResult = .Success
+		self.feedbackInteractorMock.inResult = .success
 		
 		
 		// ACT
@@ -124,7 +124,7 @@ class FeedbackPresenterTests: XCTestCase {
 	func test_userDidTapSendFeedbackButton_showErrorMessage_whenError() {
 		// ARRANGE
 		self.feedbackViewMock.inMessage = "test message"
-		self.feedbackInteractorMock.inResult = .Error("test error")
+		self.feedbackInteractorMock.inResult = .error("test error")
 		
 		
 		// ACT
@@ -146,7 +146,7 @@ class FeedbackPresenterTests: XCTestCase {
 	func test_userDidTapSendFeedbackButton_feedbackSentIsBugType_whenSelectedBugType() {
 		// ARRANGE
 		self.feedbackViewMock.inMessage = "test message"
-		self.feedbackInteractorMock.inResult = .Success
+		self.feedbackInteractorMock.inResult = .success
 		
 		self.feedbackPresenter.userDidSelectedFeedbackType(.Bug)
 		
@@ -169,7 +169,7 @@ class FeedbackPresenterTests: XCTestCase {
 	func test_userDidTapSendFeedbackButton_feedbackSentIsFeedbackType_whenSelectedFeedbackType() {
 		// ARRANGE
 		self.feedbackViewMock.inMessage = "test message"
-		self.feedbackInteractorMock.inResult = .Success
+		self.feedbackInteractorMock.inResult = .success
 		
 		self.feedbackPresenter.userDidSelectedFeedbackType(.Feedback)
 		
@@ -192,7 +192,7 @@ class FeedbackPresenterTests: XCTestCase {
 	func test_userDidTapSendFeedbackButton_feedbackSentHasScreenshot_whenAttachedScreenshot() {
 		// ARRANGE
 		self.feedbackViewMock.inMessage = "test message"
-		self.feedbackInteractorMock.inResult = .Success
+		self.feedbackInteractorMock.inResult = .success
 		
 		let image = UIImage()
 		self.screenshotInteractorMock.inScreenshot = Screenshot(image: image)
@@ -219,7 +219,7 @@ class FeedbackPresenterTests: XCTestCase {
 	func test_userDidTapSendFeedbackButton_feedbackSentHasNoScreenshot_whenNoAttachedScreenshot() {
 		// ARRANGE
 		self.feedbackViewMock.inMessage = "test message"
-		self.feedbackInteractorMock.inResult = .Success
+		self.feedbackInteractorMock.inResult = .success
 		
 		let image = UIImage()
 		self.screenshotInteractorMock.inScreenshot = Screenshot(image: image)

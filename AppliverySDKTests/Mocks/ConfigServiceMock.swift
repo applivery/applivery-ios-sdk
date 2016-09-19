@@ -15,7 +15,7 @@ class ConfigServiceMock: ConfigService {
 	var config: Config!
 	var error: NSError!
 	
-	override func fetchConfig(_ completionHandler: (_ success: Bool, _ config: Config?, _ error: NSError?) -> Void) {
-		completionHandler(success: self.success, config: self.config, error: self.error)
+	override func fetchConfig(_ completionHandler: @escaping (_ success: Bool, _ config: Config?, _ error: NSError?) -> Void) {
+		completionHandler(self.success, self.config, self.error)
 	}
 }

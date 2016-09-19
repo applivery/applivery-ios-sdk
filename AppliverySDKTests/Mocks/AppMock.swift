@@ -60,7 +60,7 @@ class AppMock: PApp {
 		self.outRetryClosure = retryHandler
 	}
 	
-	func waitForReadyThen(_ onReady: () -> Void) {
+	func waitForReadyThen(_ onReady: @escaping () -> Void) {
 		self.outWaitForReadyCalled = true
 		onReady()
 	}

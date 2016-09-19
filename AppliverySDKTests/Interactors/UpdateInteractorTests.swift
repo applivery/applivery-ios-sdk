@@ -132,7 +132,7 @@ class UpdateInteractorTests: XCTestCase {
 	func test_downloadBuild_success() {
 		self.configDataManagerMock.inCurrentConfig = Config()
 		self.configDataManagerMock.inCurrentConfig?.lastBuildId = "123456"
-		self.downloadDataManagerMock.inDownloadResponse = DownloadUrlResponse.Success(url: "url_test")
+		self.downloadDataManagerMock.inDownloadResponse = DownloadUrlResponse.success(url: "url_test")
 		self.appMock.inOpenUrlResult = true
 		
 		self.updateInteractor.downloadLastBuild()
@@ -148,7 +148,7 @@ class UpdateInteractorTests: XCTestCase {
 	func test_downloadBuild_fails_whenCanNotOpenUrl() {
 		self.configDataManagerMock.inCurrentConfig = Config()
 		self.configDataManagerMock.inCurrentConfig?.lastBuildId = "123456"
-		self.downloadDataManagerMock.inDownloadResponse = DownloadUrlResponse.Success(url: "url_test")
+		self.downloadDataManagerMock.inDownloadResponse = DownloadUrlResponse.success(url: "url_test")
 		self.appMock.inOpenUrlResult = false
 		
 		self.updateInteractor.downloadLastBuild()
@@ -176,7 +176,7 @@ class UpdateInteractorTests: XCTestCase {
 	func test_downloadBuild_downloadDataFails_returnsFail() {
 		self.configDataManagerMock.inCurrentConfig = Config()
 		self.configDataManagerMock.inCurrentConfig?.lastBuildId = "123456"
-		self.downloadDataManagerMock.inDownloadResponse = DownloadUrlResponse.Error(message: "test_message")
+		self.downloadDataManagerMock.inDownloadResponse = DownloadUrlResponse.error(message: "test_message")
 		
 		self.updateInteractor.downloadLastBuild()
 		

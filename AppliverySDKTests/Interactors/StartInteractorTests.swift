@@ -161,7 +161,7 @@ class StartInteractorTests: XCTestCase {
 	func test_UpdatedConfigFails_CurrentConfigNoForceUpdate_result_NoForceUpdate() {
 		let appVersion = "1.2.1.5"
 		self.currentConfigNoForceUpdate(appVersion)
-		self.configDataManagerMock.inUpdateConfigResponse = .Error
+		self.configDataManagerMock.inUpdateConfigResponse = .error
 		
 		self.startInteractor.start()
 		
@@ -174,7 +174,7 @@ class StartInteractorTests: XCTestCase {
 	func test_UpdatedConfigFails_CurrentConfigNoShouldUpdate_result_NoForceUpdate() {
 		let appVersion = "1.2.1.5"
 		self.currentConfigNoShouldUpdate(appVersion)
-		self.configDataManagerMock.inUpdateConfigResponse = .Error
+		self.configDataManagerMock.inUpdateConfigResponse = .error
 		
 		self.startInteractor.start()
 		
@@ -188,7 +188,7 @@ class StartInteractorTests: XCTestCase {
 		let appVersion = "1.2.1.5"
 		self.configDataManagerMock.inVersion = appVersion
 		self.configDataManagerMock.inCurrentConfig = nil
-		self.configDataManagerMock.inUpdateConfigResponse = .Error
+		self.configDataManagerMock.inUpdateConfigResponse = .error
 		
 		self.startInteractor.start()
 		
@@ -253,7 +253,7 @@ class StartInteractorTests: XCTestCase {
 	func test_UpdatedConfigFails_CurrentConfigForceUpdate_result_ForceUpdate() {
 		let appVersion = "1.2.1.5"
 		self.currentConfigForceUpdate(appVersion)
-		self.configDataManagerMock.inUpdateConfigResponse = .Error
+		self.configDataManagerMock.inUpdateConfigResponse = .error
 		
 		self.startInteractor.start()
 		
@@ -305,7 +305,7 @@ class StartInteractorTests: XCTestCase {
 	func test_CurrentConfigNoOtaUpdate_result_NoOtaUpdate() {
 		let appVersion = "1.2.1.5"
 		self.currentConfigNoOtaUpdate(appVersion)
-		self.configDataManagerMock.inUpdateConfigResponse = .Error
+		self.configDataManagerMock.inUpdateConfigResponse = .error
 		
 		self.startInteractor.start()
 		
@@ -318,7 +318,7 @@ class StartInteractorTests: XCTestCase {
 	func test_CurrentConfigOtaNoShouldUpdate_result_NoOtaUpdate() {
 		let appVersion = "1.2.1.5"
 		self.currentConfigOtaNoShouldUpdate(appVersion)
-		self.configDataManagerMock.inUpdateConfigResponse = .Error
+		self.configDataManagerMock.inUpdateConfigResponse = .error
 		
 		self.startInteractor.start()
 		
@@ -331,7 +331,7 @@ class StartInteractorTests: XCTestCase {
 	func test_CurrentConfigOtaNoShouldUpdate_with_SameVersion_result_NoOtaUpdate() {
 		let appVersion = "1.0"
 		self.currentConfigOtaNoShouldUpdate(appVersion)
-		self.configDataManagerMock.inUpdateConfigResponse = .Error
+		self.configDataManagerMock.inUpdateConfigResponse = .error
 		
 		self.startInteractor.start()
 		
@@ -370,7 +370,7 @@ class StartInteractorTests: XCTestCase {
 	func test_UpdatedConfigFails_CurrentConfigNoOtapdate_result_NoOTAUpdate() {
 		let appVersion = "1.2.1.5"
 		self.currentConfigNoOtaUpdate(appVersion)
-		self.configDataManagerMock.inUpdateConfigResponse = .Error
+		self.configDataManagerMock.inUpdateConfigResponse = .error
 		
 		self.startInteractor.start()
 		
@@ -383,7 +383,7 @@ class StartInteractorTests: XCTestCase {
 	func test_UpdatedConfigFails_CurrentConfigOtaNoShouldUpdate_result_NoOtaUpdate() {
 		let appVersion = "1.2.1.5"
 		self.currentConfigOtaNoShouldUpdate(appVersion)
-		self.configDataManagerMock.inUpdateConfigResponse = .Error
+		self.configDataManagerMock.inUpdateConfigResponse = .error
 		
 		self.startInteractor.start()
 		
@@ -423,7 +423,7 @@ class StartInteractorTests: XCTestCase {
 	func test_UpdatedConfigFails_CurrentConfigOtaUpdate_result_OtaUpdate() {
 		let appVersion = "1.2.1.5"
 		self.currentConfigOtaUpdate(appVersion)
-		self.configDataManagerMock.inUpdateConfigResponse = .Error
+		self.configDataManagerMock.inUpdateConfigResponse = .error
 		
 		self.startInteractor.start()
 		
@@ -491,7 +491,7 @@ class StartInteractorTests: XCTestCase {
 		updatedConfig.forceUpdate = false
 		updatedConfig.otaUpdate = false
 		updatedConfig.lastVersion = "1.0"
-		self.configDataManagerMock.inUpdateConfigResponse = .Success(config: updatedConfig, version: appVersion)
+		self.configDataManagerMock.inUpdateConfigResponse = .success(config: updatedConfig, version: appVersion)
 	}
 	
 	func updatedConfigNoShouldUpdate(_ appVersion: String, minVersion: String = "1.0") {
@@ -500,7 +500,7 @@ class StartInteractorTests: XCTestCase {
 		updatedConfig.forceUpdate = true
 		updatedConfig.otaUpdate = false
 		updatedConfig.lastVersion = "1.0"
-		self.configDataManagerMock.inUpdateConfigResponse = .Success(config: updatedConfig, version: appVersion)
+		self.configDataManagerMock.inUpdateConfigResponse = .success(config: updatedConfig, version: appVersion)
 	}
 	
 	func updatedConfigForceUpdate(_ appVersion: String, minVersion: String = "2.0") {
@@ -509,7 +509,7 @@ class StartInteractorTests: XCTestCase {
 		updatedConfig.forceUpdate = true
 		updatedConfig.otaUpdate = false
 		updatedConfig.lastVersion = "2.0"
-		self.configDataManagerMock.inUpdateConfigResponse = .Success(config: updatedConfig, version: appVersion)
+		self.configDataManagerMock.inUpdateConfigResponse = .success(config: updatedConfig, version: appVersion)
 	}
 	
 	func currentConfigShouldForceUpdate(_ appVersion: String) {
@@ -553,7 +553,7 @@ class StartInteractorTests: XCTestCase {
 		updatedConfig.forceUpdate = false
 		updatedConfig.otaUpdate = false
 		updatedConfig.lastVersion = "2.0"
-		self.configDataManagerMock.inUpdateConfigResponse = .Success(config: updatedConfig, version: appVersion)
+		self.configDataManagerMock.inUpdateConfigResponse = .success(config: updatedConfig, version: appVersion)
 	}
 	
 	func updatedConfigOtaNoShouldUpdate(_ appVersion: String, lastVersion: String = "1.0") {
@@ -562,7 +562,7 @@ class StartInteractorTests: XCTestCase {
 		updatedConfig.forceUpdate = false
 		updatedConfig.otaUpdate = true
 		updatedConfig.lastVersion = lastVersion
-		self.configDataManagerMock.inUpdateConfigResponse = .Success(config: updatedConfig, version: appVersion)
+		self.configDataManagerMock.inUpdateConfigResponse = .success(config: updatedConfig, version: appVersion)
 	}
 	
 	func updatedConfigOtaUpdate(_ appVersion: String) {
@@ -571,7 +571,7 @@ class StartInteractorTests: XCTestCase {
 		updatedConfig.forceUpdate = false
 		updatedConfig.otaUpdate = true
 		updatedConfig.lastVersion = "2.0"
-		self.configDataManagerMock.inUpdateConfigResponse = .Success(config: updatedConfig, version: appVersion)
+		self.configDataManagerMock.inUpdateConfigResponse = .success(config: updatedConfig, version: appVersion)
 	}
 	
 	func currentConfigNoOtaUpdate(_ appVersion: String) {

@@ -18,9 +18,9 @@ class DownloadServiceMock: PDownloadService {
 	var outFetchDownloadToken = (called: false, buildId: "")
 	
 	
-	func fetchDownloadToken(_ buildId: String, completionHandler: (_ response: DownloadTokenResponse) -> Void) {
+	func fetchDownloadToken(_ buildId: String, completionHandler: @escaping (_ response: DownloadTokenResponse) -> Void) {
 		self.outFetchDownloadToken = (true, buildId)
-		completionHandler(response: self.inDownloadTokenResponse)
+		completionHandler(self.inDownloadTokenResponse)
 	}
 	
 }

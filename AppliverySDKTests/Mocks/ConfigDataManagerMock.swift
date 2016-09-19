@@ -24,11 +24,11 @@ class ConfigDataManagerMock: PConfigDataManager {
 		return (self.inCurrentConfig, self.inVersion)
 	}
 	
-	func updateConfig(_ completionHandler: (_ response: UpdateConfigResponse) -> Void) {
+	func updateConfig(_ completionHandler: @escaping (_ response: UpdateConfigResponse) -> Void) {
 		self.outUpdateConfigCalled = true
 		
 		if self.inUpdateConfigResponse != nil {
-			completionHandler(response: self.inUpdateConfigResponse)
+			completionHandler(self.inUpdateConfigResponse)
 		}
 	}
 	
