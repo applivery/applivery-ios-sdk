@@ -78,14 +78,14 @@ class FeedbackPresenterTests: XCTestCase {
 	// MARK - Tests change attach screenshot
 
 	func test_userDidChangeAttachScreenshot_callsShowScreenshotPreview_whenOnIsTrue() {
-		self.feedbackPresenter.userDidChangedAttachScreenshot(true)
+		self.feedbackPresenter.userDidChangedAttachScreenshot(attach: true)
 
 		XCTAssert(self.feedbackViewMock.outShowScreenshotPreviewCalled == true)
 		XCTAssert(self.feedbackViewMock.outHideScreenshotPreviewCalled == false)
 	}
 
 	func test_userDidChangedAttachScreenshot_callsHideScreenshotPreview_whenOnIsFalse() {
-		self.feedbackPresenter.userDidChangedAttachScreenshot(false)
+		self.feedbackPresenter.userDidChangedAttachScreenshot(attach: false)
 
 		XCTAssert(self.feedbackViewMock.outShowScreenshotPreviewCalled == false)
 		XCTAssert(self.feedbackViewMock.outHideScreenshotPreviewCalled == true)
@@ -198,7 +198,7 @@ class FeedbackPresenterTests: XCTestCase {
 		self.screenshotInteractorMock.inScreenshot = Screenshot(image: image)
 		self.feedbackPresenter.viewDidLoad()
 
-		self.feedbackPresenter.userDidChangedAttachScreenshot(true)
+		self.feedbackPresenter.userDidChangedAttachScreenshot(attach: true)
 
 
 		// ACT
@@ -225,7 +225,7 @@ class FeedbackPresenterTests: XCTestCase {
 		self.screenshotInteractorMock.inScreenshot = Screenshot(image: image)
 		self.feedbackPresenter.viewDidLoad()
 
-		self.feedbackPresenter.userDidChangedAttachScreenshot(false)
+		self.feedbackPresenter.userDidChangedAttachScreenshot(attach: false)
 
 
 		// ACT
