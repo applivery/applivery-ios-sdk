@@ -11,17 +11,17 @@ import Foundation
 
 
 class FeedbackCoordinatorMock: PFeedbackCoordinator {
-	
+
 	var outShowFeedbackCalled = false
 	var outCloseFeedbackCalled = false
-	
-	
+
+
 	func showFeedack() {
 		self.outShowFeedbackCalled = true
 	}
-	
+
 	func closeFeedback() {
 		self.outCloseFeedbackCalled = true
 	}
-	
+
 }

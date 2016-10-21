@@ -23,67 +23,66 @@ protocol FeedbackView {
 
 
 class FeedbackPresenter {
-	
+
 	var view: FeedbackView!
 	var feedbackInteractor: PFeedbackInteractor!
 	var feedbackCoordinator: PFeedbackCoordinator!
 	var screenshotInteractor: PScreenshotInteractor!
-	
+
 	fileprivate var feedbackType: FeedbackType = .Bug
 	fileprivate var message: String?
 	fileprivate var screenshot: Screenshot?
 	fileprivate var attachScreenshot = true
-	
-	
+
+
 	// MARK - Public Methods
-	
+
 	func viewDidLoad() {
 		self.screenshot = self.screenshotInteractor.getScreenshot()
 		self.view.showScreenshot(self.screenshot!.image)
 	}
-	
+
 	func userDidTapCloseButton() {
 		self.feedbackCoordinator.closeFeedback()
 	}
-	
+
 	func userDidTapAddFeedbackButton() {
 		self.view.showFeedbackFormulary()
 	}
-	
+
 	func userDidTapSendFeedbackButton() {
 		guard let message = self.view.textMessage() else {
 			self.view.needMessage()
 			return
 		}
-		
+
 		let screenshot = self.attachScreenshot ? self.screenshot : nil
 		let feedback = Feedback(feedbackType: self.feedbackType, message: message, screenshot: screenshot)
 
 		self.view.showLoading()
-		
+
 		self.feedbackInteractor.sendFeedback(feedback) { result in
 			switch result {
 			case .success:
 				self.view.stopLoading()
 				self.feedbackCoordinator.closeFeedback()
-				
+
 			case .error(let message):
 				self.view.showMessage(message)
 			}
 		}
 	}
-	
+
 	func userDidSelectedFeedbackType(_ type: FeedbackType) {
 		self.feedbackType = type
 	}
-	
-	func userDidChangedAttachScreenshot(_ on: Bool) {
-		self.attachScreenshot = on
-		
-		if on {
+
+	func userDidChangedAttachScreenshot(attach: Bool) {
+		self.attachScreenshot = attach
+
+		if attach {
 			self.view.showScreenshotPreview()
-		}
-		else {
+		} else {
 			self.view.hideScreenshotPreview()
 		}
 	}

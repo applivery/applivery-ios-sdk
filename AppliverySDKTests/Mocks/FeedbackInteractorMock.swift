@@ -11,14 +11,14 @@ import Foundation
 
 
 class FeedbackInteractorMock: PFeedbackInteractor {
-	
+
 	var inResult: FeedbackInteractorResult!
 	var outSendFeedback: (called: Bool, feedback: Feedback?) = (false, nil)
-	
-	
+
+
 	func sendFeedback(_ feedback: Feedback, completionHandler: @escaping (FeedbackInteractorResult) -> Void) {
 		self.outSendFeedback = (true, feedback)
 		completionHandler(self.inResult)
 	}
-	
+
 }

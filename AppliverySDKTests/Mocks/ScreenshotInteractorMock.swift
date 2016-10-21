@@ -11,11 +11,11 @@ import Foundation
 
 
 class ScreenshotInteractorMock: PScreenshotInteractor {
-	
+
 	var inScreenshot: Screenshot!
-	
+
 	func getScreenshot() -> Screenshot {
 		return self.inScreenshot
 	}
-	
+
 }

@@ -21,26 +21,26 @@ protocol PDownloadDataManager {
 
 
 class DownloadDataManager: PDownloadDataManager {
-	
+
 	fileprivate var service: PDownloadService
-	
+
 	init(service: PDownloadService = DownloadService()) {
 		self.service = service
 	}
-	
-	
+
+
 	func downloadUrl(_ lastBuildId: String, completionHandler: @escaping (_ response: DownloadUrlResponse) -> Void) {
 		self.service.fetchDownloadToken(lastBuildId) { response in
 			switch response {
-				
+
 			case .success(let token):
 				let itms_service = "itms-services://?action=download-manifest&url="
 				completionHandler(.success(url: "\(itms_service)\(GlobalConfig.Host)/download/\(lastBuildId)/manifest/\(token)"))
-				
+
 			case .error(let error):
 				completionHandler(.error(message: error.message()))
 			}
 		}
 	}
-	
+
 }

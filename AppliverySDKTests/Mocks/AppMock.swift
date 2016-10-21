@@ -11,11 +11,11 @@ import UIKit
 
 
 class AppMock: PApp {
-	
+
 	// Inputs
 	var inVersion: String!
 	var inOpenUrlResult = false
-	
+
 	// Outputs
 	var outOpenUrl = (called: false, url: "")
 	var outOtaAlert = (called: false, message: "")
@@ -26,26 +26,26 @@ class AppMock: PApp {
 	var outRetryClosure: (() -> Void)?
 	var outShowLoadingCalled = false
 	var outHideLoadingCalled = false
-	
-	
+
+
 	func getVersion() -> String {
 		return self.inVersion
 	}
-	
+
 	func getLanguage() -> String {
 		// DO WHEN NEEDED
 		return ""
 	}
-	
+
 	func openUrl(_ url: String) -> Bool {
 		self.outOpenUrl = (true, url)
 		return self.inOpenUrlResult
 	}
-	
+
 	func showLoading() {
 		self.outShowLoadingCalled = true
 	}
-	
+
 	func hideLoading() {
 		self.outHideLoadingCalled = true
 	}
@@ -54,17 +54,17 @@ class AppMock: PApp {
 		self.outOtaAlert = (true, message)
 		self.outDownloadClosure = downloadHandler
 	}
-	
+
 	func showErrorAlert(_ message: String, retryHandler: @escaping () -> Void) {
 		self.outAlertError = (true, message)
 		self.outRetryClosure = retryHandler
 	}
-	
+
 	func waitForReadyThen(_ onReady: @escaping () -> Void) {
 		self.outWaitForReadyCalled = true
 		onReady()
 	}
-	
+
 	func presentModal(_ viewController: UIViewController) {
 		self.outPresentModal = (true, viewController)
 	}

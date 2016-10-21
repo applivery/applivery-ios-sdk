@@ -10,17 +10,17 @@ import Foundation
 @testable import Applivery
 
 class DownloadServiceMock: PDownloadService {
-	
+
 	// Inputs
 	var inDownloadTokenResponse: DownloadTokenResponse!
-	
+
 	// Outputs
 	var outFetchDownloadToken = (called: false, buildId: "")
-	
-	
+
+
 	func fetchDownloadToken(_ buildId: String, completionHandler: @escaping (_ response: DownloadTokenResponse) -> Void) {
 		self.outFetchDownloadToken = (true, buildId)
 		completionHandler(self.inDownloadTokenResponse)
 	}
-	
+
 }

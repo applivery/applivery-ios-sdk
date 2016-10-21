@@ -15,13 +15,13 @@ protocol PImageManager {
 
 
 class ImageManager: PImageManager {
-	
+
 	fileprivate var screenshot: Screenshot!
-	
+
 	func getScreenshot() -> Screenshot {
 		self.screenshot = Screenshot.capture()
-		
+
 		return self.screenshot
 	}
-	
+
 }

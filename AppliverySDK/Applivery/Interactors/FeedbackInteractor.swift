@@ -20,24 +20,24 @@ protocol PFeedbackInteractor {
 }
 
 class FeedbackInteractor: PFeedbackInteractor {
-	
+
 	fileprivate var service: PFeedbackService
-	
-	
+
+
 	init(service: PFeedbackService = FeedbackService()) {
 		self.service = service
 	}
-	
+
 	func sendFeedback(_ feedback: Feedback, completionHandler: @escaping (FeedbackInteractorResult) -> Void) {
 		self.service.postFeedback(feedback) { result in
 			switch result {
 			case .success:
 				completionHandler(.success)
-				
+
 			case .error(let error):
 				completionHandler(.error(error.message()))
 			}
 		}
 	}
-	
+
 }

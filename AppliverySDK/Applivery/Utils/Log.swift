@@ -9,7 +9,7 @@
 import Foundation
 
 
-public func >=(levelA: LogLevel, levelB: LogLevel) -> Bool {
+public func >= (levelA: LogLevel, levelB: LogLevel) -> Bool {
 	return levelA.rawValue >= levelB.rawValue
 }
 
@@ -19,7 +19,7 @@ func Log(_ log: String) {
 		!GlobalConfig.shared.appStoreRelease
 		&& GlobalConfig.shared.logLevel != .none
 		else { return }
-	
+
 	print("Applivery :: " + log)
 }
 
@@ -31,7 +31,7 @@ func LogInfo(_ log: String) {
 
 func LogWarn(_ message: String, filename: NSString = #file, line: Int = #line, funcname: String = #function) {
 	guard GlobalConfig.shared.logLevel >= .error else { return }
-	
+
 	let caller = "\(filename.lastPathComponent)(\(line)) \(funcname)"
 	Log("🚸🚸🚸 WARNING: " + message)
 	Log("🚸🚸🚸 ⤷ FROM CALLER: " + caller + "\n")
@@ -43,7 +43,7 @@ func LogError(_ error: NSError?, filename: NSString = #file, line: Int = #line, 
 		GlobalConfig.shared.logLevel >= .error,
 		let err = error
 		else { return }
-	
+
 	let caller = "\(filename.lastPathComponent)(\(line)) \(funcname)"
 	Log("❌❌❌ ERROR: " + err.localizedDescription)
 	Log("❌❌❌ ⤷ FROM CALLER: " + caller)

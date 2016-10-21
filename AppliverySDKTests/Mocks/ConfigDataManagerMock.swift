@@ -10,26 +10,26 @@ import Foundation
 @testable import Applivery
 
 class ConfigDataManagerMock: PConfigDataManager {
-	
+
 	// INPUTS
 	var inVersion = ""
 	var inCurrentConfig: Config?
 	var inUpdateConfigResponse: UpdateConfigResponse!
-	
+
 	// OUTPUTS
 	var outUpdateConfigCalled = false
-	
-	
+
+
 	func getCurrentConfig() -> (config: Config?, version: String) {
 		return (self.inCurrentConfig, self.inVersion)
 	}
-	
+
 	func updateConfig(_ completionHandler: @escaping (_ response: UpdateConfigResponse) -> Void) {
 		self.outUpdateConfigCalled = true
-		
+
 		if self.inUpdateConfigResponse != nil {
 			completionHandler(self.inUpdateConfigResponse)
 		}
 	}
-	
+
 }

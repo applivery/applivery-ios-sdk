@@ -11,26 +11,26 @@ import Foundation
 
 
 class UpdateInteractoMock: PUpdateInteractor {
-	
+
 	var output: UpdateInteractorOutput! // NO NEEDED
-	
-	
+
+
 	// INPUTS
 	var inForceUpdateMessage: String!
 	var inOtaUpdateMessage: String!
-	
+
 	// OUTPUTS
 	var outDownloadLastBuildCalled = false
-	
-	
+
+
 	func forceUpdateMessage() -> String {
 		return self.inForceUpdateMessage
 	}
-	
+
 	func otaUpdateMessage() -> String {
 		return self.inOtaUpdateMessage
 	}
-	
+
 	func downloadLastBuild() {
 		self.outDownloadLastBuildCalled = true
 	}

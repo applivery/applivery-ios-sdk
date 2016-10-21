@@ -9,25 +9,24 @@
 import Foundation
 
 extension UIStoryboard {
-	
+
 	class func initialViewController() -> UIViewController {
 		let storyboard = UIStoryboard.storyBoard()
 		let vc = storyboard.instantiateInitialViewController()
-		
+
 		return vc!
 	}
-	
-	
+
 	class func viewController(_ identifier: String) -> UIViewController {
 		let storyboard = UIStoryboard.storyBoard()
 		let vc = storyboard.instantiateViewController(withIdentifier: identifier)
-		
+
 		return vc
 	}
-	
-	
+
+
 	fileprivate class func storyBoard() -> UIStoryboard {
 		return UIStoryboard(name: "Applivery", bundle: Bundle.AppliveryBundle())
 	}
-	
+
 }

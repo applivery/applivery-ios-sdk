@@ -21,15 +21,15 @@ protocol PFeedbackService {
 
 
 class FeedbackService: PFeedbackService {
-	
+
 	func postFeedback(_ feedback: Feedback, completionHandler: @escaping (FeedbackServiceResult) -> Void) {
 		let request = Request()
 		request.endpoint = "/api/feedback"
 		request.method = "POST"
-		
+
 		let app = App()
 		let screenshot = feedback.screenshot?.base64() ?? ""
-		
+
 		request.bodyParams = [
 			"app": GlobalConfig.shared.appId ,
 			"type": feedback.feedbackType.rawValue,
@@ -52,16 +52,15 @@ class FeedbackService: PFeedbackService {
 			],
 			"screenshot": screenshot
 		]
-		
+
 		request.sendAsync { response in
 			if response.success {
 				completionHandler(.success)
-			}
-			else {
+			} else {
 				LogError(response.error)
 				completionHandler(.error(NSError.UnexpectedError()))
 			}
 		}
 	}
-	
+
 }

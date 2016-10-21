@@ -10,28 +10,28 @@ import Foundation
 
 
 class Keyboard {
-	
+
 	class func willShow(_ notificationHandler: @escaping (Notification) -> Void) {
 		self.keyboardEvent(NSNotification.Name.UIKeyboardWillShow.rawValue, notificationHandler: notificationHandler)
 	}
-	
+
 	class func didShow(_ notificationHandler: @escaping (Notification) -> Void) {
 		self.keyboardEvent(NSNotification.Name.UIKeyboardDidShow.rawValue, notificationHandler: notificationHandler)
 	}
-	
+
 	class func willHide(_ notificationHandler: @escaping (Notification) -> Void) {
 		self.keyboardEvent(NSNotification.Name.UIKeyboardWillHide.rawValue, notificationHandler: notificationHandler)
 	}
-	
+
 	class func size(_ notification: Notification) -> CGSize? {
 		guard
 			let info = (notification as NSNotification).userInfo,
 			let frame = info[UIKeyboardFrameEndUserInfoKey] as? NSValue
 			else { return nil }
-		
+
 		return frame.cgRectValue.size
 	}
-	
+
 	class func animationDuration(_ notification: Notification) -> TimeInterval {
 		guard
 			let info = (notification as NSNotification).userInfo,
@@ -40,10 +40,10 @@ class Keyboard {
 				LogWarn("Couldn't get keyboard animation duration")
 				return 0
 		}
-		
+
 		return value.doubleValue
 	}
-	
+
 	class func animationCurve(_ notification: Notification) -> UIViewAnimationOptions {
 		guard
 			let info = (notification as NSNotification).userInfo,
@@ -53,13 +53,13 @@ class Keyboard {
 				LogWarn("Couldn't get keyboard animation curve")
 				return .curveEaseIn
 		}
-		
+
 		return curve.toOptions()
 	}
-	
-	
+
+
 	// MARK - Private Helpers
-	
+
 	fileprivate class func keyboardEvent(_ event: String, notificationHandler: @escaping (Notification) -> Void) {
 		NotificationCenter.default
 			.addObserver(
@@ -69,7 +69,7 @@ class Keyboard {
 				using: notificationHandler
 		)
 	}
-	
+
 }
 
 extension UIViewAnimationCurve {

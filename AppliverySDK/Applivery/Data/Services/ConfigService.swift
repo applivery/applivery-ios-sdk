@@ -13,32 +13,27 @@ class ConfigService {
 	func fetchConfig(_ completionHandler: @escaping (Bool, Config?, NSError?) -> Void) {
 		let request = Request()
 		request.endpoint = "/api/apps/" + GlobalConfig.shared.appId
-		
+
 		request.sendAsync {
 			response in
-			
+
 			if response.success {
 				do {
 					let config = try Config(json: response.body!)
 					completionHandler(response.success, config, nil)
-				}
-				catch {
+				} catch {
 					let error = NSError(
 						domain: GlobalConfig.ErrorDomain,
 						code: -1,
 						userInfo: [GlobalConfig.AppliveryErrorKey: "Internal applivery error parsing json"])
-					
+
 					LogError(error)
 					completionHandler(false, nil, error)
 				}
-			}
-			else {
+			} else {
 				LogError(response.error)
 				completionHandler(response.success, nil, response.error)
 			}
 		}
 	}
 }
-
-
-

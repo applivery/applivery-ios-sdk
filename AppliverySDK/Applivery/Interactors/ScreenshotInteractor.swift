@@ -15,15 +15,15 @@ protocol PScreenshotInteractor {
 
 
 class ScreenshotInteractor: PScreenshotInteractor {
-	
+
 	fileprivate var imageManager: PImageManager
-	
+
 	init(imageManager: PImageManager = ImageManager()) {
 		self.imageManager = imageManager
 	}
-	
+
 	func getScreenshot() -> Screenshot {
 		return self.imageManager.getScreenshot()
 	}
-	
+
 }

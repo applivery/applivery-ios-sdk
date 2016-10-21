@@ -11,10 +11,10 @@ import XCTest
 
 
 class ConfigPersisterTests: XCTestCase {
-	
+
 	var configPersister: ConfigPersister!
 	var userDefaultsMock: UserDefaultsMock!
-	
+
 
     override func setUp() {
         super.setUp()
@@ -22,12 +22,12 @@ class ConfigPersisterTests: XCTestCase {
 		self.userDefaultsMock = UserDefaultsMock()
 		self.configPersister = ConfigPersister(userDefaults: self.userDefaultsMock)
     }
-	
-    
+
+
     override func tearDown() {
 		self.configPersister = nil
 		self.userDefaultsMock = nil
-		
+
         super.tearDown()
     }
 
@@ -35,123 +35,123 @@ class ConfigPersisterTests: XCTestCase {
 		XCTAssertNotNil(self.configPersister)
     }
 
-	
+
 	// MARK - Get Config Tests
-	
+
 	func test_getConfig_returnsNil_whenUserDefaultsIsEmpty() {
 		let config = self.configPersister.getConfig()
-		
+
 		XCTAssert(config == nil)
 	}
-	
+
 	func test_getConfig_returnsNil_whenOnlyMinVersionIsMissed() {
 		var dictionary = self.fullData()
 		dictionary.removeValue(forKey: kMinVersionKey)
-		
+
 		self.userDefaultsMock.inDictionary = dictionary
-		
+
 		let config = self.configPersister.getConfig()
-		
+
 		XCTAssert(config == nil)
 	}
-	
+
 	func test_getConfig_returnsNil_whenOnlyForceUpdateIsMissed() {
 		var dictionary = self.fullData()
 		dictionary.removeValue(forKey: kForceUpdateKey)
-		
+
 		self.userDefaultsMock.inDictionary = dictionary
-		
+
 		let config = self.configPersister.getConfig()
-		
+
 		XCTAssert(config == nil)
 	}
-	
+
 	func test_getConfig_returnsNil_whenOnlyLasBuildIdIsMissed() {
 		var dictionary = self.fullData()
 		dictionary.removeValue(forKey: kLastBuildId)
-		
+
 		self.userDefaultsMock.inDictionary = dictionary
-		
+
 		let config = self.configPersister.getConfig()
-		
+
 		XCTAssert(config == nil)
 	}
-	
+
 	func test_getConfig_returnsNil_whenOnlyOtaUpdateIsMissed() {
 		var dictionary = self.fullData()
 		dictionary.removeValue(forKey: kOtaUpdateKey)
-		
+
 		self.userDefaultsMock.inDictionary = dictionary
-		
+
 		let config = self.configPersister.getConfig()
-		
+
 		XCTAssert(config == nil)
 	}
-	
+
 	func test_getConfig_returnsNil_whenOnlyLastBuildVersionIsMissed() {
 		var dictionary = self.fullData()
 		dictionary.removeValue(forKey: kLastBuildVersion)
-		
+
 		self.userDefaultsMock.inDictionary = dictionary
-		
+
 		let config = self.configPersister.getConfig()
-		
+
 		XCTAssert(config == nil)
 	}
-	
+
 	func test_getConfig_returnsConfig_whenEveryFieldExists() {
 		self.userDefaultsMock.inDictionary = self.fullData()
-		
+
 		let config = self.configPersister.getConfig()
-		
+
 		XCTAssert(config != nil)
 		if config != nil {
 			XCTAssert(config! == self.fullDataConfig())
 		}
 	}
-	
+
 	func test_getConfig_returnsConfig_whenEveryFieldExistsButOptionals() {
 		var dictionary = self.fullData()
 		dictionary.removeValue(forKey: kForceUpdateMessageKey)
 		dictionary.removeValue(forKey: kOtaUpdateMessageKey)
-		
+
 		self.userDefaultsMock.inDictionary = dictionary
-		
+
 		let config = self.configPersister.getConfig()
-		
+
 		XCTAssert(config != nil)
-		
+
 		if config != nil {
 			let expectedConfig = self.fullDataConfig()
 			expectedConfig.forceUpdateMessage = nil
 			expectedConfig.otaUpdateMessage = nil
-			
+
 			XCTAssert(config! == expectedConfig)
 		}
 	}
 
-	
+
 	// MARK - Save Config Tests
-	
+
 	func test_saveConfig_synchronizeSameDataAsConfigDataPassed() {
 		let config = self.fullDataConfig()
-		
+
 		self.configPersister.saveConfig(config)
-		
+
 		XCTAssert(self.userDefaultsMock.outSyncedDictionary != nil)
-		
+
 		if self.userDefaultsMock.outSyncedDictionary != nil {
 			let fullData = self.fullData()
 			XCTAssert(self.userDefaultsMock.outSyncedDictionary! == fullData)
 		}
 	}
-	
-	
+
+
 	// MARK - Helpers
-	
+
 	func fullDataConfig() -> Config {
 		let config = Config()
-		
+
 		config.minVersion = "1.0"
 		config.forceUpdate = true
 		config.lastBuildId = "12e13d24f2"
@@ -159,13 +159,13 @@ class ConfigPersisterTests: XCTestCase {
 		config.otaUpdate = true
 		config.lastVersion = "1.0"
 		config.otaUpdateMessage = "test message"
-		
+
 		return config
 	}
-	
+
 	func fullData() -> [String: Any] {
 		let config = self.fullDataConfig()
-		
+
 		let dictionary: [String: Any] =
 		[
 			kMinVersionKey: config.minVersion,
@@ -176,12 +176,12 @@ class ConfigPersisterTests: XCTestCase {
 			kLastBuildVersion: config.lastVersion,
 			kOtaUpdateMessageKey: config.otaUpdateMessage ?? ""
 		]
-		
+
 		return dictionary
 	}
-	
+
 }
 
-func ==(a: [String: Any], b: [String: Any]) -> Bool {
-	return NSDictionary(dictionary: a).isEqual(to: b)
+func == (left: [String: Any], right: [String: Any]) -> Bool {
+	return NSDictionary(dictionary: left).isEqual(to: right)
 }

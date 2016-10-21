@@ -15,20 +15,20 @@ class ResponseTests: XCTestCase {
     override func setUp() {
         super.setUp()
     }
-    
+
     override func tearDown() {
 		GlobalConfig.shared.logLevel = .none
-		
+
         super.tearDown()
     }
-	
-	
+
+
 	// MARK - Init Tests
-	
+
 	func test_init_returnsErrorUnexpected_whenEverythingIsNil() {
 		GlobalConfig.shared.logLevel = .debug
 		let response = Response(data: nil, response: nil, error: nil)
-		
+
 		XCTAssert(response.success == false)
 		XCTAssert(response.url?.absoluteString == nil)
 		XCTAssert(response.code == -1)
@@ -37,11 +37,11 @@ class ResponseTests: XCTestCase {
 		XCTAssert(response.data == nil)
 		XCTAssert(response.headers == nil)
 	}
-	
+
 	func test_init_returnsErrorUnexpectedWithLogs_whenEverythingIsNil() {
-		
+
 		let response = Response(data: nil, response: nil, error: nil)
-		
+
 		XCTAssert(response.success == false)
 		XCTAssert(response.url?.absoluteString == nil)
 		XCTAssert(response.code == -1)
@@ -50,12 +50,12 @@ class ResponseTests: XCTestCase {
 		XCTAssert(response.data == nil)
 		XCTAssert(response.headers == nil)
 	}
-	
+
 	func test_init_returnsError_whenResponseIsNil() {
 		let data = Data()
 		let error = NSError.AppliveryError("TEST MESSAGE")
 		let response = Response(data: data, response: nil, error: error)
-		
+
 		XCTAssert(response.success == false)
 		XCTAssert(response.url?.absoluteString == nil)
 		XCTAssert(response.code == error.code)
@@ -64,12 +64,12 @@ class ResponseTests: XCTestCase {
 		XCTAssert(response.data == data)
 		XCTAssert(response.headers == nil)
 	}
-	
+
 	func test_init_returnsErrorUnexpected_whenResponseIsError_dataIsNil_andErrorIsNil() {
 		let urlResponse = self.responseError()
-		
+
 		let response = Response(data: nil, response: urlResponse, error: nil)
-		
+
 		XCTAssert(response.success == false)
 		XCTAssert(response.url?.absoluteString == urlResponse.url?.absoluteString)
 		XCTAssert(response.code == urlResponse.statusCode)
@@ -78,14 +78,14 @@ class ResponseTests: XCTestCase {
 		XCTAssert(response.data == nil)
 		XCTAssert(response.headers == urlResponse.allHeaderFields)
 	}
-	
+
 	func test_init_returnsError_whenResponseIsError() {
 		let data = Data()
 		let error = NSError.AppliveryError("TEST MESSAGE")
 		let urlResponse = self.responseError()
-		
+
 		let response = Response(data: data, response: urlResponse, error: error)
-		
+
 		XCTAssert(response.success == false)
 		XCTAssert(response.url?.absoluteString == urlResponse.url?.absoluteString)
 		XCTAssert(response.code == urlResponse.statusCode)
@@ -94,13 +94,13 @@ class ResponseTests: XCTestCase {
 		XCTAssert(response.data == data)
 		XCTAssert(response.headers == urlResponse.allHeaderFields)
 	}
-	
+
 	func test_init_returnsInvalidCredentials_whenResponseIsErrorInvalidCrendentials_andErrorIsNil() {
 		let data = Data()
 		let urlResponse = self.responseInvalidCredentials()
-		
+
 		let response = Response(data: data, response: urlResponse, error: nil)
-		
+
 		XCTAssert(response.success == false)
 		XCTAssert(response.url?.absoluteString == urlResponse.url?.absoluteString)
 		XCTAssert(response.code == urlResponse.statusCode)
@@ -109,12 +109,12 @@ class ResponseTests: XCTestCase {
 		XCTAssert(response.data == data)
 		XCTAssert(response.headers == urlResponse.allHeaderFields)
 	}
-	
+
 	func test_init_returnsErrorUnexpected_whenResponseSuccess_butDataIsNil() {
 		let urlResponse = self.responseSuccess()
-		
+
 		let response = Response(data: nil, response: urlResponse, error: nil)
-		
+
 		XCTAssert(response.success == false)
 		XCTAssert(response.url?.absoluteString == urlResponse.url?.absoluteString)
 		XCTAssert(response.code == NSError.UnexpectedError().code)
@@ -123,13 +123,13 @@ class ResponseTests: XCTestCase {
 		XCTAssert(response.data == nil)
 		XCTAssert(response.headers == urlResponse.allHeaderFields)
 	}
-	
+
 	func test_init_returnsErrorParsingJSON_whenResponseSuccess_butDataIsNotJSON() {
 		let data = Data()
 		let urlResponse = self.responseSuccess()
-		
+
 		let response = Response(data: data, response: urlResponse, error: nil)
-		
+
 		XCTAssert(response.success == false)
 		XCTAssert(response.url?.absoluteString == urlResponse.url?.absoluteString)
 		XCTAssert(response.code == self.errorCocoaNoValue().code)
@@ -138,28 +138,28 @@ class ResponseTests: XCTestCase {
 		XCTAssert(response.data == data)
 		XCTAssert(response.headers == urlResponse.allHeaderFields)
 	}
-	
+
 	func test_init_returnsErrorParsingJSON_whenResponseSuccess_butDataIsAnUnexpectedJSON() {
 		let data = self.dataJsonUnexpected()
 		let urlResponse = self.responseSuccess()
-		
+
 		let response = Response(data: data, response: urlResponse, error: nil)
-		
+
 		XCTAssert(response.success == false)
 		XCTAssert(response.url?.absoluteString == urlResponse.url?.absoluteString)
-		XCTAssert(response.code == NSError.UnexpectedError(self.UnexpectedErrorJson).code)
-		XCTAssert(response.error == NSError.UnexpectedError(self.UnexpectedErrorJson))
+		XCTAssert(response.code == NSError.UnexpectedError(ResponseTests.UnexpectedErrorJson).code)
+		XCTAssert(response.error == NSError.UnexpectedError(ResponseTests.UnexpectedErrorJson))
 		XCTAssert(response.body == nil)
 		XCTAssert(response.data == data)
 		XCTAssert(response.headers == urlResponse.allHeaderFields)
 	}
-	
+
 	func test_init_returnsFail_whenResponseSuccess_butGetsFailJson() {
 		let data = self.dataJsonFail()
 		let urlResponse = self.responseSuccess()
-		
+
 		let response = Response(data: data, response: urlResponse, error: nil)
-		
+
 		XCTAssert(response.success == false)
 		XCTAssert(response.url?.absoluteString == urlResponse.url?.absoluteString)
 		XCTAssert(response.code == self.errorJsonFail().code)
@@ -168,28 +168,28 @@ class ResponseTests: XCTestCase {
 		XCTAssert(response.data == data)
 		XCTAssert(response.headers == urlResponse.allHeaderFields)
 	}
-	
+
 	func test_init_returnsFailUnexpected_whenResponseSuccess_butGetsFailJsonWithoutErrorField() {
 		let data = self.dataJsonFailWithourErrorField()
 		let urlResponse = self.responseSuccess()
-		
+
 		let response = Response(data: data, response: urlResponse, error: nil)
-		
+
 		XCTAssert(response.success == false)
 		XCTAssert(response.url?.absoluteString == urlResponse.url?.absoluteString)
 		XCTAssert(response.code == -1)
-		XCTAssert(response.error == NSError.AppliveryError(debugMessage: self.UnexpectedErrorJson))
+		XCTAssert(response.error == NSError.AppliveryError(debugMessage: ResponseTests.UnexpectedErrorJson))
 		XCTAssert(response.body == nil)
 		XCTAssert(response.data == data)
 		XCTAssert(response.headers == urlResponse.allHeaderFields)
 	}
-	
+
 	func test_init_returnsSuccess_whenResponseSuccess_andDataIsSuccess() {
 		let data = self.dataJsonSuccess()
 		let urlResponse = self.responseSuccess()
-		
+
 		let response = Response(data: data, response: urlResponse, error: nil)
-		
+
 		XCTAssert(response.success == true)
 		XCTAssert(response.url?.absoluteString == urlResponse.url?.absoluteString)
 		XCTAssert(response.code == 200)
@@ -198,14 +198,14 @@ class ResponseTests: XCTestCase {
 		XCTAssert(response.data == data)
 		XCTAssert(response.headers == urlResponse.allHeaderFields)
 	}
-	
+
 	func test_init_returnsSuccessWithLog_whenResponseSuccess_andDataIsSuccess() {
 		let data = self.dataJsonSuccess()
 		let urlResponse = self.responseSuccess()
 		GlobalConfig.shared.logLevel = .debug
-		
+
 		let response = Response(data: data, response: urlResponse, error: nil)
-		
+
 		XCTAssert(response.success == true)
 		XCTAssert(response.url?.absoluteString == urlResponse.url?.absoluteString)
 		XCTAssert(response.code == 200)
@@ -218,10 +218,10 @@ class ResponseTests: XCTestCase {
 
 
 	// MARK - Helpers
-	
-	fileprivate let UnexpectedErrorJson = "Unexpected error trying to parse Json"
-	fileprivate let InvalidCredentials = "Invalid credentials"
-	
+
+	fileprivate static let UnexpectedErrorJson = "Unexpected error trying to parse Json"
+	fileprivate static let InvalidCredentials = "Invalid credentials"
+
 	func responseError() -> HTTPURLResponse {
 		let response = HTTPURLResponse(
 			url: URL(string: "http://url_test")!,
@@ -231,10 +231,10 @@ class ResponseTests: XCTestCase {
 				"header1": "test1",
 				"header2": "test2"
 			])
-		
+
 		return response!
 	}
-	
+
 	func responseInvalidCredentials() -> HTTPURLResponse {
 		let response = HTTPURLResponse(
 			url: URL(string: "http://url_test")!,
@@ -244,10 +244,10 @@ class ResponseTests: XCTestCase {
 				"header1": "test1",
 				"header2": "test2"
 			])
-		
+
 		return response!
 	}
-	
+
 	func responseSuccess() -> HTTPURLResponse {
 		let response = HTTPURLResponse(
 			url: URL(string: "http://url_test")!,
@@ -257,10 +257,10 @@ class ResponseTests: XCTestCase {
 				"header1": "test1",
 				"header2": "test2"
 			])
-		
+
 		return response!
 	}
-	
+
 	func errorCocoaNoValue() -> NSError {
 		return NSError(
 			domain: NSCocoaErrorDomain,
@@ -268,24 +268,24 @@ class ResponseTests: XCTestCase {
 			userInfo: ["NSDebugDescription": "No value."]
 		)
 	}
-	
+
 	func dataJsonUnexpected() -> Data {
 		let json = ["UnexpectedJson": true]
 		let data = try! JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
-		
+
 		return data
 	}
-	
+
 	func dataJsonSuccess() -> Data {
 		let json = [
 			"status": true,
 			"response": "valid json response"
 		] as [String : Any]
 		let data = try! JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
-		
+
 		return data
 	}
-	
+
 	func dataJsonFail() -> Data {
 		let json = [
 			"status": false,
@@ -295,26 +295,26 @@ class ResponseTests: XCTestCase {
 			]
 		] as [String : Any]
 		let data = try! JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
-		
+
 		return data
 	}
-	
+
 	func dataJsonFailWithourErrorField() -> Data {
 		let json = [
 			"status": false,
 			"someIrrelevantField": "this field has no purpose"
 		] as [String : Any]
 		let data = try! JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
-		
+
 		return data
 	}
-	
+
 	func errorJsonFail() -> NSError {
 		return NSError.AppliveryError(debugMessage: "TEST ERROR MESSAGE", code: 10001)
 	}
 }
 
 
-func ==(lhs: [String: String]?, rhs: [AnyHashable: Any]) -> Bool {
-	return NSDictionary(dictionary: lhs!).isEqual(to: rhs)
+func == (left: [String: String]?, right: [AnyHashable: Any]) -> Bool {
+	return NSDictionary(dictionary: left!).isEqual(to: right)
 }
