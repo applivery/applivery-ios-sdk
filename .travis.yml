@@ -3,9 +3,10 @@ osx_image: xcode8
 install:
   - ./script/install_swiftlint.sh
 script:
-  - swiftlint
   - xcodebuild -version
-  - xcodebuild -project AppliverySDK.xcodeproj -scheme Applivery -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 6" -configuration Debug ONLY_ACTIVE_ARCH=YES -enableCodeCoverage YES test
-  - bash <(curl -s https://codecov.io/bash) -J 'AppliverySDK'
-notifications:
-  slack: applivery:KX1jJ5dWdGbw0xXOXImfKgSD#ci
+  - xcodebuild -project AppliverySDK.xcodeproj -scheme Applivery -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 6" build test
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+# notifications:
+#   slack: applivery:KX1jJ5dWdGbw0xXOXImfKgSD#ci
