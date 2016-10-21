@@ -1,7 +1,10 @@
-language: objective-c
-osx_image: xcode7.3
-script: ./test.sh
+osx_image: xcode8
+language: swift
+install:
+  - ./script/install_swiftlint.sh
+xcode_project: AppliverySDK.xcodeproj # path to your xcodeproj folder
+xcode_scheme: Applivery
 notifications:
   slack: applivery:KX1jJ5dWdGbw0xXOXImfKgSD#ci
 after_success:
-- bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -s https://codecov.io/bash) -J 'AppliverySDK'

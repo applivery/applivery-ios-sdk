@@ -173,7 +173,7 @@ applivery.disableFeedback()
 
 Applivery.framework is built with a fat universal library, this means that you can compile for devices or simulator without any problem, but due to a possible (and strange) [Apple's bug](http://www.openradar.me/19209161), you can not submit an App to the AppStore if it has inside an embedded framework with simulator slices.
 
-Depends of yours method integration, the solution is:
+Depends of your integration method, the solution is:
 
 1. **If you are using Carthage**. 
 
