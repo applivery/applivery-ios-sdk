@@ -1,12 +1,13 @@
 # Applivery iOS SDK
 ![Version](https://img.shields.io/badge/version-2.0-blue.svg)
 ![Language](https://img.shields.io/badge/Language-Swift-orange.svg)
+
 [![Build Status](https://travis-ci.org/applivery/applivery-ios-sdk.svg?branch=master)](https://travis-ci.org/applivery/applivery-ios-sdk)
+[![codecov](https://codecov.io/gh/applivery/applivery-ios-sdk/branch/master/graph/badge.svg)](https://codecov.io/gh/applivery/applivery-ios-sdk)
+
 
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Fastlane Plugin](https://img.shields.io/badge/Fastlane_Plugin-available-brightgreen.svg)](https://github.com/applivery/fastlane-applivery-plugin)
-
-[![Coverage Status](https://coveralls.io/repos/github/applivery/applivery-ios-sdk/badge.svg?branch=master)](https://coveralls.io/github/applivery/applivery-ios-sdk?branch=master)
 
 Framework to support [Applivery.com Mobile App distribution](http://www.applivery.com) for iOS Apps.
 
