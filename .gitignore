@@ -1,7 +1,6 @@
 # Xcode
 .DS_Store
 #build file
-build/
 #personal settings
 *.pbxuser
 !default.pbxuser
@@ -19,7 +18,7 @@ xcuserdata
 DerivedData
 .idea/
 *.orig
-Applivery.framework.zip
+*Applivery.framework*
 
 # Carthage
 Carthage/Checkouts
