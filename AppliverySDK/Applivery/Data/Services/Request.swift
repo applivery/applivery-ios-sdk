@@ -48,7 +48,7 @@ class Request {
 	// MARK: Private Helpers
 
 	fileprivate func setHeaders(_ request: NSMutableURLRequest) {
-		let version = Bundle.AppliveryBundle().infoDictionary?["CFBundleShortVersionString"] as? String
+		let version = Bundle.AppliveryBundle().infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0"
 
 		request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 		request.setValue(GlobalConfig.shared.apiKey, forHTTPHeaderField: "Authorization")

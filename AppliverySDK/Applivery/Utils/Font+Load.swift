@@ -11,7 +11,7 @@ import Foundation
 // Based on responses from: http://stackoverflow.com/questions/30507905/xcode-using-custom-fonts-inside-dynamic-framework
 
 extension UIFont {
-	
+
 	internal static func loadAppliveryFont(_ filenameString: String) {
 		// Workaround to Apple's bug: http://stackoverflow.com/questions/24900979/cgfontcreatewithdataprovider-hangs-in-airplane-mode
 //		self.familyNames
@@ -36,5 +36,5 @@ extension UIFont {
 			LogWarn("UIFont+:  Failed to register font - register graphics font failed - this font may have already been registered in the main bundle.")
 		}
 	}
-	
+
 }
