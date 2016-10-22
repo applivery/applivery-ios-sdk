@@ -33,7 +33,11 @@ class FeedbackCoordinator: PFeedbackCoordinator {
 
 		self.feedbackVC.presenter = FeedbackPresenter()
 		self.feedbackVC.presenter.view = self.feedbackVC
-		self.feedbackVC.presenter.feedbackInteractor = FeedbackInteractor()
+		self.feedbackVC.presenter.feedbackInteractor = FeedbackInteractor(
+			service: FeedbackService(
+				app: App()
+			)
+		)
 		self.feedbackVC.presenter.screenshotInteractor = ScreenshotInteractor()
 		self.feedbackVC.presenter.feedbackCoordinator = self
 

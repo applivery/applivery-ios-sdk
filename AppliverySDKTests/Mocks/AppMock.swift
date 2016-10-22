@@ -10,7 +10,7 @@ import UIKit
 @testable import Applivery
 
 
-class AppMock: PApp {
+class AppMock: AppProtocol {
 
 	// Inputs
 	var inVersion: String!

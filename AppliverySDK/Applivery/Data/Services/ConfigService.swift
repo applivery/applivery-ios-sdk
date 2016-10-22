@@ -11,8 +11,9 @@ import UIKit
 class ConfigService {
 
 	func fetchConfig(_ completionHandler: @escaping (Bool, Config?, NSError?) -> Void) {
-		let request = Request()
-		request.endpoint = "/api/apps/" + GlobalConfig.shared.appId
+		let request = Request(
+			endpoint: "/api/apps/\(GlobalConfig.shared.appId)"
+		)
 
 		request.sendAsync {
 			response in

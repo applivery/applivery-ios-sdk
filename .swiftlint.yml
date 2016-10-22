@@ -1,5 +1,5 @@
 disabled_rules: # rule identifiers to exclude from running
-  # - trailing_whitespace
+  - trailing_whitespace
   # - trailing_newline
   - line_length
   # - conditional_binding_cascade

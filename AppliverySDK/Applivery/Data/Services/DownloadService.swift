@@ -23,8 +23,9 @@ protocol PDownloadService {
 class DownloadService: PDownloadService {
 
 	func fetchDownloadToken(_ buildId: String, completionHandler: @escaping (_ response: DownloadTokenResponse) -> Void) {
-		let request = Request()
-		request.endpoint = "/api/builds/\(buildId)/token"
+		let request = Request(
+			endpoint: "/api/builds/\(buildId)/token"
+		)
 
 		request.sendAsync { response in
 			if response.success {

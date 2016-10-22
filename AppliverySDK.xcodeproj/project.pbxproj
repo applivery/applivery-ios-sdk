@@ -60,6 +60,7 @@
 		FA952FDE1C83929100C32DD0 /* Storyboard+Applivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA952FDD1C83929100C32DD0 /* Storyboard+Applivery.swift */; };
 		FAA50D4C1C7D21D300CE7B65 /* ResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA50D4B1C7D21D300CE7B65 /* ResponseTests.swift */; };
 		FAA50D4E1C7D232500CE7B65 /* NSError+Applivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA50D4D1C7D232500CE7B65 /* NSError+Applivery.swift */; };
+		FAADA5351DBBF25B00300A5E /* FeedbackServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAADA5341DBBF25B00300A5E /* FeedbackServiceTests.swift */; };
 		FAC394751C95996B00F14778 /* ButtonFeedbackType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC394741C95996B00F14778 /* ButtonFeedbackType.swift */; };
 		FAC3947A1C959ADE00F14778 /* UIColor+Applivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC394791C959ADE00F14778 /* UIColor+Applivery.swift */; };
 		FAC3947C1C959EB100F14778 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC3947B1C959EB100F14778 /* UIColor+Hex.swift */; };
@@ -118,8 +119,8 @@
 		FA3211D71C3EE15E00668099 /* DownloadDataManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadDataManagerMock.swift; path = Mocks/DownloadDataManagerMock.swift; sourceTree = "<group>"; };
 		FA388B6A1C7CF3D500004042 /* EventDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventDetector.swift; path = Applivery/Wrappers/EventDetector.swift; sourceTree = "<group>"; };
 		FA3A693C1BC2F9B700179176 /* ConfigDataManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigDataManagerTests.swift; path = Data/ConfigDataManagerTests.swift; sourceTree = "<group>"; };
-		FA3A693F1BC2FC1200179176 /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = App.swift; path = Applivery/Wrappers/App.swift; sourceTree = "<group>"; };
-		FA3A69411BC2FC6F00179176 /* AppMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppMock.swift; path = Mocks/AppMock.swift; sourceTree = "<group>"; };
+		FA3A693F1BC2FC1200179176 /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = App.swift; path = Applivery/Wrappers/App.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FA3A69411BC2FC6F00179176 /* AppMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = AppMock.swift; path = Mocks/AppMock.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA3A69441BC2FCFB00179176 /* ConfigPersister.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigPersister.swift; path = Applivery/Data/Persisters/ConfigPersister.swift; sourceTree = "<group>"; };
 		FA3A69461BC3064A00179176 /* ConfigPersisterMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigPersisterMock.swift; path = Mocks/ConfigPersisterMock.swift; sourceTree = "<group>"; };
 		FA48CB541CC2CCEF007A5293 /* ScreenshotInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScreenshotInteractorTests.swift; path = Interactors/ScreenshotInteractorTests.swift; sourceTree = "<group>"; };
@@ -131,7 +132,7 @@
 		FA4F1C5A1C53920300AC3E61 /* UpdateCoordinatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateCoordinatorTests.swift; path = Coordinators/UpdateCoordinatorTests.swift; sourceTree = "<group>"; };
 		FA53DE261BC188E200DF2EB1 /* StartInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartInteractor.swift; path = Applivery/Interactors/StartInteractor.swift; sourceTree = "<group>"; };
 		FA53DE2C1BC18D4100DF2EB1 /* StartInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartInteractorTests.swift; path = Interactors/StartInteractorTests.swift; sourceTree = "<group>"; };
-		FA53DE2F1BC18ECB00DF2EB1 /* ConfigDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigDataManager.swift; path = Applivery/Data/ConfigDataManager.swift; sourceTree = "<group>"; };
+		FA53DE2F1BC18ECB00DF2EB1 /* ConfigDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = ConfigDataManager.swift; path = Applivery/Data/ConfigDataManager.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA53DE321BC18F6D00DF2EB1 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Config.swift; path = Applivery/Model/Config.swift; sourceTree = "<group>"; };
 		FA53DE341BC193EA00DF2EB1 /* ConfigDataManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigDataManagerMock.swift; path = Mocks/ConfigDataManagerMock.swift; sourceTree = "<group>"; };
 		FA53DE361BC1950300DF2EB1 /* StartInteractorOutputMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartInteractorOutputMock.swift; path = Mocks/StartInteractorOutputMock.swift; sourceTree = "<group>"; };
@@ -157,16 +158,17 @@
 		FA952FDD1C83929100C32DD0 /* Storyboard+Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Storyboard+Applivery.swift"; path = "Applivery/Utils/Storyboard+Applivery.swift"; sourceTree = "<group>"; };
 		FAA50D4B1C7D21D300CE7B65 /* ResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResponseTests.swift; path = Network/ResponseTests.swift; sourceTree = "<group>"; };
 		FAA50D4D1C7D232500CE7B65 /* NSError+Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSError+Applivery.swift"; path = "Applivery/Utils/NSError+Applivery.swift"; sourceTree = "<group>"; };
+		FAADA5341DBBF25B00300A5E /* FeedbackServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackServiceTests.swift; path = Network/FeedbackServiceTests.swift; sourceTree = "<group>"; };
 		FAC394741C95996B00F14778 /* ButtonFeedbackType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ButtonFeedbackType.swift; path = Applivery/Components/ButtonFeedbackType.swift; sourceTree = "<group>"; };
 		FAC394791C959ADE00F14778 /* UIColor+Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+Applivery.swift"; path = "Applivery/Utils/UIColor+Applivery.swift"; sourceTree = "<group>"; };
 		FAC3947B1C959EB100F14778 /* UIColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+Hex.swift"; path = "Applivery/Utils/UIColor+Hex.swift"; sourceTree = "<group>"; };
 		FAC3947D1C95D9FF00F14778 /* Feedback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Feedback.swift; path = Applivery/Model/Feedback.swift; sourceTree = "<group>"; };
-		FAC3947F1C95EA3000F14778 /* FeedbackService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackService.swift; path = Applivery/Data/Services/FeedbackService.swift; sourceTree = "<group>"; };
+		FAC3947F1C95EA3000F14778 /* FeedbackService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FeedbackService.swift; path = Applivery/Data/Services/FeedbackService.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAC394811C96078A00F14778 /* UIDevice+ModelName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIDevice+ModelName.swift"; path = "Applivery/Utils/UIDevice+ModelName.swift"; sourceTree = "<group>"; };
 		FACEF8C71C14663B00B03FC0 /* Background.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Background.swift; path = Applivery/Utils/Background.swift; sourceTree = "<group>"; };
-		FAD2A15A1C010D8B001967FD /* UpdateCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateCoordinator.swift; path = Applivery/Coordinators/UpdateCoordinator.swift; sourceTree = "<group>"; };
+		FAD2A15A1C010D8B001967FD /* UpdateCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = UpdateCoordinator.swift; path = Applivery/Coordinators/UpdateCoordinator.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAD2A15C1C010EA6001967FD /* UpdateCoordinatorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateCoordinatorMock.swift; path = Mocks/UpdateCoordinatorMock.swift; sourceTree = "<group>"; };
-		FAD2A1641C011E2B001967FD /* UpdateInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateInteractor.swift; path = Applivery/Interactors/UpdateInteractor.swift; sourceTree = "<group>"; };
+		FAD2A1641C011E2B001967FD /* UpdateInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = UpdateInteractor.swift; path = Applivery/Interactors/UpdateInteractor.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAD910FF1BCEE58B00D56617 /* Json.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Json.swift; path = Applivery/Utils/Json.swift; sourceTree = "<group>"; };
 		FAEC86651C83824D00A43298 /* FeedbackCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackCoordinator.swift; path = Applivery/Coordinators/FeedbackCoordinator.swift; sourceTree = "<group>"; };
 		FAED0E771CC97C99000FD5EB /* FeedbackPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackPresenterTests.swift; path = Presenters/FeedbackPresenterTests.swift; sourceTree = "<group>"; };
@@ -444,6 +446,7 @@
 			isa = PBXGroup;
 			children = (
 				FAA50D4B1C7D21D300CE7B65 /* ResponseTests.swift */,
+				FAADA5341DBBF25B00300A5E /* FeedbackServiceTests.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -730,6 +733,7 @@
 				FA232D2D1C75388A0097AE79 /* ConfigPersisterTests.swift in Sources */,
 				FAFBE4611C3EEA9A0039BD8C /* UpdateInteractorOutputMock.swift in Sources */,
 				FA3A69421BC2FC6F00179176 /* AppMock.swift in Sources */,
+				FAADA5351DBBF25B00300A5E /* FeedbackServiceTests.swift in Sources */,
 				FA4F1C5B1C53920300AC3E61 /* UpdateCoordinatorTests.swift in Sources */,
 				FA1EE2E61BEAADC800B6EE11 /* JsonTests.swift in Sources */,
 				FAED0E7C1CC980D2000FD5EB /* FeedbackViewMock.swift in Sources */,

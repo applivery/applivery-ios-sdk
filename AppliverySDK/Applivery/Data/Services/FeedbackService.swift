@@ -20,12 +20,15 @@ protocol PFeedbackService {
 }
 
 
-class FeedbackService: PFeedbackService {
+struct FeedbackService: PFeedbackService {
+	
+	let app: AppProtocol
 
 	func postFeedback(_ feedback: Feedback, completionHandler: @escaping (FeedbackServiceResult) -> Void) {
-		let request = Request()
-		request.endpoint = "/api/feedback"
-		request.method = "POST"
+		let request = Request(
+			endpoint: "/api/feedback",
+			method: "POST"
+		)
 
 		let app = App()
 		let screenshot = feedback.screenshot?.base64() ?? ""
@@ -44,6 +47,14 @@ class FeedbackService: PFeedbackService {
 					"model": UIDevice.current.modelName,
 					"vendor": "Apple",
 					"type": UIDevice.current.model
+					// id
+					// battery
+					// batteryStatus
+					// network
+					// resolution
+					// ramFree
+					// diskFree
+					// orientation
 				],
 				"os": [
 					"name": "iOS",
