@@ -6,9 +6,7 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Fastlane Plugin](https://img.shields.io/badge/Fastlane_Plugin-available-brightgreen.svg)](https://github.com/applivery/fastlane-applivery-plugin)
 
-<!--
 [![Coverage Status](https://coveralls.io/repos/github/applivery/applivery-ios-sdk/badge.svg?branch=master)](https://coveralls.io/github/applivery/applivery-ios-sdk?branch=master)
--->
 
 Framework to support [Applivery.com Mobile App distribution](http://www.applivery.com) for iOS Apps.
 
