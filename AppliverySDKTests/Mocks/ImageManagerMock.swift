@@ -11,18 +11,18 @@ import UIKit
 
 
 class ImageManagerMock: PImageManager {
-	
+
 	// INPUTS
 	var inScreenshot: Screenshot!
-	
+
 	// OUTPUTS
 	var outGetScreenshotCalled = false
-	
-	
+
+
 	func getScreenshot() -> Screenshot {
 		self.outGetScreenshotCalled = true
-		
+
 		return self.inScreenshot
 	}
-	
+
 }

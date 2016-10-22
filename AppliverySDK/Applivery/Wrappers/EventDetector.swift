@@ -15,14 +15,14 @@ protocol EventDetector {
 }
 
 class ScreenshotDetector: EventDetector {
-	
-	var observer:  AnyObject?
-	
+
+	var observer: AnyObject?
+
 	func listenEvent(_ onDetection: @escaping () -> Void) {
 		guard GlobalConfig.shared.feedbackEnabled else { return }
-		
+
 		LogInfo("Applivery is listening for screenshot event")
-		
+
 		self.observer = NotificationCenter.default
 			.addObserver(
 				forName: NSNotification.Name.UIApplicationUserDidTakeScreenshot,
@@ -31,13 +31,13 @@ class ScreenshotDetector: EventDetector {
 					onDetection()
 		}
 	}
-	
+
 	func endListening() {
 		guard let observer = self.observer else { return }
-		
+
 		LogInfo("Applivery has stopped for screenshot event")
-		
+
 		NotificationCenter.default.removeObserver(observer)
 	}
-	
+
 }

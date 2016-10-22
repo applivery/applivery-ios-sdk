@@ -9,7 +9,7 @@
 import Foundation
 
 extension UIColor {
-	
+
 	class func FromHex(_ hex: Int) -> UIColor {
 		return UIColor(
 			colorLiteralRed: (Float)((hex & 0xFF0000) >> 16)/255.0,

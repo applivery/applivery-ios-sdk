@@ -14,8 +14,8 @@ class FeedbackViewMock: FeedbackView {
 
 	// INPUTS
 	var inMessage: String?
-	
-	
+
+
 	// OUTPUTS
 	var outShowScreenshot: (called: Bool, image: UIImage?) = (false, nil)
 	var outShowFeedbackFormularyCalled = false
@@ -25,44 +25,44 @@ class FeedbackViewMock: FeedbackView {
 	var outShowLoadingCalled = false
 	var outStopLoadingCalled = false
 	var outShowMessage: (called: Bool, message: String?) = (false, nil)
-	
-	
+
+
 	// MARK - Methods
-	
+
 	func showScreenshot(_ screenshot: UIImage) {
 		self.outShowScreenshot = (true, screenshot)
 	}
-	
+
 	func showFeedbackFormulary() {
 		self.outShowFeedbackFormularyCalled = true
 	}
-	
+
 	func showScreenshotPreview() {
 		self.outShowScreenshotPreviewCalled = true
 	}
-	
+
 	func hideScreenshotPreview() {
 		self.outHideScreenshotPreviewCalled = true
 	}
-	
+
 	func textMessage() -> String? {
 		return self.inMessage
 	}
-	
+
 	func needMessage() {
 		self.outNeedMessageCalled = true
 	}
-	
+
 	func showMessage(_ message: String) {
 		self.outShowMessage = (true, message)
 	}
-	
+
 	func showLoading() {
 		self.outShowLoadingCalled = true
 	}
-	
+
 	func stopLoading() {
 		self.outStopLoadingCalled = true
 	}
-	
+
 }

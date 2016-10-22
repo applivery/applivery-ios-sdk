@@ -11,16 +11,16 @@ import Foundation
 
 
 class DownloadDataManagerMock: PDownloadDataManager {
-	
+
 	// Inputs
 	var inDownloadResponse: DownloadUrlResponse!
-	
+
 	// Outputs
 	var outDownloadUrl = (called: false, lastBuildId: "")
-	
+
 	func downloadUrl(_ lastBuildId: String, completionHandler: @escaping (_ response: DownloadUrlResponse) -> Void) {
 		self.outDownloadUrl = (true, lastBuildId)
 		completionHandler(self.inDownloadResponse)
 	}
-	
+
 }

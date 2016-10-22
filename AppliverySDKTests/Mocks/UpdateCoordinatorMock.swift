@@ -10,17 +10,17 @@ import Foundation
 @testable import Applivery
 
 class UpdateCoordinatorMock: PUpdateCoordinator {
-	
+
 	var outForceUpdateCalled = false
 	var outOtaUpdateCalled = false
-	
-	
+
+
 	func forceUpdate() {
 		self.outForceUpdateCalled = true
 	}
-	
+
 	func otaUpdate() {
 		self.outOtaUpdateCalled = true
 	}
-	
+
 }

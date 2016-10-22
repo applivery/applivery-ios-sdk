@@ -10,17 +10,17 @@ import UIKit
 @testable import Applivery
 
 class ConfigPersisterMock: ConfigPersister {
-	
+
 	// INPUT
 	var config: Config?
-	
+
 	// OUTPUT
 	var saveCalled = false
-	
+
 	override func getConfig() -> Config? {
 		return self.config
 	}
-	
+
 	override func saveConfig(_ config: Config) {
 		self.saveCalled = true
 	}

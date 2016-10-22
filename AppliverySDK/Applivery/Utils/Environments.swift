@@ -11,34 +11,34 @@ import Foundation
 
 class Environments {
 
-	static let HOST_KEY = "APPLIVERY_HOST"
-	
+	static let HostKey = "APPLIVERY_HOST"
+
 	class func Host() -> String? {
 		guard let host = ProcessInfo.processInfo.environment["AppliveryHost"] else {
 			if let host = self.readHost() {
 				return host
 			}
-			
+
 			return nil
 		}
-		
+
 		self.writeHost(host)
-		
+
 		return host
 	}
-	
-	
+
+
 	fileprivate class func writeHost(_ host: String) {
 		let userDefaults = Foundation.UserDefaults.standard
-		userDefaults.setValue(host, forKey: Environments.HOST_KEY)
-		
+		userDefaults.setValue(host, forKey: Environments.HostKey)
+
 		userDefaults.synchronize()
 	}
-	
+
 	fileprivate class func readHost() -> String? {
 		let userDefaults = Foundation.UserDefaults.standard
-		let host = userDefaults.value(forKey: Environments.HOST_KEY) as? String
-		
+		let host = userDefaults.value(forKey: Environments.HostKey) as? String
+
 		return host
 	}
 }

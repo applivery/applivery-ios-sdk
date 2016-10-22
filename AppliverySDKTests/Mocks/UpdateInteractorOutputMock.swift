@@ -10,16 +10,16 @@ import Foundation
 @testable import Applivery
 
 class UpdateInteractorOutputMock: UpdateInteractorOutput {
-	
+
 	// Outputs
 	var outDownloadDidEndCalled = false
 	var outDownloadDidFail = (called: false, message: "")
 
-	
+
 	func downloadDidEnd() {
 		self.outDownloadDidEndCalled = true
 	}
-	
+
 	func downloadDidFail(_ message: String) {
 		self.outDownloadDidFail = (true, message)
 	}

@@ -12,16 +12,16 @@ import Foundation
 // Solution found on: http://stackoverflow.com/questions/26028918/ios-how-to-determine-iphone-model-in-swift
 
 public extension UIDevice {
-	
+
 	var modelName: String {
 		var systemInfo = utsname()
 		uname(&systemInfo)
 		let machineMirror = Mirror(reflecting: systemInfo.machine)
 		let identifier = machineMirror.children.reduce("") { identifier, element in
-			guard let value = element.value as? Int8 , value != 0 else { return identifier }
+			guard let value = element.value as? Int8, value != 0 else { return identifier }
 			return identifier + String(UnicodeScalar(UInt8(value)))
 		}
-		
+
 		switch identifier {
 		case "iPod5,1":                                 return "iPod Touch 5"
 		case "iPod7,1":                                 return "iPod Touch 6"
@@ -49,5 +49,5 @@ public extension UIDevice {
 		default:                                        return identifier
 		}
 	}
-	
+
 }

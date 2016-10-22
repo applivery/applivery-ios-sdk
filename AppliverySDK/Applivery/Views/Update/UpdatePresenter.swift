@@ -18,31 +18,31 @@ protocol UpdateView {
 
 
 class UpdatePresenter: UpdateInteractorOutput {
-	
+
 	var updateInteractor: PUpdateInteractor!
 	var view: UpdateView!
-	
-	
+
+
 	func viewDidLoad() {
 		let updateMessage = self.updateInteractor.forceUpdateMessage()
 		self.view.showUpdateMessage(updateMessage)
 	}
-	
+
 	func userDidTapDownload() {
 		self.view.showLoading()
 		self.updateInteractor.downloadLastBuild()
 	}
-	
-	
+
+
 	// MARK - Update Interactor Output
-	
+
 	func downloadDidEnd() {
 		self.view.stopLoading()
 	}
-	
+
 	func downloadDidFail(_ message: String) {
 		self.view.stopLoading()
 		self.view.showErrorMessage(message)
 	}
-	
+
 }
