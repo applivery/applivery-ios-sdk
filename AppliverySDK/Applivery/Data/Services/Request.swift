@@ -27,6 +27,7 @@ class Request {
 	}
 
 	func sendAsync(_ completionHandler: @escaping (Response) -> Void) {
+		self.buildRequest()
 		guard let request = self.request else { return LogWarn("Couldn't build the request") }
 		self.logRequest()
 		

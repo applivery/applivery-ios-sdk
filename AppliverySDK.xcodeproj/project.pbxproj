@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA0883D31DBC1AF4008A553A /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAADA53A1DBC14EB00300A5E /* OHHTTPStubs.framework */; };
+		FA0883D41DBC1AFA008A553A /* OHHTTPStubs.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = FAADA53A1DBC14EB00300A5E /* OHHTTPStubs.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FA0883D81DBC231E008A553A /* feedback_ok.json in Resources */ = {isa = PBXBuildFile; fileRef = FA0883D71DBC231E008A553A /* feedback_ok.json */; };
 		FA19E48B1C822CA900DC31E8 /* Environments.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA19E48A1C822CA900DC31E8 /* Environments.swift */; };
 		FA1EE2E61BEAADC800B6EE11 /* JsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1EE2E51BEAADC800B6EE11 /* JsonTests.swift */; };
 		FA2257E31C8B56E2000B0333 /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2257E21C8B56E2000B0333 /* Screenshot.swift */; };
@@ -61,7 +64,6 @@
 		FAA50D4C1C7D21D300CE7B65 /* ResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA50D4B1C7D21D300CE7B65 /* ResponseTests.swift */; };
 		FAA50D4E1C7D232500CE7B65 /* NSError+Applivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA50D4D1C7D232500CE7B65 /* NSError+Applivery.swift */; };
 		FAADA5351DBBF25B00300A5E /* FeedbackServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAADA5341DBBF25B00300A5E /* FeedbackServiceTests.swift */; };
-		FAADA53B1DBC14EB00300A5E /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAADA53A1DBC14EB00300A5E /* OHHTTPStubs.framework */; };
 		FAC394751C95996B00F14778 /* ButtonFeedbackType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC394741C95996B00F14778 /* ButtonFeedbackType.swift */; };
 		FAC3947A1C959ADE00F14778 /* UIColor+Applivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC394791C959ADE00F14778 /* UIColor+Applivery.swift */; };
 		FAC3947C1C959EB100F14778 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC3947B1C959EB100F14778 /* UIColor+Hex.swift */; };
@@ -102,7 +104,21 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		FAB2ED151DBC1AD800A2E2E0 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FA0883D41DBC1AFA008A553A /* OHHTTPStubs.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		FA0883D71DBC231E008A553A /* feedback_ok.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = feedback_ok.json; path = Mocks/JSON/feedback_ok.json; sourceTree = "<group>"; };
 		FA19E48A1C822CA900DC31E8 /* Environments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Environments.swift; path = Applivery/Utils/Environments.swift; sourceTree = "<group>"; };
 		FA1EE2E51BEAADC800B6EE11 /* JsonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonTests.swift; sourceTree = "<group>"; };
 		FA2257E21C8B56E2000B0333 /* Screenshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Screenshot.swift; path = Applivery/Wrappers/Screenshot.swift; sourceTree = "<group>"; };
@@ -205,13 +221,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA68D8FD1BC040B100589DE4 /* Applivery.framework in Frameworks */,
-				FAADA53B1DBC14EB00300A5E /* OHHTTPStubs.framework in Frameworks */,
+				FA0883D31DBC1AF4008A553A /* OHHTTPStubs.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FA0883D61DBC22DA008A553A /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				FA0883D71DBC231E008A553A /* feedback_ok.json */,
+			);
+			name = JSON;
+			sourceTree = "<group>";
+		};
 		FA232D2B1C7538540097AE79 /* Persisters */ = {
 			isa = PBXGroup;
 			children = (
@@ -386,6 +410,7 @@
 				FA232D2B1C7538540097AE79 /* Persisters */,
 				FAD2A16C1C01220E001967FD /* Utils */,
 				FA53DE2A1BC18D1800DF2EB1 /* Mocks */,
+				FA0883D61DBC22DA008A553A /* JSON */,
 				FA68D9031BC040B100589DE4 /* Info.plist */,
 			);
 			path = AppliverySDKTests;
@@ -577,6 +602,7 @@
 				FA68D8F81BC040B100589DE4 /* Sources */,
 				FA68D8F91BC040B100589DE4 /* Frameworks */,
 				FA68D8FA1BC040B100589DE4 /* Resources */,
+				FAB2ED151DBC1AD800A2E2E0 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -606,7 +632,7 @@
 					FA68D8FB1BC040B100589DE4 = {
 						CreatedOnToolsVersion = 7.0.1;
 						LastSwiftMigration = 0800;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -647,6 +673,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA0883D81DBC231E008A553A /* feedback_ok.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -932,6 +959,7 @@
 		FA68D90A1BC040B100589DE4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -951,6 +979,7 @@
 		FA68D90B1BC040B100589DE4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
