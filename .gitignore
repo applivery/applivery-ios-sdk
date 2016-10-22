@@ -20,3 +20,11 @@ DerivedData
 .idea/
 *.orig
 Applivery.framework.zip
+
+# Carthage
+Carthage/Checkouts
+*.bcsymbolmap
+*.framework.dSYM*
+Carthage/Build/Mac
+Carthage/Build/tvOS
+Carthage/Build/watchOS
