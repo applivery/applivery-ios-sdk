@@ -12,7 +12,9 @@ import Foundation
 //! Wrapper for Application's operation
 
 protocol AppProtocol {
+	func bundleId() -> String
 	func getVersion() -> String
+	func getVersionName() -> String
 	func getLanguage() -> String
 	func openUrl(_ url: String) -> Bool
 	func showLoading()

@@ -15,7 +15,6 @@ class FeedbackServiceMock: PFeedbackService {
 	// Inputs
 	var inResult: FeedbackServiceResult!
 
-
 	// Outputs
 	var outPostFeedback: (called: Bool, feedback: Feedback?) = (false, nil)
 

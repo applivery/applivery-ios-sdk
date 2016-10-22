@@ -9,16 +9,6 @@
 import Foundation
 
 
-protocol RequestProtocol {
-	var endpoint: String { get set }
-	var method: String { get set }
-	var urlParams: [String: String] { get set }
-	var bodyParams: [String: Any] { get set }
-	
-	func sendAsync(_ completionHandler: @escaping (Response) -> Void)
-}
-
-
 class Request {
 
 	var endpoint: String
