@@ -13,6 +13,7 @@
 		FA0883DA1DBC311C008A553A /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0883D91DBC311C008A553A /* Result.swift */; };
 		FA0883DC1DBC3C03008A553A /* ko.json in Resources */ = {isa = PBXBuildFile; fileRef = FA0883DB1DBC3C03008A553A /* ko.json */; };
 		FA1569B31DBCFB7700C651D4 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1569B21DBCFB7700C651D4 /* Device.swift */; };
+		FA1569B51DBD313200C651D4 /* Wifi.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1569B41DBD313200C651D4 /* Wifi.swift */; };
 		FA19E48B1C822CA900DC31E8 /* Environments.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA19E48A1C822CA900DC31E8 /* Environments.swift */; };
 		FA1EE2E61BEAADC800B6EE11 /* JsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1EE2E51BEAADC800B6EE11 /* JsonTests.swift */; };
 		FA2257E31C8B56E2000B0333 /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2257E21C8B56E2000B0333 /* Screenshot.swift */; };
@@ -125,6 +126,7 @@
 		FA0883D91DBC311C008A553A /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Result.swift; path = Applivery/Utils/Result.swift; sourceTree = "<group>"; };
 		FA0883DB1DBC3C03008A553A /* ko.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = ko.json; path = Mocks/JSON/ko.json; sourceTree = "<group>"; };
 		FA1569B21DBCFB7700C651D4 /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Device.swift; path = Applivery/Wrappers/Device.swift; sourceTree = "<group>"; };
+		FA1569B41DBD313200C651D4 /* Wifi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Wifi.swift; path = Applivery/Utils/Wifi.swift; sourceTree = "<group>"; };
 		FA19E48A1C822CA900DC31E8 /* Environments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Environments.swift; path = Applivery/Utils/Environments.swift; sourceTree = "<group>"; };
 		FA1EE2E51BEAADC800B6EE11 /* JsonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonTests.swift; sourceTree = "<group>"; };
 		FA2257E21C8B56E2000B0333 /* Screenshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Screenshot.swift; path = Applivery/Wrappers/Screenshot.swift; sourceTree = "<group>"; };
@@ -567,6 +569,7 @@
 				FAC3947B1C959EB100F14778 /* UIColor+Hex.swift */,
 				FAC394811C96078A00F14778 /* UIDevice+ModelName.swift */,
 				FA0883D91DBC311C008A553A /* Result.swift */,
+				FA1569B41DBD313200C651D4 /* Wifi.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -715,6 +718,7 @@
 				FA2A61CB1C8CE59800DC21FD /* Keyboard.swift in Sources */,
 				FA73BF7D1C8B02E800619258 /* ScreenshotInteractor.swift in Sources */,
 				FA3A69451BC2FCFB00179176 /* ConfigPersister.swift in Sources */,
+				FA1569B51DBD313200C651D4 /* Wifi.swift in Sources */,
 				FA929A091C4AF13700130DF4 /* Font+Load.swift in Sources */,
 				FA952FDA1C83904100C32DD0 /* FeedbackPresenter.swift in Sources */,
 				FA952FDC1C83909000C32DD0 /* FeedbackInteractor.swift in Sources */,

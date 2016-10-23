@@ -47,11 +47,11 @@ class FeedbackService: PFeedbackService {
 						"vendor": "Apple",
 						"type": UIDevice.current.model,
 						"id": self.device.vendorId(),
-						// network
-						// resolution
+						 "network": self.device.networkType(),
+						 "resolution": self.device.resolution(),
+						  "orientation": self.device.orientation()
 						// ramFree
 						// diskFree
-						// orientation
 					],
 					"os": [
 						"name": "iOS",

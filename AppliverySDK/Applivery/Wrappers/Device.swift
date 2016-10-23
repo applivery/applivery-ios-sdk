@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreTelephony
 
 protocol DeviceProtocol {
 	func vendorId() -> String
@@ -14,6 +15,9 @@ protocol DeviceProtocol {
 	func disableBatteryMonitoring()
 	func batteryLevel() -> Int
 	func batteryState() -> Bool?
+	func networkType() -> String
+	func resolution() -> String
+	func orientation() -> String
 }
 
 struct Device: DeviceProtocol {
@@ -39,6 +43,52 @@ struct Device: DeviceProtocol {
 		case .charging, .full: return true
 		case .unplugged: return false
 		case .unknown: return nil
+		}
+	}
+
+	func networkType() -> String {
+		if Wifi.isConnectedToWifi() {
+			return "wifi"
+		}
+		
+		let networkInfo = CTTelephonyNetworkInfo()
+		let carrierType = networkInfo.currentRadioAccessTechnology
+		switch carrierType {
+		
+		case CTRadioAccessTechnologyGPRS?,
+		     CTRadioAccessTechnologyEdge?,
+		     CTRadioAccessTechnologyCDMA1x?:
+			return "gprs"
+		
+		case CTRadioAccessTechnologyWCDMA?,
+		     CTRadioAccessTechnologyHSDPA?,
+		     CTRadioAccessTechnologyHSUPA?,
+		     CTRadioAccessTechnologyCDMAEVDORev0?,
+		     CTRadioAccessTechnologyCDMAEVDORevA?,
+		     CTRadioAccessTechnologyCDMAEVDORevB?,
+		     CTRadioAccessTechnologyeHRPD?:
+			return "3g"
+		
+		case CTRadioAccessTechnologyLTE?:
+			return "4g"
+		
+		default:
+			return "no connected"
+		}
+	}
+	
+	func resolution() -> String {
+		let width = UIScreen.main.bounds.width * UIScreen.main.scale
+		let height = UIScreen.main.bounds.height * UIScreen.main.scale
+		
+		return "\(Int(width))x\(Int(height))"
+	}
+	
+	func orientation() -> String {
+		if UIApplication.shared.statusBarOrientation.isLandscape {
+			return "landscape"
+		} else {
+			return "portrait"
 		}
 	}
 	
