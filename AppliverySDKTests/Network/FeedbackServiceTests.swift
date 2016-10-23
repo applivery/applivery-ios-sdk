@@ -15,16 +15,19 @@ class FeedbackServiceTests: XCTestCase {
 	var feedbackService: FeedbackService!
 	
 	var appMock: AppMock!
+	var deviceMock: DeviceMock!
 	var configMock: GlobalConfig!
 	
 	override func setUp() {
 		super.setUp()
 		
 		self.appMock = AppMock()
+		self.deviceMock = DeviceMock()
 		self.configMock = GlobalConfig()
 		
 		self.feedbackService = FeedbackService(
 			app: self.appMock,
+			device: self.deviceMock,
 			config: self.configMock
 		)
 	}
@@ -33,6 +36,7 @@ class FeedbackServiceTests: XCTestCase {
 		self.feedbackService = nil
 		
 		self.appMock = nil
+		self.deviceMock = nil
 		self.configMock = nil
 		
 		OHHTTPStubs.removeAllStubs()
@@ -47,6 +51,7 @@ class FeedbackServiceTests: XCTestCase {
 	func test_postFeedback_buildTheRequest() {
 		self.stubFeedbackOK()
 		self.setupConfigAndApp()
+		self.setupDeviceWithBattery()
 		
 		let feedback = Feedback(feedbackType: .Bug, message: "TEST_MESSAGE", screenshot: nil)
 		
@@ -71,15 +76,65 @@ class FeedbackServiceTests: XCTestCase {
 				"device": [
 					"model": UIDevice.current.modelName,
 					"vendor": "Apple",
-					"type": UIDevice.current.model
-					// id
-					// battery
-					// batteryStatus
-					// network
-					// resolution
-					// ramFree
-					// diskFree
-					// orientation
+					"type": UIDevice.current.model,
+					 "id": "test vendor",
+					 "battery": 30,
+					 "batteryStatus": true,
+					 "network": "test network type",
+					 "resolution": "test resolution",
+					 "ramFree": "test ram free",
+					 "diskFree": "test disk free",
+					 "orientation": "test orientation"
+				],
+				"os": [
+					"name": "iOS",
+					"version": UIDevice.current.systemVersion
+				]
+			],
+			"screenshot": ""
+		]
+		
+		XCTAssert(self.feedbackService.request!.bodyParams == expectedBody)
+		XCTAssert(self.feedbackService.request?.urlParams == [:])
+		
+		self.waitForExpectations(timeout: 1) { _ in }
+	}
+	
+	func test_postFeedback_buildTheRequest_withoutBattery() {
+		self.stubFeedbackOK()
+		self.setupConfigAndApp()
+		self.setupDeviceWithoutBattery()
+		
+		let feedback = Feedback(feedbackType: .Bug, message: "TEST_MESSAGE", screenshot: nil)
+		
+		let completionCalled = self.expectation(description: "completion called")
+		self.feedbackService.postFeedback(feedback) { result in
+			completionCalled.fulfill()
+		}
+		
+		XCTAssert(self.feedbackService.request?.endpoint == "/api/feedback")
+		XCTAssert(self.feedbackService.request?.method == "POST")
+		
+		let expectedBody: [String: Any] = [
+			"app": "TEST_ID",
+			"type": "bug",
+			"message": "TEST_MESSAGE",
+			"packageInfo": [
+				"name": "TEST_BUNDLE_ID",
+				"version": "TEST_VERSION",
+				"versionName": "TEST_VERSION_NAME"
+			],
+			"deviceInfo": [
+				"device": [
+					"model": UIDevice.current.modelName,
+					"vendor": "Apple",
+					"type": UIDevice.current.model,
+					"id": "test vendor",
+					"network": "test network type",
+					"resolution": "test resolution",
+					"ramFree": "test ram free",
+					"diskFree": "test disk free",
+					"orientation": "test orientation"
 				],
 				"os": [
 					"name": "iOS",
@@ -98,6 +153,8 @@ class FeedbackServiceTests: XCTestCase {
 	func test_postFeedback_resultSuccess_whenJSONisOK() {
 		self.stubFeedbackOK()
 		self.setupConfigAndApp()
+		self.setupDeviceWithBattery()
+		
 		let feedback = Feedback(feedbackType: .Bug, message: "TEST_MESSAGE", screenshot: nil)
 		
 		let completionCalled = self.expectation(description: "completion called")
@@ -113,6 +170,8 @@ class FeedbackServiceTests: XCTestCase {
 	func test_postFeedback_resultUnexpectedError_whenJSONisKO() {
 		self.stubFeedbackKO()
 		self.setupConfigAndApp()
+		self.setupDeviceWithBattery()
+		
 		let feedback = Feedback(feedbackType: .Bug, message: "TEST_MESSAGE", screenshot: nil)
 		
 		let completionCalled = self.expectation(description: "completion called")
@@ -133,6 +192,28 @@ class FeedbackServiceTests: XCTestCase {
 		self.appMock.inBundleID = "TEST_BUNDLE_ID"
 		self.appMock.inVersion = "TEST_VERSION"
 		self.appMock.inVersionName = "TEST_VERSION_NAME"
+	}
+	
+	private func setupDeviceWithBattery() {
+		self.deviceMock.inVendorId = "test vendor"
+		self.deviceMock.inBatteryLevel = 30
+		self.deviceMock.inBatteryState = true
+		self.deviceMock.inNetworkType = "test network type"
+		self.deviceMock.inResolution = "test resolution"
+		self.deviceMock.inOrientation = "test orientation"
+		self.deviceMock.inRamFree = "test ram free"
+		self.deviceMock.inDiskFree = "test disk free"
+	}
+	
+	private func setupDeviceWithoutBattery() {
+		self.deviceMock.inVendorId = "test vendor"
+		self.deviceMock.inBatteryLevel = 30
+		self.deviceMock.inBatteryState = nil
+		self.deviceMock.inNetworkType = "test network type"
+		self.deviceMock.inResolution = "test resolution"
+		self.deviceMock.inOrientation = "test orientation"
+		self.deviceMock.inRamFree = "test ram free"
+		self.deviceMock.inDiskFree = "test disk free"
 	}
 	
 	private func stubResponse(with json: String) -> OHHTTPStubsResponse {

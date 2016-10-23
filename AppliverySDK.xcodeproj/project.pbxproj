@@ -16,6 +16,7 @@
 		FA1569B51DBD313200C651D4 /* Wifi.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1569B41DBD313200C651D4 /* Wifi.swift */; };
 		FA1569B71DBD465100C651D4 /* DiskStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1569B61DBD465100C651D4 /* DiskStatus.swift */; };
 		FA1569B91DBD498900C651D4 /* Ram.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1569B81DBD498900C651D4 /* Ram.swift */; };
+		FA1569BB1DBD52CF00C651D4 /* DeviceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1569BA1DBD52CF00C651D4 /* DeviceMock.swift */; };
 		FA19E48B1C822CA900DC31E8 /* Environments.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA19E48A1C822CA900DC31E8 /* Environments.swift */; };
 		FA1EE2E61BEAADC800B6EE11 /* JsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1EE2E51BEAADC800B6EE11 /* JsonTests.swift */; };
 		FA2257E31C8B56E2000B0333 /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2257E21C8B56E2000B0333 /* Screenshot.swift */; };
@@ -131,6 +132,7 @@
 		FA1569B41DBD313200C651D4 /* Wifi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Wifi.swift; path = Applivery/Utils/Wifi.swift; sourceTree = "<group>"; };
 		FA1569B61DBD465100C651D4 /* DiskStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiskStatus.swift; path = Applivery/Utils/DiskStatus.swift; sourceTree = "<group>"; };
 		FA1569B81DBD498900C651D4 /* Ram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Ram.swift; path = Applivery/Utils/Ram.swift; sourceTree = "<group>"; };
+		FA1569BA1DBD52CF00C651D4 /* DeviceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceMock.swift; path = Mocks/DeviceMock.swift; sourceTree = "<group>"; };
 		FA19E48A1C822CA900DC31E8 /* Environments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Environments.swift; path = Applivery/Utils/Environments.swift; sourceTree = "<group>"; };
 		FA1EE2E51BEAADC800B6EE11 /* JsonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonTests.swift; sourceTree = "<group>"; };
 		FA2257E21C8B56E2000B0333 /* Screenshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Screenshot.swift; path = Applivery/Wrappers/Screenshot.swift; sourceTree = "<group>"; };
@@ -347,6 +349,7 @@
 				FAED0E791CC97EF2000FD5EB /* ScreenshotInteractorMock.swift */,
 				FAED0E7B1CC980D2000FD5EB /* FeedbackViewMock.swift */,
 				FAED0E7D1CC991DD000FD5EB /* FeedbackInteractorMock.swift */,
+				FA1569BA1DBD52CF00C651D4 /* DeviceMock.swift */,
 			);
 			name = Mocks;
 			sourceTree = "<group>";
@@ -780,6 +783,7 @@
 				FA232D2F1C753A5F0097AE79 /* UserDefaultsMock.swift in Sources */,
 				FAF382041C25E828007AF670 /* UpdateInteractorTests.swift in Sources */,
 				FA53DE3C1BC1B38900DF2EB1 /* StartInteractorMock.swift in Sources */,
+				FA1569BB1DBD52CF00C651D4 /* DeviceMock.swift in Sources */,
 				FA53DE351BC193EA00DF2EB1 /* ConfigDataManagerMock.swift in Sources */,
 				FA2B3DCA1C178705002DC5C9 /* UpdatePresenterTests.swift in Sources */,
 				FA3A693D1BC2F9B700179176 /* ConfigDataManagerTests.swift in Sources */,
