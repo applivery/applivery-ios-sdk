@@ -8,15 +8,8 @@
 
 import Foundation
 
-
-enum FeedbackServiceResult {
-	case success
-	case error(NSError)
-}
-
-
 protocol PFeedbackService {
-	func postFeedback(_ feedback: Feedback, completionHandler: @escaping (FeedbackServiceResult) -> Void)
+	func postFeedback(_ feedback: Feedback, completionHandler: @escaping (Result<Bool, NSError>) -> Void)
 }
 
 class FeedbackService: PFeedbackService {
@@ -30,7 +23,7 @@ class FeedbackService: PFeedbackService {
 		self.config = config
 	}
 	
-	func postFeedback(_ feedback: Feedback, completionHandler: @escaping (FeedbackServiceResult) -> Void) {
+	func postFeedback(_ feedback: Feedback, completionHandler: @escaping (Result<Bool, NSError>) -> Void) {
 		let screenshot = feedback.screenshot?.base64() ?? ""
 
 		self.request = Request(
@@ -70,7 +63,7 @@ class FeedbackService: PFeedbackService {
 
 		self.request?.sendAsync { response in
 			if response.success {
-				completionHandler(.success)
+				completionHandler(.success(true))
 			} else {
 				LogError(response.error)
 				completionHandler(.error(NSError.UnexpectedError()))

@@ -46,12 +46,7 @@ class FeedbackServiceTests: XCTestCase {
 	
 	func test_postFeedback_buildTheRequest() {
 		self.stubFeedbackOK()
-		
-		self.configMock.appId = "TEST_ID"
-		
-		self.appMock.inBundleID = "TEST_BUNDLE_ID"
-		self.appMock.inVersion = "TEST_VERSION"
-		self.appMock.inVersionName = "TEST_VERSION_NAME"
+		self.setupConfigAndApp()
 		
 		let feedback = Feedback(feedbackType: .Bug, message: "TEST_MESSAGE", screenshot: nil)
 		
@@ -100,18 +95,63 @@ class FeedbackServiceTests: XCTestCase {
 		self.waitForExpectations(timeout: 1) { _ in }
 	}
 	
+	func test_postFeedback_resultSuccess_whenJSONisOK() {
+		self.stubFeedbackOK()
+		self.setupConfigAndApp()
+		let feedback = Feedback(feedbackType: .Bug, message: "TEST_MESSAGE", screenshot: nil)
+		
+		let completionCalled = self.expectation(description: "completion called")
+		self.feedbackService.postFeedback(feedback) { result in
+			XCTAssert(result == Result.success(true))
+			
+			completionCalled.fulfill()
+		}
+		
+		self.waitForExpectations(timeout: 1) { _ in }
+	}
 	
+	func test_postFeedback_resultUnexpectedError_whenJSONisKO() {
+		self.stubFeedbackKO()
+		self.setupConfigAndApp()
+		let feedback = Feedback(feedbackType: .Bug, message: "TEST_MESSAGE", screenshot: nil)
+		
+		let completionCalled = self.expectation(description: "completion called")
+		self.feedbackService.postFeedback(feedback) { result in
+			XCTAssert(result == Result.error(NSError.UnexpectedError()))
+			
+			completionCalled.fulfill()
+		}
+		
+		self.waitForExpectations(timeout: 1) { _ in }
+	}
 	
 	
 	// MARK: - Private Helpers
 	
+	private func setupConfigAndApp() {
+		self.configMock.appId = "TEST_ID"
+		self.appMock.inBundleID = "TEST_BUNDLE_ID"
+		self.appMock.inVersion = "TEST_VERSION"
+		self.appMock.inVersionName = "TEST_VERSION_NAME"
+	}
+	
+	private func stubResponse(with json: String) -> OHHTTPStubsResponse {
+		return OHHTTPStubsResponse(
+			fileAtPath: OHPathForFile(json, type(of: self))!,
+			statusCode: 200,
+			headers: ["Content-Type":"application/json"]
+		)
+	}
+	
 	private func stubFeedbackOK() {
 		let _ = stub(condition: isPath("/api/feedback")) { request in
-			return OHHTTPStubsResponse(
-				fileAtPath: OHPathForFile("feedback_ok.json", type(of: self))!,
-				statusCode: 200,
-				headers: ["Content-Type":"application/json"]
-			)
+			return self.stubResponse(with: "feedback_ok.json")
+		}
+	}
+	
+	private func stubFeedbackKO() {
+		let _ = stub(condition: isPath("/api/feedback")) { request in
+			return self.stubResponse(with: "ko.json")
 		}
 	}
 }

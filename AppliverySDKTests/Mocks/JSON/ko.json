@@ -1,0 +1,7 @@
+{
+	"status": false,
+	"error": {
+		"msg": "Error msg",
+		"code": 401
+	}
+}
