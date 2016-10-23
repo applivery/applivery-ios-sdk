@@ -15,6 +15,7 @@
 		FA1569B31DBCFB7700C651D4 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1569B21DBCFB7700C651D4 /* Device.swift */; };
 		FA1569B51DBD313200C651D4 /* Wifi.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1569B41DBD313200C651D4 /* Wifi.swift */; };
 		FA1569B71DBD465100C651D4 /* DiskStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1569B61DBD465100C651D4 /* DiskStatus.swift */; };
+		FA1569B91DBD498900C651D4 /* Ram.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1569B81DBD498900C651D4 /* Ram.swift */; };
 		FA19E48B1C822CA900DC31E8 /* Environments.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA19E48A1C822CA900DC31E8 /* Environments.swift */; };
 		FA1EE2E61BEAADC800B6EE11 /* JsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1EE2E51BEAADC800B6EE11 /* JsonTests.swift */; };
 		FA2257E31C8B56E2000B0333 /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2257E21C8B56E2000B0333 /* Screenshot.swift */; };
@@ -129,6 +130,7 @@
 		FA1569B21DBCFB7700C651D4 /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Device.swift; path = Applivery/Wrappers/Device.swift; sourceTree = "<group>"; };
 		FA1569B41DBD313200C651D4 /* Wifi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Wifi.swift; path = Applivery/Utils/Wifi.swift; sourceTree = "<group>"; };
 		FA1569B61DBD465100C651D4 /* DiskStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiskStatus.swift; path = Applivery/Utils/DiskStatus.swift; sourceTree = "<group>"; };
+		FA1569B81DBD498900C651D4 /* Ram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Ram.swift; path = Applivery/Utils/Ram.swift; sourceTree = "<group>"; };
 		FA19E48A1C822CA900DC31E8 /* Environments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Environments.swift; path = Applivery/Utils/Environments.swift; sourceTree = "<group>"; };
 		FA1EE2E51BEAADC800B6EE11 /* JsonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonTests.swift; sourceTree = "<group>"; };
 		FA2257E21C8B56E2000B0333 /* Screenshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Screenshot.swift; path = Applivery/Wrappers/Screenshot.swift; sourceTree = "<group>"; };
@@ -573,6 +575,7 @@
 				FA0883D91DBC311C008A553A /* Result.swift */,
 				FA1569B41DBD313200C651D4 /* Wifi.swift */,
 				FA1569B61DBD465100C651D4 /* DiskStatus.swift */,
+				FA1569B81DBD498900C651D4 /* Ram.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -761,6 +764,7 @@
 				FA53DE301BC18ECB00DF2EB1 /* ConfigDataManager.swift in Sources */,
 				FAC394821C96078A00F14778 /* UIDevice+ModelName.swift in Sources */,
 				FAD2A1651C011E2B001967FD /* UpdateInteractor.swift in Sources */,
+				FA1569B91DBD498900C651D4 /* Ram.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

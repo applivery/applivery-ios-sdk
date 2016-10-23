@@ -18,6 +18,7 @@ protocol DeviceProtocol {
 	func networkType() -> String
 	func resolution() -> String
 	func orientation() -> String
+	func ramFree() -> String
 	func diskFree() -> String
 }
 
@@ -93,10 +94,19 @@ struct Device: DeviceProtocol {
 		}
 	}
 	
+	func ramFree() -> String {
+		let used = CGFloat(Ram().memoryInUse())
+		let total = CGFloat(ProcessInfo.processInfo.physicalMemory)
+		let freePercent = (1 - (used / total)) * 100
+		
+		return "\(Int(freePercent))"
+	}
+	
 	func diskFree() -> String {
 		let free = CGFloat(DiskStatus.freeDiskSpaceInBytes)
 		let total = CGFloat(DiskStatus.totalDiskSpaceInBytes)
 		let diskFreePercent = (free / total) * 100
+		
 		return "\(Int(diskFreePercent))"
 	}
 
