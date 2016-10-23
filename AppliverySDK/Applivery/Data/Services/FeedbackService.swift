@@ -15,17 +15,20 @@ protocol PFeedbackService {
 class FeedbackService: PFeedbackService {
 	
 	let app: AppProtocol
+	let device: DeviceProtocol
 	let config: GlobalConfig
 	var request: Request?
-
-	init(app: AppProtocol, config: GlobalConfig) {
+	
+	init(app: AppProtocol, device: DeviceProtocol, config: GlobalConfig) {
 		self.app = app
+		self.device = device
 		self.config = config
 	}
 	
 	func postFeedback(_ feedback: Feedback, completionHandler: @escaping (Result<Bool, NSError>) -> Void) {
+		self.device.enableBatteryMonitoring()
 		let screenshot = feedback.screenshot?.base64() ?? ""
-
+		
 		self.request = Request(
 			endpoint: "/api/feedback",
 			method: "POST",
@@ -42,10 +45,8 @@ class FeedbackService: PFeedbackService {
 					"device": [
 						"model": UIDevice.current.modelName,
 						"vendor": "Apple",
-						"type": UIDevice.current.model
-						// id
-						// battery
-						// batteryStatus
+						"type": UIDevice.current.model,
+						"id": self.device.vendorId(),
 						// network
 						// resolution
 						// ramFree
@@ -60,7 +61,10 @@ class FeedbackService: PFeedbackService {
 				"screenshot": screenshot
 			]
 		)
-
+		
+		self.setBatteryInfo()
+		self.device.disableBatteryMonitoring()
+		
 		self.request?.sendAsync { response in
 			if response.success {
 				completionHandler(.success(true))
@@ -70,5 +74,21 @@ class FeedbackService: PFeedbackService {
 			}
 		}
 	}
-
+	
+	
+	// MARK: - Private Helpers
+	
+	private func setBatteryInfo() {
+		guard
+			let batteryState = self.device.batteryState(),
+			var deviceInfo = self.request?.bodyParams["deviceInfo"] as? [String: Any],
+			var device = deviceInfo["device"] as? [String: Any]
+			else { return }
+		
+		device.updateValue(self.device.batteryLevel(), forKey: "battery")
+		device.updateValue(batteryState, forKey: "batteryStatus")
+		deviceInfo.updateValue(device, forKey: "device")
+		let _ = self.request?.bodyParams.updateValue(deviceInfo, forKey: "deviceInfo")
+	}
+	
 }

@@ -16,6 +16,8 @@ protocol AppProtocol {
 	func getVersion() -> String
 	func getVersionName() -> String
 	func getLanguage() -> String
+	
+	
 	func openUrl(_ url: String) -> Bool
 	func showLoading()
 	func hideLoading()

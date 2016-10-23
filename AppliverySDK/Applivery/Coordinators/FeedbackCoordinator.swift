@@ -36,6 +36,7 @@ class FeedbackCoordinator: PFeedbackCoordinator {
 		self.feedbackVC.presenter.feedbackInteractor = FeedbackInteractor(
 			service: FeedbackService(
 				app: App(),
+				device: Device(),
 				config: GlobalConfig.shared
 			)
 		)
