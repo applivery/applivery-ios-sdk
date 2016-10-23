@@ -12,6 +12,11 @@
 		FA0883D81DBC231E008A553A /* feedback_ok.json in Resources */ = {isa = PBXBuildFile; fileRef = FA0883D71DBC231E008A553A /* feedback_ok.json */; };
 		FA0883DA1DBC311C008A553A /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0883D91DBC311C008A553A /* Result.swift */; };
 		FA0883DC1DBC3C03008A553A /* ko.json in Resources */ = {isa = PBXBuildFile; fileRef = FA0883DB1DBC3C03008A553A /* ko.json */; };
+		FA1569B31DBCFB7700C651D4 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1569B21DBCFB7700C651D4 /* Device.swift */; };
+		FA1569B51DBD313200C651D4 /* Wifi.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1569B41DBD313200C651D4 /* Wifi.swift */; };
+		FA1569B71DBD465100C651D4 /* DiskStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1569B61DBD465100C651D4 /* DiskStatus.swift */; };
+		FA1569B91DBD498900C651D4 /* Ram.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1569B81DBD498900C651D4 /* Ram.swift */; };
+		FA1569BB1DBD52CF00C651D4 /* DeviceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1569BA1DBD52CF00C651D4 /* DeviceMock.swift */; };
 		FA19E48B1C822CA900DC31E8 /* Environments.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA19E48A1C822CA900DC31E8 /* Environments.swift */; };
 		FA1EE2E61BEAADC800B6EE11 /* JsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1EE2E51BEAADC800B6EE11 /* JsonTests.swift */; };
 		FA2257E31C8B56E2000B0333 /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2257E21C8B56E2000B0333 /* Screenshot.swift */; };
@@ -123,6 +128,11 @@
 		FA0883D71DBC231E008A553A /* feedback_ok.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = feedback_ok.json; path = Mocks/JSON/feedback_ok.json; sourceTree = "<group>"; };
 		FA0883D91DBC311C008A553A /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Result.swift; path = Applivery/Utils/Result.swift; sourceTree = "<group>"; };
 		FA0883DB1DBC3C03008A553A /* ko.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = ko.json; path = Mocks/JSON/ko.json; sourceTree = "<group>"; };
+		FA1569B21DBCFB7700C651D4 /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Device.swift; path = Applivery/Wrappers/Device.swift; sourceTree = "<group>"; };
+		FA1569B41DBD313200C651D4 /* Wifi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Wifi.swift; path = Applivery/Utils/Wifi.swift; sourceTree = "<group>"; };
+		FA1569B61DBD465100C651D4 /* DiskStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiskStatus.swift; path = Applivery/Utils/DiskStatus.swift; sourceTree = "<group>"; };
+		FA1569B81DBD498900C651D4 /* Ram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Ram.swift; path = Applivery/Utils/Ram.swift; sourceTree = "<group>"; };
+		FA1569BA1DBD52CF00C651D4 /* DeviceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceMock.swift; path = Mocks/DeviceMock.swift; sourceTree = "<group>"; };
 		FA19E48A1C822CA900DC31E8 /* Environments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Environments.swift; path = Applivery/Utils/Environments.swift; sourceTree = "<group>"; };
 		FA1EE2E51BEAADC800B6EE11 /* JsonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonTests.swift; sourceTree = "<group>"; };
 		FA2257E21C8B56E2000B0333 /* Screenshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Screenshot.swift; path = Applivery/Wrappers/Screenshot.swift; sourceTree = "<group>"; };
@@ -274,6 +284,7 @@
 				FA388B6A1C7CF3D500004042 /* EventDetector.swift */,
 				FA2257E21C8B56E2000B0333 /* Screenshot.swift */,
 				FA2A61CA1C8CE59800DC21FD /* Keyboard.swift */,
+				FA1569B21DBCFB7700C651D4 /* Device.swift */,
 			);
 			name = Wrappers;
 			sourceTree = "<group>";
@@ -338,6 +349,7 @@
 				FAED0E791CC97EF2000FD5EB /* ScreenshotInteractorMock.swift */,
 				FAED0E7B1CC980D2000FD5EB /* FeedbackViewMock.swift */,
 				FAED0E7D1CC991DD000FD5EB /* FeedbackInteractorMock.swift */,
+				FA1569BA1DBD52CF00C651D4 /* DeviceMock.swift */,
 			);
 			name = Mocks;
 			sourceTree = "<group>";
@@ -564,6 +576,9 @@
 				FAC3947B1C959EB100F14778 /* UIColor+Hex.swift */,
 				FAC394811C96078A00F14778 /* UIDevice+ModelName.swift */,
 				FA0883D91DBC311C008A553A /* Result.swift */,
+				FA1569B41DBD313200C651D4 /* Wifi.swift */,
+				FA1569B61DBD465100C651D4 /* DiskStatus.swift */,
+				FA1569B81DBD498900C651D4 /* Ram.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -712,6 +727,7 @@
 				FA2A61CB1C8CE59800DC21FD /* Keyboard.swift in Sources */,
 				FA73BF7D1C8B02E800619258 /* ScreenshotInteractor.swift in Sources */,
 				FA3A69451BC2FCFB00179176 /* ConfigPersister.swift in Sources */,
+				FA1569B51DBD313200C651D4 /* Wifi.swift in Sources */,
 				FA929A091C4AF13700130DF4 /* Font+Load.swift in Sources */,
 				FA952FDA1C83904100C32DD0 /* FeedbackPresenter.swift in Sources */,
 				FA952FDC1C83909000C32DD0 /* FeedbackInteractor.swift in Sources */,
@@ -741,6 +757,8 @@
 				FA53DE271BC188E200DF2EB1 /* StartInteractor.swift in Sources */,
 				FAFA857F1BCC3389004E1974 /* Response.swift in Sources */,
 				FAFA857D1BCC2EE7004E1974 /* Request.swift in Sources */,
+				FA1569B71DBD465100C651D4 /* DiskStatus.swift in Sources */,
+				FA1569B31DBCFB7700C651D4 /* Device.swift in Sources */,
 				FAC394801C95EA3000F14778 /* FeedbackService.swift in Sources */,
 				FA3211D41C3EA11700668099 /* DownloadDataManager.swift in Sources */,
 				FAFA857A1BCC07B6004E1974 /* Log.swift in Sources */,
@@ -749,6 +767,7 @@
 				FA53DE301BC18ECB00DF2EB1 /* ConfigDataManager.swift in Sources */,
 				FAC394821C96078A00F14778 /* UIDevice+ModelName.swift in Sources */,
 				FAD2A1651C011E2B001967FD /* UpdateInteractor.swift in Sources */,
+				FA1569B91DBD498900C651D4 /* Ram.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -764,6 +783,7 @@
 				FA232D2F1C753A5F0097AE79 /* UserDefaultsMock.swift in Sources */,
 				FAF382041C25E828007AF670 /* UpdateInteractorTests.swift in Sources */,
 				FA53DE3C1BC1B38900DF2EB1 /* StartInteractorMock.swift in Sources */,
+				FA1569BB1DBD52CF00C651D4 /* DeviceMock.swift in Sources */,
 				FA53DE351BC193EA00DF2EB1 /* ConfigDataManagerMock.swift in Sources */,
 				FA2B3DCA1C178705002DC5C9 /* UpdatePresenterTests.swift in Sources */,
 				FA3A693D1BC2F9B700179176 /* ConfigDataManagerTests.swift in Sources */,
