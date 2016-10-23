@@ -168,12 +168,12 @@ class ConfigPersisterTests: XCTestCase {
 
 		let dictionary: [String: Any] =
 		[
-			kMinVersionKey: config.minVersion,
+			kMinVersionKey: config.minVersion!,
 			kForceUpdateKey: config.forceUpdate,
-			kLastBuildId: config.lastBuildId,
+			kLastBuildId: config.lastBuildId!,
 			kForceUpdateMessageKey: config.forceUpdateMessage ?? "",
 			kOtaUpdateKey: config.otaUpdate,
-			kLastBuildVersion: config.lastVersion,
+			kLastBuildVersion: config.lastVersion!,
 			kOtaUpdateMessageKey: config.otaUpdateMessage ?? ""
 		]
 

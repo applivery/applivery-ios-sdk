@@ -13,12 +13,12 @@ enum ConfigError: Error {
 }
 
 class Config {
-	var minVersion: String!
+	var minVersion: String?
 	var forceUpdate = false
-	var lastBuildId: String!
+	var lastBuildId: String?
 	var forceUpdateMessage: String?
 	var otaUpdate = false
-	var lastVersion: String!
+	var lastVersion: String?
 	var otaUpdateMessage: String?
 
 

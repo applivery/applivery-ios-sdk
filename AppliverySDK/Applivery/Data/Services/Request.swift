@@ -48,7 +48,9 @@ class Request {
 		guard let url = self.buildURL() else { return LogWarn("Could not build the URL") }
 		self.request = URLRequest(url: url)
 		self.request?.httpMethod = self.method
-		self.request?.httpBody = JSON(from: self.bodyParams).toData()
+		if self.method != "GET" {
+			self.request?.httpBody = JSON(from: self.bodyParams).toData()
+		}
 		self.setHeaders()
 	}
 	
