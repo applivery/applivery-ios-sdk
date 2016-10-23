@@ -49,9 +49,9 @@ class FeedbackService: PFeedbackService {
 						"id": self.device.vendorId(),
 						 "network": self.device.networkType(),
 						 "resolution": self.device.resolution(),
-						  "orientation": self.device.orientation()
+						  "orientation": self.device.orientation(),
 						// ramFree
-						// diskFree
+						 "diskFree": self.device.diskFree()
 					],
 					"os": [
 						"name": "iOS",
