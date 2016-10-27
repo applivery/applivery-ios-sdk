@@ -9,16 +9,16 @@
 import Foundation
 @testable import Applivery
 
-class DownloadServiceMock: PDownloadService {
+class DownloadServiceMock: DownloadServiceProtocol {
 
 	// Inputs
-	var inDownloadTokenResponse: DownloadTokenResponse!
+	var inDownloadTokenResponse: Result<String, NSError>!
 
 	// Outputs
 	var outFetchDownloadToken = (called: false, buildId: "")
 
 
-	func fetchDownloadToken(_ buildId: String, completionHandler: @escaping (_ response: DownloadTokenResponse) -> Void) {
+	func fetchDownloadToken(with buildId: String, completionHandler: @escaping (_ response: Result<String, NSError>) -> Void) {
 		self.outFetchDownloadToken = (true, buildId)
 		completionHandler(self.inDownloadTokenResponse)
 	}

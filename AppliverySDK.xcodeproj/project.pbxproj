@@ -27,6 +27,7 @@
 		FA2B3DCA1C178705002DC5C9 /* UpdatePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2B3DC91C178705002DC5C9 /* UpdatePresenterTests.swift */; };
 		FA2B3DCC1C1789AF002DC5C9 /* UpdateViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2B3DCB1C1789AF002DC5C9 /* UpdateViewMock.swift */; };
 		FA2B3DCE1C178A0F002DC5C9 /* UpdateInteractoMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2B3DCD1C178A0F002DC5C9 /* UpdateInteractoMock.swift */; };
+		FA2B9C021DC29935009F11C5 /* ErrorCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2B9C011DC29935009F11C5 /* ErrorCodes.swift */; };
 		FA2C455A1C4D20A300E72847 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA2C455C1C4D20A300E72847 /* Localizable.strings */; };
 		FA2C455E1C4D228A00E72847 /* NSBundle+Applivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C455D1C4D228A00E72847 /* NSBundle+Applivery.swift */; };
 		FA3211D41C3EA11700668099 /* DownloadDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3211D31C3EA11700668099 /* DownloadDataManager.swift */; };
@@ -143,9 +144,10 @@
 		FA2B3DC91C178705002DC5C9 /* UpdatePresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdatePresenterTests.swift; path = Presenters/UpdatePresenterTests.swift; sourceTree = "<group>"; };
 		FA2B3DCB1C1789AF002DC5C9 /* UpdateViewMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateViewMock.swift; path = Mocks/UpdateViewMock.swift; sourceTree = "<group>"; };
 		FA2B3DCD1C178A0F002DC5C9 /* UpdateInteractoMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateInteractoMock.swift; path = Mocks/UpdateInteractoMock.swift; sourceTree = "<group>"; };
+		FA2B9C011DC29935009F11C5 /* ErrorCodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ErrorCodes.swift; path = Applivery/SDKConfig/ErrorCodes/ErrorCodes.swift; sourceTree = "<group>"; };
 		FA2C455B1C4D20A300E72847 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FA2C455D1C4D228A00E72847 /* NSBundle+Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSBundle+Applivery.swift"; path = "Applivery/Utils/NSBundle+Applivery.swift"; sourceTree = "<group>"; };
-		FA3211D31C3EA11700668099 /* DownloadDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadDataManager.swift; path = Applivery/Data/DownloadDataManager.swift; sourceTree = "<group>"; };
+		FA3211D31C3EA11700668099 /* DownloadDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = DownloadDataManager.swift; path = Applivery/Data/DownloadDataManager.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA3211D51C3EA6D300668099 /* Localize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Localize.swift; path = Applivery/Utils/Localize.swift; sourceTree = "<group>"; };
 		FA3211D71C3EE15E00668099 /* DownloadDataManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadDataManagerMock.swift; path = Mocks/DownloadDataManagerMock.swift; sourceTree = "<group>"; };
 		FA388B6A1C7CF3D500004042 /* EventDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventDetector.swift; path = Applivery/Wrappers/EventDetector.swift; sourceTree = "<group>"; };
@@ -156,7 +158,7 @@
 		FA3A69461BC3064A00179176 /* ConfigPersisterMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigPersisterMock.swift; path = Mocks/ConfigPersisterMock.swift; sourceTree = "<group>"; };
 		FA48CB541CC2CCEF007A5293 /* ScreenshotInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScreenshotInteractorTests.swift; path = Interactors/ScreenshotInteractorTests.swift; sourceTree = "<group>"; };
 		FA48CB561CC2CE24007A5293 /* ImageManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageManagerMock.swift; path = Mocks/ImageManagerMock.swift; sourceTree = "<group>"; };
-		FA48CB591CC2D08A007A5293 /* FeedbackInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackInteractorTests.swift; path = Interactors/FeedbackInteractorTests.swift; sourceTree = "<group>"; };
+		FA48CB591CC2D08A007A5293 /* FeedbackInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FeedbackInteractorTests.swift; path = Interactors/FeedbackInteractorTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA48CB5B1CC2D15B007A5293 /* FeedbackServiceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackServiceMock.swift; path = Mocks/FeedbackServiceMock.swift; sourceTree = "<group>"; };
 		FA49AEBA1C4AF95B000D5DFF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Resources/Images.xcassets; sourceTree = "<group>"; };
 		FA4EBF521C7D009000664C1E /* EventDetectorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventDetectorMock.swift; path = Mocks/EventDetectorMock.swift; sourceTree = "<group>"; };
@@ -189,7 +191,7 @@
 		FA952FDD1C83929100C32DD0 /* Storyboard+Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Storyboard+Applivery.swift"; path = "Applivery/Utils/Storyboard+Applivery.swift"; sourceTree = "<group>"; };
 		FAA50D4B1C7D21D300CE7B65 /* ResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResponseTests.swift; path = Network/ResponseTests.swift; sourceTree = "<group>"; };
 		FAA50D4D1C7D232500CE7B65 /* NSError+Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSError+Applivery.swift"; path = "Applivery/Utils/NSError+Applivery.swift"; sourceTree = "<group>"; };
-		FAADA5341DBBF25B00300A5E /* FeedbackServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackServiceTests.swift; path = Network/FeedbackServiceTests.swift; sourceTree = "<group>"; };
+		FAADA5341DBBF25B00300A5E /* FeedbackServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FeedbackServiceTests.swift; path = Network/FeedbackServiceTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAADA5391DBC125800300A5E /* Cartfile.private */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile.private; sourceTree = "<group>"; };
 		FAADA53A1DBC14EB00300A5E /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
 		FAC394741C95996B00F14778 /* ButtonFeedbackType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ButtonFeedbackType.swift; path = Applivery/Components/ButtonFeedbackType.swift; sourceTree = "<group>"; };
@@ -204,7 +206,7 @@
 		FAD2A1641C011E2B001967FD /* UpdateInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = UpdateInteractor.swift; path = Applivery/Interactors/UpdateInteractor.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAD910FF1BCEE58B00D56617 /* Json.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Json.swift; path = Applivery/Utils/Json.swift; sourceTree = "<group>"; };
 		FAEC86651C83824D00A43298 /* FeedbackCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackCoordinator.swift; path = Applivery/Coordinators/FeedbackCoordinator.swift; sourceTree = "<group>"; };
-		FAED0E771CC97C99000FD5EB /* FeedbackPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackPresenterTests.swift; path = Presenters/FeedbackPresenterTests.swift; sourceTree = "<group>"; };
+		FAED0E771CC97C99000FD5EB /* FeedbackPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FeedbackPresenterTests.swift; path = Presenters/FeedbackPresenterTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAED0E791CC97EF2000FD5EB /* ScreenshotInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScreenshotInteractorMock.swift; path = Mocks/ScreenshotInteractorMock.swift; sourceTree = "<group>"; };
 		FAED0E7B1CC980D2000FD5EB /* FeedbackViewMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackViewMock.swift; path = Mocks/FeedbackViewMock.swift; sourceTree = "<group>"; };
 		FAED0E7D1CC991DD000FD5EB /* FeedbackInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackInteractorMock.swift; path = Mocks/FeedbackInteractorMock.swift; sourceTree = "<group>"; };
@@ -214,9 +216,9 @@
 		FAFA857C1BCC2EE7004E1974 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Request.swift; path = Applivery/Data/Services/Request.swift; sourceTree = "<group>"; };
 		FAFA857E1BCC3389004E1974 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Response.swift; path = Applivery/Data/Services/Response.swift; sourceTree = "<group>"; };
 		FAFBE4601C3EEA9A0039BD8C /* UpdateInteractorOutputMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateInteractorOutputMock.swift; path = Mocks/UpdateInteractorOutputMock.swift; sourceTree = "<group>"; };
-		FAFBE4621C3EF66E0039BD8C /* DownloadService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadService.swift; path = Applivery/Data/Services/DownloadService.swift; sourceTree = "<group>"; };
+		FAFBE4621C3EF66E0039BD8C /* DownloadService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = DownloadService.swift; path = Applivery/Data/Services/DownloadService.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAFBE4641C3EFD890039BD8C /* DownloadDataManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadDataManagerTests.swift; path = Data/DownloadDataManagerTests.swift; sourceTree = "<group>"; };
-		FAFBE4661C3EFEC40039BD8C /* DownloadServiceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadServiceMock.swift; path = Mocks/DownloadServiceMock.swift; sourceTree = "<group>"; };
+		FAFBE4661C3EFEC40039BD8C /* DownloadServiceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = DownloadServiceMock.swift; path = Mocks/DownloadServiceMock.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAFF01241C57A2DE00DB7C8E /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "fontawesome-webfont.ttf"; path = "Resources/Fonts/fontawesome-webfont.ttf"; sourceTree = "<group>"; };
 		FAFF01251C57A2DE00DB7C8E /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Light.ttf"; path = "Resources/Fonts/Lato-Light.ttf"; sourceTree = "<group>"; };
 		FAFF01261C57A2DE00DB7C8E /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Regular.ttf"; path = "Resources/Fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
@@ -266,6 +268,23 @@
 				FAED0E771CC97C99000FD5EB /* FeedbackPresenterTests.swift */,
 			);
 			name = Presenters;
+			sourceTree = "<group>";
+		};
+		FA2B9BFF1DC298FD009F11C5 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				FA2B9C011DC29935009F11C5 /* ErrorCodes.swift */,
+			);
+			name = Constants;
+			sourceTree = "<group>";
+		};
+		FA2B9C001DC29905009F11C5 /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				FAFA85751BCBDB26004E1974 /* GlobalConfig.swift */,
+				FA2B9BFF1DC298FD009F11C5 /* Constants */,
+			);
+			name = Global;
 			sourceTree = "<group>";
 		};
 		FA3A693B1BC2F99400179176 /* Data */ = {
@@ -437,7 +456,7 @@
 			isa = PBXGroup;
 			children = (
 				FA68D90E1BC046E300589DE4 /* Applivery.swift */,
-				FAFA85741BCBDAB8004E1974 /* SDKConfig */,
+				FA2B9C001DC29905009F11C5 /* Global */,
 				FAD2A1591C010D3F001967FD /* Coordinators */,
 				FAD2A15E1C011CA8001967FD /* Views */,
 				FAC394731C95994800F14778 /* Components */,
@@ -550,14 +569,6 @@
 				FA49AEB81C4AF93B000D5DFF /* Fonts */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
-		};
-		FAFA85741BCBDAB8004E1974 /* SDKConfig */ = {
-			isa = PBXGroup;
-			children = (
-				FAFA85751BCBDB26004E1974 /* GlobalConfig.swift */,
-			);
-			name = SDKConfig;
 			sourceTree = "<group>";
 		};
 		FAFA85781BCC0789004E1974 /* Utils */ = {
@@ -734,6 +745,7 @@
 				FAC394751C95996B00F14778 /* ButtonFeedbackType.swift in Sources */,
 				FA2C455E1C4D228A00E72847 /* NSBundle+Applivery.swift in Sources */,
 				FA3A69401BC2FC1200179176 /* App.swift in Sources */,
+				FA2B9C021DC29935009F11C5 /* ErrorCodes.swift in Sources */,
 				FA952FD81C83901000C32DD0 /* FeedbackVC.swift in Sources */,
 				FAD911001BCEE58B00D56617 /* Json.swift in Sources */,
 				FACEF8C81C14663B00B03FC0 /* Background.swift in Sources */,

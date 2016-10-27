@@ -116,7 +116,7 @@ class FeedbackPresenterTests: XCTestCase {
 		XCTAssert(self.feedbackCoordinatorMock.outCloseFeedbackCalled == true)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.called == true)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.message == "test message")
-		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.feedbackType == .Bug)
+		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.feedbackType == .bug)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.screenshot == nil)
 		XCTAssert(self.feedbackViewMock.outShowMessage.called == false)
 	}
@@ -137,7 +137,7 @@ class FeedbackPresenterTests: XCTestCase {
 		XCTAssert(self.feedbackCoordinatorMock.outCloseFeedbackCalled == false)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.called == true)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.message == "test message")
-		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.feedbackType == .Bug)
+		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.feedbackType == .bug)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.screenshot == nil)
 		XCTAssert(self.feedbackViewMock.outShowMessage.called == true)
 		XCTAssert(self.feedbackViewMock.outShowMessage.message == "test error")
@@ -148,7 +148,7 @@ class FeedbackPresenterTests: XCTestCase {
 		self.feedbackViewMock.inMessage = "test message"
 		self.feedbackInteractorMock.inResult = .success
 
-		self.feedbackPresenter.userDidSelectedFeedbackType(.Bug)
+		self.feedbackPresenter.userDidSelectedFeedbackType(.bug)
 
 
 		// ACT
@@ -161,7 +161,7 @@ class FeedbackPresenterTests: XCTestCase {
 		XCTAssert(self.feedbackCoordinatorMock.outCloseFeedbackCalled == true)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.called == true)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.message == "test message")
-		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.feedbackType == .Bug)
+		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.feedbackType == .bug)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.screenshot == nil)
 		XCTAssert(self.feedbackViewMock.outShowMessage.called == false)
 	}
@@ -171,7 +171,7 @@ class FeedbackPresenterTests: XCTestCase {
 		self.feedbackViewMock.inMessage = "test message"
 		self.feedbackInteractorMock.inResult = .success
 
-		self.feedbackPresenter.userDidSelectedFeedbackType(.Feedback)
+		self.feedbackPresenter.userDidSelectedFeedbackType(.feedback)
 
 
 		// ACT
@@ -184,7 +184,7 @@ class FeedbackPresenterTests: XCTestCase {
 		XCTAssert(self.feedbackCoordinatorMock.outCloseFeedbackCalled == true)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.called == true)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.message == "test message")
-		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.feedbackType == .Feedback)
+		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.feedbackType == .feedback)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.screenshot == nil)
 		XCTAssert(self.feedbackViewMock.outShowMessage.called == false)
 	}
@@ -211,7 +211,7 @@ class FeedbackPresenterTests: XCTestCase {
 		XCTAssert(self.feedbackCoordinatorMock.outCloseFeedbackCalled == true)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.called == true)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.message == "test message")
-		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.feedbackType == .Bug)
+		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.feedbackType == .bug)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.screenshot?.image == image)
 		XCTAssert(self.feedbackViewMock.outShowMessage.called == false)
 	}
@@ -238,7 +238,7 @@ class FeedbackPresenterTests: XCTestCase {
 		XCTAssert(self.feedbackCoordinatorMock.outCloseFeedbackCalled == true)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.called == true)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.message == "test message")
-		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.feedbackType == .Bug)
+		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.feedbackType == .bug)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.screenshot == nil)
 		XCTAssert(self.feedbackViewMock.outShowMessage.called == false)
 	}

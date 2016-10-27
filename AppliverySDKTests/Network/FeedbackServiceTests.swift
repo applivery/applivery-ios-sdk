@@ -53,7 +53,7 @@ class FeedbackServiceTests: XCTestCase {
 		self.setupConfigAndApp()
 		self.setupDeviceWithBattery()
 		
-		let feedback = Feedback(feedbackType: .Bug, message: "TEST_MESSAGE", screenshot: nil)
+		let feedback = Feedback(feedbackType: .bug, message: "TEST_MESSAGE", screenshot: nil)
 		
 		let completionCalled = self.expectation(description: "completion called")
 		self.feedbackService.postFeedback(feedback) { result in
@@ -105,7 +105,7 @@ class FeedbackServiceTests: XCTestCase {
 		self.setupConfigAndApp()
 		self.setupDeviceWithoutBattery()
 		
-		let feedback = Feedback(feedbackType: .Bug, message: "TEST_MESSAGE", screenshot: nil)
+		let feedback = Feedback(feedbackType: .bug, message: "TEST_MESSAGE", screenshot: nil)
 		
 		let completionCalled = self.expectation(description: "completion called")
 		self.feedbackService.postFeedback(feedback) { result in
@@ -155,7 +155,7 @@ class FeedbackServiceTests: XCTestCase {
 		self.setupConfigAndApp()
 		self.setupDeviceWithBattery()
 		
-		let feedback = Feedback(feedbackType: .Bug, message: "TEST_MESSAGE", screenshot: nil)
+		let feedback = Feedback(feedbackType: .bug, message: "TEST_MESSAGE", screenshot: nil)
 		
 		let completionCalled = self.expectation(description: "completion called")
 		self.feedbackService.postFeedback(feedback) { result in
@@ -172,7 +172,7 @@ class FeedbackServiceTests: XCTestCase {
 		self.setupConfigAndApp()
 		self.setupDeviceWithBattery()
 		
-		let feedback = Feedback(feedbackType: .Bug, message: "TEST_MESSAGE", screenshot: nil)
+		let feedback = Feedback(feedbackType: .bug, message: "TEST_MESSAGE", screenshot: nil)
 		
 		let completionCalled = self.expectation(description: "completion called")
 		self.feedbackService.postFeedback(feedback) { result in

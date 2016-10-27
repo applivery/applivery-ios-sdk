@@ -9,59 +9,36 @@
 import Foundation
 
 
-enum DownloadTokenResponse {
-	case success(token: String)
-	case error(NSError)
+protocol DownloadServiceProtocol {
+	func fetchDownloadToken(with buildId: String, completionHandler: @escaping (_ response: Result<String, NSError>) -> Void)
 }
 
 
-protocol PDownloadService {
-	func fetchDownloadToken(_ buildId: String, completionHandler: @escaping (_ response: DownloadTokenResponse) -> Void)
-}
+class DownloadService: DownloadServiceProtocol {
+	
+	var request: Request?
 
-
-class DownloadService: PDownloadService {
-
-	func fetchDownloadToken(_ buildId: String, completionHandler: @escaping (_ response: DownloadTokenResponse) -> Void) {
-		let request = Request(
+	func fetchDownloadToken(with buildId: String, completionHandler: @escaping (_ response: Result<String, NSError>) -> Void) {
+		self.request = Request(
 			endpoint: "/api/builds/\(buildId)/token"
 		)
 
-		request.sendAsync { response in
+		self.request?.sendAsync { response in
 			if response.success {
 				guard let token = response.body?["token"]?.toString() else {
-					completionHandler(.error(self.parseError()))
+					let error = NSError.UnexpectedError(debugMessage: "Error trying to parse token", code: ErrorCodes.JsonParse)
+					completionHandler(.error(error))
 					return
 				}
 
-				completionHandler(.success(token: token))
+				completionHandler(.success(token))
 			} else {
-				let error = response.error ?? self.unexpectedError()
+				let error = response.error ?? NSError
+					.UnexpectedError(debugMessage: "unexpected error while fetching download token")
 				LogError(error)
 				completionHandler(.error(error))
 			}
 		}
-	}
-
-
-	// MARK - Private Helpers
-
-	fileprivate func parseError() -> NSError {
-		let error = NSError (
-			domain: GlobalConfig.ErrorDomain,
-			code: 10001,
-			userInfo: [GlobalConfig.AppliveryErrorDebugKey: "Error trying to parse token"])
-
-		return error
-	}
-
-	fileprivate func unexpectedError() -> NSError {
-		let error = NSError (
-			domain: GlobalConfig.ErrorDomain,
-			code: -1,
-			userInfo: [GlobalConfig.AppliveryErrorDebugKey: "unexpected error while fetching download token"])
-
-		return error
 	}
 
 }

@@ -51,13 +51,13 @@ class Response {
 	fileprivate func responseOK(_ data: Data?) {
 		do {
 			guard data != nil else {
-				throw NSError.UnexpectedError("data is nil")
+				throw NSError.UnexpectedError(debugMessage: "data is nil")
 			}
 
 			let json = try JSON.dataToJson(data!)
 
 			guard let status = json["status"]?.toBool() else {
-				throw NSError.UnexpectedError(self.kUnexpectedErrorJson)
+				throw NSError.UnexpectedError(debugMessage: self.kUnexpectedErrorJson)
 			}
 
 			self.success = status

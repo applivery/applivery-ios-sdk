@@ -29,7 +29,7 @@ class FeedbackPresenter {
 	var feedbackCoordinator: PFeedbackCoordinator!
 	var screenshotInteractor: PScreenshotInteractor!
 
-	fileprivate var feedbackType: FeedbackType = .Bug
+	fileprivate var feedbackType: FeedbackType = .bug
 	fileprivate var message: String?
 	fileprivate var screenshot: Screenshot?
 	fileprivate var attachScreenshot = true
