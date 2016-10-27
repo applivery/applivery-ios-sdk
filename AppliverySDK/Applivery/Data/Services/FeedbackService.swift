@@ -33,29 +33,29 @@ class FeedbackService: PFeedbackService {
 			endpoint: "/api/feedback",
 			method: "POST",
 			bodyParams: [
-				"app": config.appId ,
+				"app": self.config.appId ,
 				"type": feedback.feedbackType.rawValue,
 				"message": feedback.message,
 				"packageInfo": [
-					"name": app.bundleId(),
-					"version": app.getVersion(),
-					"versionName": app.getVersionName()
+					"name": self.app.bundleId(),
+					"version": self.app.getVersion(),
+					"versionName": self.app.getVersionName()
 				],
 				"deviceInfo": [
 					"device": [
-						"model": UIDevice.current.modelName,
+						"model": self.device.model(),
 						"vendor": "Apple",
-						"type": UIDevice.current.model,
+						"type": self.device.type(),
 						"id": self.device.vendorId(),
-						 "network": self.device.networkType(),
-						 "resolution": self.device.resolution(),
-						  "orientation": self.device.orientation(),
-						 "ramFree": self.device.ramFree(),
-						 "diskFree": self.device.diskFree()
+						"network": self.device.networkType(),
+						"resolution": self.device.resolution(),
+						"orientation": self.device.orientation(),
+						"ramFree": self.device.ramFree(),
+						"diskFree": self.device.diskFree()
 					],
 					"os": [
 						"name": "iOS",
-						"version": UIDevice.current.systemVersion
+						"version": self.device.systemVersion()
 					]
 				],
 				"screenshot": screenshot
@@ -88,7 +88,7 @@ class FeedbackService: PFeedbackService {
 		device.updateValue(self.device.batteryLevel(), forKey: "battery")
 		device.updateValue(batteryState, forKey: "batteryStatus")
 		deviceInfo.updateValue(device, forKey: "device")
-		let _ = self.request?.bodyParams.updateValue(deviceInfo, forKey: "deviceInfo")
+		_ = self.request?.bodyParams.updateValue(deviceInfo, forKey: "deviceInfo")
 	}
 	
 }

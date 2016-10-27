@@ -10,6 +10,9 @@ import Foundation
 import CoreTelephony
 
 protocol DeviceProtocol {
+	func model() -> String
+	func type() -> String
+	func systemVersion() -> String
 	func vendorId() -> String
 	func enableBatteryMonitoring()
 	func disableBatteryMonitoring()
@@ -23,6 +26,18 @@ protocol DeviceProtocol {
 }
 
 struct Device: DeviceProtocol {
+	
+	func model() -> String {
+		return UIDevice.current.modelName
+	}
+	
+	func type() -> String {
+		return UIDevice.current.model
+	}
+	
+	func systemVersion() -> String {
+		return UIDevice.current.systemVersion
+	}
 	
 	func vendorId() -> String {
 		return UIDevice.current.identifierForVendor?.uuidString ?? "NO_ID"

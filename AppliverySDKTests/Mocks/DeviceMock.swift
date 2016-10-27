@@ -15,6 +15,9 @@ class DeviceMock: DeviceProtocol {
 	var enableBatteryMonitoringCalled = false
 	var disableBatteryMonitoringCalled = false
 	
+	var inModel: String!
+	var inType: String!
+	var inSystemVersion: String!
 	var inVendorId: String!
 	var inBatteryLevel: Int!
 	var inBatteryState: Bool?
@@ -31,6 +34,18 @@ class DeviceMock: DeviceProtocol {
 	
 	func disableBatteryMonitoring() {
 		self.disableBatteryMonitoringCalled = true
+	}
+	
+	func model() -> String {
+		return self.inModel
+	}
+	
+	func type() -> String {
+		return self.inType
+	}
+	
+	func systemVersion() -> String {
+		return self.inSystemVersion
 	}
 	
 	func vendorId() -> String {

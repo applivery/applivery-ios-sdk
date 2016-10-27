@@ -74,21 +74,21 @@ class FeedbackServiceTests: XCTestCase {
 			],
 			"deviceInfo": [
 				"device": [
-					"model": UIDevice.current.modelName,
+					"model": "TEST MODEL",
 					"vendor": "Apple",
-					"type": UIDevice.current.model,
-					 "id": "test vendor",
+					"type": "TEST TYPE",
+					"id": "test vendor",
+					"network": "test network type",
+					"resolution": "test resolution",
+					"ramFree": "test ram free",
+					"diskFree": "test disk free",
+					"orientation": "test orientation",
 					 "battery": 30,
 					 "batteryStatus": true,
-					 "network": "test network type",
-					 "resolution": "test resolution",
-					 "ramFree": "test ram free",
-					 "diskFree": "test disk free",
-					 "orientation": "test orientation"
 				],
 				"os": [
 					"name": "iOS",
-					"version": UIDevice.current.systemVersion
+					"version": "TEST IOS VERSION"
 				]
 			],
 			"screenshot": ""
@@ -126,9 +126,9 @@ class FeedbackServiceTests: XCTestCase {
 			],
 			"deviceInfo": [
 				"device": [
-					"model": UIDevice.current.modelName,
+					"model": "TEST MODEL",
 					"vendor": "Apple",
-					"type": UIDevice.current.model,
+					"type": "TEST TYPE",
 					"id": "test vendor",
 					"network": "test network type",
 					"resolution": "test resolution",
@@ -138,7 +138,7 @@ class FeedbackServiceTests: XCTestCase {
 				],
 				"os": [
 					"name": "iOS",
-					"version": UIDevice.current.systemVersion
+					"version": "TEST IOS VERSION"
 				]
 			],
 			"screenshot": ""
@@ -195,17 +195,15 @@ class FeedbackServiceTests: XCTestCase {
 	}
 	
 	private func setupDeviceWithBattery() {
-		self.deviceMock.inVendorId = "test vendor"
+		self.setupDeviceWithoutBattery()
 		self.deviceMock.inBatteryLevel = 30
 		self.deviceMock.inBatteryState = true
-		self.deviceMock.inNetworkType = "test network type"
-		self.deviceMock.inResolution = "test resolution"
-		self.deviceMock.inOrientation = "test orientation"
-		self.deviceMock.inRamFree = "test ram free"
-		self.deviceMock.inDiskFree = "test disk free"
 	}
 	
 	private func setupDeviceWithoutBattery() {
+		self.deviceMock.inModel = "TEST MODEL"
+		self.deviceMock.inType = "TEST TYPE"
+		self.deviceMock.inSystemVersion = "TEST IOS VERSION"
 		self.deviceMock.inVendorId = "test vendor"
 		self.deviceMock.inBatteryLevel = 30
 		self.deviceMock.inBatteryState = nil
