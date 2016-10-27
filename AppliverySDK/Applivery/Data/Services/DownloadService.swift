@@ -10,7 +10,7 @@ import Foundation
 
 
 protocol DownloadServiceProtocol {
-	func fetchDownloadToken(with buildId: String, completionHandler: @escaping (_ response: Result<String, NSError>) -> Void)
+	func fetchDownloadToken(with buildId: String, completionHandler: @escaping (Result<String, NSError>) -> Void)
 }
 
 
@@ -18,7 +18,7 @@ class DownloadService: DownloadServiceProtocol {
 	
 	var request: Request?
 
-	func fetchDownloadToken(with buildId: String, completionHandler: @escaping (_ response: Result<String, NSError>) -> Void) {
+	func fetchDownloadToken(with buildId: String, completionHandler: @escaping (Result<String, NSError>) -> Void) {
 		self.request = Request(
 			endpoint: "/api/builds/\(buildId)/token"
 		)
@@ -30,7 +30,6 @@ class DownloadService: DownloadServiceProtocol {
 					completionHandler(.error(error))
 					return
 				}
-
 				completionHandler(.success(token))
 			} else {
 				let error = response.error ?? NSError

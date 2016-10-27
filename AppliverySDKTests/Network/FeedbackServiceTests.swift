@@ -7,8 +7,8 @@
 //
 
 import XCTest
-@testable import Applivery
 import OHHTTPStubs
+@testable import Applivery
 
 class FeedbackServiceTests: XCTestCase {
 	
@@ -214,23 +214,15 @@ class FeedbackServiceTests: XCTestCase {
 		self.deviceMock.inDiskFree = "test disk free"
 	}
 	
-	private func stubResponse(with json: String) -> OHHTTPStubsResponse {
-		return OHHTTPStubsResponse(
-			fileAtPath: OHPathForFile(json, type(of: self))!,
-			statusCode: 200,
-			headers: ["Content-Type":"application/json"]
-		)
-	}
-	
 	private func stubFeedbackOK() {
 		let _ = stub(condition: isPath("/api/feedback")) { request in
-			return self.stubResponse(with: "feedback_ok.json")
+			return StubResponse.stubResponse(with: "feedback_ok.json")
 		}
 	}
 	
 	private func stubFeedbackKO() {
 		let _ = stub(condition: isPath("/api/feedback")) { request in
-			return self.stubResponse(with: "ko.json")
+			return StubResponse.stubResponse(with: "ko.json")
 		}
 	}
 }

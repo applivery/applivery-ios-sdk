@@ -33,7 +33,7 @@ class FeedbackService: PFeedbackService {
 			endpoint: "/api/feedback",
 			method: "POST",
 			bodyParams: [
-				"app": self.config.appId ,
+				"app": self.config.appId,
 				"type": feedback.feedbackType.rawValue,
 				"message": feedback.message,
 				"packageInfo": [
