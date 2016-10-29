@@ -36,9 +36,9 @@ class FeedbackInteractorTests: XCTestCase {
 
 
 	func test_postFeedback_resultSuccess_whenServiceResultSuccess() {
-		self.feedbackServiceMock.inResult = .success
+		self.feedbackServiceMock.inResult = .success(true)
 		let feedback = Feedback(
-			feedbackType: .Bug,
+			feedbackType: .bug,
 			message: "test message",
 			screenshot: nil
 		)
@@ -59,7 +59,7 @@ class FeedbackInteractorTests: XCTestCase {
 	func test_postFeedback_resultError_whenServiceResultError() {
 		self.feedbackServiceMock.inResult = .error(NSError.AppliveryError("error_test", code: -3))
 		let feedback = Feedback(
-			feedbackType: .Bug,
+			feedbackType: .bug,
 			message: "test message",
 			screenshot: nil
 		)

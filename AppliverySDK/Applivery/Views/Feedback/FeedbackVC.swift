@@ -85,10 +85,10 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	@IBAction func onSegmentedControlChanged(_ sender: UISegmentedControl) {
 		switch sender.selectedSegmentIndex {
 		case FeedbackVC.BugTypeIndex:
-			self.presenter.userDidSelectedFeedbackType(.Bug)
+			self.presenter.userDidSelectedFeedbackType(.bug)
 
 		case FeedbackVC.FeedbackTypeIndex:
-			self.presenter.userDidSelectedFeedbackType(.Feedback)
+			self.presenter.userDidSelectedFeedbackType(.feedback)
 
 		default:
 			LogWarn("Selected segment index out of bounds")

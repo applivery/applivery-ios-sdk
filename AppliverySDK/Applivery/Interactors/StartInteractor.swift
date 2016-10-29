@@ -77,31 +77,36 @@ class StartInteractor {
 		}
 	}
 
-	fileprivate func checkForceUpdate(_ config: Config?, version: String) -> Bool {
-		guard let conf = config else { return false }
-		guard conf.forceUpdate else { return false }
-
-		LogInfo("Checking if app version: \(version) is older than minVersion: \(conf.minVersion)")
-		if self.isOlder(version, minVersion: conf.minVersion) {
+	private func checkForceUpdate(_ config: Config?, version: String) -> Bool {
+		guard
+			let minVersion = config?.minVersion,
+			let forceUpdate = config?.forceUpdate,
+			forceUpdate
+			else { return false }
+		
+		LogInfo("Checking if app version: \(version) is older than minVersion: \(minVersion)")
+		if self.isOlder(version, minVersion: minVersion) {
 			self.output.forceUpdate()
-
 			return true
 		}
 
 		return false
 	}
 
-	fileprivate func checkOtaUpdate(_ config: Config?, version: String) {
-		guard let conf = config else { return }
-		guard conf.otaUpdate else { return }
+	private func checkOtaUpdate(_ config: Config?, version: String) {
+		guard
+			let lastVersion = config?.lastVersion,
+			let otaUpdate = config?.otaUpdate,
+			otaUpdate
+			else { return }
 
-		LogInfo("Checking if app version: \(version) is older than last build version: \(conf.lastVersion)")
-		if self.isOlder(version, minVersion: conf.lastVersion) {
+		LogInfo("Checking if app version: \(version) is older than last build version: \(lastVersion)")
+		if self.isOlder(version, minVersion: lastVersion) {
 			self.output.otaUpdate()
 		}
 	}
 
-	fileprivate func isOlder(_ currentVersion: String, minVersion: String) -> Bool {
+	private func isOlder(_ currentVersion: String, minVersion: String) -> Bool {
 		let (current, min) = self.equalLengthFillingWithZeros(left: currentVersion, right: minVersion)
 		let result = current.compare(min, options: NSString.CompareOptions.numeric, range: nil, locale: nil)
 
@@ -116,12 +121,12 @@ class StartInteractor {
 			return (left, right)
 		} else if componentsLeft.count < componentsRight.count {
 			let dif = componentsRight.count - componentsLeft.count
-			let a2 = self.fillWithZeros(string: componentsLeft, length: dif)
-			return (a2, right)
+			let leftFilled = self.fillWithZeros(string: componentsLeft, length: dif)
+			return (leftFilled, right)
 		} else {
 			let dif = componentsLeft.count - componentsRight.count
-			let b2 = self.fillWithZeros(string: componentsRight, length: dif)
-			return (left, b2)
+			let rightFilled = self.fillWithZeros(string: componentsRight, length: dif)
+			return (left, rightFilled)
 		}
 	}
 

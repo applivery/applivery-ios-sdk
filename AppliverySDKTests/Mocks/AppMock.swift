@@ -10,10 +10,12 @@ import UIKit
 @testable import Applivery
 
 
-class AppMock: PApp {
+class AppMock: AppProtocol {
 
 	// Inputs
+	var inBundleID: String!
 	var inVersion: String!
+	var inVersionName: String!
 	var inOpenUrlResult = false
 
 	// Outputs
@@ -28,8 +30,16 @@ class AppMock: PApp {
 	var outHideLoadingCalled = false
 
 
+	func bundleId() -> String {
+		return self.inBundleID
+	}
+
 	func getVersion() -> String {
 		return self.inVersion
+	}
+	
+	func getVersionName() -> String {
+		return self.inVersionName
 	}
 
 	func getLanguage() -> String {

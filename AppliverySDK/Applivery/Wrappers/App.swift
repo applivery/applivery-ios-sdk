@@ -11,9 +11,13 @@ import Foundation
 
 //! Wrapper for Application's operation
 
-protocol PApp {
+protocol AppProtocol {
+	func bundleId() -> String
 	func getVersion() -> String
+	func getVersionName() -> String
 	func getLanguage() -> String
+	
+	
 	func openUrl(_ url: String) -> Bool
 	func showLoading()
 	func hideLoading()
@@ -24,7 +28,7 @@ protocol PApp {
 }
 
 
-class App: PApp {
+class App: AppProtocol {
 
 	fileprivate var alertOta: UIAlertController?
 	fileprivate var alertError: UIAlertController?

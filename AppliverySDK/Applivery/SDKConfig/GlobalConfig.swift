@@ -20,8 +20,8 @@ class GlobalConfig {
 
 
 	// MARK: Global Variables
-	var apiKey: String!
-	var appId: String!
+	var apiKey: String = ""
+	var appId: String = ""
 	var appStoreRelease = false
 	var feedbackEnabled = true
 	var logLevel: LogLevel = .none

@@ -22,14 +22,14 @@ protocol PConfigDataManager {
 
 class ConfigDataManager: PConfigDataManager {
 
-	fileprivate let appInfo: PApp
+	fileprivate let appInfo: AppProtocol
 	fileprivate let configPersister: ConfigPersister
 	fileprivate let configService: ConfigService
 
 
 	// MARK: Initializers
 
-	init(appInfo: PApp, configPersister: ConfigPersister, configService: ConfigService) {
+	init(appInfo: AppProtocol, configPersister: ConfigPersister, configService: ConfigService) {
 		self.appInfo = appInfo
 		self.configPersister = configPersister
 		self.configService = configService

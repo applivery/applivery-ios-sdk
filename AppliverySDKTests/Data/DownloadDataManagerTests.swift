@@ -46,7 +46,7 @@ class DownloadDataManagerTests: XCTestCase {
 
 
 	func test_downloadUrl_success() {
-		self.downloadServiceMock.inDownloadTokenResponse = .success(token: "test_token")
+		self.downloadServiceMock.inDownloadTokenResponse = .success("test_token")
 
 		var completionCalled = false
 		self.downloadData.downloadUrl("test_build_id") { response in

@@ -19,14 +19,9 @@ protocol PFeedbackInteractor {
 	func sendFeedback(_ feedback: Feedback, completionHandler: @escaping (FeedbackInteractorResult) -> Void)
 }
 
-class FeedbackInteractor: PFeedbackInteractor {
+struct FeedbackInteractor: PFeedbackInteractor {
 
-	fileprivate var service: PFeedbackService
-
-
-	init(service: PFeedbackService = FeedbackService()) {
-		self.service = service
-	}
+	let service: PFeedbackService
 
 	func sendFeedback(_ feedback: Feedback, completionHandler: @escaping (FeedbackInteractorResult) -> Void) {
 		self.service.postFeedback(feedback) { result in

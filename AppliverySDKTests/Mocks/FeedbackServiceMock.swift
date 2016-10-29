@@ -13,14 +13,13 @@ import Foundation
 class FeedbackServiceMock: PFeedbackService {
 
 	// Inputs
-	var inResult: FeedbackServiceResult!
-
+	var inResult: Result<Bool, NSError>!
 
 	// Outputs
 	var outPostFeedback: (called: Bool, feedback: Feedback?) = (false, nil)
 
 
-	func postFeedback(_ feedback: Feedback, completionHandler: @escaping (FeedbackServiceResult) -> Void) {
+	func postFeedback(_ feedback: Feedback, completionHandler: @escaping (Result<Bool, NSError>) -> Void) {
 		self.outPostFeedback = (true, feedback)
 		completionHandler(self.inResult)
 	}

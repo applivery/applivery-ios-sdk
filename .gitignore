@@ -1,7 +1,6 @@
 # Xcode
 .DS_Store
 #build file
-build/
 #personal settings
 *.pbxuser
 !default.pbxuser
@@ -19,4 +18,12 @@ xcuserdata
 DerivedData
 .idea/
 *.orig
-Applivery.framework.zip
+*Applivery.framework*
+
+# Carthage
+Carthage/Checkouts
+*.bcsymbolmap
+*.framework.dSYM*
+Carthage/Build/Mac
+Carthage/Build/tvOS
+Carthage/Build/watchOS

@@ -11,12 +11,7 @@ import Foundation
 extension Bundle {
 
 	class func AppliveryBundle() -> Bundle {
-		if let bundle = Bundle(identifier: "com.applivery.sdk") {
-			return bundle
-		} else {
-			LogWarn("Applivery bundle not found")
-			return Bundle.main
-		}
+		return Bundle(for: Applivery.self)
 	}
 
 }

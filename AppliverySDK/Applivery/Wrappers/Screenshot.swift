@@ -9,21 +9,21 @@
 import Foundation
 
 
-class Screenshot {
+struct Screenshot {
 
 	var image: UIImage
 
 
 	// MARK - Factory Methods
 
-	class func capture() -> Screenshot {
+	static func capture() -> Screenshot {
 		let image = Screenshot.takeScreenshot()
 		let screenshot = Screenshot(image: image)
 
 		return screenshot
 	}
 
-	fileprivate class func takeScreenshot() -> UIImage {
+	private static func takeScreenshot() -> UIImage {
 		let layer = UIApplication.shared.keyWindow!.layer
 		let scale = UIScreen.main.scale
 		UIGraphicsBeginImageContextWithOptions(layer.frame.size, false, scale)
@@ -36,17 +36,10 @@ class Screenshot {
 	}
 
 
-	// MARK - Initializers
-
-	init(image: UIImage) {
-		self.image = image
-	}
-
-
 	// MARK - Public Methods
 
 	func base64() -> String? {
-		let imageData = UIImagePNGRepresentation(self.image)
+		let imageData = UIImageJPEGRepresentation(self.image, 0.9)
 		let base64String = imageData?.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters)
 
 		return base64String

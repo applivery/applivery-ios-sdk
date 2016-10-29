@@ -30,10 +30,10 @@ class UpdateInteractor: PUpdateInteractor {
 
 	fileprivate var configData: PConfigDataManager
 	fileprivate var downloadData: PDownloadDataManager
-	fileprivate var app: PApp
+	fileprivate var app: AppProtocol
 
 
-	init(configData: PConfigDataManager = ConfigDataManager(), downloadData: PDownloadDataManager = DownloadDataManager(), app: PApp = App()) {
+	init(configData: PConfigDataManager = ConfigDataManager(), downloadData: PDownloadDataManager = DownloadDataManager(), app: AppProtocol = App()) {
 		self.configData = configData
 		self.downloadData = downloadData
 		self.app = app

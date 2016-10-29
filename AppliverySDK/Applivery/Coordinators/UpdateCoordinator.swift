@@ -19,12 +19,12 @@ protocol PUpdateCoordinator {
 
 class UpdateCoordinator: PUpdateCoordinator, UpdateInteractorOutput {
 	fileprivate var updateInteractor: PUpdateInteractor
-	fileprivate var app: PApp
+	fileprivate var app: AppProtocol
 	fileprivate var forceUpdateCalled = false
 
 
 	// MARK - Initializers
-	init(updateInteractor: PUpdateInteractor = UpdateInteractor(), app: PApp = App()) {
+	init(updateInteractor: PUpdateInteractor = UpdateInteractor(), app: AppProtocol = App()) {
 		self.updateInteractor = updateInteractor
 		self.app = app
 	}

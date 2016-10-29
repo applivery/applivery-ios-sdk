@@ -9,43 +9,43 @@
 import Foundation
 
 
-class JSON: CustomStringConvertible {
-
-	var description: String {
-		if let data = try? JSONSerialization.data(withJSONObject: self.json, options: .prettyPrinted) {
+open class JSON: Sequence, CustomStringConvertible {
+	
+	private var json: Any
+	
+	open var description: String {
+		if let data = try? JSONSerialization.data(withJSONObject: self.json, options: .prettyPrinted) as Data {
 			if let description = String(data: data, encoding: String.Encoding.utf8) {
 				return description
 			} else {
-				return self.json.description
+				return String(describing: self.json)
 			}
 		} else {
-			return self.json.description
+			return String(describing: self.json)
 		}
 	}
-
-	fileprivate var json: AnyObject
-
-
+	
+	
 	// MARK - Initializers
-
-	init(json: AnyObject) {
-		self.json = json
+	
+	public init(from any: Any) {
+		self.json = any
 	}
-
-	subscript(path: String) -> JSON? {
+	
+	open subscript(path: String) -> JSON? {
 		get {
 			guard var jsonDict = self.json as? [String: AnyObject] else {
 				return nil
 			}
-
+			
 			var json = self.json
 			let pathArray = path.components(separatedBy: ".")
-
+			
 			for key in pathArray {
-
+				
 				if let jsonObject = jsonDict[key] {
 					json = jsonObject
-
+					
 					if let jsonDictNext = jsonObject as? [String : AnyObject] {
 						jsonDict = jsonDictNext
 					}
@@ -53,42 +53,84 @@ class JSON: CustomStringConvertible {
 					return nil
 				}
 			}
-
-			return JSON(json: json)
+			
+			return JSON(from: json)
 		}
 	}
-
-	class func dataToJson(_ data: Data) throws -> JSON {
+	
+	open subscript(index: Int) -> JSON? {
+		get {
+			guard let array = self.json as? [AnyObject], array.count > index else { return nil }
+			
+			return JSON(from: array[index])
+		}
+	}
+	
+	open class func dataToJson(_ data: Data) throws -> JSON {
 		let jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-		let json = JSON(json: jsonObject as AnyObject)
-
+		let json = JSON(from: jsonObject as AnyObject)
+		
 		return json
 	}
-
-
+	
+	
 	// MARK - Public methods
-
-	func toData() -> Data? {
+	
+	open func toData() -> Data? {
 		do {
-			let data = try JSONSerialization.data(withJSONObject: self.json, options:.prettyPrinted)
+			let data = try JSONSerialization.data(withJSONObject: self.json)
 			return data
 		} catch let error as NSError {
 			LogError(error)
 			return nil
 		}
 	}
-
-	func toBool() -> Bool? {
+	
+	open func toBool() -> Bool? {
 		return self.json as? Bool
 	}
-
-
-	func toInt() -> Int? {
-		return self.json as? Int
+	
+	open func toInt() -> Int? {
+		if let value = self.json as? Int {
+			return value
+		} else if let value = self.toString() {
+			return Int(value)
+		}
+		
+		return nil
 	}
-
-
-	func toString() -> String? {
+	
+	open func toString() -> String? {
 		return self.json as? String
+	}
+	
+	open func toDouble() -> Double? {
+		return self.json as? Double
+	}
+	
+	open func toDictionary() -> [String: Any]? {
+		
+		guard let dic = self.json as? [String: Any] else {
+			return [:]
+		}
+		
+		return dic
+	}
+	
+	// MARK - Sequence Methods
+	
+	open func makeIterator() -> AnyIterator<JSON> {
+		var index = 0
+		
+		return AnyIterator { () -> JSON? in
+			guard let array = self.json as? [AnyObject] else { return nil }
+			guard array.count > index else { return nil }
+			
+			let item = array[index]
+			let json = JSON(from: item)
+			index += 1
+			
+			return json
+		}
 	}
 }
