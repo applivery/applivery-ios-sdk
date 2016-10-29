@@ -50,7 +50,8 @@ class FeedbackService: PFeedbackService {
 						"network": self.device.networkType(),
 						"resolution": self.device.resolution(),
 						"orientation": self.device.orientation(),
-						"ramFree": self.device.ramFree(),
+						"ramUsed": self.device.ramUsed(),
+						"ramTotal": self.device.ramTotal(),
 						"diskFree": self.device.diskFree()
 					],
 					"os": [

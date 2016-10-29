@@ -31,7 +31,7 @@ struct Ram {
 			return info.resident_size
 			
 		} else {
-			print("Error with task_info(): " +
+			LogWarn("Error with task_info(): " +
 				(String(cString: mach_error_string(kerr), encoding: String.Encoding.ascii) ?? "unknown error"))
 			return 0
 		}

@@ -24,7 +24,8 @@ class DeviceMock: DeviceProtocol {
 	var inNetworkType: String!
 	var inResolution: String!
 	var inOrientation: String!
-	var inRamFree: String!
+	var inRamUsed: String!
+	var inRamTotal: String!
 	var inDiskFree: String!
 	
 	
@@ -72,8 +73,12 @@ class DeviceMock: DeviceProtocol {
 		return self.inOrientation
 	}
 	
-	func ramFree() -> String {
-		return self.inRamFree
+	func ramUsed() -> String {
+		return self.inRamUsed
+	}
+	
+	func ramTotal() -> String {
+		return self.inRamTotal
 	}
 	
 	func diskFree() -> String {

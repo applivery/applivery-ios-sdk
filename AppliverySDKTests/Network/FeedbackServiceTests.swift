@@ -80,7 +80,8 @@ class FeedbackServiceTests: XCTestCase {
 					"id": "test vendor",
 					"network": "test network type",
 					"resolution": "test resolution",
-					"ramFree": "test ram free",
+					"ramUsed": "50",
+					"ramTotal": "2000",
 					"diskFree": "test disk free",
 					"orientation": "test orientation",
 					 "battery": 30,
@@ -132,7 +133,8 @@ class FeedbackServiceTests: XCTestCase {
 					"id": "test vendor",
 					"network": "test network type",
 					"resolution": "test resolution",
-					"ramFree": "test ram free",
+					"ramUsed": "50",
+					"ramTotal": "2000",
 					"diskFree": "test disk free",
 					"orientation": "test orientation"
 				],
@@ -210,8 +212,9 @@ class FeedbackServiceTests: XCTestCase {
 		self.deviceMock.inNetworkType = "test network type"
 		self.deviceMock.inResolution = "test resolution"
 		self.deviceMock.inOrientation = "test orientation"
-		self.deviceMock.inRamFree = "test ram free"
 		self.deviceMock.inDiskFree = "test disk free"
+		self.deviceMock.inRamUsed = "50"
+		self.deviceMock.inRamTotal = "2000"
 	}
 	
 	private func stubFeedbackOK() {
