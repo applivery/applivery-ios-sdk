@@ -263,6 +263,15 @@
 			name = JSON;
 			sourceTree = "<group>";
 		};
+		FA0FCE5B1DC4D22500B92075 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FA68D8F51BC040B100589DE4 /* Applivery.h */,
+				FA68D8F71BC040B100589DE4 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		FA232D2B1C7538540097AE79 /* Persisters */ = {
 			isa = PBXGroup;
 			children = (
@@ -445,10 +454,10 @@
 		FA68D8F41BC040B000589DE4 /* AppliverySDK */ = {
 			isa = PBXGroup;
 			children = (
-				FA68D8F51BC040B100589DE4 /* Applivery.h */,
-				FA68D90D1BC046AB00589DE4 /* Applivery */,
+				FA68D90E1BC046E300589DE4 /* Applivery.swift */,
+				FA68D90D1BC046AB00589DE4 /* Source */,
 				FAF382051C2614F6007AF670 /* Resources */,
-				FA68D8F71BC040B100589DE4 /* Info.plist */,
+				FA0FCE5B1DC4D22500B92075 /* Supporting Files */,
 			);
 			path = AppliverySDK;
 			sourceTree = "<group>";
@@ -471,10 +480,9 @@
 			path = AppliverySDKTests;
 			sourceTree = "<group>";
 		};
-		FA68D90D1BC046AB00589DE4 /* Applivery */ = {
+		FA68D90D1BC046AB00589DE4 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				FA68D90E1BC046E300589DE4 /* Applivery.swift */,
 				FA2B9C001DC29905009F11C5 /* Global */,
 				FAD2A1591C010D3F001967FD /* Coordinators */,
 				FAD2A15E1C011CA8001967FD /* Views */,
@@ -486,7 +494,7 @@
 				FA3A693E1BC2FBE500179176 /* Wrappers */,
 				FAFA85781BCC0789004E1974 /* Utils */,
 			);
-			name = Applivery;
+			name = Source;
 			sourceTree = "<group>";
 		};
 		FA73BF7E1C8B03DC00619258 /* Managers */ = {
@@ -974,11 +982,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				CURRENT_PROJECT_VERSION = 2.0;
+				CURRENT_PROJECT_VERSION = 2.1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 2.0;
-				DYLIB_CURRENT_VERSION = 2.0;
+				DYLIB_CURRENT_VERSION = 2.1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = AppliverySDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1001,11 +1009,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				CURRENT_PROJECT_VERSION = 2.0;
+				CURRENT_PROJECT_VERSION = 2.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 2.0;
-				DYLIB_CURRENT_VERSION = 2.0;
+				DYLIB_CURRENT_VERSION = 2.1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = AppliverySDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
