@@ -5,7 +5,7 @@ install:
   - ./script/install_swiftlint.sh
 script:
   - xcodebuild -version
-  - carthage bootstrap
+  - carthage bootstrap --no-use-binaries --platform iOS
   - xcodebuild -project AppliverySDK.xcodeproj -scheme Applivery -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 6" test
 
 after_success:
