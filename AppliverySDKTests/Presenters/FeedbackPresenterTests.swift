@@ -69,9 +69,13 @@ class FeedbackPresenterTests: XCTestCase {
 	}
 
 	func test_userDidTapAddFeedbackButton() {
+		let editedScreenshot = UIImage()
+		self.feedbackViewMock.inEditedScreenshot = editedScreenshot
+		
 		self.feedbackPresenter.userDidTapAddFeedbackButton()
 
-		XCTAssert(self.feedbackViewMock.outShowFeedbackFormularyCalled == true)
+		XCTAssert(self.feedbackViewMock.outShowFeedbackFormulary.called == true)
+		XCTAssert(self.feedbackViewMock.outShowFeedbackFormulary.preview == editedScreenshot)
 	}
 
 
@@ -195,13 +199,15 @@ class FeedbackPresenterTests: XCTestCase {
 		self.feedbackInteractorMock.inResult = .success
 
 		let image = UIImage()
+		let editedImage = UIImage()
 		self.screenshotInteractorMock.inScreenshot = Screenshot(image: image)
-		self.feedbackPresenter.viewDidLoad()
-
-		self.feedbackPresenter.userDidChangedAttachScreenshot(attach: true)
+		self.feedbackViewMock.inEditedScreenshot = editedImage
 
 
 		// ACT
+		self.feedbackPresenter.viewDidLoad()
+		self.feedbackPresenter.userDidTapAddFeedbackButton()
+		self.feedbackPresenter.userDidChangedAttachScreenshot(attach: true)
 		self.feedbackPresenter.userDidTapSendFeedbackButton()
 
 		// ASSERT
@@ -212,7 +218,7 @@ class FeedbackPresenterTests: XCTestCase {
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.called == true)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.message == "test message")
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.feedbackType == .bug)
-		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.screenshot?.image == image)
+		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.screenshot?.image == editedImage)
 		XCTAssert(self.feedbackViewMock.outShowMessage.called == false)
 	}
 

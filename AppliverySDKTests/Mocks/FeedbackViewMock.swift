@@ -14,11 +14,12 @@ class FeedbackViewMock: FeedbackView {
 
 	// INPUTS
 	var inMessage: String?
+	var inEditedScreenshot: UIImage?
 
 
 	// OUTPUTS
 	var outShowScreenshot: (called: Bool, image: UIImage?) = (false, nil)
-	var outShowFeedbackFormularyCalled = false
+	var outShowFeedbackFormulary: (called: Bool, preview: UIImage?) = (false, nil)
 	var outShowScreenshotPreviewCalled = false
 	var outHideScreenshotPreviewCalled = false
 	var outNeedMessageCalled = false
@@ -33,8 +34,8 @@ class FeedbackViewMock: FeedbackView {
 		self.outShowScreenshot = (true, screenshot)
 	}
 
-	func showFeedbackFormulary() {
-		self.outShowFeedbackFormularyCalled = true
+	func showFeedbackFormulary(with preview: UIImage) {
+		self.outShowFeedbackFormulary = (true, preview)
 	}
 
 	func showScreenshotPreview() {
@@ -63,6 +64,10 @@ class FeedbackViewMock: FeedbackView {
 
 	func stopLoading() {
 		self.outStopLoadingCalled = true
+	}
+	
+	func editedScreenshot() -> UIImage? {
+		return self.inEditedScreenshot
 	}
 
 }
