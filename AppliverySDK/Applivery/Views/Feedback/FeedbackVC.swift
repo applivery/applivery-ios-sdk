@@ -46,7 +46,7 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	}
 	
 	
-	// MARK - View Lifecycle
+	// MARK: - View Lifecycle
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -75,7 +75,7 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	}
 	
 	
-	// MARK - UI Actions
+	// MARK: - UI Actions
 	
 	@IBAction func onButtonCloseTap(_ sender: UIButton) {
 		self.presenter.userDidTapCloseButton()
@@ -107,7 +107,7 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	}
 	
 	
-	// MARK - TextView
+	// MARK: - TextView
 	
 	func textViewDidBeginEditing(_ textView: UITextView) {
 		if self.isMessagePlaceholderShown {
@@ -117,14 +117,15 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	}
 	
 	
-	// MARK - Presenter
+	// MARK: - FeedbackView
 	
 	func showScreenshot(_ screenshot: UIImage) {
 		self.previewVC?.screenshot = screenshot
-		self.imageScreenshotPreview.image = screenshot
 	}
 	
-	func showFeedbackFormulary() {
+	func showFeedbackFormulary(with preview: UIImage) {
+		self.imageScreenshotPreview.image = preview
+		
 		self.screenshotContainer.isHidden = true
 		self.feedbackForm.isHidden = false
 		self.buttonAddFeedback.isHidden = true
@@ -196,8 +197,12 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		App().hideLoading()
 	}
 	
+	func editedScreenshot() -> UIImage? {
+		return self.previewVC?.editedScreenshot
+	}
 	
-	// MARK - Private Helper
+	
+	// MARK: - Private Helper
 	
 	fileprivate func setupView() {
 		self.buttonSendFeedback.isHidden = true

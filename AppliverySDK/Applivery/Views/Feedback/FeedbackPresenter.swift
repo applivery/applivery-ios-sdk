@@ -11,7 +11,7 @@ import Foundation
 
 protocol FeedbackView {
 	func showScreenshot(_ screenshot: UIImage)
-	func showFeedbackFormulary()
+	func showFeedbackFormulary(with preview: UIImage)
 	func showScreenshotPreview()
 	func hideScreenshotPreview()
 	func textMessage() -> String?
@@ -19,6 +19,7 @@ protocol FeedbackView {
 	func showMessage(_ message: String)
 	func showLoading()
 	func stopLoading()
+	func editedScreenshot() -> UIImage?
 }
 
 
@@ -29,10 +30,11 @@ class FeedbackPresenter {
 	var feedbackCoordinator: PFeedbackCoordinator!
 	var screenshotInteractor: PScreenshotInteractor!
 
-	fileprivate var feedbackType: FeedbackType = .bug
-	fileprivate var message: String?
-	fileprivate var screenshot: Screenshot?
-	fileprivate var attachScreenshot = true
+	private var feedbackType: FeedbackType = .bug
+	private var message: String?
+	private var screenshot: Screenshot?
+	private var editedScreenshot: Screenshot?
+	private var attachScreenshot = true
 
 
 	// MARK - Public Methods
@@ -47,7 +49,12 @@ class FeedbackPresenter {
 	}
 
 	func userDidTapAddFeedbackButton() {
-		self.view.showFeedbackFormulary()
+		guard let editedScreenshot = self.view.editedScreenshot() else {
+			return LogWarn("Could not get edited screenshot")
+		}
+		
+		self.editedScreenshot = Screenshot(image: editedScreenshot)
+		self.view.showFeedbackFormulary(with: editedScreenshot)
 	}
 
 	func userDidTapSendFeedbackButton() {
@@ -56,7 +63,7 @@ class FeedbackPresenter {
 			return
 		}
 
-		let screenshot = self.attachScreenshot ? self.screenshot : nil
+		let screenshot = self.attachScreenshot ? self.editedScreenshot : nil
 		let feedback = Feedback(feedbackType: self.feedbackType, message: message, screenshot: screenshot)
 
 		self.view.showLoading()
