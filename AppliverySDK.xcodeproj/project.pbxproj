@@ -43,6 +43,7 @@
 		FA3A69421BC2FC6F00179176 /* AppMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A69411BC2FC6F00179176 /* AppMock.swift */; };
 		FA3A69451BC2FCFB00179176 /* ConfigPersister.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A69441BC2FCFB00179176 /* ConfigPersister.swift */; };
 		FA3A69471BC3064A00179176 /* ConfigPersisterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A69461BC3064A00179176 /* ConfigPersisterMock.swift */; };
+		FA3D97841DEB79DB00CCC11B /* PreviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3D97831DEB79DB00CCC11B /* PreviewVC.swift */; };
 		FA48CB551CC2CCEF007A5293 /* ScreenshotInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA48CB541CC2CCEF007A5293 /* ScreenshotInteractorTests.swift */; };
 		FA48CB581CC2CE43007A5293 /* ImageManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA48CB561CC2CE24007A5293 /* ImageManagerMock.swift */; };
 		FA48CB5A1CC2D08A007A5293 /* FeedbackInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA48CB591CC2D08A007A5293 /* FeedbackInteractorTests.swift */; };
@@ -164,6 +165,7 @@
 		FA3A69411BC2FC6F00179176 /* AppMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = AppMock.swift; path = Mocks/AppMock.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA3A69441BC2FCFB00179176 /* ConfigPersister.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigPersister.swift; path = Applivery/Data/Persisters/ConfigPersister.swift; sourceTree = "<group>"; };
 		FA3A69461BC3064A00179176 /* ConfigPersisterMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigPersisterMock.swift; path = Mocks/ConfigPersisterMock.swift; sourceTree = "<group>"; };
+		FA3D97831DEB79DB00CCC11B /* PreviewVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreviewVC.swift; path = Applivery/Views/Feedback/Preview/PreviewVC.swift; sourceTree = "<group>"; };
 		FA48CB541CC2CCEF007A5293 /* ScreenshotInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScreenshotInteractorTests.swift; path = Interactors/ScreenshotInteractorTests.swift; sourceTree = "<group>"; };
 		FA48CB561CC2CE24007A5293 /* ImageManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageManagerMock.swift; path = Mocks/ImageManagerMock.swift; sourceTree = "<group>"; };
 		FA48CB591CC2D08A007A5293 /* FeedbackInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FeedbackInteractorTests.swift; path = Interactors/FeedbackInteractorTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -341,6 +343,14 @@
 				FA3A69441BC2FCFB00179176 /* ConfigPersister.swift */,
 			);
 			name = Persisters;
+			sourceTree = "<group>";
+		};
+		FA3D97821DEB79B300CCC11B /* Preview */ = {
+			isa = PBXGroup;
+			children = (
+				FA3D97831DEB79DB00CCC11B /* PreviewVC.swift */,
+			);
+			name = Preview;
 			sourceTree = "<group>";
 		};
 		FA49AEB81C4AF93B000D5DFF /* Fonts */ = {
@@ -531,6 +541,7 @@
 			children = (
 				FA952FD71C83901000C32DD0 /* FeedbackVC.swift */,
 				FA952FD91C83904100C32DD0 /* FeedbackPresenter.swift */,
+				FA3D97821DEB79B300CCC11B /* Preview */,
 			);
 			name = Feedback;
 			sourceTree = "<group>";
@@ -788,6 +799,7 @@
 				FA8D78161BC46064005741D8 /* ConfigService.swift in Sources */,
 				FAA50D4E1C7D232500CE7B65 /* NSError+Applivery.swift in Sources */,
 				FA2257E31C8B56E2000B0333 /* Screenshot.swift in Sources */,
+				FA3D97841DEB79DB00CCC11B /* PreviewVC.swift in Sources */,
 				FA3211D61C3EA6D300668099 /* Localize.swift in Sources */,
 				FA952FD41C838FB500C32DD0 /* UpdatePresenter.swift in Sources */,
 				FAC3947A1C959ADE00F14778 /* UIColor+Applivery.swift in Sources */,
