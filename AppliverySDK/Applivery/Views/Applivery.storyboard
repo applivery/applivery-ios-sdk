@@ -398,6 +398,10 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Kap-QR-Oxj" userLabel="imageScreenshot">
                                 <rect key="frame" x="0.0" y="0.0" width="334" height="593"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="kIn-Pm-HpY" appends="YES" id="JUy-JZ-mku"/>
+                                </connections>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -413,6 +417,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MVU-b6-K89" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <gestureRecognizer id="kIn-Pm-HpY" customClass="UIPanGestureRecognizer">
+                    <connections>
+                        <outlet property="delegate" destination="Q2s-L3-nFt" id="Ekf-kp-7yu"/>
+                    </connections>
+                </gestureRecognizer>
             </objects>
             <point key="canvasLocation" x="877" y="866"/>
         </scene>
