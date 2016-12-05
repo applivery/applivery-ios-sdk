@@ -10,7 +10,7 @@ import Foundation
 
 
 protocol FeedbackView {
-	func showScreenshot(_ screenshot: UIImage)
+	func showScreenshot(_ screenshot: UIImage?)
 	func showFeedbackFormulary(with preview: UIImage)
 	func showScreenshotPreview()
 	func hideScreenshotPreview()
@@ -59,8 +59,7 @@ class FeedbackPresenter {
 
 	func userDidTapSendFeedbackButton() {
 		guard let message = self.view.textMessage() else {
-			self.view.needMessage()
-			return
+			self.view.needMessage(); return
 		}
 
 		let screenshot = self.attachScreenshot ? self.editedScreenshot : nil
@@ -92,5 +91,9 @@ class FeedbackPresenter {
 		} else {
 			self.view.hideScreenshotPreview()
 		}
+	}
+	
+	func userDidTapPreview() {		
+		self.view.showScreenshot(nil)
 	}
 }

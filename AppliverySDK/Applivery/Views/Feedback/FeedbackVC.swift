@@ -106,6 +106,10 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		}
 	}
 	
+	@IBAction func onPreviewTap(_ sender: Any) {
+		self.presenter.userDidTapPreview()
+	}
+	
 	
 	// MARK: - TextView
 	
@@ -119,8 +123,17 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	
 	// MARK: - FeedbackView
 	
-	func showScreenshot(_ screenshot: UIImage) {
-		self.previewVC?.screenshot = screenshot
+	/// If nil, will reuse the current screenshot
+	func showScreenshot(_ screenshot: UIImage?) {
+		if let screenshot = screenshot {
+			self.previewVC?.screenshot = screenshot
+		}
+		
+		self.screenshotContainer.isHidden = false
+		self.feedbackForm.isHidden = true
+		self.buttonAddFeedback.isHidden = false
+		self.buttonSendFeedback.isHidden = true
+		self.textViewMessage.resignFirstResponder()
 	}
 	
 	func showFeedbackFormulary(with preview: UIImage) {
@@ -152,9 +165,9 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	}
 	
 	func textMessage() -> String? {
-		guard
-			!self.isMessagePlaceholderShown && self.textViewMessage.text.characters.count > 0
-			else { return nil }
+		guard !self.isMessagePlaceholderShown && self.textViewMessage.text.characters.count > 0 else {
+			return nil
+		}
 		
 		return self.textViewMessage.text
 	}
