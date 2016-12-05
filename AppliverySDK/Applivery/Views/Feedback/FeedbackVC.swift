@@ -132,25 +132,45 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	
 	/// If nil, will reuse the current screenshot
 	func showScreenshot(_ screenshot: UIImage?) {
-		if let screenshot = screenshot {
-			self.previewVC?.screenshot = screenshot
-		}
-		
-		self.screenshotContainer.isHidden = false
-		self.feedbackForm.isHidden = true
 		self.buttonAddFeedback.isHidden = false
 		self.buttonSendFeedback.isHidden = true
-		self.textViewMessage.resignFirstResponder()
+		
+		if let screenshot = screenshot {
+			self.previewVC?.screenshot = screenshot
+			self.showScreenshotAnimated()
+			
+		} else {
+			Keyboard.didHide { _ in
+				self.showScreenshotAnimated()
+			}
+			
+			self.textViewMessage.resignFirstResponder()
+		}
+	}
+	
+	private func showScreenshotAnimated() {
+		UIView.animate(withDuration: 0.4) {
+			self.screenshotContainer.alpha = 1
+			self.feedbackForm.alpha = 0
+		}
 	}
 	
 	func showFeedbackFormulary(with preview: UIImage) {
 		self.imageScreenshotPreview.image = preview
 		
-		self.screenshotContainer.isHidden = true
-		self.feedbackForm.isHidden = false
 		self.buttonAddFeedback.isHidden = true
 		self.buttonSendFeedback.isHidden = false
-		self.textViewMessage.becomeFirstResponder()
+		
+		UIView.animate(
+			withDuration: 0.4,
+			animations: {
+				self.screenshotContainer.alpha = 0
+				self.feedbackForm.alpha = 1
+				
+		},
+			completion: { _ in
+				self.textViewMessage.becomeFirstResponder()
+		})
 	}
 	
 	func showScreenshotPreview() {
@@ -228,7 +248,7 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		self.buttonSendFeedback.isHidden = true
 		self.buttonAddFeedback.isHidden = false
 		self.screenshotContainer.isHidden = false
-		self.feedbackForm.isHidden = true
+		self.feedbackForm.isHidden = false
 		
 		self.localizeView()
 		self.manageKeyboardShowEvent()

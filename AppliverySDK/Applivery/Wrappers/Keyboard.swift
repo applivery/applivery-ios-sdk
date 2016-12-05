@@ -22,6 +22,10 @@ class Keyboard {
 	class func willHide(_ notificationHandler: @escaping (Notification) -> Void) {
 		self.keyboardEvent(NSNotification.Name.UIKeyboardWillHide.rawValue, notificationHandler: notificationHandler)
 	}
+	
+	class func didHide(_ notificationHandler: @escaping (Notification) -> Void) {
+		self.keyboardEvent(NSNotification.Name.UIKeyboardDidHide.rawValue, notificationHandler: notificationHandler)
+	}
 
 	class func size(_ notification: Notification) -> CGSize? {
 		guard
