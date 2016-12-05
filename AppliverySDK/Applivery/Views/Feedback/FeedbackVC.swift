@@ -110,6 +110,13 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		self.presenter.userDidTapPreview()
 	}
 	
+	// MARK: - UI Actions
+	override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+		if motion == .motionShake {
+			self.presenter.userDidShake()
+		}
+	}
+	
 	
 	// MARK: - TextView
 	

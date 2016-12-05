@@ -23,6 +23,11 @@ protocol FeedbackView {
 }
 
 
+enum FeedbackViewState {
+	case preview
+	case formulary
+}
+
 class FeedbackPresenter {
 
 	var view: FeedbackView!
@@ -35,6 +40,7 @@ class FeedbackPresenter {
 	private var screenshot: Screenshot?
 	private var editedScreenshot: Screenshot?
 	private var attachScreenshot = true
+	private var viewState: FeedbackViewState = .preview
 
 
 	// MARK - Public Methods
@@ -42,6 +48,7 @@ class FeedbackPresenter {
 	func viewDidLoad() {
 		self.screenshot = self.screenshotInteractor.getScreenshot()
 		self.view.showScreenshot(self.screenshot!.image)
+		self.viewState = .preview
 	}
 
 	func userDidTapCloseButton() {
@@ -55,6 +62,7 @@ class FeedbackPresenter {
 		
 		self.editedScreenshot = Screenshot(image: editedScreenshot)
 		self.view.showFeedbackFormulary(with: editedScreenshot)
+		self.viewState = .formulary
 	}
 
 	func userDidTapSendFeedbackButton() {
@@ -95,5 +103,12 @@ class FeedbackPresenter {
 	
 	func userDidTapPreview() {
 		self.view.showScreenshot(nil)
+		self.viewState = .preview
+	}
+	
+	func userDidShake() {
+		if let screenshot = self.screenshot?.image, self.viewState == .preview {
+			self.view.showScreenshot(screenshot)
+		}
 	}
 }
