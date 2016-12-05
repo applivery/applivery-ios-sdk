@@ -93,7 +93,7 @@ class FeedbackPresenter {
 		}
 	}
 	
-	func userDidTapPreview() {		
+	func userDidTapPreview() {
 		self.view.showScreenshot(nil)
 	}
 }

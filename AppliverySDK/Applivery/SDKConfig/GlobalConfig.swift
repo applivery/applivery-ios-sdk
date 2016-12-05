@@ -25,6 +25,7 @@ class GlobalConfig {
 	var appStoreRelease = false
 	var feedbackEnabled = true
 	var logLevel: LogLevel = .none
+	var screenshotBrushColor: UIColor = #colorLiteral(red: 0.8078431487, green: 0.2693349354, blue: 0.3300692421, alpha: 1)
 
 
 	// MARK: Static texts
