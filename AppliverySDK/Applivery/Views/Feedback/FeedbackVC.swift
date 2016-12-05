@@ -162,6 +162,10 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		
 		UIView.animate(
 			withDuration: 0.4,
+			delay: 0,
+			usingSpringWithDamping: 0.6,
+			initialSpringVelocity: 0.2,
+			options: .curveLinear,
 			animations: {
 				screenshotCopy.frame = self.screenshotContainer.frame
 				self.screenshotContainer.alpha = 1
@@ -187,6 +191,10 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		
 		UIView.animate(
 			withDuration: 0.4,
+			delay: 0,
+			usingSpringWithDamping: 0.7,
+			initialSpringVelocity: 0.2,
+			options: .curveLinear,
 			animations: {
 				self.screenshotContainer.alpha = 0
 				self.feedbackForm.alpha = 1
@@ -201,8 +209,6 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 				screenshotCopy.removeFromSuperview()
 				self.textViewMessage.becomeFirstResponder()
 		})
-		
-		
 	}
 	
 	func showScreenshotPreview() {
