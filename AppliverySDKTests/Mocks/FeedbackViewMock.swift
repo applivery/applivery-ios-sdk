@@ -30,7 +30,7 @@ class FeedbackViewMock: FeedbackView {
 
 	// MARK - Methods
 
-	func showScreenshot(_ screenshot: UIImage) {
+	func showScreenshot(_ screenshot: UIImage?) {
 		self.outShowScreenshot = (true, screenshot)
 	}
 

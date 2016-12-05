@@ -233,7 +233,6 @@ class FeedbackPresenterTests: XCTestCase {
 
 		self.feedbackPresenter.userDidChangedAttachScreenshot(attach: false)
 
-
 		// ACT
 		self.feedbackPresenter.userDidTapSendFeedbackButton()
 
@@ -247,6 +246,58 @@ class FeedbackPresenterTests: XCTestCase {
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.feedbackType == .bug)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.screenshot == nil)
 		XCTAssert(self.feedbackViewMock.outShowMessage.called == false)
+	}
+	
+	func test_userDidTapPreview_resultViewShowScreenshotNil_andStateChangedToPreview() {
+		self.feedbackPresenter.userDidTapPreview()
+		
+		XCTAssert(self.feedbackViewMock.outShowScreenshot.called == true)
+		XCTAssert(self.feedbackViewMock.outShowScreenshot.image == nil)
+	}
+	
+	func test_userDidShake_resultShowOriginalScreenshot_whenPreviewModeIsSet() {
+		let originalImage = UIImage()
+		self.screenshotInteractorMock.inScreenshot = Screenshot(image: originalImage)
+		
+		
+		self.feedbackPresenter.viewDidLoad()
+		self.feedbackPresenter.userDidShake()
+		
+		XCTAssert(self.feedbackViewMock.outShowScreenshot.called == true)
+		XCTAssert(self.feedbackViewMock.outShowScreenshot.image == originalImage)
+	}
+	
+	func test_userDidShake_resultNoShowScreenshot_whenFormularyModeIsSet() {
+		// Arrange
+		let originalImage = UIImage()
+		let editedImage = UIImage()
+		self.screenshotInteractorMock.inScreenshot = Screenshot(image: originalImage)
+		self.feedbackViewMock.inEditedScreenshot = editedImage
+		
+		// Act
+		self.feedbackPresenter.userDidTapAddFeedbackButton()
+		self.feedbackPresenter.userDidShake()
+		
+		// Assert
+		XCTAssert(self.feedbackViewMock.outShowScreenshot.called == false)
+	}
+	
+	func test_userDidShake_resultShowOriginalScreenshot_whenFormularyModeIsSet_thenBackToPreview() {
+		// Arrange
+		let originalImage = UIImage()
+		let editedImage = UIImage()
+		self.screenshotInteractorMock.inScreenshot = Screenshot(image: originalImage)
+		self.feedbackViewMock.inEditedScreenshot = editedImage
+		
+		// Act
+		self.feedbackPresenter.viewDidLoad()
+		self.feedbackPresenter.userDidTapAddFeedbackButton()
+		self.feedbackPresenter.userDidTapPreview()
+		self.feedbackPresenter.userDidShake()
+		
+		// Assert
+		XCTAssert(self.feedbackViewMock.outShowScreenshot.called == true)
+		XCTAssert(self.feedbackViewMock.outShowScreenshot.image == originalImage)
 	}
 
 }
