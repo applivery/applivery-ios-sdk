@@ -159,6 +159,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="czU-ZH-U1e" userLabel="background">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eff-qi-Sah" userLabel="viewControls">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <subviews>
@@ -234,7 +238,7 @@
                                 </constraints>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zWW-ge-0i7" userLabel="containerScreenshot">
-                                <rect key="frame" x="21" y="64" width="334" height="593"/>
+                                <rect key="frame" x="24" y="74" width="328" height="583"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="zWW-ge-0i7" secondAttribute="height" multiplier="9:16" id="o9l-dk-Wi7"/>
@@ -358,17 +362,21 @@
                         </subviews>
                         <color key="backgroundColor" red="0.39215686917304993" green="0.58039218187332153" blue="0.64705884456634521" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="czU-ZH-U1e" secondAttribute="trailing" id="8YI-bz-wtg"/>
                             <constraint firstItem="Efi-hL-Mrq" firstAttribute="leading" secondItem="mfp-uX-ah8" secondAttribute="leading" id="I3o-gi-C2n"/>
                             <constraint firstItem="dpI-Nq-OK4" firstAttribute="top" secondItem="Efi-hL-Mrq" secondAttribute="bottom" id="L0R-uF-uBS"/>
+                            <constraint firstItem="dpI-Nq-OK4" firstAttribute="top" secondItem="czU-ZH-U1e" secondAttribute="bottom" id="O2n-ZL-0M7"/>
                             <constraint firstAttribute="trailing" secondItem="Eff-qi-Sah" secondAttribute="trailing" id="PPC-q5-gUt"/>
                             <constraint firstItem="zWW-ge-0i7" firstAttribute="centerX" secondItem="mfp-uX-ah8" secondAttribute="centerX" id="Q77-YE-cZc"/>
                             <constraint firstItem="Eff-qi-Sah" firstAttribute="leading" secondItem="mfp-uX-ah8" secondAttribute="leading" id="V7B-5f-Vtg"/>
+                            <constraint firstItem="czU-ZH-U1e" firstAttribute="top" secondItem="Eff-qi-Sah" secondAttribute="bottom" id="Xg0-cH-uct"/>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="zWW-ge-0i7" secondAttribute="trailing" constant="3" id="d9Z-9c-gzm"/>
                             <constraint firstItem="Efi-hL-Mrq" firstAttribute="top" secondItem="Eff-qi-Sah" secondAttribute="bottom" id="dfr-Yb-jgp"/>
                             <constraint firstItem="Eff-qi-Sah" firstAttribute="top" secondItem="mfp-uX-ah8" secondAttribute="top" constant="20" id="g3p-fp-drH"/>
                             <constraint firstItem="dpI-Nq-OK4" firstAttribute="top" secondItem="zWW-ge-0i7" secondAttribute="bottom" constant="10" id="iUl-bJ-3kk"/>
+                            <constraint firstItem="czU-ZH-U1e" firstAttribute="leading" secondItem="mfp-uX-ah8" secondAttribute="leading" id="o1G-el-Jdr"/>
                             <constraint firstItem="zWW-ge-0i7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mfp-uX-ah8" secondAttribute="leadingMargin" constant="3" id="wrT-aa-MEs"/>
-                            <constraint firstItem="zWW-ge-0i7" firstAttribute="top" secondItem="Eff-qi-Sah" secondAttribute="bottom" id="xzK-NS-CoH"/>
+                            <constraint firstItem="zWW-ge-0i7" firstAttribute="top" secondItem="Eff-qi-Sah" secondAttribute="bottom" constant="10" id="xzK-NS-CoH"/>
                             <constraint firstAttribute="trailing" secondItem="Efi-hL-Mrq" secondAttribute="trailing" id="yDH-hz-aEW"/>
                         </constraints>
                     </view>
@@ -406,11 +414,11 @@
                         <viewControllerLayoutGuide type="bottom" id="d8m-Ld-dVX"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="82f-Rg-ETH">
-                        <rect key="frame" x="0.0" y="0.0" width="334" height="593"/>
+                        <rect key="frame" x="0.0" y="0.0" width="328" height="583"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Kap-QR-Oxj" userLabel="imageScreenshot">
-                                <rect key="frame" x="0.0" y="0.0" width="334" height="593"/>
+                                <rect key="frame" x="0.0" y="0.0" width="328" height="583"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="kIn-Pm-HpY" appends="YES" id="JUy-JZ-mku"/>

@@ -144,15 +144,33 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 				self.showScreenshotAnimated()
 			}
 			
-			self.textViewMessage.resignFirstResponder()
+			self.view.endEditing(true)
 		}
 	}
 	
 	private func showScreenshotAnimated() {
-		UIView.animate(withDuration: 0.4) {
-			self.screenshotContainer.alpha = 1
-			self.feedbackForm.alpha = 0
-		}
+		let screenshotCopy = UIImageView(image: self.previewVC?.editedScreenshot)
+		let frame = CGRect(
+			origin: self.view.convert(CGPoint.zero, from: self.imageScreenshotPreview),
+			size: self.imageScreenshotPreview.frame.size
+		)
+		screenshotCopy.frame = frame
+		screenshotCopy.contentMode = .scaleAspectFit
+		self.view.addSubview(screenshotCopy)
+		self.imageScreenshotPreview.isHidden = true
+		self.screenshotContainer.isHidden = true
+		
+		UIView.animate(
+			withDuration: 0.4,
+			animations: {
+				screenshotCopy.frame = self.screenshotContainer.frame
+				self.screenshotContainer.alpha = 1
+				self.feedbackForm.alpha = 0
+		},
+			completion: { _ in
+				self.screenshotContainer.isHidden = false
+				screenshotCopy.removeFromSuperview()
+		})
 	}
 	
 	func showFeedbackFormulary(with preview: UIImage) {
@@ -161,16 +179,30 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		self.buttonAddFeedback.isHidden = true
 		self.buttonSendFeedback.isHidden = false
 		
+		let screenshotCopy = UIImageView(image: self.previewVC?.editedScreenshot)
+		screenshotCopy.frame = self.screenshotContainer.frame
+		screenshotCopy.contentMode = .scaleAspectFit
+		self.view.addSubview(screenshotCopy)
+		self.imageScreenshotPreview.isHidden = true
+		
 		UIView.animate(
 			withDuration: 0.4,
 			animations: {
 				self.screenshotContainer.alpha = 0
 				self.feedbackForm.alpha = 1
-				
+				let frame = CGRect(
+					origin: self.view.convert(CGPoint.zero, from: self.imageScreenshotPreview),
+					size: self.imageScreenshotPreview.frame.size
+				)
+				screenshotCopy.frame = frame
 		},
 			completion: { _ in
+				self.imageScreenshotPreview.isHidden = false
+				screenshotCopy.removeFromSuperview()
 				self.textViewMessage.becomeFirstResponder()
 		})
+		
+		
 	}
 	
 	func showScreenshotPreview() {
