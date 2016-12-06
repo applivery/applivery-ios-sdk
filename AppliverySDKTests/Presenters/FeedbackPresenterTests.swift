@@ -296,8 +296,8 @@ class FeedbackPresenterTests: XCTestCase {
 		self.feedbackPresenter.userDidShake()
 		
 		// Assert
-		XCTAssert(self.feedbackViewMock.outShowScreenshot.called == true)
-		XCTAssert(self.feedbackViewMock.outShowScreenshot.image == originalImage)
+		XCTAssert(self.feedbackViewMock.outRestoreScreenshot.called == true)
+		XCTAssert(self.feedbackViewMock.outRestoreScreenshot.image == originalImage)
 	}
 
 }
