@@ -11,6 +11,7 @@ import Foundation
 
 protocol FeedbackView {
 	func showScreenshot(_ screenshot: UIImage?)
+	func restoreSceenshot(_ screenshot: UIImage)
 	func showFeedbackFormulary(with preview: UIImage)
 	func showScreenshotPreview()
 	func hideScreenshotPreview()
@@ -108,7 +109,7 @@ class FeedbackPresenter {
 	
 	func userDidShake() {
 		if let screenshot = self.screenshot?.image, self.viewState == .preview {
-			self.view.showScreenshot(screenshot)
+			self.view.restoreSceenshot(screenshot)
 		}
 	}
 }

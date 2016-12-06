@@ -137,7 +137,7 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		
 		if let screenshot = screenshot {
 			self.previewVC?.screenshot = screenshot
-			self.showScreenshotAnimated()
+			self.startScreenshotAnimated()
 			
 		} else {
 			Keyboard.didHide { _ in
@@ -146,6 +146,32 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 			
 			self.view.endEditing(true)
 		}
+	}
+	
+	private func startScreenshotAnimated() {
+		let screenshotCopy = UIImageView(image: self.previewVC?.editedScreenshot)
+		screenshotCopy.frame = self.view.frame
+		screenshotCopy.contentMode = .scaleAspectFit
+		self.view.addSubview(screenshotCopy)
+		self.feedbackForm.alpha = 0
+		
+		DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(700)) {
+
+			UIView.animate(
+				withDuration: 0.4,
+				delay: 0,
+				usingSpringWithDamping: 0.5,
+				initialSpringVelocity: 0.4,
+				options: .curveLinear,
+				animations: {
+					screenshotCopy.frame = self.screenshotContainer.frame
+			},
+				completion: { _ in
+					screenshotCopy.removeFromSuperview()
+			})
+		}
+		
+		
 	}
 	
 	private func showScreenshotAnimated() {
@@ -177,6 +203,10 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		})
 	}
 	
+	func restoreSceenshot(_ screenshot: UIImage) {
+		self.previewVC?.screenshot = screenshot
+	}
+	
 	func showFeedbackFormulary(with preview: UIImage) {
 		self.imageScreenshotPreview.image = preview
 		
@@ -188,6 +218,7 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		screenshotCopy.contentMode = .scaleAspectFit
 		self.view.addSubview(screenshotCopy)
 		self.imageScreenshotPreview.isHidden = true
+		self.screenshotContainer.isHidden = true
 		
 		UIView.animate(
 			withDuration: 0.4,
