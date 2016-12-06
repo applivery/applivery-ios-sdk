@@ -43,7 +43,7 @@ class FeedbackCoordinator: PFeedbackCoordinator {
 		self.feedbackVC.presenter.screenshotInteractor = ScreenshotInteractor()
 		self.feedbackVC.presenter.feedbackCoordinator = self
 
-		self.app.presentModal(self.feedbackVC)
+		self.app.presentModal(self.feedbackVC, animated: false)
 	}
 
 	func closeFeedback() {

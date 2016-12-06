@@ -10,8 +10,9 @@ import Foundation
 
 
 protocol FeedbackView {
-	func showScreenshot(_ screenshot: UIImage)
-	func showFeedbackFormulary()
+	func showScreenshot(_ screenshot: UIImage?)
+	func restoreSceenshot(_ screenshot: UIImage)
+	func showFeedbackFormulary(with preview: UIImage)
 	func showScreenshotPreview()
 	func hideScreenshotPreview()
 	func textMessage() -> String?
@@ -19,8 +20,14 @@ protocol FeedbackView {
 	func showMessage(_ message: String)
 	func showLoading()
 	func stopLoading()
+	func editedScreenshot() -> UIImage?
 }
 
+
+enum FeedbackViewState {
+	case preview
+	case formulary
+}
 
 class FeedbackPresenter {
 
@@ -29,10 +36,12 @@ class FeedbackPresenter {
 	var feedbackCoordinator: PFeedbackCoordinator!
 	var screenshotInteractor: PScreenshotInteractor!
 
-	fileprivate var feedbackType: FeedbackType = .bug
-	fileprivate var message: String?
-	fileprivate var screenshot: Screenshot?
-	fileprivate var attachScreenshot = true
+	private var feedbackType: FeedbackType = .bug
+	private var message: String?
+	private var screenshot: Screenshot?
+	private var editedScreenshot: Screenshot?
+	private var attachScreenshot = true
+	private var viewState: FeedbackViewState = .preview
 
 
 	// MARK - Public Methods
@@ -40,6 +49,7 @@ class FeedbackPresenter {
 	func viewDidLoad() {
 		self.screenshot = self.screenshotInteractor.getScreenshot()
 		self.view.showScreenshot(self.screenshot!.image)
+		self.viewState = .preview
 	}
 
 	func userDidTapCloseButton() {
@@ -47,16 +57,21 @@ class FeedbackPresenter {
 	}
 
 	func userDidTapAddFeedbackButton() {
-		self.view.showFeedbackFormulary()
+		guard let editedScreenshot = self.view.editedScreenshot() else {
+			return LogWarn("Could not get edited screenshot")
+		}
+		
+		self.editedScreenshot = Screenshot(image: editedScreenshot)
+		self.view.showFeedbackFormulary(with: editedScreenshot)
+		self.viewState = .formulary
 	}
 
 	func userDidTapSendFeedbackButton() {
 		guard let message = self.view.textMessage() else {
-			self.view.needMessage()
-			return
+			self.view.needMessage(); return
 		}
 
-		let screenshot = self.attachScreenshot ? self.screenshot : nil
+		let screenshot = self.attachScreenshot ? self.editedScreenshot : nil
 		let feedback = Feedback(feedbackType: self.feedbackType, message: message, screenshot: screenshot)
 
 		self.view.showLoading()
@@ -84,6 +99,17 @@ class FeedbackPresenter {
 			self.view.showScreenshotPreview()
 		} else {
 			self.view.hideScreenshotPreview()
+		}
+	}
+	
+	func userDidTapPreview() {
+		self.view.showScreenshot(nil)
+		self.viewState = .preview
+	}
+	
+	func userDidShake() {
+		if let screenshot = self.screenshot?.image, self.viewState == .preview {
+			self.view.restoreSceenshot(screenshot)
 		}
 	}
 }
