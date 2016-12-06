@@ -1,5 +1,5 @@
 # Applivery iOS SDK
-![Version](https://img.shields.io/badge/version-2.1-blue.svg)
+![Version](https://img.shields.io/badge/version-2.2-blue.svg)
 ![Language](https://img.shields.io/badge/Language-Swift-orange.svg)
 
 [![Build Status](https://travis-ci.org/applivery/applivery-ios-sdk.svg?branch=master)](https://travis-ci.org/applivery/applivery-ios-sdk)
@@ -167,6 +167,21 @@ applivery.disableFeedback()
 [applivery disableFeedback];
 ```
 
+### Change feedback's brush color
+
+In the feedback's view, users can edit the screenshot to draw lines on top of it. By default, these lines are red, but you are allowed to change the color to fit better with your application's color palette.
+
+**Swift**
+
+``` swift
+applivery.screenshotBrushColor = .blue
+```
+
+**Objective-C**
+
+``` objc
+applivery.screenshotBrushColor = [UIColor blueColor];
+```
 
 
 ### Embedded frameworks and AppStore submissions

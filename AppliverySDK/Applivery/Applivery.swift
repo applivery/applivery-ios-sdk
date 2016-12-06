@@ -43,7 +43,7 @@ When Applivery's starts, the latests configuration for your build will be retrie
 
 - seealso: [Applivery's README on GitHub](https://github.com/applivery/applivery-ios-sdk/blob/master/README.md)
 - Since: 1.0
-- Version: 2.1
+- Version: 2.2
 - Author: Alejandro Jiménez Agudo
 - Copyright: Applivery
 */
@@ -71,8 +71,8 @@ public class Applivery: NSObject, StartInteractorOutput {
 	/**
 	Sets a color for the brush on screenshot edit mode
 	
-	- Since: 2.1
-	- Version: 2.1
+	- Since: 2.2
+	- Version: 2.2
 	*/
 	public var screenshotBrushColor: UIColor {
 		didSet {

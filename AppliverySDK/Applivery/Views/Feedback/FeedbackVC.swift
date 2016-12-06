@@ -8,7 +8,7 @@
 
 import UIKit
 
-
+// swiftlint:disable type_body_length
 class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	
 	var presenter: FeedbackPresenter!
@@ -369,3 +369,4 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	}
 	
 }
+// swiftlint:enable type_body_length
