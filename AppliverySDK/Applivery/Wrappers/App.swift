@@ -24,14 +24,18 @@ protocol AppProtocol {
 	func showOtaAlert(_ message: String, downloadHandler: @escaping () -> Void)
 	func showErrorAlert(_ message: String, retryHandler: @escaping () -> Void)
 	func waitForReadyThen(_ onReady: @escaping () -> Void)
-	func presentModal(_ viewController: UIViewController)
+	func presentModal(_ viewController: UIViewController, animated: Bool)
+}
+
+extension AppProtocol {
+	func presentModal(_ viewController: UIViewController, animated: Bool = true) {} // Add default argument
 }
 
 
 class App: AppProtocol {
 
-	fileprivate var alertOta: UIAlertController?
-	fileprivate var alertError: UIAlertController?
+	private var alertOta: UIAlertController?
+	private var alertError: UIAlertController?
 
 
 	// MARK - Public Methods
@@ -132,9 +136,9 @@ class App: AppProtocol {
 		}
 	}
 
-	func presentModal(_ viewController: UIViewController) {
+	func presentModal(_ viewController: UIViewController, animated: Bool = true) {
 		let topVC = self.topViewController()
-		topVC?.present(viewController, animated: true, completion: nil)
+		topVC?.present(viewController, animated: animated, completion: nil)
 	}
 
 

@@ -47,10 +47,10 @@ When Applivery's starts, the latests configuration for your build will be retrie
 - Author: Alejandro Jiménez Agudo
 - Copyright: Applivery
 */
-open class Applivery: NSObject, StartInteractorOutput {
+public class Applivery: NSObject, StartInteractorOutput {
 
 	/// Singleton instance
-	open static let sharedInstance = Applivery()
+	public static let sharedInstance = Applivery()
 
 	/**
 	Type of Applivery's logs you want displayed in the debug console
@@ -59,17 +59,31 @@ open class Applivery: NSObject, StartInteractorOutput {
 	- **Error**: Only warnings and errors. Recommended for develop environments.
 	- **Info**: Errors and relevant information. Recommended for test integrating Applivery.
 	- **Debug**: Request and Responses to Applivery's server will be displayed. Not recommended to use, only for debugging Applivery.
+	- Since: 1.0
+	- Version: 2.0
 	*/
-	open var logLevel: LogLevel {
+	public var logLevel: LogLevel {
 		didSet {
 			self.globalConfig.logLevel = self.logLevel
 		}
 	}
+	
+	/**
+	Sets a color for the brush on screenshot edit mode
+	
+	- Since: 2.1
+	- Version: 2.1
+	*/
+	public var screenshotBrushColor: UIColor {
+		didSet {
+			self.globalConfig.screenshotBrushColor = self.screenshotBrushColor
+		}
+	}
 
-	fileprivate let startInteractor: StartInteractor
-	fileprivate let globalConfig: GlobalConfig
-	fileprivate let updateCoordinator: PUpdateCoordinator
-	fileprivate let feedbackCoordinator: PFeedbackCoordinator
+	private let startInteractor: StartInteractor
+	private let globalConfig: GlobalConfig
+	private let updateCoordinator: PUpdateCoordinator
+	private let feedbackCoordinator: PFeedbackCoordinator
 
 
 	// MARK: Initializers
@@ -93,6 +107,7 @@ open class Applivery: NSObject, StartInteractorOutput {
 			self.updateCoordinator = updateCoordinator
 			self.feedbackCoordinator = feedbackCoordinator
 			self.logLevel = .none
+			self.screenshotBrushColor = #colorLiteral(red: 0.8078431487, green: 0.2693349354, blue: 0.3300692421, alpha: 1)
 	}
 
 
@@ -112,7 +127,7 @@ open class Applivery: NSObject, StartInteractorOutput {
 	- Since: 1.0
 	- Version: 2.0
 	*/
-	open func start(apiKey key: String, appId: String, appStoreRelease: Bool) {
+	public func start(apiKey key: String, appId: String, appStoreRelease: Bool) {
 		self.loadFonts()
 
 		self.globalConfig.apiKey = key
@@ -130,7 +145,7 @@ open class Applivery: NSObject, StartInteractorOutput {
 	- Since: 1.2
 	- Version: 2.0
 	*/
-	open func disableFeedback() {
+	public func disableFeedback() {
 		self.startInteractor.disableFeedback()
 	}
 
@@ -154,7 +169,7 @@ open class Applivery: NSObject, StartInteractorOutput {
 
 	// MARK - Private Helpers
 
-	fileprivate func loadFonts() {
+	private func loadFonts() {
 		UIFont.loadAppliveryFont("Lato-Light.ttf")
 		UIFont.loadAppliveryFont("Lato-Regular.ttf")
 		UIFont.loadAppliveryFont("fontawesome-webfont.ttf")

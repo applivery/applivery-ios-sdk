@@ -9,6 +9,7 @@
 import XCTest
 @testable import Applivery
 
+
 class AppliveryTests: XCTestCase {
 
 	var applivery: Applivery!
