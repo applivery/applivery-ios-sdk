@@ -28,7 +28,12 @@ protocol AppProtocol {
 }
 
 extension AppProtocol {
-	func presentModal(_ viewController: UIViewController, animated: Bool = true) {} // Add default argument
+	
+	// Add default argument
+	func presentModal(_ viewController: UIViewController, animated: Bool = true) {
+		self.presentModal(viewController, animated: animated)
+	}
+	
 }
 
 
@@ -136,7 +141,7 @@ class App: AppProtocol {
 		}
 	}
 
-	func presentModal(_ viewController: UIViewController, animated: Bool = true) {
+	func presentModal(_ viewController: UIViewController, animated: Bool) {
 		let topVC = self.topViewController()
 		topVC?.present(viewController, animated: animated, completion: nil)
 	}
