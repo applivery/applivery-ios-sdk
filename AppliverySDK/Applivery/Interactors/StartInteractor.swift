@@ -27,9 +27,7 @@ class StartInteractor {
 
 	// MARK: Initializers
 
-	init(configDataManager: PConfigDataManager = ConfigDataManager(),
-		globalConfig: GlobalConfig = GlobalConfig.shared,
-		eventDetector: EventDetector = ScreenshotDetector()) {
+	init(configDataManager: PConfigDataManager = ConfigDataManager(), globalConfig: GlobalConfig = GlobalConfig.shared, eventDetector: EventDetector = ScreenshotDetector()) {
 			self.configDataManager = configDataManager
 			self.globalConfig = globalConfig
 			self.eventDetector = eventDetector
