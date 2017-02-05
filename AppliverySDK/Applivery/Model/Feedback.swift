@@ -10,8 +10,8 @@ import Foundation
 
 
 enum FeedbackType: String {
-	case bug = "bug"
-	case feedback = "feedback"
+	case bug
+	case feedback
 }
 
 

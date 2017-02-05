@@ -56,7 +56,7 @@ class FeedbackServiceTests: XCTestCase {
 		let feedback = Feedback(feedbackType: .bug, message: "TEST_MESSAGE", screenshot: nil)
 		
 		let completionCalled = self.expectation(description: "completion called")
-		self.feedbackService.postFeedback(feedback) { result in
+		self.feedbackService.postFeedback(feedback) { _ in
 			completionCalled.fulfill()
 		}
 		
@@ -85,7 +85,7 @@ class FeedbackServiceTests: XCTestCase {
 					"diskFree": "test disk free",
 					"orientation": "test orientation",
 					 "battery": 30,
-					 "batteryStatus": true,
+					 "batteryStatus": true
 				],
 				"os": [
 					"name": "iOS",
@@ -109,7 +109,7 @@ class FeedbackServiceTests: XCTestCase {
 		let feedback = Feedback(feedbackType: .bug, message: "TEST_MESSAGE", screenshot: nil)
 		
 		let completionCalled = self.expectation(description: "completion called")
-		self.feedbackService.postFeedback(feedback) { result in
+		self.feedbackService.postFeedback(feedback) { _ in
 			completionCalled.fulfill()
 		}
 		
@@ -218,13 +218,13 @@ class FeedbackServiceTests: XCTestCase {
 	}
 	
 	private func stubFeedbackOK() {
-		let _ = stub(condition: isPath("/api/feedback")) { request in
+		let _ = stub(condition: isPath("/api/feedback")) { _ in
 			return StubResponse.stubResponse(with: "feedback_ok.json")
 		}
 	}
 	
 	private func stubFeedbackKO() {
-		let _ = stub(condition: isPath("/api/feedback")) { request in
+		let _ = stub(condition: isPath("/api/feedback")) { _ in
 			return StubResponse.stubResponse(with: "ko.json")
 		}
 	}

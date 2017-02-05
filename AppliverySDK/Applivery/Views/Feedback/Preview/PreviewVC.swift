@@ -17,9 +17,7 @@ class PreviewVC: UIViewController, UIGestureRecognizerDelegate {
 	}
 	
 	var editedScreenshot: UIImage? {
-		get {
-			return self.imageScreenshot?.image
-		}
+		return self.imageScreenshot?.image
 	}
 	
 	// PRIVATE
