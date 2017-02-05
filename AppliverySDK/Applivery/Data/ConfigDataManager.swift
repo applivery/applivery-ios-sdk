@@ -55,9 +55,7 @@ class ConfigDataManager: PConfigDataManager {
 	}
 
 	func updateConfig(_ completionHandler: @escaping (_ response: UpdateConfigResponse) -> Void) {
-		self.configService.fetchConfig {
-			success, config, error in
-
+		self.configService.fetchConfig { success, config, error in
 			if success && config != nil {
 				let version = self.appInfo.getVersion()
 				self.configPersister.saveConfig(config!)

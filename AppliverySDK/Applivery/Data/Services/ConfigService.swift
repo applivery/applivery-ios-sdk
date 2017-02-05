@@ -15,9 +15,7 @@ class ConfigService {
 			endpoint: "/api/apps/\(GlobalConfig.shared.appId)"
 		)
 
-		request.sendAsync {
-			response in
-
+		request.sendAsync { response in
 			if response.success {
 				do {
 					let config = try Config(json: response.body!)

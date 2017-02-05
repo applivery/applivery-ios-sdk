@@ -57,7 +57,7 @@ class Request {
 	private func buildURL() -> URL? {
 		guard var url = URLComponents(string: GlobalConfig.Host) else { return nil }
 		
-		url.path = url.path + self.endpoint
+		url.path += self.endpoint
 		url.queryItems = self.urlParams.map(URLQueryItem.init(name:value:))
 		
 		return url.url

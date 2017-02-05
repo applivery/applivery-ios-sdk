@@ -73,19 +73,19 @@ class DownloadServiceTests: XCTestCase {
 	// MARK: - Private helpers
 	
 	private func stubTokenOK() {
-		let _ = stub(condition: isPath("/api/builds/test_id/token")) { request in
+		let _ = stub(condition: isPath("/api/builds/test_id/token")) { _ in
 			return StubResponse.stubResponse(with: "request_token_ok.json")
 		}
 	}
 	
 	private func stubSuccessNoToken() {
-		let _ = stub(condition: isPath("/api/builds/test_id/token")) { request in
+		let _ = stub(condition: isPath("/api/builds/test_id/token")) { _ in
 			return StubResponse.stubResponse(with: "request_token_ok_no_token.json")
 		}
 	}
 	
 	private func stubKO() {
-		let _ = stub(condition: isPath("/api/builds/test_id/token")) { request in
+		let _ = stub(condition: isPath("/api/builds/test_id/token")) { _ in
 			return StubResponse.stubResponse(with: "ko.json")
 		}
 	}
