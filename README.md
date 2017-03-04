@@ -1,5 +1,5 @@
 # Applivery iOS SDK
-![Version](https://img.shields.io/badge/version-2.2-blue.svg)
+![Version](https://img.shields.io/badge/version-2.3-blue.svg)
 ![Language](https://img.shields.io/badge/Language-Swift-orange.svg)
 
 [![Build Status](https://travis-ci.org/applivery/applivery-ios-sdk.svg?branch=master)](https://travis-ci.org/applivery/applivery-ios-sdk)
@@ -45,7 +45,7 @@ You can get your ACCOUNT API KEY in the `Developers` section (left side menu).
 Add the following line to your's Cartfile
 
 ```
-github "applivery/applivery-ios-sdk" ~> 2.0
+github "applivery/applivery-ios-sdk" ~> 2.3
 ```
 and then run `carthage update`. More info about Carthage [here](https://github.com/Carthage/Carthage#installing-carthage).
 
