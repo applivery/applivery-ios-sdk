@@ -1,12 +1,25 @@
-language: objective-c
 osx_image: xcode8.2
-
+language: objective-c
+env:
+  global:
+  - FRAMEWORK_NAME=Applivery
+before_script:
+- carthage bootstrap --platform iOS
 script:
-  - carthage bootstrap --no-use-binaries --platform iOS
-  - set -o pipefail && xcodebuild -project AppliverySDK.xcodeproj -scheme Applivery -sdk iphonesimulator -destination "platform=iOS Simulator,OS=10.1,name=iPhone 6" test | xcpretty
-
+- set -o pipefail && xcodebuild -project AppliverySDK.xcodeproj -scheme Applivery -sdk iphonesimulator -destination "platform=iOS Simulator,OS=10.1,name=iPhone 6" test | xcpretty
+before_deploy:
+- carthage build --no-skip-current
+- carthage archive $FRAMEWORK_NAME
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
-
+- bash <(curl -s https://codecov.io/bash)
 notifications:
   slack: applivery:KX1jJ5dWdGbw0xXOXImfKgSD#ci
+deploy:
+  provider: releases
+  api_key:
+    secure: WBzF20+EHHZ3ykCaaVKQB+aqpDgEC4YZ6u5+vkINsk7rxZ8Y7EzcuMURKe37vd3JuptOnr4vrsFi5utVf9fbZDlXp4nAO9Y84iu2lURS6a62HXl3BD2i/RoGkcItuT26maJAb+TirYmEoJwjalNEj1rsoVzhy6edTB2qi2fMnDJ0/8LHAlHpBGxwuTSwivZLVX88pZTKQ0F9NgMB351YVy6D0B8jo6pBBSvhSYpp2B4jzMvFzHIPXQiTRuQLCbx51zL8XiDpTn9zmAyhaJPhUvELRwEDX+sS/273bIjmE6/Ae+KCv/FMNIrRs200IzOVRoSJEvsixDswwrmSyn7n/A+CBT0qDToisAQ25GbFvw+GaUgcETTm6AhYgp8sBFJLEPVKja7bwlp8M8NJ9e2FtspzZIYDJw7Ty4uacBcsRT0AXHwVb7PphVFHInZpkmRz04SW5o+1rsuX4SRz9DQleayo+dXro7V/tbw320CvI2WhUy5wlkXR1U2iiPTbTBDQp+8o8juEQvhY3ccid+YSTBk2eHeH9ZFPsvm5axlYccQVLvYN9NMP52NQHU+uxzbB7hmtzTflld5KiM5Yw8bhP2d3FJe4Uq3C7GGdzs/uIwMamSpihUZsZh+dSH35jlHPaE0eooEgeBTSHwkTjuDDyr7qwPWxX82ElH+VMXyXQ0E=
+  file: "$FRAMEWORK_NAME.framework.zip"
+  skip_cleanup: true
+  on:
+    repo: applivery/applivery-ios-sdk
+    tags: true
