@@ -50,6 +50,16 @@ github "applivery/applivery-ios-sdk" ~> 2.3
 and then run `carthage update`. More info about Carthage [here](https://github.com/Carthage/Carthage#installing-carthage).
 
 
+#### Using CocoaPods
+
+Add the following line to your's Podfile
+
+```
+pod 'Applivery', '~> 2.3'
+```
+and then run `por install`. More info about CocoaPods [here](https://cocoapods.org)
+
+
 #### Or you can try manually
 
 1. Download the Applivery.framework [here](https://github.com/applivery/applivery-ios-sdk/releases)
