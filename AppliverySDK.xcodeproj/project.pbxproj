@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FA0883D31DBC1AF4008A553A /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAADA53A1DBC14EB00300A5E /* OHHTTPStubs.framework */; };
-		FA0883D41DBC1AFA008A553A /* OHHTTPStubs.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = FAADA53A1DBC14EB00300A5E /* OHHTTPStubs.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FA0883D41DBC1AFA008A553A /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAADA53A1DBC14EB00300A5E /* OHHTTPStubs.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FA0883D81DBC231E008A553A /* feedback_ok.json in Resources */ = {isa = PBXBuildFile; fileRef = FA0883D71DBC231E008A553A /* feedback_ok.json */; };
 		FA0883DA1DBC311C008A553A /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0883D91DBC311C008A553A /* Result.swift */; };
 		FA0883DC1DBC3C03008A553A /* ko.json in Resources */ = {isa = PBXBuildFile; fileRef = FA0883DB1DBC3C03008A553A /* ko.json */; };
@@ -58,10 +58,14 @@
 		FA53DE351BC193EA00DF2EB1 /* ConfigDataManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA53DE341BC193EA00DF2EB1 /* ConfigDataManagerMock.swift */; };
 		FA53DE371BC1950300DF2EB1 /* StartInteractorOutputMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA53DE361BC1950300DF2EB1 /* StartInteractorOutputMock.swift */; };
 		FA53DE3C1BC1B38900DF2EB1 /* StartInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA53DE3B1BC1B38900DF2EB1 /* StartInteractorMock.swift */; };
-		FA5EA6411E6CB61500590120 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5EA63F1E6CB61500590120 /* Nimble.framework */; };
-		FA5EA6421E6CB61500590120 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5EA6401E6CB61500590120 /* Quick.framework */; };
-		FA5EA6431E6CB66F00590120 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = FA5EA63F1E6CB61500590120 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		FA5EA6441E6CB66F00590120 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = FA5EA6401E6CB61500590120 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FA5EA64E1E6CCB6600590120 /* AppliveryBehaviorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5EA64D1E6CCB6600590120 /* AppliveryBehaviorTests.swift */; };
+		FA5EA6501E6CCB6600590120 /* Applivery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA68D8F21BC040B000589DE4 /* Applivery.framework */; };
+		FA5EA6561E6CCBC800590120 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5EA63F1E6CB61500590120 /* Nimble.framework */; };
+		FA5EA6571E6CCBCB00590120 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5EA6401E6CB61500590120 /* Quick.framework */; };
+		FA5EA6581E6CCBCE00590120 /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAADA53A1DBC14EB00300A5E /* OHHTTPStubs.framework */; };
+		FA5EA65A1E6CCC1100590120 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5EA63F1E6CB61500590120 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FA5EA65B1E6CCC1100590120 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5EA6401E6CB61500590120 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FA5EA65C1E6CCC1100590120 /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAADA53A1DBC14EB00300A5E /* OHHTTPStubs.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FA68D8F61BC040B100589DE4 /* Applivery.h in Headers */ = {isa = PBXBuildFile; fileRef = FA68D8F51BC040B100589DE4 /* Applivery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA68D8FD1BC040B100589DE4 /* Applivery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA68D8F21BC040B000589DE4 /* Applivery.framework */; };
 		FA68D9021BC040B100589DE4 /* AppliveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA68D9011BC040B100589DE4 /* AppliveryTests.swift */; };
@@ -112,6 +116,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		FA5EA6511E6CCB6600590120 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA68D8E91BC040B000589DE4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FA68D8F11BC040B000589DE4;
+			remoteInfo = Applivery;
+		};
 		FA68D8FE1BC040B100589DE4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FA68D8E91BC040B000589DE4 /* Project object */;
@@ -122,16 +133,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		FAB2ED151DBC1AD800A2E2E0 /* CopyFiles */ = {
+		FA5EA6591E6CCBFD00590120 /* Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				FA5EA6431E6CB66F00590120 /* Nimble.framework in CopyFiles */,
-				FA5EA6441E6CB66F00590120 /* Quick.framework in CopyFiles */,
-				FA0883D41DBC1AFA008A553A /* OHHTTPStubs.framework in CopyFiles */,
+				FA5EA65A1E6CCC1100590120 /* Nimble.framework in Frameworks */,
+				FA5EA65B1E6CCC1100590120 /* Quick.framework in Frameworks */,
+				FA5EA65C1E6CCC1100590120 /* OHHTTPStubs.framework in Frameworks */,
 			);
+			name = Frameworks;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FAB2ED151DBC1AD800A2E2E0 /* Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FA0883D41DBC1AFA008A553A /* OHHTTPStubs.framework in Frameworks */,
+			);
+			name = Frameworks;
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -189,6 +212,9 @@
 		FA5EA63F1E6CB61500590120 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		FA5EA6401E6CB61500590120 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		FA5EA6451E6CB70C00590120 /* Cartfile.private */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile.private; sourceTree = "<group>"; };
+		FA5EA64B1E6CCB6600590120 /* AppliveryBehaviorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppliveryBehaviorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA5EA64D1E6CCB6600590120 /* AppliveryBehaviorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppliveryBehaviorTests.swift; sourceTree = "<group>"; };
+		FA5EA64F1E6CCB6600590120 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA68D8F21BC040B000589DE4 /* Applivery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Applivery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA68D8F51BC040B100589DE4 /* Applivery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Applivery.h; sourceTree = "<group>"; };
 		FA68D8F71BC040B100589DE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -243,6 +269,17 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		FA5EA6481E6CCB6600590120 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA5EA6501E6CCB6600590120 /* Applivery.framework in Frameworks */,
+				FA5EA6581E6CCBCE00590120 /* OHHTTPStubs.framework in Frameworks */,
+				FA5EA6561E6CCBC800590120 /* Nimble.framework in Frameworks */,
+				FA5EA6571E6CCBCB00590120 /* Quick.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FA68D8EE1BC040B000589DE4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -254,8 +291,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA5EA6421E6CB61500590120 /* Quick.framework in Frameworks */,
-				FA5EA6411E6CB61500590120 /* Nimble.framework in Frameworks */,
 				FA68D8FD1BC040B100589DE4 /* Applivery.framework in Frameworks */,
 				FA0883D31DBC1AF4008A553A /* OHHTTPStubs.framework in Frameworks */,
 			);
@@ -452,11 +487,21 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		FA5EA64C1E6CCB6600590120 /* AppliveryBehaviorTests */ = {
+			isa = PBXGroup;
+			children = (
+				FA5EA64D1E6CCB6600590120 /* AppliveryBehaviorTests.swift */,
+				FA5EA64F1E6CCB6600590120 /* Info.plist */,
+			);
+			path = AppliveryBehaviorTests;
+			sourceTree = "<group>";
+		};
 		FA68D8E81BC040B000589DE4 = {
 			isa = PBXGroup;
 			children = (
 				FA68D8F41BC040B000589DE4 /* AppliverySDK */,
 				FA68D9001BC040B100589DE4 /* AppliverySDKTests */,
+				FA5EA64C1E6CCB6600590120 /* AppliveryBehaviorTests */,
 				FAADA5381DBC123D00300A5E /* Frameworks */,
 				FA68D8F31BC040B000589DE4 /* Products */,
 			);
@@ -467,6 +512,7 @@
 			children = (
 				FA68D8F21BC040B000589DE4 /* Applivery.framework */,
 				FA68D8FC1BC040B100589DE4 /* AppliveryTests.xctest */,
+				FA5EA64B1E6CCB6600590120 /* AppliveryBehaviorTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -659,6 +705,25 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		FA5EA64A1E6CCB6600590120 /* AppliveryBehaviorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA5EA6551E6CCB6600590120 /* Build configuration list for PBXNativeTarget "AppliveryBehaviorTests" */;
+			buildPhases = (
+				FA5EA6471E6CCB6600590120 /* Sources */,
+				FA5EA6481E6CCB6600590120 /* Frameworks */,
+				FA5EA6491E6CCB6600590120 /* Resources */,
+				FA5EA6591E6CCBFD00590120 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FA5EA6521E6CCB6600590120 /* PBXTargetDependency */,
+			);
+			name = AppliveryBehaviorTests;
+			productName = AppliveryBehaviorTests;
+			productReference = FA5EA64B1E6CCB6600590120 /* AppliveryBehaviorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		FA68D8F11BC040B000589DE4 /* Applivery */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FA68D9061BC040B100589DE4 /* Build configuration list for PBXNativeTarget "Applivery" */;
@@ -685,7 +750,7 @@
 				FA68D8F81BC040B100589DE4 /* Sources */,
 				FA68D8F91BC040B100589DE4 /* Frameworks */,
 				FA68D8FA1BC040B100589DE4 /* Resources */,
-				FAB2ED151DBC1AD800A2E2E0 /* CopyFiles */,
+				FAB2ED151DBC1AD800A2E2E0 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -704,10 +769,14 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftMigration = 0700;
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Applivery S.L.";
 				TargetAttributes = {
+					FA5EA64A1E6CCB6600590120 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
 					FA68D8F11BC040B000589DE4 = {
 						CreatedOnToolsVersion = 7.0.1;
 						LastSwiftMigration = 0800;
@@ -734,11 +803,19 @@
 			targets = (
 				FA68D8F11BC040B000589DE4 /* Applivery */,
 				FA68D8FB1BC040B100589DE4 /* AppliveryTests */,
+				FA5EA64A1E6CCB6600590120 /* AppliveryBehaviorTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		FA5EA6491E6CCB6600590120 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FA68D8F01BC040B000589DE4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -783,6 +860,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		FA5EA6471E6CCB6600590120 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA5EA64E1E6CCB6600590120 /* AppliveryBehaviorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FA68D8ED1BC040B000589DE4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -884,6 +969,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		FA5EA6521E6CCB6600590120 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FA68D8F11BC040B000589DE4 /* Applivery */;
+			targetProxy = FA5EA6511E6CCB6600590120 /* PBXContainerItemProxy */;
+		};
 		FA68D8FF1BC040B100589DE4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = FA68D8F11BC040B000589DE4 /* Applivery */;
@@ -904,6 +994,43 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		FA5EA6531E6CCB6600590120 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = AppliveryBehaviorTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.applivery.AppliveryBehaviorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		FA5EA6541E6CCB6600590120 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = AppliveryBehaviorTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.applivery.AppliveryBehaviorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		FA68D9041BC040B100589DE4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1094,6 +1221,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		FA5EA6551E6CCB6600590120 /* Build configuration list for PBXNativeTarget "AppliveryBehaviorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA5EA6531E6CCB6600590120 /* Debug */,
+				FA5EA6541E6CCB6600590120 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		FA68D8EC1BC040B000589DE4 /* Build configuration list for PBXProject "AppliverySDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
