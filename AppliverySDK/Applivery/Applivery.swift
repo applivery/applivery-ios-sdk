@@ -8,7 +8,7 @@
 
 import Foundation
 
-
+/// Type of Applivery's logs you want displayed in the debug console
 @objc public enum LogLevel: Int {
 	/// No log will be shown. Recommended for production environments.
 	case none = 0
@@ -50,7 +50,11 @@ When Applivery's starts, the latests configuration for your build will be retrie
 public class Applivery: NSObject, StartInteractorOutput {
 
 	/// Singleton instance
+	@available(*, deprecated: 2.3, message: "Use shared instead", renamed: "shared")
 	public static let sharedInstance = Applivery()
+	
+	/// Singleton instance
+	public static let shared = Applivery()
 
 	/**
 	Type of Applivery's logs you want displayed in the debug console
@@ -80,6 +84,7 @@ public class Applivery: NSObject, StartInteractorOutput {
 		}
 	}
 
+	// MARK: - Private properties
 	private let startInteractor: StartInteractor
 	private let globalConfig: GlobalConfig
 	private let updateCoordinator: PUpdateCoordinator
@@ -151,6 +156,7 @@ public class Applivery: NSObject, StartInteractorOutput {
 
 
 	// MARK: Start Interactor
+	
 	internal func forceUpdate() {
 		LogInfo("Application must be updated!!")
 		self.updateCoordinator.forceUpdate()

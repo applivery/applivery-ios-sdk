@@ -58,6 +58,10 @@
 		FA53DE351BC193EA00DF2EB1 /* ConfigDataManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA53DE341BC193EA00DF2EB1 /* ConfigDataManagerMock.swift */; };
 		FA53DE371BC1950300DF2EB1 /* StartInteractorOutputMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA53DE361BC1950300DF2EB1 /* StartInteractorOutputMock.swift */; };
 		FA53DE3C1BC1B38900DF2EB1 /* StartInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA53DE3B1BC1B38900DF2EB1 /* StartInteractorMock.swift */; };
+		FA5EA6411E6CB61500590120 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5EA63F1E6CB61500590120 /* Nimble.framework */; };
+		FA5EA6421E6CB61500590120 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5EA6401E6CB61500590120 /* Quick.framework */; };
+		FA5EA6431E6CB66F00590120 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = FA5EA63F1E6CB61500590120 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FA5EA6441E6CB66F00590120 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = FA5EA6401E6CB61500590120 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FA68D8F61BC040B100589DE4 /* Applivery.h in Headers */ = {isa = PBXBuildFile; fileRef = FA68D8F51BC040B100589DE4 /* Applivery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA68D8FD1BC040B100589DE4 /* Applivery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA68D8F21BC040B000589DE4 /* Applivery.framework */; };
 		FA68D9021BC040B100589DE4 /* AppliveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA68D9011BC040B100589DE4 /* AppliveryTests.swift */; };
@@ -124,6 +128,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				FA5EA6431E6CB66F00590120 /* Nimble.framework in CopyFiles */,
+				FA5EA6441E6CB66F00590120 /* Quick.framework in CopyFiles */,
 				FA0883D41DBC1AFA008A553A /* OHHTTPStubs.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -180,6 +186,9 @@
 		FA53DE341BC193EA00DF2EB1 /* ConfigDataManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigDataManagerMock.swift; path = Mocks/ConfigDataManagerMock.swift; sourceTree = "<group>"; };
 		FA53DE361BC1950300DF2EB1 /* StartInteractorOutputMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartInteractorOutputMock.swift; path = Mocks/StartInteractorOutputMock.swift; sourceTree = "<group>"; };
 		FA53DE3B1BC1B38900DF2EB1 /* StartInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartInteractorMock.swift; path = Mocks/StartInteractorMock.swift; sourceTree = "<group>"; };
+		FA5EA63F1E6CB61500590120 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
+		FA5EA6401E6CB61500590120 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
+		FA5EA6451E6CB70C00590120 /* Cartfile.private */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile.private; sourceTree = "<group>"; };
 		FA68D8F21BC040B000589DE4 /* Applivery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Applivery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA68D8F51BC040B100589DE4 /* Applivery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Applivery.h; sourceTree = "<group>"; };
 		FA68D8F71BC040B100589DE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -202,7 +211,6 @@
 		FAA50D4B1C7D21D300CE7B65 /* ResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResponseTests.swift; path = Network/ResponseTests.swift; sourceTree = "<group>"; };
 		FAA50D4D1C7D232500CE7B65 /* NSError+Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSError+Applivery.swift"; path = "Applivery/Utils/NSError+Applivery.swift"; sourceTree = "<group>"; };
 		FAADA5341DBBF25B00300A5E /* FeedbackServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FeedbackServiceTests.swift; path = Network/FeedbackServiceTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		FAADA5391DBC125800300A5E /* Cartfile.private */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile.private; sourceTree = "<group>"; };
 		FAADA53A1DBC14EB00300A5E /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
 		FAC394741C95996B00F14778 /* ButtonFeedbackType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ButtonFeedbackType.swift; path = Applivery/Components/ButtonFeedbackType.swift; sourceTree = "<group>"; };
 		FAC394791C959ADE00F14778 /* UIColor+Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+Applivery.swift"; path = "Applivery/Utils/UIColor+Applivery.swift"; sourceTree = "<group>"; };
@@ -246,6 +254,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA5EA6421E6CB61500590120 /* Quick.framework in Frameworks */,
+				FA5EA6411E6CB61500590120 /* Nimble.framework in Frameworks */,
 				FA68D8FD1BC040B100589DE4 /* Applivery.framework in Frameworks */,
 				FA0883D31DBC1AF4008A553A /* OHHTTPStubs.framework in Frameworks */,
 			);
@@ -559,7 +569,9 @@
 		FAADA5381DBC123D00300A5E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FAADA5391DBC125800300A5E /* Cartfile.private */,
+				FA5EA6451E6CB70C00590120 /* Cartfile.private */,
+				FA5EA63F1E6CB61500590120 /* Nimble.framework */,
+				FA5EA6401E6CB61500590120 /* Quick.framework */,
 				FAADA53A1DBC14EB00300A5E /* OHHTTPStubs.framework */,
 			);
 			name = Frameworks;
