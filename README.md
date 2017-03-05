@@ -8,6 +8,7 @@
 
 
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Applivery.svg)](https://cocoapods.org/pods/Applivery)
 [![Fastlane Plugin](https://img.shields.io/badge/Fastlane_Plugin-available-brightgreen.svg)](https://github.com/applivery/fastlane-applivery-plugin)
 
 Framework to support [Applivery.com Mobile App distribution](http://www.applivery.com) for iOS Apps.
