@@ -9,11 +9,11 @@
 import Foundation
 
 
-open class JSON: Sequence, CustomStringConvertible {
+class JSON: Sequence, CustomStringConvertible {
 	
 	private var json: Any
 	
-	open var description: String {
+	var description: String {
 		if let data = try? JSONSerialization.data(withJSONObject: self.json, options: .prettyPrinted) as Data {
 			if let description = String(data: data, encoding: String.Encoding.utf8) {
 				return description
@@ -28,11 +28,11 @@ open class JSON: Sequence, CustomStringConvertible {
 	
 	// MARK - Initializers
 	
-	public init(from any: Any) {
+	init(from any: Any) {
 		self.json = any
 	}
 	
-	open subscript(path: String) -> JSON? {
+	subscript(path: String) -> JSON? {
 		get {
 			guard var jsonDict = self.json as? [String: AnyObject] else {
 				return nil
@@ -58,7 +58,7 @@ open class JSON: Sequence, CustomStringConvertible {
 		}
 	}
 	
-	open subscript(index: Int) -> JSON? {
+	subscript(index: Int) -> JSON? {
 		get {
 			guard let array = self.json as? [AnyObject], array.count > index else { return nil }
 			
@@ -66,7 +66,7 @@ open class JSON: Sequence, CustomStringConvertible {
 		}
 	}
 	
-	open class func dataToJson(_ data: Data) throws -> JSON {
+	class func dataToJson(_ data: Data) throws -> JSON {
 		let jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
 		let json = JSON(from: jsonObject as AnyObject)
 		
@@ -76,7 +76,7 @@ open class JSON: Sequence, CustomStringConvertible {
 	
 	// MARK - Public methods
 	
-	open func toData() -> Data? {
+	func toData() -> Data? {
 		do {
 			let data = try JSONSerialization.data(withJSONObject: self.json)
 			return data
@@ -86,11 +86,11 @@ open class JSON: Sequence, CustomStringConvertible {
 		}
 	}
 	
-	open func toBool() -> Bool? {
+	func toBool() -> Bool? {
 		return self.json as? Bool
 	}
 	
-	open func toInt() -> Int? {
+	func toInt() -> Int? {
 		if let value = self.json as? Int {
 			return value
 		} else if let value = self.toString() {
@@ -100,15 +100,15 @@ open class JSON: Sequence, CustomStringConvertible {
 		return nil
 	}
 	
-	open func toString() -> String? {
+	func toString() -> String? {
 		return self.json as? String
 	}
 	
-	open func toDouble() -> Double? {
+	func toDouble() -> Double? {
 		return self.json as? Double
 	}
 	
-	open func toDictionary() -> [String: Any]? {
+	func toDictionary() -> [String: Any]? {
 		
 		guard let dic = self.json as? [String: Any] else {
 			return [:]
@@ -119,7 +119,7 @@ open class JSON: Sequence, CustomStringConvertible {
 	
 	// MARK - Sequence Methods
 	
-	open func makeIterator() -> AnyIterator<JSON> {
+	func makeIterator() -> AnyIterator<JSON> {
 		var index = 0
 		
 		return AnyIterator { () -> JSON? in

@@ -9,7 +9,7 @@
 import Foundation
 
 
-public func >= (levelA: LogLevel, levelB: LogLevel) -> Bool {
+func >= (levelA: LogLevel, levelB: LogLevel) -> Bool {
 	return levelA.rawValue >= levelB.rawValue
 }
 

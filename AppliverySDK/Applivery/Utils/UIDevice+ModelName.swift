@@ -11,7 +11,7 @@ import Foundation
 
 // Solution found on: http://stackoverflow.com/questions/26028918/ios-how-to-determine-iphone-model-in-swift
 
-public extension UIDevice {
+extension UIDevice {
 
 	var modelName: String {
 		var systemInfo = utsname()
