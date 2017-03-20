@@ -17,28 +17,30 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	private var isMessagePlaceholderShown = true
 	
 	// MARK - Constants
-	fileprivate static let BugTypeIndex = 0
-	fileprivate static let FeedbackTypeIndex = 1
+	private static let BugTypeIndex = 0
+	private static let FeedbackTypeIndex = 1
 	
 	// MARK - UI Properties
-	@IBOutlet weak fileprivate var buttonClose: UIButton!
-	@IBOutlet weak fileprivate var labelApplivery: UILabel!
-	@IBOutlet weak fileprivate var buttonAddFeedback: UIButton!
-	@IBOutlet weak fileprivate var buttonSendFeedback: UIButton!
+	@IBOutlet weak private var navigationBar: UIView!
+	@IBOutlet weak private var buttonClose: UIButton!
+	@IBOutlet weak private var labelApplivery: UILabel!
+	@IBOutlet weak private var buttonAddFeedback: UIButton!
+	@IBOutlet weak private var buttonSendFeedback: UIButton!
 	
 	@IBOutlet weak var screenshotContainer: UIView!
 	
-	@IBOutlet weak fileprivate var labelFeedbackType: UILabel!
-	@IBOutlet weak fileprivate var segmentedControlType: UISegmentedControl!
-	@IBOutlet weak fileprivate var feedbackForm: UIView!
-	@IBOutlet weak fileprivate var imageScreenshotPreview: UIImageView!
-	@IBOutlet weak fileprivate var textViewMessage: UITextView!
-	@IBOutlet weak fileprivate var labelAttach: UILabel!
+	@IBOutlet weak private var labelFeedbackType: UILabel!
+	@IBOutlet weak private var segmentedControlType: UISegmentedControl!
+	@IBOutlet weak private var feedbackForm: UIView!
+	@IBOutlet weak private var imageScreenshotPreview: UIImageView!
+	@IBOutlet weak private var textViewMessage: UITextView!
+	@IBOutlet weak private var labelAttach: UILabel!
+	@IBOutlet weak private var switchAttach: UISwitch!
 	
 	// MARK - UI Constraints
 	@IBOutlet weak var bottomFeedbackFormConstraint: NSLayoutConstraint!
 	@IBOutlet weak var widthScreenshotConstraint: NSLayoutConstraint!
-	fileprivate var widthScreenshotConstant: CGFloat!
+	private var widthScreenshotConstant: CGFloat!
 	
 	
 	class func viewController() -> FeedbackVC? {
@@ -52,7 +54,6 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		super.viewDidLoad()
 		
 		self.presenter.viewDidLoad()
-		
 		self.setupView()
 	}
 	
@@ -313,7 +314,8 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	
 	// MARK: - Private Helper
 	
-	fileprivate func setupView() {
+	private func setupView() {
+		self.setColors()
 		self.buttonSendFeedback.isHidden = true
 		self.buttonAddFeedback.isHidden = false
 		self.screenshotContainer.isHidden = false
@@ -324,7 +326,26 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		self.manageKeyboardHideEvent()
 	}
 	
-	fileprivate func localizeView() {
+	private func setColors() {
+		let palette = GlobalConfig.shared.palette
+		self.view.backgroundColor = palette.primaryColor
+		self.navigationBar.backgroundColor = palette.primaryColor
+		self.buttonClose.setTitleColor(palette.primaryFontColor, for: .normal)
+		self.labelApplivery.textColor = palette.primaryFontColor
+		self.buttonAddFeedback.setTitleColor(palette.primaryFontColor, for: .normal)
+		self.buttonSendFeedback.setTitleColor(palette.primaryFontColor, for: .normal)
+		self.feedbackForm.backgroundColor = palette.secondaryColor
+		self.labelFeedbackType.textColor = palette.secondaryFontColor
+		self.segmentedControlType.tintColor = palette.primaryColor
+		self.labelAttach.textColor = palette.secondaryFontColor
+		self.switchAttach.onTintColor = palette.primaryColor
+		self.textViewMessage.tintColor = palette.primaryColor
+		self.textViewMessage.layer.borderColor = palette.primaryColor.cgColor
+		self.textViewMessage.layer.borderWidth = 1
+		self.textViewMessage.layer.cornerRadius = 5
+	}
+	
+	private func localizeView() {
 		self.buttonClose.setTitle(Localize("feedback_button_close"), for: UIControlState())
 		self.labelApplivery.text = Localize("sdk_name")
 		self.buttonAddFeedback.setTitle(Localize("feedback_button_add"), for: UIControlState())
@@ -336,7 +357,7 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		self.labelAttach.text = Localize("feedback_label_attach")
 	}
 	
-	fileprivate func manageKeyboardShowEvent() {
+	private func manageKeyboardShowEvent() {
 		Keyboard.willShow { notification in
 			guard let size = Keyboard.size(notification) else {
 				LogWarn("Couldn't get keyboard size")
@@ -348,14 +369,14 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		}
 	}
 	
-	fileprivate func manageKeyboardHideEvent() {
+	private func manageKeyboardHideEvent() {
 		Keyboard.willHide { notification in
 			self.bottomFeedbackFormConstraint.constant = 0
 			self.animateKeyboardChanges(notification as Notification)
 		}
 	}
 	
-	fileprivate func animateKeyboardChanges(_ notification: Notification) {
+	private func animateKeyboardChanges(_ notification: Notification) {
 		let duration = Keyboard.animationDuration(notification)
 		let curve = Keyboard.animationCurve(notification)
 		

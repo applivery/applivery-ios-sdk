@@ -14,12 +14,14 @@ class UpdateVC: UIViewController, UpdateView {
 	var presenter: UpdatePresenter!
 
 	// UI Properties
-	@IBOutlet fileprivate weak var labelTitle: UILabel!
-	@IBOutlet fileprivate weak var labelUpdateMessage: UILabel!
-	@IBOutlet fileprivate weak var buttonUpdate: UIButton!
-	@IBOutlet fileprivate weak var spiner: UIActivityIndicatorView!
+	@IBOutlet private weak var navigationBar: UIView!
+	@IBOutlet private weak var labelTitle: UILabel!
+	@IBOutlet private weak var labelUpdateMessage: UILabel!
+	@IBOutlet private weak var buttonUpdate: UIButton!
+	@IBOutlet private weak var spiner: UIActivityIndicatorView!
+	
 
-	fileprivate let alert = UIAlertController(title: Localize("sdk_name"), message: nil, preferredStyle: .alert)
+	private let alert = UIAlertController(title: Localize("sdk_name"), message: nil, preferredStyle: .alert)
 
 
 	// MARK - Factory method
@@ -74,13 +76,22 @@ class UpdateVC: UIViewController, UpdateView {
 
 	// MARK - Private Helpers
 
-	fileprivate func setupView() {
+	private func setupView() {
+		self.setColors()
 		self.labelTitle.text = Localize("sdk_name")
 
 		self.buttonUpdate.setTitle(Localize("update_view_button_update"), for: UIControlState())
 		self.buttonUpdate.layer.cornerRadius = 6
 
 		self.alert.addAction(UIAlertAction(title: Localize("alert_button_ok"), style: UIAlertActionStyle.default, handler: nil))
+	}
+	
+	private func setColors() {
+		let palette = GlobalConfig.shared.palette
+		self.navigationBar.backgroundColor = palette.primaryColor
+		self.labelTitle.textColor = palette.primaryFontColor
+		self.view.backgroundColor = palette.secondaryColor
+		self.labelUpdateMessage.textColor = palette.secondaryFontColor
 	}
 
 }
