@@ -185,7 +185,7 @@
                                     <constraint firstItem="89a-zf-xIp" firstAttribute="top" secondItem="Eff-qi-Sah" secondAttribute="top" id="zTM-xC-llP"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="czU-ZH-U1e" userLabel="background">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="czU-ZH-U1e" userLabel="sceenshotBackground">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
@@ -343,6 +343,7 @@
                         <outlet property="labelAttach" destination="uAS-6k-Xex" id="8Wq-2S-DGo"/>
                         <outlet property="labelFeedbackType" destination="SLI-PW-pEH" id="YfN-PK-gCu"/>
                         <outlet property="navigationBar" destination="Eff-qi-Sah" id="iYH-6g-0Yi"/>
+                        <outlet property="screenshotBackground" destination="czU-ZH-U1e" id="GTQ-be-Rfv"/>
                         <outlet property="screenshotContainer" destination="zWW-ge-0i7" id="W4I-fV-UbM"/>
                         <outlet property="segmentedControlType" destination="oin-KM-8gu" id="JZe-98-VLO"/>
                         <outlet property="switchAttach" destination="AeG-tE-7DN" id="SmK-Ra-riM"/>

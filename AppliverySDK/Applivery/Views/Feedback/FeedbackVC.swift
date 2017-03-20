@@ -26,9 +26,8 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	@IBOutlet weak private var labelApplivery: UILabel!
 	@IBOutlet weak private var buttonAddFeedback: UIButton!
 	@IBOutlet weak private var buttonSendFeedback: UIButton!
-	
-	@IBOutlet weak var screenshotContainer: UIView!
-	
+	@IBOutlet weak private var screenshotContainer: UIView!
+	@IBOutlet weak private var screenshotBackground: UIView!
 	@IBOutlet weak private var labelFeedbackType: UILabel!
 	@IBOutlet weak private var segmentedControlType: UISegmentedControl!
 	@IBOutlet weak private var feedbackForm: UIView!
@@ -329,6 +328,7 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	private func setColors() {
 		let palette = GlobalConfig.shared.palette
 		self.view.backgroundColor = palette.primaryColor
+		self.screenshotBackground.backgroundColor = palette.secondaryColor
 		self.navigationBar.backgroundColor = palette.primaryColor
 		self.buttonClose.setTitleColor(palette.primaryFontColor, for: .normal)
 		self.labelApplivery.textColor = palette.primaryFontColor
