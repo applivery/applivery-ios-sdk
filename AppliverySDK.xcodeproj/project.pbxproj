@@ -84,6 +84,7 @@
 		FA952FDE1C83929100C32DD0 /* Storyboard+Applivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA952FDD1C83929100C32DD0 /* Storyboard+Applivery.swift */; };
 		FAA50D4C1C7D21D300CE7B65 /* ResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA50D4B1C7D21D300CE7B65 /* ResponseTests.swift */; };
 		FAA50D4E1C7D232500CE7B65 /* NSError+Applivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA50D4D1C7D232500CE7B65 /* NSError+Applivery.swift */; };
+		FAAAE1221E8040010065E6AC /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAAE1211E8040010065E6AC /* Palette.swift */; };
 		FAADA5351DBBF25B00300A5E /* FeedbackServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAADA5341DBBF25B00300A5E /* FeedbackServiceTests.swift */; };
 		FAC394751C95996B00F14778 /* ButtonFeedbackType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC394741C95996B00F14778 /* ButtonFeedbackType.swift */; };
 		FAC3947A1C959ADE00F14778 /* UIColor+Applivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC394791C959ADE00F14778 /* UIColor+Applivery.swift */; };
@@ -233,6 +234,7 @@
 		FA952FDD1C83929100C32DD0 /* Storyboard+Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Storyboard+Applivery.swift"; path = "Applivery/Utils/Storyboard+Applivery.swift"; sourceTree = "<group>"; };
 		FAA50D4B1C7D21D300CE7B65 /* ResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResponseTests.swift; path = Network/ResponseTests.swift; sourceTree = "<group>"; };
 		FAA50D4D1C7D232500CE7B65 /* NSError+Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSError+Applivery.swift"; path = "Applivery/Utils/NSError+Applivery.swift"; sourceTree = "<group>"; };
+		FAAAE1211E8040010065E6AC /* Palette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Palette.swift; path = Applivery/Model/Palette.swift; sourceTree = "<group>"; };
 		FAADA5341DBBF25B00300A5E /* FeedbackServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FeedbackServiceTests.swift; path = Network/FeedbackServiceTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAADA53A1DBC14EB00300A5E /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
 		FAC394741C95996B00F14778 /* ButtonFeedbackType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ButtonFeedbackType.swift; path = Applivery/Components/ButtonFeedbackType.swift; sourceTree = "<group>"; };
@@ -467,6 +469,7 @@
 			children = (
 				FA53DE321BC18F6D00DF2EB1 /* Config.swift */,
 				FAC3947D1C95D9FF00F14778 /* Feedback.swift */,
+				FAAAE1211E8040010065E6AC /* Palette.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -891,6 +894,7 @@
 				FA1569B71DBD465100C651D4 /* DiskStatus.swift in Sources */,
 				FA1569B31DBCFB7700C651D4 /* Device.swift in Sources */,
 				FAC394801C95EA3000F14778 /* FeedbackService.swift in Sources */,
+				FAAAE1221E8040010065E6AC /* Palette.swift in Sources */,
 				FA3211D41C3EA11700668099 /* DownloadDataManager.swift in Sources */,
 				FAFA857A1BCC07B6004E1974 /* Log.swift in Sources */,
 				FA19E48B1C822CA900DC31E8 /* Environments.swift in Sources */,

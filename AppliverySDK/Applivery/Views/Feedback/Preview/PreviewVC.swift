@@ -22,7 +22,7 @@ class PreviewVC: UIViewController, UIGestureRecognizerDelegate {
 	
 	// PRIVATE
 	private var brushWidth: CGFloat = 3
-	private var brushColor: UIColor = GlobalConfig.shared.screenshotBrushColor
+	private var brushColor: UIColor = GlobalConfig.shared.palette.screenshotBrushColor
 	private var lastPoint = CGPoint.zero
 	
 	// UI Properties
