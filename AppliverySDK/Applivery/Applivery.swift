@@ -133,8 +133,6 @@ public class Applivery: NSObject, StartInteractorOutput {
 	- Version: 2.0
 	*/
 	public func start(apiKey key: String, appId: String, appStoreRelease: Bool) {
-		self.loadFonts()
-
 		self.globalConfig.apiKey = key
 		self.globalConfig.appId = appId
 		self.globalConfig.appStoreRelease = appStoreRelease
@@ -170,15 +168,6 @@ public class Applivery: NSObject, StartInteractorOutput {
 	internal func feedbackEvent() {
 		LogInfo("Presenting feedback formulary")
 		self.feedbackCoordinator.showFeedack()
-	}
-
-
-	// MARK - Private Helpers
-
-	private func loadFonts() {
-		UIFont.loadAppliveryFont("Lato-Light.ttf")
-		UIFont.loadAppliveryFont("Lato-Regular.ttf")
-		UIFont.loadAppliveryFont("fontawesome-webfont.ttf")
 	}
 
 }

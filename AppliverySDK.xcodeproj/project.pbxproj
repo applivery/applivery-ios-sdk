@@ -110,9 +110,6 @@
 		FAFBE4631C3EF66E0039BD8C /* DownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFBE4621C3EF66E0039BD8C /* DownloadService.swift */; };
 		FAFBE4651C3EFD890039BD8C /* DownloadDataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFBE4641C3EFD890039BD8C /* DownloadDataManagerTests.swift */; };
 		FAFBE4671C3EFEC40039BD8C /* DownloadServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFBE4661C3EFEC40039BD8C /* DownloadServiceMock.swift */; };
-		FAFF01271C57A2DE00DB7C8E /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAFF01241C57A2DE00DB7C8E /* fontawesome-webfont.ttf */; };
-		FAFF01281C57A2DE00DB7C8E /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAFF01251C57A2DE00DB7C8E /* Lato-Light.ttf */; };
-		FAFF01291C57A2DE00DB7C8E /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAFF01261C57A2DE00DB7C8E /* Lato-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -263,9 +260,6 @@
 		FAFBE4621C3EF66E0039BD8C /* DownloadService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = DownloadService.swift; path = Applivery/Data/Services/DownloadService.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAFBE4641C3EFD890039BD8C /* DownloadDataManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadDataManagerTests.swift; path = Data/DownloadDataManagerTests.swift; sourceTree = "<group>"; };
 		FAFBE4661C3EFEC40039BD8C /* DownloadServiceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = DownloadServiceMock.swift; path = Mocks/DownloadServiceMock.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		FAFF01241C57A2DE00DB7C8E /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "fontawesome-webfont.ttf"; path = "Resources/Fonts/fontawesome-webfont.ttf"; sourceTree = "<group>"; };
-		FAFF01251C57A2DE00DB7C8E /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Light.ttf"; path = "Resources/Fonts/Lato-Light.ttf"; sourceTree = "<group>"; };
-		FAFF01261C57A2DE00DB7C8E /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Regular.ttf"; path = "Resources/Fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -396,16 +390,6 @@
 				FA3D97831DEB79DB00CCC11B /* PreviewVC.swift */,
 			);
 			name = Preview;
-			sourceTree = "<group>";
-		};
-		FA49AEB81C4AF93B000D5DFF /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-				FAFF01241C57A2DE00DB7C8E /* fontawesome-webfont.ttf */,
-				FAFF01251C57A2DE00DB7C8E /* Lato-Light.ttf */,
-				FAFF01261C57A2DE00DB7C8E /* Lato-Regular.ttf */,
-			);
-			name = Fonts;
 			sourceTree = "<group>";
 		};
 		FA4F1C591C5391E400AC3E61 /* Coordinators */ = {
@@ -663,7 +647,6 @@
 			children = (
 				FA49AEBA1C4AF95B000D5DFF /* Images.xcassets */,
 				FA2C455C1C4D20A300E72847 /* Localizable.strings */,
-				FA49AEB81C4AF93B000D5DFF /* Fonts */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -820,10 +803,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAFF01281C57A2DE00DB7C8E /* Lato-Light.ttf in Resources */,
-				FAFF01291C57A2DE00DB7C8E /* Lato-Regular.ttf in Resources */,
 				FA2C455A1C4D20A300E72847 /* Localizable.strings in Resources */,
-				FAFF01271C57A2DE00DB7C8E /* fontawesome-webfont.ttf in Resources */,
 				FA49AEBB1C4AF95B000D5DFF /* Images.xcassets in Resources */,
 				FA2900E41C064DAD00778A4C /* Applivery.storyboard in Resources */,
 			);
@@ -1228,6 +1208,7 @@
 				FA5EA6541E6CCB6600590120 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FA68D8EC1BC040B000589DE4 /* Build configuration list for PBXProject "AppliverySDK" */ = {
 			isa = XCConfigurationList;
