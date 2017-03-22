@@ -97,6 +97,7 @@
 		FAD2A15D1C010EA6001967FD /* UpdateCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2A15C1C010EA6001967FD /* UpdateCoordinatorMock.swift */; };
 		FAD2A1651C011E2B001967FD /* UpdateInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2A1641C011E2B001967FD /* UpdateInteractor.swift */; };
 		FAD911001BCEE58B00D56617 /* Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD910FF1BCEE58B00D56617 /* Json.swift */; };
+		FADD391D1E8321E700D861B7 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADD391C1E8321E700D861B7 /* Colors.swift */; };
 		FAEC86661C83824D00A43298 /* FeedbackCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEC86651C83824D00A43298 /* FeedbackCoordinator.swift */; };
 		FAED0E781CC97C99000FD5EB /* FeedbackPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED0E771CC97C99000FD5EB /* FeedbackPresenterTests.swift */; };
 		FAED0E7A1CC97EF2000FD5EB /* ScreenshotInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED0E791CC97EF2000FD5EB /* ScreenshotInteractorMock.swift */; };
@@ -248,6 +249,7 @@
 		FAD2A15C1C010EA6001967FD /* UpdateCoordinatorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateCoordinatorMock.swift; path = Mocks/UpdateCoordinatorMock.swift; sourceTree = "<group>"; };
 		FAD2A1641C011E2B001967FD /* UpdateInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = UpdateInteractor.swift; path = Applivery/Interactors/UpdateInteractor.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAD910FF1BCEE58B00D56617 /* Json.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Json.swift; path = Applivery/Utils/Json.swift; sourceTree = "<group>"; };
+		FADD391C1E8321E700D861B7 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Colors.swift; path = Applivery/SDKConfig/Colors.swift; sourceTree = "<group>"; };
 		FAEC86651C83824D00A43298 /* FeedbackCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackCoordinator.swift; path = Applivery/Coordinators/FeedbackCoordinator.swift; sourceTree = "<group>"; };
 		FAED0E771CC97C99000FD5EB /* FeedbackPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FeedbackPresenterTests.swift; path = Presenters/FeedbackPresenterTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAED0E791CC97EF2000FD5EB /* ScreenshotInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScreenshotInteractorMock.swift; path = Mocks/ScreenshotInteractorMock.swift; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 			isa = PBXGroup;
 			children = (
 				FA2B9C011DC29935009F11C5 /* ErrorCodes.swift */,
+				FADD391C1E8321E700D861B7 /* Colors.swift */,
 			);
 			name = Constants;
 			sourceTree = "<group>";
@@ -893,6 +896,7 @@
 				FAFA857D1BCC2EE7004E1974 /* Request.swift in Sources */,
 				FA1569B71DBD465100C651D4 /* DiskStatus.swift in Sources */,
 				FA1569B31DBCFB7700C651D4 /* Device.swift in Sources */,
+				FADD391D1E8321E700D861B7 /* Colors.swift in Sources */,
 				FAC394801C95EA3000F14778 /* FeedbackService.swift in Sources */,
 				FAAAE1221E8040010065E6AC /* Palette.swift in Sources */,
 				FA3211D41C3EA11700668099 /* DownloadDataManager.swift in Sources */,
