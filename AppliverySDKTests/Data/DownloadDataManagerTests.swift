@@ -83,7 +83,7 @@ class DownloadDataManagerTests: XCTestCase {
 		self.downloadData.downloadUrl("test_build_id") { response in
 			completionCalled = true
 
-			XCTAssert(response == .error(message: Localize("error_unexpected")))
+			XCTAssert(response == .error(message: localize("error_unexpected")))
 		}
 
 		XCTAssert(completionCalled == true)

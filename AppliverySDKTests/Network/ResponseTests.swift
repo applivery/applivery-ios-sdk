@@ -104,7 +104,7 @@ class ResponseTests: XCTestCase {
 		XCTAssert(response.success == false)
 		XCTAssert(response.url?.absoluteString == urlResponse.url?.absoluteString)
 		XCTAssert(response.code == urlResponse.statusCode)
-		XCTAssert(response.error == NSError.appliveryError(Localize("error_invalid_credentials"), code: 401))
+		XCTAssert(response.error == NSError.appliveryError(localize("error_invalid_credentials"), code: 401))
 		XCTAssert(response.body == nil)
 		XCTAssert(response.data == data)
 		XCTAssert(response.headers == urlResponse.allHeaderFields)
