@@ -47,7 +47,7 @@ class App: AppProtocol {
 
 	func bundleId() -> String {
 		guard let bundleId = Bundle.main.bundleIdentifier else {
-			LogWarn("No bundle identifier found")
+			logWarn("No bundle identifier found")
 			return "no_id"
 		}
 
@@ -77,7 +77,7 @@ class App: AppProtocol {
 	}
 
 	func openUrl(_ urlString: String) -> Bool {
-		LogInfo("Opening \(urlString)")
+		logInfo("Opening \(urlString)")
 		guard let url = URL(string: urlString) else { return false }
 		UIApplication.shared.openURL(url)
 
@@ -93,9 +93,9 @@ class App: AppProtocol {
 	}
 
 	func showAlert(_ message: String) {
-		let alert = UIAlertController(title: Localize("sdk_name"), message: message, preferredStyle: .alert)
+		let alert = UIAlertController(title: localize("sdk_name"), message: message, preferredStyle: .alert)
 
-		let actionLater = UIAlertAction(title: Localize("alert_button_ok"), style: .cancel, handler: nil)
+		let actionLater = UIAlertAction(title: localize("alert_button_ok"), style: .cancel, handler: nil)
 		alert.addAction(actionLater)
 
 		let topVC = self.topViewController()
@@ -104,10 +104,10 @@ class App: AppProtocol {
 	}
 
 	func showOtaAlert(_ message: String, downloadHandler: @escaping () -> Void ) {
-		self.alertOta = UIAlertController(title: Localize("sdk_name"), message: message, preferredStyle: .alert)
+		self.alertOta = UIAlertController(title: localize("sdk_name"), message: message, preferredStyle: .alert)
 
-		let actionLater = UIAlertAction(title: Localize("alert_button_later"), style: .cancel, handler: nil)
-		let actionDownload = UIAlertAction(title: Localize("alert_button_update"), style: .default) { _ in
+		let actionLater = UIAlertAction(title: localize("alert_button_later"), style: .cancel, handler: nil)
+		let actionDownload = UIAlertAction(title: localize("alert_button_update"), style: .default) { _ in
 			downloadHandler()
 		}
 
@@ -120,10 +120,10 @@ class App: AppProtocol {
 	}
 
 	func showErrorAlert(_ message: String, retryHandler: @escaping () -> Void) {
-		self.alertError = UIAlertController(title: Localize("sdk_name"), message: message, preferredStyle: .alert)
+		self.alertError = UIAlertController(title: localize("sdk_name"), message: message, preferredStyle: .alert)
 
-		let actionCancel = UIAlertAction(title: Localize("alert_button_cancel"), style: .cancel, handler: nil)
-		let actionRetry = UIAlertAction(title: Localize("alert_button_retry"), style: .default) { _ in
+		let actionCancel = UIAlertAction(title: localize("alert_button_cancel"), style: .cancel, handler: nil)
+		let actionRetry = UIAlertAction(title: localize("alert_button_retry"), style: .default) { _ in
 			retryHandler()
 		}
 

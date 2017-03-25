@@ -68,7 +68,7 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		guard let previewVC = segue.destination as? PreviewVC else {
-			return LogWarn("Expected PreviewVC")
+			return logWarn("Expected PreviewVC")
 		}
 		
 		self.previewVC = previewVC
@@ -102,7 +102,7 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 			self.presenter.userDidSelectedFeedbackType(.feedback)
 			
 		default:
-			LogWarn("Selected segment index out of bounds")
+			logWarn("Selected segment index out of bounds")
 		}
 	}
 	
@@ -274,14 +274,14 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	
 	func showMessage(_ message: String) {
 		let alert = UIAlertController(
-			title: Localize("sdk_name"),
+			title: localize("sdk_name"),
 			message: message,
 			preferredStyle: .alert
 		)
 		
 		alert.addAction(
 			UIAlertAction(
-				title: Localize("alert_button_ok"),
+				title: localize("alert_button_ok"),
 				style: .cancel,
 				handler: { _ in runOnMainThread(self.stopLoading) }
 			)
@@ -346,21 +346,21 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	}
 	
 	private func localizeView() {
-		self.buttonClose.setTitle(Localize("feedback_button_close"), for: UIControlState())
-		self.labelApplivery.text = Localize("sdk_name")
-		self.buttonAddFeedback.setTitle(Localize("feedback_button_add"), for: UIControlState())
-		self.buttonSendFeedback.setTitle(Localize("feedback_button_send"), for: UIControlState())
-		self.labelFeedbackType.text = Localize("feedback_label_select_type")
-		self.segmentedControlType.setTitle(Localize("feedback_button_bug"), forSegmentAt: FeedbackVC.BugTypeIndex)
-		self.segmentedControlType.setTitle(Localize("feedback_button_feedback"), forSegmentAt: FeedbackVC.FeedbackTypeIndex)
-		self.textViewMessage.text = Localize("feedback_text_message_placeholder")
-		self.labelAttach.text = Localize("feedback_label_attach")
+		self.buttonClose.setTitle(localize("feedback_button_close"), for: UIControlState())
+		self.labelApplivery.text = localize("sdk_name")
+		self.buttonAddFeedback.setTitle(localize("feedback_button_add"), for: UIControlState())
+		self.buttonSendFeedback.setTitle(localize("feedback_button_send"), for: UIControlState())
+		self.labelFeedbackType.text = localize("feedback_label_select_type")
+		self.segmentedControlType.setTitle(localize("feedback_button_bug"), forSegmentAt: FeedbackVC.BugTypeIndex)
+		self.segmentedControlType.setTitle(localize("feedback_button_feedback"), forSegmentAt: FeedbackVC.FeedbackTypeIndex)
+		self.textViewMessage.text = localize("feedback_text_message_placeholder")
+		self.labelAttach.text = localize("feedback_label_attach")
 	}
 	
 	private func manageKeyboardShowEvent() {
 		Keyboard.willShow { notification in
 			guard let size = Keyboard.size(notification) else {
-				LogWarn("Couldn't get keyboard size")
+				logWarn("Couldn't get keyboard size")
 				return
 			}
 			

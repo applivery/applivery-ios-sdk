@@ -26,11 +26,11 @@ class ConfigService {
 						code: -1,
 						userInfo: [GlobalConfig.AppliveryErrorKey: "Internal applivery error parsing json"])
 
-					LogError(error)
+					logError(error)
 					completionHandler(false, nil, error)
 				}
 			} else {
-				LogError(response.error)
+				logError(response.error)
 				completionHandler(response.success, nil, response.error)
 			}
 		}

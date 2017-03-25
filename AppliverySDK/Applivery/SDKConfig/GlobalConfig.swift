@@ -13,7 +13,7 @@ class GlobalConfig {
 	static let shared = GlobalConfig()
 
 	// MARK: Global Constants
-	static let Host = Environments.Host() ?? "https://dashboard.applivery.com"
+	static let Host = Environments.host() ?? "https://dashboard.applivery.com"
 	static let ErrorDomain = "com.applivery.network"
 	static let AppliveryErrorKey = "AppliveryMessage"
 	static let AppliveryErrorDebugKey = "AppliveryDebugMessage"

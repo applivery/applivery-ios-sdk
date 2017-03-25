@@ -81,7 +81,7 @@ class JSON: Sequence, CustomStringConvertible {
 			let data = try JSONSerialization.data(withJSONObject: self.json)
 			return data
 		} catch let error as NSError {
-			LogError(error)
+			logError(error)
 			return nil
 		}
 	}

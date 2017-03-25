@@ -50,7 +50,7 @@ class Config {
 	fileprivate func getParam(_ parameter: String, json: JSON, shouldExists: Bool) -> String {
 		guard let param = json[parameter]?.toString() else {
 			if shouldExists {
-				LogWarn("Error parsing JSON: \(parameter) parameter not found")
+				logWarn("Error parsing JSON: \(parameter) parameter not found")
 			}
 
 			return "-1"

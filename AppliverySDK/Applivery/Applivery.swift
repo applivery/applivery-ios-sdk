@@ -208,17 +208,17 @@ public class Applivery: NSObject, StartInteractorOutput {
 	// MARK: Start Interactor
 	
 	internal func forceUpdate() {
-		LogInfo("Application must be updated!!")
+		logInfo("Application must be updated!!")
 		self.updateCoordinator.forceUpdate()
 	}
 	
 	internal func otaUpdate() {
-		LogInfo("New OTA update available!")
+		logInfo("New OTA update available!")
 		self.updateCoordinator.otaUpdate()
 	}
 	
 	internal func feedbackEvent() {
-		LogInfo("Presenting feedback formulary")
+		logInfo("Presenting feedback formulary")
 		self.feedbackCoordinator.showFeedack()
 	}
 	
