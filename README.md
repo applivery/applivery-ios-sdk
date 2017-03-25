@@ -17,9 +17,11 @@ Framework to support [Applivery.com Mobile App distribution](http://www.appliver
 
 With Applivery you can massively distribute your iOS Apps (both Ad-hoc or In-House/Enterprise) through a customizable distribution site with no need of your users have to be registered in the platform. Combined with [Apple Developer Enterprise Program](https://developer.apple.com/programs/enterprise/) and Enterprise certificates, Applivery is perfect not only for beta testing distribute to your QA team, but also for In-House Enterprise distribution for beta testing users, prior to a release, or even for corporative Apps to the employees of a company.
 
-**Features:**
+###Features
+
 * **Automatic OTA Updates** when uploading new versions to Applivery.
 * **Force update** if App version is lower than the minimum version configured in Applivery.
+* **Send feedback**. Your test users can report a bug or send improvements feedback by simply taking a screenshot.
 
 ## Getting Started
 
@@ -103,7 +105,7 @@ import Applivery
 and then the magic:
 
 ``` swift
-let applivery = Applivery.sharedInstance
+let applivery = Applivery.shared
 applivery.start(apiKey: "YOUR_API_KEY", appId: "YOUR_APP_ID", appStoreRelease: false)
 ```
 
@@ -119,7 +121,7 @@ The import:
 The magic:
 
 ``` objc
-Applivery *applivery = [Applivery sharedInstance];
+Applivery *applivery = [Applivery shared];
 [applivery startWithApiKey:@"YOUR_API_KEY" appId:@"YOUR_APP_ID" appStoreRelease:NO];
 ```
 
@@ -128,7 +130,7 @@ Applivery *applivery = [Applivery sharedInstance];
 **IMPORTANT II:** If you are experimenting problems submitting your app to the AppStore, please check this known issue about [Embedded Frameworks and AppStore submissions](https://github.com/applivery/applivery-ios-sdk#embedded-frameworks-and-appstore-submissions)
 
 
-## About params
+### About params
 
 - **apiKey**: Your developer's Api Key
 - **appId**: Your application's ID
@@ -146,7 +148,7 @@ In some cases you'll find usefull to see what is happening inside Applivery SDK.
 **Swift**
 
 ``` swift
-applivery.logLevel = .Info
+applivery.logLevel = .info
 ```
 
 **Objective-C**
@@ -178,21 +180,41 @@ applivery.disableFeedback()
 [applivery disableFeedback];
 ```
 
-### Change feedback's brush color
+### Customize SDK's colors
 
-In the feedback's view, users can edit the screenshot to draw lines on top of it. By default, these lines are red, but you are allowed to change the color to fit better with your application's color palette.
+You can create a new instance of `Palette` class and assign it to `Applivery.shared.palette`
+	
+```swift
+Applivery.shared.palette = Palette(
+	primaryColor: .orange,
+	secondaryColor: .white,
+	primaryFontColor: .white,
+	secondaryFontColor: .black,
+	screenshotBrushColor: .green
+)
+```
+	
+The SDK has Applivery's colors by default so, if you only need to change the primary color, yo can do this:
+	
+```swift
+Applivery.shared.palette = Palette(
+	primaryColor: .orange,
+)
+```
+	
+Or even directly change the property
 
-**Swift**
-
-``` swift
-applivery.screenshotBrushColor = .blue
+```swift
+Applivery.shared.palette.primaryColor = .orange
 ```
 
-**Objective-C**
+#### Colors you can change
 
-``` objc
-applivery.screenshotBrushColor = [UIColor blueColor];
-```
+- `primaryColor`: Main color of your brand
+- `secondaryColor`: Background color
+- `primaryFontColor`: Primary font color. It should be in contrast with the primary color
+- `secondaryFontColor`: Secondary font color. It should be in contrast with the secondary color
+- `screenshotBrushColor`: In the feedback's view, users can edit the screenshot to draw lines on top of it. By default, these lines are red, but you are allowed to change the color to fit better with your application's color palette.
 
 
 ### Embedded frameworks and AppStore submissions

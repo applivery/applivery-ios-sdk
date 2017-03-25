@@ -74,9 +74,9 @@ class ConfigPersister: NSObject {
 		self.userDefaults.setValue(config.otaUpdateMessage as AnyObject?, forKey: kOtaUpdateMessageKey)
 
 		if self.userDefaults.synchronize() {
-			LogInfo("Applivery configuration was updated")
+			logInfo("Applivery configuration was updated")
 		} else {
-			LogWarn("Couldn't syncronize Applivery configuration")
+			logWarn("Couldn't syncronize Applivery configuration")
 		}
 
 	}

@@ -24,7 +24,7 @@ class FeedbackCoordinator: PFeedbackCoordinator {
 
 	func showFeedack() {
 		guard !self.isFeedbackPresented else {
-			LogWarn("Feedback view is already presented")
+			logWarn("Feedback view is already presented")
 			return
 		}
 		self.isFeedbackPresented = true

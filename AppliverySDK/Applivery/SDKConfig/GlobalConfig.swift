@@ -13,7 +13,7 @@ class GlobalConfig {
 	static let shared = GlobalConfig()
 
 	// MARK: Global Constants
-	static let Host = Environments.Host() ?? "https://dashboard.applivery.com"
+	static let Host = Environments.host() ?? "https://dashboard.applivery.com"
 	static let ErrorDomain = "com.applivery.network"
 	static let AppliveryErrorKey = "AppliveryMessage"
 	static let AppliveryErrorDebugKey = "AppliveryDebugMessage"
@@ -25,7 +25,7 @@ class GlobalConfig {
 	var appStoreRelease = false
 	var feedbackEnabled = true
 	var logLevel: LogLevel = .none
-	var screenshotBrushColor: UIColor = #colorLiteral(red: 0.8078431487, green: 0.2693349354, blue: 0.3300692421, alpha: 1)
+	var palette = Palette()
 
 
 	// MARK: Static texts

@@ -26,7 +26,7 @@ extension UIStoryboard {
 
 
 	fileprivate class func storyBoard() -> UIStoryboard {
-		return UIStoryboard(name: "Applivery", bundle: Bundle.AppliveryBundle())
+		return UIStoryboard(name: "Applivery", bundle: Bundle.applivery())
 	}
 
 }

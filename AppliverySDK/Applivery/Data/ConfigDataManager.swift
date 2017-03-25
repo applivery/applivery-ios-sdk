@@ -62,7 +62,7 @@ class ConfigDataManager: PConfigDataManager {
 
 				completionHandler(.success(config: config!, version: version))
 			} else {
-				LogError(error)
+				logError(error)
 				completionHandler(.error)
 			}
 		}

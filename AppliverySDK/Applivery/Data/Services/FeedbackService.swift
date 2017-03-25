@@ -70,8 +70,8 @@ class FeedbackService: PFeedbackService {
 			if response.success {
 				completionHandler(.success(true))
 			} else {
-				LogError(response.error)
-				completionHandler(.error(NSError.UnexpectedError()))
+				logError(response.error)
+				completionHandler(.error(NSError.unexpectedError()))
 			}
 		}
 	}

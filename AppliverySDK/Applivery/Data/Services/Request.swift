@@ -28,7 +28,7 @@ class Request {
 
 	func sendAsync(_ completionHandler: @escaping (Response) -> Void) {
 		self.buildRequest()
-		guard let request = self.request else { return LogWarn("Couldn't build the request") }
+		guard let request = self.request else { return logWarn("Couldn't build the request") }
 		self.logRequest()
 		
 		let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -45,7 +45,7 @@ class Request {
 
 	// MARK: Private Helpers
 	private func buildRequest() {
-		guard let url = self.buildURL() else { return LogWarn("Could not build the URL") }
+		guard let url = self.buildURL() else { return logWarn("Could not build the URL") }
 		self.request = URLRequest(url: url)
 		self.request?.httpMethod = self.method
 		if self.method != "GET" {
@@ -64,7 +64,7 @@ class Request {
 	}
 
 	private func setHeaders() {
-		let version = Bundle.AppliveryBundle().infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0"
+		let version = Bundle.applivery().infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0"
 
 		self.request?.setValue("application/json", forHTTPHeaderField: "Content-Type")
 		self.request?.setValue(GlobalConfig.shared.apiKey, forHTTPHeaderField: "Authorization")
@@ -80,12 +80,12 @@ class Request {
 		
 		let url = self.request?.url?.absoluteString ?? "INVALID URL"
 
-		Log("******** REQUEST ********")
-		Log(" - URL:\t" + url)
-		Log(" - METHOD:\t" + (self.request?.httpMethod ?? "INVALID REQUEST"))
+		log("******** REQUEST ********")
+		log(" - URL:\t" + url)
+		log(" - METHOD:\t" + (self.request?.httpMethod ?? "INVALID REQUEST"))
 		self.logBody()
 		self.logHeaders()
-		Log("*************************\n")
+		log("*************************\n")
 	}
 
 	private func logBody() {
@@ -94,21 +94,21 @@ class Request {
 		let json = try? JSON.dataToJson(body)
 		else { return }
 
-		Log(" - BODY:\n\(json)")
+		log(" - BODY:\n\(json)")
 	}
 
 	private func logHeaders() {
 		guard let headers = self.request?.allHTTPHeaderFields else { return }
 
-		Log(" - HEADERS: {")
+		log(" - HEADERS: {")
 
 		for key in headers.keys {
 			if let value = headers[key] {
-				Log("\t\t\(key): \(value)")
+				log("\t\t\(key): \(value)")
 			}
 		}
 
-		Log("}")
+		log("}")
 	}
 	
 }

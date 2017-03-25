@@ -26,15 +26,15 @@ class DownloadService: DownloadServiceProtocol {
 		self.request?.sendAsync { response in
 			if response.success {
 				guard let token = response.body?["token"]?.toString() else {
-					let error = NSError.UnexpectedError(debugMessage: "Error trying to parse token", code: ErrorCodes.JsonParse)
+					let error = NSError.unexpectedError(debugMessage: "Error trying to parse token", code: ErrorCodes.JsonParse)
 					completionHandler(.error(error))
 					return
 				}
 				completionHandler(.success(token))
 			} else {
 				let error = response.error ?? NSError
-					.UnexpectedError(debugMessage: "unexpected error while fetching download token")
-				LogError(error)
+					.unexpectedError(debugMessage: "unexpected error while fetching download token")
+				logError(error)
 				completionHandler(.error(error))
 			}
 		}

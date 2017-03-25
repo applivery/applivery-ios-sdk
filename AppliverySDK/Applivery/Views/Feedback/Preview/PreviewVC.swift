@@ -22,7 +22,7 @@ class PreviewVC: UIViewController, UIGestureRecognizerDelegate {
 	
 	// PRIVATE
 	private var brushWidth: CGFloat = 3
-	private var brushColor: UIColor = GlobalConfig.shared.screenshotBrushColor
+	private var brushColor: UIColor = GlobalConfig.shared.palette.screenshotBrushColor
 	private var lastPoint = CGPoint.zero
 	
 	// UI Properties
@@ -40,7 +40,7 @@ class PreviewVC: UIViewController, UIGestureRecognizerDelegate {
 	
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 		guard let touch = touches.first else {
-			return LogWarn("No touches found")
+			return logWarn("No touches found")
 		}
 		
 		self.lastPoint = touch.location(in: self.imageScreenshot)
@@ -48,7 +48,7 @@ class PreviewVC: UIViewController, UIGestureRecognizerDelegate {
  
 	override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
 		guard let touch = touches.first  else {
-			return LogWarn("No touches found")
+			return logWarn("No touches found")
 		}
 		
 		let currentPoint = touch.location(in: view)
@@ -58,7 +58,7 @@ class PreviewVC: UIViewController, UIGestureRecognizerDelegate {
 	
 	func drawLineFrom(fromPoint: CGPoint, toPoint: CGPoint) {
 		guard let size = self.imageScreenshot?.frame.size else {
-			return LogWarn("Could not retrieved size")
+			return logWarn("Could not retrieved size")
 		}
 		
 		// Behan to draw

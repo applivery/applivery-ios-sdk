@@ -178,7 +178,7 @@ class FeedbackServiceTests: XCTestCase {
 		
 		let completionCalled = self.expectation(description: "completion called")
 		self.feedbackService.postFeedback(feedback) { result in
-			XCTAssert(result == Result.error(NSError.UnexpectedError()))
+			XCTAssert(result == Result.error(NSError.unexpectedError()))
 			
 			completionCalled.fulfill()
 		}
@@ -218,13 +218,13 @@ class FeedbackServiceTests: XCTestCase {
 	}
 	
 	private func stubFeedbackOK() {
-		let _ = stub(condition: isPath("/api/feedback")) { _ in
+		_ = stub(condition: isPath("/api/feedback")) { _ in
 			return StubResponse.stubResponse(with: "feedback_ok.json")
 		}
 	}
 	
 	private func stubFeedbackKO() {
-		let _ = stub(condition: isPath("/api/feedback")) { _ in
+		_ = stub(condition: isPath("/api/feedback")) { _ in
 			return StubResponse.stubResponse(with: "ko.json")
 		}
 	}

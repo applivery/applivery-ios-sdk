@@ -159,7 +159,7 @@ class UpdateInteractorTests: XCTestCase {
 		XCTAssert(self.appMock.outOpenUrl.url == "url_test")
 		XCTAssert(self.updateInteractorOutputMock.outDownloadDidEndCalled == false)
 		XCTAssert(self.updateInteractorOutputMock.outDownloadDidFail.called == true)
-		XCTAssert(self.updateInteractorOutputMock.outDownloadDidFail.message == Localize("error_download_url"))
+		XCTAssert(self.updateInteractorOutputMock.outDownloadDidFail.message == localize("error_download_url"))
 	}
 
 
@@ -170,7 +170,7 @@ class UpdateInteractorTests: XCTestCase {
 		XCTAssert(self.appMock.outOpenUrl.called == false)
 		XCTAssert(self.updateInteractorOutputMock.outDownloadDidEndCalled == false)
 		XCTAssert(self.updateInteractorOutputMock.outDownloadDidFail.called == true)
-		XCTAssert(self.updateInteractorOutputMock.outDownloadDidFail.message == Localize("error_unexpected"))
+		XCTAssert(self.updateInteractorOutputMock.outDownloadDidFail.message == localize("error_unexpected"))
 	}
 
 	func test_downloadBuild_downloadDataFails_returnsFail() {
