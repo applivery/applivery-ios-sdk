@@ -274,7 +274,7 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	
 	func showMessage(_ message: String) {
 		let alert = UIAlertController(
-			title: localize("sdk_name"),
+			title: literal(.appName),
 			message: message,
 			preferredStyle: .alert
 		)
@@ -347,7 +347,7 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	
 	private func localizeView() {
 		self.buttonClose.setTitle(localize("feedback_button_close"), for: UIControlState())
-		self.labelApplivery.text = localize("sdk_name")
+		self.labelApplivery.text = literal(.appName)
 		self.buttonAddFeedback.setTitle(localize("feedback_button_add"), for: UIControlState())
 		self.buttonSendFeedback.setTitle(localize("feedback_button_send"), for: UIControlState())
 		self.labelFeedbackType.text = localize("feedback_label_select_type")

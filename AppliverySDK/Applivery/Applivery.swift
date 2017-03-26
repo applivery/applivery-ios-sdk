@@ -136,6 +136,12 @@ public class Applivery: NSObject, StartInteractorOutput {
 		}
 	}
 	
+	public var textLiterals: TextLiterals {
+		didSet {
+			self.globalConfig.textLiterals = self.textLiterals
+		}
+	}
+	
 	// MARK: - Private properties
 	private let startInteractor: StartInteractor
 	private let globalConfig: GlobalConfig
@@ -164,7 +170,9 @@ public class Applivery: NSObject, StartInteractorOutput {
 		self.feedbackCoordinator = feedbackCoordinator
 		self.logLevel = .none
 		self.palette = Palette()
+		self.textLiterals = TextLiterals()
 		self.globalConfig.palette = self.palette
+		self.globalConfig.textLiterals = self.textLiterals
 	}
 	
 	

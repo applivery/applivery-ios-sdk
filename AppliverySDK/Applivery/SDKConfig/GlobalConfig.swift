@@ -26,6 +26,7 @@ class GlobalConfig {
 	var feedbackEnabled = true
 	var logLevel: LogLevel = .none
 	var palette = Palette()
+	var textLiterals = TextLiterals()
 
 
 	// MARK: Static texts
