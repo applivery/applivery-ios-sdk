@@ -83,7 +83,7 @@ class UpdateVC: UIViewController, UpdateView {
 		self.buttonUpdate.setTitle(literal(.buttonForceUpdate), for: UIControlState())
 		self.buttonUpdate.layer.cornerRadius = 6
 
-		self.alert.addAction(UIAlertAction(title: localize("alert_button_ok"), style: UIAlertActionStyle.default, handler: nil))
+		self.alert.addAction(UIAlertAction(title: literal(.alertButtonOK), style: UIAlertActionStyle.default, handler: nil))
 	}
 	
 	private func setColors() {

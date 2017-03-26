@@ -10,7 +10,18 @@ import Foundation
 
 public class TextLiterals: NSObject {
 	
+	// MARK: - General
 	public var appName: String = localize("sdk_name")
+	
+	// MARK: - Alerts
+	public var alertButtonCancel = localize("alert_button_cancel")
+	public var alertButtonRetry = localize("alert_button_retry")
+	public var alertButtonOK = localize("alert_button_ok")
+	
+	// Errors
+	public var errorUnexpected = localize("error_unexpected")
+	public var errorInvalidCredentials = localize("error_invalid_credentials")
+	public var errorDownloadURL = localize("error_download_url")
 	
 	// MARK: - OTA Update
 	public var otaUpdateMessage: String?
@@ -34,6 +45,12 @@ public class TextLiterals: NSObject {
 
 enum Literal: CustomStringConvertible {
 	case appName
+	case alertButtonCancel
+	case alertButtonRetry
+	case alertButtonOK
+	case errorUnexpected
+	case errorInvalidCredentials
+	case errorDownloadURL
 	case otaUpdateMessage
 	case alertButtonLater
 	case alertButtonUpdate
@@ -59,6 +76,12 @@ func literal(_ literal: Literal) -> String? {
 	
 	switch literal {
 	case .appName: return literals.appName
+	case .alertButtonCancel: return literals.alertButtonCancel
+	case .alertButtonRetry: return literals.alertButtonRetry
+	case .alertButtonOK: return literals.alertButtonOK
+	case .errorUnexpected: return literals.errorUnexpected
+	case .errorInvalidCredentials: return literals.errorInvalidCredentials
+	case .errorDownloadURL: return literals.errorDownloadURL
 	case .otaUpdateMessage: return literals.otaUpdateMessage
 	case .alertButtonLater: return literals.alertButtonLater
 	case .alertButtonUpdate: return literals.alertButtonUpdate

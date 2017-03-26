@@ -286,7 +286,7 @@ extension FeedbackVC: FeedbackView {
 		
 		alert.addAction(
 			UIAlertAction(
-				title: localize("alert_button_ok"),
+				title: literal(.alertButtonOK),
 				style: .cancel,
 				handler: { _ in runOnMainThread(self.stopLoading) }
 			)

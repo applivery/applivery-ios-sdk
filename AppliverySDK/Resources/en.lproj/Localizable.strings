@@ -9,16 +9,14 @@
 
 // GENERAL
 "sdk_name" = "Applivery";
+"alert_button_cancel" = "Cancel";
+"alert_button_retry" = "Retry";
+"alert_button_ok" = "OK";
 
 // ERRORS
 "error_unexpected" = "Unexpected error";
 "error_invalid_credentials" = "Invalid credentials";
 "error_download_url" = "Couldn't start download. Invalid url";
-
-// ALERTS
-"alert_button_cancel" = "Cancel";
-"alert_button_retry" = "Retry";
-"alert_button_ok" = "OK";
 
 // OTA Update
 "ota_update_message" = "There is a new version available for download. Do you want to update to the latest version?";

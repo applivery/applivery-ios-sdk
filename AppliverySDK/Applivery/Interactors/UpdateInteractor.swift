@@ -65,7 +65,7 @@ class UpdateInteractor: PUpdateInteractor {
 
 	func downloadLastBuild() {
 		guard let lastBuildId = self.configData.getCurrentConfig().config?.lastBuildId else {
-			self.output.downloadDidFail(localize("error_unexpected"))
+			self.output.downloadDidFail(literal(.errorUnexpected) ?? localize("error_unexpected"))
 			return
 		}
 
@@ -76,7 +76,7 @@ class UpdateInteractor: PUpdateInteractor {
 				if self.app.openUrl(url) {
 					self.output.downloadDidEnd()
 				} else {
-					let error = NSError.appliveryError(localize("error_download_url"))
+					let error = NSError.appliveryError(literal(.errorDownloadURL))
 					logError(error)
 
 					self.output.downloadDidFail(error.message())

@@ -95,7 +95,7 @@ class App: AppProtocol {
 	func showAlert(_ message: String) {
 		let alert = UIAlertController(title: literal(.appName), message: message, preferredStyle: .alert)
 
-		let actionLater = UIAlertAction(title: localize("alert_button_ok"), style: .cancel, handler: nil)
+		let actionLater = UIAlertAction(title: literal(.alertButtonOK), style: .cancel, handler: nil)
 		alert.addAction(actionLater)
 
 		let topVC = self.topViewController()
@@ -122,8 +122,8 @@ class App: AppProtocol {
 	func showErrorAlert(_ message: String, retryHandler: @escaping () -> Void) {
 		self.alertError = UIAlertController(title: literal(.appName), message: message, preferredStyle: .alert)
 
-		let actionCancel = UIAlertAction(title: localize("alert_button_cancel"), style: .cancel, handler: nil)
-		let actionRetry = UIAlertAction(title: localize("alert_button_retry"), style: .default) { _ in
+		let actionCancel = UIAlertAction(title: literal(.alertButtonCancel), style: .cancel, handler: nil)
+		let actionRetry = UIAlertAction(title: literal(.alertButtonRetry), style: .default) { _ in
 			retryHandler()
 		}
 
