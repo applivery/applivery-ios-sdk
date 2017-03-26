@@ -217,6 +217,56 @@ Applivery.shared.palette.primaryColor = .orange
 - `screenshotBrushColor`: In the feedback's view, users can edit the screenshot to draw lines on top of it. By default, these lines are red, but you are allowed to change the color to fit better with your application's color palette.
 
 
+### Customize string literals
+
+You can customize the SDK string literals to fit your app. 
+	
+#### Examples
+	
+```swift
+Applivery.shared.textLiterals = TextLiterals(
+	appName: "Applivery",
+	alertButtonCancel: "Cancel",
+	alertButtonRetry: "Retry",
+	alertButtonOK: "OK",
+	errorUnexpected: "Unexpected error",
+	errorInvalidCredentials: "Invalid credentials",
+	errorDownloadURL: "Couldn't start download. Invalid url",
+	otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
+	alertButtonLater: "Later",
+	alertButtonUpdate: "Update",
+	forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it",
+	buttonForceUpdate: "Update now",
+	feedbackButtonClose: "Close",
+	feedbackButtonAdd: "Add Feedback",
+	feedbackButtonSend: "Send Feedback",
+	feedbackSelectType: "Select type",
+	feedbackTypeBug: "Bug",
+	feedbackTypeFeedback: "Feedback",
+	feedbackMessagePlaceholder: "Add a message",
+	feedbackAttach: "Attach Screenshot"
+)
+```
+	
+The SDK has literals by default so, if you only need to change the update messages, yo can do this:
+	
+```swift
+Applivery.shared.textLiterals = Palette(
+	otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
+	forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it"
+)
+```
+	
+Or even directly change the property
+	
+```swift
+Applivery.shared.textLiterals.otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?"
+Applivery.shared.textLiterals.forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it"
+```
+	
+_**Important**_: The default literals are only in english. Consider to set localized strings to fully support all languages your app does.
+
+
 ### Embedded frameworks and AppStore submissions
 
 Applivery.framework is built with a fat universal library, this means that you can compile for devices or simulator without any problem, but due to a possible (and strange) [Apple's bug](http://www.openradar.me/19209161), you can not submit an App to the AppStore if it has inside an embedded framework with simulator slices.
