@@ -224,7 +224,7 @@ enum Literal: CustomStringConvertible {
 	}
 }
 
-//swiftlint:disable cyclomatic_complexity
+// swiftlint:disable cyclomatic_complexity
 func literal(_ literal: Literal) -> String? {
 	let literals = GlobalConfig.shared.textLiterals
 	
@@ -251,4 +251,4 @@ func literal(_ literal: Literal) -> String? {
 	case .feedbackAttach: return literals.feedbackAttach
 	}
 }
-//swiftlint:enable cyclomatic_complexity
+// swiftlint:enable cyclomatic_complexity
