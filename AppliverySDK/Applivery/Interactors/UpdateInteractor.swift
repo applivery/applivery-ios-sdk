@@ -43,10 +43,10 @@ class UpdateInteractor: PUpdateInteractor {
 	func forceUpdateMessage() -> String {
 		let (currentConfig, _) = self.configData.getCurrentConfig()
 
-		var message = currentConfig?.forceUpdateMessage ?? GlobalConfig.DefaultForceUpdateMessage
+		var message = literal(.forceUpdateMessage) ?? currentConfig?.forceUpdateMessage ?? localize("force_update_message")
 
 		if message == "" {
-			message = GlobalConfig.DefaultForceUpdateMessage
+			message = localize("force_update_message")
 		}
 
 		return message

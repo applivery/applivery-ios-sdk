@@ -17,6 +17,9 @@ public class TextLiterals: NSObject {
 	public var alertButtonLater: String = localize("alert_button_later")
 	public var alertButtonUpdate: String = localize("alert_button_update")
 	
+	// MARK: - Force Update
+	public var forceUpdateMessage: String?
+	public var buttonForceUpdate: String = localize("update_view_button_update")
 }
 
 enum Literal: CustomStringConvertible {
@@ -24,7 +27,8 @@ enum Literal: CustomStringConvertible {
 	case otaUpdateMessage
 	case alertButtonLater
 	case alertButtonUpdate
-	
+	case forceUpdateMessage
+	case buttonForceUpdate
 	
 	var description: String {
 		return literal(self) ?? String(self.hashValue)
@@ -39,5 +43,7 @@ func literal(_ literal: Literal) -> String? {
 	case .otaUpdateMessage: return literals.otaUpdateMessage
 	case .alertButtonLater: return literals.alertButtonLater
 	case .alertButtonUpdate: return literals.alertButtonUpdate
+	case .forceUpdateMessage: return literals.forceUpdateMessage
+	case .buttonForceUpdate: return literals.buttonForceUpdate
 	}
 }

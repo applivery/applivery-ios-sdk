@@ -26,6 +26,7 @@
 "alert_button_update" = "Update";
 
 // UPDATE VIEW
+"force_update_message" = "Sorry this App is outdated. Please, update the App to continue using it";
 "update_view_button_update" = "Update now";
 
 // FEEDBACK VIEW

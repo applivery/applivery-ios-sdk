@@ -58,7 +58,7 @@ class UpdateInteractorTests: XCTestCase {
 
 		let message = self.updateInteractor.forceUpdateMessage()
 
-		XCTAssert(message == GlobalConfig.DefaultForceUpdateMessage)
+		XCTAssert(message == localize("force_update_message"))
 	}
 
 	func test_nil_message_returns_default_message() {
@@ -67,7 +67,7 @@ class UpdateInteractorTests: XCTestCase {
 
 		let message = self.updateInteractor.forceUpdateMessage()
 
-		XCTAssert(message == GlobalConfig.DefaultForceUpdateMessage)
+		XCTAssert(message == localize("force_update_message"))
 	}
 
 	func test_empty_message_returns_default_message() {
@@ -76,10 +76,10 @@ class UpdateInteractorTests: XCTestCase {
 
 		let message = self.updateInteractor.forceUpdateMessage()
 
-		XCTAssert(message == GlobalConfig.DefaultForceUpdateMessage)
+		XCTAssert(message == localize("force_update_message"))
 	}
 
-	func test_succes_message_returns_message() {
+	func test_success_message_returns_message() {
 		self.configDataManagerMock.inCurrentConfig = Config()
 		self.configDataManagerMock.inCurrentConfig!.forceUpdateMessage = "TEST MESSAGE"
 
@@ -88,6 +88,16 @@ class UpdateInteractorTests: XCTestCase {
 		XCTAssert(message == "TEST MESSAGE")
 	}
 
+	func test_forceUpdateMessage_returnsDeveloperMessage_whenDeveloperMessageIsSet() {
+		self.configDataManagerMock.inCurrentConfig = Config()
+		self.configDataManagerMock.inCurrentConfig!.forceUpdateMessage = "TEST MESSAGE"
+		Applivery.shared.textLiterals.forceUpdateMessage = "DEVELOPER MESSAGE"
+		
+		let message = self.updateInteractor.forceUpdateMessage()
+		
+		XCTAssert(message == "DEVELOPER MESSAGE")
+		Applivery.shared.textLiterals.forceUpdateMessage = nil
+	}
 
 	// MARK - OTA Update Message Tests
 

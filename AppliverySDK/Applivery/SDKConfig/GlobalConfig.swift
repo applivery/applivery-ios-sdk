@@ -27,9 +27,4 @@ class GlobalConfig {
 	var logLevel: LogLevel = .none
 	var palette = Palette()
 	var textLiterals = TextLiterals()
-
-
-	// MARK: Static texts
-	static let DefaultForceUpdateMessage = "Sorry this App is outdated. Please, update the App to continue using it"
-
 }
