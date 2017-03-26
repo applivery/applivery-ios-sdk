@@ -96,7 +96,7 @@ class UpdateInteractorTests: XCTestCase {
 
 		let message = self.updateInteractor.otaUpdateMessage()
 
-		XCTAssert(message == GlobalConfig.DefaultOtaUpdateMessage)
+		XCTAssert(message == localize("ota_update_message"))
 	}
 
 	func test_otaMessage_returnsDefaultMessage_whenConfigIsNil() {
@@ -105,7 +105,7 @@ class UpdateInteractorTests: XCTestCase {
 
 		let message = self.updateInteractor.otaUpdateMessage()
 
-		XCTAssert(message == GlobalConfig.DefaultOtaUpdateMessage)
+		XCTAssert(message == localize("ota_update_message"))
 	}
 
 	func test_otaMessage_returnsDefaultMessage_whenUpdateMessageIsEmpty() {
@@ -114,16 +114,29 @@ class UpdateInteractorTests: XCTestCase {
 
 		let message = self.updateInteractor.otaUpdateMessage()
 
-		XCTAssert(message == GlobalConfig.DefaultOtaUpdateMessage)
+		XCTAssert(message == localize("ota_update_message"))
 	}
 
-	func test_otaMessage_returnsMessage_whenUpdateMessageIsSetted() {
+	func test_otaMessage_returnsServerMessage_whenUpdateMessageIsSettedByServer() {
 		self.configDataManagerMock.inCurrentConfig = Config()
 		self.configDataManagerMock.inCurrentConfig!.otaUpdateMessage = "TEST MESSAGE"
 
 		let message = self.updateInteractor.otaUpdateMessage()
 
 		XCTAssert(message == "TEST MESSAGE")
+	}
+	
+	func test_otaMessage_returnsDeveloperMessage_whenUpdateMessageIsSettedByUser() {
+		self.configDataManagerMock.inCurrentConfig = Config()
+		self.configDataManagerMock.inCurrentConfig!.otaUpdateMessage = "TEST MESSAGE"
+		Applivery.shared.textLiterals.otaUpdateMessage = "DEVELOPER MESSAGE"
+		
+		let message = self.updateInteractor.otaUpdateMessage()
+		
+		XCTAssert(message == "DEVELOPER MESSAGE")
+		
+		// Clear singleton literal
+		Applivery.shared.textLiterals.otaUpdateMessage = nil
 	}
 
 

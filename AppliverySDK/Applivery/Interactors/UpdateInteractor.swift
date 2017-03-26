@@ -54,10 +54,10 @@ class UpdateInteractor: PUpdateInteractor {
 
 	func otaUpdateMessage() -> String {
 		let (currentConfig, _) = self.configData.getCurrentConfig()
-		var message = currentConfig?.otaUpdateMessage ?? GlobalConfig.DefaultOtaUpdateMessage
+		var message = literal(.otaUpdateMessage) ?? currentConfig?.otaUpdateMessage ?? localize("ota_update_message")
 
 		if message == "" {
-			message = GlobalConfig.DefaultOtaUpdateMessage
+			message = localize("ota_update_message")
 		}
 
 		return message

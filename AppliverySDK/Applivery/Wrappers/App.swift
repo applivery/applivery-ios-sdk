@@ -106,8 +106,8 @@ class App: AppProtocol {
 	func showOtaAlert(_ message: String, downloadHandler: @escaping () -> Void ) {
 		self.alertOta = UIAlertController(title: literal(.appName), message: message, preferredStyle: .alert)
 
-		let actionLater = UIAlertAction(title: localize("alert_button_later"), style: .cancel, handler: nil)
-		let actionDownload = UIAlertAction(title: localize("alert_button_update"), style: .default) { _ in
+		let actionLater = UIAlertAction(title: literal(.alertButtonLater), style: .cancel, handler: nil)
+		let actionDownload = UIAlertAction(title: literal(.alertButtonUpdate), style: .default) { _ in
 			downloadHandler()
 		}
 

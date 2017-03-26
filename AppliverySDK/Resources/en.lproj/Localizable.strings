@@ -16,11 +16,14 @@
 "error_download_url" = "Couldn't start download. Invalid url";
 
 // ALERTS
-"alert_button_later" = "Later";
-"alert_button_update" = "Update";
 "alert_button_cancel" = "Cancel";
 "alert_button_retry" = "Retry";
 "alert_button_ok" = "OK";
+
+// OTA Update
+"ota_update_message" = "There is a new version available for download. Do you want to update to the latest version?";
+"alert_button_later" = "Later";
+"alert_button_update" = "Update";
 
 // UPDATE VIEW
 "update_view_button_update" = "Update now";
