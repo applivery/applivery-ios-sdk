@@ -58,7 +58,7 @@ class UpdateInteractorTests: XCTestCase {
 
 		let message = self.updateInteractor.forceUpdateMessage()
 
-		XCTAssert(message == GlobalConfig.DefaultForceUpdateMessage)
+		XCTAssert(message == localize("force_update_message"))
 	}
 
 	func test_nil_message_returns_default_message() {
@@ -67,7 +67,7 @@ class UpdateInteractorTests: XCTestCase {
 
 		let message = self.updateInteractor.forceUpdateMessage()
 
-		XCTAssert(message == GlobalConfig.DefaultForceUpdateMessage)
+		XCTAssert(message == localize("force_update_message"))
 	}
 
 	func test_empty_message_returns_default_message() {
@@ -76,10 +76,10 @@ class UpdateInteractorTests: XCTestCase {
 
 		let message = self.updateInteractor.forceUpdateMessage()
 
-		XCTAssert(message == GlobalConfig.DefaultForceUpdateMessage)
+		XCTAssert(message == localize("force_update_message"))
 	}
 
-	func test_succes_message_returns_message() {
+	func test_success_message_returns_message() {
 		self.configDataManagerMock.inCurrentConfig = Config()
 		self.configDataManagerMock.inCurrentConfig!.forceUpdateMessage = "TEST MESSAGE"
 
@@ -88,6 +88,16 @@ class UpdateInteractorTests: XCTestCase {
 		XCTAssert(message == "TEST MESSAGE")
 	}
 
+	func test_forceUpdateMessage_returnsDeveloperMessage_whenDeveloperMessageIsSet() {
+		self.configDataManagerMock.inCurrentConfig = Config()
+		self.configDataManagerMock.inCurrentConfig!.forceUpdateMessage = "TEST MESSAGE"
+		Applivery.shared.textLiterals.forceUpdateMessage = "DEVELOPER MESSAGE"
+		
+		let message = self.updateInteractor.forceUpdateMessage()
+		
+		XCTAssert(message == "DEVELOPER MESSAGE")
+		Applivery.shared.textLiterals.forceUpdateMessage = nil
+	}
 
 	// MARK - OTA Update Message Tests
 
@@ -96,7 +106,7 @@ class UpdateInteractorTests: XCTestCase {
 
 		let message = self.updateInteractor.otaUpdateMessage()
 
-		XCTAssert(message == GlobalConfig.DefaultOtaUpdateMessage)
+		XCTAssert(message == localize("ota_update_message"))
 	}
 
 	func test_otaMessage_returnsDefaultMessage_whenConfigIsNil() {
@@ -105,7 +115,7 @@ class UpdateInteractorTests: XCTestCase {
 
 		let message = self.updateInteractor.otaUpdateMessage()
 
-		XCTAssert(message == GlobalConfig.DefaultOtaUpdateMessage)
+		XCTAssert(message == localize("ota_update_message"))
 	}
 
 	func test_otaMessage_returnsDefaultMessage_whenUpdateMessageIsEmpty() {
@@ -114,16 +124,29 @@ class UpdateInteractorTests: XCTestCase {
 
 		let message = self.updateInteractor.otaUpdateMessage()
 
-		XCTAssert(message == GlobalConfig.DefaultOtaUpdateMessage)
+		XCTAssert(message == localize("ota_update_message"))
 	}
 
-	func test_otaMessage_returnsMessage_whenUpdateMessageIsSetted() {
+	func test_otaMessage_returnsServerMessage_whenUpdateMessageIsSettedByServer() {
 		self.configDataManagerMock.inCurrentConfig = Config()
 		self.configDataManagerMock.inCurrentConfig!.otaUpdateMessage = "TEST MESSAGE"
 
 		let message = self.updateInteractor.otaUpdateMessage()
 
 		XCTAssert(message == "TEST MESSAGE")
+	}
+	
+	func test_otaMessage_returnsDeveloperMessage_whenUpdateMessageIsSettedByUser() {
+		self.configDataManagerMock.inCurrentConfig = Config()
+		self.configDataManagerMock.inCurrentConfig!.otaUpdateMessage = "TEST MESSAGE"
+		Applivery.shared.textLiterals.otaUpdateMessage = "DEVELOPER MESSAGE"
+		
+		let message = self.updateInteractor.otaUpdateMessage()
+		
+		XCTAssert(message == "DEVELOPER MESSAGE")
+		
+		// Clear singleton literal
+		Applivery.shared.textLiterals.otaUpdateMessage = nil
 	}
 
 
@@ -159,7 +182,7 @@ class UpdateInteractorTests: XCTestCase {
 		XCTAssert(self.appMock.outOpenUrl.url == "url_test")
 		XCTAssert(self.updateInteractorOutputMock.outDownloadDidEndCalled == false)
 		XCTAssert(self.updateInteractorOutputMock.outDownloadDidFail.called == true)
-		XCTAssert(self.updateInteractorOutputMock.outDownloadDidFail.message == localize("error_download_url"))
+		XCTAssert(self.updateInteractorOutputMock.outDownloadDidFail.message == literal(.errorDownloadURL))
 	}
 
 
@@ -170,7 +193,7 @@ class UpdateInteractorTests: XCTestCase {
 		XCTAssert(self.appMock.outOpenUrl.called == false)
 		XCTAssert(self.updateInteractorOutputMock.outDownloadDidEndCalled == false)
 		XCTAssert(self.updateInteractorOutputMock.outDownloadDidFail.called == true)
-		XCTAssert(self.updateInteractorOutputMock.outDownloadDidFail.message == localize("error_unexpected"))
+		XCTAssert(self.updateInteractorOutputMock.outDownloadDidFail.message == literal(.errorUnexpected))
 	}
 
 	func test_downloadBuild_downloadDataFails_returnsFail() {

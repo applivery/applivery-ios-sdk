@@ -9,20 +9,22 @@
 
 // GENERAL
 "sdk_name" = "Applivery";
+"alert_button_cancel" = "Cancel";
+"alert_button_retry" = "Retry";
+"alert_button_ok" = "OK";
 
 // ERRORS
 "error_unexpected" = "Unexpected error";
 "error_invalid_credentials" = "Invalid credentials";
 "error_download_url" = "Couldn't start download. Invalid url";
 
-// ALERTS
+// OTA Update
+"ota_update_message" = "There is a new version available for download. Do you want to update to the latest version?";
 "alert_button_later" = "Later";
 "alert_button_update" = "Update";
-"alert_button_cancel" = "Cancel";
-"alert_button_retry" = "Retry";
-"alert_button_ok" = "OK";
 
 // UPDATE VIEW
+"force_update_message" = "Sorry this App is outdated. Please, update the App to continue using it";
 "update_view_button_update" = "Update now";
 
 // FEEDBACK VIEW

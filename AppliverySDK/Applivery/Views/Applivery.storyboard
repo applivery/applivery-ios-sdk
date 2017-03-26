@@ -51,12 +51,12 @@
                                         <color key="textColor" red="0.23529411759999999" green="0.26274509800000001" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zEI-sj-mbl" userLabel="buttonUpdate">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zEI-sj-mbl" userLabel="buttonUpdate">
                                         <rect key="frame" x="97.5" y="101" width="140" height="50"/>
                                         <color key="backgroundColor" red="0.36078431372549019" green="0.72156862745098038" blue="0.36078431372549019" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="3L8-9g-bXq"/>
-                                            <constraint firstAttribute="width" constant="140" id="neY-5o-Eq4"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="3L8-9g-bXq"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="140" id="neY-5o-Eq4"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="#Update now#">
@@ -76,10 +76,12 @@
                                     <constraint firstItem="OU4-Gt-Wbc" firstAttribute="centerY" secondItem="zEI-sj-mbl" secondAttribute="centerY" id="0Ta-oF-MAs"/>
                                     <constraint firstItem="zEI-sj-mbl" firstAttribute="top" secondItem="8CI-zi-0Il" secondAttribute="bottom" constant="40" id="2XF-c2-eqK"/>
                                     <constraint firstAttribute="bottom" secondItem="zEI-sj-mbl" secondAttribute="bottom" constant="20" id="GF8-oa-k3n"/>
+                                    <constraint firstItem="zEI-sj-mbl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FhN-Oy-KDs" secondAttribute="leading" constant="20" id="N7k-tQ-vpk"/>
                                     <constraint firstItem="8CI-zi-0Il" firstAttribute="top" secondItem="FhN-Oy-KDs" secondAttribute="top" constant="20" id="Nu9-4I-lk1"/>
                                     <constraint firstItem="zEI-sj-mbl" firstAttribute="centerX" secondItem="FhN-Oy-KDs" secondAttribute="centerX" id="aJS-Rr-1Vj"/>
                                     <constraint firstItem="8CI-zi-0Il" firstAttribute="leading" secondItem="FhN-Oy-KDs" secondAttribute="leading" constant="20" id="gUr-sx-yRg"/>
                                     <constraint firstItem="OU4-Gt-Wbc" firstAttribute="centerX" secondItem="zEI-sj-mbl" secondAttribute="centerX" id="vKC-Ln-Ucf"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="zEI-sj-mbl" secondAttribute="trailing" constant="20" id="w3g-pK-nLj"/>
                                     <constraint firstAttribute="trailing" secondItem="8CI-zi-0Il" secondAttribute="trailing" constant="20" id="wks-Of-gMH"/>
                                 </constraints>
                             </view>

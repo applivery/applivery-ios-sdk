@@ -136,6 +136,67 @@ public class Applivery: NSObject, StartInteractorOutput {
 		}
 	}
 	
+	/**
+	Customize the SDK string literals to fit your app. 
+	
+	By default, Applivery has english literals.
+	
+	# Examples
+	
+	You can create a new instance of `TextLiterals` and assign it to this property
+	
+	```swift
+	Applivery.shared.textLiterals = TextLiterals(
+		appName: "Applivery",
+		alertButtonCancel: "Cancel",
+		alertButtonRetry: "Retry",
+		alertButtonOK: "OK",
+		errorUnexpected: "Unexpected error",
+		errorInvalidCredentials: "Invalid credentials",
+		errorDownloadURL: "Couldn't start download. Invalid url",
+		otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
+		alertButtonLater: "Later",
+		alertButtonUpdate: "Update",
+		forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it",
+		buttonForceUpdate: "Update now",
+		feedbackButtonClose: "Close",
+		feedbackButtonAdd: "Add Feedback",
+		feedbackButtonSend: "Send Feedback",
+		feedbackSelectType: "Select type",
+		feedbackTypeBug: "Bug",
+		feedbackTypeFeedback: "Feedback",
+		feedbackMessagePlaceholder: "Add a message",
+		feedbackAttach: "Attach Screenshot"
+	)
+	```
+	
+	The SDK has literals by default so, if you only need to change the update messages, yo can do this:
+	
+	```swift
+	Applivery.shared.textLiterals = Palette(
+		otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
+		forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it"
+	)
+	```
+	
+	Or even directly change the property
+	
+	```swift
+	Applivery.shared.textLiterals.otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?"
+	Applivery.shared.textLiterals.forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it"
+	```
+	
+	- Important: The default literals are only in english. Consider to set localized strings to fully support all languages your app does.
+	- seealso: `TextLiterals`
+	- Since: 2.4
+	- Version: 2.4
+	*/
+	public var textLiterals: TextLiterals {
+		didSet {
+			self.globalConfig.textLiterals = self.textLiterals
+		}
+	}
+	
 	// MARK: - Private properties
 	private let startInteractor: StartInteractor
 	private let globalConfig: GlobalConfig
@@ -164,7 +225,9 @@ public class Applivery: NSObject, StartInteractorOutput {
 		self.feedbackCoordinator = feedbackCoordinator
 		self.logLevel = .none
 		self.palette = Palette()
+		self.textLiterals = TextLiterals()
 		self.globalConfig.palette = self.palette
+		self.globalConfig.textLiterals = self.textLiterals
 	}
 	
 	

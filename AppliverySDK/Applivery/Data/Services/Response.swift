@@ -88,9 +88,9 @@ class Response {
 
 			switch self.code {
 			case 401:
-				userInfo = [GlobalConfig.AppliveryErrorKey: localize("error_invalid_credentials")]
+				userInfo = [GlobalConfig.AppliveryErrorKey: literal(.errorInvalidCredentials) ?? localize("error_invalid_credentials")]
 			default:
-				userInfo = [GlobalConfig.AppliveryErrorKey: localize("error_unexpected")]
+				userInfo = [GlobalConfig.AppliveryErrorKey: literal(.errorUnexpected) ?? localize("error_unexpected")]
 			}
 
 			self.error = NSError (

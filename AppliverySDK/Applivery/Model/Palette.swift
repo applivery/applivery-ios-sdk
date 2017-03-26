@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 /**
 A color palette for view's customization
 
@@ -26,8 +25,6 @@ Applivery.shared.palette = Palette(
 	screenshotBrushColor: .green
 )
 ```
-
-and then set the instance to `Applivery.shared.palette`
 
 - seealso: `Applivery.palette`
 - Since: 2.4

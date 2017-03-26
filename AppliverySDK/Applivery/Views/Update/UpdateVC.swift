@@ -21,7 +21,7 @@ class UpdateVC: UIViewController, UpdateView {
 	@IBOutlet private weak var spiner: UIActivityIndicatorView!
 	
 
-	private let alert = UIAlertController(title: localize("sdk_name"), message: nil, preferredStyle: .alert)
+	private let alert = UIAlertController(title: literal(.appName), message: nil, preferredStyle: .alert)
 
 
 	// MARK - Factory method
@@ -78,12 +78,12 @@ class UpdateVC: UIViewController, UpdateView {
 
 	private func setupView() {
 		self.setColors()
-		self.labelTitle.text = localize("sdk_name")
+		self.labelTitle.text = literal(.appName)
 
-		self.buttonUpdate.setTitle(localize("update_view_button_update"), for: UIControlState())
+		self.buttonUpdate.setTitle(literal(.buttonForceUpdate), for: UIControlState())
 		self.buttonUpdate.layer.cornerRadius = 6
 
-		self.alert.addAction(UIAlertAction(title: localize("alert_button_ok"), style: UIAlertActionStyle.default, handler: nil))
+		self.alert.addAction(UIAlertAction(title: literal(.alertButtonOK), style: UIAlertActionStyle.default, handler: nil))
 	}
 	
 	private func setColors() {

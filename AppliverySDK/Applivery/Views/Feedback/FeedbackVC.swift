@@ -5,36 +5,35 @@
 //  Created by Alejandro Jiménez on 28/2/16.
 //  Copyright © 2016 Applivery S.L. All rights reserved.
 //
-
 import UIKit
 
-// swiftlint:disable type_body_length
-class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
+
+class FeedbackVC: UIViewController {
 	
 	var presenter: FeedbackPresenter!
 	
-	private var previewVC: PreviewVC?
-	private var isMessagePlaceholderShown = true
+	fileprivate var previewVC: PreviewVC?
+	fileprivate var isMessagePlaceholderShown = true
 	
 	// MARK - Constants
-	private static let BugTypeIndex = 0
-	private static let FeedbackTypeIndex = 1
+	fileprivate static let BugTypeIndex = 0
+	fileprivate static let FeedbackTypeIndex = 1
 	
 	// MARK - UI Properties
-	@IBOutlet weak private var navigationBar: UIView!
-	@IBOutlet weak private var buttonClose: UIButton!
-	@IBOutlet weak private var labelApplivery: UILabel!
-	@IBOutlet weak private var buttonAddFeedback: UIButton!
-	@IBOutlet weak private var buttonSendFeedback: UIButton!
-	@IBOutlet weak private var screenshotContainer: UIView!
-	@IBOutlet weak private var screenshotBackground: UIView!
-	@IBOutlet weak private var labelFeedbackType: UILabel!
-	@IBOutlet weak private var segmentedControlType: UISegmentedControl!
-	@IBOutlet weak private var feedbackForm: UIView!
-	@IBOutlet weak private var imageScreenshotPreview: UIImageView!
-	@IBOutlet weak private var textViewMessage: UITextView!
-	@IBOutlet weak private var labelAttach: UILabel!
-	@IBOutlet weak private var switchAttach: UISwitch!
+	@IBOutlet weak fileprivate var navigationBar: UIView!
+	@IBOutlet weak fileprivate var buttonClose: UIButton!
+	@IBOutlet weak fileprivate var labelApplivery: UILabel!
+	@IBOutlet weak fileprivate var buttonAddFeedback: UIButton!
+	@IBOutlet weak fileprivate var buttonSendFeedback: UIButton!
+	@IBOutlet weak fileprivate var screenshotContainer: UIView!
+	@IBOutlet weak fileprivate var screenshotBackground: UIView!
+	@IBOutlet weak fileprivate var labelFeedbackType: UILabel!
+	@IBOutlet weak fileprivate var segmentedControlType: UISegmentedControl!
+	@IBOutlet weak fileprivate var feedbackForm: UIView!
+	@IBOutlet weak fileprivate var imageScreenshotPreview: UIImageView!
+	@IBOutlet weak fileprivate var textViewMessage: UITextView!
+	@IBOutlet weak fileprivate var labelAttach: UILabel!
+	@IBOutlet weak fileprivate var switchAttach: UISwitch!
 	
 	// MARK - UI Constraints
 	@IBOutlet weak var bottomFeedbackFormConstraint: NSLayoutConstraint!
@@ -46,8 +45,10 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		return UIStoryboard.viewController("FeedbackVC") as? FeedbackVC
 	}
 	
-	
-	// MARK: - View Lifecycle
+}
+
+// MARK: - View Lifecycle
+extension FeedbackVC {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -74,8 +75,11 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		self.previewVC = previewVC
 	}
 	
-	
-	// MARK: - UI Actions
+}
+
+
+// MARK: - UI Actions
+extension FeedbackVC {
 	
 	@IBAction func onButtonCloseTap(_ sender: UIButton) {
 		self.presenter.userDidTapCloseButton()
@@ -101,8 +105,7 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		case FeedbackVC.FeedbackTypeIndex:
 			self.presenter.userDidSelectedFeedbackType(.feedback)
 			
-		default:
-			logWarn("Selected segment index out of bounds")
+		default: logWarn("Selected segment index out of bounds")
 		}
 	}
 	
@@ -110,16 +113,18 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		self.presenter.userDidTapPreview()
 	}
 	
-	// MARK: - UI Actions
 	override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
 		if motion == .motionShake {
 			self.presenter.userDidShake()
 		}
 	}
 	
-	
-	// MARK: - TextView
-	
+}
+
+
+// MARK: - TextView
+extension FeedbackVC: UITextViewDelegate {
+
 	func textViewDidBeginEditing(_ textView: UITextView) {
 		if self.isMessagePlaceholderShown {
 			self.textViewMessage.text = nil
@@ -127,8 +132,11 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		}
 	}
 	
-	
-	// MARK: - FeedbackView
+}
+
+
+// MARK: - FeedbackView
+extension FeedbackVC: FeedbackView {
 	
 	/// If nil, will reuse the current screenshot
 	func showScreenshot(_ screenshot: UIImage?) {
@@ -156,7 +164,6 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		self.feedbackForm.alpha = 0
 		
 		DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(700)) {
-
 			UIView.animate(
 				withDuration: 0.4,
 				delay: 0,
@@ -170,8 +177,6 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 					screenshotCopy.removeFromSuperview()
 			})
 		}
-		
-		
 	}
 	
 	private func showScreenshotAnimated() {
@@ -274,14 +279,14 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	
 	func showMessage(_ message: String) {
 		let alert = UIAlertController(
-			title: localize("sdk_name"),
+			title: literal(.appName),
 			message: message,
 			preferredStyle: .alert
 		)
 		
 		alert.addAction(
 			UIAlertAction(
-				title: localize("alert_button_ok"),
+				title: literal(.alertButtonOK),
 				style: .cancel,
 				handler: { _ in runOnMainThread(self.stopLoading) }
 			)
@@ -310,10 +315,13 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 		return self.previewVC?.editedScreenshot
 	}
 	
+}
+
+
+// MARK: - Private Helpers
+extension FeedbackVC {
 	
-	// MARK: - Private Helper
-	
-	private func setupView() {
+	fileprivate func setupView() {
 		self.setColors()
 		self.buttonSendFeedback.isHidden = true
 		self.buttonAddFeedback.isHidden = false
@@ -346,15 +354,15 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	}
 	
 	private func localizeView() {
-		self.buttonClose.setTitle(localize("feedback_button_close"), for: UIControlState())
-		self.labelApplivery.text = localize("sdk_name")
-		self.buttonAddFeedback.setTitle(localize("feedback_button_add"), for: UIControlState())
-		self.buttonSendFeedback.setTitle(localize("feedback_button_send"), for: UIControlState())
-		self.labelFeedbackType.text = localize("feedback_label_select_type")
-		self.segmentedControlType.setTitle(localize("feedback_button_bug"), forSegmentAt: FeedbackVC.BugTypeIndex)
-		self.segmentedControlType.setTitle(localize("feedback_button_feedback"), forSegmentAt: FeedbackVC.FeedbackTypeIndex)
-		self.textViewMessage.text = localize("feedback_text_message_placeholder")
-		self.labelAttach.text = localize("feedback_label_attach")
+		self.buttonClose.setTitle(literal(.feedbackButtonClose), for: UIControlState())
+		self.labelApplivery.text = literal(.appName)
+		self.buttonAddFeedback.setTitle(literal(.feedbackButtonAdd), for: UIControlState())
+		self.buttonSendFeedback.setTitle(literal(.feedbackButtonSend), for: UIControlState())
+		self.labelFeedbackType.text = literal(.feedbackSelectType)
+		self.segmentedControlType.setTitle(literal(.feedbackTypeBug), forSegmentAt: FeedbackVC.BugTypeIndex)
+		self.segmentedControlType.setTitle(literal(.feedbackTypeFeedback), forSegmentAt: FeedbackVC.FeedbackTypeIndex)
+		self.textViewMessage.text = literal(.feedbackMessagePlaceholder)
+		self.labelAttach.text = literal(.feedbackAttach)
 	}
 	
 	private func manageKeyboardShowEvent() {
@@ -390,4 +398,3 @@ class FeedbackVC: UIViewController, FeedbackView, UITextViewDelegate {
 	}
 	
 }
-// swiftlint:enable type_body_length

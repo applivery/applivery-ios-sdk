@@ -4,6 +4,7 @@ env:
   global:
     - FRAMEWORK_NAME=Applivery
 before_script:
+  - open -b com.apple.iphonesimulator
   - carthage bootstrap --platform iOS
 script:
   - set -o pipefail && xcodebuild -project AppliverySDK.xcodeproj -scheme Applivery -sdk iphonesimulator -destination "platform=iOS Simulator,OS=10.1,name=iPhone 6" test | xcpretty
