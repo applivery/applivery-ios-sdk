@@ -8,39 +8,193 @@
 
 import Foundation
 
+/**
+A set of string literals to customize all the Applivery's texts
+
+# Overview
+You can customize the SDK's texts by setting the properties of this class.
+
+# Example
+
+```swift
+Applivery.shared.textLiterals = TextLiterals(
+	appName: "Applivery",
+	alertButtonCancel: "Cancel",
+	alertButtonRetry: "Retry",
+	alertButtonOK: "OK",
+	errorUnexpected: "Unexpected error",
+	errorInvalidCredentials: "Invalid credentials",
+	errorDownloadURL: "Couldn't start download. Invalid url",
+	otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
+	alertButtonLater: "Later",
+	alertButtonUpdate: "Update",
+	forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it",
+	buttonForceUpdate: "Update now",
+	feedbackButtonClose: "Close",
+	feedbackButtonAdd: "Add Feedback",
+	feedbackButtonSend: "Send Feedback",
+	feedbackSelectType: "Select type",
+	feedbackTypeBug: "Bug",
+	feedbackTypeFeedback: "Feedback",
+	feedbackMessagePlaceholder: "Add a message",
+	feedbackAttach: "Attach Screenshot"
+)
+```
+
+- seealso: `Applivery.textLiterals`
+- Since: 2.4
+- Version: 2.4
+- Author: Alejandro Jiménez Agudo
+- Copyright: Applivery S.L.
+*/
 public class TextLiterals: NSObject {
 	
 	// MARK: - General
-	public var appName: String = localize("sdk_name")
+	
+	/// The application name. **default**: "Applivery"
+	public var appName: String
+	
 	
 	// MARK: - Alerts
-	public var alertButtonCancel = localize("alert_button_cancel")
-	public var alertButtonRetry = localize("alert_button_retry")
-	public var alertButtonOK = localize("alert_button_ok")
+	
+	/// "Cancel"
+	public var alertButtonCancel: String
+	
+	/// "Retry
+	public var alertButtonRetry: String
+	
+	/// "OK"
+	public var alertButtonOK: String
 	
 	// Errors
-	public var errorUnexpected = localize("error_unexpected")
-	public var errorInvalidCredentials = localize("error_invalid_credentials")
-	public var errorDownloadURL = localize("error_download_url")
+	/// "Unexpected error"
+	public var errorUnexpected: String
+	
+	/// "Invalid credentials"
+	public var errorInvalidCredentials: String
+	
+	/// "Couldn't start download. Invalid url"
+	public var errorDownloadURL: String
+	
 	
 	// MARK: - OTA Update
+	
+	/// "There is a new version available for download. Do you want to update to the latest version?"
 	public var otaUpdateMessage: String?
-	public var alertButtonLater: String = localize("alert_button_later")
-	public var alertButtonUpdate: String = localize("alert_button_update")
+	
+	/// "Later"
+	public var alertButtonLater: String
+	
+	/// "Update"
+	public var alertButtonUpdate: String
+	
 	
 	// MARK: - Force Update
+	
+	/// "Sorry this App is outdated. Please, update the App to continue using it"
 	public var forceUpdateMessage: String?
-	public var buttonForceUpdate: String = localize("update_view_button_update")
+	
+	/// "Update now"
+	public var buttonForceUpdate: String
+	
 	
 	// MARK: - Feedback
-	public var feedbackButtonClose: String = localize("feedback_button_close")
-	public var feedbackButtonAdd: String = localize("feedback_button_add")
-	public var feedbackButtonSend: String = localize("feedback_button_send")
-	public var feedbackSelectType: String = localize("feedback_label_select_type")
-	public var feedbackTypeBug: String = localize("feedback_button_bug")
-	public var feedbackTypeFeedback: String = localize("feedback_button_feedback")
-	public var feedbackMessagePlaceholder: String = localize("feedback_text_message_placeholder")
-	public var feedbackAttach: String = localize("feedback_label_attach")
+	
+	/// "Close"
+	public var feedbackButtonClose: String
+	
+	/// "Add feedback"
+	public var feedbackButtonAdd: String
+	
+	/// "Send feedback"
+	public var feedbackButtonSend: String
+	
+	/// "Select type"
+	public var feedbackSelectType: String
+	
+	/// "Bug"
+	public var feedbackTypeBug: String
+	
+	/// "Feedback"
+	public var feedbackTypeFeedback: String
+	
+	/// "Add a message"
+	public var feedbackMessagePlaceholder: String
+	
+	/// "Attach Screenshot"
+	public var feedbackAttach: String
+
+	
+	// MARK: - Initializer
+	/**
+	Creates a new instance of TextLiterals.
+	
+	- Parameters:
+		- appName: "Applivery",
+		- alertButtonCancel: "Cancel",
+		- alertButtonRetry: "Retry",
+		- alertButtonOK: "OK",
+		- errorUnexpected: "Unexpected error",
+		- errorInvalidCredentials: "Invalid credentials",
+		- errorDownloadURL: "Couldn't start download. Invalid url",
+		- otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
+		- alertButtonLater: "Later",
+		- alertButtonUpdate: "Update",
+		- forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it",
+		- buttonForceUpdate: "Update now",
+		- feedbackButtonClose: "Close",
+		- feedbackButtonAdd: "Add Feedback",
+		- feedbackButtonSend: "Send Feedback",
+		- feedbackSelectType: "Select type",
+		- feedbackTypeBug: "Bug",
+		- feedbackTypeFeedback: "Feedback",
+		- feedbackMessagePlaceholder: "Add a message",
+		- feedbackAttach: "Attach Screenshot"
+	- Note: Each parameter has a default literal, so you could set only the values that you really need to change
+	- Since: 2.4
+	- Version: 2.4
+	*/
+	public init(appName: String = localize("sdk_name"),
+	            alertButtonCancel: String = localize("alert_button_cancel"),
+	            alertButtonRetry: String = localize("alert_button_retry"),
+	            alertButtonOK: String = localize("alert_button_ok"),
+	            errorUnexpected: String = localize("error_unexpected"),
+	            errorInvalidCredentials: String = localize("error_invalid_credentials"),
+	            errorDownloadURL: String = localize("error_download_url"),
+	            otaUpdateMessage: String? = nil,
+	            alertButtonLater: String = localize("alert_button_later"),
+	            alertButtonUpdate: String = localize("alert_button_update"),
+	            forceUpdateMessage: String? = nil,
+	            buttonForceUpdate: String = localize("update_view_button_update"),
+	            feedbackButtonClose: String = localize("feedback_button_close"),
+	            feedbackButtonAdd: String = localize("feedback_button_add"),
+	            feedbackButtonSend: String = localize("feedback_button_send"),
+	            feedbackSelectType: String = localize("feedback_label_select_type"),
+	            feedbackTypeBug: String = localize("feedback_button_bug"),
+	            feedbackTypeFeedback: String = localize("feedback_button_feedback"),
+	            feedbackMessagePlaceholder: String = localize("feedback_text_message_placeholder"),
+	            feedbackAttach: String = localize("feedback_label_attach")) {
+		self.appName = appName
+		self.alertButtonCancel = alertButtonCancel
+		self.alertButtonRetry = alertButtonRetry
+		self.alertButtonOK = alertButtonOK
+		self.errorUnexpected = errorUnexpected
+		self.errorInvalidCredentials = errorInvalidCredentials
+		self.errorDownloadURL = errorDownloadURL
+		self.otaUpdateMessage = otaUpdateMessage
+		self.alertButtonLater = alertButtonLater
+		self.alertButtonUpdate = alertButtonUpdate
+		self.forceUpdateMessage = forceUpdateMessage
+		self.buttonForceUpdate = buttonForceUpdate
+		self.feedbackButtonClose = feedbackButtonClose
+		self.feedbackButtonAdd = feedbackButtonAdd
+		self.feedbackButtonSend = feedbackButtonSend
+		self.feedbackSelectType = feedbackSelectType
+		self.feedbackTypeBug = feedbackTypeBug
+		self.feedbackTypeFeedback = feedbackTypeFeedback
+		self.feedbackMessagePlaceholder = feedbackMessagePlaceholder
+		self.feedbackAttach = feedbackAttach
+	}
 }
 
 enum Literal: CustomStringConvertible {
