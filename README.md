@@ -1,19 +1,23 @@
-# Applivery iOS SDK
+![Applivery Logo](https://www.applivery.com/img/icons/applivery-header-1200x627px.png)
+
 ![Version](https://img.shields.io/badge/version-2.3-blue.svg)
 ![Language](https://img.shields.io/badge/Language-Swift-orange.svg)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Applivery.svg)](https://cocoapods.org/pods/Applivery)
+[![Fastlane Plugin](https://img.shields.io/badge/Fastlane_Plugin-available-brightgreen.svg)](https://github.com/applivery/fastlane-applivery-plugin)
+[![Twitter](https://img.shields.io/badge/twitter-@Applivery-blue.svg?style=flat)](https://twitter.com/Applivery)
+
+### Quality checks
 
 [![Build Status](https://travis-ci.org/applivery/applivery-ios-sdk.svg?branch=master)](https://travis-ci.org/applivery/applivery-ios-sdk)
 [![codecov](https://codecov.io/gh/applivery/applivery-ios-sdk/branch/master/graph/badge.svg)](https://codecov.io/gh/applivery/applivery-ios-sdk)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d9f8d737904b4785b846afec3df3e26c)](https://www.codacy.com/app/a-j-agudo/applivery-ios-sdk?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=applivery/applivery-ios-sdk&amp;utm_campaign=Badge_Grade)
 
 
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Applivery.svg)](https://cocoapods.org/pods/Applivery)
-[![Fastlane Plugin](https://img.shields.io/badge/Fastlane_Plugin-available-brightgreen.svg)](https://github.com/applivery/fastlane-applivery-plugin)
-
-Framework to support [Applivery.com Mobile App distribution](http://www.applivery.com) for iOS Apps.
 
 ## Overview
+
+Applivery iOS SDK is a Framework to support [Applivery.com Mobile App distribution](http://www.applivery.com) for iOS Apps.
 
 With Applivery you can massively distribute your iOS Apps (both Ad-hoc or In-House/Enterprise) through a customizable distribution site with no need of your users have to be registered in the platform. Combined with [Apple Developer Enterprise Program](https://developer.apple.com/programs/enterprise/) and Enterprise certificates, Applivery is perfect not only for beta testing distribute to your QA team, but also for In-House Enterprise distribution for beta testing users, prior to a release, or even for corporative Apps to the employees of a company.
 
@@ -28,35 +32,57 @@ First of all, you should create an account on [Applivery.com](https://dashboard.
 
 ### Get your credentials
 
-**ACCOUNT API KEY**: that identifies and grants access to your account in order to use the [Applivery API](http://www.applivery.com/developers/api/). The API will aallow you to easily create an script to integrate your CI system with Applivery, but also is needed for this SDK.
+**SDK API KEY**: that identifies and grants access to your account in order to use the SDK.
 
-You can get your ACCOUNT API KEY in the `Developers` section (left side menu).
+You can get your SDK API KEY in the `Developers` section (left side menu).
 
-![Developers section](https://github.com/applivery/applivery-ios-sdk/blob/master/documentation/developers_section.png)
+![Developers section](https://raw.githubusercontent.com/applivery/applivery-ios-sdk/master/documentation/developers_section.png)
 
 **APP ID**: Is your application identifier. You can find it in the App details, going to `Applications` -> Click desired App -> (i) Box
 
-![APP ID](https://github.com/applivery/applivery-ios-sdk/blob/master/documentation/application_id.png)
+![APP ID](https://raw.githubusercontent.com/applivery/applivery-ios-sdk/master/documentation/application_id.png)
 
 ## SDK Installation
 
 ### iOS 8 and later
 
 #### Using Carthage
+
+Install carthage with using brew
+
+```bash
+$ brew update && brew install carthage
+```
+
 Add the following line to your's Cartfile
 
 ```
 github "applivery/applivery-ios-sdk" ~> 2.3
 ```
-and then run `carthage update`. More info about Carthage [here](https://github.com/Carthage/Carthage#installing-carthage).
+Run `carthage update` and then drag the built framework into your project. 
+
+More info about Carthage [here](https://github.com/Carthage/Carthage#installing-carthage).
 
 
 #### Using CocoaPods
 
+Install the ruby gem
+
+```bash
+$ gem install cocoapods
+```
+
 Add the following line to your's Podfile
 
-```
-pod 'Applivery', '~> 2.3'
+```ruby
+project '<Your Project Name>.xcodeproj'
+
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+use_frameworks!
+target '<Your Target Name>' do
+  pod 'Applivery', '~> 2.3'
+end
 ```
 and then run `pod install`. More info about CocoaPods [here](https://cocoapods.org)
 
@@ -67,14 +93,14 @@ and then run `pod install`. More info about CocoaPods [here](https://cocoapods.o
 1. Drag it to your frameworks folder
 1. Add it to the embedded binaries
 
-![Embbeded binaries](https://github.com/applivery/applivery-ios-sdk/blob/master/documentation/embbeded_binaries.png)
+![Embbeded binaries](https://raw.githubusercontent.com/applivery/applivery-ios-sdk/master/documentation/embbeded_binaries.png)
 
 
 #### Objective-C
 
-If your project is written in Objective-C, you should also enable the "_Embedded Content Contains Swift Code_" option. You'll find it in the _Build Settings_ section:
+If your project is written in Objective-C, you should also enable the "_Always Embed Swift Standard Libraries_" option. You'll find it in the _Build Settings_ section:
 
-![Embedded binaries](https://github.com/applivery/applivery-ios-sdk/blob/master/documentation/embedded_content.png)
+![Embedded binaries](https://raw.githubusercontent.com/applivery/applivery-ios-sdk/master/documentation/embedded_content.png)
 
 
 ### Swift & XCode version support
