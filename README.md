@@ -13,15 +13,17 @@
 
 Framework to support [Applivery.com Mobile App distribution](http://www.applivery.com) for iOS Apps.
 
+
 ## Overview
 
 With Applivery you can massively distribute your iOS Apps (both Ad-hoc or In-House/Enterprise) through a customizable distribution site with no need of your users have to be registered in the platform. Combined with [Apple Developer Enterprise Program](https://developer.apple.com/programs/enterprise/) and Enterprise certificates, Applivery is perfect not only for beta testing distribute to your QA team, but also for In-House Enterprise distribution for beta testing users, prior to a release, or even for corporative Apps to the employees of a company.
 
-###Features
+### Features
 
 * **Automatic OTA Updates** when uploading new versions to Applivery.
 * **Force update** if App version is lower than the minimum version configured in Applivery.
 * **Send feedback**. Your test users can report a bug or send improvements feedback by simply taking a screenshot.
+
 
 ## Getting Started
 
@@ -39,6 +41,7 @@ You can get your ACCOUNT API KEY in the `Developers` section (left side menu).
 **APP ID**: Is your application identifier. You can find it in the App details, going to `Applications` -> Click desired App -> (i) Box
 
 ![APP ID](https://github.com/applivery/applivery-ios-sdk/blob/master/documentation/application_id.png)
+
 
 ## SDK Installation
 
@@ -138,8 +141,8 @@ Applivery *applivery = [Applivery shared];
 	* True: Applivery SDK will not trigger automatic updates anymore. **Use this for AppStore**
 	* False: Applivery SDK will normally. Use this with builds distributed through Applivery.
 
-## Advanced concepts
 
+## Advanced concepts
 
 ### Logs and debugging
 
