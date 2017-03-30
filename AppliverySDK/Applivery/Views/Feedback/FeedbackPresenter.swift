@@ -48,7 +48,7 @@ class FeedbackPresenter {
 
 	func viewDidLoad() {
 		self.screenshot = self.screenshotInteractor.getScreenshot()
-		self.view.showScreenshot(self.screenshot!.image)
+		self.view.showScreenshot(self.screenshot?.image)
 		self.viewState = .preview
 	}
 

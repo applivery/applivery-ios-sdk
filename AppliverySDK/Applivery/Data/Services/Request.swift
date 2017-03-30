@@ -32,7 +32,7 @@ class Request {
 		self.logRequest()
 		
 		let task = URLSession.shared.dataTask(with: request) { data, response, error in
-			let res = Response(data: data, response: response, error: error as? NSError)
+			let res = Response(data: data, response: response, error: error as NSError?)
 
 			DispatchQueue.main.async {
 				completionHandler(res)

@@ -39,7 +39,7 @@ class DiskStatus {
 		do {
 			let systemAttributes = try FileManager.default.attributesOfFileSystem(forPath: NSHomeDirectory() as String)
 			let space = (systemAttributes[FileAttributeKey.systemSize] as? NSNumber)?.int64Value
-			return space!
+			return space ?? 0
 		} catch {
 			return 0
 		}
@@ -49,7 +49,7 @@ class DiskStatus {
 		do {
 			let systemAttributes = try FileManager.default.attributesOfFileSystem(forPath: NSHomeDirectory() as String)
 			let freeSpace = (systemAttributes[FileAttributeKey.systemFreeSize] as? NSNumber)?.int64Value
-			return freeSpace!
+			return freeSpace ?? 0
 		} catch {
 			return 0
 		}

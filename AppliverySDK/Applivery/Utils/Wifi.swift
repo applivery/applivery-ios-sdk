@@ -16,14 +16,19 @@ class Wifi {
 		zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
 		zeroAddress.sin_family = sa_family_t(AF_INET)
 		
-		let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
+		let defaultRouteReachabilityUnsafe = withUnsafePointer(to: &zeroAddress) {
 			$0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
 				SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress)
 			}
 		}
 		
+		guard let defaultRouteReachability = defaultRouteReachabilityUnsafe else {
+			logWarn("Couldn't get default route recheability")
+			return false
+		}
+		
 		var flags: SCNetworkReachabilityFlags = SCNetworkReachabilityFlags(rawValue: 0)
-		if SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) == false {
+		if SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags) == false {
 			return false
 		}
 		

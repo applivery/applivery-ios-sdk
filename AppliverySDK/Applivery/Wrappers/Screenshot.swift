@@ -24,15 +24,29 @@ struct Screenshot {
 	}
 
 	private static func takeScreenshot() -> UIImage {
-		let layer = UIApplication.shared.keyWindow!.layer
+		guard let layer = UIApplication.shared.keyWindow?.layer else {
+			logWarn("Key window is nil")
+			return UIImage()
+		}
+		
 		let scale = UIScreen.main.scale
 		UIGraphicsBeginImageContextWithOptions(layer.frame.size, false, scale)
 
-		layer.render(in: UIGraphicsGetCurrentContext()!)
-		let image = UIGraphicsGetImageFromCurrentImageContext()
+		guard let context = UIGraphicsGetCurrentContext() else {
+			logWarn("Couldn't get context")
+			return UIImage()
+		}
+		
+		layer.render(in: context)
+		
+		guard let image = UIGraphicsGetImageFromCurrentImageContext() else {
+			logWarn("Couldn't get image")
+			return UIImage()
+		}
+		
 		UIGraphicsEndImageContext()
 
-		return image!
+		return image
 	}
 
 

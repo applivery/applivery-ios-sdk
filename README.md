@@ -12,6 +12,8 @@
 [![Build Status](https://travis-ci.org/applivery/applivery-ios-sdk.svg?branch=master)](https://travis-ci.org/applivery/applivery-ios-sdk)
 [![codecov](https://codecov.io/gh/applivery/applivery-ios-sdk/branch/master/graph/badge.svg)](https://codecov.io/gh/applivery/applivery-ios-sdk)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d9f8d737904b4785b846afec3df3e26c)](https://www.codacy.com/app/a-j-agudo/applivery-ios-sdk?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=applivery/applivery-ios-sdk&amp;utm_campaign=Badge_Grade)
+[![codebeat badge](https://codebeat.co/badges/c5895172-0986-4905-8e6f-38dccb63a059)](https://codebeat.co/projects/github-com-applivery-applivery-ios-sdk-master)
+[![BCH compliance](https://bettercodehub.com/edge/badge/applivery/applivery-ios-sdk)](https://bettercodehub.com/)
 
 
 

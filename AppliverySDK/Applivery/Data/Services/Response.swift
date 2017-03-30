@@ -40,7 +40,7 @@ class Response {
 			}
 		} else {
 			self.error = error ?? NSError.unexpectedError()
-			self.code = self.error!.code
+			self.code = self.error?.code ?? -1
 		}
 
 		self.logResponse()
@@ -54,20 +54,19 @@ class Response {
 				throw NSError.unexpectedError(debugMessage: "data is nil")
 			}
 
-			let json = try JSON.dataToJson(data!)
-
-			guard let status = json["status"]?.toBool() else {
+			let json = try data.map(JSON.dataToJson)
+			guard let status = json?["status"]?.toBool() else {
 				throw NSError.unexpectedError(debugMessage: self.kUnexpectedErrorJson)
 			}
 
 			self.success = status
 			if self.success {
 				self.code = 200
-				self.body = json["response"]
+				self.body = json?["response"]
 			} else {
-				self.code = json["error.code"]?.toInt() ?? -1
+				self.code = json?["error.code"]?.toInt() ?? -1
 
-				let debugMessage = json["error.msg"]?.toString() ?? self.kUnexpectedErrorJson
+				let debugMessage = json?["error.msg"]?.toString() ?? self.kUnexpectedErrorJson
 				self.error = NSError.appliveryError(debugMessage: debugMessage, code: self.code)
 			}
 		} catch let error as NSError {
@@ -140,7 +139,7 @@ class Response {
 		}
 
 		guard let dataJson = try? JSON.dataToJson(data) else {
-			return String(data: data, encoding: String.Encoding.utf8)!
+			return String(data: data, encoding: String.Encoding.utf8) ?? "Error parsing JSON"
 		}
 
 		return "\(dataJson)"

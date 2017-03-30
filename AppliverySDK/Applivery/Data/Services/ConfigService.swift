@@ -18,7 +18,7 @@ class ConfigService {
 		request.sendAsync { response in
 			if response.success {
 				do {
-					let config = try Config(json: response.body!)
+					let config = try response.body.map(Config.init(json:))
 					completionHandler(response.success, config, nil)
 				} catch {
 					let error = NSError(

@@ -9,7 +9,7 @@
 import Foundation
 
 
-//! Wrapper for Application's operation
+// Wrapper for Application's operation
 
 protocol AppProtocol {
 	func bundleId() -> String
@@ -39,8 +39,8 @@ extension AppProtocol {
 
 class App: AppProtocol {
 
-	private var alertOta: UIAlertController?
-	private var alertError: UIAlertController?
+	private var alertOta: UIAlertController = UIAlertController()
+	private var alertError: UIAlertController = UIAlertController()
 
 
 	// MARK - Public Methods
@@ -111,12 +111,12 @@ class App: AppProtocol {
 			downloadHandler()
 		}
 
-		self.alertOta?.addAction(actionLater)
-		self.alertOta?.addAction(actionDownload)
+		self.alertOta.addAction(actionLater)
+		self.alertOta.addAction(actionDownload)
 
 		let topVC = self.topViewController()
 
-		topVC?.present(self.alertOta!, animated: true, completion: nil)
+		topVC?.present(self.alertOta, animated: true, completion: nil)
 	}
 
 	func showErrorAlert(_ message: String, retryHandler: @escaping () -> Void) {
@@ -127,11 +127,11 @@ class App: AppProtocol {
 			retryHandler()
 		}
 
-		self.alertError?.addAction(actionCancel)
-		self.alertError?.addAction(actionRetry)
+		self.alertError.addAction(actionCancel)
+		self.alertError.addAction(actionRetry)
 
 		let topVC = self.topViewController()
-		topVC?.present(self.alertError!, animated: true, completion: nil)
+		topVC?.present(self.alertError, animated: true, completion: nil)
 	}
 
 	func waitForReadyThen(_ onReady: @escaping () -> Void) {
