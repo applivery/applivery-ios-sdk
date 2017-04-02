@@ -1,6 +1,6 @@
 ![Applivery Logo](https://www.applivery.com/img/icons/applivery-header-1200x627px.png)
 
-![Version](https://img.shields.io/badge/version-2.3-blue.svg)
+![Version](https://img.shields.io/badge/version-2.4-blue.svg)
 ![Language](https://img.shields.io/badge/Language-Swift-orange.svg)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Applivery.svg)](https://cocoapods.org/pods/Applivery)
@@ -64,7 +64,7 @@ $ brew update && brew install carthage
 Add the following line to your's Cartfile
 
 ```
-github "applivery/applivery-ios-sdk" ~> 2.3
+github "applivery/applivery-ios-sdk" ~> 2.4
 ```
 Run `carthage update` and then drag the built framework into your project. 
 
@@ -88,7 +88,7 @@ project '<Your Project Name>.xcodeproj'
 # platform :ios, '9.0'
 use_frameworks!
 target '<Your Target Name>' do
-  pod 'Applivery', '~> 2.3'
+  pod 'Applivery', '~> 2.4'
 end
 ```
 and then run `pod install`. More info about CocoaPods [here](https://cocoapods.org)
@@ -118,7 +118,7 @@ The compatibility version is as follow:
 |-------------------|----------------|---------------|
 | **v1.2.x**        | 7.x            | 2.0, 2.1, 2.2 |
 | **v1.3.x**        | 8.x            | 2.3           |
-| **v2.x**          | 8.x            | 3.0           |
+| **v2.x**          | 8.x            | 3.0, 3.1      |
 
 
 ### Ok! Let's go!
@@ -312,7 +312,7 @@ Depends of your integration method, the solution is:
 	In this case, the solution is as simple as add [this script](https://github.com/applivery/applivery-ios-sdk/blob/master/script/applivery_script.sh) in "New Run Script Phase". 
 	You'll find inside _Build Phases_ tab.
 
-	![Applivery script](https://github.com/applivery/applivery-ios-sdk/blob/master/documentation/applivery_script.png)
+	![Applivery script](https://raw.githubusercontent.com/applivery/applivery-ios-sdk/master/documentation/applivery_script.png)
 
 	Please note that you should edit the `APPLIVERY_FRAMEWORK_PATH` specifing where the framework is, inside your project path.
 
