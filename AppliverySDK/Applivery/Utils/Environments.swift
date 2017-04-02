@@ -13,7 +13,7 @@ class Environments {
 
 	static let HostKey = "APPLIVERY_HOST"
 
-	class func Host() -> String? {
+	class func host() -> String? {
 		guard let host = ProcessInfo.processInfo.environment["AppliveryHost"] else {
 			if let host = self.readHost() {
 				return host

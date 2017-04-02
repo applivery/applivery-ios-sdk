@@ -39,8 +39,8 @@ class Response {
 				self.parseError(error)
 			}
 		} else {
-			self.error = error ?? NSError.UnexpectedError()
-			self.code = self.error!.code
+			self.error = error ?? NSError.unexpectedError()
+			self.code = self.error?.code ?? -1
 		}
 
 		self.logResponse()
@@ -51,24 +51,23 @@ class Response {
 	fileprivate func responseOK(_ data: Data?) {
 		do {
 			guard data != nil else {
-				throw NSError.UnexpectedError(debugMessage: "data is nil")
+				throw NSError.unexpectedError(debugMessage: "data is nil")
 			}
 
-			let json = try JSON.dataToJson(data!)
-
-			guard let status = json["status"]?.toBool() else {
-				throw NSError.UnexpectedError(debugMessage: self.kUnexpectedErrorJson)
+			let json = try data.map(JSON.dataToJson)
+			guard let status = json?["status"]?.toBool() else {
+				throw NSError.unexpectedError(debugMessage: self.kUnexpectedErrorJson)
 			}
 
 			self.success = status
 			if self.success {
 				self.code = 200
-				self.body = json["response"]
+				self.body = json?["response"]
 			} else {
-				self.code = json["error.code"]?.toInt() ?? -1
+				self.code = json?["error.code"]?.toInt() ?? -1
 
-				let debugMessage = json["error.msg"]?.toString() ?? self.kUnexpectedErrorJson
-				self.error = NSError.AppliveryError(debugMessage: debugMessage, code: self.code)
+				let debugMessage = json?["error.msg"]?.toString() ?? self.kUnexpectedErrorJson
+				self.error = NSError.appliveryError(debugMessage: debugMessage, code: self.code)
 			}
 		} catch let error as NSError {
 			self.success = false
@@ -88,9 +87,9 @@ class Response {
 
 			switch self.code {
 			case 401:
-				userInfo = [GlobalConfig.AppliveryErrorKey: Localize("error_invalid_credentials")]
+				userInfo = [GlobalConfig.AppliveryErrorKey: literal(.errorInvalidCredentials) ?? localize("error_invalid_credentials")]
 			default:
-				userInfo = [GlobalConfig.AppliveryErrorKey: Localize("error_unexpected")]
+				userInfo = [GlobalConfig.AppliveryErrorKey: literal(.errorUnexpected) ?? localize("error_unexpected")]
 			}
 
 			self.error = NSError (
@@ -104,12 +103,12 @@ class Response {
 	fileprivate func logResponse() {
 		guard GlobalConfig.shared.logLevel == .debug else { return }
 
-		Log("******** RESPONSE ********")
-		Log(" - URL:\t" + self.logURL())
-		Log(" - CODE:\t" + "\(self.code)")
+		log("******** RESPONSE ********")
+		log(" - URL:\t" + self.logURL())
+		log(" - CODE:\t" + "\(self.code)")
 		self.logHeaders()
-		Log(" - DATA:\n" + self.logData())
-		Log("*************************\n")
+		log(" - DATA:\n" + self.logData())
+		log("*************************\n")
 	}
 
 	fileprivate func logURL() -> String {
@@ -123,15 +122,15 @@ class Response {
 	fileprivate func logHeaders() {
 		guard let headers = self.headers else { return }
 
-		Log(" - HEADERS: {")
+		log(" - HEADERS: {")
 
 		for key in headers.keys {
 			if let value = headers[key] {
-				Log("\t\t\(key): \(value)")
+				log("\t\t\(key): \(value)")
 			}
 		}
 
-		Log("}")
+		log("}")
 	}
 
 	fileprivate func logData() -> String {
@@ -140,7 +139,7 @@ class Response {
 		}
 
 		guard let dataJson = try? JSON.dataToJson(data) else {
-			return String(data: data, encoding: String.Encoding.utf8)!
+			return String(data: data, encoding: String.Encoding.utf8) ?? "Error parsing JSON"
 		}
 
 		return "\(dataJson)"

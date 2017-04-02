@@ -82,7 +82,7 @@ class AppliveryTests: XCTestCase {
 	func test_force_update() {
 		self.applivery.forceUpdate()
 
-		XCTAssert(self.updateCoordinatorMock.outForceUpdateCalled == true)
+		XCTAssert(self.updateCoordinatorMock.spyForceUpdateCalled == true)
 	}
 
 
@@ -90,7 +90,7 @@ class AppliveryTests: XCTestCase {
 	func test_ota_update() {
 		self.applivery.otaUpdate()
 
-		XCTAssert(self.updateCoordinatorMock.outOtaUpdateCalled == true)
+		XCTAssert(self.updateCoordinatorMock.spyOtaUpdateCalled == true)
 	}
 
 	// MARK - Show Feedback

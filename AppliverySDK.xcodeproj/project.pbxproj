@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA07FDF51E87E2600073B580 /* TextLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA07FDF41E87E2600073B580 /* TextLiterals.swift */; };
 		FA0883D31DBC1AF4008A553A /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAADA53A1DBC14EB00300A5E /* OHHTTPStubs.framework */; };
-		FA0883D41DBC1AFA008A553A /* OHHTTPStubs.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = FAADA53A1DBC14EB00300A5E /* OHHTTPStubs.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FA0883D41DBC1AFA008A553A /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAADA53A1DBC14EB00300A5E /* OHHTTPStubs.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FA0883D81DBC231E008A553A /* feedback_ok.json in Resources */ = {isa = PBXBuildFile; fileRef = FA0883D71DBC231E008A553A /* feedback_ok.json */; };
 		FA0883DA1DBC311C008A553A /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0883D91DBC311C008A553A /* Result.swift */; };
 		FA0883DC1DBC3C03008A553A /* ko.json in Resources */ = {isa = PBXBuildFile; fileRef = FA0883DB1DBC3C03008A553A /* ko.json */; };
@@ -19,6 +20,11 @@
 		FA1569BB1DBD52CF00C651D4 /* DeviceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1569BA1DBD52CF00C651D4 /* DeviceMock.swift */; };
 		FA19E48B1C822CA900DC31E8 /* Environments.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA19E48A1C822CA900DC31E8 /* Environments.swift */; };
 		FA1EE2E61BEAADC800B6EE11 /* JsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1EE2E51BEAADC800B6EE11 /* JsonTests.swift */; };
+		FA201F751E9049410090128F /* StartSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA201F741E9049410090128F /* StartSpecs.swift */; };
+		FA201F761E904B110090128F /* StubResponseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2B9C081DC2AC65009F11C5 /* StubResponseHelper.swift */; };
+		FA201F771E904F0F0090128F /* AppMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A69411BC2FC6F00179176 /* AppMock.swift */; };
+		FA201F781E9051850090128F /* StartInteractorOutputMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA53DE361BC1950300DF2EB1 /* StartInteractorOutputMock.swift */; };
+		FA201F791E90625A0090128F /* UserDefaultsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA232D2E1C753A5F0097AE79 /* UserDefaultsMock.swift */; };
 		FA2257E31C8B56E2000B0333 /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2257E21C8B56E2000B0333 /* Screenshot.swift */; };
 		FA232D2D1C75388A0097AE79 /* ConfigPersisterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA232D2C1C75388A0097AE79 /* ConfigPersisterTests.swift */; };
 		FA232D2F1C753A5F0097AE79 /* UserDefaultsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA232D2E1C753A5F0097AE79 /* UserDefaultsMock.swift */; };
@@ -34,6 +40,7 @@
 		FA2B9C0D1DC2B3AC009F11C5 /* request_token_ok_no_token.json in Resources */ = {isa = PBXBuildFile; fileRef = FA2B9C0C1DC2B3AC009F11C5 /* request_token_ok_no_token.json */; };
 		FA2C455A1C4D20A300E72847 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA2C455C1C4D20A300E72847 /* Localizable.strings */; };
 		FA2C455E1C4D228A00E72847 /* NSBundle+Applivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C455D1C4D228A00E72847 /* NSBundle+Applivery.swift */; };
+		FA2EAC871E915EFE00CC9BBF /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2EAC861E915EFE00CC9BBF /* UserDefaults.swift */; };
 		FA3211D41C3EA11700668099 /* DownloadDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3211D31C3EA11700668099 /* DownloadDataManager.swift */; };
 		FA3211D61C3EA6D300668099 /* Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3211D51C3EA6D300668099 /* Localize.swift */; };
 		FA3211D81C3EE15E00668099 /* DownloadDataManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3211D71C3EE15E00668099 /* DownloadDataManagerMock.swift */; };
@@ -58,6 +65,13 @@
 		FA53DE351BC193EA00DF2EB1 /* ConfigDataManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA53DE341BC193EA00DF2EB1 /* ConfigDataManagerMock.swift */; };
 		FA53DE371BC1950300DF2EB1 /* StartInteractorOutputMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA53DE361BC1950300DF2EB1 /* StartInteractorOutputMock.swift */; };
 		FA53DE3C1BC1B38900DF2EB1 /* StartInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA53DE3B1BC1B38900DF2EB1 /* StartInteractorMock.swift */; };
+		FA5EA6501E6CCB6600590120 /* Applivery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA68D8F21BC040B000589DE4 /* Applivery.framework */; };
+		FA5EA6561E6CCBC800590120 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5EA63F1E6CB61500590120 /* Nimble.framework */; };
+		FA5EA6571E6CCBCB00590120 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5EA6401E6CB61500590120 /* Quick.framework */; };
+		FA5EA6581E6CCBCE00590120 /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAADA53A1DBC14EB00300A5E /* OHHTTPStubs.framework */; };
+		FA5EA65A1E6CCC1100590120 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5EA63F1E6CB61500590120 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FA5EA65B1E6CCC1100590120 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5EA6401E6CB61500590120 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FA5EA65C1E6CCC1100590120 /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAADA53A1DBC14EB00300A5E /* OHHTTPStubs.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FA68D8F61BC040B100589DE4 /* Applivery.h in Headers */ = {isa = PBXBuildFile; fileRef = FA68D8F51BC040B100589DE4 /* Applivery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA68D8FD1BC040B100589DE4 /* Applivery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA68D8F21BC040B000589DE4 /* Applivery.framework */; };
 		FA68D9021BC040B100589DE4 /* AppliveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA68D9011BC040B100589DE4 /* AppliveryTests.swift */; };
@@ -76,10 +90,10 @@
 		FA952FDE1C83929100C32DD0 /* Storyboard+Applivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA952FDD1C83929100C32DD0 /* Storyboard+Applivery.swift */; };
 		FAA50D4C1C7D21D300CE7B65 /* ResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA50D4B1C7D21D300CE7B65 /* ResponseTests.swift */; };
 		FAA50D4E1C7D232500CE7B65 /* NSError+Applivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA50D4D1C7D232500CE7B65 /* NSError+Applivery.swift */; };
+		FAAA50E81E917CFC0004FBF8 /* ko.json in Resources */ = {isa = PBXBuildFile; fileRef = FA0883DB1DBC3C03008A553A /* ko.json */; };
+		FAAA50E91E91841C0004FBF8 /* EventDetectorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4EBF521C7D009000664C1E /* EventDetectorMock.swift */; };
+		FAAAE1221E8040010065E6AC /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAAE1211E8040010065E6AC /* Palette.swift */; };
 		FAADA5351DBBF25B00300A5E /* FeedbackServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAADA5341DBBF25B00300A5E /* FeedbackServiceTests.swift */; };
-		FAC394751C95996B00F14778 /* ButtonFeedbackType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC394741C95996B00F14778 /* ButtonFeedbackType.swift */; };
-		FAC3947A1C959ADE00F14778 /* UIColor+Applivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC394791C959ADE00F14778 /* UIColor+Applivery.swift */; };
-		FAC3947C1C959EB100F14778 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC3947B1C959EB100F14778 /* UIColor+Hex.swift */; };
 		FAC3947E1C95D9FF00F14778 /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC3947D1C95D9FF00F14778 /* Feedback.swift */; };
 		FAC394801C95EA3000F14778 /* FeedbackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC3947F1C95EA3000F14778 /* FeedbackService.swift */; };
 		FAC394821C96078A00F14778 /* UIDevice+ModelName.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC394811C96078A00F14778 /* UIDevice+ModelName.swift */; };
@@ -88,6 +102,8 @@
 		FAD2A15D1C010EA6001967FD /* UpdateCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2A15C1C010EA6001967FD /* UpdateCoordinatorMock.swift */; };
 		FAD2A1651C011E2B001967FD /* UpdateInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2A1641C011E2B001967FD /* UpdateInteractor.swift */; };
 		FAD911001BCEE58B00D56617 /* Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD910FF1BCEE58B00D56617 /* Json.swift */; };
+		FADA301C1E90677500DAC96E /* config_success.json in Resources */ = {isa = PBXBuildFile; fileRef = FADA301B1E90677500DAC96E /* config_success.json */; };
+		FADD391D1E8321E700D861B7 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADD391C1E8321E700D861B7 /* Colors.swift */; };
 		FAEC86661C83824D00A43298 /* FeedbackCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEC86651C83824D00A43298 /* FeedbackCoordinator.swift */; };
 		FAED0E781CC97C99000FD5EB /* FeedbackPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED0E771CC97C99000FD5EB /* FeedbackPresenterTests.swift */; };
 		FAED0E7A1CC97EF2000FD5EB /* ScreenshotInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED0E791CC97EF2000FD5EB /* ScreenshotInteractorMock.swift */; };
@@ -102,12 +118,16 @@
 		FAFBE4631C3EF66E0039BD8C /* DownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFBE4621C3EF66E0039BD8C /* DownloadService.swift */; };
 		FAFBE4651C3EFD890039BD8C /* DownloadDataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFBE4641C3EFD890039BD8C /* DownloadDataManagerTests.swift */; };
 		FAFBE4671C3EFEC40039BD8C /* DownloadServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFBE4661C3EFEC40039BD8C /* DownloadServiceMock.swift */; };
-		FAFF01271C57A2DE00DB7C8E /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAFF01241C57A2DE00DB7C8E /* fontawesome-webfont.ttf */; };
-		FAFF01281C57A2DE00DB7C8E /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAFF01251C57A2DE00DB7C8E /* Lato-Light.ttf */; };
-		FAFF01291C57A2DE00DB7C8E /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAFF01261C57A2DE00DB7C8E /* Lato-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		FA5EA6511E6CCB6600590120 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA68D8E91BC040B000589DE4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FA68D8F11BC040B000589DE4;
+			remoteInfo = Applivery;
+		};
 		FA68D8FE1BC040B100589DE4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FA68D8E91BC040B000589DE4 /* Project object */;
@@ -118,19 +138,34 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		FAB2ED151DBC1AD800A2E2E0 /* CopyFiles */ = {
+		FA5EA6591E6CCBFD00590120 /* Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				FA0883D41DBC1AFA008A553A /* OHHTTPStubs.framework in CopyFiles */,
+				FA5EA65A1E6CCC1100590120 /* Nimble.framework in Frameworks */,
+				FA5EA65B1E6CCC1100590120 /* Quick.framework in Frameworks */,
+				FA5EA65C1E6CCC1100590120 /* OHHTTPStubs.framework in Frameworks */,
 			);
+			name = Frameworks;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FAB2ED151DBC1AD800A2E2E0 /* Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FA0883D41DBC1AFA008A553A /* OHHTTPStubs.framework in Frameworks */,
+			);
+			name = Frameworks;
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		FA07FDF41E87E2600073B580 /* TextLiterals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = TextLiterals.swift; path = Applivery/Model/Public/TextLiterals.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA0883D71DBC231E008A553A /* feedback_ok.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = feedback_ok.json; path = Mocks/JSON/feedback_ok.json; sourceTree = "<group>"; };
 		FA0883D91DBC311C008A553A /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Result.swift; path = Applivery/Utils/Result.swift; sourceTree = "<group>"; };
 		FA0883DB1DBC3C03008A553A /* ko.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = ko.json; path = Mocks/JSON/ko.json; sourceTree = "<group>"; };
@@ -141,25 +176,28 @@
 		FA1569BA1DBD52CF00C651D4 /* DeviceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceMock.swift; path = Mocks/DeviceMock.swift; sourceTree = "<group>"; };
 		FA19E48A1C822CA900DC31E8 /* Environments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Environments.swift; path = Applivery/Utils/Environments.swift; sourceTree = "<group>"; };
 		FA1EE2E51BEAADC800B6EE11 /* JsonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonTests.swift; sourceTree = "<group>"; };
+		FA201F731E9049410090128F /* AppliveryBehaviorTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppliveryBehaviorTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		FA201F741E9049410090128F /* StartSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartSpecs.swift; path = Specs/StartSpecs.swift; sourceTree = "<group>"; };
 		FA2257E21C8B56E2000B0333 /* Screenshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Screenshot.swift; path = Applivery/Wrappers/Screenshot.swift; sourceTree = "<group>"; };
-		FA232D2C1C75388A0097AE79 /* ConfigPersisterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigPersisterTests.swift; path = Persisters/ConfigPersisterTests.swift; sourceTree = "<group>"; };
-		FA232D2E1C753A5F0097AE79 /* UserDefaultsMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserDefaultsMock.swift; path = Mocks/UserDefaultsMock.swift; sourceTree = "<group>"; };
+		FA232D2C1C75388A0097AE79 /* ConfigPersisterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = ConfigPersisterTests.swift; path = Persisters/ConfigPersisterTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FA232D2E1C753A5F0097AE79 /* UserDefaultsMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = UserDefaultsMock.swift; path = Mocks/UserDefaultsMock.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA2900E31C064DAD00778A4C /* Applivery.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Applivery.storyboard; path = Applivery/Views/Applivery.storyboard; sourceTree = "<group>"; };
 		FA2A61CA1C8CE59800DC21FD /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Keyboard.swift; path = Applivery/Wrappers/Keyboard.swift; sourceTree = "<group>"; };
 		FA2B3DC91C178705002DC5C9 /* UpdatePresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdatePresenterTests.swift; path = Presenters/UpdatePresenterTests.swift; sourceTree = "<group>"; };
 		FA2B3DCB1C1789AF002DC5C9 /* UpdateViewMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateViewMock.swift; path = Mocks/UpdateViewMock.swift; sourceTree = "<group>"; };
 		FA2B3DCD1C178A0F002DC5C9 /* UpdateInteractoMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateInteractoMock.swift; path = Mocks/UpdateInteractoMock.swift; sourceTree = "<group>"; };
 		FA2B9C011DC29935009F11C5 /* ErrorCodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ErrorCodes.swift; path = Applivery/SDKConfig/ErrorCodes/ErrorCodes.swift; sourceTree = "<group>"; };
-		FA2B9C051DC2AB4F009F11C5 /* DownloadServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadServiceTests.swift; path = Network/DownloadServiceTests.swift; sourceTree = "<group>"; };
+		FA2B9C051DC2AB4F009F11C5 /* DownloadServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = DownloadServiceTests.swift; path = Network/DownloadServiceTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA2B9C081DC2AC65009F11C5 /* StubResponseHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StubResponseHelper.swift; path = Helpers/StubResponseHelper.swift; sourceTree = "<group>"; };
 		FA2B9C0A1DC2AFEE009F11C5 /* request_token_ok.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = request_token_ok.json; path = Mocks/JSON/request_token_ok.json; sourceTree = "<group>"; };
 		FA2B9C0C1DC2B3AC009F11C5 /* request_token_ok_no_token.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = request_token_ok_no_token.json; path = Mocks/JSON/request_token_ok_no_token.json; sourceTree = "<group>"; };
 		FA2C455B1C4D20A300E72847 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FA2C455D1C4D228A00E72847 /* NSBundle+Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSBundle+Applivery.swift"; path = "Applivery/Utils/NSBundle+Applivery.swift"; sourceTree = "<group>"; };
+		FA2EAC861E915EFE00CC9BBF /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserDefaults.swift; path = Fakes/UserDefaults.swift; sourceTree = "<group>"; };
 		FA3211D31C3EA11700668099 /* DownloadDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = DownloadDataManager.swift; path = Applivery/Data/DownloadDataManager.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		FA3211D51C3EA6D300668099 /* Localize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Localize.swift; path = Applivery/Utils/Localize.swift; sourceTree = "<group>"; };
+		FA3211D51C3EA6D300668099 /* Localize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = Localize.swift; path = Applivery/Utils/Localize.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA3211D71C3EE15E00668099 /* DownloadDataManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadDataManagerMock.swift; path = Mocks/DownloadDataManagerMock.swift; sourceTree = "<group>"; };
-		FA388B6A1C7CF3D500004042 /* EventDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventDetector.swift; path = Applivery/Wrappers/EventDetector.swift; sourceTree = "<group>"; };
+		FA388B6A1C7CF3D500004042 /* EventDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = EventDetector.swift; path = Applivery/Wrappers/EventDetector.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA3A693C1BC2F9B700179176 /* ConfigDataManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigDataManagerTests.swift; path = Data/ConfigDataManagerTests.swift; sourceTree = "<group>"; };
 		FA3A693F1BC2FC1200179176 /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = App.swift; path = Applivery/Wrappers/App.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA3A69411BC2FC6F00179176 /* AppMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = AppMock.swift; path = Mocks/AppMock.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -171,42 +209,44 @@
 		FA48CB591CC2D08A007A5293 /* FeedbackInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FeedbackInteractorTests.swift; path = Interactors/FeedbackInteractorTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA48CB5B1CC2D15B007A5293 /* FeedbackServiceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackServiceMock.swift; path = Mocks/FeedbackServiceMock.swift; sourceTree = "<group>"; };
 		FA49AEBA1C4AF95B000D5DFF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Resources/Images.xcassets; sourceTree = "<group>"; };
-		FA4EBF521C7D009000664C1E /* EventDetectorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventDetectorMock.swift; path = Mocks/EventDetectorMock.swift; sourceTree = "<group>"; };
+		FA4EBF521C7D009000664C1E /* EventDetectorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = EventDetectorMock.swift; path = Mocks/EventDetectorMock.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA4F1C5A1C53920300AC3E61 /* UpdateCoordinatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateCoordinatorTests.swift; path = Coordinators/UpdateCoordinatorTests.swift; sourceTree = "<group>"; };
-		FA53DE261BC188E200DF2EB1 /* StartInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartInteractor.swift; path = Applivery/Interactors/StartInteractor.swift; sourceTree = "<group>"; };
-		FA53DE2C1BC18D4100DF2EB1 /* StartInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartInteractorTests.swift; path = Interactors/StartInteractorTests.swift; sourceTree = "<group>"; };
+		FA53DE261BC188E200DF2EB1 /* StartInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = StartInteractor.swift; path = Applivery/Interactors/StartInteractor.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FA53DE2C1BC18D4100DF2EB1 /* StartInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = StartInteractorTests.swift; path = Interactors/StartInteractorTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA53DE2F1BC18ECB00DF2EB1 /* ConfigDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = ConfigDataManager.swift; path = Applivery/Data/ConfigDataManager.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA53DE321BC18F6D00DF2EB1 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Config.swift; path = Applivery/Model/Config.swift; sourceTree = "<group>"; };
 		FA53DE341BC193EA00DF2EB1 /* ConfigDataManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigDataManagerMock.swift; path = Mocks/ConfigDataManagerMock.swift; sourceTree = "<group>"; };
-		FA53DE361BC1950300DF2EB1 /* StartInteractorOutputMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartInteractorOutputMock.swift; path = Mocks/StartInteractorOutputMock.swift; sourceTree = "<group>"; };
+		FA53DE361BC1950300DF2EB1 /* StartInteractorOutputMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = StartInteractorOutputMock.swift; path = Mocks/StartInteractorOutputMock.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA53DE3B1BC1B38900DF2EB1 /* StartInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartInteractorMock.swift; path = Mocks/StartInteractorMock.swift; sourceTree = "<group>"; };
+		FA5EA63F1E6CB61500590120 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
+		FA5EA6401E6CB61500590120 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
+		FA5EA6451E6CB70C00590120 /* Cartfile.private */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile.private; sourceTree = "<group>"; };
+		FA5EA64B1E6CCB6600590120 /* AppliveryBehaviorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppliveryBehaviorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA5EA64F1E6CCB6600590120 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA68D8F21BC040B000589DE4 /* Applivery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Applivery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA68D8F51BC040B100589DE4 /* Applivery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Applivery.h; sourceTree = "<group>"; };
 		FA68D8F71BC040B100589DE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA68D8FC1BC040B100589DE4 /* AppliveryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppliveryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FA68D9011BC040B100589DE4 /* AppliveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppliveryTests.swift; sourceTree = "<group>"; };
+		FA68D9011BC040B100589DE4 /* AppliveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AppliveryTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA68D9031BC040B100589DE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FA68D90E1BC046E300589DE4 /* Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Applivery.swift; path = Applivery/Applivery.swift; sourceTree = "<group>"; };
+		FA68D90E1BC046E300589DE4 /* Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = Applivery.swift; path = Applivery/Applivery.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA73BF7C1C8B02E800619258 /* ScreenshotInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScreenshotInteractor.swift; path = Applivery/Interactors/ScreenshotInteractor.swift; sourceTree = "<group>"; };
 		FA73BF7F1C8B040D00619258 /* ImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageManager.swift; path = Applivery/Managers/ImageManager.swift; sourceTree = "<group>"; };
-		FA8D78151BC46064005741D8 /* ConfigService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigService.swift; path = Applivery/Data/Services/ConfigService.swift; sourceTree = "<group>"; };
+		FA8D78151BC46064005741D8 /* ConfigService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = ConfigService.swift; path = Applivery/Data/Services/ConfigService.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA8D78171BC46584005741D8 /* ConfigServiceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigServiceMock.swift; path = Mocks/ConfigServiceMock.swift; sourceTree = "<group>"; };
 		FA929A081C4AF13700130DF4 /* Font+Load.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Font+Load.swift"; path = "Applivery/Utils/Font+Load.swift"; sourceTree = "<group>"; };
 		FA952FCE1C838C9700C32DD0 /* FeedbackCoordinatorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackCoordinatorMock.swift; path = Mocks/FeedbackCoordinatorMock.swift; sourceTree = "<group>"; };
 		FA952FD21C838FB500C32DD0 /* UpdatePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdatePresenter.swift; path = Applivery/Views/Update/UpdatePresenter.swift; sourceTree = "<group>"; };
-		FA952FD31C838FB500C32DD0 /* UpdateVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateVC.swift; path = Applivery/Views/Update/UpdateVC.swift; sourceTree = "<group>"; };
-		FA952FD71C83901000C32DD0 /* FeedbackVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackVC.swift; path = Applivery/Views/Feedback/FeedbackVC.swift; sourceTree = "<group>"; };
+		FA952FD31C838FB500C32DD0 /* UpdateVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = UpdateVC.swift; path = Applivery/Views/Update/UpdateVC.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FA952FD71C83901000C32DD0 /* FeedbackVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FeedbackVC.swift; path = Applivery/Views/Feedback/FeedbackVC.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA952FD91C83904100C32DD0 /* FeedbackPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackPresenter.swift; path = Applivery/Views/Feedback/FeedbackPresenter.swift; sourceTree = "<group>"; };
 		FA952FDB1C83909000C32DD0 /* FeedbackInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackInteractor.swift; path = Applivery/Interactors/FeedbackInteractor.swift; sourceTree = "<group>"; };
-		FA952FDD1C83929100C32DD0 /* Storyboard+Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Storyboard+Applivery.swift"; path = "Applivery/Utils/Storyboard+Applivery.swift"; sourceTree = "<group>"; };
-		FAA50D4B1C7D21D300CE7B65 /* ResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResponseTests.swift; path = Network/ResponseTests.swift; sourceTree = "<group>"; };
-		FAA50D4D1C7D232500CE7B65 /* NSError+Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSError+Applivery.swift"; path = "Applivery/Utils/NSError+Applivery.swift"; sourceTree = "<group>"; };
+		FA952FDD1C83929100C32DD0 /* Storyboard+Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = "Storyboard+Applivery.swift"; path = "Applivery/Utils/Storyboard+Applivery.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FAA50D4B1C7D21D300CE7B65 /* ResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = ResponseTests.swift; path = Network/ResponseTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FAA50D4D1C7D232500CE7B65 /* NSError+Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = "NSError+Applivery.swift"; path = "Applivery/Utils/NSError+Applivery.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FAAAE1211E8040010065E6AC /* Palette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Palette.swift; path = Applivery/Model/Palette.swift; sourceTree = "<group>"; };
 		FAADA5341DBBF25B00300A5E /* FeedbackServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FeedbackServiceTests.swift; path = Network/FeedbackServiceTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		FAADA5391DBC125800300A5E /* Cartfile.private */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile.private; sourceTree = "<group>"; };
 		FAADA53A1DBC14EB00300A5E /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
-		FAC394741C95996B00F14778 /* ButtonFeedbackType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ButtonFeedbackType.swift; path = Applivery/Components/ButtonFeedbackType.swift; sourceTree = "<group>"; };
-		FAC394791C959ADE00F14778 /* UIColor+Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+Applivery.swift"; path = "Applivery/Utils/UIColor+Applivery.swift"; sourceTree = "<group>"; };
-		FAC3947B1C959EB100F14778 /* UIColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+Hex.swift"; path = "Applivery/Utils/UIColor+Hex.swift"; sourceTree = "<group>"; };
 		FAC3947D1C95D9FF00F14778 /* Feedback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Feedback.swift; path = Applivery/Model/Feedback.swift; sourceTree = "<group>"; };
 		FAC3947F1C95EA3000F14778 /* FeedbackService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FeedbackService.swift; path = Applivery/Data/Services/FeedbackService.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAC394811C96078A00F14778 /* UIDevice+ModelName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIDevice+ModelName.swift"; path = "Applivery/Utils/UIDevice+ModelName.swift"; sourceTree = "<group>"; };
@@ -215,26 +255,36 @@
 		FAD2A15C1C010EA6001967FD /* UpdateCoordinatorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateCoordinatorMock.swift; path = Mocks/UpdateCoordinatorMock.swift; sourceTree = "<group>"; };
 		FAD2A1641C011E2B001967FD /* UpdateInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = UpdateInteractor.swift; path = Applivery/Interactors/UpdateInteractor.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAD910FF1BCEE58B00D56617 /* Json.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Json.swift; path = Applivery/Utils/Json.swift; sourceTree = "<group>"; };
+		FADA301B1E90677500DAC96E /* config_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = config_success.json; path = Mocks/JSON/config_success.json; sourceTree = "<group>"; };
+		FADD391C1E8321E700D861B7 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Colors.swift; path = Applivery/SDKConfig/Colors.swift; sourceTree = "<group>"; };
 		FAEC86651C83824D00A43298 /* FeedbackCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackCoordinator.swift; path = Applivery/Coordinators/FeedbackCoordinator.swift; sourceTree = "<group>"; };
 		FAED0E771CC97C99000FD5EB /* FeedbackPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FeedbackPresenterTests.swift; path = Presenters/FeedbackPresenterTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAED0E791CC97EF2000FD5EB /* ScreenshotInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScreenshotInteractorMock.swift; path = Mocks/ScreenshotInteractorMock.swift; sourceTree = "<group>"; };
 		FAED0E7B1CC980D2000FD5EB /* FeedbackViewMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackViewMock.swift; path = Mocks/FeedbackViewMock.swift; sourceTree = "<group>"; };
 		FAED0E7D1CC991DD000FD5EB /* FeedbackInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackInteractorMock.swift; path = Mocks/FeedbackInteractorMock.swift; sourceTree = "<group>"; };
 		FAF382031C25E828007AF670 /* UpdateInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateInteractorTests.swift; path = Interactors/UpdateInteractorTests.swift; sourceTree = "<group>"; };
-		FAFA85751BCBDB26004E1974 /* GlobalConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GlobalConfig.swift; path = Applivery/SDKConfig/GlobalConfig.swift; sourceTree = "<group>"; };
-		FAFA85791BCC07B6004E1974 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Log.swift; path = Applivery/Utils/Log.swift; sourceTree = "<group>"; };
-		FAFA857C1BCC2EE7004E1974 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Request.swift; path = Applivery/Data/Services/Request.swift; sourceTree = "<group>"; };
-		FAFA857E1BCC3389004E1974 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Response.swift; path = Applivery/Data/Services/Response.swift; sourceTree = "<group>"; };
+		FAFA85751BCBDB26004E1974 /* GlobalConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = GlobalConfig.swift; path = Applivery/SDKConfig/GlobalConfig.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FAFA85791BCC07B6004E1974 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = Log.swift; path = Applivery/Utils/Log.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FAFA857C1BCC2EE7004E1974 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = Request.swift; path = Applivery/Data/Services/Request.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FAFA857E1BCC3389004E1974 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = Response.swift; path = Applivery/Data/Services/Response.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAFBE4601C3EEA9A0039BD8C /* UpdateInteractorOutputMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateInteractorOutputMock.swift; path = Mocks/UpdateInteractorOutputMock.swift; sourceTree = "<group>"; };
 		FAFBE4621C3EF66E0039BD8C /* DownloadService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = DownloadService.swift; path = Applivery/Data/Services/DownloadService.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAFBE4641C3EFD890039BD8C /* DownloadDataManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadDataManagerTests.swift; path = Data/DownloadDataManagerTests.swift; sourceTree = "<group>"; };
 		FAFBE4661C3EFEC40039BD8C /* DownloadServiceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = DownloadServiceMock.swift; path = Mocks/DownloadServiceMock.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		FAFF01241C57A2DE00DB7C8E /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "fontawesome-webfont.ttf"; path = "Resources/Fonts/fontawesome-webfont.ttf"; sourceTree = "<group>"; };
-		FAFF01251C57A2DE00DB7C8E /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Light.ttf"; path = "Resources/Fonts/Lato-Light.ttf"; sourceTree = "<group>"; };
-		FAFF01261C57A2DE00DB7C8E /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Regular.ttf"; path = "Resources/Fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		FA5EA6481E6CCB6600590120 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA5EA6501E6CCB6600590120 /* Applivery.framework in Frameworks */,
+				FA5EA6581E6CCBCE00590120 /* OHHTTPStubs.framework in Frameworks */,
+				FA5EA6561E6CCBC800590120 /* Nimble.framework in Frameworks */,
+				FA5EA6571E6CCBCB00590120 /* Quick.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FA68D8EE1BC040B000589DE4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -254,6 +304,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FA07FDF31E87E18E0073B580 /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				FAAAE1211E8040010065E6AC /* Palette.swift */,
+				FA07FDF41E87E2600073B580 /* TextLiterals.swift */,
+			);
+			name = Public;
+			sourceTree = "<group>";
+		};
 		FA0883D61DBC22DA008A553A /* JSON */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,6 +331,40 @@
 				FA68D8F71BC040B100589DE4 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FA201F711E90489A0090128F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FA201F731E9049410090128F /* AppliveryBehaviorTests-Bridging-Header.h */,
+				FA5EA64F1E6CCB6600590120 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FA201F721E9048A60090128F /* Specs */ = {
+			isa = PBXGroup;
+			children = (
+				FA201F741E9049410090128F /* StartSpecs.swift */,
+			);
+			name = Specs;
+			sourceTree = "<group>";
+		};
+		FA201F7A1E9065BF0090128F /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				FA201F7B1E9065C80090128F /* JSON */,
+				FA2EAC851E915EDE00CC9BBF /* Fakes */,
+			);
+			name = Mocks;
+			sourceTree = "<group>";
+		};
+		FA201F7B1E9065C80090128F /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				FADA301B1E90677500DAC96E /* config_success.json */,
+			);
+			name = JSON;
 			sourceTree = "<group>";
 		};
 		FA232D2B1C7538540097AE79 /* Persisters */ = {
@@ -295,6 +388,7 @@
 			isa = PBXGroup;
 			children = (
 				FA2B9C011DC29935009F11C5 /* ErrorCodes.swift */,
+				FADD391C1E8321E700D861B7 /* Colors.swift */,
 			);
 			name = Constants;
 			sourceTree = "<group>";
@@ -314,6 +408,14 @@
 				FA2B9C081DC2AC65009F11C5 /* StubResponseHelper.swift */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		FA2EAC851E915EDE00CC9BBF /* Fakes */ = {
+			isa = PBXGroup;
+			children = (
+				FA2EAC861E915EFE00CC9BBF /* UserDefaults.swift */,
+			);
+			name = Fakes;
 			sourceTree = "<group>";
 		};
 		FA3A693B1BC2F99400179176 /* Data */ = {
@@ -351,16 +453,6 @@
 				FA3D97831DEB79DB00CCC11B /* PreviewVC.swift */,
 			);
 			name = Preview;
-			sourceTree = "<group>";
-		};
-		FA49AEB81C4AF93B000D5DFF /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-				FAFF01241C57A2DE00DB7C8E /* fontawesome-webfont.ttf */,
-				FAFF01251C57A2DE00DB7C8E /* Lato-Light.ttf */,
-				FAFF01261C57A2DE00DB7C8E /* Lato-Regular.ttf */,
-			);
-			name = Fonts;
 			sourceTree = "<group>";
 		};
 		FA4F1C591C5391E400AC3E61 /* Coordinators */ = {
@@ -442,11 +534,22 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		FA5EA64C1E6CCB6600590120 /* AppliveryBehaviorTests */ = {
+			isa = PBXGroup;
+			children = (
+				FA201F721E9048A60090128F /* Specs */,
+				FA201F7A1E9065BF0090128F /* Mocks */,
+				FA201F711E90489A0090128F /* Supporting Files */,
+			);
+			path = AppliveryBehaviorTests;
+			sourceTree = "<group>";
+		};
 		FA68D8E81BC040B000589DE4 = {
 			isa = PBXGroup;
 			children = (
 				FA68D8F41BC040B000589DE4 /* AppliverySDK */,
 				FA68D9001BC040B100589DE4 /* AppliverySDKTests */,
+				FA5EA64C1E6CCB6600590120 /* AppliveryBehaviorTests */,
 				FAADA5381DBC123D00300A5E /* Frameworks */,
 				FA68D8F31BC040B000589DE4 /* Products */,
 			);
@@ -457,6 +560,7 @@
 			children = (
 				FA68D8F21BC040B000589DE4 /* Applivery.framework */,
 				FA68D8FC1BC040B100589DE4 /* AppliveryTests.xctest */,
+				FA5EA64B1E6CCB6600590120 /* AppliveryBehaviorTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -465,6 +569,7 @@
 			isa = PBXGroup;
 			children = (
 				FA68D90E1BC046E300589DE4 /* Applivery.swift */,
+				FA07FDF31E87E18E0073B580 /* Public */,
 				FA68D90D1BC046AB00589DE4 /* Source */,
 				FAF382051C2614F6007AF670 /* Resources */,
 				FA0FCE5B1DC4D22500B92075 /* Supporting Files */,
@@ -559,7 +664,9 @@
 		FAADA5381DBC123D00300A5E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FAADA5391DBC125800300A5E /* Cartfile.private */,
+				FA5EA6451E6CB70C00590120 /* Cartfile.private */,
+				FA5EA63F1E6CB61500590120 /* Nimble.framework */,
+				FA5EA6401E6CB61500590120 /* Quick.framework */,
 				FAADA53A1DBC14EB00300A5E /* OHHTTPStubs.framework */,
 			);
 			name = Frameworks;
@@ -568,7 +675,6 @@
 		FAC394731C95994800F14778 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				FAC394741C95996B00F14778 /* ButtonFeedbackType.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -605,7 +711,6 @@
 			children = (
 				FA49AEBA1C4AF95B000D5DFF /* Images.xcassets */,
 				FA2C455C1C4D20A300E72847 /* Localizable.strings */,
-				FA49AEB81C4AF93B000D5DFF /* Fonts */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -622,8 +727,6 @@
 				FAA50D4D1C7D232500CE7B65 /* NSError+Applivery.swift */,
 				FA19E48A1C822CA900DC31E8 /* Environments.swift */,
 				FA952FDD1C83929100C32DD0 /* Storyboard+Applivery.swift */,
-				FAC394791C959ADE00F14778 /* UIColor+Applivery.swift */,
-				FAC3947B1C959EB100F14778 /* UIColor+Hex.swift */,
 				FAC394811C96078A00F14778 /* UIDevice+ModelName.swift */,
 				FA0883D91DBC311C008A553A /* Result.swift */,
 				FA1569B41DBD313200C651D4 /* Wifi.swift */,
@@ -647,6 +750,25 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		FA5EA64A1E6CCB6600590120 /* AppliveryBehaviorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA5EA6551E6CCB6600590120 /* Build configuration list for PBXNativeTarget "AppliveryBehaviorTests" */;
+			buildPhases = (
+				FA5EA6471E6CCB6600590120 /* Sources */,
+				FA5EA6481E6CCB6600590120 /* Frameworks */,
+				FA5EA6491E6CCB6600590120 /* Resources */,
+				FA5EA6591E6CCBFD00590120 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FA5EA6521E6CCB6600590120 /* PBXTargetDependency */,
+			);
+			name = AppliveryBehaviorTests;
+			productName = AppliveryBehaviorTests;
+			productReference = FA5EA64B1E6CCB6600590120 /* AppliveryBehaviorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		FA68D8F11BC040B000589DE4 /* Applivery */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FA68D9061BC040B100589DE4 /* Build configuration list for PBXNativeTarget "Applivery" */;
@@ -673,7 +795,7 @@
 				FA68D8F81BC040B100589DE4 /* Sources */,
 				FA68D8F91BC040B100589DE4 /* Frameworks */,
 				FA68D8FA1BC040B100589DE4 /* Resources */,
-				FAB2ED151DBC1AD800A2E2E0 /* CopyFiles */,
+				FAB2ED151DBC1AD800A2E2E0 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -692,10 +814,15 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftMigration = 0700;
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Applivery S.L.";
 				TargetAttributes = {
+					FA5EA64A1E6CCB6600590120 = {
+						CreatedOnToolsVersion = 8.2.1;
+						LastSwiftMigration = 0830;
+						ProvisioningStyle = Automatic;
+					};
 					FA68D8F11BC040B000589DE4 = {
 						CreatedOnToolsVersion = 7.0.1;
 						LastSwiftMigration = 0800;
@@ -722,19 +849,26 @@
 			targets = (
 				FA68D8F11BC040B000589DE4 /* Applivery */,
 				FA68D8FB1BC040B100589DE4 /* AppliveryTests */,
+				FA5EA64A1E6CCB6600590120 /* AppliveryBehaviorTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		FA5EA6491E6CCB6600590120 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FADA301C1E90677500DAC96E /* config_success.json in Resources */,
+				FAAA50E81E917CFC0004FBF8 /* ko.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FA68D8F01BC040B000589DE4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAFF01281C57A2DE00DB7C8E /* Lato-Light.ttf in Resources */,
-				FAFF01291C57A2DE00DB7C8E /* Lato-Regular.ttf in Resources */,
 				FA2C455A1C4D20A300E72847 /* Localizable.strings in Resources */,
-				FAFF01271C57A2DE00DB7C8E /* fontawesome-webfont.ttf in Resources */,
 				FA49AEBB1C4AF95B000D5DFF /* Images.xcassets in Resources */,
 				FA2900E41C064DAD00778A4C /* Applivery.storyboard in Resources */,
 			);
@@ -771,6 +905,20 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		FA5EA6471E6CCB6600590120 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FAAA50E91E91841C0004FBF8 /* EventDetectorMock.swift in Sources */,
+				FA201F791E90625A0090128F /* UserDefaultsMock.swift in Sources */,
+				FA201F771E904F0F0090128F /* AppMock.swift in Sources */,
+				FA2EAC871E915EFE00CC9BBF /* UserDefaults.swift in Sources */,
+				FA201F761E904B110090128F /* StubResponseHelper.swift in Sources */,
+				FA201F781E9051850090128F /* StartInteractorOutputMock.swift in Sources */,
+				FA201F751E9049410090128F /* StartSpecs.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FA68D8ED1BC040B000589DE4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -783,13 +931,13 @@
 				FA929A091C4AF13700130DF4 /* Font+Load.swift in Sources */,
 				FA952FDA1C83904100C32DD0 /* FeedbackPresenter.swift in Sources */,
 				FA952FDC1C83909000C32DD0 /* FeedbackInteractor.swift in Sources */,
-				FAC394751C95996B00F14778 /* ButtonFeedbackType.swift in Sources */,
 				FA2C455E1C4D228A00E72847 /* NSBundle+Applivery.swift in Sources */,
 				FA3A69401BC2FC1200179176 /* App.swift in Sources */,
 				FA2B9C021DC29935009F11C5 /* ErrorCodes.swift in Sources */,
 				FA952FD81C83901000C32DD0 /* FeedbackVC.swift in Sources */,
 				FAD911001BCEE58B00D56617 /* Json.swift in Sources */,
 				FACEF8C81C14663B00B03FC0 /* Background.swift in Sources */,
+				FA07FDF51E87E2600073B580 /* TextLiterals.swift in Sources */,
 				FA73BF801C8B040D00619258 /* ImageManager.swift in Sources */,
 				FAEC86661C83824D00A43298 /* FeedbackCoordinator.swift in Sources */,
 				FAFBE4631C3EF66E0039BD8C /* DownloadService.swift in Sources */,
@@ -802,18 +950,18 @@
 				FA3D97841DEB79DB00CCC11B /* PreviewVC.swift in Sources */,
 				FA3211D61C3EA6D300668099 /* Localize.swift in Sources */,
 				FA952FD41C838FB500C32DD0 /* UpdatePresenter.swift in Sources */,
-				FAC3947A1C959ADE00F14778 /* UIColor+Applivery.swift in Sources */,
 				FA53DE331BC18F6D00DF2EB1 /* Config.swift in Sources */,
 				FAD2A15B1C010D8B001967FD /* UpdateCoordinator.swift in Sources */,
 				FAFA85761BCBDB26004E1974 /* GlobalConfig.swift in Sources */,
-				FAC3947C1C959EB100F14778 /* UIColor+Hex.swift in Sources */,
 				FA952FD51C838FB500C32DD0 /* UpdateVC.swift in Sources */,
 				FA53DE271BC188E200DF2EB1 /* StartInteractor.swift in Sources */,
 				FAFA857F1BCC3389004E1974 /* Response.swift in Sources */,
 				FAFA857D1BCC2EE7004E1974 /* Request.swift in Sources */,
 				FA1569B71DBD465100C651D4 /* DiskStatus.swift in Sources */,
 				FA1569B31DBCFB7700C651D4 /* Device.swift in Sources */,
+				FADD391D1E8321E700D861B7 /* Colors.swift in Sources */,
 				FAC394801C95EA3000F14778 /* FeedbackService.swift in Sources */,
+				FAAAE1221E8040010065E6AC /* Palette.swift in Sources */,
 				FA3211D41C3EA11700668099 /* DownloadDataManager.swift in Sources */,
 				FAFA857A1BCC07B6004E1974 /* Log.swift in Sources */,
 				FA19E48B1C822CA900DC31E8 /* Environments.swift in Sources */,
@@ -872,6 +1020,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		FA5EA6521E6CCB6600590120 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FA68D8F11BC040B000589DE4 /* Applivery */;
+			targetProxy = FA5EA6511E6CCB6600590120 /* PBXContainerItemProxy */;
+		};
 		FA68D8FF1BC040B100589DE4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = FA68D8F11BC040B000589DE4 /* Applivery */;
@@ -892,6 +1045,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		FA5EA6531E6CCB6600590120 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = AppliveryBehaviorTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.applivery.AppliveryBehaviorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "AppliveryBehaviorTests/AppliveryBehaviorTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		FA5EA6541E6CCB6600590120 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = AppliveryBehaviorTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.applivery.AppliveryBehaviorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "AppliveryBehaviorTests/AppliveryBehaviorTests-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		FA68D9041BC040B100589DE4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -994,11 +1189,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				CURRENT_PROJECT_VERSION = 2.3;
+				CURRENT_PROJECT_VERSION = 2.4;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 2.0;
-				DYLIB_CURRENT_VERSION = 2.3;
+				DYLIB_CURRENT_VERSION = 2.4;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = AppliverySDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1021,11 +1216,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				CURRENT_PROJECT_VERSION = 2.3;
+				CURRENT_PROJECT_VERSION = 2.4;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 2.0;
-				DYLIB_CURRENT_VERSION = 2.3;
+				DYLIB_CURRENT_VERSION = 2.4;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = AppliverySDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1082,6 +1277,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		FA5EA6551E6CCB6600590120 /* Build configuration list for PBXNativeTarget "AppliveryBehaviorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA5EA6531E6CCB6600590120 /* Debug */,
+				FA5EA6541E6CCB6600590120 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		FA68D8EC1BC040B000589DE4 /* Build configuration list for PBXProject "AppliverySDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

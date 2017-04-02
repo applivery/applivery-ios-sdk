@@ -1,12 +1,21 @@
-osx_image: xcode8.2
+osx_image: xcode8.3
 language: objective-c
 env:
   global:
     - FRAMEWORK_NAME=Applivery
+    - PROJECT=AppliverySDK
+    - SCHEME=Applivery
+    - OS=10.3
+    - DEVICE="iPhone 7"
+cache:
+  directories:
+  - Carthage
 before_script:
-  - carthage bootstrap --platform iOS
+  - open -b com.apple.iphonesimulator
+  - carthage version
+  - carthage bootstrap --cache-builds --platform iOS
 script:
-  - set -o pipefail && xcodebuild -project AppliverySDK.xcodeproj -scheme Applivery -sdk iphonesimulator -destination "platform=iOS Simulator,OS=10.1,name=iPhone 6" test | xcpretty
+  - set -o pipefail && xcodebuild -project $PROJECT.xcodeproj -scheme $SCHEME -sdk iphonesimulator -destination "platform=iOS Simulator,OS=$OS,name=$DEVICE" test | xcpretty
 before_deploy:
   - carthage build --no-skip-current
   - carthage archive $FRAMEWORK_NAME

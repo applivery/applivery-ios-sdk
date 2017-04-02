@@ -12,17 +12,17 @@ import Foundation
 
 class EventDetectorMock: EventDetector {
 
-	var outListenEventCalled = false
-	var outOnDetectionClosure: (() -> Void)!
-	var outEndListeningCalled = false
+	var spyListenEventCalled = false
+	var spyEndListeningCalled = false
+	var spyOnDetectionClosure: (() -> Void)!
 
 	func listenEvent(_ onDetection: @escaping () -> Void) {
-		self.outListenEventCalled = true
-		self.outOnDetectionClosure = onDetection
+		self.spyListenEventCalled = true
+		self.spyOnDetectionClosure = onDetection
 	}
 
 	func endListening() {
-		self.outEndListeningCalled = true
+		self.spyEndListeningCalled = true
 	}
 
 }

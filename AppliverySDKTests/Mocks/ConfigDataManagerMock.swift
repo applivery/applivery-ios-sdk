@@ -12,7 +12,7 @@ import Foundation
 class ConfigDataManagerMock: PConfigDataManager {
 
 	// INPUTS
-	var inVersion = ""
+	var stubVersion = ""
 	var inCurrentConfig: Config?
 	var inUpdateConfigResponse: UpdateConfigResponse!
 
@@ -21,7 +21,7 @@ class ConfigDataManagerMock: PConfigDataManager {
 
 
 	func getCurrentConfig() -> (config: Config?, version: String) {
-		return (self.inCurrentConfig, self.inVersion)
+		return (self.inCurrentConfig, self.stubVersion)
 	}
 
 	func updateConfig(_ completionHandler: @escaping (_ response: UpdateConfigResponse) -> Void) {

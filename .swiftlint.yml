@@ -3,5 +3,8 @@ disabled_rules: # rule identifiers to exclude from running
   - vertical_whitespace
   - line_length
 
+opt_in_rules:
+  - force_unwrapping
+
 excluded: # paths to ignore during linting. Takes precedence over `included`.
   - Carthage

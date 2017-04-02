@@ -9,7 +9,7 @@
 import Foundation
 
 
-//! Wrapper for Application's operation
+// Wrapper for Application's operation
 
 protocol AppProtocol {
 	func bundleId() -> String
@@ -39,15 +39,15 @@ extension AppProtocol {
 
 class App: AppProtocol {
 
-	private var alertOta: UIAlertController?
-	private var alertError: UIAlertController?
+	private var alertOta: UIAlertController = UIAlertController()
+	private var alertError: UIAlertController = UIAlertController()
 
 
 	// MARK - Public Methods
 
 	func bundleId() -> String {
 		guard let bundleId = Bundle.main.bundleIdentifier else {
-			LogWarn("No bundle identifier found")
+			logWarn("No bundle identifier found")
 			return "no_id"
 		}
 
@@ -77,7 +77,7 @@ class App: AppProtocol {
 	}
 
 	func openUrl(_ urlString: String) -> Bool {
-		LogInfo("Opening \(urlString)")
+		logInfo("Opening \(urlString)")
 		guard let url = URL(string: urlString) else { return false }
 		UIApplication.shared.openURL(url)
 
@@ -93,9 +93,9 @@ class App: AppProtocol {
 	}
 
 	func showAlert(_ message: String) {
-		let alert = UIAlertController(title: Localize("sdk_name"), message: message, preferredStyle: .alert)
+		let alert = UIAlertController(title: literal(.appName), message: message, preferredStyle: .alert)
 
-		let actionLater = UIAlertAction(title: Localize("alert_button_ok"), style: .cancel, handler: nil)
+		let actionLater = UIAlertAction(title: literal(.alertButtonOK), style: .cancel, handler: nil)
 		alert.addAction(actionLater)
 
 		let topVC = self.topViewController()
@@ -104,34 +104,34 @@ class App: AppProtocol {
 	}
 
 	func showOtaAlert(_ message: String, downloadHandler: @escaping () -> Void ) {
-		self.alertOta = UIAlertController(title: Localize("sdk_name"), message: message, preferredStyle: .alert)
+		self.alertOta = UIAlertController(title: literal(.appName), message: message, preferredStyle: .alert)
 
-		let actionLater = UIAlertAction(title: Localize("alert_button_later"), style: .cancel, handler: nil)
-		let actionDownload = UIAlertAction(title: Localize("alert_button_update"), style: .default) { _ in
+		let actionLater = UIAlertAction(title: literal(.alertButtonLater), style: .cancel, handler: nil)
+		let actionDownload = UIAlertAction(title: literal(.alertButtonUpdate), style: .default) { _ in
 			downloadHandler()
 		}
 
-		self.alertOta?.addAction(actionLater)
-		self.alertOta?.addAction(actionDownload)
+		self.alertOta.addAction(actionLater)
+		self.alertOta.addAction(actionDownload)
 
 		let topVC = self.topViewController()
 
-		topVC?.present(self.alertOta!, animated: true, completion: nil)
+		topVC?.present(self.alertOta, animated: true, completion: nil)
 	}
 
 	func showErrorAlert(_ message: String, retryHandler: @escaping () -> Void) {
-		self.alertError = UIAlertController(title: Localize("sdk_name"), message: message, preferredStyle: .alert)
+		self.alertError = UIAlertController(title: literal(.appName), message: message, preferredStyle: .alert)
 
-		let actionCancel = UIAlertAction(title: Localize("alert_button_cancel"), style: .cancel, handler: nil)
-		let actionRetry = UIAlertAction(title: Localize("alert_button_retry"), style: .default) { _ in
+		let actionCancel = UIAlertAction(title: literal(.alertButtonCancel), style: .cancel, handler: nil)
+		let actionRetry = UIAlertAction(title: literal(.alertButtonRetry), style: .default) { _ in
 			retryHandler()
 		}
 
-		self.alertError?.addAction(actionCancel)
-		self.alertError?.addAction(actionRetry)
+		self.alertError.addAction(actionCancel)
+		self.alertError.addAction(actionRetry)
 
 		let topVC = self.topViewController()
-		topVC?.present(self.alertError!, animated: true, completion: nil)
+		topVC?.present(self.alertError, animated: true, completion: nil)
 	}
 
 	func waitForReadyThen(_ onReady: @escaping () -> Void) {

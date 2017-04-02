@@ -10,10 +10,10 @@ import Foundation
 
 class GlobalConfig {
 
-	static let shared = GlobalConfig()
+	static var shared = GlobalConfig()
 
 	// MARK: Global Constants
-	static let Host = Environments.Host() ?? "https://dashboard.applivery.com"
+	static let Host = Environments.host() ?? "https://dashboard.applivery.com"
 	static let ErrorDomain = "com.applivery.network"
 	static let AppliveryErrorKey = "AppliveryMessage"
 	static let AppliveryErrorDebugKey = "AppliveryDebugMessage"
@@ -25,11 +25,6 @@ class GlobalConfig {
 	var appStoreRelease = false
 	var feedbackEnabled = true
 	var logLevel: LogLevel = .none
-	var screenshotBrushColor: UIColor = #colorLiteral(red: 0.8078431487, green: 0.2693349354, blue: 0.3300692421, alpha: 1)
-
-
-	// MARK: Static texts
-	static let DefaultForceUpdateMessage = "Sorry this App is outdated. Please, update the App to continue using it"
-	static let DefaultOtaUpdateMessage = "There is a new version available for download. Do you want to update to the latest version?"
-
+	var palette = Palette()
+	var textLiterals = TextLiterals()
 }

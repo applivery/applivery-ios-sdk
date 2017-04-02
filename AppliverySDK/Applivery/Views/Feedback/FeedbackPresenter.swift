@@ -48,7 +48,7 @@ class FeedbackPresenter {
 
 	func viewDidLoad() {
 		self.screenshot = self.screenshotInteractor.getScreenshot()
-		self.view.showScreenshot(self.screenshot!.image)
+		self.view.showScreenshot(self.screenshot?.image)
 		self.viewState = .preview
 	}
 
@@ -58,7 +58,7 @@ class FeedbackPresenter {
 
 	func userDidTapAddFeedbackButton() {
 		guard let editedScreenshot = self.view.editedScreenshot() else {
-			return LogWarn("Could not get edited screenshot")
+			return logWarn("Could not get edited screenshot")
 		}
 		
 		self.editedScreenshot = Screenshot(image: editedScreenshot)

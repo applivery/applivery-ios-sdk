@@ -44,7 +44,7 @@ class ConfigDataManagerTests: XCTestCase {
 		self.configPersisterMock.config = Config()
 		self.configPersisterMock.config!.minVersion = "1.0.0"
 		self.configPersisterMock.config!.forceUpdate = true
-		self.appMock.inVersion = "2.0.0"
+		self.appMock.stubVersion = "2.0.0"
 
 		let (config, version) = self.configDataManager.getCurrentConfig()
 
@@ -54,7 +54,7 @@ class ConfigDataManagerTests: XCTestCase {
 	}
 
 	func test_current_config_no_stored() {
-		self.appMock.inVersion = "2.0.0"
+		self.appMock.stubVersion = "2.0.0"
 
 		let (config, version) = self.configDataManager.getCurrentConfig()
 
@@ -72,7 +72,7 @@ class ConfigDataManagerTests: XCTestCase {
 		self.configServiceMock.config!.forceUpdate = true
 		self.configServiceMock.config!.lastBuildId = ""
 		self.configServiceMock.error = nil
-		self.appMock.inVersion = "2.0.0"
+		self.appMock.stubVersion = "2.0.0"
 
 		var closureCalled = false
 		self.configDataManager.updateConfig { response in
@@ -94,7 +94,7 @@ class ConfigDataManagerTests: XCTestCase {
 		self.configServiceMock.success = true
 		self.configServiceMock.config = nil
 		self.configServiceMock.error = nil
-		self.appMock.inVersion = "2.0.0"
+		self.appMock.stubVersion = "2.0.0"
 
 		var closureCalled = false
 		self.configDataManager.updateConfig { response in
@@ -113,7 +113,7 @@ class ConfigDataManagerTests: XCTestCase {
 		self.configServiceMock.success = false
 		self.configServiceMock.config = nil
 		self.configServiceMock.error = error
-		self.appMock.inVersion = "2.0.0"
+		self.appMock.stubVersion = "2.0.0"
 
 		var closureCalled = false
 		self.configDataManager.updateConfig { response in

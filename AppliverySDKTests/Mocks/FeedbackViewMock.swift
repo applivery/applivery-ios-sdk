@@ -23,7 +23,7 @@ class FeedbackViewMock: FeedbackView {
 	var outShowScreenshotPreviewCalled = false
 	var outHideScreenshotPreviewCalled = false
 	var outNeedMessageCalled = false
-	var outShowLoadingCalled = false
+	var spyShowLoadingCalled = false
 	var outStopLoadingCalled = false
 	var outShowMessage: (called: Bool, message: String?) = (false, nil)
 
@@ -63,7 +63,7 @@ class FeedbackViewMock: FeedbackView {
 	}
 
 	func showLoading() {
-		self.outShowLoadingCalled = true
+		self.spyShowLoadingCalled = true
 	}
 
 	func stopLoading() {

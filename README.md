@@ -1,6 +1,6 @@
 ![Applivery Logo](https://www.applivery.com/img/icons/applivery-header-1200x627px.png)
 
-![Version](https://img.shields.io/badge/version-2.3-blue.svg)
+![Version](https://img.shields.io/badge/version-2.4-blue.svg)
 ![Language](https://img.shields.io/badge/Language-Swift-orange.svg)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Applivery.svg)](https://cocoapods.org/pods/Applivery)
@@ -12,6 +12,9 @@
 [![Build Status](https://travis-ci.org/applivery/applivery-ios-sdk.svg?branch=master)](https://travis-ci.org/applivery/applivery-ios-sdk)
 [![codecov](https://codecov.io/gh/applivery/applivery-ios-sdk/branch/master/graph/badge.svg)](https://codecov.io/gh/applivery/applivery-ios-sdk)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d9f8d737904b4785b846afec3df3e26c)](https://www.codacy.com/app/a-j-agudo/applivery-ios-sdk?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=applivery/applivery-ios-sdk&amp;utm_campaign=Badge_Grade)
+[![codebeat badge](https://codebeat.co/badges/c5895172-0986-4905-8e6f-38dccb63a059)](https://codebeat.co/projects/github-com-applivery-applivery-ios-sdk-master)
+[![BCH compliance](https://bettercodehub.com/edge/badge/applivery/applivery-ios-sdk)](https://bettercodehub.com/)
+
 
 
 
@@ -21,9 +24,12 @@ Applivery iOS SDK is a Framework to support [Applivery.com Mobile App distributi
 
 With Applivery you can massively distribute your iOS Apps (both Ad-hoc or In-House/Enterprise) through a customizable distribution site with no need of your users have to be registered in the platform. Combined with [Apple Developer Enterprise Program](https://developer.apple.com/programs/enterprise/) and Enterprise certificates, Applivery is perfect not only for beta testing distribute to your QA team, but also for In-House Enterprise distribution for beta testing users, prior to a release, or even for corporative Apps to the employees of a company.
 
-**Features:**
+### Features
+
 * **Automatic OTA Updates** when uploading new versions to Applivery.
 * **Force update** if App version is lower than the minimum version configured in Applivery.
+* **Send feedback**. Your test users can report a bug or send improvements feedback by simply taking a screenshot.
+
 
 ## Getting Started
 
@@ -42,6 +48,7 @@ You can get your SDK API KEY in the `Developers` section (left side menu).
 
 ![APP ID](https://raw.githubusercontent.com/applivery/applivery-ios-sdk/master/documentation/application_id.png)
 
+
 ## SDK Installation
 
 ### iOS 8 and later
@@ -57,7 +64,7 @@ $ brew update && brew install carthage
 Add the following line to your's Cartfile
 
 ```
-github "applivery/applivery-ios-sdk" ~> 2.3
+github "applivery/applivery-ios-sdk" ~> 2.4
 ```
 Run `carthage update` and then drag the built framework into your project. 
 
@@ -81,7 +88,7 @@ project '<Your Project Name>.xcodeproj'
 # platform :ios, '9.0'
 use_frameworks!
 target '<Your Target Name>' do
-  pod 'Applivery', '~> 2.3'
+  pod 'Applivery', '~> 2.4'
 end
 ```
 and then run `pod install`. More info about CocoaPods [here](https://cocoapods.org)
@@ -111,7 +118,7 @@ The compatibility version is as follow:
 |-------------------|----------------|---------------|
 | **v1.2.x**        | 7.x            | 2.0, 2.1, 2.2 |
 | **v1.3.x**        | 8.x            | 2.3           |
-| **v2.x**          | 8.x            | 3.0           |
+| **v2.x**          | 8.x            | 3.0, 3.1      |
 
 
 ### Ok! Let's go!
@@ -129,7 +136,7 @@ import Applivery
 and then the magic:
 
 ``` swift
-let applivery = Applivery.sharedInstance
+let applivery = Applivery.shared
 applivery.start(apiKey: "YOUR_API_KEY", appId: "YOUR_APP_ID", appStoreRelease: false)
 ```
 
@@ -145,7 +152,7 @@ The import:
 The magic:
 
 ``` objc
-Applivery *applivery = [Applivery sharedInstance];
+Applivery *applivery = [Applivery shared];
 [applivery startWithApiKey:@"YOUR_API_KEY" appId:@"YOUR_APP_ID" appStoreRelease:NO];
 ```
 
@@ -154,7 +161,7 @@ Applivery *applivery = [Applivery sharedInstance];
 **IMPORTANT II:** If you are experimenting problems submitting your app to the AppStore, please check this known issue about [Embedded Frameworks and AppStore submissions](https://github.com/applivery/applivery-ios-sdk#embedded-frameworks-and-appstore-submissions)
 
 
-## About params
+### About params
 
 - **apiKey**: Your developer's Api Key
 - **appId**: Your application's ID
@@ -162,8 +169,8 @@ Applivery *applivery = [Applivery sharedInstance];
 	* True: Applivery SDK will not trigger automatic updates anymore. **Use this for AppStore**
 	* False: Applivery SDK will normally. Use this with builds distributed through Applivery.
 
-## Advanced concepts
 
+## Advanced concepts
 
 ### Logs and debugging
 
@@ -172,7 +179,7 @@ In some cases you'll find usefull to see what is happening inside Applivery SDK.
 **Swift**
 
 ``` swift
-applivery.logLevel = .Info
+applivery.logLevel = .info
 ```
 
 **Objective-C**
@@ -204,21 +211,93 @@ applivery.disableFeedback()
 [applivery disableFeedback];
 ```
 
-### Change feedback's brush color
+### Customize SDK's colors
 
-In the feedback's view, users can edit the screenshot to draw lines on top of it. By default, these lines are red, but you are allowed to change the color to fit better with your application's color palette.
+You can create a new instance of `Palette` class and assign it to `Applivery.shared.palette`
+	
+```swift
+Applivery.shared.palette = Palette(
+	primaryColor: .orange,
+	secondaryColor: .white,
+	primaryFontColor: .white,
+	secondaryFontColor: .black,
+	screenshotBrushColor: .green
+)
+```
+	
+The SDK has Applivery's colors by default so, if you only need to change the primary color, yo can do this:
+	
+```swift
+Applivery.shared.palette = Palette(
+	primaryColor: .orange,
+)
+```
+	
+Or even directly change the property
 
-**Swift**
-
-``` swift
-applivery.screenshotBrushColor = .blue
+```swift
+Applivery.shared.palette.primaryColor = .orange
 ```
 
-**Objective-C**
+#### Colors you can change
 
-``` objc
-applivery.screenshotBrushColor = [UIColor blueColor];
+- `primaryColor`: Main color of your brand
+- `secondaryColor`: Background color
+- `primaryFontColor`: Primary font color. It should be in contrast with the primary color
+- `secondaryFontColor`: Secondary font color. It should be in contrast with the secondary color
+- `screenshotBrushColor`: In the feedback's view, users can edit the screenshot to draw lines on top of it. By default, these lines are red, but you are allowed to change the color to fit better with your application's color palette.
+
+
+### Customize string literals
+
+You can customize the SDK string literals to fit your app. 
+	
+#### Examples
+	
+```swift
+Applivery.shared.textLiterals = TextLiterals(
+	appName: "Applivery",
+	alertButtonCancel: "Cancel",
+	alertButtonRetry: "Retry",
+	alertButtonOK: "OK",
+	errorUnexpected: "Unexpected error",
+	errorInvalidCredentials: "Invalid credentials",
+	errorDownloadURL: "Couldn't start download. Invalid url",
+	otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
+	alertButtonLater: "Later",
+	alertButtonUpdate: "Update",
+	forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it",
+	buttonForceUpdate: "Update now",
+	feedbackButtonClose: "Close",
+	feedbackButtonAdd: "Add Feedback",
+	feedbackButtonSend: "Send Feedback",
+	feedbackSelectType: "Select type",
+	feedbackTypeBug: "Bug",
+	feedbackTypeFeedback: "Feedback",
+	feedbackMessagePlaceholder: "Add a message",
+	feedbackAttach: "Attach Screenshot"
+)
 ```
+	
+The SDK has literals by default so, if you only need to change the update messages, yo can do this:
+	
+```swift
+Applivery.shared.textLiterals = Palette(
+		appName: "MyApp",
+		otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
+		forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it"
+	)
+```
+	
+Or even directly change the property
+	
+```swift
+Applivery.shared.textLiterals.appName: "MyApp"
+Applivery.shared.textLiterals.otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?"
+Applivery.shared.textLiterals.forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it"
+```
+	
+_**Important**_: The default literals are only in english. Consider to set localized strings to fully support all languages your app does.
 
 
 ### Embedded frameworks and AppStore submissions
@@ -235,7 +314,7 @@ Depends of your integration method, the solution is:
 	In this case, the solution is as simple as add [this script](https://github.com/applivery/applivery-ios-sdk/blob/master/script/applivery_script.sh) in "New Run Script Phase". 
 	You'll find inside _Build Phases_ tab.
 
-	![Applivery script](https://github.com/applivery/applivery-ios-sdk/blob/master/documentation/applivery_script.png)
+	![Applivery script](https://raw.githubusercontent.com/applivery/applivery-ios-sdk/master/documentation/applivery_script.png)
 
 	Please note that you should edit the `APPLIVERY_FRAMEWORK_PATH` specifing where the framework is, inside your project path.
 

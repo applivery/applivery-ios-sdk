@@ -43,10 +43,10 @@ class UpdateInteractor: PUpdateInteractor {
 	func forceUpdateMessage() -> String {
 		let (currentConfig, _) = self.configData.getCurrentConfig()
 
-		var message = currentConfig?.forceUpdateMessage ?? GlobalConfig.DefaultForceUpdateMessage
+		var message = literal(.forceUpdateMessage) ?? currentConfig?.forceUpdateMessage ?? localize("force_update_message")
 
 		if message == "" {
-			message = GlobalConfig.DefaultForceUpdateMessage
+			message = localize("force_update_message")
 		}
 
 		return message
@@ -54,10 +54,10 @@ class UpdateInteractor: PUpdateInteractor {
 
 	func otaUpdateMessage() -> String {
 		let (currentConfig, _) = self.configData.getCurrentConfig()
-		var message = currentConfig?.otaUpdateMessage ?? GlobalConfig.DefaultOtaUpdateMessage
+		var message = literal(.otaUpdateMessage) ?? currentConfig?.otaUpdateMessage ?? localize("ota_update_message")
 
 		if message == "" {
-			message = GlobalConfig.DefaultOtaUpdateMessage
+			message = localize("ota_update_message")
 		}
 
 		return message
@@ -65,7 +65,7 @@ class UpdateInteractor: PUpdateInteractor {
 
 	func downloadLastBuild() {
 		guard let lastBuildId = self.configData.getCurrentConfig().config?.lastBuildId else {
-			self.output.downloadDidFail(Localize("error_unexpected"))
+			self.output.downloadDidFail(literal(.errorUnexpected) ?? localize("error_unexpected"))
 			return
 		}
 
@@ -76,8 +76,8 @@ class UpdateInteractor: PUpdateInteractor {
 				if self.app.openUrl(url) {
 					self.output.downloadDidEnd()
 				} else {
-					let error = NSError.AppliveryError(Localize("error_download_url"))
-					LogError(error)
+					let error = NSError.appliveryError(literal(.errorDownloadURL))
+					logError(error)
 
 					self.output.downloadDidFail(error.message())
 				}

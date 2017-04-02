@@ -50,7 +50,7 @@ class DownloadServiceTests: XCTestCase {
 			completionCalled.fulfill()
 			
 			XCTAssert(self.downloadService.request?.endpoint == "/api/builds/test_id/token")
-			XCTAssert(result == Result.error(NSError.UnexpectedError(debugMessage: "Error trying to parse token", code: ErrorCodes.JsonParse)), "result: \(result)")
+			XCTAssert(result == Result.error(NSError.unexpectedError(debugMessage: "Error trying to parse token", code: ErrorCodes.JsonParse)), "result: \(result)")
 		}
 		
 		self.waitForExpectations(timeout: 1, handler: nil)
@@ -63,7 +63,7 @@ class DownloadServiceTests: XCTestCase {
 			completionCalled.fulfill()
 			
 			XCTAssert(self.downloadService.request?.endpoint == "/api/builds/test_id/token")
-			XCTAssert(result == Result.error(NSError.AppliveryError(nil, debugMessage: "Error msg", code: 401)), "result: \(result)")
+			XCTAssert(result == Result.error(NSError.appliveryError(nil, debugMessage: "Error msg", code: 401)), "result: \(result)")
 		}
 		
 		self.waitForExpectations(timeout: 1, handler: nil)
@@ -73,19 +73,19 @@ class DownloadServiceTests: XCTestCase {
 	// MARK: - Private helpers
 	
 	private func stubTokenOK() {
-		let _ = stub(condition: isPath("/api/builds/test_id/token")) { _ in
+		_ = stub(condition: isPath("/api/builds/test_id/token")) { _ in
 			return StubResponse.stubResponse(with: "request_token_ok.json")
 		}
 	}
 	
 	private func stubSuccessNoToken() {
-		let _ = stub(condition: isPath("/api/builds/test_id/token")) { _ in
+		_ = stub(condition: isPath("/api/builds/test_id/token")) { _ in
 			return StubResponse.stubResponse(with: "request_token_ok_no_token.json")
 		}
 	}
 	
 	private func stubKO() {
-		let _ = stub(condition: isPath("/api/builds/test_id/token")) { _ in
+		_ = stub(condition: isPath("/api/builds/test_id/token")) { _ in
 			return StubResponse.stubResponse(with: "ko.json")
 		}
 	}

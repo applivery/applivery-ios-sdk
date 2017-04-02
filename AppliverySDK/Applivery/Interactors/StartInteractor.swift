@@ -13,6 +13,7 @@ protocol StartInteractorOutput {
 	func forceUpdate()
 	func otaUpdate()
 	func feedbackEvent()
+	func credentialError(message: String)
 }
 
 
@@ -37,11 +38,15 @@ class StartInteractor {
 	// MARK: Internal Methods
 
 	func start() {
-		LogInfo("Applivery is starting...")
+		logInfo("Applivery is starting...")
+		guard !self.globalConfig.apiKey.isEmpty, !self.globalConfig.appId.isEmpty else {
+			return self.output.credentialError(message: "You must set both apiKey and appID")
+		}
+		
 		self.eventDetector.listenEvent(self.output.feedbackEvent)
-
+		
 		guard !self.globalConfig.appStoreRelease else {
-			return LogWarn("The build is marked like an AppStore Release. Applivery won't present any update (or force update) message to the user")
+			return logWarn("The build is marked like an AppStore Release. Applivery won't present any update (or force update) message to the user")
 		}
 
 		self.updateConfig()
@@ -82,7 +87,7 @@ class StartInteractor {
 			forceUpdate
 			else { return false }
 		
-		LogInfo("Checking if app version: \(version) is older than minVersion: \(minVersion)")
+		logInfo("Checking if app version: \(version) is older than minVersion: \(minVersion)")
 		if self.isOlder(version, minVersion: minVersion) {
 			self.output.forceUpdate()
 			return true
@@ -98,7 +103,7 @@ class StartInteractor {
 			otaUpdate
 			else { return }
 
-		LogInfo("Checking if app version: \(version) is older than last build version: \(lastVersion)")
+		logInfo("Checking if app version: \(version) is older than last build version: \(lastVersion)")
 		if self.isOlder(version, minVersion: lastVersion) {
 			self.output.otaUpdate()
 		}

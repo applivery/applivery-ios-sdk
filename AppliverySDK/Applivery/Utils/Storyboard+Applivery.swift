@@ -12,9 +12,12 @@ extension UIStoryboard {
 
 	class func initialViewController() -> UIViewController {
 		let storyboard = UIStoryboard.storyBoard()
-		let vc = storyboard.instantiateInitialViewController()
+		guard let vc = storyboard.instantiateInitialViewController() else {
+			logWarn("Couldn't initialize view controller")
+			return UIViewController()
+		}
 
-		return vc!
+		return vc
 	}
 
 	class func viewController(_ identifier: String) -> UIViewController {
@@ -26,7 +29,7 @@ extension UIStoryboard {
 
 
 	fileprivate class func storyBoard() -> UIStoryboard {
-		return UIStoryboard(name: "Applivery", bundle: Bundle.AppliveryBundle())
+		return UIStoryboard(name: "Applivery", bundle: Bundle.applivery())
 	}
 
 }

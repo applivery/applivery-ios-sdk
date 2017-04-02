@@ -18,13 +18,18 @@ protocol PFeedbackCoordinator {
 class FeedbackCoordinator: PFeedbackCoordinator {
 
 	fileprivate var feedbackVC: FeedbackVC!
-	fileprivate lazy var app = App()
+	fileprivate var app: AppProtocol
 	fileprivate var isFeedbackPresented = false
+	
+	// MARK - Initializers
+	init(app: AppProtocol = App()) {
+		self.app = app
+	}
 
 
 	func showFeedack() {
 		guard !self.isFeedbackPresented else {
-			LogWarn("Feedback view is already presented")
+			logWarn("Feedback view is already presented")
 			return
 		}
 		self.isFeedbackPresented = true

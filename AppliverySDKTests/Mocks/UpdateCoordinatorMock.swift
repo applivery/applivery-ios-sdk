@@ -11,16 +11,16 @@ import Foundation
 
 class UpdateCoordinatorMock: PUpdateCoordinator {
 
-	var outForceUpdateCalled = false
-	var outOtaUpdateCalled = false
+	var spyForceUpdateCalled = false
+	var spyOtaUpdateCalled = false
 
 
 	func forceUpdate() {
-		self.outForceUpdateCalled = true
+		self.spyForceUpdateCalled = true
 	}
 
 	func otaUpdate() {
-		self.outOtaUpdateCalled = true
+		self.spyOtaUpdateCalled = true
 	}
 
 }

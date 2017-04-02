@@ -10,7 +10,7 @@ import Foundation
 
 extension Bundle {
 
-	class func AppliveryBundle() -> Bundle {
+	class func applivery() -> Bundle {
 		return Bundle(for: Applivery.self)
 	}
 

@@ -21,7 +21,7 @@ class ScreenshotDetector: EventDetector {
 	func listenEvent(_ onDetection: @escaping () -> Void) {
 		guard GlobalConfig.shared.feedbackEnabled else { return }
 
-		LogInfo("Applivery is listening for screenshot event")
+		logInfo("Applivery is listening for screenshot event")
 
 		self.observer = NotificationCenter.default
 			.addObserver(
@@ -35,7 +35,7 @@ class ScreenshotDetector: EventDetector {
 	func endListening() {
 		guard let observer = self.observer else { return }
 
-		LogInfo("Applivery has stopped for screenshot event")
+		logInfo("Applivery has stopped for screenshot event")
 
 		NotificationCenter.default.removeObserver(observer)
 	}

@@ -56,13 +56,13 @@ class ConfigDataManager: PConfigDataManager {
 
 	func updateConfig(_ completionHandler: @escaping (_ response: UpdateConfigResponse) -> Void) {
 		self.configService.fetchConfig { success, config, error in
-			if success && config != nil {
+			if let config = config, success {
 				let version = self.appInfo.getVersion()
-				self.configPersister.saveConfig(config!)
-
-				completionHandler(.success(config: config!, version: version))
+				self.configPersister.saveConfig(config)
+				completionHandler(.success(config: config, version: version))
+			
 			} else {
-				LogError(error)
+				logError(error)
 				completionHandler(.error)
 			}
 		}

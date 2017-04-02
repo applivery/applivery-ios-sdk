@@ -178,7 +178,7 @@ class FeedbackServiceTests: XCTestCase {
 		
 		let completionCalled = self.expectation(description: "completion called")
 		self.feedbackService.postFeedback(feedback) { result in
-			XCTAssert(result == Result.error(NSError.UnexpectedError()))
+			XCTAssert(result == Result.error(NSError.unexpectedError()))
 			
 			completionCalled.fulfill()
 		}
@@ -191,9 +191,9 @@ class FeedbackServiceTests: XCTestCase {
 	
 	private func setupConfigAndApp() {
 		self.configMock.appId = "TEST_ID"
-		self.appMock.inBundleID = "TEST_BUNDLE_ID"
-		self.appMock.inVersion = "TEST_VERSION"
-		self.appMock.inVersionName = "TEST_VERSION_NAME"
+		self.appMock.stubBundleID = "TEST_BUNDLE_ID"
+		self.appMock.stubVersion = "TEST_VERSION"
+		self.appMock.stubVersionName = "TEST_VERSION_NAME"
 	}
 	
 	private func setupDeviceWithBattery() {
@@ -218,13 +218,13 @@ class FeedbackServiceTests: XCTestCase {
 	}
 	
 	private func stubFeedbackOK() {
-		let _ = stub(condition: isPath("/api/feedback")) { _ in
+		_ = stub(condition: isPath("/api/feedback")) { _ in
 			return StubResponse.stubResponse(with: "feedback_ok.json")
 		}
 	}
 	
 	private func stubFeedbackKO() {
-		let _ = stub(condition: isPath("/api/feedback")) { _ in
+		_ = stub(condition: isPath("/api/feedback")) { _ in
 			return StubResponse.stubResponse(with: "ko.json")
 		}
 	}

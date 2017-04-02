@@ -48,7 +48,7 @@ class ConfigPersisterTests: XCTestCase {
 		var dictionary = self.fullData()
 		dictionary.removeValue(forKey: kMinVersionKey)
 
-		self.userDefaultsMock.inDictionary = dictionary
+		self.userDefaultsMock.stubDictionary = dictionary
 
 		let config = self.configPersister.getConfig()
 
@@ -59,7 +59,7 @@ class ConfigPersisterTests: XCTestCase {
 		var dictionary = self.fullData()
 		dictionary.removeValue(forKey: kForceUpdateKey)
 
-		self.userDefaultsMock.inDictionary = dictionary
+		self.userDefaultsMock.stubDictionary = dictionary
 
 		let config = self.configPersister.getConfig()
 
@@ -70,7 +70,7 @@ class ConfigPersisterTests: XCTestCase {
 		var dictionary = self.fullData()
 		dictionary.removeValue(forKey: kLastBuildId)
 
-		self.userDefaultsMock.inDictionary = dictionary
+		self.userDefaultsMock.stubDictionary = dictionary
 
 		let config = self.configPersister.getConfig()
 
@@ -81,7 +81,7 @@ class ConfigPersisterTests: XCTestCase {
 		var dictionary = self.fullData()
 		dictionary.removeValue(forKey: kOtaUpdateKey)
 
-		self.userDefaultsMock.inDictionary = dictionary
+		self.userDefaultsMock.stubDictionary = dictionary
 
 		let config = self.configPersister.getConfig()
 
@@ -92,7 +92,7 @@ class ConfigPersisterTests: XCTestCase {
 		var dictionary = self.fullData()
 		dictionary.removeValue(forKey: kLastBuildVersion)
 
-		self.userDefaultsMock.inDictionary = dictionary
+		self.userDefaultsMock.stubDictionary = dictionary
 
 		let config = self.configPersister.getConfig()
 
@@ -100,7 +100,7 @@ class ConfigPersisterTests: XCTestCase {
 	}
 
 	func test_getConfig_returnsConfig_whenEveryFieldExists() {
-		self.userDefaultsMock.inDictionary = self.fullData()
+		self.userDefaultsMock.stubDictionary = self.fullData()
 
 		let config = self.configPersister.getConfig()
 
@@ -115,7 +115,7 @@ class ConfigPersisterTests: XCTestCase {
 		dictionary.removeValue(forKey: kForceUpdateMessageKey)
 		dictionary.removeValue(forKey: kOtaUpdateMessageKey)
 
-		self.userDefaultsMock.inDictionary = dictionary
+		self.userDefaultsMock.stubDictionary = dictionary
 
 		let config = self.configPersister.getConfig()
 
@@ -138,11 +138,11 @@ class ConfigPersisterTests: XCTestCase {
 
 		self.configPersister.saveConfig(config)
 
-		XCTAssert(self.userDefaultsMock.outSyncedDictionary != nil)
+		XCTAssert(self.userDefaultsMock.spyDictionary != nil)
 
-		if self.userDefaultsMock.outSyncedDictionary != nil {
+		if self.userDefaultsMock.spyDictionary != nil {
 			let fullData = self.fullData()
-			XCTAssert(self.userDefaultsMock.outSyncedDictionary! == fullData)
+			XCTAssert(self.userDefaultsMock.spyDictionary! == fullData)
 		}
 	}
 

@@ -18,7 +18,7 @@ class ConfigService {
 		request.sendAsync { response in
 			if response.success {
 				do {
-					let config = try Config(json: response.body!)
+					let config = try response.body.map(Config.init(json:))
 					completionHandler(response.success, config, nil)
 				} catch {
 					let error = NSError(
@@ -26,11 +26,11 @@ class ConfigService {
 						code: -1,
 						userInfo: [GlobalConfig.AppliveryErrorKey: "Internal applivery error parsing json"])
 
-					LogError(error)
+					logError(error)
 					completionHandler(false, nil, error)
 				}
 			} else {
-				LogError(response.error)
+				logError(response.error)
 				completionHandler(response.success, nil, response.error)
 			}
 		}
