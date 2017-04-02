@@ -6,3 +6,4 @@ disabled_rules: # rule identifiers to exclude from running
   - trailing_whitespace
   - vertical_whitespace
   - function_body_length
+  - force_cast

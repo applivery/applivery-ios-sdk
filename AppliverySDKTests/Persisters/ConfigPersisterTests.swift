@@ -44,9 +44,9 @@ class ConfigPersisterTests: XCTestCase {
 		XCTAssert(config == nil)
 	}
 
-	func test_getConfig_returnsNil_whenOnlyminVersionIsMissed() {
+	func test_getConfig_returnsNil_whenOnlyMinVersionIsMissed() {
 		var dictionary = self.fullData()
-		dictionary.removeValue(forKey: kminVersionKey)
+		dictionary.removeValue(forKey: kMinVersionKey)
 
 		self.userDefaultsMock.stubDictionary = dictionary
 
@@ -168,7 +168,7 @@ class ConfigPersisterTests: XCTestCase {
 
 		let dictionary: [String: Any] =
 		[
-			kminVersionKey: config.minVersion!,
+			kMinVersionKey: config.minVersion!,
 			kForceUpdateKey: config.forceUpdate,
 			kLastBuildId: config.lastBuildId!,
 			kForceUpdateMessageKey: config.forceUpdateMessage ?? "",

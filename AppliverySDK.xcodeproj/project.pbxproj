@@ -40,6 +40,7 @@
 		FA2B9C0D1DC2B3AC009F11C5 /* request_token_ok_no_token.json in Resources */ = {isa = PBXBuildFile; fileRef = FA2B9C0C1DC2B3AC009F11C5 /* request_token_ok_no_token.json */; };
 		FA2C455A1C4D20A300E72847 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA2C455C1C4D20A300E72847 /* Localizable.strings */; };
 		FA2C455E1C4D228A00E72847 /* NSBundle+Applivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C455D1C4D228A00E72847 /* NSBundle+Applivery.swift */; };
+		FA2EAC871E915EFE00CC9BBF /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2EAC861E915EFE00CC9BBF /* UserDefaults.swift */; };
 		FA3211D41C3EA11700668099 /* DownloadDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3211D31C3EA11700668099 /* DownloadDataManager.swift */; };
 		FA3211D61C3EA6D300668099 /* Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3211D51C3EA6D300668099 /* Localize.swift */; };
 		FA3211D81C3EE15E00668099 /* DownloadDataManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3211D71C3EE15E00668099 /* DownloadDataManagerMock.swift */; };
@@ -89,6 +90,8 @@
 		FA952FDE1C83929100C32DD0 /* Storyboard+Applivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA952FDD1C83929100C32DD0 /* Storyboard+Applivery.swift */; };
 		FAA50D4C1C7D21D300CE7B65 /* ResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA50D4B1C7D21D300CE7B65 /* ResponseTests.swift */; };
 		FAA50D4E1C7D232500CE7B65 /* NSError+Applivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA50D4D1C7D232500CE7B65 /* NSError+Applivery.swift */; };
+		FAAA50E81E917CFC0004FBF8 /* ko.json in Resources */ = {isa = PBXBuildFile; fileRef = FA0883DB1DBC3C03008A553A /* ko.json */; };
+		FAAA50E91E91841C0004FBF8 /* EventDetectorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4EBF521C7D009000664C1E /* EventDetectorMock.swift */; };
 		FAAAE1221E8040010065E6AC /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAAE1211E8040010065E6AC /* Palette.swift */; };
 		FAADA5351DBBF25B00300A5E /* FeedbackServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAADA5341DBBF25B00300A5E /* FeedbackServiceTests.swift */; };
 		FAC3947E1C95D9FF00F14778 /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC3947D1C95D9FF00F14778 /* Feedback.swift */; };
@@ -190,6 +193,7 @@
 		FA2B9C0C1DC2B3AC009F11C5 /* request_token_ok_no_token.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = request_token_ok_no_token.json; path = Mocks/JSON/request_token_ok_no_token.json; sourceTree = "<group>"; };
 		FA2C455B1C4D20A300E72847 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FA2C455D1C4D228A00E72847 /* NSBundle+Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSBundle+Applivery.swift"; path = "Applivery/Utils/NSBundle+Applivery.swift"; sourceTree = "<group>"; };
+		FA2EAC861E915EFE00CC9BBF /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserDefaults.swift; path = Fakes/UserDefaults.swift; sourceTree = "<group>"; };
 		FA3211D31C3EA11700668099 /* DownloadDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = DownloadDataManager.swift; path = Applivery/Data/DownloadDataManager.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA3211D51C3EA6D300668099 /* Localize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = Localize.swift; path = Applivery/Utils/Localize.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA3211D71C3EE15E00668099 /* DownloadDataManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadDataManagerMock.swift; path = Mocks/DownloadDataManagerMock.swift; sourceTree = "<group>"; };
@@ -205,7 +209,7 @@
 		FA48CB591CC2D08A007A5293 /* FeedbackInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FeedbackInteractorTests.swift; path = Interactors/FeedbackInteractorTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA48CB5B1CC2D15B007A5293 /* FeedbackServiceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackServiceMock.swift; path = Mocks/FeedbackServiceMock.swift; sourceTree = "<group>"; };
 		FA49AEBA1C4AF95B000D5DFF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Resources/Images.xcassets; sourceTree = "<group>"; };
-		FA4EBF521C7D009000664C1E /* EventDetectorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventDetectorMock.swift; path = Mocks/EventDetectorMock.swift; sourceTree = "<group>"; };
+		FA4EBF521C7D009000664C1E /* EventDetectorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = EventDetectorMock.swift; path = Mocks/EventDetectorMock.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA4F1C5A1C53920300AC3E61 /* UpdateCoordinatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateCoordinatorTests.swift; path = Coordinators/UpdateCoordinatorTests.swift; sourceTree = "<group>"; };
 		FA53DE261BC188E200DF2EB1 /* StartInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = StartInteractor.swift; path = Applivery/Interactors/StartInteractor.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA53DE2C1BC18D4100DF2EB1 /* StartInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = StartInteractorTests.swift; path = Interactors/StartInteractorTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -350,6 +354,7 @@
 			isa = PBXGroup;
 			children = (
 				FA201F7B1E9065C80090128F /* JSON */,
+				FA2EAC851E915EDE00CC9BBF /* Fakes */,
 			);
 			name = Mocks;
 			sourceTree = "<group>";
@@ -403,6 +408,14 @@
 				FA2B9C081DC2AC65009F11C5 /* StubResponseHelper.swift */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		FA2EAC851E915EDE00CC9BBF /* Fakes */ = {
+			isa = PBXGroup;
+			children = (
+				FA2EAC861E915EFE00CC9BBF /* UserDefaults.swift */,
+			);
+			name = Fakes;
 			sourceTree = "<group>";
 		};
 		FA3A693B1BC2F99400179176 /* Data */ = {
@@ -847,6 +860,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FADA301C1E90677500DAC96E /* config_success.json in Resources */,
+				FAAA50E81E917CFC0004FBF8 /* ko.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -895,8 +909,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAAA50E91E91841C0004FBF8 /* EventDetectorMock.swift in Sources */,
 				FA201F791E90625A0090128F /* UserDefaultsMock.swift in Sources */,
 				FA201F771E904F0F0090128F /* AppMock.swift in Sources */,
+				FA2EAC871E915EFE00CC9BBF /* UserDefaults.swift in Sources */,
 				FA201F761E904B110090128F /* StubResponseHelper.swift in Sources */,
 				FA201F781E9051850090128F /* StartInteractorOutputMock.swift in Sources */,
 				FA201F751E9049410090128F /* StartSpecs.swift in Sources */,
