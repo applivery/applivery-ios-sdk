@@ -174,6 +174,7 @@ public class Applivery: NSObject, StartInteractorOutput {
 	
 	```swift
 	Applivery.shared.textLiterals = Palette(
+		appName: "MyApp",
 		otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
 		forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it"
 	)
@@ -182,6 +183,7 @@ public class Applivery: NSObject, StartInteractorOutput {
 	Or even directly change the property
 	
 	```swift
+	Applivery.shared.textLiterals.appName: "MyApp"
 	Applivery.shared.textLiterals.otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?"
 	Applivery.shared.textLiterals.forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it"
 	```

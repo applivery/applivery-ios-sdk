@@ -283,14 +283,16 @@ The SDK has literals by default so, if you only need to change the update messag
 	
 ```swift
 Applivery.shared.textLiterals = Palette(
-	otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
-	forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it"
-)
+		appName: "MyApp",
+		otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
+		forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it"
+	)
 ```
 	
 Or even directly change the property
 	
 ```swift
+Applivery.shared.textLiterals.appName: "MyApp"
 Applivery.shared.textLiterals.otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?"
 Applivery.shared.textLiterals.forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it"
 ```
