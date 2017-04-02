@@ -1,5 +1,17 @@
 # Change Log
 
+## [v2.4](https://github.com/applivery/applivery-ios-sdk/releases/tag/v2.4)
+
+### New
+* Developers can customize the SDK's color palette to fit their app design
+* Developers can customize the SDK's string literals
+* Agnostic design: removed Applivery's fonts & logo
+
+### Improvements
+* Better code documentation
+
+
+
 ---
 
 ## [v2.3](https://github.com/applivery/applivery-ios-sdk/releases/tag/v2.3)
