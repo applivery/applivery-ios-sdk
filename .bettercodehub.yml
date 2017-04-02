@@ -1,0 +1,9 @@
+exclude:
+- /AppliveryBehaviorTests/.*
+- /AppliverySDK/Applivery/Model/Public/TextLiterals.swift
+component_depth: 1
+languages:
+- objectivec
+- ruby
+- script
+- swift
