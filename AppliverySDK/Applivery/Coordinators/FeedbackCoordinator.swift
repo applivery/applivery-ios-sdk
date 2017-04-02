@@ -18,8 +18,13 @@ protocol PFeedbackCoordinator {
 class FeedbackCoordinator: PFeedbackCoordinator {
 
 	fileprivate var feedbackVC: FeedbackVC!
-	fileprivate lazy var app = App()
+	fileprivate var app: AppProtocol
 	fileprivate var isFeedbackPresented = false
+	
+	// MARK - Initializers
+	init(app: AppProtocol = App()) {
+		self.app = app
+	}
 
 
 	func showFeedack() {

@@ -53,7 +53,9 @@ class StartSpecs: QuickSpec {
 						updateInteractor: UpdateInteractor(),
 						app: self.appMock
 					),
-					feedbackCoordinator: FeedbackCoordinator()
+					feedbackCoordinator: FeedbackCoordinator(
+						app: self.appMock
+					)
 				)
 				
 				self.applivery.startInteractor.output = self.applivery
@@ -130,7 +132,6 @@ class StartSpecs: QuickSpec {
 					StubResponse.mockResponse(for: "/api/apps/\(self.appID)", with: "config_success.json")
 					self.applivery.start(apiKey: self.apiKey, appId: self.appID, appStoreRelease: false)
 				}
-				
 				it("stores a new config") {
 					expect(self.userDefaultsMock.spySynchronizeCalled).toEventually(beTrue())
 					expect(self.userDefaultsMock.spyDictionary).toEventually(equal(UserDefaultFakes.jsonConfigSuccess()))
@@ -144,10 +145,9 @@ class StartSpecs: QuickSpec {
 					self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig() // MIN VERSION = 15
 					self.applivery.start(apiKey: self.apiKey, appId: self.appID, appStoreRelease: false)
 				}
-				
 				it("should show force update") {
 					expect(self.appMock.spyPresentModal.called).toEventually(beTrue())
-					expect(self.appMock.spyPresentModal.viewController).toEventually(beAKindOf(UpdateVC.self))
+					expect(self.appMock.spyPresentModal.viewController).toEventually(beAnInstanceOf(UpdateVC.self))
 					expect(self.userDefaultsMock.spySynchronizeCalled).toEventuallyNot(beTrue())
 				}
 			}
@@ -159,7 +159,6 @@ class StartSpecs: QuickSpec {
 					self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig() // LAST VERSION = 50
 					self.applivery.start(apiKey: self.apiKey, appId: self.appID, appStoreRelease: false)
 				}
-				
 				it("should show force update") {
 					expect(self.appMock.spyOtaAlert.called).toEventually(beTrue())
 					expect(self.userDefaultsMock.spySynchronizeCalled).toEventuallyNot(beTrue())
@@ -174,7 +173,6 @@ class StartSpecs: QuickSpec {
 					self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig()
 					self.applivery.start(apiKey: self.apiKey, appId: self.appID, appStoreRelease: false)
 				}
-				
 				it("api shoud have priority") {
 					// SO SHOW OTA ALERT BECAUSE API WINS
 					expect(self.appMock.spyOtaAlert.called).toEventually(beTrue())
@@ -189,7 +187,6 @@ class StartSpecs: QuickSpec {
 					self.userDefaultsMock.stubDictionary = nil
 					self.applivery.start(apiKey: self.apiKey, appId: self.appID, appStoreRelease: false)
 				}
-				
 				it("api shoud have priority") {
 					Thread.sleep(forTimeInterval: 0.1) // Need to wait cause the 3 expects match by default.
 					expect(self.userDefaultsMock.spySynchronizeCalled).toNotEventually(beTrue())
@@ -204,14 +201,12 @@ class StartSpecs: QuickSpec {
 					self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig()
 					self.applivery.start(apiKey: self.apiKey, appId: self.appID, appStoreRelease: true)
 				}
-				
 				it("should do nothing") {
 					Thread.sleep(forTimeInterval: 0.1) // Need to wait cause the 3 expects match by default.
 					expect(self.userDefaultsMock.spySynchronizeCalled).toNotEventually(beTrue())
 					expect(self.appMock.spyOtaAlert.called).toNotEventually(beTrue())
 					expect(self.appMock.spyPresentModal.called).toNotEventually(beTrue())
 				}
-				
 				it("should listen events") {
 					expect(self.eventDetectorMock.spyListenEventCalled).to(beTrue())
 				}
@@ -222,9 +217,27 @@ class StartSpecs: QuickSpec {
 					self.applivery.start(apiKey: self.apiKey, appId: self.appID, appStoreRelease: true)
 					self.applivery.disableFeedback()
 				}
-				
 				it("should not listen events") {
 					expect(self.eventDetectorMock.spyEndListeningCalled).to(beTrue())
+				}
+			}
+			
+			context("when trigger feedback event") {
+				beforeEach {
+					self.applivery.start(apiKey: self.apiKey, appId: self.appID, appStoreRelease: true)
+					self.eventDetectorMock.spyOnDetectionClosure()
+				}
+				it("should show FeedbackVC") {
+					expect(self.appMock.spyPresentModal.called).toEventually(beTrue())
+					expect(self.appMock.spyPresentModal.viewController).toEventually(beAnInstanceOf(FeedbackVC.self))
+				}
+				it("should show FeedbackVC only once") {
+					let firstVC = self.appMock.spyPresentModal.viewController
+					expect(self.appMock.spyPresentModal.called).to(beTrue())
+					expect(self.appMock.spyPresentModal.viewController).to(beAnInstanceOf(FeedbackVC.self))
+					
+					self.eventDetectorMock.spyOnDetectionClosure()
+					expect(self.appMock.spyPresentModal.viewController).to(be(firstVC))
 				}
 			}
 		}
