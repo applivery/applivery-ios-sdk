@@ -33,9 +33,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FA68D8FB1BC040B100589DE4"
-               BuildableName = "AppliveryTests.xctest"
-               BlueprintName = "AppliveryTests"
+               BlueprintIdentifier = "FA5EA64A1E6CCB6600590120"
+               BuildableName = "AppliveryBehaviorTests.xctest"
+               BlueprintName = "AppliveryBehaviorTests"
                ReferencedContainer = "container:AppliverySDK.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -43,9 +43,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FA5EA64A1E6CCB6600590120"
-               BuildableName = "AppliveryBehaviorTests.xctest"
-               BlueprintName = "AppliveryBehaviorTests"
+               BlueprintIdentifier = "FA68D8FB1BC040B100589DE4"
+               BuildableName = "AppliveryTests.xctest"
+               BlueprintName = "AppliveryTests"
                ReferencedContainer = "container:AppliverySDK.xcodeproj">
             </BuildableReference>
          </TestableReference>

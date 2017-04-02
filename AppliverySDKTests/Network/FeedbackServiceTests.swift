@@ -191,9 +191,9 @@ class FeedbackServiceTests: XCTestCase {
 	
 	private func setupConfigAndApp() {
 		self.configMock.appId = "TEST_ID"
-		self.appMock.inBundleID = "TEST_BUNDLE_ID"
-		self.appMock.inVersion = "TEST_VERSION"
-		self.appMock.inVersionName = "TEST_VERSION_NAME"
+		self.appMock.stubBundleID = "TEST_BUNDLE_ID"
+		self.appMock.stubVersion = "TEST_VERSION"
+		self.appMock.stubVersionName = "TEST_VERSION_NAME"
 	}
 	
 	private func setupDeviceWithBattery() {

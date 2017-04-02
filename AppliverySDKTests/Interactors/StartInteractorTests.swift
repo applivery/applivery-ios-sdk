@@ -33,6 +33,8 @@ class StartInteractorTests: XCTestCase {
 			eventDetector: self.eventDetectorMock
 		)
 		self.startInteractor.output = self.startInteractorOutputMock
+		self.globalConfigMock.apiKey = "APIKEY TEST"
+		self.globalConfigMock.appId = "APPID TEST"
     }
 
     override func tearDown() {
@@ -55,8 +57,8 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == false)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == false)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -67,8 +69,8 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == false)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == false)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -79,8 +81,8 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == false)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == false)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -91,8 +93,8 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == false)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == false)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -103,8 +105,8 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == false)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == false)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -115,8 +117,8 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == false)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == false)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -127,8 +129,8 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == false)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == false)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -140,8 +142,8 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == false)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == false)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -153,8 +155,8 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == false)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == false)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -166,8 +168,8 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == false)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == false)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -179,22 +181,22 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == false)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == false)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
 	func test_UpdatedConfigFails_NoCurrentConfig_result_NoForceUpdate() {
 		let appVersion = "1.2.1.5"
-		self.configDataManagerMock.inVersion = appVersion
+		self.configDataManagerMock.stubVersion = appVersion
 		self.configDataManagerMock.inCurrentConfig = nil
 		self.configDataManagerMock.inUpdateConfigResponse = .error
 
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == false)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == false)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -208,8 +210,8 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == true)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == false)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -220,8 +222,8 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == true)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == false)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -232,8 +234,8 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == true)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == false)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -245,8 +247,8 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == true)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == false)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -258,8 +260,8 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == true)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == false)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -273,8 +275,8 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == false)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == false)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -285,8 +287,8 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == false)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == false)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -297,8 +299,8 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == false)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == false)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -310,8 +312,8 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == false)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == false)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -323,8 +325,8 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == false)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == false)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -336,8 +338,8 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == false)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == false)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -349,8 +351,8 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == false)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == false)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -362,8 +364,8 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == false)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == false)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -375,8 +377,8 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == false)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == false)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -388,8 +390,8 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == false)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == false)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -402,8 +404,8 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == false)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == true)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == true)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -415,8 +417,8 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == false)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == true)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == true)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -428,8 +430,8 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == true)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == false)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == true)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == true)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -445,8 +447,8 @@ class StartInteractorTests: XCTestCase {
 		self.startInteractor.start()
 
 		XCTAssert(self.configDataManagerMock.outUpdateConfigCalled == false)
-		XCTAssert(self.startInteractorOutputMock.outForceUpdateCalled == false)
-		XCTAssert(self.startInteractorOutputMock.outOtaUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyForceUpdateCalled == false)
+		XCTAssert(self.startInteractorOutputMock.spyOtaUpdateCalled == false)
 		XCTAssert(self.eventDetectorMock.outListenEventCalled == true)
 	}
 
@@ -456,7 +458,7 @@ class StartInteractorTests: XCTestCase {
 
 		self.eventDetectorMock.outOnDetectionClosure()
 
-		XCTAssert(self.startInteractorOutputMock.outFeedbackEventCalled == true)
+		XCTAssert(self.startInteractorOutputMock.spyFeedbackEventCalled == true)
 	}
 
 
@@ -513,7 +515,7 @@ class StartInteractorTests: XCTestCase {
 	}
 
 	func currentConfigShouldForceUpdate(_ appVersion: String) {
-		self.configDataManagerMock.inVersion = appVersion
+		self.configDataManagerMock.stubVersion = appVersion
 		self.configDataManagerMock.inCurrentConfig!.minVersion = "2.0"
 		self.configDataManagerMock.inCurrentConfig!.forceUpdate = true
 		self.configDataManagerMock.inCurrentConfig!.otaUpdate = true
@@ -521,7 +523,7 @@ class StartInteractorTests: XCTestCase {
 	}
 
 	func currentConfigNoForceUpdate(_ appVersion: String) {
-		self.configDataManagerMock.inVersion = appVersion
+		self.configDataManagerMock.stubVersion = appVersion
 		self.configDataManagerMock.inCurrentConfig!.minVersion = "2.0"
 		self.configDataManagerMock.inCurrentConfig!.forceUpdate = false
 		self.configDataManagerMock.inCurrentConfig!.otaUpdate = false
@@ -529,7 +531,7 @@ class StartInteractorTests: XCTestCase {
 	}
 
 	func currentConfigNoShouldUpdate(_ appVersion: String) {
-		self.configDataManagerMock.inVersion = appVersion
+		self.configDataManagerMock.stubVersion = appVersion
 		self.configDataManagerMock.inCurrentConfig!.minVersion = "1.0"
 		self.configDataManagerMock.inCurrentConfig!.forceUpdate = true
 		self.configDataManagerMock.inCurrentConfig!.otaUpdate = false
@@ -537,7 +539,7 @@ class StartInteractorTests: XCTestCase {
 	}
 
 	func currentConfigForceUpdate(_ appVersion: String) {
-		self.configDataManagerMock.inVersion = appVersion
+		self.configDataManagerMock.stubVersion = appVersion
 		self.configDataManagerMock.inCurrentConfig!.minVersion = "2.0"
 		self.configDataManagerMock.inCurrentConfig!.forceUpdate = true
 		self.configDataManagerMock.inCurrentConfig!.otaUpdate = true
@@ -575,7 +577,7 @@ class StartInteractorTests: XCTestCase {
 	}
 
 	func currentConfigNoOtaUpdate(_ appVersion: String) {
-		self.configDataManagerMock.inVersion = appVersion
+		self.configDataManagerMock.stubVersion = appVersion
 		self.configDataManagerMock.inCurrentConfig!.minVersion = "2.0"
 		self.configDataManagerMock.inCurrentConfig!.forceUpdate = false
 		self.configDataManagerMock.inCurrentConfig!.otaUpdate = false
@@ -583,7 +585,7 @@ class StartInteractorTests: XCTestCase {
 	}
 
 	func currentConfigOtaNoShouldUpdate(_ appVersion: String) {
-		self.configDataManagerMock.inVersion = appVersion
+		self.configDataManagerMock.stubVersion = appVersion
 		self.configDataManagerMock.inCurrentConfig!.minVersion = "2.0"
 		self.configDataManagerMock.inCurrentConfig!.forceUpdate = false
 		self.configDataManagerMock.inCurrentConfig!.otaUpdate = true
@@ -591,7 +593,7 @@ class StartInteractorTests: XCTestCase {
 	}
 
 	func currentConfigOtaUpdate(_ appVersion: String) {
-		self.configDataManagerMock.inVersion = appVersion
+		self.configDataManagerMock.stubVersion = appVersion
 		self.configDataManagerMock.inCurrentConfig!.minVersion = "1.0"
 		self.configDataManagerMock.inCurrentConfig!.forceUpdate = false
 		self.configDataManagerMock.inCurrentConfig!.otaUpdate = true

@@ -198,7 +198,7 @@ public class Applivery: NSObject, StartInteractorOutput {
 	}
 	
 	// MARK: - Private properties
-	private let startInteractor: StartInteractor
+	internal let startInteractor: StartInteractor
 	private let globalConfig: GlobalConfig
 	private let updateCoordinator: PUpdateCoordinator
 	private let feedbackCoordinator: PFeedbackCoordinator
@@ -285,4 +285,7 @@ public class Applivery: NSObject, StartInteractorOutput {
 		self.feedbackCoordinator.showFeedack()
 	}
 	
+	internal func credentialError(message: String) {
+		logWarn(message)
+	}
 }

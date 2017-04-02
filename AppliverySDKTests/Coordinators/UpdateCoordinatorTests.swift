@@ -45,9 +45,9 @@ class UpdateCoordinatorTests: XCTestCase {
 
 		self.updateCoordinator.otaUpdate()
 
-		XCTAssert(self.appMock.outOtaAlert.called == true)
-		XCTAssert(self.appMock.outOtaAlert.message == "UPDATE MESSAGE")
-		XCTAssert(self.appMock.outWaitForReadyCalled == true)
+		XCTAssert(self.appMock.spyOtaAlert.called == true)
+		XCTAssert(self.appMock.spyOtaAlert.message == "UPDATE MESSAGE")
+		XCTAssert(self.appMock.spyWaitForReadyCalled == true)
 	}
 
 	func test_otaUpdate_showLoading_andDownloadBuild_whenUserTapsDownload() {
@@ -55,22 +55,22 @@ class UpdateCoordinatorTests: XCTestCase {
 
 		downloadClosure()
 
-		XCTAssert(self.appMock.outShowLoadingCalled == true)
+		XCTAssert(self.appMock.spyShowLoadingCalled == true)
 		XCTAssert(self.updateInteractorMock.outDownloadLastBuildCalled == true)
 	}
 
 	func test_otaUpdate_hideLoading_whenDownloadDidEnd() {
 		self.updateCoordinator.downloadDidEnd()
 
-		XCTAssert(self.appMock.outHideLoadingCalled == true)
+		XCTAssert(self.appMock.spyHideLoadingCalled == true)
 	}
 
 	func test_otaUpdate_hideLoading_andShowAlertError_whenDownloadDidFail() {
 		self.updateCoordinator.downloadDidFail("TEST MESSAGE")
 
-		XCTAssert(self.appMock.outHideLoadingCalled == true)
-		XCTAssert(self.appMock.outAlertError.called == true)
-		XCTAssert(self.appMock.outAlertError.message == "TEST MESSAGE")
+		XCTAssert(self.appMock.spyHideLoadingCalled == true)
+		XCTAssert(self.appMock.spyAlertError.called == true)
+		XCTAssert(self.appMock.spyAlertError.message == "TEST MESSAGE")
 	}
 
 	func test_otaUpdate_showLoading_andDownloadBuild_whenUserTapsRetry() {
@@ -78,7 +78,7 @@ class UpdateCoordinatorTests: XCTestCase {
 
 		retryClosure()
 
-		XCTAssert(self.appMock.outShowLoadingCalled == true)
+		XCTAssert(self.appMock.spyShowLoadingCalled == true)
 		XCTAssert(self.updateInteractorMock.outDownloadLastBuildCalled == true)
 	}
 
@@ -89,13 +89,13 @@ class UpdateCoordinatorTests: XCTestCase {
 		self.updateInteractorMock.inOtaUpdateMessage = "UPDATE MESSAGE"
 		self.updateCoordinator.otaUpdate()
 
-		return self.appMock.outDownloadClosure!
+		return self.appMock.spyDownloadClosure!
 	}
 
 	func otaRetryClosure() -> (() -> Void) {
 		self.updateCoordinator.downloadDidFail("")
 
-		return self.appMock.outRetryClosure!
+		return self.appMock.spyRetryClosure!
 	}
 
 }

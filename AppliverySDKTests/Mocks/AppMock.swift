@@ -13,33 +13,33 @@ import UIKit
 class AppMock: AppProtocol {
 
 	// Inputs
-	var inBundleID: String!
-	var inVersion: String!
-	var inVersionName: String!
-	var inOpenUrlResult = false
+	var stubBundleID: String!
+	var stubVersion: String!
+	var stubVersionName: String!
+	var stubOpenUrlResult = false
 
 	// Outputs
-	var outOpenUrl = (called: false, url: "")
-	var outOtaAlert = (called: false, message: "")
-	var outAlertError = (called: false, message: "")
-	var outWaitForReadyCalled = false
-	var outPresentModal: (called: Bool, viewController: UIViewController?) = (false, nil)
-	var outDownloadClosure: (() -> Void)?
-	var outRetryClosure: (() -> Void)?
-	var outShowLoadingCalled = false
-	var outHideLoadingCalled = false
+	var spyOpenUrl = (called: false, url: "")
+	var spyOtaAlert = (called: false, message: "")
+	var spyAlertError = (called: false, message: "")
+	var spyWaitForReadyCalled = false
+	var spyPresentModal: (called: Bool, viewController: UIViewController?) = (false, nil)
+	var spyDownloadClosure: (() -> Void)?
+	var spyRetryClosure: (() -> Void)?
+	var spyShowLoadingCalled = false
+	var spyHideLoadingCalled = false
 
 
 	func bundleId() -> String {
-		return self.inBundleID
+		return self.stubBundleID
 	}
 
 	func getVersion() -> String {
-		return self.inVersion
+		return self.stubVersion
 	}
 	
 	func getVersionName() -> String {
-		return self.inVersionName
+		return self.stubVersionName
 	}
 
 	func getLanguage() -> String {
@@ -48,34 +48,34 @@ class AppMock: AppProtocol {
 	}
 
 	func openUrl(_ url: String) -> Bool {
-		self.outOpenUrl = (true, url)
-		return self.inOpenUrlResult
+		self.spyOpenUrl = (true, url)
+		return self.stubOpenUrlResult
 	}
 
 	func showLoading() {
-		self.outShowLoadingCalled = true
+		self.spyShowLoadingCalled = true
 	}
 
 	func hideLoading() {
-		self.outHideLoadingCalled = true
+		self.spyHideLoadingCalled = true
 	}
 
 	func showOtaAlert(_ message: String, downloadHandler: @escaping () -> Void) {
-		self.outOtaAlert = (true, message)
-		self.outDownloadClosure = downloadHandler
+		self.spyOtaAlert = (true, message)
+		self.spyDownloadClosure = downloadHandler
 	}
 
 	func showErrorAlert(_ message: String, retryHandler: @escaping () -> Void) {
-		self.outAlertError = (true, message)
-		self.outRetryClosure = retryHandler
+		self.spyAlertError = (true, message)
+		self.spyRetryClosure = retryHandler
 	}
 
 	func waitForReadyThen(_ onReady: @escaping () -> Void) {
-		self.outWaitForReadyCalled = true
+		self.spyWaitForReadyCalled = true
 		onReady()
 	}
 
-	func presentModal(_ viewController: UIViewController) {
-		self.outPresentModal = (true, viewController)
+	func presentModal(_ viewController: UIViewController, animated: Bool) {
+		self.spyPresentModal = (true, viewController)
 	}
 }

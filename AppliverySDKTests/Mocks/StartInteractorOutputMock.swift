@@ -12,20 +12,24 @@ import Foundation
 class StartInteractorOutputMock: StartInteractorOutput {
 
 	// OUTPUTS
-	var outForceUpdateCalled = false
-	var outOtaUpdateCalled = false
-	var outFeedbackEventCalled = false
-
+	var spyForceUpdateCalled = false
+	var spyOtaUpdateCalled = false
+	var spyFeedbackEventCalled = false
+	var spyCredentialError: (called: Bool, message: String?) = (false, nil)
 
 	func forceUpdate() {
-		self.outForceUpdateCalled = true
+		self.spyForceUpdateCalled = true
 	}
 
 	func otaUpdate() {
-		self.outOtaUpdateCalled = true
+		self.spyOtaUpdateCalled = true
 	}
 
 	func feedbackEvent() {
-		self.outFeedbackEventCalled = true
+		self.spyFeedbackEventCalled = true
+	}
+	
+	func credentialError(message: String) {
+		self.spyCredentialError = (true, message)
 	}
 }

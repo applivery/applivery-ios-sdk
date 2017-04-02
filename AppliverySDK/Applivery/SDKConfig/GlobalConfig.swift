@@ -10,7 +10,7 @@ import Foundation
 
 class GlobalConfig {
 
-	static let shared = GlobalConfig()
+	static var shared = GlobalConfig()
 
 	// MARK: Global Constants
 	static let Host = Environments.host() ?? "https://dashboard.applivery.com"

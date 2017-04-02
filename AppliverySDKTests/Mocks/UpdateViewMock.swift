@@ -14,7 +14,7 @@ class UpdateViewMock: UpdateView {
 
 	// OUTPUTS
 	var outShowUpdateMessage = (called: false, message: "")
-	var outShowLoadingCalled = false
+	var spyShowLoadingCalled = false
 	var outStopLoadingCalled = false
 	var outShowErrorMessage = (called: false, message: "")
 
@@ -24,7 +24,7 @@ class UpdateViewMock: UpdateView {
 	}
 
 	func showLoading() {
-		self.outShowLoadingCalled = true
+		self.spyShowLoadingCalled = true
 	}
 
 	func stopLoading() {

@@ -115,7 +115,7 @@ class FeedbackPresenterTests: XCTestCase {
 
 		// ASSERT
 		XCTAssert(self.feedbackViewMock.outNeedMessageCalled == false)
-		XCTAssert(self.feedbackViewMock.outShowLoadingCalled == true)
+		XCTAssert(self.feedbackViewMock.spyShowLoadingCalled == true)
 		XCTAssert(self.feedbackViewMock.outStopLoadingCalled == true)
 		XCTAssert(self.feedbackCoordinatorMock.outCloseFeedbackCalled == true)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.called == true)
@@ -136,7 +136,7 @@ class FeedbackPresenterTests: XCTestCase {
 
 		// ASSERT
 		XCTAssert(self.feedbackViewMock.outNeedMessageCalled == false)
-		XCTAssert(self.feedbackViewMock.outShowLoadingCalled == true)
+		XCTAssert(self.feedbackViewMock.spyShowLoadingCalled == true)
 		XCTAssert(self.feedbackViewMock.outStopLoadingCalled == false)
 		XCTAssert(self.feedbackCoordinatorMock.outCloseFeedbackCalled == false)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.called == true)
@@ -160,7 +160,7 @@ class FeedbackPresenterTests: XCTestCase {
 
 		// ASSERT
 		XCTAssert(self.feedbackViewMock.outNeedMessageCalled == false)
-		XCTAssert(self.feedbackViewMock.outShowLoadingCalled == true)
+		XCTAssert(self.feedbackViewMock.spyShowLoadingCalled == true)
 		XCTAssert(self.feedbackViewMock.outStopLoadingCalled == true)
 		XCTAssert(self.feedbackCoordinatorMock.outCloseFeedbackCalled == true)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.called == true)
@@ -183,7 +183,7 @@ class FeedbackPresenterTests: XCTestCase {
 
 		// ASSERT
 		XCTAssert(self.feedbackViewMock.outNeedMessageCalled == false)
-		XCTAssert(self.feedbackViewMock.outShowLoadingCalled == true)
+		XCTAssert(self.feedbackViewMock.spyShowLoadingCalled == true)
 		XCTAssert(self.feedbackViewMock.outStopLoadingCalled == true)
 		XCTAssert(self.feedbackCoordinatorMock.outCloseFeedbackCalled == true)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.called == true)
@@ -212,7 +212,7 @@ class FeedbackPresenterTests: XCTestCase {
 
 		// ASSERT
 		XCTAssert(self.feedbackViewMock.outNeedMessageCalled == false)
-		XCTAssert(self.feedbackViewMock.outShowLoadingCalled == true)
+		XCTAssert(self.feedbackViewMock.spyShowLoadingCalled == true)
 		XCTAssert(self.feedbackViewMock.outStopLoadingCalled == true)
 		XCTAssert(self.feedbackCoordinatorMock.outCloseFeedbackCalled == true)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.called == true)
@@ -238,7 +238,7 @@ class FeedbackPresenterTests: XCTestCase {
 
 		// ASSERT
 		XCTAssert(self.feedbackViewMock.outNeedMessageCalled == false)
-		XCTAssert(self.feedbackViewMock.outShowLoadingCalled == true)
+		XCTAssert(self.feedbackViewMock.spyShowLoadingCalled == true)
 		XCTAssert(self.feedbackViewMock.outStopLoadingCalled == true)
 		XCTAssert(self.feedbackCoordinatorMock.outCloseFeedbackCalled == true)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.called == true)

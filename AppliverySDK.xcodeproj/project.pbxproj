@@ -20,6 +20,11 @@
 		FA1569BB1DBD52CF00C651D4 /* DeviceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1569BA1DBD52CF00C651D4 /* DeviceMock.swift */; };
 		FA19E48B1C822CA900DC31E8 /* Environments.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA19E48A1C822CA900DC31E8 /* Environments.swift */; };
 		FA1EE2E61BEAADC800B6EE11 /* JsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1EE2E51BEAADC800B6EE11 /* JsonTests.swift */; };
+		FA201F751E9049410090128F /* StartSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA201F741E9049410090128F /* StartSpecs.swift */; };
+		FA201F761E904B110090128F /* StubResponseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2B9C081DC2AC65009F11C5 /* StubResponseHelper.swift */; };
+		FA201F771E904F0F0090128F /* AppMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A69411BC2FC6F00179176 /* AppMock.swift */; };
+		FA201F781E9051850090128F /* StartInteractorOutputMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA53DE361BC1950300DF2EB1 /* StartInteractorOutputMock.swift */; };
+		FA201F791E90625A0090128F /* UserDefaultsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA232D2E1C753A5F0097AE79 /* UserDefaultsMock.swift */; };
 		FA2257E31C8B56E2000B0333 /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2257E21C8B56E2000B0333 /* Screenshot.swift */; };
 		FA232D2D1C75388A0097AE79 /* ConfigPersisterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA232D2C1C75388A0097AE79 /* ConfigPersisterTests.swift */; };
 		FA232D2F1C753A5F0097AE79 /* UserDefaultsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA232D2E1C753A5F0097AE79 /* UserDefaultsMock.swift */; };
@@ -59,7 +64,6 @@
 		FA53DE351BC193EA00DF2EB1 /* ConfigDataManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA53DE341BC193EA00DF2EB1 /* ConfigDataManagerMock.swift */; };
 		FA53DE371BC1950300DF2EB1 /* StartInteractorOutputMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA53DE361BC1950300DF2EB1 /* StartInteractorOutputMock.swift */; };
 		FA53DE3C1BC1B38900DF2EB1 /* StartInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA53DE3B1BC1B38900DF2EB1 /* StartInteractorMock.swift */; };
-		FA5EA64E1E6CCB6600590120 /* AppliveryBehaviorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5EA64D1E6CCB6600590120 /* AppliveryBehaviorTests.swift */; };
 		FA5EA6501E6CCB6600590120 /* Applivery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA68D8F21BC040B000589DE4 /* Applivery.framework */; };
 		FA5EA6561E6CCBC800590120 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5EA63F1E6CB61500590120 /* Nimble.framework */; };
 		FA5EA6571E6CCBCB00590120 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5EA6401E6CB61500590120 /* Quick.framework */; };
@@ -95,6 +99,7 @@
 		FAD2A15D1C010EA6001967FD /* UpdateCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2A15C1C010EA6001967FD /* UpdateCoordinatorMock.swift */; };
 		FAD2A1651C011E2B001967FD /* UpdateInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2A1641C011E2B001967FD /* UpdateInteractor.swift */; };
 		FAD911001BCEE58B00D56617 /* Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD910FF1BCEE58B00D56617 /* Json.swift */; };
+		FADA301C1E90677500DAC96E /* config_success.json in Resources */ = {isa = PBXBuildFile; fileRef = FADA301B1E90677500DAC96E /* config_success.json */; };
 		FADD391D1E8321E700D861B7 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADD391C1E8321E700D861B7 /* Colors.swift */; };
 		FAEC86661C83824D00A43298 /* FeedbackCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEC86651C83824D00A43298 /* FeedbackCoordinator.swift */; };
 		FAED0E781CC97C99000FD5EB /* FeedbackPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED0E771CC97C99000FD5EB /* FeedbackPresenterTests.swift */; };
@@ -168,9 +173,11 @@
 		FA1569BA1DBD52CF00C651D4 /* DeviceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceMock.swift; path = Mocks/DeviceMock.swift; sourceTree = "<group>"; };
 		FA19E48A1C822CA900DC31E8 /* Environments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Environments.swift; path = Applivery/Utils/Environments.swift; sourceTree = "<group>"; };
 		FA1EE2E51BEAADC800B6EE11 /* JsonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonTests.swift; sourceTree = "<group>"; };
+		FA201F731E9049410090128F /* AppliveryBehaviorTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppliveryBehaviorTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		FA201F741E9049410090128F /* StartSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartSpecs.swift; path = Specs/StartSpecs.swift; sourceTree = "<group>"; };
 		FA2257E21C8B56E2000B0333 /* Screenshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Screenshot.swift; path = Applivery/Wrappers/Screenshot.swift; sourceTree = "<group>"; };
-		FA232D2C1C75388A0097AE79 /* ConfigPersisterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigPersisterTests.swift; path = Persisters/ConfigPersisterTests.swift; sourceTree = "<group>"; };
-		FA232D2E1C753A5F0097AE79 /* UserDefaultsMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserDefaultsMock.swift; path = Mocks/UserDefaultsMock.swift; sourceTree = "<group>"; };
+		FA232D2C1C75388A0097AE79 /* ConfigPersisterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = ConfigPersisterTests.swift; path = Persisters/ConfigPersisterTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FA232D2E1C753A5F0097AE79 /* UserDefaultsMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = UserDefaultsMock.swift; path = Mocks/UserDefaultsMock.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA2900E31C064DAD00778A4C /* Applivery.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Applivery.storyboard; path = Applivery/Views/Applivery.storyboard; sourceTree = "<group>"; };
 		FA2A61CA1C8CE59800DC21FD /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Keyboard.swift; path = Applivery/Wrappers/Keyboard.swift; sourceTree = "<group>"; };
 		FA2B3DC91C178705002DC5C9 /* UpdatePresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdatePresenterTests.swift; path = Presenters/UpdatePresenterTests.swift; sourceTree = "<group>"; };
@@ -201,23 +208,22 @@
 		FA4EBF521C7D009000664C1E /* EventDetectorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventDetectorMock.swift; path = Mocks/EventDetectorMock.swift; sourceTree = "<group>"; };
 		FA4F1C5A1C53920300AC3E61 /* UpdateCoordinatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateCoordinatorTests.swift; path = Coordinators/UpdateCoordinatorTests.swift; sourceTree = "<group>"; };
 		FA53DE261BC188E200DF2EB1 /* StartInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = StartInteractor.swift; path = Applivery/Interactors/StartInteractor.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		FA53DE2C1BC18D4100DF2EB1 /* StartInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartInteractorTests.swift; path = Interactors/StartInteractorTests.swift; sourceTree = "<group>"; };
+		FA53DE2C1BC18D4100DF2EB1 /* StartInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = StartInteractorTests.swift; path = Interactors/StartInteractorTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA53DE2F1BC18ECB00DF2EB1 /* ConfigDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = ConfigDataManager.swift; path = Applivery/Data/ConfigDataManager.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA53DE321BC18F6D00DF2EB1 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Config.swift; path = Applivery/Model/Config.swift; sourceTree = "<group>"; };
 		FA53DE341BC193EA00DF2EB1 /* ConfigDataManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigDataManagerMock.swift; path = Mocks/ConfigDataManagerMock.swift; sourceTree = "<group>"; };
-		FA53DE361BC1950300DF2EB1 /* StartInteractorOutputMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartInteractorOutputMock.swift; path = Mocks/StartInteractorOutputMock.swift; sourceTree = "<group>"; };
+		FA53DE361BC1950300DF2EB1 /* StartInteractorOutputMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = StartInteractorOutputMock.swift; path = Mocks/StartInteractorOutputMock.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA53DE3B1BC1B38900DF2EB1 /* StartInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartInteractorMock.swift; path = Mocks/StartInteractorMock.swift; sourceTree = "<group>"; };
 		FA5EA63F1E6CB61500590120 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		FA5EA6401E6CB61500590120 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		FA5EA6451E6CB70C00590120 /* Cartfile.private */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile.private; sourceTree = "<group>"; };
 		FA5EA64B1E6CCB6600590120 /* AppliveryBehaviorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppliveryBehaviorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FA5EA64D1E6CCB6600590120 /* AppliveryBehaviorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppliveryBehaviorTests.swift; sourceTree = "<group>"; };
 		FA5EA64F1E6CCB6600590120 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA68D8F21BC040B000589DE4 /* Applivery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Applivery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA68D8F51BC040B100589DE4 /* Applivery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Applivery.h; sourceTree = "<group>"; };
 		FA68D8F71BC040B100589DE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA68D8FC1BC040B100589DE4 /* AppliveryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppliveryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FA68D9011BC040B100589DE4 /* AppliveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppliveryTests.swift; sourceTree = "<group>"; };
+		FA68D9011BC040B100589DE4 /* AppliveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AppliveryTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA68D9031BC040B100589DE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA68D90E1BC046E300589DE4 /* Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = Applivery.swift; path = Applivery/Applivery.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA73BF7C1C8B02E800619258 /* ScreenshotInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScreenshotInteractor.swift; path = Applivery/Interactors/ScreenshotInteractor.swift; sourceTree = "<group>"; };
@@ -245,6 +251,7 @@
 		FAD2A15C1C010EA6001967FD /* UpdateCoordinatorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateCoordinatorMock.swift; path = Mocks/UpdateCoordinatorMock.swift; sourceTree = "<group>"; };
 		FAD2A1641C011E2B001967FD /* UpdateInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = UpdateInteractor.swift; path = Applivery/Interactors/UpdateInteractor.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAD910FF1BCEE58B00D56617 /* Json.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Json.swift; path = Applivery/Utils/Json.swift; sourceTree = "<group>"; };
+		FADA301B1E90677500DAC96E /* config_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = config_success.json; path = Mocks/JSON/config_success.json; sourceTree = "<group>"; };
 		FADD391C1E8321E700D861B7 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Colors.swift; path = Applivery/SDKConfig/Colors.swift; sourceTree = "<group>"; };
 		FAEC86651C83824D00A43298 /* FeedbackCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackCoordinator.swift; path = Applivery/Coordinators/FeedbackCoordinator.swift; sourceTree = "<group>"; };
 		FAED0E771CC97C99000FD5EB /* FeedbackPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FeedbackPresenterTests.swift; path = Presenters/FeedbackPresenterTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -320,6 +327,39 @@
 				FA68D8F71BC040B100589DE4 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FA201F711E90489A0090128F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FA201F731E9049410090128F /* AppliveryBehaviorTests-Bridging-Header.h */,
+				FA5EA64F1E6CCB6600590120 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FA201F721E9048A60090128F /* Specs */ = {
+			isa = PBXGroup;
+			children = (
+				FA201F741E9049410090128F /* StartSpecs.swift */,
+			);
+			name = Specs;
+			sourceTree = "<group>";
+		};
+		FA201F7A1E9065BF0090128F /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				FA201F7B1E9065C80090128F /* JSON */,
+			);
+			name = Mocks;
+			sourceTree = "<group>";
+		};
+		FA201F7B1E9065C80090128F /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				FADA301B1E90677500DAC96E /* config_success.json */,
+			);
+			name = JSON;
 			sourceTree = "<group>";
 		};
 		FA232D2B1C7538540097AE79 /* Persisters */ = {
@@ -484,8 +524,9 @@
 		FA5EA64C1E6CCB6600590120 /* AppliveryBehaviorTests */ = {
 			isa = PBXGroup;
 			children = (
-				FA5EA64D1E6CCB6600590120 /* AppliveryBehaviorTests.swift */,
-				FA5EA64F1E6CCB6600590120 /* Info.plist */,
+				FA201F721E9048A60090128F /* Specs */,
+				FA201F7A1E9065BF0090128F /* Mocks */,
+				FA201F711E90489A0090128F /* Supporting Files */,
 			);
 			path = AppliveryBehaviorTests;
 			sourceTree = "<group>";
@@ -766,6 +807,7 @@
 				TargetAttributes = {
 					FA5EA64A1E6CCB6600590120 = {
 						CreatedOnToolsVersion = 8.2.1;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 					FA68D8F11BC040B000589DE4 = {
@@ -804,6 +846,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FADA301C1E90677500DAC96E /* config_success.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -852,7 +895,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA5EA64E1E6CCB6600590120 /* AppliveryBehaviorTests.swift in Sources */,
+				FA201F791E90625A0090128F /* UserDefaultsMock.swift in Sources */,
+				FA201F771E904F0F0090128F /* AppMock.swift in Sources */,
+				FA201F761E904B110090128F /* StubResponseHelper.swift in Sources */,
+				FA201F781E9051850090128F /* StartInteractorOutputMock.swift in Sources */,
+				FA201F751E9049410090128F /* StartSpecs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -986,6 +1033,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -997,6 +1045,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.applivery.AppliveryBehaviorTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "AppliveryBehaviorTests/AppliveryBehaviorTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -1005,6 +1055,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1015,6 +1066,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.applivery.AppliveryBehaviorTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "AppliveryBehaviorTests/AppliveryBehaviorTests-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

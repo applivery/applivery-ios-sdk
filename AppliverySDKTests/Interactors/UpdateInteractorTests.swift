@@ -156,14 +156,14 @@ class UpdateInteractorTests: XCTestCase {
 		self.configDataManagerMock.inCurrentConfig = Config()
 		self.configDataManagerMock.inCurrentConfig?.lastBuildId = "123456"
 		self.downloadDataManagerMock.inDownloadResponse = DownloadUrlResponse.success(url: "url_test")
-		self.appMock.inOpenUrlResult = true
+		self.appMock.stubOpenUrlResult = true
 
 		self.updateInteractor.downloadLastBuild()
 
 		XCTAssert(self.downloadDataManagerMock.outDownloadUrl.called == true)
 		XCTAssert(self.downloadDataManagerMock.outDownloadUrl.lastBuildId == "123456")
-		XCTAssert(self.appMock.outOpenUrl.called == true)
-		XCTAssert(self.appMock.outOpenUrl.url == "url_test")
+		XCTAssert(self.appMock.spyOpenUrl.called == true)
+		XCTAssert(self.appMock.spyOpenUrl.url == "url_test")
 		XCTAssert(self.updateInteractorOutputMock.outDownloadDidEndCalled == true)
 		XCTAssert(self.updateInteractorOutputMock.outDownloadDidFail.called == false)
 	}
@@ -172,14 +172,14 @@ class UpdateInteractorTests: XCTestCase {
 		self.configDataManagerMock.inCurrentConfig = Config()
 		self.configDataManagerMock.inCurrentConfig?.lastBuildId = "123456"
 		self.downloadDataManagerMock.inDownloadResponse = DownloadUrlResponse.success(url: "url_test")
-		self.appMock.inOpenUrlResult = false
+		self.appMock.stubOpenUrlResult = false
 
 		self.updateInteractor.downloadLastBuild()
 
 		XCTAssert(self.downloadDataManagerMock.outDownloadUrl.called == true)
 		XCTAssert(self.downloadDataManagerMock.outDownloadUrl.lastBuildId == "123456")
-		XCTAssert(self.appMock.outOpenUrl.called == true)
-		XCTAssert(self.appMock.outOpenUrl.url == "url_test")
+		XCTAssert(self.appMock.spyOpenUrl.called == true)
+		XCTAssert(self.appMock.spyOpenUrl.url == "url_test")
 		XCTAssert(self.updateInteractorOutputMock.outDownloadDidEndCalled == false)
 		XCTAssert(self.updateInteractorOutputMock.outDownloadDidFail.called == true)
 		XCTAssert(self.updateInteractorOutputMock.outDownloadDidFail.message == literal(.errorDownloadURL))
@@ -190,7 +190,7 @@ class UpdateInteractorTests: XCTestCase {
 		self.updateInteractor.downloadLastBuild()
 
 		XCTAssert(self.downloadDataManagerMock.outDownloadUrl.called == false)
-		XCTAssert(self.appMock.outOpenUrl.called == false)
+		XCTAssert(self.appMock.spyOpenUrl.called == false)
 		XCTAssert(self.updateInteractorOutputMock.outDownloadDidEndCalled == false)
 		XCTAssert(self.updateInteractorOutputMock.outDownloadDidFail.called == true)
 		XCTAssert(self.updateInteractorOutputMock.outDownloadDidFail.message == literal(.errorUnexpected))
@@ -205,7 +205,7 @@ class UpdateInteractorTests: XCTestCase {
 
 		XCTAssert(self.downloadDataManagerMock.outDownloadUrl.called == true)
 		XCTAssert(self.downloadDataManagerMock.outDownloadUrl.lastBuildId == "123456")
-		XCTAssert(self.appMock.outOpenUrl.called == false)
+		XCTAssert(self.appMock.spyOpenUrl.called == false)
 		XCTAssert(self.updateInteractorOutputMock.outDownloadDidEndCalled == false)
 		XCTAssert(self.updateInteractorOutputMock.outDownloadDidFail.called == true)
 		XCTAssert(self.updateInteractorOutputMock.outDownloadDidFail.message == "test_message")

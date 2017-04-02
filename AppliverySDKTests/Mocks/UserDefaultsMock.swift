@@ -13,10 +13,11 @@ import Foundation
 class UserDefaultsMock: UserDefaultsProtocol {
 
 	// INPUTS
-	var inDictionary: [String: Any]?
+	var stubDictionary: [String: Any]?
 
 	// OUTPUTS
-	var outSyncedDictionary: [String: Any]?
+	var spyDictionary: [String: Any]?
+	var spySynchronizeCalled = false
 
 
 	fileprivate var tempDictionary = [String: Any]()
@@ -25,7 +26,7 @@ class UserDefaultsMock: UserDefaultsProtocol {
 	// MARK - Public Methods
 
 	func value(forKey key: String) -> Any? {
-		return self.inDictionary?[key]
+		return self.stubDictionary?[key]
 	}
 
 	func setValue(_ value: Any?, forKey key: String) {
@@ -37,7 +38,8 @@ class UserDefaultsMock: UserDefaultsProtocol {
 	}
 
 	func synchronize() -> Bool {
-		self.outSyncedDictionary = self.tempDictionary
+		self.spySynchronizeCalled = true
+		self.spyDictionary = self.tempDictionary
 		return true
 	}
 

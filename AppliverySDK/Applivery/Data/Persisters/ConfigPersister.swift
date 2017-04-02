@@ -9,7 +9,7 @@
 import Foundation
 
 
-let kMinVersionKey			= "APPLIVERY_MIN_VERSION"
+let kminVersionKey			= "APPLIVERY_MIN_VERSION"
 let kForceUpdateKey			= "APPLIVERY_FORCE_UPDATE"
 let kLastBuildId			= "APPLIVERY_LAST_BUILD_ID"
 let kForceUpdateMessageKey	= "APPLIVERY_FORCE_UPDATE_MESSAGE"
@@ -46,7 +46,7 @@ class ConfigPersister: NSObject {
 		let config = Config()
 
 		guard
-			let minVersion			= self.userDefaults.value(forKey: kMinVersionKey)		as? String,
+			let minVersion			= self.userDefaults.value(forKey: kminVersionKey)		as? String,
 			let forceUpdate			= self.userDefaults.value(forKey: kForceUpdateKey)	as? Bool,
 			let lastBuildId			= self.userDefaults.value(forKey: kLastBuildId)		as? String,
 			let otaUpdate			= self.userDefaults.value(forKey: kOtaUpdateKey)		as? Bool,
@@ -65,7 +65,7 @@ class ConfigPersister: NSObject {
 	}
 
 	func saveConfig(_ config: Config) {
-		self.userDefaults.setValue(config.minVersion as AnyObject?, forKey: kMinVersionKey)
+		self.userDefaults.setValue(config.minVersion as AnyObject?, forKey: kminVersionKey)
 		self.userDefaults.set(config.forceUpdate, forKey: kForceUpdateKey)
 		self.userDefaults.setValue(config.lastBuildId as AnyObject?, forKey: kLastBuildId)
 		self.userDefaults.setValue(config.forceUpdateMessage as AnyObject?, forKey: kForceUpdateMessageKey)

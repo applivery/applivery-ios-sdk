@@ -56,7 +56,7 @@ class UpdatePresenterTests: XCTestCase {
 	func test_userDidTapDownload() {
 		self.presenter.userDidTapDownload()
 
-		XCTAssert(self.updateViewMock.outShowLoadingCalled == true)
+		XCTAssert(self.updateViewMock.spyShowLoadingCalled == true)
 		XCTAssert(self.updateInteractorMock.outDownloadLastBuildCalled == true)
 	}
 

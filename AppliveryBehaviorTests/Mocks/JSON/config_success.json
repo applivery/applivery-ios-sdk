@@ -1,0 +1,23 @@
+{
+	"status" : true,
+	"response" : {
+		"sdk" : {
+			"ios" : {
+				"minVersion" : "10",
+				"lastBuildId" : "58d954995551fb411450f4d2",
+				"forceUpdate" : true,
+				"lastBuildVersion" : "35",
+				"mustUpdateMsg" : "Sorry, you must update the App to the latest version to continue.",
+				"ota" : true,
+				"updateMsg" : "There is a new version available for download! Do you want to update to the latest version?",
+				"installed" : {
+					"version" : "2.3",
+					"date" : "2017-03-30T22:59:25.107Z"
+				}
+			}
+		},
+		"name" : "AppliveryTest"
+	}
+}
+
+        
