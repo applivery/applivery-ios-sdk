@@ -9,14 +9,13 @@ coverage:
   round: down
   range: "30...70"
   ignore:
-    - Pods/.*
-    - Applications/Xcode.app/.*
-    - vendor/.*
-    - Carthage/.*
-    - build/.*
-    - .*Tests.m
-    - .*Tests.swift
-    - AppliverySDKTests/.*
+    - Pods/**
+    - Applications/Xcode.app/**
+    - vendor/**
+    - Carthage/**
+    - build/**
+    - AppliverySDKTests/**
+    - AppliveryBehaviorTests/**
   notify:
     slack:
       default:

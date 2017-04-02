@@ -288,4 +288,5 @@ public class Applivery: NSObject, StartInteractorOutput {
 	internal func credentialError(message: String) {
 		logWarn(message)
 	}
+	
 }
