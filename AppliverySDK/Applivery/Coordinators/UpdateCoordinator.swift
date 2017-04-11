@@ -18,7 +18,7 @@ protocol PUpdateCoordinator {
 
 
 class UpdateCoordinator: PUpdateCoordinator, UpdateInteractorOutput {
-	fileprivate var updateInteractor: PUpdateInteractor
+	var updateInteractor: PUpdateInteractor
 	fileprivate var app: AppProtocol
 	fileprivate var forceUpdateCalled = false
 

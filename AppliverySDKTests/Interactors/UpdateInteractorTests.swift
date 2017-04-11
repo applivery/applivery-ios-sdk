@@ -164,8 +164,8 @@ class UpdateInteractorTests: XCTestCase {
 		XCTAssert(self.downloadDataManagerMock.outDownloadUrl.lastBuildId == "123456")
 		XCTAssert(self.appMock.spyOpenUrl.called == true)
 		XCTAssert(self.appMock.spyOpenUrl.url == "url_test")
-		XCTAssert(self.updateInteractorOutputMock.outDownloadDidEndCalled == true)
-		XCTAssert(self.updateInteractorOutputMock.outDownloadDidFail.called == false)
+		XCTAssert(self.updateInteractorOutputMock.spyDownloadDidEndCalled == true)
+		XCTAssert(self.updateInteractorOutputMock.spyDownloadDidFail.called == false)
 	}
 
 	func test_downloadBuild_fails_whenCanNotOpenUrl() {
@@ -180,9 +180,9 @@ class UpdateInteractorTests: XCTestCase {
 		XCTAssert(self.downloadDataManagerMock.outDownloadUrl.lastBuildId == "123456")
 		XCTAssert(self.appMock.spyOpenUrl.called == true)
 		XCTAssert(self.appMock.spyOpenUrl.url == "url_test")
-		XCTAssert(self.updateInteractorOutputMock.outDownloadDidEndCalled == false)
-		XCTAssert(self.updateInteractorOutputMock.outDownloadDidFail.called == true)
-		XCTAssert(self.updateInteractorOutputMock.outDownloadDidFail.message == literal(.errorDownloadURL))
+		XCTAssert(self.updateInteractorOutputMock.spyDownloadDidEndCalled == false)
+		XCTAssert(self.updateInteractorOutputMock.spyDownloadDidFail.called == true)
+		XCTAssert(self.updateInteractorOutputMock.spyDownloadDidFail.message == literal(.errorDownloadURL))
 	}
 
 
@@ -191,9 +191,9 @@ class UpdateInteractorTests: XCTestCase {
 
 		XCTAssert(self.downloadDataManagerMock.outDownloadUrl.called == false)
 		XCTAssert(self.appMock.spyOpenUrl.called == false)
-		XCTAssert(self.updateInteractorOutputMock.outDownloadDidEndCalled == false)
-		XCTAssert(self.updateInteractorOutputMock.outDownloadDidFail.called == true)
-		XCTAssert(self.updateInteractorOutputMock.outDownloadDidFail.message == literal(.errorUnexpected))
+		XCTAssert(self.updateInteractorOutputMock.spyDownloadDidEndCalled == false)
+		XCTAssert(self.updateInteractorOutputMock.spyDownloadDidFail.called == true)
+		XCTAssert(self.updateInteractorOutputMock.spyDownloadDidFail.message == literal(.errorUnexpected))
 	}
 
 	func test_downloadBuild_downloadDataFails_returnsFail() {
@@ -206,9 +206,9 @@ class UpdateInteractorTests: XCTestCase {
 		XCTAssert(self.downloadDataManagerMock.outDownloadUrl.called == true)
 		XCTAssert(self.downloadDataManagerMock.outDownloadUrl.lastBuildId == "123456")
 		XCTAssert(self.appMock.spyOpenUrl.called == false)
-		XCTAssert(self.updateInteractorOutputMock.outDownloadDidEndCalled == false)
-		XCTAssert(self.updateInteractorOutputMock.outDownloadDidFail.called == true)
-		XCTAssert(self.updateInteractorOutputMock.outDownloadDidFail.message == "test_message")
+		XCTAssert(self.updateInteractorOutputMock.spyDownloadDidEndCalled == false)
+		XCTAssert(self.updateInteractorOutputMock.spyDownloadDidFail.called == true)
+		XCTAssert(self.updateInteractorOutputMock.spyDownloadDidFail.message == "test_message")
 	}
 
 }
