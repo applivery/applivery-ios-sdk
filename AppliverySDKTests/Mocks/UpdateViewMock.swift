@@ -13,14 +13,14 @@ import Foundation
 class UpdateViewMock: UpdateView {
 
 	// OUTPUTS
-	var outShowUpdateMessage = (called: false, message: "")
+	var spyShowUpdateMessage = (called: false, message: "")
 	var spyShowLoadingCalled = false
-	var outStopLoadingCalled = false
-	var outShowErrorMessage = (called: false, message: "")
+	var spyStopLoadingCalled = false
+	var spyShowErrorMessage = (called: false, message: "")
 
 
 	func showUpdateMessage(_ message: String) {
-		self.outShowUpdateMessage = (true, message)
+		self.spyShowUpdateMessage = (true, message)
 	}
 
 	func showLoading() {
@@ -28,11 +28,11 @@ class UpdateViewMock: UpdateView {
 	}
 
 	func stopLoading() {
-		self.outStopLoadingCalled = true
+		self.spyStopLoadingCalled = true
 	}
 
 	func showErrorMessage(_ message: String) {
-		self.outShowErrorMessage = (true, message)
+		self.spyShowErrorMessage = (true, message)
 	}
 
 }

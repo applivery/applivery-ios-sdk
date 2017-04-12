@@ -17,10 +17,10 @@ protocol UpdateView {
 }
 
 
-class UpdatePresenter: UpdateInteractorOutput {
+struct UpdatePresenter: UpdateInteractorOutput {
 
-	var updateInteractor: PUpdateInteractor!
-	var view: UpdateView!
+	var updateInteractor: PUpdateInteractor
+	var view: UpdateView
 
 
 	func viewDidLoad() {

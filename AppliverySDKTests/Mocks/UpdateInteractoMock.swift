@@ -12,7 +12,7 @@ import Foundation
 
 class UpdateInteractoMock: PUpdateInteractor {
 
-	var output: UpdateInteractorOutput! // NO NEEDED
+	var output: UpdateInteractorOutput? // NO NEEDED
 
 
 	// INPUTS

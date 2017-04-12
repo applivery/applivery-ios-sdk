@@ -37,9 +37,10 @@ class UpdateCoordinator: PUpdateCoordinator, UpdateInteractorOutput {
 		forceUpdateCalled = true
 
 		if let updateVC = UpdateVC.viewController() {
-			updateVC.presenter = UpdatePresenter()
-			updateVC.presenter.view = updateVC
-			updateVC.presenter.updateInteractor = UpdateInteractor()
+			updateVC.presenter = UpdatePresenter(
+				updateInteractor: UpdateInteractor(),
+				view: updateVC
+			)
 			updateVC.presenter.updateInteractor.output = updateVC.presenter
 
 			self.app.waitForReadyThen {

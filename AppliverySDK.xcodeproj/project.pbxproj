@@ -56,6 +56,7 @@
 		FA48CB5A1CC2D08A007A5293 /* FeedbackInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA48CB591CC2D08A007A5293 /* FeedbackInteractorTests.swift */; };
 		FA48CB5C1CC2D15B007A5293 /* FeedbackServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA48CB5B1CC2D15B007A5293 /* FeedbackServiceMock.swift */; };
 		FA49AEBB1C4AF95B000D5DFF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA49AEBA1C4AF95B000D5DFF /* Images.xcassets */; };
+		FA4CFB081E9D336900A4C8A1 /* UpdateViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2B3DCB1C1789AF002DC5C9 /* UpdateViewMock.swift */; };
 		FA4EBF531C7D009000664C1E /* EventDetectorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4EBF521C7D009000664C1E /* EventDetectorMock.swift */; };
 		FA4F1C5B1C53920300AC3E61 /* UpdateCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4F1C5A1C53920300AC3E61 /* UpdateCoordinatorTests.swift */; };
 		FA53DE271BC188E200DF2EB1 /* StartInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA53DE261BC188E200DF2EB1 /* StartInteractor.swift */; };
@@ -82,7 +83,6 @@
 		FA8D78161BC46064005741D8 /* ConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D78151BC46064005741D8 /* ConfigService.swift */; };
 		FA8D78181BC46584005741D8 /* ConfigServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D78171BC46584005741D8 /* ConfigServiceMock.swift */; };
 		FA8DDA081E99671000A2BB95 /* OTAUpdateSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8DDA071E99671000A2BB95 /* OTAUpdateSpecs.swift */; };
-		FA929A091C4AF13700130DF4 /* Font+Load.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA929A081C4AF13700130DF4 /* Font+Load.swift */; };
 		FA952FD01C838CE000C32DD0 /* FeedbackCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA952FCE1C838C9700C32DD0 /* FeedbackCoordinatorMock.swift */; };
 		FA952FD41C838FB500C32DD0 /* UpdatePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA952FD21C838FB500C32DD0 /* UpdatePresenter.swift */; };
 		FA952FD51C838FB500C32DD0 /* UpdateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA952FD31C838FB500C32DD0 /* UpdateVC.swift */; };
@@ -97,6 +97,7 @@
 		FAAA50E91E91841C0004FBF8 /* EventDetectorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4EBF521C7D009000664C1E /* EventDetectorMock.swift */; };
 		FAAAE1221E8040010065E6AC /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAAE1211E8040010065E6AC /* Palette.swift */; };
 		FAADA5351DBBF25B00300A5E /* FeedbackServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAADA5341DBBF25B00300A5E /* FeedbackServiceTests.swift */; };
+		FABA22F71E9D30040000EBA9 /* ForceUpdateSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA22F61E9D30040000EBA9 /* ForceUpdateSpecs.swift */; };
 		FAC3947E1C95D9FF00F14778 /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC3947D1C95D9FF00F14778 /* Feedback.swift */; };
 		FAC394801C95EA3000F14778 /* FeedbackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC3947F1C95EA3000F14778 /* FeedbackService.swift */; };
 		FAC394821C96078A00F14778 /* UIDevice+ModelName.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC394811C96078A00F14778 /* UIDevice+ModelName.swift */; };
@@ -238,7 +239,6 @@
 		FA8D78151BC46064005741D8 /* ConfigService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = ConfigService.swift; path = Applivery/Data/Services/ConfigService.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA8D78171BC46584005741D8 /* ConfigServiceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigServiceMock.swift; path = Mocks/ConfigServiceMock.swift; sourceTree = "<group>"; };
 		FA8DDA071E99671000A2BB95 /* OTAUpdateSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OTAUpdateSpecs.swift; path = Specs/OTAUpdateSpecs.swift; sourceTree = "<group>"; };
-		FA929A081C4AF13700130DF4 /* Font+Load.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Font+Load.swift"; path = "Applivery/Utils/Font+Load.swift"; sourceTree = "<group>"; };
 		FA952FCE1C838C9700C32DD0 /* FeedbackCoordinatorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackCoordinatorMock.swift; path = Mocks/FeedbackCoordinatorMock.swift; sourceTree = "<group>"; };
 		FA952FD21C838FB500C32DD0 /* UpdatePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdatePresenter.swift; path = Applivery/Views/Update/UpdatePresenter.swift; sourceTree = "<group>"; };
 		FA952FD31C838FB500C32DD0 /* UpdateVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = UpdateVC.swift; path = Applivery/Views/Update/UpdateVC.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -251,6 +251,7 @@
 		FAAAE1211E8040010065E6AC /* Palette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Palette.swift; path = Applivery/Model/Palette.swift; sourceTree = "<group>"; };
 		FAADA5341DBBF25B00300A5E /* FeedbackServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FeedbackServiceTests.swift; path = Network/FeedbackServiceTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAADA53A1DBC14EB00300A5E /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
+		FABA22F61E9D30040000EBA9 /* ForceUpdateSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ForceUpdateSpecs.swift; path = Specs/ForceUpdateSpecs.swift; sourceTree = "<group>"; };
 		FAC3947D1C95D9FF00F14778 /* Feedback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Feedback.swift; path = Applivery/Model/Feedback.swift; sourceTree = "<group>"; };
 		FAC3947F1C95EA3000F14778 /* FeedbackService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FeedbackService.swift; path = Applivery/Data/Services/FeedbackService.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAC394811C96078A00F14778 /* UIDevice+ModelName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIDevice+ModelName.swift"; path = "Applivery/Utils/UIDevice+ModelName.swift"; sourceTree = "<group>"; };
@@ -351,6 +352,7 @@
 			children = (
 				FA201F741E9049410090128F /* StartSpecs.swift */,
 				FA8DDA071E99671000A2BB95 /* OTAUpdateSpecs.swift */,
+				FABA22F61E9D30040000EBA9 /* ForceUpdateSpecs.swift */,
 			);
 			name = Specs;
 			sourceTree = "<group>";
@@ -727,7 +729,6 @@
 				FAD910FF1BCEE58B00D56617 /* Json.swift */,
 				FACEF8C71C14663B00B03FC0 /* Background.swift */,
 				FA3211D51C3EA6D300668099 /* Localize.swift */,
-				FA929A081C4AF13700130DF4 /* Font+Load.swift */,
 				FA2C455D1C4D228A00E72847 /* NSBundle+Applivery.swift */,
 				FAA50D4D1C7D232500CE7B65 /* NSError+Applivery.swift */,
 				FA19E48A1C822CA900DC31E8 /* Environments.swift */,
@@ -922,6 +923,8 @@
 				FA2EAC871E915EFE00CC9BBF /* UserDefaults.swift in Sources */,
 				FA8DDA081E99671000A2BB95 /* OTAUpdateSpecs.swift in Sources */,
 				FA201F761E904B110090128F /* StubResponseHelper.swift in Sources */,
+				FABA22F71E9D30040000EBA9 /* ForceUpdateSpecs.swift in Sources */,
+				FA4CFB081E9D336900A4C8A1 /* UpdateViewMock.swift in Sources */,
 				FA201F781E9051850090128F /* StartInteractorOutputMock.swift in Sources */,
 				FA201F751E9049410090128F /* StartSpecs.swift in Sources */,
 			);
@@ -936,7 +939,6 @@
 				FA73BF7D1C8B02E800619258 /* ScreenshotInteractor.swift in Sources */,
 				FA3A69451BC2FCFB00179176 /* ConfigPersister.swift in Sources */,
 				FA1569B51DBD313200C651D4 /* Wifi.swift in Sources */,
-				FA929A091C4AF13700130DF4 /* Font+Load.swift in Sources */,
 				FA952FDA1C83904100C32DD0 /* FeedbackPresenter.swift in Sources */,
 				FA952FDC1C83909000C32DD0 /* FeedbackInteractor.swift in Sources */,
 				FA2C455E1C4D228A00E72847 /* NSBundle+Applivery.swift in Sources */,

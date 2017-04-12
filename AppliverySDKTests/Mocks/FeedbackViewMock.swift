@@ -24,7 +24,7 @@ class FeedbackViewMock: FeedbackView {
 	var outHideScreenshotPreviewCalled = false
 	var outNeedMessageCalled = false
 	var spyShowLoadingCalled = false
-	var outStopLoadingCalled = false
+	var spyStopLoadingCalled = false
 	var outShowMessage: (called: Bool, message: String?) = (false, nil)
 
 
@@ -67,7 +67,7 @@ class FeedbackViewMock: FeedbackView {
 	}
 
 	func stopLoading() {
-		self.outStopLoadingCalled = true
+		self.spyStopLoadingCalled = true
 	}
 	
 	func editedScreenshot() -> UIImage? {

@@ -23,9 +23,10 @@ class UpdatePresenterTests: XCTestCase {
 		self.updateViewMock = UpdateViewMock()
 		self.updateInteractorMock = UpdateInteractoMock()
 
-		self.presenter = UpdatePresenter()
-		self.presenter.updateInteractor = self.updateInteractorMock
-		self.presenter.view = self.updateViewMock
+		self.presenter = UpdatePresenter(
+			updateInteractor: self.updateInteractorMock,
+			view: self.updateViewMock
+		)
     }
 
     override func tearDown() {
@@ -49,8 +50,8 @@ class UpdatePresenterTests: XCTestCase {
 		self.presenter.viewDidLoad()
 
 		// Verify
-		XCTAssert(self.updateViewMock.outShowUpdateMessage.called == true)
-		XCTAssert(self.updateViewMock.outShowUpdateMessage.message == "TEST_MESSAGE")
+		XCTAssert(self.updateViewMock.spyShowUpdateMessage.called == true)
+		XCTAssert(self.updateViewMock.spyShowUpdateMessage.message == "TEST_MESSAGE")
 	}
 
 	func test_userDidTapDownload() {
@@ -63,15 +64,15 @@ class UpdatePresenterTests: XCTestCase {
 	func test_downloadDidEnd() {
 		self.presenter.downloadDidEnd()
 
-		XCTAssert(self.updateViewMock.outStopLoadingCalled)
+		XCTAssert(self.updateViewMock.spyStopLoadingCalled)
 	}
 
 	func test_downloadDidFail() {
 		self.presenter.downloadDidFail("TEST")
 
-		XCTAssert(self.updateViewMock.outStopLoadingCalled == true)
-		XCTAssert(self.updateViewMock.outShowErrorMessage.called == true)
-		XCTAssert(self.updateViewMock.outShowErrorMessage.message == "TEST")
+		XCTAssert(self.updateViewMock.spyStopLoadingCalled == true)
+		XCTAssert(self.updateViewMock.spyShowErrorMessage.called == true)
+		XCTAssert(self.updateViewMock.spyShowErrorMessage.message == "TEST")
 	}
 
 }

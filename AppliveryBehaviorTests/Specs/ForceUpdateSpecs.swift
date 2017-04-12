@@ -1,8 +1,8 @@
 //
-//  OTAUpdateSpecs.swift
+//  ForceUpdateSpecs.swift
 //  AppliverySDK
 //
-//  Created by Alejandro Jiménez Agudo on 8/4/17.
+//  Created by Alejandro Jiménez Agudo on 11/4/17.
 //  Copyright © 2017 Applivery S.L. All rights reserved.
 //
 
@@ -11,24 +11,26 @@ import Nimble
 import OHHTTPStubs
 @testable import Applivery
 
-class OTAUpdateSpecs: QuickSpec {
+class ForceUpdateSpecs: QuickSpec {
 	
-	var updateCoordinator: UpdateCoordinator!
+	var updatePresenter: UpdatePresenter!
 	var config: GlobalConfig!
+	var updateViewMock: UpdateViewMock!
 	var appMock: AppMock!
 	var userDefaultsMock: UserDefaultsMock!
 	
-	
+    
 	override func spec() {
-		describe("OTA Update") {
+		describe("force update") {
 			beforeEach {
 				self.config = GlobalConfig()
 				GlobalConfig.shared = self.config
 				
+				self.updateViewMock = UpdateViewMock()
 				self.appMock = AppMock()
 				self.userDefaultsMock = UserDefaultsMock()
 				
-				self.updateCoordinator = UpdateCoordinator(
+				self.updatePresenter = UpdatePresenter(
 					updateInteractor: UpdateInteractor(
 						configData: ConfigDataManager(
 							appInfo: self.appMock,
@@ -40,43 +42,43 @@ class OTAUpdateSpecs: QuickSpec {
 						downloadData: DownloadDataManager(),
 						app: self.appMock
 					),
-					app: self.appMock
+					view: self.updateViewMock
 				)
+				self.updatePresenter.updateInteractor.output = self.updatePresenter
+				
 			}
 			afterEach {
 				self.config = nil
+				self.updatePresenter.updateInteractor.output = nil
+				self.updateViewMock = nil
 				self.appMock = nil
 				self.userDefaultsMock = nil
-				self.updateCoordinator = nil
+				
+				self.updatePresenter = nil
 				
 				OHHTTPStubs.removeAllStubs()
 			}
 			
-			context("when there is a new update") {
+			describe("view did load") {
 				beforeEach {
-					self.config.textLiterals.otaUpdateMessage = "OTA UPDATE TESTS MESSAGE"
 					self.appMock.stubVersion = "1"
-					self.updateCoordinator.otaUpdate()
+					self.config.textLiterals.forceUpdateMessage = "test force update message"
+					self.updatePresenter.viewDidLoad()
 				}
-				it("should wait for ready") {
-					expect(self.appMock.spyWaitForReadyCalled).to(beTrue())
-				}
-				it("should prompt ota alert") {
-					expect(self.appMock.spyOtaAlert.called).to(beTrue())
-					expect(self.appMock.spyOtaAlert.message).to(equal("OTA UPDATE TESTS MESSAGE"))
+				it("should show update message") {
+					expect(self.updateViewMock.spyShowUpdateMessage.called).to(beTrue())
+					expect(self.updateViewMock.spyShowUpdateMessage.message).to(equal("test force update message"))
 				}
 			}
 			
-			context("when user taps on download button") {
+			describe("user did tap download") {
 				beforeEach {
-					self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig(lastBuildID: "LAST_BUILD_ID_TEST")
 					self.appMock.stubVersion = "1"
-					self.updateCoordinator.otaUpdate()
+					self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig(lastBuildID: "LAST_BUILD_ID_TEST")
 				}
-				it("should show a loading") {
-					self.appMock.spyDownloadClosure?()
-					expect(self.appMock.spyShowLoadingCalled).to(beTrue())
-					expect(self.appMock.spyHideLoadingCalled).toNot(beTrue())
+				it("should show loading") {
+					self.updatePresenter.userDidTapDownload()
+					expect(self.updateViewMock.spyShowLoadingCalled).to(beTrue())
 				}
 //				it("should request a download token") {
 //					waitUntil { done in
@@ -84,36 +86,35 @@ class OTAUpdateSpecs: QuickSpec {
 //							expect(url).to(equal("/api/builds/LAST_BUILD_ID_TEST/token"))
 //							done()
 //						}
-//						self.appMock.spyDownloadClosure?()
+//						self.updatePresenter.userDidTapDownload()
 //					}
 //				}
-				
 				context("and service returns a valid token") {
 					beforeEach {
 						self.appMock.stubOpenUrlResult = true
 						StubResponse.mockResponse(for: "/api/builds/LAST_BUILD_ID_TEST/token", with: "request_token_ok.json")
-						self.appMock.spyDownloadClosure?()
+						self.updatePresenter.userDidTapDownload()
 					}
 					it("should open download url") {
 						expect(self.appMock.spyOpenUrl.called).toEventually(beTrue())
 						expect(self.appMock.spyOpenUrl.url).toEventually(equal("itms-services://?action=download-manifest&url=https://dashboard.applivery.com/download/LAST_BUILD_ID_TEST/manifest/test_token"))
 					}
 					it("should hide loading") {
-						expect(self.appMock.spyHideLoadingCalled).toEventually(beTrue())
+						expect(self.updateViewMock.spyStopLoadingCalled).toEventually(beTrue())
 					}
 				}
 				context("but service returns ko") {
 					beforeEach {
 						self.appMock.stubOpenUrlResult = true
 						StubResponse.mockResponse(for: "/api/builds/LAST_BUILD_ID_TEST/token", with: "ko.json")
-						self.appMock.spyDownloadClosure?()
+						self.updatePresenter.userDidTapDownload()
 					}
 					it("should hide loading") {
-						expect(self.appMock.spyHideLoadingCalled).toEventually(beTrue())
+						expect(self.updateViewMock.spyStopLoadingCalled).toEventually(beTrue())
 					}
 					it("should show error alert") {
-						expect(self.appMock.spyAlertError.called).toEventually(beTrue())
-						expect(self.appMock.spyAlertError.message).toEventually(equal("Unexpected error"))
+						expect(self.updateViewMock.spyShowErrorMessage.called).toEventually(beTrue())
+						expect(self.updateViewMock.spyShowErrorMessage.message).toEventually(equal("Unexpected error"))
 					}
 				}
 			}
