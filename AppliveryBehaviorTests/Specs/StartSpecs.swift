@@ -119,7 +119,7 @@ class StartSpecs: QuickSpec {
 					StubResponse.mockResponse(for: "/api/apps/\(self.appID)", with: "config_success.json")
 					self.applivery.start(apiKey: self.apiKey, appId: self.appID, appStoreRelease: false)
 				}
-				it("should do nothing") {
+				it("should do nothing but syncronize new data") {
 					expect(self.userDefaultsMock.spySynchronizeCalled).toEventually(beTrue()) // This line needs to be invoked first
 					expect(self.appMock.spyOtaAlert.called).toNotEventually(beTrue())
 					expect(self.appMock.spyPresentModal.called).toNotEventually(beTrue())
@@ -187,7 +187,7 @@ class StartSpecs: QuickSpec {
 					self.userDefaultsMock.stubDictionary = nil
 					self.applivery.start(apiKey: self.apiKey, appId: self.appID, appStoreRelease: false)
 				}
-				it("api shoud have priority") {
+				it("should do nothing") {
 					Thread.sleep(forTimeInterval: 0.1) // Need to wait cause the 3 expects match by default.
 					expect(self.userDefaultsMock.spySynchronizeCalled).toNotEventually(beTrue())
 					expect(self.appMock.spyOtaAlert.called).toNotEventually(beTrue())

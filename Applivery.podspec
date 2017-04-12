@@ -9,4 +9,5 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/applivery/applivery-ios-sdk.git", :tag => "v#{s.version}" }
   s.platform     = :ios, "8.0"
   s.source_files  = "AppliverySDK/Applivery/**/*.swift"
+  s.resources = ["AppliverySDK/**/*.storyboard", "AppliverySDK/**/*.strings"]
 end

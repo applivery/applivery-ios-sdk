@@ -16,7 +16,7 @@ protocol UpdateInteractorOutput {
 
 
 protocol PUpdateInteractor {
-	var output: UpdateInteractorOutput! { get set }
+	var output: UpdateInteractorOutput? { get set }
 
 	func forceUpdateMessage() -> String
 	func otaUpdateMessage() -> String
@@ -26,7 +26,7 @@ protocol PUpdateInteractor {
 
 class UpdateInteractor: PUpdateInteractor {
 
-	var output: UpdateInteractorOutput!
+	var output: UpdateInteractorOutput?
 
 	fileprivate var configData: PConfigDataManager
 	fileprivate var downloadData: PDownloadDataManager
@@ -65,7 +65,7 @@ class UpdateInteractor: PUpdateInteractor {
 
 	func downloadLastBuild() {
 		guard let lastBuildId = self.configData.getCurrentConfig().config?.lastBuildId else {
-			self.output.downloadDidFail(literal(.errorUnexpected) ?? localize("error_unexpected"))
+			self.output?.downloadDidFail(literal(.errorUnexpected) ?? localize("error_unexpected"))
 			return
 		}
 
@@ -74,16 +74,16 @@ class UpdateInteractor: PUpdateInteractor {
 
 			case .success(let url):
 				if self.app.openUrl(url) {
-					self.output.downloadDidEnd()
+					self.output?.downloadDidEnd()
 				} else {
 					let error = NSError.appliveryError(literal(.errorDownloadURL))
 					logError(error)
 
-					self.output.downloadDidFail(error.message())
+					self.output?.downloadDidFail(error.message())
 				}
 
 			case .error(let message):
-				self.output.downloadDidFail(message)
+				self.output?.downloadDidFail(message)
 			}
 		}
 	}
