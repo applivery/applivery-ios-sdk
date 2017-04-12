@@ -47,8 +47,8 @@ class ConfigPersister: NSObject {
 
 		guard
 			let minVersion			= self.userDefaults.value(forKey: kMinVersionKey)		as? String,
-			let forceUpdate			= self.userDefaults.value(forKey: kForceUpdateKey)	as? Bool,
-			let lastBuildId			= self.userDefaults.value(forKey: kLastBuildId)		as? String,
+			let forceUpdate			= self.userDefaults.value(forKey: kForceUpdateKey)		as? Bool,
+			let lastBuildId			= self.userDefaults.value(forKey: kLastBuildId)			as? String,
 			let otaUpdate			= self.userDefaults.value(forKey: kOtaUpdateKey)		as? Bool,
 			let lastBuildVersion	= self.userDefaults.value(forKey: kLastBuildVersion)	as? String
 			else { return nil }
@@ -59,7 +59,7 @@ class ConfigPersister: NSObject {
 		config.otaUpdate	= otaUpdate
 		config.lastVersion	= lastBuildVersion
 		config.forceUpdateMessage	= self.userDefaults.value(forKey: kForceUpdateMessageKey)	as? String
-		config.otaUpdateMessage		= self.userDefaults.value(forKey: kOtaUpdateMessageKey)	as? String
+		config.otaUpdateMessage		= self.userDefaults.value(forKey: kOtaUpdateMessageKey)		as? String
 
 		return config
 	}

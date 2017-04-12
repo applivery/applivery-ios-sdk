@@ -12,16 +12,16 @@ import Foundation
 class UpdateInteractorOutputMock: UpdateInteractorOutput {
 
 	// Outputs
-	var outDownloadDidEndCalled = false
-	var outDownloadDidFail = (called: false, message: "")
+	var spyDownloadDidEndCalled = false
+	var spyDownloadDidFail = (called: false, message: "")
 
 
 	func downloadDidEnd() {
-		self.outDownloadDidEndCalled = true
+		self.spyDownloadDidEndCalled = true
 	}
 
 	func downloadDidFail(_ message: String) {
-		self.outDownloadDidFail = (true, message)
+		self.spyDownloadDidFail = (true, message)
 	}
 
 }
