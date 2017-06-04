@@ -13,53 +13,54 @@ import Foundation
 class FeedbackViewMock: FeedbackView {
 
 	// INPUTS
-	var inMessage: String?
-	var inEditedScreenshot: UIImage?
+	var fakeMessage: String?
+	var fakeEditedScreenshot: UIImage?
 
 	// OUTPUTS
-	var outShowScreenshot: (called: Bool, image: UIImage?) = (false, nil)
-	var outRestoreScreenshot: (called: Bool, image: UIImage?) = (false, nil)
-	var outShowFeedbackFormulary: (called: Bool, preview: UIImage?) = (false, nil)
-	var outShowScreenshotPreviewCalled = false
-	var outHideScreenshotPreviewCalled = false
-	var outNeedMessageCalled = false
+	var spyShowScreenshot: (called: Bool, image: UIImage?) = (false, nil)
+	var spyRestoreScreenshot: (called: Bool, image: UIImage?) = (false, nil)
+	var spyShowFeedbackFormulary: (called: Bool, preview: UIImage?) = (false, nil)
+	var spyShowScreenshotPreviewCalled = false
+	var spyHideScreenshotPreviewCalled = false
+	var spyNeedMessageCalled = false
 	var spyShowLoadingCalled = false
 	var spyStopLoadingCalled = false
-	var outShowMessage: (called: Bool, message: String?) = (false, nil)
+	var spyShowMessage: (called: Bool, message: String?) = (false, nil)
+	var spyDismissCalled = false
 
 
 	// MARK - Methods
 
 	func showScreenshot(_ screenshot: UIImage?) {
-		self.outShowScreenshot = (true, screenshot)
+		self.spyShowScreenshot = (true, screenshot)
 	}
 	
 	func restoreSceenshot(_ screenshot: UIImage) {
-		self.outRestoreScreenshot = (true, screenshot)
+		self.spyRestoreScreenshot = (true, screenshot)
 	}
 
 	func showFeedbackFormulary(with preview: UIImage) {
-		self.outShowFeedbackFormulary = (true, preview)
+		self.spyShowFeedbackFormulary = (true, preview)
 	}
 
 	func showScreenshotPreview() {
-		self.outShowScreenshotPreviewCalled = true
+		self.spyShowScreenshotPreviewCalled = true
 	}
 
 	func hideScreenshotPreview() {
-		self.outHideScreenshotPreviewCalled = true
+		self.spyHideScreenshotPreviewCalled = true
 	}
 
 	func textMessage() -> String? {
-		return self.inMessage
+		return self.fakeMessage
 	}
 
 	func needMessage() {
-		self.outNeedMessageCalled = true
+		self.spyNeedMessageCalled = true
 	}
 
 	func showMessage(_ message: String) {
-		self.outShowMessage = (true, message)
+		self.spyShowMessage = (true, message)
 	}
 
 	func showLoading() {
@@ -71,7 +72,11 @@ class FeedbackViewMock: FeedbackView {
 	}
 	
 	func editedScreenshot() -> UIImage? {
-		return self.inEditedScreenshot
+		return self.fakeEditedScreenshot
+	}
+	
+	func dismiss(animated flag: Bool, completion: (() -> Void)?) {
+		self.spyDismissCalled = true
 	}
 
 }

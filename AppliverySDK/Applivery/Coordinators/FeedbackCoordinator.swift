@@ -17,7 +17,7 @@ protocol PFeedbackCoordinator {
 
 class FeedbackCoordinator: PFeedbackCoordinator {
 
-	fileprivate var feedbackVC: FeedbackVC!
+	var feedbackVC: FeedbackView!
 	fileprivate var app: AppProtocol
 	fileprivate var isFeedbackPresented = false
 	
@@ -34,37 +34,30 @@ class FeedbackCoordinator: PFeedbackCoordinator {
 		}
 		self.isFeedbackPresented = true
 
-		self.feedbackVC = FeedbackVC.viewController()
-
-		self.feedbackVC.presenter = FeedbackPresenter()
-		self.feedbackVC.presenter.view = self.feedbackVC
-		self.feedbackVC.presenter.feedbackInteractor = FeedbackInteractor(
-			service: FeedbackService(
-				app: App(),
-				device: Device(),
-				config: GlobalConfig.shared
+		let feedbackVC = FeedbackVC.viewController()
+		self.feedbackVC = feedbackVC
+		feedbackVC.presenter = FeedbackPresenter(
+			view: self.feedbackVC,
+			feedbackInteractor: FeedbackInteractor(
+				service: FeedbackService(
+					app: App(),
+					device: Device(),
+					config: GlobalConfig.shared
+				)
+			),
+			feedbackCoordinator: self,
+			screenshotInteractor: ScreenshotInteractor(
+				imageManager: ImageManager()
 			)
 		)
-		self.feedbackVC.presenter.screenshotInteractor = ScreenshotInteractor()
-		self.feedbackVC.presenter.feedbackCoordinator = self
-
-		self.app.presentModal(self.feedbackVC, animated: false)
+		
+		self.app.presentModal(feedbackVC, animated: false)
 	}
 
 	func closeFeedback() {
 		self.feedbackVC.dismiss(animated: true) {
 			self.isFeedbackPresented = false
-			self.destroyFeedback()
 		}
-	}
-
-	fileprivate func destroyFeedback() {
-		self.feedbackVC.presenter.view = nil
-		self.feedbackVC.presenter.feedbackInteractor = nil
-		self.feedbackVC.presenter.feedbackCoordinator = nil
-		self.feedbackVC.presenter.screenshotInteractor = nil
-		self.feedbackVC.presenter = nil
-		self.feedbackVC = nil
 	}
 
 }

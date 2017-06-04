@@ -9,7 +9,6 @@ import UIKit
 
 
 class FeedbackVC: UIViewController {
-	
 	var presenter: FeedbackPresenter!
 	
 	fileprivate var previewVC: PreviewVC?
@@ -41,8 +40,9 @@ class FeedbackVC: UIViewController {
 	private var widthScreenshotConstant: CGFloat!
 	
 	
-	class func viewController() -> FeedbackVC? {
-		return UIStoryboard.viewController("FeedbackVC") as? FeedbackVC
+	class func viewController() -> FeedbackVC {
+		let feedbackVC = UIStoryboard.viewController("FeedbackVC") as? FeedbackVC
+		return feedbackVC ?? FeedbackVC()
 	}
 	
 }

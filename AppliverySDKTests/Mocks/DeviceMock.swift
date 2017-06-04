@@ -15,18 +15,18 @@ class DeviceMock: DeviceProtocol {
 	var enableBatteryMonitoringCalled = false
 	var disableBatteryMonitoringCalled = false
 	
-	var inModel: String!
-	var inType: String!
-	var inSystemVersion: String!
-	var inVendorId: String!
-	var inBatteryLevel: Int!
-	var inBatteryState: Bool?
-	var inNetworkType: String!
-	var inResolution: String!
-	var inOrientation: String!
-	var inRamUsed: String!
-	var inRamTotal: String!
-	var inDiskFree: String!
+	var fakeModel: String!
+	var fakeType: String!
+	var fakeSystemVersion: String!
+	var fakeVendorId: String!
+	var fakeBatteryLevel: Int!
+	var fakeBatteryState: Bool?
+	var fakeNetworkType: String!
+	var fakeResolution: String!
+	var fakeOrientation: String!
+	var fakeRamUsed: String!
+	var fakeRamTotal: String!
+	var fakeDiskFree: String!
 	
 	
 	func enableBatteryMonitoring() {
@@ -38,51 +38,51 @@ class DeviceMock: DeviceProtocol {
 	}
 	
 	func model() -> String {
-		return self.inModel
+		return self.fakeModel
 	}
 	
 	func type() -> String {
-		return self.inType
+		return self.fakeType
 	}
 	
 	func systemVersion() -> String {
-		return self.inSystemVersion
+		return self.fakeSystemVersion
 	}
 	
 	func vendorId() -> String {
-		return self.inVendorId
+		return self.fakeVendorId
 	}
 	
 	func batteryLevel() -> Int {
-		return self.inBatteryLevel
+		return self.fakeBatteryLevel
 	}
 	
 	func batteryState() -> Bool? {
-		return self.inBatteryState
+		return self.fakeBatteryState
 	}
 	
 	func networkType() -> String {
-		return self.inNetworkType
+		return self.fakeNetworkType
 	}
 	
 	func resolution() -> String {
-		return self.inResolution
+		return self.fakeResolution
 	}
 	
 	func orientation() -> String {
-		return self.inOrientation
+		return self.fakeOrientation
 	}
 	
 	func ramUsed() -> String {
-		return self.inRamUsed
+		return self.fakeRamUsed
 	}
 	
 	func ramTotal() -> String {
-		return self.inRamTotal
+		return self.fakeRamTotal
 	}
 	
 	func diskFree() -> String {
-		return self.inDiskFree
+		return self.fakeDiskFree
 	}
 	
 }

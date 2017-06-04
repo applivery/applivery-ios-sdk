@@ -78,15 +78,13 @@ class OTAUpdateSpecs: QuickSpec {
 					expect(self.appMock.spyShowLoadingCalled).to(beTrue())
 					expect(self.appMock.spyHideLoadingCalled).toNot(beTrue())
 				}
-//				it("should request a download token") {
-//					waitUntil { done in
-//						StubResponse.testRequest(with: "ko.json") { url, _ in
-//							expect(url).to(equal("/api/builds/LAST_BUILD_ID_TEST/token"))
-//							done()
-//						}
-//						self.appMock.spyDownloadClosure?()
-//					}
-//				}
+				it("should request a download token") {
+					var url: String?
+					StubResponse.testRequest { url = $0 }
+					self.appMock.spyDownloadClosure?()
+					
+					expect(url).toEventually(equal("/api/builds/LAST_BUILD_ID_TEST/token"))
+				}
 				
 				context("and service returns a valid token") {
 					beforeEach {
@@ -119,5 +117,5 @@ class OTAUpdateSpecs: QuickSpec {
 			}
 		}
 	}
-    
+	
 }

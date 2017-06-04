@@ -12,10 +12,10 @@ import Foundation
 
 class ScreenshotInteractorMock: PScreenshotInteractor {
 
-	var inScreenshot: Screenshot!
+	var fakeScreenshot: Screenshot!
 
 	func getScreenshot() -> Screenshot {
-		return self.inScreenshot
+		return self.fakeScreenshot
 	}
 
 }

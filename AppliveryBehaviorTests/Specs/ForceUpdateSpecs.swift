@@ -19,7 +19,7 @@ class ForceUpdateSpecs: QuickSpec {
 	var appMock: AppMock!
 	var userDefaultsMock: UserDefaultsMock!
 	
-    
+	
 	override func spec() {
 		describe("force update") {
 			beforeEach {
@@ -80,15 +80,13 @@ class ForceUpdateSpecs: QuickSpec {
 					self.updatePresenter.userDidTapDownload()
 					expect(self.updateViewMock.spyShowLoadingCalled).to(beTrue())
 				}
-//				it("should request a download token") {
-//					waitUntil { done in
-//						StubResponse.testRequest(with: "ko.json") { url, _ in
-//							expect(url).to(equal("/api/builds/LAST_BUILD_ID_TEST/token"))
-//							done()
-//						}
-//						self.updatePresenter.userDidTapDownload()
-//					}
-//				}
+				it("should request a download token") {
+					var url: String?
+					StubResponse.testRequest { url = $0 }
+					self.updatePresenter.userDidTapDownload()
+					
+					expect(url).toEventually(equal("/api/builds/LAST_BUILD_ID_TEST/token"))
+				}
 				context("and service returns a valid token") {
 					beforeEach {
 						self.appMock.stubOpenUrlResult = true
@@ -120,5 +118,5 @@ class ForceUpdateSpecs: QuickSpec {
 			}
 		}
 	}
-    
+	
 }

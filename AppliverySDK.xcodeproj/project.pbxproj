@@ -80,6 +80,8 @@
 		FA6F7C781E9CEE5D006492E6 /* UpdateInteractorOutputMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFBE4601C3EEA9A0039BD8C /* UpdateInteractorOutputMock.swift */; };
 		FA73BF7D1C8B02E800619258 /* ScreenshotInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA73BF7C1C8B02E800619258 /* ScreenshotInteractor.swift */; };
 		FA73BF801C8B040D00619258 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA73BF7F1C8B040D00619258 /* ImageManager.swift */; };
+		FA7F4CD11EE7547E00BA2F52 /* DeviceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1569BA1DBD52CF00C651D4 /* DeviceMock.swift */; };
+		FA7F4CDE1EE763A600BA2F52 /* test_images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA7F4CDC1EE7615100BA2F52 /* test_images.xcassets */; };
 		FA8D78161BC46064005741D8 /* ConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D78151BC46064005741D8 /* ConfigService.swift */; };
 		FA8D78181BC46584005741D8 /* ConfigServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D78171BC46584005741D8 /* ConfigServiceMock.swift */; };
 		FA8DDA081E99671000A2BB95 /* OTAUpdateSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8DDA071E99671000A2BB95 /* OTAUpdateSpecs.swift */; };
@@ -97,6 +99,7 @@
 		FAAA50E91E91841C0004FBF8 /* EventDetectorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4EBF521C7D009000664C1E /* EventDetectorMock.swift */; };
 		FAAAE1221E8040010065E6AC /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAAE1211E8040010065E6AC /* Palette.swift */; };
 		FAADA5351DBBF25B00300A5E /* FeedbackServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAADA5341DBBF25B00300A5E /* FeedbackServiceTests.swift */; };
+		FAB355D01EE8A21E000F48F5 /* feedback_ok.json in Resources */ = {isa = PBXBuildFile; fileRef = FA0883D71DBC231E008A553A /* feedback_ok.json */; };
 		FABA22F71E9D30040000EBA9 /* ForceUpdateSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA22F61E9D30040000EBA9 /* ForceUpdateSpecs.swift */; };
 		FAC3947E1C95D9FF00F14778 /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC3947D1C95D9FF00F14778 /* Feedback.swift */; };
 		FAC394801C95EA3000F14778 /* FeedbackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC3947F1C95EA3000F14778 /* FeedbackService.swift */; };
@@ -122,6 +125,9 @@
 		FAFBE4631C3EF66E0039BD8C /* DownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFBE4621C3EF66E0039BD8C /* DownloadService.swift */; };
 		FAFBE4651C3EFD890039BD8C /* DownloadDataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFBE4641C3EFD890039BD8C /* DownloadDataManagerTests.swift */; };
 		FAFBE4671C3EFEC40039BD8C /* DownloadServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFBE4661C3EFEC40039BD8C /* DownloadServiceMock.swift */; };
+		FAFF91B61EA14794007B20C9 /* FeedbackSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFF91B51EA14794007B20C9 /* FeedbackSpecs.swift */; };
+		FAFF91B71EA14CBF007B20C9 /* FeedbackViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED0E7B1CC980D2000FD5EB /* FeedbackViewMock.swift */; };
+		FAFF91B81EA15035007B20C9 /* ImageManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA48CB561CC2CE24007A5293 /* ImageManagerMock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -177,7 +183,7 @@
 		FA1569B41DBD313200C651D4 /* Wifi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Wifi.swift; path = Applivery/Utils/Wifi.swift; sourceTree = "<group>"; };
 		FA1569B61DBD465100C651D4 /* DiskStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiskStatus.swift; path = Applivery/Utils/DiskStatus.swift; sourceTree = "<group>"; };
 		FA1569B81DBD498900C651D4 /* Ram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Ram.swift; path = Applivery/Utils/Ram.swift; sourceTree = "<group>"; };
-		FA1569BA1DBD52CF00C651D4 /* DeviceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceMock.swift; path = Mocks/DeviceMock.swift; sourceTree = "<group>"; };
+		FA1569BA1DBD52CF00C651D4 /* DeviceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = DeviceMock.swift; path = Mocks/DeviceMock.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA19E48A1C822CA900DC31E8 /* Environments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Environments.swift; path = Applivery/Utils/Environments.swift; sourceTree = "<group>"; };
 		FA1EE2E51BEAADC800B6EE11 /* JsonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonTests.swift; sourceTree = "<group>"; };
 		FA201F731E9049410090128F /* AppliveryBehaviorTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppliveryBehaviorTests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -236,6 +242,7 @@
 		FA68D90E1BC046E300589DE4 /* Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = Applivery.swift; path = Applivery/Applivery.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA73BF7C1C8B02E800619258 /* ScreenshotInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScreenshotInteractor.swift; path = Applivery/Interactors/ScreenshotInteractor.swift; sourceTree = "<group>"; };
 		FA73BF7F1C8B040D00619258 /* ImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageManager.swift; path = Applivery/Managers/ImageManager.swift; sourceTree = "<group>"; };
+		FA7F4CDC1EE7615100BA2F52 /* test_images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = test_images.xcassets; sourceTree = "<group>"; };
 		FA8D78151BC46064005741D8 /* ConfigService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = ConfigService.swift; path = Applivery/Data/Services/ConfigService.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA8D78171BC46584005741D8 /* ConfigServiceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigServiceMock.swift; path = Mocks/ConfigServiceMock.swift; sourceTree = "<group>"; };
 		FA8DDA071E99671000A2BB95 /* OTAUpdateSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OTAUpdateSpecs.swift; path = Specs/OTAUpdateSpecs.swift; sourceTree = "<group>"; };
@@ -276,6 +283,7 @@
 		FAFBE4621C3EF66E0039BD8C /* DownloadService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = DownloadService.swift; path = Applivery/Data/Services/DownloadService.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAFBE4641C3EFD890039BD8C /* DownloadDataManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadDataManagerTests.swift; path = Data/DownloadDataManagerTests.swift; sourceTree = "<group>"; };
 		FAFBE4661C3EFEC40039BD8C /* DownloadServiceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = DownloadServiceMock.swift; path = Mocks/DownloadServiceMock.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FAFF91B51EA14794007B20C9 /* FeedbackSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackSpecs.swift; path = Specs/FeedbackSpecs.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -312,6 +320,7 @@
 		FA07FDF31E87E18E0073B580 /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				FA68D90E1BC046E300589DE4 /* Applivery.swift */,
 				FAAAE1211E8040010065E6AC /* Palette.swift */,
 				FA07FDF41E87E2600073B580 /* TextLiterals.swift */,
 			);
@@ -353,6 +362,7 @@
 				FA201F741E9049410090128F /* StartSpecs.swift */,
 				FA8DDA071E99671000A2BB95 /* OTAUpdateSpecs.swift */,
 				FABA22F61E9D30040000EBA9 /* ForceUpdateSpecs.swift */,
+				FAFF91B51EA14794007B20C9 /* FeedbackSpecs.swift */,
 			);
 			name = Specs;
 			sourceTree = "<group>";
@@ -360,6 +370,7 @@
 		FA201F7A1E9065BF0090128F /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				FA7F4CD71EE760DD00BA2F52 /* Images */,
 				FA201F7B1E9065C80090128F /* JSON */,
 				FA2EAC851E915EDE00CC9BBF /* Fakes */,
 			);
@@ -575,7 +586,6 @@
 		FA68D8F41BC040B000589DE4 /* AppliverySDK */ = {
 			isa = PBXGroup;
 			children = (
-				FA68D90E1BC046E300589DE4 /* Applivery.swift */,
 				FA07FDF31E87E18E0073B580 /* Public */,
 				FA68D90D1BC046AB00589DE4 /* Source */,
 				FAF382051C2614F6007AF670 /* Resources */,
@@ -625,6 +635,15 @@
 				FA73BF7F1C8B040D00619258 /* ImageManager.swift */,
 			);
 			name = Managers;
+			sourceTree = "<group>";
+		};
+		FA7F4CD71EE760DD00BA2F52 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				FA7F4CDC1EE7615100BA2F52 /* test_images.xcassets */,
+			);
+			name = Images;
+			path = Mocks/Images;
 			sourceTree = "<group>";
 		};
 		FA8D78141BC46037005741D8 /* Services */ = {
@@ -865,7 +884,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAB355D01EE8A21E000F48F5 /* feedback_ok.json in Resources */,
 				FADA301C1E90677500DAC96E /* config_success.json in Resources */,
+				FA7F4CDE1EE763A600BA2F52 /* test_images.xcassets in Resources */,
 				FA9EE9201E9984A500EEC056 /* request_token_ok.json in Resources */,
 				FAAA50E81E917CFC0004FBF8 /* ko.json in Resources */,
 			);
@@ -916,11 +937,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAFF91B71EA14CBF007B20C9 /* FeedbackViewMock.swift in Sources */,
 				FAAA50E91E91841C0004FBF8 /* EventDetectorMock.swift in Sources */,
+				FAFF91B61EA14794007B20C9 /* FeedbackSpecs.swift in Sources */,
 				FA6F7C781E9CEE5D006492E6 /* UpdateInteractorOutputMock.swift in Sources */,
 				FA201F791E90625A0090128F /* UserDefaultsMock.swift in Sources */,
 				FA201F771E904F0F0090128F /* AppMock.swift in Sources */,
 				FA2EAC871E915EFE00CC9BBF /* UserDefaults.swift in Sources */,
+				FAFF91B81EA15035007B20C9 /* ImageManagerMock.swift in Sources */,
+				FA7F4CD11EE7547E00BA2F52 /* DeviceMock.swift in Sources */,
 				FA8DDA081E99671000A2BB95 /* OTAUpdateSpecs.swift in Sources */,
 				FA201F761E904B110090128F /* StubResponseHelper.swift in Sources */,
 				FABA22F71E9D30040000EBA9 /* ForceUpdateSpecs.swift in Sources */,
