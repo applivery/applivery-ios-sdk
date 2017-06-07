@@ -42,8 +42,8 @@ class UserDefaultFakes {
 	
 }
 
-func equal(_ expectedDictionary: [String: Any]?) -> MatcherFunc<[String: Any]?> {
-	return MatcherFunc { actualExpression, failureMessage in
+func equal(_ expectedDictionary: [String: Any]?) -> Predicate<[String: Any]?> {
+	return Predicate.fromDeprecatedClosure { actualExpression, failureMessage in
 		failureMessage.postfixMessage = "equal <\(String(describing: expectedDictionary))>"
 		if let actualValue = try actualExpression.evaluate() {
 			guard let actualValueDict = actualValue else { return expectedDictionary == nil }
