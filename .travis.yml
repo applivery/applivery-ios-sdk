@@ -5,7 +5,7 @@ env:
     - FRAMEWORK_NAME=Applivery
     - PROJECT=AppliverySDK
     - SCHEME=Applivery
-    - OS=10.3
+    - OS=10.3.1
     - DEVICE="iPhone 7"
 cache:
   directories:
