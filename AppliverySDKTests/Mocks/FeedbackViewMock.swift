@@ -29,7 +29,7 @@ class FeedbackViewMock: FeedbackView {
 	var spyDismissCalled = false
 
 
-	// MARK - Methods
+	// MARK: - Methods
 
 	func showScreenshot(_ screenshot: UIImage?) {
 		self.spyShowScreenshot = (true, screenshot)

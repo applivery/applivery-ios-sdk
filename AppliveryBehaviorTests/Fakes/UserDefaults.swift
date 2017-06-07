@@ -43,15 +43,16 @@ class UserDefaultFakes {
 }
 
 func equal(_ expectedDictionary: [String: Any]?) -> Predicate<[String: Any]?> {
-	return Predicate.fromDeprecatedClosure { actualExpression, failureMessage in
-		failureMessage.postfixMessage = "equal <\(String(describing: expectedDictionary))>"
+	return Predicate.define("equal <\(String(describing: expectedDictionary))>") { actualExpression, msg -> PredicateResult in
 		if let actualValue = try actualExpression.evaluate() {
-			guard let actualValueDict = actualValue else { return expectedDictionary == nil }
-			guard let expectedDictionaryDict = expectedDictionary else { return actualValue == nil }
+			guard let actualValueDict = actualValue else { return PredicateResult(bool: false, message: msg) }
+			guard let expectedDictionaryDict = expectedDictionary else { return PredicateResult(bool: false, message: msg) }
 			
-			return NSDictionary(dictionary: actualValueDict).isEqual(to: expectedDictionaryDict)
+			let matches = NSDictionary(dictionary: actualValueDict).isEqual(to: expectedDictionaryDict)
+			return PredicateResult(bool: matches, message: msg)
 		} else {
-			return false
+			return PredicateResult(bool: false, message: msg)
 		}
+		
 	}
 }

@@ -23,7 +23,7 @@ class UserDefaultsMock: UserDefaultsProtocol {
 	fileprivate var tempDictionary = [String: Any]()
 
 
-	// MARK - Public Methods
+	// MARK: - Public Methods
 
 	func value(forKey key: String) -> Any? {
 		return self.stubDictionary?[key]

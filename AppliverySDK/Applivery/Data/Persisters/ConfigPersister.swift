@@ -33,7 +33,7 @@ class ConfigPersister: NSObject {
 	fileprivate var userDefaults: UserDefaultsProtocol
 
 
-	// MARK - Initializers
+	// MARK: - Initializers
 
 	init(userDefaults: UserDefaultsProtocol = Foundation.UserDefaults.standard) {
 		self.userDefaults = userDefaults

@@ -38,7 +38,7 @@ class UpdateCoordinatorTests: XCTestCase {
     }
 
 
-	// MARK - OTA Update
+	// MARK: - OTA Update
 
 	func test_otaUpdate_appShowOtaAlert() {
 		self.updateInteractorMock.inOtaUpdateMessage = "UPDATE MESSAGE"
@@ -83,7 +83,7 @@ class UpdateCoordinatorTests: XCTestCase {
 	}
 
 
-	// MARK - Private Helpers
+	// MARK: - Private Helpers
 
 	func otaDownloadClosure() -> (() -> Void) {
 		self.updateInteractorMock.inOtaUpdateMessage = "UPDATE MESSAGE"

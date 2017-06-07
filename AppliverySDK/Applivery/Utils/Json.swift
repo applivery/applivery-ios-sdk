@@ -26,7 +26,7 @@ class JSON: Sequence, CustomStringConvertible {
 	}
 	
 	
-	// MARK - Initializers
+	// MARK: - Initializers
 	
 	init(from any: Any) {
 		self.json = any
@@ -74,7 +74,7 @@ class JSON: Sequence, CustomStringConvertible {
 	}
 	
 	
-	// MARK - Public methods
+	// MARK: - Public methods
 	
 	func toData() -> Data? {
 		do {
@@ -117,7 +117,7 @@ class JSON: Sequence, CustomStringConvertible {
 		return dic
 	}
 	
-	// MARK - Sequence Methods
+	// MARK: - Sequence Methods
 	
 	func makeIterator() -> AnyIterator<JSON> {
 		var index = 0

@@ -62,7 +62,7 @@ class Keyboard {
 	}
 
 
-	// MARK - Private Helpers
+	// MARK: - Private Helpers
 
 	private class func keyboardEvent(_ event: String, notificationHandler: @escaping (Notification) -> Void) {
 		_ = NotificationCenter.default

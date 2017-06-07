@@ -50,7 +50,7 @@ class AppliveryTests: XCTestCase {
     }
 
 
-	// MARK - Start
+	// MARK: - Start
 	func test_start() {
 		self.applivery.start(apiKey: "test_api_key", appId: "test_app_id", appStoreRelease: false)
 
@@ -78,7 +78,7 @@ class AppliveryTests: XCTestCase {
 	}
 
 
-	// MARK - Force Update
+	// MARK: - Force Update
 	func test_force_update() {
 		self.applivery.forceUpdate()
 
@@ -86,14 +86,14 @@ class AppliveryTests: XCTestCase {
 	}
 
 
-	// MARK - Force Update
+	// MARK: - Force Update
 	func test_ota_update() {
 		self.applivery.otaUpdate()
 
 		XCTAssert(self.updateCoordinatorMock.spyOtaUpdateCalled == true)
 	}
 
-	// MARK - Show Feedback
+	// MARK: - Show Feedback
 	func test_showFeedback() {
 		self.applivery.feedbackEvent()
 

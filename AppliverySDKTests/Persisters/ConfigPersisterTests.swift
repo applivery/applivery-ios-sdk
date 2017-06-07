@@ -36,7 +36,7 @@ class ConfigPersisterTests: XCTestCase {
     }
 
 
-	// MARK - Get Config Tests
+	// MARK: - Get Config Tests
 
 	func test_getConfig_returnsNil_whenUserDefaultsIsEmpty() {
 		let config = self.configPersister.getConfig()
@@ -131,7 +131,7 @@ class ConfigPersisterTests: XCTestCase {
 	}
 
 
-	// MARK - Save Config Tests
+	// MARK: - Save Config Tests
 
 	func test_saveConfig_synchronizeSameDataAsConfigDataPassed() {
 		let config = self.fullDataConfig()
@@ -147,7 +147,7 @@ class ConfigPersisterTests: XCTestCase {
 	}
 
 
-	// MARK - Helpers
+	// MARK: - Helpers
 
 	func fullDataConfig() -> Config {
 		let config = Config()

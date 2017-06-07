@@ -77,7 +77,7 @@ class FeedbackPresenterTests: XCTestCase {
 	}
 
 
-	// MARK - Tests change attach screenshot
+	// MARK: - Tests change attach screenshot
 
 	func test_userDidChangeAttachScreenshot_callsShowScreenshotPreview_whenOnIsTrue() {
 		self.feedbackPresenter.userDidChangedAttachScreenshot(attach: true)
@@ -94,7 +94,7 @@ class FeedbackPresenterTests: XCTestCase {
 	}
 
 
-	// MARK - Tests send feedback
+	// MARK: - Tests send feedback
 
 	func test_userDidTapSendFeedbackButton_callsNeedMessage_whenViewHasNoMessage() {
 		self.feedbackPresenter.userDidTapSendFeedbackButton()

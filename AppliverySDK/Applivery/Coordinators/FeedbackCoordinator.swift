@@ -21,7 +21,7 @@ class FeedbackCoordinator: PFeedbackCoordinator {
 	fileprivate var app: AppProtocol
 	fileprivate var isFeedbackPresented = false
 	
-	// MARK - Initializers
+	// MARK: - Initializers
 	init(app: AppProtocol = App()) {
 		self.app = app
 	}

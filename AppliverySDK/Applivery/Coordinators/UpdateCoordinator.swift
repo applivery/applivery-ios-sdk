@@ -23,14 +23,14 @@ class UpdateCoordinator: PUpdateCoordinator, UpdateInteractorOutput {
 	fileprivate var forceUpdateCalled = false
 
 
-	// MARK - Initializers
+	// MARK: - Initializers
 	init(updateInteractor: PUpdateInteractor = UpdateInteractor(), app: AppProtocol = App()) {
 		self.updateInteractor = updateInteractor
 		self.app = app
 	}
 
 
-	// MARK - Public Methods
+	// MARK: - Public Methods
 
 	func forceUpdate() {
 		guard !forceUpdateCalled else { return }
@@ -61,7 +61,7 @@ class UpdateCoordinator: PUpdateCoordinator, UpdateInteractorOutput {
 	}
 
 
-	// MARK - Update Interactor
+	// MARK: - Update Interactor
 
 	func downloadDidEnd() {
 		self.app.hideLoading()
@@ -75,7 +75,7 @@ class UpdateCoordinator: PUpdateCoordinator, UpdateInteractorOutput {
 	}
 
 
-	// MARK - Private Helpers
+	// MARK: - Private Helpers
 
 	fileprivate func downloadLastBuild() {
 		self.app.showLoading()
