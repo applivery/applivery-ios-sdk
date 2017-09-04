@@ -58,7 +58,7 @@ public class Applivery: NSObject, StartInteractorOutput {
 	public static let sharedInstance = Applivery()
 	
 	/// Singleton instance
-	public static let shared = Applivery()
+	@objc public static let shared = Applivery()
 	
 	
 	// MARK: - Instance Properties
@@ -74,7 +74,7 @@ public class Applivery: NSObject, StartInteractorOutput {
 	- Since: 1.0
 	- Version: 2.0
 	*/
-	public var logLevel: LogLevel {
+	@objc public var logLevel: LogLevel {
 		didSet {
 			self.globalConfig.logLevel = self.logLevel
 		}
@@ -130,7 +130,7 @@ public class Applivery: NSObject, StartInteractorOutput {
 	- Since: 2.4
 	- Version: 2.4
 	*/
-	public var palette: Palette {
+	@objc public var palette: Palette {
 		didSet {
 			self.globalConfig.palette = self.palette
 		}
@@ -249,7 +249,7 @@ public class Applivery: NSObject, StartInteractorOutput {
 	- Since: 1.0
 	- Version: 2.0
 	*/
-	public func start(apiKey key: String, appId: String, appStoreRelease: Bool) {
+	@objc public func start(apiKey key: String, appId: String, appStoreRelease: Bool) {
 		self.globalConfig.apiKey = key
 		self.globalConfig.appId = appId
 		self.globalConfig.appStoreRelease = appStoreRelease
