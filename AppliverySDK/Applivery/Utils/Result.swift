@@ -14,7 +14,7 @@ enum Result<SuccessType: Equatable, ErrorType: Equatable>: Equatable {
 	case error(ErrorType)
 }
 
-func ==<SuccessType: Equatable, ErrorType: Equatable> (left: Result<SuccessType, ErrorType>, right: Result<SuccessType, ErrorType>) -> Bool {
+func ==<SuccessType, ErrorType> (left: Result<SuccessType, ErrorType>, right: Result<SuccessType, ErrorType>) -> Bool {
 	switch (left, right) {
 	case (.success(let lValue), .success(let rValue))	where lValue == rValue: return true
 	case (.error(let lError), .error(let rError))		where lError == rError: return true

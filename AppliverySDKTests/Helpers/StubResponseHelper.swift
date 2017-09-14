@@ -26,7 +26,7 @@ class StubResponse {
 			
 			matching(urlRequest.url?.path ?? "NO_URL", json)
 			return true
-		}) { _ in StubResponse.stubResponse(with: json) }
+		}, withStubResponse: { _ in StubResponse.stubResponse(with: json) })
 	}
 	
 	class func testRequest(with json: String = "ko.json", matching: @escaping (String) -> Void) {

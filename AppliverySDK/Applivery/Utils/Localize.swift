@@ -8,7 +8,7 @@
 
 import Foundation
 
-func localize(_ key: String) -> String {
+public func localize(_ key: String) -> String {
 	let literal = NSLocalizedString(key, tableName: nil, bundle: Bundle.applivery(), value: "", comment: "")
 
 	return literal
