@@ -14,7 +14,7 @@ struct Screenshot {
 	var image: UIImage
 
 
-	// MARK - Factory Methods
+	// MARK: - Factory Methods
 
 	static func capture() -> Screenshot {
 		let image = Screenshot.takeScreenshot()
@@ -50,7 +50,7 @@ struct Screenshot {
 	}
 
 
-	// MARK - Public Methods
+	// MARK: - Public Methods
 
 	func base64() -> String? {
 		let imageData = UIImageJPEGRepresentation(self.image, 0.9)

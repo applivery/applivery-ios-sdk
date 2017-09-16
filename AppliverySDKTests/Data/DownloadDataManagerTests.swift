@@ -92,7 +92,7 @@ class DownloadDataManagerTests: XCTestCase {
 	}
 
 
-	// MARK - Helpers
+	// MARK: - Helpers
 
 	func networkError() -> NSError {
 		let error = NSError(

@@ -22,19 +22,17 @@ class FeedbackPresenterTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-		self.feedbackPresenter = FeedbackPresenter()
-
-		self.screenshotInteractorMock = ScreenshotInteractorMock()
-		self.feedbackPresenter.screenshotInteractor = self.screenshotInteractorMock
-
 		self.feedbackViewMock = FeedbackViewMock()
-		self.feedbackPresenter.view = self.feedbackViewMock
-
-		self.feedbackCoordinatorMock = FeedbackCoordinatorMock()
-		self.feedbackPresenter.feedbackCoordinator = self.feedbackCoordinatorMock
-
 		self.feedbackInteractorMock = FeedbackInteractorMock()
-		self.feedbackPresenter.feedbackInteractor = self.feedbackInteractorMock
+		self.feedbackCoordinatorMock = FeedbackCoordinatorMock()
+		self.screenshotInteractorMock = ScreenshotInteractorMock()
+		
+		self.feedbackPresenter = FeedbackPresenter(
+			view: self.feedbackViewMock,
+			feedbackInteractor: self.feedbackInteractorMock,
+			feedbackCoordinator: self.feedbackCoordinatorMock,
+			screenshotInteractor: self.screenshotInteractorMock
+		)
     }
 
     override func tearDown() {
@@ -54,12 +52,12 @@ class FeedbackPresenterTests: XCTestCase {
 
 	func test_viewDidLoad() {
 		let image = UIImage()
-		self.screenshotInteractorMock.inScreenshot = Screenshot(image: image)
+		self.screenshotInteractorMock.fakeScreenshot = Screenshot(image: image)
 
 		self.feedbackPresenter.viewDidLoad()
 
-		XCTAssert(self.feedbackViewMock.outShowScreenshot.called == true)
-		XCTAssert(self.feedbackViewMock.outShowScreenshot.image == image)
+		XCTAssert(self.feedbackViewMock.spyShowScreenshot.called == true)
+		XCTAssert(self.feedbackViewMock.spyShowScreenshot.image == image)
 	}
 
 	func test_userDidTapCloseButton() {
@@ -70,43 +68,43 @@ class FeedbackPresenterTests: XCTestCase {
 
 	func test_userDidTapAddFeedbackButton() {
 		let editedScreenshot = UIImage()
-		self.feedbackViewMock.inEditedScreenshot = editedScreenshot
+		self.feedbackViewMock.fakeEditedScreenshot = editedScreenshot
 		
 		self.feedbackPresenter.userDidTapAddFeedbackButton()
 
-		XCTAssert(self.feedbackViewMock.outShowFeedbackFormulary.called == true)
-		XCTAssert(self.feedbackViewMock.outShowFeedbackFormulary.preview == editedScreenshot)
+		XCTAssert(self.feedbackViewMock.spyShowFeedbackFormulary.called == true)
+		XCTAssert(self.feedbackViewMock.spyShowFeedbackFormulary.preview == editedScreenshot)
 	}
 
 
-	// MARK - Tests change attach screenshot
+	// MARK: - Tests change attach screenshot
 
 	func test_userDidChangeAttachScreenshot_callsShowScreenshotPreview_whenOnIsTrue() {
 		self.feedbackPresenter.userDidChangedAttachScreenshot(attach: true)
 
-		XCTAssert(self.feedbackViewMock.outShowScreenshotPreviewCalled == true)
-		XCTAssert(self.feedbackViewMock.outHideScreenshotPreviewCalled == false)
+		XCTAssert(self.feedbackViewMock.spyShowScreenshotPreviewCalled == true)
+		XCTAssert(self.feedbackViewMock.spyHideScreenshotPreviewCalled == false)
 	}
 
 	func test_userDidChangedAttachScreenshot_callsHideScreenshotPreview_whenOnIsFalse() {
 		self.feedbackPresenter.userDidChangedAttachScreenshot(attach: false)
 
-		XCTAssert(self.feedbackViewMock.outShowScreenshotPreviewCalled == false)
-		XCTAssert(self.feedbackViewMock.outHideScreenshotPreviewCalled == true)
+		XCTAssert(self.feedbackViewMock.spyShowScreenshotPreviewCalled == false)
+		XCTAssert(self.feedbackViewMock.spyHideScreenshotPreviewCalled == true)
 	}
 
 
-	// MARK - Tests send feedback
+	// MARK: - Tests send feedback
 
 	func test_userDidTapSendFeedbackButton_callsNeedMessage_whenViewHasNoMessage() {
 		self.feedbackPresenter.userDidTapSendFeedbackButton()
 
-		XCTAssert(self.feedbackViewMock.outNeedMessageCalled == true)
+		XCTAssert(self.feedbackViewMock.spyNeedMessageCalled == true)
 	}
 
 	func test_userDidTapSendFeedbackButton_closeFeedback_whenSuccess() {
 		// ARRANGE
-		self.feedbackViewMock.inMessage = "test message"
+		self.feedbackViewMock.fakeMessage = "test message"
 		self.feedbackInteractorMock.inResult = .success
 
 
@@ -114,7 +112,7 @@ class FeedbackPresenterTests: XCTestCase {
 		self.feedbackPresenter.userDidTapSendFeedbackButton()
 
 		// ASSERT
-		XCTAssert(self.feedbackViewMock.outNeedMessageCalled == false)
+		XCTAssert(self.feedbackViewMock.spyNeedMessageCalled == false)
 		XCTAssert(self.feedbackViewMock.spyShowLoadingCalled == true)
 		XCTAssert(self.feedbackViewMock.spyStopLoadingCalled == true)
 		XCTAssert(self.feedbackCoordinatorMock.outCloseFeedbackCalled == true)
@@ -122,12 +120,12 @@ class FeedbackPresenterTests: XCTestCase {
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.message == "test message")
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.feedbackType == .bug)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.screenshot == nil)
-		XCTAssert(self.feedbackViewMock.outShowMessage.called == false)
+		XCTAssert(self.feedbackViewMock.spyShowMessage.called == false)
 	}
 
 	func test_userDidTapSendFeedbackButton_showErrorMessage_whenError() {
 		// ARRANGE
-		self.feedbackViewMock.inMessage = "test message"
+		self.feedbackViewMock.fakeMessage = "test message"
 		self.feedbackInteractorMock.inResult = .error("test error")
 
 
@@ -135,7 +133,7 @@ class FeedbackPresenterTests: XCTestCase {
 		self.feedbackPresenter.userDidTapSendFeedbackButton()
 
 		// ASSERT
-		XCTAssert(self.feedbackViewMock.outNeedMessageCalled == false)
+		XCTAssert(self.feedbackViewMock.spyNeedMessageCalled == false)
 		XCTAssert(self.feedbackViewMock.spyShowLoadingCalled == true)
 		XCTAssert(self.feedbackViewMock.spyStopLoadingCalled == false)
 		XCTAssert(self.feedbackCoordinatorMock.outCloseFeedbackCalled == false)
@@ -143,13 +141,13 @@ class FeedbackPresenterTests: XCTestCase {
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.message == "test message")
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.feedbackType == .bug)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.screenshot == nil)
-		XCTAssert(self.feedbackViewMock.outShowMessage.called == true)
-		XCTAssert(self.feedbackViewMock.outShowMessage.message == "test error")
+		XCTAssert(self.feedbackViewMock.spyShowMessage.called == true)
+		XCTAssert(self.feedbackViewMock.spyShowMessage.message == "test error")
 	}
 
 	func test_userDidTapSendFeedbackButton_feedbackSentIsBugType_whenSelectedBugType() {
 		// ARRANGE
-		self.feedbackViewMock.inMessage = "test message"
+		self.feedbackViewMock.fakeMessage = "test message"
 		self.feedbackInteractorMock.inResult = .success
 
 		self.feedbackPresenter.userDidSelectedFeedbackType(.bug)
@@ -159,7 +157,7 @@ class FeedbackPresenterTests: XCTestCase {
 		self.feedbackPresenter.userDidTapSendFeedbackButton()
 
 		// ASSERT
-		XCTAssert(self.feedbackViewMock.outNeedMessageCalled == false)
+		XCTAssert(self.feedbackViewMock.spyNeedMessageCalled == false)
 		XCTAssert(self.feedbackViewMock.spyShowLoadingCalled == true)
 		XCTAssert(self.feedbackViewMock.spyStopLoadingCalled == true)
 		XCTAssert(self.feedbackCoordinatorMock.outCloseFeedbackCalled == true)
@@ -167,12 +165,12 @@ class FeedbackPresenterTests: XCTestCase {
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.message == "test message")
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.feedbackType == .bug)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.screenshot == nil)
-		XCTAssert(self.feedbackViewMock.outShowMessage.called == false)
+		XCTAssert(self.feedbackViewMock.spyShowMessage.called == false)
 	}
 
 	func test_userDidTapSendFeedbackButton_feedbackSentIsFeedbackType_whenSelectedFeedbackType() {
 		// ARRANGE
-		self.feedbackViewMock.inMessage = "test message"
+		self.feedbackViewMock.fakeMessage = "test message"
 		self.feedbackInteractorMock.inResult = .success
 
 		self.feedbackPresenter.userDidSelectedFeedbackType(.feedback)
@@ -182,7 +180,7 @@ class FeedbackPresenterTests: XCTestCase {
 		self.feedbackPresenter.userDidTapSendFeedbackButton()
 
 		// ASSERT
-		XCTAssert(self.feedbackViewMock.outNeedMessageCalled == false)
+		XCTAssert(self.feedbackViewMock.spyNeedMessageCalled == false)
 		XCTAssert(self.feedbackViewMock.spyShowLoadingCalled == true)
 		XCTAssert(self.feedbackViewMock.spyStopLoadingCalled == true)
 		XCTAssert(self.feedbackCoordinatorMock.outCloseFeedbackCalled == true)
@@ -190,18 +188,18 @@ class FeedbackPresenterTests: XCTestCase {
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.message == "test message")
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.feedbackType == .feedback)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.screenshot == nil)
-		XCTAssert(self.feedbackViewMock.outShowMessage.called == false)
+		XCTAssert(self.feedbackViewMock.spyShowMessage.called == false)
 	}
 
 	func test_userDidTapSendFeedbackButton_feedbackSentHasScreenshot_whenAttachedScreenshot() {
 		// ARRANGE
-		self.feedbackViewMock.inMessage = "test message"
+		self.feedbackViewMock.fakeMessage = "test message"
 		self.feedbackInteractorMock.inResult = .success
 
 		let image = UIImage()
 		let editedImage = UIImage()
-		self.screenshotInteractorMock.inScreenshot = Screenshot(image: image)
-		self.feedbackViewMock.inEditedScreenshot = editedImage
+		self.screenshotInteractorMock.fakeScreenshot = Screenshot(image: image)
+		self.feedbackViewMock.fakeEditedScreenshot = editedImage
 
 
 		// ACT
@@ -211,7 +209,7 @@ class FeedbackPresenterTests: XCTestCase {
 		self.feedbackPresenter.userDidTapSendFeedbackButton()
 
 		// ASSERT
-		XCTAssert(self.feedbackViewMock.outNeedMessageCalled == false)
+		XCTAssert(self.feedbackViewMock.spyNeedMessageCalled == false)
 		XCTAssert(self.feedbackViewMock.spyShowLoadingCalled == true)
 		XCTAssert(self.feedbackViewMock.spyStopLoadingCalled == true)
 		XCTAssert(self.feedbackCoordinatorMock.outCloseFeedbackCalled == true)
@@ -219,16 +217,16 @@ class FeedbackPresenterTests: XCTestCase {
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.message == "test message")
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.feedbackType == .bug)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.screenshot?.image == editedImage)
-		XCTAssert(self.feedbackViewMock.outShowMessage.called == false)
+		XCTAssert(self.feedbackViewMock.spyShowMessage.called == false)
 	}
 
 	func test_userDidTapSendFeedbackButton_feedbackSentHasNoScreenshot_whenNoAttachedScreenshot() {
 		// ARRANGE
-		self.feedbackViewMock.inMessage = "test message"
+		self.feedbackViewMock.fakeMessage = "test message"
 		self.feedbackInteractorMock.inResult = .success
 
 		let image = UIImage()
-		self.screenshotInteractorMock.inScreenshot = Screenshot(image: image)
+		self.screenshotInteractorMock.fakeScreenshot = Screenshot(image: image)
 		self.feedbackPresenter.viewDidLoad()
 
 		self.feedbackPresenter.userDidChangedAttachScreenshot(attach: false)
@@ -237,7 +235,7 @@ class FeedbackPresenterTests: XCTestCase {
 		self.feedbackPresenter.userDidTapSendFeedbackButton()
 
 		// ASSERT
-		XCTAssert(self.feedbackViewMock.outNeedMessageCalled == false)
+		XCTAssert(self.feedbackViewMock.spyNeedMessageCalled == false)
 		XCTAssert(self.feedbackViewMock.spyShowLoadingCalled == true)
 		XCTAssert(self.feedbackViewMock.spyStopLoadingCalled == true)
 		XCTAssert(self.feedbackCoordinatorMock.outCloseFeedbackCalled == true)
@@ -245,49 +243,49 @@ class FeedbackPresenterTests: XCTestCase {
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.message == "test message")
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.feedbackType == .bug)
 		XCTAssert(self.feedbackInteractorMock.outSendFeedback.feedback?.screenshot == nil)
-		XCTAssert(self.feedbackViewMock.outShowMessage.called == false)
+		XCTAssert(self.feedbackViewMock.spyShowMessage.called == false)
 	}
 	
 	func test_userDidTapPreview_resultViewShowScreenshotNil_andStateChangedToPreview() {
 		self.feedbackPresenter.userDidTapPreview()
 		
-		XCTAssert(self.feedbackViewMock.outShowScreenshot.called == true)
-		XCTAssert(self.feedbackViewMock.outShowScreenshot.image == nil)
+		XCTAssert(self.feedbackViewMock.spyShowScreenshot.called == true)
+		XCTAssert(self.feedbackViewMock.spyShowScreenshot.image == nil)
 	}
 	
 	func test_userDidShake_resultShowOriginalScreenshot_whenPreviewModeIsSet() {
 		let originalImage = UIImage()
-		self.screenshotInteractorMock.inScreenshot = Screenshot(image: originalImage)
+		self.screenshotInteractorMock.fakeScreenshot = Screenshot(image: originalImage)
 		
 		
 		self.feedbackPresenter.viewDidLoad()
 		self.feedbackPresenter.userDidShake()
 		
-		XCTAssert(self.feedbackViewMock.outShowScreenshot.called == true)
-		XCTAssert(self.feedbackViewMock.outShowScreenshot.image == originalImage)
+		XCTAssert(self.feedbackViewMock.spyShowScreenshot.called == true)
+		XCTAssert(self.feedbackViewMock.spyShowScreenshot.image == originalImage)
 	}
 	
 	func test_userDidShake_resultNoShowScreenshot_whenFormularyModeIsSet() {
 		// Arrange
 		let originalImage = UIImage()
 		let editedImage = UIImage()
-		self.screenshotInteractorMock.inScreenshot = Screenshot(image: originalImage)
-		self.feedbackViewMock.inEditedScreenshot = editedImage
+		self.screenshotInteractorMock.fakeScreenshot = Screenshot(image: originalImage)
+		self.feedbackViewMock.fakeEditedScreenshot = editedImage
 		
 		// Act
 		self.feedbackPresenter.userDidTapAddFeedbackButton()
 		self.feedbackPresenter.userDidShake()
 		
 		// Assert
-		XCTAssert(self.feedbackViewMock.outShowScreenshot.called == false)
+		XCTAssert(self.feedbackViewMock.spyShowScreenshot.called == false)
 	}
 	
 	func test_userDidShake_resultShowOriginalScreenshot_whenFormularyModeIsSet_thenBackToPreview() {
 		// Arrange
 		let originalImage = UIImage()
 		let editedImage = UIImage()
-		self.screenshotInteractorMock.inScreenshot = Screenshot(image: originalImage)
-		self.feedbackViewMock.inEditedScreenshot = editedImage
+		self.screenshotInteractorMock.fakeScreenshot = Screenshot(image: originalImage)
+		self.feedbackViewMock.fakeEditedScreenshot = editedImage
 		
 		// Act
 		self.feedbackPresenter.viewDidLoad()
@@ -296,8 +294,8 @@ class FeedbackPresenterTests: XCTestCase {
 		self.feedbackPresenter.userDidShake()
 		
 		// Assert
-		XCTAssert(self.feedbackViewMock.outRestoreScreenshot.called == true)
-		XCTAssert(self.feedbackViewMock.outRestoreScreenshot.image == originalImage)
+		XCTAssert(self.feedbackViewMock.spyRestoreScreenshot.called == true)
+		XCTAssert(self.feedbackViewMock.spyRestoreScreenshot.image == originalImage)
 	}
 
 }

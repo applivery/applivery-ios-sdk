@@ -21,6 +21,7 @@ protocol FeedbackView {
 	func showLoading()
 	func stopLoading()
 	func editedScreenshot() -> UIImage?
+	func dismiss(animated flag: Bool, completion: (() -> Void)?)
 }
 
 
@@ -29,12 +30,13 @@ enum FeedbackViewState {
 	case formulary
 }
 
+
 class FeedbackPresenter {
 
-	var view: FeedbackView!
-	var feedbackInteractor: PFeedbackInteractor!
-	var feedbackCoordinator: PFeedbackCoordinator!
-	var screenshotInteractor: PScreenshotInteractor!
+	let view: FeedbackView
+	let feedbackInteractor: PFeedbackInteractor
+	let feedbackCoordinator: PFeedbackCoordinator
+	let screenshotInteractor: PScreenshotInteractor
 
 	private var feedbackType: FeedbackType = .bug
 	private var message: String?
@@ -42,14 +44,25 @@ class FeedbackPresenter {
 	private var editedScreenshot: Screenshot?
 	private var attachScreenshot = true
 	private var viewState: FeedbackViewState = .preview
+	
+	
+	// MARK: - Initializers
+	init(view: FeedbackView,
+	     feedbackInteractor: PFeedbackInteractor,
+	     feedbackCoordinator: PFeedbackCoordinator,
+	     screenshotInteractor: PScreenshotInteractor) {
+		self.view = view
+		self.feedbackInteractor = feedbackInteractor
+		self.feedbackCoordinator = feedbackCoordinator
+		self.screenshotInteractor = screenshotInteractor
+	}
 
 
-	// MARK - Public Methods
+	// MARK: - Public Methods
 
 	func viewDidLoad() {
 		self.screenshot = self.screenshotInteractor.getScreenshot()
 		self.view.showScreenshot(self.screenshot?.image)
-		self.viewState = .preview
 	}
 
 	func userDidTapCloseButton() {
@@ -60,7 +73,7 @@ class FeedbackPresenter {
 		guard let editedScreenshot = self.view.editedScreenshot() else {
 			return logWarn("Could not get edited screenshot")
 		}
-		
+
 		self.editedScreenshot = Screenshot(image: editedScreenshot)
 		self.view.showFeedbackFormulary(with: editedScreenshot)
 		self.viewState = .formulary
@@ -68,7 +81,7 @@ class FeedbackPresenter {
 
 	func userDidTapSendFeedbackButton() {
 		guard let message = self.view.textMessage() else {
-			self.view.needMessage(); return
+			return self.view.needMessage()
 		}
 
 		let screenshot = self.attachScreenshot ? self.editedScreenshot : nil

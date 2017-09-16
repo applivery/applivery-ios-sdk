@@ -34,7 +34,7 @@ struct UpdatePresenter: UpdateInteractorOutput {
 	}
 
 
-	// MARK - Update Interactor Output
+	// MARK: - Update Interactor Output
 
 	func downloadDidEnd() {
 		self.view.stopLoading()

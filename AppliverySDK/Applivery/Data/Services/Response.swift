@@ -77,7 +77,7 @@ class Response {
 	}
 
 
-	// MARK - Private Helpers
+	// MARK: - Private Helpers
 
 	fileprivate func parseError(_ error: NSError?) {
 		if error != nil {

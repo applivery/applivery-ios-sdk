@@ -23,7 +23,7 @@ class ResponseTests: XCTestCase {
     }
 
 
-	// MARK - Init Tests
+	// MARK: - Init Tests
 
 	func test_init_returnsErrorUnexpected_whenEverythingIsNil() {
 		GlobalConfig.shared.logLevel = .debug
@@ -217,7 +217,7 @@ class ResponseTests: XCTestCase {
 
 
 
-	// MARK - Helpers
+	// MARK: - Helpers
 
 	fileprivate static let UnexpectedErrorJson = "Unexpected error trying to parse Json"
 	fileprivate static let InvalidCredentials = "Invalid credentials"

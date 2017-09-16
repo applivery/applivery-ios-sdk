@@ -58,7 +58,10 @@ class Request {
 		guard var url = URLComponents(string: GlobalConfig.Host) else { return nil }
 		
 		url.path += self.endpoint
-		url.queryItems = self.urlParams.map(URLQueryItem.init(name:value:))
+		
+		if !self.urlParams.isEmpty {
+			url.queryItems = self.urlParams.map(URLQueryItem.init(name:value:))
+		}
 		
 		return url.url
 	}

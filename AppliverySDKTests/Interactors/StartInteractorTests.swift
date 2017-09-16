@@ -266,7 +266,7 @@ class StartInteractorTests: XCTestCase {
 	}
 
 
-	// MARK - No OTA Update
+	// MARK: - No OTA Update
 
 	func test_UpdatedConfigNoOtaUpdate_result_NoOtaUpdate() {
 		let appVersion = "1.2.1.5"
@@ -436,7 +436,7 @@ class StartInteractorTests: XCTestCase {
 	}
 
 
-	// MARK - Store Release
+	// MARK: - Store Release
 
 	func test_shouldForceUpdate_but_StoreReleaseIsTrue_result_noUpdate() {
 		let appVersion = "1.2.1.5"
@@ -452,7 +452,7 @@ class StartInteractorTests: XCTestCase {
 		XCTAssert(self.eventDetectorMock.spyListenEventCalled == true)
 	}
 
-	// MARK - OnDetection Event
+	// MARK: - OnDetection Event
 	func test_startInteractor_callsOutputFeedback_whenEventDetected() {
 		self.startInteractor.start() // Mock should get onDetection closure
 
@@ -462,7 +462,7 @@ class StartInteractorTests: XCTestCase {
 	}
 
 
-	// MARK - Disable Feedback test
+	// MARK: - Disable Feedback test
 
 	func test_disableFeedback_endListening_whenFeedbackIsEnabled() {
 		XCTAssert(self.globalConfigMock.feedbackEnabled == true)
@@ -483,7 +483,7 @@ class StartInteractorTests: XCTestCase {
 	}
 
 
-	// MARK - Helpers
+	// MARK: - Helpers
 
 	// Force Update
 

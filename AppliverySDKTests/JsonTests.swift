@@ -20,7 +20,7 @@ class JsonTests: XCTestCase {
     }
 
 
-	// MARK - Simple objects
+	// MARK: - Simple objects
 
 	func test_simple_object_string() {
 		let object = ["key": "value"]
@@ -44,7 +44,7 @@ class JsonTests: XCTestCase {
 	}
 
 
-	// MARK - Paths
+	// MARK: - Paths
 
 	func test_path_string() {
 		let object = ["key": ["key2": "value"]]
@@ -71,7 +71,7 @@ class JsonTests: XCTestCase {
 	}
 
 
-	// MARK - Errors
+	// MARK: - Errors
 
 	func test_not_an_object() {
 		let object = "value"

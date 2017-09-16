@@ -22,7 +22,7 @@ class Config {
 	var otaUpdateMessage: String?
 
 
-	// MARK - Initializers
+	// MARK: - Initializers
 
 	convenience init(json: JSON) throws {
 		self.init()
@@ -44,7 +44,7 @@ class Config {
 	}
 
 
-	// MARK - Private Helpers
+	// MARK: - Private Helpers
 
 	/// get an "optional" param that should exists
 	fileprivate func getParam(_ parameter: String, json: JSON, shouldExists: Bool) -> String {

@@ -198,23 +198,23 @@ class FeedbackServiceTests: XCTestCase {
 	
 	private func setupDeviceWithBattery() {
 		self.setupDeviceWithoutBattery()
-		self.deviceMock.inBatteryLevel = 30
-		self.deviceMock.inBatteryState = true
+		self.deviceMock.fakeBatteryLevel = 30
+		self.deviceMock.fakeBatteryState = true
 	}
 	
 	private func setupDeviceWithoutBattery() {
-		self.deviceMock.inModel = "TEST MODEL"
-		self.deviceMock.inType = "TEST TYPE"
-		self.deviceMock.inSystemVersion = "TEST IOS VERSION"
-		self.deviceMock.inVendorId = "test vendor"
-		self.deviceMock.inBatteryLevel = 30
-		self.deviceMock.inBatteryState = nil
-		self.deviceMock.inNetworkType = "test network type"
-		self.deviceMock.inResolution = "test resolution"
-		self.deviceMock.inOrientation = "test orientation"
-		self.deviceMock.inDiskFree = "test disk free"
-		self.deviceMock.inRamUsed = "50"
-		self.deviceMock.inRamTotal = "2000"
+		self.deviceMock.fakeModel = "TEST MODEL"
+		self.deviceMock.fakeType = "TEST TYPE"
+		self.deviceMock.fakeSystemVersion = "TEST IOS VERSION"
+		self.deviceMock.fakeVendorId = "test vendor"
+		self.deviceMock.fakeBatteryLevel = 30
+		self.deviceMock.fakeBatteryState = nil
+		self.deviceMock.fakeNetworkType = "test network type"
+		self.deviceMock.fakeResolution = "test resolution"
+		self.deviceMock.fakeOrientation = "test orientation"
+		self.deviceMock.fakeDiskFree = "test disk free"
+		self.deviceMock.fakeRamUsed = "50"
+		self.deviceMock.fakeRamTotal = "2000"
 	}
 	
 	private func stubFeedbackOK() {

@@ -24,14 +24,14 @@ class UpdateVC: UIViewController, UpdateView {
 	private let alert = UIAlertController(title: literal(.appName), message: nil, preferredStyle: .alert)
 
 
-	// MARK - Factory method
+	// MARK: - Factory method
 
 	class func viewController() -> UpdateVC? {
 		return UIStoryboard.initialViewController() as? UpdateVC
 	}
 
 
-	// MARK - View Lifecycle
+	// MARK: - View Lifecycle
 
 	override func viewDidLoad() {
 		self.setupView()
@@ -43,14 +43,14 @@ class UpdateVC: UIViewController, UpdateView {
 	}
 
 
-	// MARK - UI Actions
+	// MARK: - UI Actions
 
 	@IBAction func onButtonUpdateTap(_ sender: UIButton) {
 		self.presenter.userDidTapDownload()
 	}
 
 
-	// MARK - Presenter
+	// MARK: - Presenter
 
 	func showUpdateMessage(_ message: String) {
 		self.labelUpdateMessage.text = message
@@ -74,7 +74,7 @@ class UpdateVC: UIViewController, UpdateView {
 	}
 
 
-	// MARK - Private Helpers
+	// MARK: - Private Helpers
 
 	private func setupView() {
 		self.setColors()

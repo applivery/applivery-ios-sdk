@@ -9,17 +9,16 @@ import UIKit
 
 
 class FeedbackVC: UIViewController {
-	
 	var presenter: FeedbackPresenter!
 	
 	fileprivate var previewVC: PreviewVC?
 	fileprivate var isMessagePlaceholderShown = true
 	
-	// MARK - Constants
+	// MARK: - Constants
 	fileprivate static let BugTypeIndex = 0
 	fileprivate static let FeedbackTypeIndex = 1
 	
-	// MARK - UI Properties
+	// MARK: - UI Properties
 	@IBOutlet weak fileprivate var navigationBar: UIView!
 	@IBOutlet weak fileprivate var buttonClose: UIButton!
 	@IBOutlet weak fileprivate var labelApplivery: UILabel!
@@ -35,14 +34,15 @@ class FeedbackVC: UIViewController {
 	@IBOutlet weak fileprivate var labelAttach: UILabel!
 	@IBOutlet weak fileprivate var switchAttach: UISwitch!
 	
-	// MARK - UI Constraints
+	// MARK: - UI Constraints
 	@IBOutlet weak var bottomFeedbackFormConstraint: NSLayoutConstraint!
 	@IBOutlet weak var widthScreenshotConstraint: NSLayoutConstraint!
 	private var widthScreenshotConstant: CGFloat!
 	
 	
-	class func viewController() -> FeedbackVC? {
-		return UIStoryboard.viewController("FeedbackVC") as? FeedbackVC
+	class func viewController() -> FeedbackVC {
+		let feedbackVC = UIStoryboard.viewController("FeedbackVC") as? FeedbackVC
+		return feedbackVC ?? FeedbackVC()
 	}
 	
 }

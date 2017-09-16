@@ -29,18 +29,18 @@ class ScreenshotInteractorTests: XCTestCase {
         super.tearDown()
     }
 
-    func test_not_niol() {
+    func test_not_nil() {
 		XCTAssertNotNil(self.screenshotInteractor)
     }
 
 	func test_getScreenshot_returnsScreenshot_whenManagerReturnScreenshot() {
 		let inputScreenshot = Screenshot(image: UIImage())
-		self.imageManagerMock.inScreenshot = inputScreenshot
+		self.imageManagerMock.fakeScreenshot = inputScreenshot
 
 		let resultScreenshot = self.screenshotInteractor.getScreenshot()
 
 		XCTAssert(resultScreenshot == inputScreenshot)
-		XCTAssert(self.imageManagerMock.outGetScreenshotCalled == true)
+		XCTAssert(self.imageManagerMock.spyGetScreenshotCalled == true)
 	}
 }
 

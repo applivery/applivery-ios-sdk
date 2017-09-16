@@ -51,7 +51,7 @@ class UpdateInteractorTests: XCTestCase {
 	}
 
 
-	// MARK - Force update message tests
+	// MARK: - Force update message tests
 
 	func test_nil_config_returns_default_message() {
 		self.configDataManagerMock.inCurrentConfig = nil
@@ -99,7 +99,7 @@ class UpdateInteractorTests: XCTestCase {
 		Applivery.shared.textLiterals.forceUpdateMessage = nil
 	}
 
-	// MARK - OTA Update Message Tests
+	// MARK: - OTA Update Message Tests
 
 	func test_otaMessage_returnsDefaultMessage_whenUpdateMessageIsNil() {
 		self.configDataManagerMock.inCurrentConfig = nil
@@ -150,7 +150,7 @@ class UpdateInteractorTests: XCTestCase {
 	}
 
 
-	// MARK - Download Last Build Tests
+	// MARK: - Download Last Build Tests
 
 	func test_downloadBuild_success() {
 		self.configDataManagerMock.inCurrentConfig = Config()

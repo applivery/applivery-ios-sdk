@@ -43,7 +43,7 @@ class App: AppProtocol {
 	private var alertError: UIAlertController = UIAlertController()
 
 
-	// MARK - Public Methods
+	// MARK: - Public Methods
 
 	func bundleId() -> String {
 		guard let bundleId = Bundle.main.bundleIdentifier else {
@@ -147,7 +147,7 @@ class App: AppProtocol {
 	}
 
 
-	// MARK - Private Helpers
+	// MARK: - Private Helpers
 
 	fileprivate func sleepUntilReady() {
 		while !self.rootIsReady() {
