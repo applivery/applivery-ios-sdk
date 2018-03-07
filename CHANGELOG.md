@@ -1,6 +1,6 @@
 # Change Log
 
-## [v2.4.1](https://github.com/applivery/applivery-ios-sdk/releases/tag/v2.5)
+## [v2.5](https://github.com/applivery/applivery-ios-sdk/releases/tag/v2.5)
 
 ### New
 * XCode 9 & Swift 4 compatibility
