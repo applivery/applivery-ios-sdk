@@ -131,22 +131,6 @@ class ConfigPersisterTests: XCTestCase {
 	}
 
 
-	// MARK: - Save Config Tests
-
-	func test_saveConfig_synchronizeSameDataAsConfigDataPassed() {
-		let config = self.fullDataConfig()
-
-		self.configPersister.saveConfig(config)
-
-		XCTAssert(self.userDefaultsMock.spyDictionary != nil)
-
-		if self.userDefaultsMock.spyDictionary != nil {
-			let fullData = self.fullData()
-			XCTAssert(self.userDefaultsMock.spyDictionary! == fullData)
-		}
-	}
-
-
 	// MARK: - Helpers
 
 	func fullDataConfig() -> Config {
