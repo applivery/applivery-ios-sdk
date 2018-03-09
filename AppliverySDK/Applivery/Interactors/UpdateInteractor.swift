@@ -12,9 +12,7 @@ import Foundation
 protocol UpdateInteractorOutput {
 	func downloadDidEnd()
 	func downloadDidFail(_ message: String)
-	func showLogin()
 }
-
 
 protocol PUpdateInteractor {
 	var output: UpdateInteractorOutput? { get set }
@@ -84,7 +82,9 @@ class UpdateInteractor: PUpdateInteractor {
 	private func checkAuth(with config: Config) -> Bool {
 		if config.authUpdate {
 			logInfo("User authentication is required!")
-			self.output?.showLogin()
+			self.app.showLoginView {
+				self.authenticatedDownload()
+			}
 			return true
 		}
 		

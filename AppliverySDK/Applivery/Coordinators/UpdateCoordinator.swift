@@ -67,13 +67,6 @@ class UpdateCoordinator: PUpdateCoordinator, UpdateInteractorOutput {
 			self.downloadLastBuild()
 		}
 	}
-	
-	func showLogin() {
-		self.app.showLoginView {
-			self.updateInteractor.authenticatedDownload()
-		}
-	}
-
 
 	// MARK: - Private Helpers
 	fileprivate func downloadLastBuild() {

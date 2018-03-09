@@ -42,10 +42,5 @@ struct UpdatePresenter: UpdateInteractorOutput {
 		self.view.stopLoading()
 		self.view.showErrorMessage(message)
 	}
-	
-	func showLogin() {
-		//TODO: msg
-		logWarn("TODO")
-	}
 
 }

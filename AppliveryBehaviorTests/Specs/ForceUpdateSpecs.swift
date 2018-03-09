@@ -70,8 +70,7 @@ class ForceUpdateSpecs: QuickSpec {
 					expect(self.updateViewMock.spyShowUpdateMessage.message).to(equal("test force update message"))
 				}
 			}
-			
-			describe("user did tap download") {
+			context("user did tap download") {
 				beforeEach {
 					self.appMock.stubVersion = "1"
 					self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig(lastBuildID: "LAST_BUILD_ID_TEST")
@@ -113,6 +112,32 @@ class ForceUpdateSpecs: QuickSpec {
 					it("should show error alert") {
 						expect(self.updateViewMock.spyShowErrorMessage.called).toEventually(beTrue())
 						expect(self.updateViewMock.spyShowErrorMessage.message).toEventually(equal("Unexpected error"))
+					}
+				}
+			}
+			context("when download needs auth") {
+				var url: String = "NO_URL"
+				beforeEach {
+					StubResponse.testRequest { url = $0 }
+					self.appMock.stubVersion = "1"
+					self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig(
+						lastBuildID: "LAST_BUILD_ID_TEST",
+						authUpdate: true
+					)
+					self.updatePresenter.userDidTapDownload()
+				}
+				it("should show login alert") {
+					expect(self.appMock.spyLoginViewCalled).toEventually(beTrue())
+				}
+				it("should not request a download token") {
+					expect(url).toNotEventually(equal("/api/builds/LAST_BUILD_ID_TEST/token"))
+				}
+				context("when login is resolved") {
+					beforeEach {
+						self.appMock.spyLoginClosure?()
+					}
+					it("should request a download token") {
+						expect(url).toEventually(equal("/api/builds/LAST_BUILD_ID_TEST/token"))
 					}
 				}
 			}
