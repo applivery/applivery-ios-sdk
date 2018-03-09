@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 let kMinVersionKey			= "APPLIVERY_MIN_VERSION"
 let kForceUpdateKey			= "APPLIVERY_FORCE_UPDATE"
 let kLastBuildId			= "APPLIVERY_LAST_BUILD_ID"
@@ -16,7 +15,7 @@ let kForceUpdateMessageKey	= "APPLIVERY_FORCE_UPDATE_MESSAGE"
 let kOtaUpdateKey			= "APPLIVERY_OTA_UPDATE_KEY"
 let kLastBuildVersion		= "APPLIVERY_LAST_BUILD_VERSION"
 let kOtaUpdateMessageKey	= "ApPLIVERY_OTA_UPDATE_MESSAGE"
-
+let kAuthUpdateKey			= "APPLIVERY_AUTH_UPDATE"
 
 protocol UserDefaultsProtocol {
 	func value(forKey key: String) -> Any?
@@ -60,6 +59,7 @@ class ConfigPersister: NSObject {
 		config.lastVersion	= lastBuildVersion
 		config.forceUpdateMessage	= self.userDefaults.value(forKey: kForceUpdateMessageKey)	as? String
 		config.otaUpdateMessage		= self.userDefaults.value(forKey: kOtaUpdateMessageKey)		as? String
+		config.authUpdate			= self.userDefaults.value(forKey: kAuthUpdateKey)			as? Bool ?? false
 
 		return config
 	}
@@ -72,6 +72,7 @@ class ConfigPersister: NSObject {
 		self.userDefaults.set(config.otaUpdate, forKey: kOtaUpdateKey)
 		self.userDefaults.setValue(config.lastVersion as AnyObject?, forKey: kLastBuildVersion)
 		self.userDefaults.setValue(config.otaUpdateMessage as AnyObject?, forKey: kOtaUpdateMessageKey)
+		self.userDefaults.set(config.authUpdate, forKey: kAuthUpdateKey)
 
 		if self.userDefaults.synchronize() {
 			logInfo("Applivery configuration was updated")

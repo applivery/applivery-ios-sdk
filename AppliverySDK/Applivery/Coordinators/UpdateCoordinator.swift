@@ -10,10 +10,8 @@ import Foundation
 
 
 protocol PUpdateCoordinator {
-
 	func forceUpdate()
 	func otaUpdate()
-
 }
 
 
@@ -22,16 +20,13 @@ class UpdateCoordinator: PUpdateCoordinator, UpdateInteractorOutput {
 	fileprivate var app: AppProtocol
 	fileprivate var forceUpdateCalled = false
 
-
 	// MARK: - Initializers
 	init(updateInteractor: PUpdateInteractor = UpdateInteractor(), app: AppProtocol = App()) {
 		self.updateInteractor = updateInteractor
 		self.app = app
 	}
 
-
 	// MARK: - Public Methods
-
 	func forceUpdate() {
 		guard !forceUpdateCalled else { return }
 		forceUpdateCalled = true
@@ -62,7 +57,6 @@ class UpdateCoordinator: PUpdateCoordinator, UpdateInteractorOutput {
 
 
 	// MARK: - Update Interactor
-
 	func downloadDidEnd() {
 		self.app.hideLoading()
 	}
@@ -73,12 +67,17 @@ class UpdateCoordinator: PUpdateCoordinator, UpdateInteractorOutput {
 			self.downloadLastBuild()
 		}
 	}
+	
+	func showLogin() {
+		self.app.showLoginView {
+			self.updateInteractor.authenticatedDownload()
+		}
+	}
 
 
 	// MARK: - Private Helpers
-
 	fileprivate func downloadLastBuild() {
 		self.app.showLoading()
-		self.updateInteractor.downloadLastBuild()
+		self.updateInteractor.download()
 	}
 }

@@ -18,7 +18,6 @@ class OTAUpdateSpecs: QuickSpec {
 	var appMock: AppMock!
 	var userDefaultsMock: UserDefaultsMock!
 	
-	
 	override func spec() {
 		describe("OTA Update") {
 			beforeEach {
@@ -51,7 +50,6 @@ class OTAUpdateSpecs: QuickSpec {
 				
 				OHHTTPStubs.removeAllStubs()
 			}
-			
 			context("when there is a new update") {
 				beforeEach {
 					self.config.textLiterals.otaUpdateMessage = "OTA UPDATE TESTS MESSAGE"
@@ -66,7 +64,6 @@ class OTAUpdateSpecs: QuickSpec {
 					expect(self.appMock.spyOtaAlert.message).to(equal("OTA UPDATE TESTS MESSAGE"))
 				}
 			}
-			
 			context("when user taps on download button") {
 				beforeEach {
 					self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig(lastBuildID: "LAST_BUILD_ID_TEST")
@@ -85,7 +82,6 @@ class OTAUpdateSpecs: QuickSpec {
 					
 					expect(url).toEventually(equal("/api/builds/LAST_BUILD_ID_TEST/token"))
 				}
-				
 				context("and service returns a valid token") {
 					beforeEach {
 						self.appMock.stubOpenUrlResult = true
@@ -115,6 +111,34 @@ class OTAUpdateSpecs: QuickSpec {
 					}
 				}
 			}
+			context("when ota needs auth") {
+				var url: String = "NO_URL"
+				beforeEach {
+					StubResponse.testRequest { url = $0 }
+					self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig(
+						lastBuildID: "LAST_BUILD_ID_TEST",
+						authUpdate: true
+					)
+					self.appMock.stubVersion = "1"
+					self.updateCoordinator.otaUpdate()
+					self.appMock.spyDownloadClosure?()
+				}
+				it("should show login alert") {
+					expect(self.appMock.spyLoginViewCalled).toEventually(beTrue())
+				}
+				it("should not request a download token") {
+					expect(url).toNotEventually(equal("/api/builds/LAST_BUILD_ID_TEST/token"))
+				}
+				context("when login is resolved") {
+					beforeEach {
+						self.appMock.spyLoginClosure?()
+					}
+					it("should request a download token") {
+						expect(url).toEventually(equal("/api/builds/LAST_BUILD_ID_TEST/token"))
+					}
+				}
+			}
+
 		}
 	}
 	

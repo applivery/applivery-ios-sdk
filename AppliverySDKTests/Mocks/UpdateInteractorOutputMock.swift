@@ -15,13 +15,17 @@ class UpdateInteractorOutputMock: UpdateInteractorOutput {
 	var spyDownloadDidEndCalled = false
 	var spyDownloadDidFail = (called: false, message: "")
 
-
+	// MARK: - Public Methods
 	func downloadDidEnd() {
 		self.spyDownloadDidEndCalled = true
 	}
 
 	func downloadDidFail(_ message: String) {
 		self.spyDownloadDidFail = (true, message)
+	}
+	
+	func showLogin() {
+		
 	}
 
 }

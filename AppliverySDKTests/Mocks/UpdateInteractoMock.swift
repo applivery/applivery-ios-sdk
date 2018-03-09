@@ -31,7 +31,7 @@ class UpdateInteractoMock: PUpdateInteractor {
 		return self.inOtaUpdateMessage
 	}
 
-	func downloadLastBuild() {
+	func unauthDownload() {
 		self.outDownloadLastBuildCalled = true
 	}
 }

@@ -158,7 +158,7 @@ class UpdateInteractorTests: XCTestCase {
 		self.downloadDataManagerMock.inDownloadResponse = DownloadUrlResponse.success(url: "url_test")
 		self.appMock.stubOpenUrlResult = true
 
-		self.updateInteractor.downloadLastBuild()
+		self.updateInteractor.unauthDownload()
 
 		XCTAssert(self.downloadDataManagerMock.outDownloadUrl.called == true)
 		XCTAssert(self.downloadDataManagerMock.outDownloadUrl.lastBuildId == "123456")
@@ -174,7 +174,7 @@ class UpdateInteractorTests: XCTestCase {
 		self.downloadDataManagerMock.inDownloadResponse = DownloadUrlResponse.success(url: "url_test")
 		self.appMock.stubOpenUrlResult = false
 
-		self.updateInteractor.downloadLastBuild()
+		self.updateInteractor.unauthDownload()
 
 		XCTAssert(self.downloadDataManagerMock.outDownloadUrl.called == true)
 		XCTAssert(self.downloadDataManagerMock.outDownloadUrl.lastBuildId == "123456")
@@ -187,7 +187,7 @@ class UpdateInteractorTests: XCTestCase {
 
 
 	func test_downloadBuild_nilConfig_returnsFail() {
-		self.updateInteractor.downloadLastBuild()
+		self.updateInteractor.unauthDownload()
 
 		XCTAssert(self.downloadDataManagerMock.outDownloadUrl.called == false)
 		XCTAssert(self.appMock.spyOpenUrl.called == false)
@@ -201,7 +201,7 @@ class UpdateInteractorTests: XCTestCase {
 		self.configDataManagerMock.inCurrentConfig?.lastBuildId = "123456"
 		self.downloadDataManagerMock.inDownloadResponse = DownloadUrlResponse.error(message: "test_message")
 
-		self.updateInteractor.downloadLastBuild()
+		self.updateInteractor.unauthDownload()
 
 		XCTAssert(self.downloadDataManagerMock.outDownloadUrl.called == true)
 		XCTAssert(self.downloadDataManagerMock.outDownloadUrl.lastBuildId == "123456")

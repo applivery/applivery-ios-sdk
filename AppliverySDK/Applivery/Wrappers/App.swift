@@ -16,8 +16,6 @@ protocol AppProtocol {
 	func getVersion() -> String
 	func getVersionName() -> String
 	func getLanguage() -> String
-	
-	
 	func openUrl(_ url: String) -> Bool
 	func showLoading()
 	func hideLoading()
@@ -25,6 +23,7 @@ protocol AppProtocol {
 	func showErrorAlert(_ message: String, retryHandler: @escaping () -> Void)
 	func waitForReadyThen(_ onReady: @escaping () -> Void)
 	func presentModal(_ viewController: UIViewController, animated: Bool)
+	func showLoginView(downloadHandler: @escaping () -> Void)
 }
 
 extension AppProtocol {
@@ -39,8 +38,9 @@ extension AppProtocol {
 
 class App: AppProtocol {
 
-	private var alertOta: UIAlertController = UIAlertController()
-	private var alertError: UIAlertController = UIAlertController()
+	private lazy var alertOta: UIAlertController = UIAlertController()
+	private lazy var alertError: UIAlertController = UIAlertController()
+	private lazy var alertLogin: UIAlertController = UIAlertController()
 
 
 	// MARK: - Public Methods
@@ -144,6 +144,31 @@ class App: AppProtocol {
 	func presentModal(_ viewController: UIViewController, animated: Bool) {
 		let topVC = self.topViewController()
 		topVC?.present(viewController, animated: animated, completion: nil)
+	}
+	
+	func showLoginView(downloadHandler: @escaping () -> Void) {
+		self.alertLogin = UIAlertController(title: literal(.appName), message: "<New update available. Login is required!>", preferredStyle: .alert)
+		
+		let actionCancel = UIAlertAction(title: literal(.alertButtonCancel), style: .cancel) { _ in
+			downloadHandler()
+		}
+		let actionLogin = UIAlertAction(title: "<Login>", style: .default) { _ in
+			downloadHandler()
+		}
+		
+		self.alertLogin.addTextField { textField in
+			textField.placeholder = "<Username>"
+		}
+		self.alertLogin.addTextField { textField in
+			textField.placeholder = "<Password>"
+		}
+		
+		self.alertLogin.addAction(actionCancel)
+		self.alertLogin.addAction(actionLogin)
+		
+		let topVC = self.topViewController()
+		
+		topVC?.present(self.alertLogin, animated: true, completion: nil)
 	}
 
 

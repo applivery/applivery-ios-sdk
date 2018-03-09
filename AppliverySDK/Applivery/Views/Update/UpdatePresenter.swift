@@ -16,12 +16,10 @@ protocol UpdateView {
 	func showErrorMessage(_ message: String)
 }
 
-
 struct UpdatePresenter: UpdateInteractorOutput {
 
 	var updateInteractor: PUpdateInteractor
 	var view: UpdateView
-
 
 	func viewDidLoad() {
 		let updateMessage = self.updateInteractor.forceUpdateMessage()
@@ -30,7 +28,7 @@ struct UpdatePresenter: UpdateInteractorOutput {
 
 	func userDidTapDownload() {
 		self.view.showLoading()
-		self.updateInteractor.downloadLastBuild()
+		self.updateInteractor.download()
 	}
 
 
@@ -43,6 +41,11 @@ struct UpdatePresenter: UpdateInteractorOutput {
 	func downloadDidFail(_ message: String) {
 		self.view.stopLoading()
 		self.view.showErrorMessage(message)
+	}
+	
+	func showLogin() {
+		//TODO: msg
+		logWarn("TODO")
 	}
 
 }
