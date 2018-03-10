@@ -11,6 +11,7 @@ import Foundation
 struct LoginInteractor {
 	
 	var app: AppProtocol
+	var loginService: LoginService
 	
 	func requestAuthorization(with config: Config, completion: @escaping () -> Void) {
 		if config.authUpdate {
@@ -24,9 +25,18 @@ struct LoginInteractor {
 		}
 	}
 	
-	func login(user: String, password: String, completion: () -> Void) {
-		logWarn("Not implemented yet!")
-		completion()
+	func login(user: String, password: String, completion: @escaping () -> Void) {
+		self.loginService.login(user: user, password: password) { result in
+			switch result {
+			case .success(let accessToken):
+				logInfo("Fetched new access token: \(accessToken.token)")
+				logInfo("Valid until \(accessToken.expirationDate)")
+				completion()
+				
+			case .error(_):
+				completion()
+			}
+		}
 	}
 	
 }

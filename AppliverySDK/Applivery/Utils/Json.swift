@@ -117,6 +117,14 @@ class JSON: Sequence, CustomStringConvertible {
 		return dic
 	}
 	
+	func toDate(_ format: String = kDateISOFormat) -> Date? {
+		guard let dateString = self.json as? String else {
+			return nil
+		}
+		
+		return Date.date(from: dateString, format: format)
+	}
+	
 	// MARK: - Sequence Methods
 	
 	func makeIterator() -> AnyIterator<JSON> {

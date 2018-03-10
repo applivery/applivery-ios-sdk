@@ -37,7 +37,7 @@ class UpdateInteractor: PUpdateInteractor {
 		self.configData = configData
 		self.downloadData = downloadData
 		self.app = app
-		self.loginInteractor = LoginInteractor(app: self.app)
+		self.loginInteractor = LoginInteractor(app: self.app, loginService: LoginService())
 	}
 	
 	func forceUpdateMessage() -> String {

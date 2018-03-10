@@ -105,6 +105,9 @@
 		FAC394801C95EA3000F14778 /* FeedbackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC3947F1C95EA3000F14778 /* FeedbackService.swift */; };
 		FAC394821C96078A00F14778 /* UIDevice+ModelName.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC394811C96078A00F14778 /* UIDevice+ModelName.swift */; };
 		FACB9AC0205330E80094499A /* LoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACB9ABF205330E80094499A /* LoginInteractor.swift */; };
+		FACB9AC220535A720094499A /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACB9AC120535A720094499A /* LoginService.swift */; };
+		FACB9AC420535C4B0094499A /* AccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACB9AC320535C4B0094499A /* AccessToken.swift */; };
+		FACB9AC620535E340094499A /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACB9AC520535E340094499A /* DateExtension.swift */; };
 		FACEF8C81C14663B00B03FC0 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACEF8C71C14663B00B03FC0 /* Background.swift */; };
 		FAD2A15B1C010D8B001967FD /* UpdateCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2A15A1C010D8B001967FD /* UpdateCoordinator.swift */; };
 		FAD2A15D1C010EA6001967FD /* UpdateCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2A15C1C010EA6001967FD /* UpdateCoordinatorMock.swift */; };
@@ -264,6 +267,9 @@
 		FAC3947F1C95EA3000F14778 /* FeedbackService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FeedbackService.swift; path = Applivery/Data/Services/FeedbackService.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAC394811C96078A00F14778 /* UIDevice+ModelName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIDevice+ModelName.swift"; path = "Applivery/Utils/UIDevice+ModelName.swift"; sourceTree = "<group>"; };
 		FACB9ABF205330E80094499A /* LoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginInteractor.swift; path = Applivery/Interactors/LoginInteractor.swift; sourceTree = "<group>"; };
+		FACB9AC120535A720094499A /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginService.swift; path = Applivery/Data/Services/LoginService.swift; sourceTree = "<group>"; };
+		FACB9AC320535C4B0094499A /* AccessToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AccessToken.swift; path = Applivery/Model/AccessToken.swift; sourceTree = "<group>"; };
+		FACB9AC520535E340094499A /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DateExtension.swift; path = Applivery/Utils/DateExtension.swift; sourceTree = "<group>"; };
 		FACEF8C71C14663B00B03FC0 /* Background.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Background.swift; path = Applivery/Utils/Background.swift; sourceTree = "<group>"; };
 		FAD2A15A1C010D8B001967FD /* UpdateCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = UpdateCoordinator.swift; path = Applivery/Coordinators/UpdateCoordinator.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAD2A15C1C010EA6001967FD /* UpdateCoordinatorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateCoordinatorMock.swift; path = Mocks/UpdateCoordinatorMock.swift; sourceTree = "<group>"; };
@@ -551,6 +557,7 @@
 			children = (
 				FA53DE321BC18F6D00DF2EB1 /* Config.swift */,
 				FAC3947D1C95D9FF00F14778 /* Feedback.swift */,
+				FACB9AC320535C4B0094499A /* AccessToken.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -657,6 +664,7 @@
 				FA8D78151BC46064005741D8 /* ConfigService.swift */,
 				FAFBE4621C3EF66E0039BD8C /* DownloadService.swift */,
 				FAC3947F1C95EA3000F14778 /* FeedbackService.swift */,
+				FACB9AC120535A720094499A /* LoginService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -760,6 +768,7 @@
 				FA1569B41DBD313200C651D4 /* Wifi.swift */,
 				FA1569B61DBD465100C651D4 /* DiskStatus.swift */,
 				FA1569B81DBD498900C651D4 /* Ram.swift */,
+				FACB9AC520535E340094499A /* DateExtension.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -969,9 +978,11 @@
 				FA1569B51DBD313200C651D4 /* Wifi.swift in Sources */,
 				FA952FDA1C83904100C32DD0 /* FeedbackPresenter.swift in Sources */,
 				FA952FDC1C83909000C32DD0 /* FeedbackInteractor.swift in Sources */,
+				FACB9AC220535A720094499A /* LoginService.swift in Sources */,
 				FA2C455E1C4D228A00E72847 /* NSBundle+Applivery.swift in Sources */,
 				FA3A69401BC2FC1200179176 /* App.swift in Sources */,
 				FA2B9C021DC29935009F11C5 /* ErrorCodes.swift in Sources */,
+				FACB9AC620535E340094499A /* DateExtension.swift in Sources */,
 				FA952FD81C83901000C32DD0 /* FeedbackVC.swift in Sources */,
 				FAD911001BCEE58B00D56617 /* Json.swift in Sources */,
 				FACEF8C81C14663B00B03FC0 /* Background.swift in Sources */,
@@ -1003,6 +1014,7 @@
 				FAAAE1221E8040010065E6AC /* Palette.swift in Sources */,
 				FA3211D41C3EA11700668099 /* DownloadDataManager.swift in Sources */,
 				FAFA857A1BCC07B6004E1974 /* Log.swift in Sources */,
+				FACB9AC420535C4B0094499A /* AccessToken.swift in Sources */,
 				FA19E48B1C822CA900DC31E8 /* Environments.swift in Sources */,
 				FA952FDE1C83929100C32DD0 /* Storyboard+Applivery.swift in Sources */,
 				FA53DE301BC18ECB00DF2EB1 /* ConfigDataManager.swift in Sources */,
