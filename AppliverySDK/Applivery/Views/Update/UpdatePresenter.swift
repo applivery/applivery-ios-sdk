@@ -28,7 +28,7 @@ struct UpdatePresenter: UpdateInteractorOutput {
 
 	func userDidTapDownload() {
 		self.view.showLoading()
-		self.updateInteractor.download()
+		self.updateInteractor.downloadLasBuild()
 	}
 
 

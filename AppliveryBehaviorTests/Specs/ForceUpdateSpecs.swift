@@ -134,7 +134,7 @@ class ForceUpdateSpecs: QuickSpec {
 				}
 				context("when login is resolved") {
 					beforeEach {
-						self.appMock.spyLoginClosure?()
+						self.appMock.spyLoginCancelClosure?()
 					}
 					it("should request a download token") {
 						expect(url).toEventually(equal("/api/builds/LAST_BUILD_ID_TEST/token"))

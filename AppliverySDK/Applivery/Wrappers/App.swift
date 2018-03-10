@@ -23,7 +23,7 @@ protocol AppProtocol {
 	func showErrorAlert(_ message: String, retryHandler: @escaping () -> Void)
 	func waitForReadyThen(_ onReady: @escaping () -> Void)
 	func presentModal(_ viewController: UIViewController, animated: Bool)
-	func showLoginView(downloadHandler: @escaping () -> Void)
+	func showLoginView(cancelHandler: @escaping () -> Void, loginHandler: @escaping (_ user: String, _ password: String) -> Void)
 }
 
 extension AppProtocol {
@@ -146,21 +146,25 @@ class App: AppProtocol {
 		topVC?.present(viewController, animated: animated, completion: nil)
 	}
 	
-	func showLoginView(downloadHandler: @escaping () -> Void) {
+	func showLoginView(cancelHandler: @escaping () -> Void, loginHandler: @escaping (_ user: String, _ password: String) -> Void) {
+		var userText: UITextField?
+		var passwordText: UITextField?
 		self.alertLogin = UIAlertController(title: literal(.appName), message: "<New update available. Login is required!>", preferredStyle: .alert)
-		
-		let actionCancel = UIAlertAction(title: literal(.alertButtonCancel), style: .cancel) { _ in
-			downloadHandler()
-		}
-		let actionLogin = UIAlertAction(title: "<Login>", style: .default) { _ in
-			downloadHandler()
-		}
 		
 		self.alertLogin.addTextField { textField in
 			textField.placeholder = "<Username>"
+			userText = textField
 		}
 		self.alertLogin.addTextField { textField in
 			textField.placeholder = "<Password>"
+			passwordText = textField
+		}
+		
+		let actionCancel = UIAlertAction(title: literal(.alertButtonCancel), style: .cancel) { _ in
+			cancelHandler()
+		}
+		let actionLogin = UIAlertAction(title: "<Login>", style: .default) { _ in
+			loginHandler(userText?.text ?? "", passwordText?.text ?? "")
 		}
 		
 		self.alertLogin.addAction(actionCancel)

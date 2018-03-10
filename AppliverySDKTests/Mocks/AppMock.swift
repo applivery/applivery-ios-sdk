@@ -29,7 +29,8 @@ class AppMock: AppProtocol {
 	var spyShowLoadingCalled = false
 	var spyHideLoadingCalled = false
 	var spyLoginViewCalled = false
-	var spyLoginClosure: (() -> Void)?
+	var spyLoginCancelClosure: (() -> Void)?
+	var spyLoginClosure: ((String, String) -> Void)?
 
 
 	func bundleId() -> String {
@@ -81,8 +82,9 @@ class AppMock: AppProtocol {
 		self.spyPresentModal = (true, viewController)
 	}
 	
-	func showLoginView(downloadHandler: @escaping () -> Void) {
+	func showLoginView(cancelHandler: @escaping () -> Void, loginHandler: @escaping (_ user: String, _ password: String) -> Void) {
 		self.spyLoginViewCalled = true
-		self.spyLoginClosure = downloadHandler
+		self.spyLoginCancelClosure = cancelHandler
+		self.spyLoginClosure = loginHandler
 	}
 }

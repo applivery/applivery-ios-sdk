@@ -71,6 +71,6 @@ class UpdateCoordinator: PUpdateCoordinator, UpdateInteractorOutput {
 	// MARK: - Private Helpers
 	fileprivate func downloadLastBuild() {
 		self.app.showLoading()
-		self.updateInteractor.download()
+		self.updateInteractor.downloadLasBuild()
 	}
 }

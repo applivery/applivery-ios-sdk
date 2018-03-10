@@ -19,8 +19,7 @@ protocol PUpdateInteractor {
 	
 	func forceUpdateMessage() -> String
 	func otaUpdateMessage() -> String
-	func download()
-	func authenticatedDownload()
+	func downloadLasBuild()
 }
 
 
@@ -28,15 +27,17 @@ class UpdateInteractor: PUpdateInteractor {
 	
 	var output: UpdateInteractorOutput?
 	
-	fileprivate var configData: PConfigDataManager
-	fileprivate var downloadData: PDownloadDataManager
-	fileprivate var app: AppProtocol
+	private var configData: PConfigDataManager
+	private var downloadData: PDownloadDataManager
+	private var app: AppProtocol
+	private var loginInteractor: LoginInteractor
 	
 	
 	init(configData: PConfigDataManager = ConfigDataManager(), downloadData: PDownloadDataManager = DownloadDataManager(), app: AppProtocol = App()) {
 		self.configData = configData
 		self.downloadData = downloadData
 		self.app = app
+		self.loginInteractor = LoginInteractor(app: self.app)
 	}
 	
 	func forceUpdateMessage() -> String {
@@ -62,34 +63,17 @@ class UpdateInteractor: PUpdateInteractor {
 		return message
 	}
 	
-	func download() {
-		guard let config = self.configData.getCurrentConfig().config else {
-			self.output?.downloadDidFail(literal(.errorUnexpected) ?? localize("Current config is nil")); return
-		}
-		guard !self.checkAuth(with: config) else { return }
-		self.download(with: config)
-	}
-	
-	func authenticatedDownload() {
+	func downloadLasBuild() {
 		guard let config = self.configData.getCurrentConfig().config else {
 			self.output?.downloadDidFail(literal(.errorUnexpected) ?? localize("Current config is nil")); return
 		}
 		
-		self.download(with: config)
+		self.loginInteractor.requestAuthorization(with: config) {
+			self.download(with: config)
+		}
 	}
 	
 	// MARK: - Private Helpers
-	private func checkAuth(with config: Config) -> Bool {
-		if config.authUpdate {
-			logInfo("User authentication is required!")
-			self.app.showLoginView {
-				self.authenticatedDownload()
-			}
-			return true
-		}
-		
-		return false
-	}
 	
 	private func download(with config: Config) {
 		guard let lastBuildId = config.lastBuildId else {
