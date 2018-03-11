@@ -23,7 +23,7 @@ protocol AppProtocol {
 	func showErrorAlert(_ message: String, retryHandler: @escaping () -> Void)
 	func waitForReadyThen(_ onReady: @escaping () -> Void)
 	func presentModal(_ viewController: UIViewController, animated: Bool)
-	func showLoginView(cancelHandler: @escaping () -> Void, loginHandler: @escaping (_ user: String, _ password: String) -> Void)
+	func showLoginView(message: String, cancelHandler: @escaping () -> Void, loginHandler: @escaping (_ user: String, _ password: String) -> Void)
 }
 
 extension AppProtocol {
@@ -146,10 +146,10 @@ class App: AppProtocol {
 		topVC?.present(viewController, animated: animated, completion: nil)
 	}
 	
-	func showLoginView(cancelHandler: @escaping () -> Void, loginHandler: @escaping (_ user: String, _ password: String) -> Void) {
+	func showLoginView(message: String, cancelHandler: @escaping () -> Void, loginHandler: @escaping (_ user: String, _ password: String) -> Void) {
 		var userText: UITextField?
 		var passwordText: UITextField?
-		self.alertLogin = UIAlertController(title: literal(.appName), message: "<New update available. Login is required!>", preferredStyle: .alert)
+		self.alertLogin = UIAlertController(title: literal(.appName), message: message, preferredStyle: .alert)
 		
 		self.alertLogin.addTextField { textField in
 			textField.placeholder = "<Username>"

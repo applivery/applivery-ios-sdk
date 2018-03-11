@@ -37,7 +37,9 @@ Applivery.shared.textLiterals = TextLiterals(
 	feedbackTypeBug: "Bug",
 	feedbackTypeFeedback: "Feedback",
 	feedbackMessagePlaceholder: "Add a message",
-	feedbackAttach: "Attach Screenshot"
+	feedbackAttach: "Attach Screenshot",
+	loginMessage: "Login is required!,
+	loginInvalidCredentials: "Wrong username or password, please, try again"
 )
 ```
 
@@ -123,7 +125,14 @@ public class TextLiterals: NSObject {
 	
 	/// "Attach Screenshot"
 	public var feedbackAttach: String
-
+	
+	// MARK: - Login
+	
+	/// "Login is required!"
+	public var loginMessage: String
+	
+	/// "Wrong username or password, please, try again"
+	public var loginInvalidCredentials: String
 	
 	// MARK: - Initializer
 	/**
@@ -149,7 +158,9 @@ public class TextLiterals: NSObject {
 		- feedbackTypeBug: "Bug",
 		- feedbackTypeFeedback: "Feedback",
 		- feedbackMessagePlaceholder: "Add a message",
-		- feedbackAttach: "Attach Screenshot"
+		- feedbackAttach: "Attach Screenshot",
+		- loginMessage: "Login is required!",
+		- loginInvalidCredentials: "Wrong username or password, please, try again"
 	- Note: Each parameter has a default literal, so you could set only the values that you really need to change
 	- Since: 2.4
 	- Version: 2.4
@@ -173,7 +184,9 @@ public class TextLiterals: NSObject {
 	            feedbackTypeBug: String = localize("feedback_button_bug"),
 	            feedbackTypeFeedback: String = localize("feedback_button_feedback"),
 	            feedbackMessagePlaceholder: String = localize("feedback_text_message_placeholder"),
-	            feedbackAttach: String = localize("feedback_label_attach")) {
+	            feedbackAttach: String = localize("feedback_label_attach"),
+				loginMessage: String = localize("login_alert_message"),
+				loginInvalidCredentials: String = localize("login_alert_message_invalid_credentials")) {
 		self.appName = appName
 		self.alertButtonCancel = alertButtonCancel
 		self.alertButtonRetry = alertButtonRetry
@@ -194,6 +207,8 @@ public class TextLiterals: NSObject {
 		self.feedbackTypeFeedback = feedbackTypeFeedback
 		self.feedbackMessagePlaceholder = feedbackMessagePlaceholder
 		self.feedbackAttach = feedbackAttach
+		self.loginMessage = loginMessage
+		self.loginInvalidCredentials = loginInvalidCredentials
 	}
 }
 
@@ -218,6 +233,8 @@ enum Literal: CustomStringConvertible {
 	case feedbackTypeFeedback
 	case feedbackMessagePlaceholder
 	case feedbackAttach
+	case loginMessage
+	case loginInvalidCredentials
 	
 	var description: String {
 		return literal(self) ?? String(self.hashValue)
@@ -249,6 +266,8 @@ func literal(_ literal: Literal) -> String? {
 	case .feedbackTypeFeedback: return literals.feedbackTypeFeedback
 	case .feedbackMessagePlaceholder: return literals.feedbackMessagePlaceholder
 	case .feedbackAttach: return literals.feedbackAttach
+	case .loginMessage: return literals.loginMessage
+	case .loginInvalidCredentials: return literals.loginInvalidCredentials
 	}
 }
 // swiftlint:enable cyclomatic_complexity

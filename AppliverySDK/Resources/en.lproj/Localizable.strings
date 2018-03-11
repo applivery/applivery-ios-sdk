@@ -36,3 +36,7 @@
 "feedback_button_feedback" = "Feedback";
 "feedback_text_message_placeholder" = "Add a message";
 "feedback_label_attach" = "Attach Screenshot";
+
+// LOGIN
+"login_alert_message" = "<Login is required!>";
+"login_alert_message_invalid_credentials" = "<Wrong username or password, please, try again>";

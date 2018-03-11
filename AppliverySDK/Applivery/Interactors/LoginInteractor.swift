@@ -16,16 +16,22 @@ struct LoginInteractor {
 	func requestAuthorization(with config: Config, completion: @escaping () -> Void) {
 		if config.authUpdate {
 			logInfo("User authentication is required!")
-			self.app.showLoginView(
-				cancelHandler: completion,
-				loginHandler: { self.login(user: $0, password: $1, completion: completion) }
-			)
+			self.showLogin(with: literal(.loginMessage) ?? "<Login is required!>", completion: completion)
 		} else {
 			completion()
 		}
 	}
 	
-	func login(user: String, password: String, completion: @escaping () -> Void) {
+	// MARK: - Private Helpers
+	private func showLogin(with message: String, completion: @escaping () -> Void) {
+		self.app.showLoginView(
+			message: message,
+			cancelHandler: completion,
+			loginHandler: { self.login(user: $0, password: $1, completion: completion) }
+		)
+	}
+	
+	private func login(user: String, password: String, completion: @escaping () -> Void) {
 		self.loginService.login(user: user, password: password) { result in
 			switch result {
 			case .success(let accessToken):
@@ -34,7 +40,7 @@ struct LoginInteractor {
 				completion()
 
 			case .error:
-				completion()
+				self.showLogin(with: literal(.loginInvalidCredentials) ?? "<Wrong credentials, try again>", completion: completion)
 			}
 		}
 	}
