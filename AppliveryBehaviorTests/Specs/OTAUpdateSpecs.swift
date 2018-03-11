@@ -112,9 +112,12 @@ class OTAUpdateSpecs: QuickSpec {
 				}
 			}
 			context("when ota needs auth") {
-				var url: String = "NO_URL"
+				var matchedDownloadURL = false
 				beforeEach {
-					StubResponse.testRequest { url = $0 }
+					matchedDownloadURL = false
+					StubResponse.testRequest(with: "ko.json", url: "/api/builds/LAST_BUILD_ID_TEST/token", matching: { _, _ in
+						matchedDownloadURL = true
+					})
 					self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig(
 						lastBuildID: "LAST_BUILD_ID_TEST",
 						authUpdate: true
@@ -127,14 +130,61 @@ class OTAUpdateSpecs: QuickSpec {
 					expect(self.appMock.spyLoginViewCalled).toEventually(beTrue())
 				}
 				it("should not request a download token") {
-					expect(url).toNotEventually(equal("/api/builds/LAST_BUILD_ID_TEST/token"))
+					expect(matchedDownloadURL).toNotEventually(beTrue())
 				}
-				context("when login is resolved") {
+				context("when login is cancelled") {
 					beforeEach {
 						self.appMock.spyLoginCancelClosure?()
 					}
 					it("should request a download token") {
-						expect(url).toEventually(equal("/api/builds/LAST_BUILD_ID_TEST/token"))
+						expect(matchedDownloadURL).toEventually(beTrue())
+					}
+				}
+				context("when login is KO") {
+					var matchedLoginURL = false
+					var loginBody: JSON?
+					beforeEach {
+						loginBody = nil
+						let email = "test@applivery.com"
+						let password = "TEST_PASSWORD"
+						matchedLoginURL = false
+						StubResponse.testRequest(url: "/api/auth") { _, json in
+							matchedLoginURL = true
+							loginBody = json
+						}
+						self.appMock.spyLoginClosure?(email, password)
+					}
+					it("should request user token") {
+						expect(matchedLoginURL).toEventually(beTrue())
+						expect(loginBody?["email"]?.toString()).toEventually(equal("test@applivery.com"))
+						expect(loginBody?["password"]?.toString()).toEventually(equal("TEST_PASSWORD"))
+					}
+					it("should request a download token") {
+						expect(matchedLoginURL).toEventually(beTrue()) // This line is to force the next one to be executed when its true
+						expect(matchedDownloadURL).toNotEventually(beTrue())
+					}
+				}
+				context("when login is OK") {
+					var matchedLoginURL = false
+					var loginBody: JSON?
+					beforeEach {
+						loginBody = nil
+						let email = "test@applivery.com"
+						let password = "TEST_PASSWORD"
+						matchedLoginURL = false
+						StubResponse.testRequest(with: "login_success.json", url: "/api/auth") { _, json in
+							matchedLoginURL = true
+							loginBody = json
+						}
+						self.appMock.spyLoginClosure?(email, password)
+					}
+					it("should request user token") {
+						expect(matchedLoginURL).toEventually(beTrue())
+						expect(loginBody?["email"]?.toString()).toEventually(equal("test@applivery.com"))
+						expect(loginBody?["password"]?.toString()).toEventually(equal("TEST_PASSWORD"))
+					}
+					it("should request a download token") {
+						expect(matchedDownloadURL).toEventually(beTrue())
 					}
 				}
 			}

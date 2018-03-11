@@ -32,8 +32,8 @@ struct LoginInteractor {
 				logInfo("Fetched new access token: \(accessToken.token)")
 				logInfo("Valid until \(accessToken.expirationDate)")
 				completion()
-				
-			case .error(_):
+
+			case .error:
 				completion()
 			}
 		}

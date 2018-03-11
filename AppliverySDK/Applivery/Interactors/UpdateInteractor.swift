@@ -67,7 +67,7 @@ class UpdateInteractor: PUpdateInteractor {
 		guard let config = self.configData.getCurrentConfig().config else {
 			self.output?.downloadDidFail(literal(.errorUnexpected) ?? localize("Current config is nil")); return
 		}
-		
+
 		self.loginInteractor.requestAuthorization(with: config) {
 			self.download(with: config)
 		}
