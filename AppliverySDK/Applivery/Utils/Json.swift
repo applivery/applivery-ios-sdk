@@ -46,7 +46,7 @@ class JSON: Sequence, CustomStringConvertible {
 				if let jsonObject = jsonDict[key] {
 					json = jsonObject
 					
-					if let jsonDictNext = jsonObject as? [String : AnyObject] {
+					if let jsonDictNext = jsonObject as? [String: AnyObject] {
 						jsonDict = jsonDictNext
 					}
 				} else {
