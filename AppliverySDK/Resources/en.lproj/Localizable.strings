@@ -38,5 +38,5 @@
 "feedback_label_attach" = "Attach Screenshot";
 
 // LOGIN
-"login_alert_message" = "<Login is required!>";
-"login_alert_message_invalid_credentials" = "<Wrong username or password, please, try again>";
+"login_alert_message" = "Login is required!";
+"login_alert_message_invalid_credentials" = "Wrong username or password, please, try again";

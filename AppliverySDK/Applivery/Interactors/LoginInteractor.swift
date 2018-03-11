@@ -13,34 +13,41 @@ struct LoginInteractor {
 	var app: AppProtocol
 	var loginService: LoginService
 	
-	func requestAuthorization(with config: Config, completion: @escaping () -> Void) {
+	func requestAuthorization(with config: Config, loginHandler: @escaping () -> Void, cancelHandler: @escaping () -> Void) {
 		if config.authUpdate {
 			logInfo("User authentication is required!")
-			self.showLogin(with: literal(.loginMessage) ?? "<Login is required!>", completion: completion)
+			self.showLogin(
+				with: literal(.loginMessage) ?? "<Login is required!>",
+				loginHandler: loginHandler,
+				cancelHandler: cancelHandler
+			)
 		} else {
-			completion()
+			loginHandler()
 		}
 	}
 	
 	// MARK: - Private Helpers
-	private func showLogin(with message: String, completion: @escaping () -> Void) {
+	private func showLogin(with message: String, loginHandler: @escaping () -> Void, cancelHandler: @escaping () -> Void) {
 		self.app.showLoginView(
 			message: message,
-			cancelHandler: completion,
-			loginHandler: { self.login(user: $0, password: $1, completion: completion) }
+			cancelHandler: cancelHandler,
+			loginHandler: { self.login(user: $0, password: $1, loginHandler: loginHandler, cancelHandler: cancelHandler) }
 		)
 	}
 	
-	private func login(user: String, password: String, completion: @escaping () -> Void) {
+	private func login(user: String, password: String, loginHandler: @escaping () -> Void, cancelHandler: @escaping () -> Void) {
 		self.loginService.login(user: user, password: password) { result in
 			switch result {
 			case .success(let accessToken):
 				logInfo("Fetched new access token: \(accessToken.token)")
-				logInfo("Valid until \(accessToken.expirationDate)")
-				completion()
+				loginHandler()
 
 			case .error:
-				self.showLogin(with: literal(.loginInvalidCredentials) ?? "<Wrong credentials, try again>", completion: completion)
+				self.showLogin(
+					with: literal(.loginInvalidCredentials) ?? "<Wrong credentials, try again>",
+					loginHandler: loginHandler,
+					cancelHandler: cancelHandler
+				)
 			}
 		}
 	}

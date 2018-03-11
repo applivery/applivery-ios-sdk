@@ -137,8 +137,11 @@ class OTAUpdateSpecs: QuickSpec {
 					beforeEach {
 						self.appMock.spyLoginCancelClosure?()
 					}
-					it("should request a download token") {
-						expect(matchedDownloadURL).toEventually(beTrue())
+					it("should not request a download token") {
+						expect(matchedDownloadURL).toNotEventually(beTrue())
+					}
+					it("should hide loading") {
+						expect(self.appMock.spyHideLoadingCalled).toEventually(beTrue())
 					}
 				}
 				context("when login is KO") {
