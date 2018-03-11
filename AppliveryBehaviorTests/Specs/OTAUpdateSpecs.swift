@@ -113,10 +113,13 @@ class OTAUpdateSpecs: QuickSpec {
 			}
 			context("when ota needs auth") {
 				var matchedDownloadURL = false
+				var downloadHeaders: [String: String]?
 				beforeEach {
 					matchedDownloadURL = false
-					StubResponse.testRequest(with: "ko.json", url: "/api/builds/LAST_BUILD_ID_TEST/token", matching: { _, _ in
+					downloadHeaders = nil
+					StubResponse.testRequest(with: "ko.json", url: "/api/builds/LAST_BUILD_ID_TEST/token", matching: { _, _, headers in
 						matchedDownloadURL = true
+						downloadHeaders = headers
 					})
 					self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig(
 						lastBuildID: "LAST_BUILD_ID_TEST",
@@ -152,7 +155,7 @@ class OTAUpdateSpecs: QuickSpec {
 						let email = "test@applivery.com"
 						let password = "TEST_PASSWORD"
 						matchedLoginURL = false
-						StubResponse.testRequest(url: "/api/auth") { _, json in
+						StubResponse.testRequest(url: "/api/auth") { _, json, _ in
 							matchedLoginURL = true
 							loginBody = json
 						}
@@ -180,7 +183,7 @@ class OTAUpdateSpecs: QuickSpec {
 						let email = "test@applivery.com"
 						let password = "TEST_PASSWORD"
 						matchedLoginURL = false
-						StubResponse.testRequest(with: "login_success.json", url: "/api/auth") { _, json in
+						StubResponse.testRequest(with: "login_success.json", url: "/api/auth") { _, json, _ in
 							matchedLoginURL = true
 							loginBody = json
 						}
@@ -191,8 +194,9 @@ class OTAUpdateSpecs: QuickSpec {
 						expect(loginBody?["email"]?.toString()).toEventually(equal("test@applivery.com"))
 						expect(loginBody?["password"]?.toString()).toEventually(equal("TEST_PASSWORD"))
 					}
-					it("should request a download token") {
+					it("should request an authenticated download token") {
 						expect(matchedDownloadURL).toEventually(beTrue())
+						expect(downloadHeaders?["x_account_token"]).to(equal("test_user_token"))
 					}
 				}
 			}

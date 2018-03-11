@@ -31,13 +31,15 @@ class UpdateInteractor: PUpdateInteractor {
 	private var downloadData: PDownloadDataManager
 	private var app: AppProtocol
 	private var loginInteractor: LoginInteractor
+	private var globalConfig: GlobalConfig
 	
 	
-	init(configData: PConfigDataManager = ConfigDataManager(), downloadData: PDownloadDataManager = DownloadDataManager(), app: AppProtocol = App()) {
+	init(configData: PConfigDataManager = ConfigDataManager(), downloadData: PDownloadDataManager = DownloadDataManager(), app: AppProtocol = App(), globalConfig: GlobalConfig = GlobalConfig.shared) {
 		self.configData = configData
 		self.downloadData = downloadData
 		self.app = app
-		self.loginInteractor = LoginInteractor(app: self.app, loginService: LoginService())
+		self.globalConfig = globalConfig
+		self.loginInteractor = LoginInteractor(app: self.app, loginService: LoginService(), globalConfig: self.globalConfig)
 	}
 	
 	func forceUpdateMessage() -> String {

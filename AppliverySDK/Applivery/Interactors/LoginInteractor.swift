@@ -12,6 +12,7 @@ struct LoginInteractor {
 	
 	var app: AppProtocol
 	var loginService: LoginService
+	var globalConfig: GlobalConfig
 	
 	func requestAuthorization(with config: Config, loginHandler: @escaping () -> Void, cancelHandler: @escaping () -> Void) {
 		if config.authUpdate {
@@ -40,6 +41,7 @@ struct LoginInteractor {
 			switch result {
 			case .success(let accessToken):
 				logInfo("Fetched new access token: \(accessToken.token)")
+				self.globalConfig.accessToken = accessToken
 				loginHandler()
 
 			case .error:

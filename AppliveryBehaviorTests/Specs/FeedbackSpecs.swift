@@ -120,7 +120,7 @@ class FeedbackSpecs: QuickSpec {
 					var json: JSON?
 					
 					beforeEach {
-						StubResponse.testRequest { url = $0; json = $1 }
+						StubResponse.testRequest { urlResponse, jsonResponse, _ in url = urlResponse; json = jsonResponse }
 						self.feedbackViewMock.fakeMessage = "Test message"
 						self.config.appId = "APPID_TEST"
 						self.appMock.stubBundleID = "BUNDLEID_TEST"
