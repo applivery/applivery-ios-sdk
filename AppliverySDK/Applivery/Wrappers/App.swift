@@ -157,6 +157,7 @@ class App: AppProtocol {
 		}
 		self.alertLogin.addTextField { textField in
 			textField.placeholder = "<Password>"
+			textField.isSecureTextEntry = true
 			passwordText = textField
 		}
 		
