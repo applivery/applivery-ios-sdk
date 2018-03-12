@@ -152,11 +152,11 @@ class App: AppProtocol {
 		self.alertLogin = UIAlertController(title: literal(.appName), message: message, preferredStyle: .alert)
 		
 		self.alertLogin.addTextField { textField in
-			textField.placeholder = "<Username>"
+			textField.placeholder = literal(.loginInputEmail)
 			userText = textField
 		}
 		self.alertLogin.addTextField { textField in
-			textField.placeholder = "<Password>"
+			textField.placeholder = literal(.loginInputPassword)
 			textField.isSecureTextEntry = true
 			passwordText = textField
 		}
@@ -164,7 +164,7 @@ class App: AppProtocol {
 		let actionCancel = UIAlertAction(title: literal(.alertButtonCancel), style: .cancel) { _ in
 			cancelHandler()
 		}
-		let actionLogin = UIAlertAction(title: "<Login>", style: .default) { _ in
+		let actionLogin = UIAlertAction(title: literal(.loginButton), style: .default) { _ in
 			loginHandler(userText?.text ?? "", passwordText?.text ?? "")
 		}
 		

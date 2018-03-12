@@ -17,7 +17,7 @@ struct LoginManager {
 		case 401, 402:
 			GlobalConfig.shared.accessToken = AccessToken(token: "", expirationDate: Date.today())
 			self.loginInteractor.showLogin(
-				with: literal(.loginMessage) ?? "<Login is required!>",
+				with: literal(.loginSessionExpired) ?? "<Login is required!>",
 				loginHandler: retry,
 				cancelHandler: next
 			)

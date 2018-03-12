@@ -38,5 +38,9 @@
 "feedback_label_attach" = "Attach Screenshot";
 
 // LOGIN
+"login_input_email" = "email";
+"login_input_password" = "password";
+"login_button" = "Login";
 "login_alert_message" = "Login is required!";
 "login_alert_message_invalid_credentials" = "Wrong username or password, please, try again";
+"login_alert_message_expired" = "Your session has expired. Please, log in again";

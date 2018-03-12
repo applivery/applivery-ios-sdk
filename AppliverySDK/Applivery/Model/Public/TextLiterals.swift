@@ -18,28 +18,32 @@ import Foundation
  
  ```swift
  Applivery.shared.textLiterals = TextLiterals(
- appName: "Applivery",
- alertButtonCancel: "Cancel",
- alertButtonRetry: "Retry",
- alertButtonOK: "OK",
- errorUnexpected: "Unexpected error",
- errorInvalidCredentials: "Invalid credentials",
- errorDownloadURL: "Couldn't start download. Invalid url",
- otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
- alertButtonLater: "Later",
- alertButtonUpdate: "Update",
- forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it",
- buttonForceUpdate: "Update now",
- feedbackButtonClose: "Close",
- feedbackButtonAdd: "Add Feedback",
- feedbackButtonSend: "Send Feedback",
- feedbackSelectType: "Select type",
- feedbackTypeBug: "Bug",
- feedbackTypeFeedback: "Feedback",
- feedbackMessagePlaceholder: "Add a message",
- feedbackAttach: "Attach Screenshot",
- loginMessage: "Login is required!,
- loginInvalidCredentials: "Wrong username or password, please, try again"
+     appName: "Applivery",
+     alertButtonCancel: "Cancel",
+     alertButtonRetry: "Retry",
+     alertButtonOK: "OK",
+     errorUnexpected: "Unexpected error",
+     errorInvalidCredentials: "Invalid credentials",
+     errorDownloadURL: "Couldn't start download. Invalid url",
+     otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
+     alertButtonLater: "Later",
+     alertButtonUpdate: "Update",
+     forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it",
+     buttonForceUpdate: "Update now",
+     feedbackButtonClose: "Close",
+     feedbackButtonAdd: "Add Feedback",
+     feedbackButtonSend: "Send Feedback",
+     feedbackSelectType: "Select type",
+     feedbackTypeBug: "Bug",
+     feedbackTypeFeedback: "Feedback",
+     feedbackMessagePlaceholder: "Add a message",
+     feedbackAttach: "Attach Screenshot",
+     loginInputEmail: "email",
+     loginInputPassword: "password",
+     loginButton: "Login",
+     loginMessage: "Login is required!,
+     loginInvalidCredentials: "Wrong username or password, please, try again",
+     loginSessionExpired: "Your session has expired. Please, log in again"
  )
  ```
  
@@ -128,39 +132,55 @@ public class TextLiterals: NSObject {
     
     // MARK: - Login
     
+    /// "email"
+    public var loginInputEmail: String
+    
+    /// "password"
+    public var loginInputPassword: String
+    
+    /// "email"
+    public var loginButton: String
+    
     /// "Login is required!"
     public var loginMessage: String
     
     /// "Wrong username or password, please, try again"
     public var loginInvalidCredentials: String
     
+    /// "Your session has expired. Please, log in again"
+    public var loginSessionExpired: String
+    
     // MARK: - Initializer
     /**
      Creates a new instance of TextLiterals.
      
      - Parameters:
-     - appName: "Applivery",
-     - alertButtonCancel: "Cancel",
-     - alertButtonRetry: "Retry",
-     - alertButtonOK: "OK",
-     - errorUnexpected: "Unexpected error",
-     - errorInvalidCredentials: "Invalid credentials",
-     - errorDownloadURL: "Couldn't start download. Invalid url",
-     - otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
-     - alertButtonLater: "Later",
-     - alertButtonUpdate: "Update",
-     - forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it",
-     - buttonForceUpdate: "Update now",
-     - feedbackButtonClose: "Close",
-     - feedbackButtonAdd: "Add Feedback",
-     - feedbackButtonSend: "Send Feedback",
-     - feedbackSelectType: "Select type",
-     - feedbackTypeBug: "Bug",
-     - feedbackTypeFeedback: "Feedback",
-     - feedbackMessagePlaceholder: "Add a message",
-     - feedbackAttach: "Attach Screenshot",
-     - loginMessage: "Login is required!",
-     - loginInvalidCredentials: "Wrong username or password, please, try again"
+        - appName: "Applivery"
+         - alertButtonCancel: "Cancel"
+         - alertButtonRetry: "Retry"
+         - alertButtonOK: "OK"
+         - errorUnexpected: "Unexpected error"
+         - errorInvalidCredentials: "Invalid credentials"
+         - errorDownloadURL: "Couldn't start download. Invalid url",
+         - otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
+         - alertButtonLater: "Later",
+         - alertButtonUpdate: "Update",
+         - forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it",
+         - buttonForceUpdate: "Update now",
+         - feedbackButtonClose: "Close",
+         - feedbackButtonAdd: "Add Feedback",
+         - feedbackButtonSend: "Send Feedback",
+         - feedbackSelectType: "Select type",
+         - feedbackTypeBug: "Bug",
+         - feedbackTypeFeedback: "Feedback",
+         - feedbackMessagePlaceholder: "Add a message",
+         - feedbackAttach: "Attach Screenshot",
+         - loginInputEmail: "email",
+         - loginInputPassword: "password",
+         - loginButton: "Login",
+         - loginMessage: "Login is required!",
+         - loginInvalidCredentials: "Wrong username or password, please, try again",
+         - loginSessionExpired: "Your session has expired. Please, log in again"
      - Note: Each parameter has a default literal, so you could set only the values that you really need to change
      - Since: 2.4
      - Version: 2.4
@@ -185,8 +205,12 @@ public class TextLiterals: NSObject {
                 feedbackTypeFeedback: String = localize("feedback_button_feedback"),
                 feedbackMessagePlaceholder: String = localize("feedback_text_message_placeholder"),
                 feedbackAttach: String = localize("feedback_label_attach"),
+                loginInputEmail: String = localize("login_input_email"),
+                loginInputPassword: String = localize("login_input_password"),
+                loginButton: String = localize("login_button"),
                 loginMessage: String = localize("login_alert_message"),
-                loginInvalidCredentials: String = localize("login_alert_message_invalid_credentials")) {
+                loginInvalidCredentials: String = localize("login_alert_message_invalid_credentials"),
+                loginSessionExpired: String = localize("login_alert_message_expired")) {
         self.appName = appName
         self.alertButtonCancel = alertButtonCancel
         self.alertButtonRetry = alertButtonRetry
@@ -207,8 +231,12 @@ public class TextLiterals: NSObject {
         self.feedbackTypeFeedback = feedbackTypeFeedback
         self.feedbackMessagePlaceholder = feedbackMessagePlaceholder
         self.feedbackAttach = feedbackAttach
+        self.loginInputEmail = loginInputEmail
+        self.loginInputPassword = loginInputPassword
+        self.loginButton = loginButton
         self.loginMessage = loginMessage
         self.loginInvalidCredentials = loginInvalidCredentials
+        self.loginSessionExpired = loginSessionExpired
     }
 }
 
@@ -233,8 +261,12 @@ enum Literal: CustomStringConvertible {
     case feedbackTypeFeedback
     case feedbackMessagePlaceholder
     case feedbackAttach
+    case loginInputEmail
+    case loginInputPassword
+    case loginButton
     case loginMessage
     case loginInvalidCredentials
+    case loginSessionExpired
     
     var description: String {
         return literal(self) ?? String(self.hashValue)
@@ -266,8 +298,12 @@ func literal(_ literal: Literal) -> String? {
     case .feedbackTypeFeedback: return literals.feedbackTypeFeedback
     case .feedbackMessagePlaceholder: return literals.feedbackMessagePlaceholder
     case .feedbackAttach: return literals.feedbackAttach
+    case .loginInputEmail: return literals.loginInputEmail
+    case .loginInputPassword: return literals.loginInputPassword
+    case .loginButton: return literals.loginButton
     case .loginMessage: return literals.loginMessage
     case .loginInvalidCredentials: return literals.loginInvalidCredentials
+    case .loginSessionExpired: return literals.loginSessionExpired
     }
 }
 // swiftlint:enable cyclomatic_complexity
