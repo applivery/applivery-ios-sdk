@@ -51,6 +51,8 @@
 		FA3A69451BC2FCFB00179176 /* ConfigPersister.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A69441BC2FCFB00179176 /* ConfigPersister.swift */; };
 		FA3A69471BC3064A00179176 /* ConfigPersisterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A69461BC3064A00179176 /* ConfigPersisterMock.swift */; };
 		FA3AB8EA2055AE3B00B49D3A /* login_success.json in Resources */ = {isa = PBXBuildFile; fileRef = FA3AB8E92055AE3B00B49D3A /* login_success.json */; };
+		FA3AB8ED2055F09700B49D3A /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3AB8EC2055F09700B49D3A /* LoginManager.swift */; };
+		FA3AB8EF2055FB4700B49D3A /* invalid_credentials.json in Resources */ = {isa = PBXBuildFile; fileRef = FA3AB8EE2055FB4700B49D3A /* invalid_credentials.json */; };
 		FA3D97841DEB79DB00CCC11B /* PreviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3D97831DEB79DB00CCC11B /* PreviewVC.swift */; };
 		FA48CB551CC2CCEF007A5293 /* ScreenshotInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA48CB541CC2CCEF007A5293 /* ScreenshotInteractorTests.swift */; };
 		FA48CB581CC2CE43007A5293 /* ImageManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA48CB561CC2CE24007A5293 /* ImageManagerMock.swift */; };
@@ -219,6 +221,8 @@
 		FA3A69441BC2FCFB00179176 /* ConfigPersister.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = ConfigPersister.swift; path = Applivery/Data/Persisters/ConfigPersister.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA3A69461BC3064A00179176 /* ConfigPersisterMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigPersisterMock.swift; path = Mocks/ConfigPersisterMock.swift; sourceTree = "<group>"; };
 		FA3AB8E92055AE3B00B49D3A /* login_success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = login_success.json; path = Mocks/JSON/login_success.json; sourceTree = "<group>"; };
+		FA3AB8EC2055F09700B49D3A /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginManager.swift; path = Applivery/Managers/LoginManager.swift; sourceTree = "<group>"; };
+		FA3AB8EE2055FB4700B49D3A /* invalid_credentials.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = invalid_credentials.json; path = Mocks/JSON/invalid_credentials.json; sourceTree = "<group>"; };
 		FA3D97831DEB79DB00CCC11B /* PreviewVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreviewVC.swift; path = Applivery/Views/Feedback/Preview/PreviewVC.swift; sourceTree = "<group>"; };
 		FA48CB541CC2CCEF007A5293 /* ScreenshotInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScreenshotInteractorTests.swift; path = Interactors/ScreenshotInteractorTests.swift; sourceTree = "<group>"; };
 		FA48CB561CC2CE24007A5293 /* ImageManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageManagerMock.swift; path = Mocks/ImageManagerMock.swift; sourceTree = "<group>"; };
@@ -392,6 +396,7 @@
 			children = (
 				FADA301B1E90677500DAC96E /* config_success.json */,
 				FA3AB8E92055AE3B00B49D3A /* login_success.json */,
+				FA3AB8EE2055FB4700B49D3A /* invalid_credentials.json */,
 			);
 			name = JSON;
 			sourceTree = "<group>";
@@ -646,6 +651,7 @@
 			isa = PBXGroup;
 			children = (
 				FA73BF7F1C8B040D00619258 /* ImageManager.swift */,
+				FA3AB8EC2055F09700B49D3A /* LoginManager.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -899,6 +905,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA3AB8EF2055FB4700B49D3A /* invalid_credentials.json in Resources */,
 				FAB355D01EE8A21E000F48F5 /* feedback_ok.json in Resources */,
 				FADA301C1E90677500DAC96E /* config_success.json in Resources */,
 				FA7F4CDE1EE763A600BA2F52 /* test_images.xcassets in Resources */,
@@ -980,6 +987,7 @@
 				FA73BF7D1C8B02E800619258 /* ScreenshotInteractor.swift in Sources */,
 				FA3A69451BC2FCFB00179176 /* ConfigPersister.swift in Sources */,
 				FA1569B51DBD313200C651D4 /* Wifi.swift in Sources */,
+				FA3AB8ED2055F09700B49D3A /* LoginManager.swift in Sources */,
 				FA952FDA1C83904100C32DD0 /* FeedbackPresenter.swift in Sources */,
 				FA952FDC1C83909000C32DD0 /* FeedbackInteractor.swift in Sources */,
 				FACB9AC220535A720094499A /* LoginService.swift in Sources */,

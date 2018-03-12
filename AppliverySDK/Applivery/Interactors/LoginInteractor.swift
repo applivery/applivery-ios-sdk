@@ -27,8 +27,7 @@ struct LoginInteractor {
 		}
 	}
 	
-	// MARK: - Private Helpers
-	private func showLogin(with message: String, loginHandler: @escaping () -> Void, cancelHandler: @escaping () -> Void) {
+	func showLogin(with message: String, loginHandler: @escaping () -> Void, cancelHandler: @escaping () -> Void) {
 		self.app.showLoginView(
 			message: message,
 			cancelHandler: cancelHandler,
@@ -36,6 +35,7 @@ struct LoginInteractor {
 		)
 	}
 	
+	// MARK: - Private Helpers
 	private func login(user: String, password: String, loginHandler: @escaping () -> Void, cancelHandler: @escaping () -> Void) {
 		self.loginService.login(user: user, password: password) { result in
 			switch result {
