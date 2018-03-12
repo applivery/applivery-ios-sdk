@@ -199,7 +199,7 @@ class ForceUpdateSpecs: QuickSpec {
 					}
 					it("should request an authenticated download token") {
 						expect(matchedDownloadURL).toEventually(beTrue())
-						expect(downloadHeaders?["x_account_token"]).toEventually(equal("test_user_token"))
+						expect(downloadHeaders?["Authorization"]).toEventually(equal("test_user_token"))
 					}
 				}
 			}

@@ -68,10 +68,12 @@ class Request {
 
 	private func setHeaders() {
 		let version = Bundle.applivery().infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0"
-
+		let apiKey = GlobalConfig.shared.apiKey
+		let accessToken = GlobalConfig.shared.accessToken?.token ?? GlobalConfig.shared.apiKey
+		
 		self.request?.setValue("application/json", forHTTPHeaderField: "Content-Type")
-		self.request?.setValue(GlobalConfig.shared.apiKey, forHTTPHeaderField: "Authorization")
-		self.request?.setValue(GlobalConfig.shared.accessToken.token, forHTTPHeaderField: "x_account_token")
+		self.request?.setValue(accessToken, forHTTPHeaderField: "Authorization")
+		self.request?.setValue(apiKey, forHTTPHeaderField: "x_account_token")
 		self.request?.setValue(App().getLanguage(), forHTTPHeaderField: "Accept-Language")
 		self.request?.setValue("IOS_\(version)", forHTTPHeaderField: "x_sdk_version")
 	}

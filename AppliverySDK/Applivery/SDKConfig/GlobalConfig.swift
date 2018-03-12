@@ -27,5 +27,5 @@ class GlobalConfig {
 	var logLevel: LogLevel = .none
 	var palette = Palette()
 	var textLiterals = TextLiterals()
-	var accessToken = AccessToken(token: "", expirationDate: Date.today())
+	var accessToken: AccessToken?
 }
