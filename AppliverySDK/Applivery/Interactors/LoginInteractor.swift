@@ -15,7 +15,7 @@ struct LoginInteractor {
 	var globalConfig: GlobalConfig
 	
 	func requestAuthorization(with config: Config, loginHandler: @escaping () -> Void, cancelHandler: @escaping () -> Void) {
-		if config.authUpdate {
+		if self.globalConfig.accessToken == nil {
 			logInfo("User authentication is required!")
 			self.showLogin(
 				with: literal(.loginMessage) ?? "<Login is required!>",
@@ -37,6 +37,7 @@ struct LoginInteractor {
 	
 	// MARK: - Private Helpers
 	private func login(user: String, password: String, loginHandler: @escaping () -> Void, cancelHandler: @escaping () -> Void) {
+		self.globalConfig.accessToken = nil // Ensure to clean possibly previous access token
 		self.loginService.login(user: user, password: password) { result in
 			switch result {
 			case .success(let accessToken):

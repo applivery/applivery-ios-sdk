@@ -70,11 +70,15 @@ class UpdateInteractor: PUpdateInteractor {
 			self.output?.downloadDidFail(literal(.errorUnexpected) ?? localize("Current config is nil")); return
 		}
 		
-		self.loginInteractor.requestAuthorization(
-			with: config,
-			loginHandler: { self.download(with: config)},
-			cancelHandler: {self.output?.downloadDidEnd()}
-		)
+		if config.authUpdate {
+			self.loginInteractor.requestAuthorization(
+				with: config,
+				loginHandler: { self.download(with: config)},
+				cancelHandler: {self.output?.downloadDidEnd()}
+			)
+		} else {
+			self.download(with: config)
+		}
 	}
 	
 	// MARK: - Private Helpers
