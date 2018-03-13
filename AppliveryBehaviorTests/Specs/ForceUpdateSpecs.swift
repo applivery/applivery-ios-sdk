@@ -23,6 +23,10 @@ class ForceUpdateSpecs: QuickSpec {
 	override func spec() {
 		describe("force update") {
 			beforeEach {
+				// Clean persistance. Need refactoring!!
+				UserDefaults.standard.removeObject(forKey: kAccessTokenKey)
+				UserDefaults.standard.synchronize()
+				
 				self.config = GlobalConfig()
 				GlobalConfig.shared = self.config
 				
@@ -53,9 +57,7 @@ class ForceUpdateSpecs: QuickSpec {
 				self.updateViewMock = nil
 				self.appMock = nil
 				self.userDefaultsMock = nil
-				
 				self.updatePresenter = nil
-				
 				OHHTTPStubs.removeAllStubs()
 			}
 			

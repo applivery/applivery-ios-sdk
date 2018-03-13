@@ -10,7 +10,12 @@ import Foundation
 
 struct LoginManager {
 	
-	private let loginInteractor = LoginInteractor(app: App(), loginService: LoginService(), globalConfig: GlobalConfig.shared)
+	private let loginInteractor = LoginInteractor(
+		app: App(),
+		loginService: LoginService(),
+		globalConfig: GlobalConfig.shared,
+		sessionPersister: SessionPersister(userDefaults: UserDefaults.standard)
+	)
 	
 	func parse(error: NSError?, retry: @escaping () -> Void, next: @escaping () -> Void) {
 		switch error?.code ?? 0 {

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct AccessToken {
+struct AccessToken: Codable {
 	let token: String
 	let expirationDate: Date
 }

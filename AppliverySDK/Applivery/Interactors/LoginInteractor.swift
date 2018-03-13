@@ -10,11 +10,14 @@ import Foundation
 
 struct LoginInteractor {
 	
-	var app: AppProtocol
-	var loginService: LoginService
-	var globalConfig: GlobalConfig
+	let app: AppProtocol
+	let loginService: LoginService
+	let globalConfig: GlobalConfig
+	let sessionPersister: SessionPersister
+	
 	
 	func requestAuthorization(with config: Config, loginHandler: @escaping () -> Void, cancelHandler: @escaping () -> Void) {
+		self.globalConfig.accessToken = self.sessionPersister.loadAccessToken()
 		if self.globalConfig.accessToken == nil {
 			logInfo("User authentication is required!")
 			self.showLogin(
@@ -42,6 +45,7 @@ struct LoginInteractor {
 			switch result {
 			case .success(let accessToken):
 				logInfo("Fetched new access token: \(accessToken.token)")
+				self.sessionPersister.save(accessToken: accessToken)
 				self.globalConfig.accessToken = accessToken
 				loginHandler()
 

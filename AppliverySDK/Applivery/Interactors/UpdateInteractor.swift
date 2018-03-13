@@ -39,7 +39,14 @@ class UpdateInteractor: PUpdateInteractor {
 		self.downloadData = downloadData
 		self.app = app
 		self.globalConfig = globalConfig
-		self.loginInteractor = LoginInteractor(app: self.app, loginService: LoginService(), globalConfig: self.globalConfig)
+		self.loginInteractor = LoginInteractor(
+			app: self.app,
+			loginService: LoginService(),
+			globalConfig: self.globalConfig,
+			sessionPersister: SessionPersister(
+				userDefaults: UserDefaults.standard
+			)
+		)
 	}
 	
 	func forceUpdateMessage() -> String {
