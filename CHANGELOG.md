@@ -1,6 +1,15 @@
 # Change Log
 
+## [v2.5.1](https://github.com/applivery/applivery-ios-sdk/releases/tag/v2.5.1)
+
+### Fixed
+* Disable code coverage because iTunes rejects binaries with coverage enabled (Fixes #7). Thanks to @stantoncbradley
+
+---
+
 ## [v2.5](https://github.com/applivery/applivery-ios-sdk/releases/tag/v2.5)
+
+---
 
 ### New
 * XCode 9 & Swift 4 compatibility
