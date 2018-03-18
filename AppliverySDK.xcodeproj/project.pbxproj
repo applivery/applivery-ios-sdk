@@ -41,7 +41,6 @@
 		FA2C455A1C4D20A300E72847 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA2C455C1C4D20A300E72847 /* Localizable.strings */; };
 		FA2C455E1C4D228A00E72847 /* NSBundle+Applivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C455D1C4D228A00E72847 /* NSBundle+Applivery.swift */; };
 		FA2EAC871E915EFE00CC9BBF /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2EAC861E915EFE00CC9BBF /* UserDefaults.swift */; };
-		FA318296205752A600C01FCC /* SessionPersister.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA318295205752A600C01FCC /* SessionPersister.swift */; };
 		FA3211D41C3EA11700668099 /* DownloadDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3211D31C3EA11700668099 /* DownloadDataManager.swift */; };
 		FA3211D61C3EA6D300668099 /* Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3211D51C3EA6D300668099 /* Localize.swift */; };
 		FA3211D81C3EE15E00668099 /* DownloadDataManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3211D71C3EE15E00668099 /* DownloadDataManagerMock.swift */; };
@@ -104,6 +103,7 @@
 		FAAAE1221E8040010065E6AC /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAAE1211E8040010065E6AC /* Palette.swift */; };
 		FAADA5351DBBF25B00300A5E /* FeedbackServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAADA5341DBBF25B00300A5E /* FeedbackServiceTests.swift */; };
 		FAB0CCEC205DF2C900F68275 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB0CCEB205DF2C900F68275 /* UserDefaultsExtension.swift */; };
+		FAB0CCF0205F17E900F68275 /* SessionPersister.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB0CCEF205F17E800F68275 /* SessionPersister.swift */; };
 		FAB355D01EE8A21E000F48F5 /* feedback_ok.json in Resources */ = {isa = PBXBuildFile; fileRef = FA0883D71DBC231E008A553A /* feedback_ok.json */; };
 		FABA22F71E9D30040000EBA9 /* ForceUpdateSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA22F61E9D30040000EBA9 /* ForceUpdateSpecs.swift */; };
 		FAC3947E1C95D9FF00F14778 /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC3947D1C95D9FF00F14778 /* Feedback.swift */; };
@@ -213,7 +213,6 @@
 		FA2C455B1C4D20A300E72847 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FA2C455D1C4D228A00E72847 /* NSBundle+Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSBundle+Applivery.swift"; path = "Applivery/Utils/NSBundle+Applivery.swift"; sourceTree = "<group>"; };
 		FA2EAC861E915EFE00CC9BBF /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserDefaults.swift; path = Fakes/UserDefaults.swift; sourceTree = "<group>"; };
-		FA318295205752A600C01FCC /* SessionPersister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPersister.swift; sourceTree = "<group>"; };
 		FA3211D31C3EA11700668099 /* DownloadDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = DownloadDataManager.swift; path = Applivery/Data/DownloadDataManager.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA3211D51C3EA6D300668099 /* Localize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = Localize.swift; path = Applivery/Utils/Localize.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA3211D71C3EE15E00668099 /* DownloadDataManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadDataManagerMock.swift; path = Mocks/DownloadDataManagerMock.swift; sourceTree = "<group>"; };
@@ -272,6 +271,7 @@
 		FAADA5341DBBF25B00300A5E /* FeedbackServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FeedbackServiceTests.swift; path = Network/FeedbackServiceTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAADA53A1DBC14EB00300A5E /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
 		FAB0CCEB205DF2C900F68275 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserDefaultsExtension.swift; path = Applivery/Utils/UserDefaultsExtension.swift; sourceTree = "<group>"; };
+		FAB0CCEF205F17E800F68275 /* SessionPersister.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SessionPersister.swift; path = Applivery/Data/Persisters/SessionPersister.swift; sourceTree = "<group>"; };
 		FABA22F61E9D30040000EBA9 /* ForceUpdateSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ForceUpdateSpecs.swift; path = Specs/ForceUpdateSpecs.swift; sourceTree = "<group>"; };
 		FAC3947D1C95D9FF00F14778 /* Feedback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Feedback.swift; path = Applivery/Model/Feedback.swift; sourceTree = "<group>"; };
 		FAC3947F1C95EA3000F14778 /* FeedbackService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FeedbackService.swift; path = Applivery/Data/Services/FeedbackService.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -480,8 +480,8 @@
 		FA3A69431BC2FCD300179176 /* Persisters */ = {
 			isa = PBXGroup;
 			children = (
+				FAB0CCEF205F17E800F68275 /* SessionPersister.swift */,
 				FA3A69441BC2FCFB00179176 /* ConfigPersister.swift */,
-				FA318295205752A600C01FCC /* SessionPersister.swift */,
 			);
 			name = Persisters;
 			sourceTree = "<group>";
@@ -1007,7 +1007,6 @@
 				FACEF8C81C14663B00B03FC0 /* Background.swift in Sources */,
 				FA07FDF51E87E2600073B580 /* TextLiterals.swift in Sources */,
 				FA73BF801C8B040D00619258 /* ImageManager.swift in Sources */,
-				FA318296205752A600C01FCC /* SessionPersister.swift in Sources */,
 				FAEC86661C83824D00A43298 /* FeedbackCoordinator.swift in Sources */,
 				FAFBE4631C3EF66E0039BD8C /* DownloadService.swift in Sources */,
 				FA0883DA1DBC311C008A553A /* Result.swift in Sources */,
@@ -1018,6 +1017,7 @@
 				FA2257E31C8B56E2000B0333 /* Screenshot.swift in Sources */,
 				FA3D97841DEB79DB00CCC11B /* PreviewVC.swift in Sources */,
 				FA3211D61C3EA6D300668099 /* Localize.swift in Sources */,
+				FAB0CCF0205F17E900F68275 /* SessionPersister.swift in Sources */,
 				FA952FD41C838FB500C32DD0 /* UpdatePresenter.swift in Sources */,
 				FA53DE331BC18F6D00DF2EB1 /* Config.swift in Sources */,
 				FAD2A15B1C010D8B001967FD /* UpdateCoordinator.swift in Sources */,
