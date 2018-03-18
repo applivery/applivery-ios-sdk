@@ -21,6 +21,7 @@ class Config {
 	var lastVersion: String?
 	var otaUpdateMessage: String?
 	var authUpdate = false
+	var authFeedback = false
 
 
 	// MARK: - Initializers
@@ -40,6 +41,7 @@ class Config {
 		self.forceUpdateMessage = json["sdk.ios.mustUpdateMsg"]?.toString()
 		self.otaUpdateMessage	= json["sdk.ios.updateMsg"]?.toString()
 		self.authUpdate = json["sdk.ios.authUpdate"]?.toBool() ?? false
+		self.authFeedback = json["sdk.ios.authFeedback"]?.toBool() ?? false
 		self.minVersion = self.getParam("sdk.ios.minVersion", json: json, shouldExists: self.forceUpdate)
 		self.lastVersion = self.getParam("sdk.ios.lastBuildVersion", json: json, shouldExists: self.otaUpdate)
 		self.lastBuildId = self.getParam("sdk.ios.lastBuildId", json: json, shouldExists: self.otaUpdate)

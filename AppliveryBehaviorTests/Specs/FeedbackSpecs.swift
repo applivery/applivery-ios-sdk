@@ -19,13 +19,14 @@ class FeedbackSpecs: QuickSpec {
 	var config: GlobalConfig!
 	var appMock: AppMock!
 	var deviceMock: DeviceMock!
-	
+	var userDefaultsMock: UserDefaultsMock!
 	
 	override func spec() {
 		describe("feedback") {
 			beforeEach {
 				self.config = GlobalConfig()
 				GlobalConfig.shared = self.config
+				self.userDefaultsMock = UserDefaultsMock()
 				
 				self.feedbackViewMock = FeedbackViewMock()
 				self.imageManagerMock = ImageManagerMock()
@@ -41,6 +42,21 @@ class FeedbackSpecs: QuickSpec {
 							app: self.appMock,
 							device: self.deviceMock,
 							config: self.config
+						),
+						configDataManager: ConfigDataManager(
+							appInfo: self.appMock,
+							configPersister: ConfigPersister(
+								userDefaults: self.userDefaultsMock
+							),
+							configService: ConfigService()
+						),
+						loginInteractor: LoginInteractor(
+							app: self.appMock,
+							loginService: LoginService(),
+							globalConfig: self.config,
+							sessionPersister: SessionPersister(
+								userDefaults: self.userDefaultsMock
+							)
 						)
 					),
 					feedbackCoordinator: feedbackCoordinator,
@@ -55,6 +71,7 @@ class FeedbackSpecs: QuickSpec {
 				self.imageManagerMock = nil
 				self.appMock = nil
 				self.config = nil
+				self.userDefaultsMock = nil
 				
 				OHHTTPStubs.removeAllStubs()
 			}
@@ -116,11 +133,16 @@ class FeedbackSpecs: QuickSpec {
 					}
 				}
 				context("when a message is provided") {
-					var url: String?
+					var matchedFeedbackURL = false
 					var json: JSON?
+					var feedbackHeaders: [String: String]?
 					
 					beforeEach {
-						StubResponse.testRequest { urlResponse, jsonResponse, _ in url = urlResponse; json = jsonResponse }
+						StubResponse.testRequest(url: "/api/feedback") { _, jsonSent, headersSent in
+							matchedFeedbackURL = true
+							json = jsonSent
+							feedbackHeaders = headersSent
+						}
 						self.feedbackViewMock.fakeMessage = "Test message"
 						self.config.appId = "APPID_TEST"
 						self.appMock.stubBundleID = "BUNDLEID_TEST"
@@ -137,6 +159,90 @@ class FeedbackSpecs: QuickSpec {
 						self.deviceMock.fakeDiskFree = "40"
 						self.deviceMock.fakeSystemVersion = "10.3"
 					}
+					afterEach {
+						matchedFeedbackURL = false
+						json = nil
+					}
+					context("but need auth") {
+						beforeEach {
+							self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig(
+								authFeedback: true
+							)
+							self.feedbackPresenter.userDidTapSendFeedbackButton()
+						}
+						it("should show login alert") {
+							expect(self.appMock.spyLoginView.called).toEventually(beTrue())
+							expect(self.appMock.spyLoginView.message).toEventually(equal(literal(.loginMessage)))
+						}
+						it("should not send feedback") {
+							expect(matchedFeedbackURL).toNotEventually(beTrue())
+						}
+						context("when login is cancelled") {
+							beforeEach {
+								self.appMock.spyLoginCancelClosure?()
+							}
+							it("should not request a download token") {
+								expect(matchedFeedbackURL).toNotEventually(beTrue())
+							}
+							it("should hide loading") {
+								expect(self.feedbackViewMock.spyShowMessage.called).to(beTrue())
+								expect(self.feedbackViewMock.spyShowMessage.message).to(equal(literal(.loginMessage)))
+							}
+						}
+						context("when login is KO") {
+							var matchedLoginURL = false
+							var loginBody: JSON?
+							beforeEach {
+								loginBody = nil
+								let email = "test@applivery.com"
+								let password = "TEST_PASSWORD"
+								matchedLoginURL = false
+								StubResponse.testRequest(url: "/api/auth") { _, json, _ in
+									matchedLoginURL = true
+									loginBody = json
+								}
+								self.appMock.spyLoginClosure?(email, password)
+							}
+							it("should request user token") {
+								expect(matchedLoginURL).toEventually(beTrue())
+								expect(loginBody?["email"]?.toString()).toEventually(equal("test@applivery.com"))
+								expect(loginBody?["password"]?.toString()).toEventually(equal("TEST_PASSWORD"))
+							}
+							it("should not request a download token") {
+								expect(matchedLoginURL).toEventually(beTrue()) // This line is to force the next one to be executed when its true
+								expect(matchedFeedbackURL).toNotEventually(beTrue())
+							}
+							it("should ask for login again") {
+								expect(self.appMock.spyLoginView.called).toEventually(beTrue())
+								expect(self.appMock.spyLoginView.message).toEventually(equal(literal(.loginInvalidCredentials)))
+							}
+						}
+						context("when login is OK") {
+							var matchedLoginURL = false
+							var loginBody: JSON?
+							beforeEach {
+								loginBody = nil
+								let email = "test@applivery.com"
+								let password = "TEST_PASSWORD"
+								matchedLoginURL = false
+								StubResponse.testRequest(with: "login_success.json", url: "/api/auth") { _, json, _ in
+									matchedLoginURL = true
+									loginBody = json
+								}
+								self.appMock.spyLoginClosure?(email, password)
+							}
+							it("should request user token") {
+								expect(matchedLoginURL).toEventually(beTrue())
+								expect(loginBody?["email"]?.toString()).toEventually(equal("test@applivery.com"))
+								expect(loginBody?["password"]?.toString()).toEventually(equal("TEST_PASSWORD"))
+							}
+							it("should request an authenticated download token") {
+								expect(matchedFeedbackURL).toEventually(beTrue())
+								expect(feedbackHeaders?["Authorization"]).toEventually(equal("test_user_token"))
+							}
+						}
+					}
+					// WHEN AUTH IS NOT NEEDED
 					it("should start loading") {
 						self.feedbackPresenter.userDidTapSendFeedbackButton()
 						
@@ -145,7 +251,7 @@ class FeedbackSpecs: QuickSpec {
 					it("should send feedback with default feedback info and battery charging") {
 						self.feedbackPresenter.userDidTapSendFeedbackButton()
 						
-						expect(url).toEventually(equal("/api/feedback"))
+						expect(matchedFeedbackURL).toEventually(beTrue())
 						expect(json?["app"]?.toString()).toEventually(equal("APPID_TEST"))
 						expect(json?["type"]?.toString()).toEventually(equal(FeedbackType.bug.rawValue))
 						expect(json?["message"]?.toString()).toEventually(equal("Test message"))
@@ -174,7 +280,7 @@ class FeedbackSpecs: QuickSpec {
 						}
 						
 						it("should send than battery is charging") {
-							expect(url).toEventually(equal("/api/feedback"))
+							expect(matchedFeedbackURL).toEventually(beTrue())
 							expect(json?["deviceInfo.device.batteryStatus"]?.toBool()).toEventually(beTrue())
 							expect(json?["deviceInfo.device.battery"]?.toInt()).toEventually(equal(20))
 						}
@@ -185,8 +291,8 @@ class FeedbackSpecs: QuickSpec {
 							self.deviceMock.fakeBatteryLevel = 30
 							self.feedbackPresenter.userDidTapSendFeedbackButton()
 						}
-						it("should send than battery is charging") {
-							expect(url).toEventually(equal("/api/feedback"))
+						it("should send that battery is charging") {
+							expect(matchedFeedbackURL).toEventually(beTrue())
 							expect(json?["deviceInfo.device.batteryStatus"]?.toBool()).toEventuallyNot(beTrue())
 							expect(json?["deviceInfo.device.battery"]?.toInt()).toEventually(equal(30))
 						}
@@ -197,7 +303,7 @@ class FeedbackSpecs: QuickSpec {
 							self.feedbackPresenter.userDidTapSendFeedbackButton()
 						}
 						it("should send feedback type") {
-							expect(url).toEventually(equal("/api/feedback"))
+							expect(matchedFeedbackURL).toEventually(beTrue())
 							expect(json?["type"]?.toString()).toEventually(equal(FeedbackType.feedback.rawValue))
 						}
 					}
@@ -207,7 +313,7 @@ class FeedbackSpecs: QuickSpec {
 							self.feedbackPresenter.userDidTapSendFeedbackButton()
 						}
 						it("should not send screenshot") {
-							expect(url).toEventually(equal("/api/feedback"))
+							expect(matchedFeedbackURL).toEventually(beTrue())
 							expect(json?["screenshot"]?.toString()).toEventually(equal(""))
 						}
 					}
