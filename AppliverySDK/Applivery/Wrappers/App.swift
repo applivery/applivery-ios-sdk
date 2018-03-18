@@ -179,21 +179,26 @@ class App: AppProtocol {
 
 	// MARK: - Private Helpers
 
-	fileprivate func sleepUntilReady() {
+	private func sleepUntilReady() {
 		while !self.rootIsReady() {
 			Thread.sleep(forTimeInterval: 0.1)
 		}
 	}
 
-	fileprivate func rootIsReady() -> Bool {
+	private func rootIsReady() -> Bool {
 		let app = UIApplication.shared
-		let window = app.keyWindow
-		guard let rootVC = window?.rootViewController else { return false }
-
-		return rootVC.isViewLoaded
+		var window: UIWindow?
+		var rootVC: UIViewController?
+		runOnMainThread {
+			window = app.keyWindow
+			rootVC = window?.rootViewController
+		}
+		Thread.sleep(forTimeInterval: 0.1)
+		guard let unwrappedRootVC = rootVC else { return false }
+		return unwrappedRootVC.isViewLoaded
 	}
 
-	fileprivate func topViewController() -> UIViewController? {
+	private func topViewController() -> UIViewController? {
 		let app = UIApplication.shared
 		let window = app.keyWindow
 		var rootVC = window?.rootViewController
