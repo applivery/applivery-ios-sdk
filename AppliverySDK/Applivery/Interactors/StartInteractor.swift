@@ -10,141 +10,141 @@ import Foundation
 
 
 protocol StartInteractorOutput {
-	func forceUpdate()
-	func otaUpdate()
-	func feedbackEvent()
-	func credentialError(message: String)
+    func forceUpdate()
+    func otaUpdate()
+    func feedbackEvent()
+    func credentialError(message: String)
 }
 
 
 class StartInteractor {
-	
-	var output: StartInteractorOutput!
-	
-	private let configDataManager: PConfigDataManager
-	private let globalConfig: GlobalConfig
-	private let eventDetector: EventDetector
-	private let sessionPersister: SessionPersister
-	
-	
-	// MARK: Initializers
-	
-	init(configDataManager: PConfigDataManager = ConfigDataManager(),
-		 globalConfig: GlobalConfig = GlobalConfig.shared,
-		 eventDetector: EventDetector = ScreenshotDetector(),
-		 sessionPersister: SessionPersister = SessionPersister(userDefaults: UserDefaults.standard)
-		) {
-		self.configDataManager = configDataManager
-		self.globalConfig = globalConfig
-		self.eventDetector = eventDetector
-		self.sessionPersister =  sessionPersister
-	}
-	
-	
-	// MARK: Internal Methods
-	
-	func start() {
-		logInfo("Applivery is starting...")
-		guard !self.globalConfig.apiKey.isEmpty, !self.globalConfig.appId.isEmpty else {
-			return self.output.credentialError(message: "You must set both apiKey and appID")
-		}
-		
-		self.eventDetector.listenEvent(self.output.feedbackEvent)
-		
-		guard !self.globalConfig.appStoreRelease else {
-			return logWarn("The build is marked like an AppStore Release. Applivery won't present any update (or force update) message to the user")
-		}
-		
-		self.updateConfig()
-	}
-	
-	func disableFeedback() {
-		guard self.globalConfig.feedbackEnabled else { return }
-		
-		self.globalConfig.feedbackEnabled = false
-		self.eventDetector.endListening()
-	}
-	
-	
-	// MARK: Private Methods
-	
-	fileprivate func updateConfig() {
-		self.configDataManager.updateConfig { response in
-			self.globalConfig.accessToken = self.sessionPersister.loadAccessToken()
-			
-			switch response {
-			case .success(let config, let version):
-				if !self.checkForceUpdate(config, version: version) {
-					self.checkOtaUpdate(config, version: version)
-				}
-			case .error:
-				let currentConfig = self.configDataManager.getCurrentConfig()
-				if !self.checkForceUpdate(currentConfig.config, version: currentConfig.version) {
-					self.checkOtaUpdate(currentConfig.config, version: currentConfig.version)
-				}
-			}
-		}
-	}
-	
-	private func checkForceUpdate(_ config: Config?, version: String) -> Bool {
-		guard
-			let minVersion = config?.minVersion,
-			let forceUpdate = config?.forceUpdate,
-			forceUpdate
-			else { return false }
-		
-		logInfo("Checking if app version: \(version) is older than minVersion: \(minVersion)")
-		if self.isOlder(version, minVersion: minVersion) {
-			self.output.forceUpdate()
-			return true
-		}
-		
-		return false
-	}
-	
-	private func checkOtaUpdate(_ config: Config?, version: String) {
-		guard
-			let lastVersion = config?.lastVersion,
-			let otaUpdate = config?.otaUpdate,
-			otaUpdate
-			else { return }
-		
-		logInfo("Checking if app version: \(version) is older than last build version: \(lastVersion)")
-		if self.isOlder(version, minVersion: lastVersion) {
-			self.output.otaUpdate()
-		}
-	}
-	
-	private func isOlder(_ currentVersion: String, minVersion: String) -> Bool {
-		let (current, min) = self.equalLengthFillingWithZeros(left: currentVersion, right: minVersion)
-		let result = current.compare(min, options: NSString.CompareOptions.numeric, range: nil, locale: nil)
-		
-		return result == ComparisonResult.orderedAscending
-	}
-	
-	fileprivate func equalLengthFillingWithZeros(left: String, right: String) -> (String, String) {
-		let componentsLeft = left.components(separatedBy: ".")
-		let componentsRight = right.components(separatedBy: ".")
-		
-		if componentsLeft.count == componentsRight.count {
-			return (left, right)
-		} else if componentsLeft.count < componentsRight.count {
-			let dif = componentsRight.count - componentsLeft.count
-			let leftFilled = self.fillWithZeros(string: componentsLeft, length: dif)
-			return (leftFilled, right)
-		} else {
-			let dif = componentsLeft.count - componentsRight.count
-			let rightFilled = self.fillWithZeros(string: componentsRight, length: dif)
-			return (left, rightFilled)
-		}
-	}
-	
-	fileprivate func fillWithZeros(string: [String], length: Int) -> String {
-		var zeroFilledString = string
-		for _ in 1...length {
-			zeroFilledString.append("0")
-		}
-		
-		return zeroFilledString.joined(separator: ".")
-	}
+    
+    var output: StartInteractorOutput!
+    
+    private let configDataManager: PConfigDataManager
+    private let globalConfig: GlobalConfig
+    private let eventDetector: EventDetector
+    private let sessionPersister: SessionPersister
+    
+    
+    // MARK: Initializers
+    
+    init(configDataManager: PConfigDataManager = ConfigDataManager(),
+         globalConfig: GlobalConfig = GlobalConfig.shared,
+         eventDetector: EventDetector = ScreenshotDetector(),
+         sessionPersister: SessionPersister = SessionPersister(userDefaults: UserDefaults.standard)
+        ) {
+        self.configDataManager = configDataManager
+        self.globalConfig = globalConfig
+        self.eventDetector = eventDetector
+        self.sessionPersister =  sessionPersister
+    }
+    
+    
+    // MARK: Internal Methods
+    
+    func start() {
+        logInfo("Applivery is starting...")
+        guard !self.globalConfig.apiKey.isEmpty, !self.globalConfig.appId.isEmpty else {
+            return self.output.credentialError(message: "You must set both apiKey and appID")
+        }
+        
+        self.eventDetector.listenEvent(self.output.feedbackEvent)
+        
+        guard !self.globalConfig.appStoreRelease else {
+            return logWarn("The build is marked like an AppStore Release. Applivery won't present any update (or force update) message to the user")
+        }
+        
+        self.updateConfig()
+    }
+    
+    func disableFeedback() {
+        guard self.globalConfig.feedbackEnabled else { return }
+        
+        self.globalConfig.feedbackEnabled = false
+        self.eventDetector.endListening()
+    }
+    
+    
+    // MARK: Private Methods
+    
+    fileprivate func updateConfig() {
+        self.configDataManager.updateConfig { response in
+            self.globalConfig.accessToken = self.sessionPersister.loadAccessToken()
+            
+            switch response {
+            case .success(let config, let version):
+                if !self.checkForceUpdate(config, version: version) {
+                    self.checkOtaUpdate(config, version: version)
+                }
+            case .error:
+                let currentConfig = self.configDataManager.getCurrentConfig()
+                if !self.checkForceUpdate(currentConfig.config, version: currentConfig.version) {
+                    self.checkOtaUpdate(currentConfig.config, version: currentConfig.version)
+                }
+            }
+        }
+    }
+    
+    private func checkForceUpdate(_ config: Config?, version: String) -> Bool {
+        guard
+            let minVersion = config?.minVersion,
+            let forceUpdate = config?.forceUpdate,
+            forceUpdate
+            else { return false }
+        
+        logInfo("Checking if app version: \(version) is older than minVersion: \(minVersion)")
+        if self.isOlder(version, minVersion: minVersion) {
+            self.output.forceUpdate()
+            return true
+        }
+        
+        return false
+    }
+    
+    private func checkOtaUpdate(_ config: Config?, version: String) {
+        guard
+            let lastVersion = config?.lastVersion,
+            let otaUpdate = config?.otaUpdate,
+            otaUpdate
+            else { return }
+        
+        logInfo("Checking if app version: \(version) is older than last build version: \(lastVersion)")
+        if self.isOlder(version, minVersion: lastVersion) {
+            self.output.otaUpdate()
+        }
+    }
+    
+    private func isOlder(_ currentVersion: String, minVersion: String) -> Bool {
+        let (current, min) = self.equalLengthFillingWithZeros(left: currentVersion, right: minVersion)
+        let result = current.compare(min, options: NSString.CompareOptions.numeric, range: nil, locale: nil)
+        
+        return result == ComparisonResult.orderedAscending
+    }
+    
+    fileprivate func equalLengthFillingWithZeros(left: String, right: String) -> (String, String) {
+        let componentsLeft = left.components(separatedBy: ".")
+        let componentsRight = right.components(separatedBy: ".")
+        
+        if componentsLeft.count == componentsRight.count {
+            return (left, right)
+        } else if componentsLeft.count < componentsRight.count {
+            let dif = componentsRight.count - componentsLeft.count
+            let leftFilled = self.fillWithZeros(string: componentsLeft, length: dif)
+            return (leftFilled, right)
+        } else {
+            let dif = componentsLeft.count - componentsRight.count
+            let rightFilled = self.fillWithZeros(string: componentsRight, length: dif)
+            return (left, rightFilled)
+        }
+    }
+    
+    fileprivate func fillWithZeros(string: [String], length: Int) -> String {
+        var zeroFilledString = string
+        for _ in 1...length {
+            zeroFilledString.append("0")
+        }
+        
+        return zeroFilledString.joined(separator: ".")
+    }
 }
