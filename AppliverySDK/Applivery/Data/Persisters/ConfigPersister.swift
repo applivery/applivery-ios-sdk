@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 let kMinVersionKey			= "APPLIVERY_MIN_VERSION"
 let kForceUpdateKey			= "APPLIVERY_FORCE_UPDATE"
 let kLastBuildId			= "APPLIVERY_LAST_BUILD_ID"
@@ -16,17 +15,19 @@ let kForceUpdateMessageKey	= "APPLIVERY_FORCE_UPDATE_MESSAGE"
 let kOtaUpdateKey			= "APPLIVERY_OTA_UPDATE_KEY"
 let kLastBuildVersion		= "APPLIVERY_LAST_BUILD_VERSION"
 let kOtaUpdateMessageKey	= "ApPLIVERY_OTA_UPDATE_MESSAGE"
-
+let kAuthUpdateKey			= "APPLIVERY_AUTH_UPDATE"
+let kAuthFeedbackKey		= "APPLIVERY_AUTH_FEEDBACK"
 
 protocol UserDefaultsProtocol {
 	func value(forKey key: String) -> Any?
 	func setValue(_ value: Any?, forKey key: String)
 	func set(_ value: Bool, forKey key: String)
 	func synchronize() -> Bool
+	func set(_ value: AccessToken?, forKey key: String)
+	func token(forKey key: String) -> AccessToken?
 }
 
 extension UserDefaults: UserDefaultsProtocol {}
-
 
 class ConfigPersister: NSObject {
 
@@ -60,6 +61,8 @@ class ConfigPersister: NSObject {
 		config.lastVersion	= lastBuildVersion
 		config.forceUpdateMessage	= self.userDefaults.value(forKey: kForceUpdateMessageKey)	as? String
 		config.otaUpdateMessage		= self.userDefaults.value(forKey: kOtaUpdateMessageKey)		as? String
+		config.authUpdate			= self.userDefaults.value(forKey: kAuthUpdateKey)			as? Bool ?? false
+		config.authFeedback			= self.userDefaults.value(forKey: kAuthFeedbackKey)			as? Bool ?? false
 
 		return config
 	}
@@ -72,6 +75,8 @@ class ConfigPersister: NSObject {
 		self.userDefaults.set(config.otaUpdate, forKey: kOtaUpdateKey)
 		self.userDefaults.setValue(config.lastVersion as AnyObject?, forKey: kLastBuildVersion)
 		self.userDefaults.setValue(config.otaUpdateMessage as AnyObject?, forKey: kOtaUpdateMessageKey)
+		self.userDefaults.set(config.authUpdate, forKey: kAuthUpdateKey)
+		self.userDefaults.set(config.authFeedback, forKey: kAuthFeedbackKey)
 
 		if self.userDefaults.synchronize() {
 			logInfo("Applivery configuration was updated")

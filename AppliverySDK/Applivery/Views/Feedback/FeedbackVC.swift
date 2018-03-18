@@ -266,7 +266,7 @@ extension FeedbackVC: FeedbackView {
 	}
 	
 	func textMessage() -> String? {
-		guard !self.isMessagePlaceholderShown && self.textViewMessage.text.characters.count > 0 else {
+		guard !self.isMessagePlaceholderShown && self.textViewMessage.text.count > 0 else {
 			return nil
 		}
 		

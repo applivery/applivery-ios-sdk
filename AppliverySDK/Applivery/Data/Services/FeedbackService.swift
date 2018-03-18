@@ -71,7 +71,11 @@ class FeedbackService: PFeedbackService {
 				completionHandler(.success(true))
 			} else {
 				logError(response.error)
-				completionHandler(.error(NSError.unexpectedError()))
+				LoginManager().parse(
+					error: response.error,
+					retry: { self.postFeedback(feedback, completionHandler: completionHandler) },
+					next: {	completionHandler(.error(NSError.unexpectedError()))}
+				)
 			}
 		}
 	}

@@ -11,60 +11,60 @@ import XCTest
 
 
 class ConfigDataManagerTests: XCTestCase {
-
+	
 	var configDataManager: ConfigDataManager!
 	var appMock: AppMock!
 	var configPersisterMock: ConfigPersisterMock!
 	var configServiceMock: ConfigServiceMock!
-
-    override func setUp() {
-        super.setUp()
-
+	
+	override func setUp() {
+		super.setUp()
+		
 		self.appMock = AppMock()
 		self.configPersisterMock = ConfigPersisterMock()
 		self.configServiceMock = ConfigServiceMock()
-
+		
 		self.configDataManager = ConfigDataManager(appInfo: self.appMock, configPersister: self.configPersisterMock, configService: configServiceMock)
-    }
-
-    override func tearDown() {
+	}
+	
+	override func tearDown() {
 		self.configDataManager = nil
-
-        super.tearDown()
-    }
-
-    func test_not_nil() {
+		
+		super.tearDown()
+	}
+	
+	func test_not_nil() {
 		XCTAssertNotNil(self.configDataManager)
-    }
-
-
+	}
+	
+	
 	// MARK: CurrentConfig Tests
-
+	
 	func test_current_config_ok() {
 		self.configPersisterMock.config = Config()
 		self.configPersisterMock.config!.minVersion = "1.0.0"
 		self.configPersisterMock.config!.forceUpdate = true
 		self.appMock.stubVersion = "2.0.0"
-
+		
 		let (config, version) = self.configDataManager.getCurrentConfig()
-
+		
 		XCTAssertTrue(config!.minVersion == "1.0.0")
 		XCTAssertTrue(config!.forceUpdate == true)
 		XCTAssertTrue(version == "2.0.0")
 	}
-
+	
 	func test_current_config_no_stored() {
 		self.appMock.stubVersion = "2.0.0"
-
+		
 		let (config, version) = self.configDataManager.getCurrentConfig()
-
+		
 		XCTAssertNil(config)
 		XCTAssertTrue(version == "2.0.0")
 	}
-
-
+	
+	
 	// MARK: UpdateConfig Tests
-
+	
 	func test_update_config_ok() {
 		self.configServiceMock.success = true
 		self.configServiceMock.config = Config()
@@ -73,56 +73,56 @@ class ConfigDataManagerTests: XCTestCase {
 		self.configServiceMock.config!.lastBuildId = ""
 		self.configServiceMock.error = nil
 		self.appMock.stubVersion = "2.0.0"
-
+		
 		var closureCalled = false
 		self.configDataManager.updateConfig { response in
 			closureCalled = true
-
+			
 			XCTAssertTrue(self.configPersisterMock.saveCalled == true)
-
+			
 			let responseConfig = Config()
 			responseConfig.forceUpdate = true
 			responseConfig.minVersion = "1.0.0"
 			responseConfig.lastBuildId = ""
 			XCTAssert(response == .success(config: responseConfig, version: "2.0.0"))
 		}
-
+		
 		XCTAssert(closureCalled == true)
 	}
-
+	
 	func test_update_config_ok_but_nil() {
 		self.configServiceMock.success = true
 		self.configServiceMock.config = nil
 		self.configServiceMock.error = nil
 		self.appMock.stubVersion = "2.0.0"
-
+		
 		var closureCalled = false
 		self.configDataManager.updateConfig { response in
 			closureCalled = true
-
+			
 			XCTAssertTrue(self.configPersisterMock.saveCalled == false)
 			XCTAssert(response == .error)
 		}
-
+		
 		XCTAssert(closureCalled == true)
 	}
-
+	
 	func test_update_config_ko() {
 		let error = NSError(domain: "applivery", code: -1, userInfo: nil)
-
+		
 		self.configServiceMock.success = false
 		self.configServiceMock.config = nil
 		self.configServiceMock.error = error
 		self.appMock.stubVersion = "2.0.0"
-
+		
 		var closureCalled = false
 		self.configDataManager.updateConfig { response in
 			closureCalled = true
-
+			
 			XCTAssertTrue(self.configPersisterMock.saveCalled == false)
 			XCTAssert(response == .error)
 		}
-
+		
 		XCTAssert(closureCalled == true)
 	}
 }
@@ -130,12 +130,12 @@ class ConfigDataManagerTests: XCTestCase {
 
 func == (left: UpdateConfigResponse, right: UpdateConfigResponse) -> Bool {
 	switch (left, right) {
-		case (.success(let leftConfig, let leftVersion), .success(let rightConfig, let rightVersion))
-			where leftConfig == rightConfig && leftVersion == rightVersion:
-			return true
-
-		case (.error, .error): return true
-
-		default: return false
+	case (.success(let leftConfig, let leftVersion), .success(let rightConfig, let rightVersion))
+		where leftConfig == rightConfig && leftVersion == rightVersion:
+		return true
+		
+	case (.error, .error): return true
+		
+	default: return false
 	}
 }
