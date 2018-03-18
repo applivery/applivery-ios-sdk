@@ -50,7 +50,20 @@ class StartSpecs: QuickSpec {
 					),
 					globalConfig: globalConfig,
 					updateCoordinator: UpdateCoordinator(
-						updateInteractor: UpdateInteractor(),
+						updateInteractor: UpdateInteractor(
+							output: nil,
+							configData: ConfigDataManager(),
+							downloadData: DownloadDataManager(),
+							app: self.appMock,
+							loginInteractor: LoginInteractor(
+								app: self.appMock,
+								loginService: LoginService(),
+								globalConfig: GlobalConfig(),
+								sessionPersister: SessionPersister(
+									userDefaults: self.userDefaultsMock
+								)
+							),
+							globalConfig: GlobalConfig()),
 						app: self.appMock
 					),
 					feedbackCoordinator: FeedbackCoordinator(

@@ -23,31 +23,14 @@ protocol PUpdateInteractor {
 }
 
 
-class UpdateInteractor: PUpdateInteractor {
-	
+struct UpdateInteractor: PUpdateInteractor {
 	var output: UpdateInteractorOutput?
 	
-	private var configData: PConfigDataManager
-	private var downloadData: PDownloadDataManager
-	private var app: AppProtocol
-	private var loginInteractor: LoginInteractor
-	private var globalConfig: GlobalConfig
-	
-	
-	init(configData: PConfigDataManager = ConfigDataManager(), downloadData: PDownloadDataManager = DownloadDataManager(), app: AppProtocol = App(), globalConfig: GlobalConfig = GlobalConfig.shared) {
-		self.configData = configData
-		self.downloadData = downloadData
-		self.app = app
-		self.globalConfig = globalConfig
-		self.loginInteractor = LoginInteractor(
-			app: self.app,
-			loginService: LoginService(),
-			globalConfig: self.globalConfig,
-			sessionPersister: SessionPersister(
-				userDefaults: UserDefaults.standard
-			)
-		)
-	}
+	let configData: PConfigDataManager
+	let downloadData: PDownloadDataManager
+	let app: AppProtocol
+	let loginInteractor: LoginInteractor
+	let globalConfig: GlobalConfig
 	
 	func forceUpdateMessage() -> String {
 		let (currentConfig, _) = self.configData.getCurrentConfig()

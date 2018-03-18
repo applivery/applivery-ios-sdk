@@ -22,10 +22,11 @@ protocol UserDefaultsProtocol {
 	func setValue(_ value: Any?, forKey key: String)
 	func set(_ value: Bool, forKey key: String)
 	func synchronize() -> Bool
+	func set(_ value: AccessToken?, forKey key: String)
+	func token(forKey key: String) -> AccessToken?
 }
 
 extension UserDefaults: UserDefaultsProtocol {}
-
 
 class ConfigPersister: NSObject {
 

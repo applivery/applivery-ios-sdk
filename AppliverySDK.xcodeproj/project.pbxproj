@@ -103,6 +103,7 @@
 		FAAA50E91E91841C0004FBF8 /* EventDetectorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4EBF521C7D009000664C1E /* EventDetectorMock.swift */; };
 		FAAAE1221E8040010065E6AC /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAAE1211E8040010065E6AC /* Palette.swift */; };
 		FAADA5351DBBF25B00300A5E /* FeedbackServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAADA5341DBBF25B00300A5E /* FeedbackServiceTests.swift */; };
+		FAB0CCEC205DF2C900F68275 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB0CCEB205DF2C900F68275 /* UserDefaultsExtension.swift */; };
 		FAB355D01EE8A21E000F48F5 /* feedback_ok.json in Resources */ = {isa = PBXBuildFile; fileRef = FA0883D71DBC231E008A553A /* feedback_ok.json */; };
 		FABA22F71E9D30040000EBA9 /* ForceUpdateSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA22F61E9D30040000EBA9 /* ForceUpdateSpecs.swift */; };
 		FAC3947E1C95D9FF00F14778 /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC3947D1C95D9FF00F14778 /* Feedback.swift */; };
@@ -270,6 +271,7 @@
 		FAAAE1211E8040010065E6AC /* Palette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Palette.swift; path = Applivery/Model/Palette.swift; sourceTree = "<group>"; };
 		FAADA5341DBBF25B00300A5E /* FeedbackServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FeedbackServiceTests.swift; path = Network/FeedbackServiceTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAADA53A1DBC14EB00300A5E /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
+		FAB0CCEB205DF2C900F68275 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserDefaultsExtension.swift; path = Applivery/Utils/UserDefaultsExtension.swift; sourceTree = "<group>"; };
 		FABA22F61E9D30040000EBA9 /* ForceUpdateSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ForceUpdateSpecs.swift; path = Specs/ForceUpdateSpecs.swift; sourceTree = "<group>"; };
 		FAC3947D1C95D9FF00F14778 /* Feedback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Feedback.swift; path = Applivery/Model/Feedback.swift; sourceTree = "<group>"; };
 		FAC3947F1C95EA3000F14778 /* FeedbackService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FeedbackService.swift; path = Applivery/Data/Services/FeedbackService.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -781,6 +783,7 @@
 				FA1569B61DBD465100C651D4 /* DiskStatus.swift */,
 				FA1569B81DBD498900C651D4 /* Ram.swift */,
 				FACB9AC520535E340094499A /* DateExtension.swift */,
+				FAB0CCEB205DF2C900F68275 /* UserDefaultsExtension.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -987,6 +990,7 @@
 			files = (
 				FA68D90F1BC046E300589DE4 /* Applivery.swift in Sources */,
 				FA2A61CB1C8CE59800DC21FD /* Keyboard.swift in Sources */,
+				FAB0CCEC205DF2C900F68275 /* UserDefaultsExtension.swift in Sources */,
 				FA73BF7D1C8B02E800619258 /* ScreenshotInteractor.swift in Sources */,
 				FA3A69451BC2FCFB00179176 /* ConfigPersister.swift in Sources */,
 				FA1569B51DBD313200C651D4 /* Wifi.swift in Sources */,

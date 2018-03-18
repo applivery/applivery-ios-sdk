@@ -23,10 +23,6 @@ class ForceUpdateSpecs: QuickSpec {
 	override func spec() {
 		describe("force update") {
 			beforeEach {
-				// Clean persistance. Need refactoring!!
-				UserDefaults.standard.removeObject(forKey: kAccessTokenKey)
-				UserDefaults.standard.synchronize()
-				
 				self.config = GlobalConfig()
 				GlobalConfig.shared = self.config
 				
@@ -36,6 +32,7 @@ class ForceUpdateSpecs: QuickSpec {
 				
 				self.updatePresenter = UpdatePresenter(
 					updateInteractor: UpdateInteractor(
+						output: nil,
 						configData: ConfigDataManager(
 							appInfo: self.appMock,
 							configPersister: ConfigPersister(
@@ -44,7 +41,16 @@ class ForceUpdateSpecs: QuickSpec {
 							configService: ConfigService()
 						),
 						downloadData: DownloadDataManager(),
-						app: self.appMock
+						app: self.appMock,
+						loginInteractor: LoginInteractor(
+							app: self.appMock,
+							loginService: LoginService(),
+							globalConfig: self.config,
+							sessionPersister: SessionPersister(
+								userDefaults: self.userDefaultsMock
+							)
+						),
+						globalConfig: self.config
 					),
 					view: self.updateViewMock
 				)
@@ -203,6 +209,33 @@ class ForceUpdateSpecs: QuickSpec {
 						expect(matchedDownloadURL).toEventually(beTrue())
 						expect(downloadHeaders?["Authorization"]).toEventually(equal("test_user_token"))
 					}
+				}
+			}
+			context("when ota needs auth but was previously logged in") {
+				var matchedDownloadURL = false
+				var downloadHeaders: [String: String]?
+				beforeEach {
+					matchedDownloadURL = false
+					downloadHeaders = nil
+					StubResponse.testRequest(with: "ko.json", url: "/api/builds/LAST_BUILD_ID_TEST/token", matching: { _, _, headers in
+						matchedDownloadURL = true
+						downloadHeaders = headers
+					})
+					self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig(
+						lastBuildID: "LAST_BUILD_ID_TEST",
+						authUpdate: true,
+						accessToken: AccessToken(token: "TEST_TOKEN", expirationDate: Date.today())
+					)
+					
+					self.appMock.stubVersion = "1"
+					self.updatePresenter.userDidTapDownload()
+				}
+				it("should not show login alert") {
+					expect(self.appMock.spyLoginView.called).toNotEventually(beTrue())
+				}
+				it("should request an authenticated download token") {
+					expect(matchedDownloadURL).toEventually(beTrue())
+					expect(downloadHeaders?["Authorization"]).toEventually(equal("TEST_TOKEN"))
 				}
 			}
 		}
