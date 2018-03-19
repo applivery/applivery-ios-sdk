@@ -10,4 +10,5 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "8.0"
   s.source_files  = "AppliverySDK/Applivery/**/*.swift"
   s.resources = ["AppliverySDK/**/*.storyboard", "AppliverySDK/**/*.strings"]
+  s.swift_version = "3.2"
 end
