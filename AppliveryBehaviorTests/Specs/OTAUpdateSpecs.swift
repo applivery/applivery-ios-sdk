@@ -18,7 +18,6 @@ class OTAUpdateSpecs: QuickSpec {
 	var appMock: AppMock!
 	var userDefaultsMock: UserDefaultsMock!
 	
-	
 	override func spec() {
 		describe("OTA Update") {
 			beforeEach {
@@ -30,6 +29,7 @@ class OTAUpdateSpecs: QuickSpec {
 				
 				self.updateCoordinator = UpdateCoordinator(
 					updateInteractor: UpdateInteractor(
+						output: nil,
 						configData: ConfigDataManager(
 							appInfo: self.appMock,
 							configPersister: ConfigPersister(
@@ -38,7 +38,16 @@ class OTAUpdateSpecs: QuickSpec {
 							configService: ConfigService()
 						),
 						downloadData: DownloadDataManager(),
-						app: self.appMock
+						app: self.appMock,
+						loginInteractor: LoginInteractor(
+							app: self.appMock,
+							loginService: LoginService(),
+							globalConfig: self.config,
+							sessionPersister: SessionPersister(
+								userDefaults: self.userDefaultsMock
+							)
+						),
+						globalConfig: self.config
 					),
 					app: self.appMock
 				)
@@ -48,10 +57,8 @@ class OTAUpdateSpecs: QuickSpec {
 				self.appMock = nil
 				self.userDefaultsMock = nil
 				self.updateCoordinator = nil
-				
 				OHHTTPStubs.removeAllStubs()
 			}
-			
 			context("when there is a new update") {
 				beforeEach {
 					self.config.textLiterals.otaUpdateMessage = "OTA UPDATE TESTS MESSAGE"
@@ -66,7 +73,6 @@ class OTAUpdateSpecs: QuickSpec {
 					expect(self.appMock.spyOtaAlert.message).to(equal("OTA UPDATE TESTS MESSAGE"))
 				}
 			}
-			
 			context("when user taps on download button") {
 				beforeEach {
 					self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig(lastBuildID: "LAST_BUILD_ID_TEST")
@@ -85,7 +91,6 @@ class OTAUpdateSpecs: QuickSpec {
 					
 					expect(url).toEventually(equal("/api/builds/LAST_BUILD_ID_TEST/token"))
 				}
-				
 				context("and service returns a valid token") {
 					beforeEach {
 						self.appMock.stubOpenUrlResult = true
@@ -113,6 +118,123 @@ class OTAUpdateSpecs: QuickSpec {
 						expect(self.appMock.spyAlertError.called).toEventually(beTrue())
 						expect(self.appMock.spyAlertError.message).toEventually(equal("Unexpected error"))
 					}
+				}
+			}
+			context("when ota needs auth") {
+				var matchedDownloadURL = false
+				var downloadHeaders: [String: String]?
+				beforeEach {
+					matchedDownloadURL = false
+					downloadHeaders = nil
+					StubResponse.testRequest(with: "ko.json", url: "/api/builds/LAST_BUILD_ID_TEST/token", matching: { _, _, headers in
+						matchedDownloadURL = true
+						downloadHeaders = headers
+					})
+					self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig(
+						lastBuildID: "LAST_BUILD_ID_TEST",
+						authUpdate: true
+					)
+					self.appMock.stubVersion = "1"
+					self.updateCoordinator.otaUpdate()
+					self.appMock.spyDownloadClosure?()
+				}
+				it("should show login alert") {
+					expect(self.appMock.spyLoginView.called).toEventually(beTrue())
+					expect(self.appMock.spyLoginView.message).toEventually(equal(literal(.loginMessage)))
+				}
+				it("should not request a download token") {
+					expect(matchedDownloadURL).toNotEventually(beTrue())
+				}
+				context("when login is cancelled") {
+					beforeEach {
+						self.appMock.spyLoginCancelClosure?()
+					}
+					it("should not request a download token") {
+						expect(matchedDownloadURL).toNotEventually(beTrue())
+					}
+					it("should hide loading") {
+						expect(self.appMock.spyHideLoadingCalled).toEventually(beTrue())
+					}
+				}
+				context("when login is KO") {
+					var matchedLoginURL = false
+					var loginBody: JSON?
+					beforeEach {
+						loginBody = nil
+						let email = "test@applivery.com"
+						let password = "TEST_PASSWORD"
+						matchedLoginURL = false
+						StubResponse.testRequest(url: "/api/auth") { _, json, _ in
+							matchedLoginURL = true
+							loginBody = json
+						}
+						self.appMock.spyLoginClosure?(email, password)
+					}
+					it("should request user token") {
+						expect(matchedLoginURL).toEventually(beTrue())
+						expect(loginBody?["email"]?.toString()).toEventually(equal("test@applivery.com"))
+						expect(loginBody?["password"]?.toString()).toEventually(equal("TEST_PASSWORD"))
+					}
+					it("should not request a download token") {
+						expect(matchedLoginURL).toEventually(beTrue()) // This line is to force the next one to be executed when its true
+						expect(matchedDownloadURL).toNotEventually(beTrue())
+					}
+					it("should ask for login again") {
+						expect(self.appMock.spyLoginView.called).toEventually(beTrue())
+						expect(self.appMock.spyLoginView.message).toEventually(equal(literal(.loginInvalidCredentials)))
+					}
+				}
+				context("when login is OK") {
+					var matchedLoginURL = false
+					var loginBody: JSON?
+					beforeEach {
+						loginBody = nil
+						let email = "test@applivery.com"
+						let password = "TEST_PASSWORD"
+						matchedLoginURL = false
+						StubResponse.testRequest(with: "login_success.json", url: "/api/auth") { _, json, _ in
+							matchedLoginURL = true
+							loginBody = json
+						}
+						self.appMock.spyLoginClosure?(email, password)
+					}
+					it("should request user token") {
+						expect(matchedLoginURL).toEventually(beTrue())
+						expect(loginBody?["email"]?.toString()).toEventually(equal("test@applivery.com"))
+						expect(loginBody?["password"]?.toString()).toEventually(equal("TEST_PASSWORD"))
+					}
+					it("should request an authenticated download token") {
+						expect(matchedDownloadURL).toEventually(beTrue())
+						expect(downloadHeaders?["Authorization"]).toEventually(equal("test_user_token"))
+					}
+				}
+			}
+			context("when ota needs auth but was previously logged in") {
+				var matchedDownloadURL = false
+				var downloadHeaders: [String: String]?
+				beforeEach {
+					matchedDownloadURL = false
+					downloadHeaders = nil
+					StubResponse.testRequest(with: "ko.json", url: "/api/builds/LAST_BUILD_ID_TEST/token", matching: { _, _, headers in
+						matchedDownloadURL = true
+						downloadHeaders = headers
+					})
+					self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig(
+						lastBuildID: "LAST_BUILD_ID_TEST",
+						authUpdate: true,
+						accessToken: AccessToken(token: "TEST_TOKEN", expirationDate: Date.today())
+					)
+					
+					self.appMock.stubVersion = "1"
+					self.updateCoordinator.otaUpdate()
+					self.appMock.spyDownloadClosure?()
+				}
+				it("should not show login alert") {
+					expect(self.appMock.spyLoginView.called).toNotEventually(beTrue())
+				}
+				it("should request an authenticated download token") {
+					expect(matchedDownloadURL).toEventually(beTrue())
+					expect(downloadHeaders?["Authorization"]).toEventually(equal("TEST_TOKEN"))
 				}
 			}
 		}

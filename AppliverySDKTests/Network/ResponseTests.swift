@@ -280,7 +280,7 @@ class ResponseTests: XCTestCase {
 		let json = [
 			"status": true,
 			"response": "valid json response"
-		] as [String : Any]
+		] as [String: Any]
 		let data = try! JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
 
 		return data
@@ -293,7 +293,7 @@ class ResponseTests: XCTestCase {
 				"code": 10001,
 				"msg": "TEST ERROR MESSAGE"
 			]
-		] as [String : Any]
+		] as [String: Any]
 		let data = try! JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
 
 		return data
@@ -303,7 +303,7 @@ class ResponseTests: XCTestCase {
 		let json = [
 			"status": false,
 			"someIrrelevantField": "this field has no purpose"
-		] as [String : Any]
+		] as [String: Any]
 		let data = try! JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
 
 		return data

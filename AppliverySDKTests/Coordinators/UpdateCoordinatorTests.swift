@@ -50,15 +50,6 @@ class UpdateCoordinatorTests: XCTestCase {
 		XCTAssert(self.appMock.spyWaitForReadyCalled == true)
 	}
 
-	func test_otaUpdate_showLoading_andDownloadBuild_whenUserTapsDownload() {
-		let downloadClosure = self.otaDownloadClosure()
-
-		downloadClosure()
-
-		XCTAssert(self.appMock.spyShowLoadingCalled == true)
-		XCTAssert(self.updateInteractorMock.outDownloadLastBuildCalled == true)
-	}
-
 	func test_otaUpdate_hideLoading_whenDownloadDidEnd() {
 		self.updateCoordinator.downloadDidEnd()
 
@@ -71,15 +62,6 @@ class UpdateCoordinatorTests: XCTestCase {
 		XCTAssert(self.appMock.spyHideLoadingCalled == true)
 		XCTAssert(self.appMock.spyAlertError.called == true)
 		XCTAssert(self.appMock.spyAlertError.message == "TEST MESSAGE")
-	}
-
-	func test_otaUpdate_showLoading_andDownloadBuild_whenUserTapsRetry() {
-		let retryClosure = self.otaRetryClosure()
-
-		retryClosure()
-
-		XCTAssert(self.appMock.spyShowLoadingCalled == true)
-		XCTAssert(self.updateInteractorMock.outDownloadLastBuildCalled == true)
 	}
 
 

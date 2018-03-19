@@ -20,7 +20,17 @@ class FeedbackInteractorTests: XCTestCase {
         super.setUp()
 
 		self.feedbackServiceMock = FeedbackServiceMock()
-		self.feedbackInteractor = FeedbackInteractor(service: self.feedbackServiceMock)
+		self.feedbackInteractor = FeedbackInteractor(
+			service: self.feedbackServiceMock,
+			configDataManager: ConfigDataManager(),
+			loginInteractor: LoginInteractor(
+				app: App(),
+				loginService: LoginService(),
+				globalConfig: GlobalConfig(),
+				sessionPersister: SessionPersister(
+					userDefaults: UserDefaultsMock())
+			)
+		)
     }
 
     override func tearDown() {

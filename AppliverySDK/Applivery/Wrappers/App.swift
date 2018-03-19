@@ -16,8 +16,6 @@ protocol AppProtocol {
 	func getVersion() -> String
 	func getVersionName() -> String
 	func getLanguage() -> String
-	
-	
 	func openUrl(_ url: String) -> Bool
 	func showLoading()
 	func hideLoading()
@@ -25,6 +23,7 @@ protocol AppProtocol {
 	func showErrorAlert(_ message: String, retryHandler: @escaping () -> Void)
 	func waitForReadyThen(_ onReady: @escaping () -> Void)
 	func presentModal(_ viewController: UIViewController, animated: Bool)
+	func showLoginView(message: String, cancelHandler: @escaping () -> Void, loginHandler: @escaping (_ user: String, _ password: String) -> Void)
 }
 
 extension AppProtocol {
@@ -39,8 +38,9 @@ extension AppProtocol {
 
 class App: AppProtocol {
 
-	private var alertOta: UIAlertController = UIAlertController()
-	private var alertError: UIAlertController = UIAlertController()
+	private lazy var alertOta: UIAlertController = UIAlertController()
+	private lazy var alertError: UIAlertController = UIAlertController()
+	private lazy var alertLogin: UIAlertController = UIAlertController()
 
 
 	// MARK: - Public Methods
@@ -145,25 +145,60 @@ class App: AppProtocol {
 		let topVC = self.topViewController()
 		topVC?.present(viewController, animated: animated, completion: nil)
 	}
+	
+	func showLoginView(message: String, cancelHandler: @escaping () -> Void, loginHandler: @escaping (_ user: String, _ password: String) -> Void) {
+		var userText: UITextField?
+		var passwordText: UITextField?
+		self.alertLogin = UIAlertController(title: literal(.appName), message: message, preferredStyle: .alert)
+		
+		self.alertLogin.addTextField { textField in
+			textField.placeholder = literal(.loginInputEmail)
+			userText = textField
+		}
+		self.alertLogin.addTextField { textField in
+			textField.placeholder = literal(.loginInputPassword)
+			textField.isSecureTextEntry = true
+			passwordText = textField
+		}
+		
+		let actionCancel = UIAlertAction(title: literal(.alertButtonCancel), style: .cancel) { _ in
+			cancelHandler()
+		}
+		let actionLogin = UIAlertAction(title: literal(.loginButton), style: .default) { _ in
+			loginHandler(userText?.text ?? "", passwordText?.text ?? "")
+		}
+		
+		self.alertLogin.addAction(actionCancel)
+		self.alertLogin.addAction(actionLogin)
+		
+		let topVC = self.topViewController()
+		
+		topVC?.present(self.alertLogin, animated: true, completion: nil)
+	}
 
 
 	// MARK: - Private Helpers
 
-	fileprivate func sleepUntilReady() {
+	private func sleepUntilReady() {
 		while !self.rootIsReady() {
 			Thread.sleep(forTimeInterval: 0.1)
 		}
 	}
 
-	fileprivate func rootIsReady() -> Bool {
+	private func rootIsReady() -> Bool {
 		let app = UIApplication.shared
-		let window = app.keyWindow
-		guard let rootVC = window?.rootViewController else { return false }
-
-		return rootVC.isViewLoaded
+		var window: UIWindow?
+		var rootVC: UIViewController?
+		runOnMainThread {
+			window = app.keyWindow
+			rootVC = window?.rootViewController
+		}
+		Thread.sleep(forTimeInterval: 0.1)
+		guard let unwrappedRootVC = rootVC else { return false }
+		return unwrappedRootVC.isViewLoaded
 	}
 
-	fileprivate func topViewController() -> UIViewController? {
+	private func topViewController() -> UIViewController? {
 		let app = UIApplication.shared
 		let window = app.keyWindow
 		var rootVC = window?.rootViewController

@@ -11,7 +11,7 @@ import Foundation
 
 
 class UserDefaultsMock: UserDefaultsProtocol {
-
+	
 	// INPUTS
 	var stubDictionary: [String: Any]?
 
@@ -20,8 +20,7 @@ class UserDefaultsMock: UserDefaultsProtocol {
 	var spySynchronizeCalled = false
 
 
-	fileprivate var tempDictionary = [String: Any]()
-
+	private var tempDictionary = [String: Any]()
 
 	// MARK: - Public Methods
 
@@ -41,6 +40,14 @@ class UserDefaultsMock: UserDefaultsProtocol {
 		self.spySynchronizeCalled = true
 		self.spyDictionary = self.tempDictionary
 		return true
+	}
+	
+	func set(_ value: AccessToken?, forKey key: String) {
+		self.setValue(value, forKey: key)
+	}
+	
+	func token(forKey key: String) -> AccessToken? {
+		return self.value(forKey: key) as? AccessToken
 	}
 
 }

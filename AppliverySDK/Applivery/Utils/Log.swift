@@ -43,6 +43,11 @@ func logError(_ error: NSError?, filename: NSString = #file, line: Int = #line, 
 		GlobalConfig.shared.logLevel >= .error,
 		let err = error
 		else { return }
+	
+	if let code = error?.code, code == 401 || code == 402 {
+		log("Invalid credentials!! Please, check your ApiKey as described on https://github.com/applivery/applivery-ios-sdk#get-your-credentials")
+		return
+	}
 
 	let caller = "\(filename.lastPathComponent)(\(line)) \(funcname)"
 	log("❌❌❌ ERROR: " + err.localizedDescription)

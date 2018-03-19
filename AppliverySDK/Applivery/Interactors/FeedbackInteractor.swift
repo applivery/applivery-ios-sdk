@@ -14,7 +14,6 @@ enum FeedbackInteractorResult {
 	case error(String)
 }
 
-
 protocol PFeedbackInteractor {
 	func sendFeedback(_ feedback: Feedback, completionHandler: @escaping (FeedbackInteractorResult) -> Void)
 }
@@ -22,15 +21,31 @@ protocol PFeedbackInteractor {
 struct FeedbackInteractor: PFeedbackInteractor {
 
 	let service: PFeedbackService
+	let configDataManager: PConfigDataManager
+	let loginInteractor: LoginInteractor
 
 	func sendFeedback(_ feedback: Feedback, completionHandler: @escaping (FeedbackInteractorResult) -> Void) {
+		let config = self.configDataManager.getCurrentConfig().config ?? Config()
+		if config.authFeedback {
+			self.loginInteractor.requestAuthorization(
+				with: config,
+				loginHandler: { self.send(feedback: feedback, completion: completionHandler) },
+				cancelHandler: { completionHandler(.error(literal(.loginMessage) ?? "<Need authentication>")) }
+			)
+		} else {
+			self.send(feedback: feedback, completion: completionHandler)
+		}
+	}
+	
+	// MARK: - Private Helpers
+	private func send(feedback: Feedback, completion: @escaping (FeedbackInteractorResult) -> Void) {
 		self.service.postFeedback(feedback) { result in
 			switch result {
 			case .success:
-				completionHandler(.success)
-
+				completion(.success)
+				
 			case .error(let error):
-				completionHandler(.error(error.message()))
+				completion(.error(error.message()))
 			}
 		}
 	}
