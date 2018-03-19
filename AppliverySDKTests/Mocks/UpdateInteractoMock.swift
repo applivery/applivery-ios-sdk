@@ -11,6 +11,14 @@ import Foundation
 
 
 class UpdateInteractoMock: PUpdateInteractor {
+	func downloadLasBuild() {
+		
+	}
+	
+	func authenticatedDownload() {
+		
+	}
+	
 
 	var output: UpdateInteractorOutput? // NO NEEDED
 
@@ -31,7 +39,7 @@ class UpdateInteractoMock: PUpdateInteractor {
 		return self.inOtaUpdateMessage
 	}
 
-	func downloadLastBuild() {
+	func unauthDownload() {
 		self.outDownloadLastBuildCalled = true
 	}
 }

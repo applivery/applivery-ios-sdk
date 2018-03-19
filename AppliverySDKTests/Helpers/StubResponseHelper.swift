@@ -18,21 +18,25 @@ class StubResponse {
 		})
 	}
 	
-	class func testRequest(with json: String = "ko.json", matching: @escaping (String, JSON?) -> Void) {
+	class func testRequest(with json: String = "ko.json", url: String? = nil, matching: @escaping (String, JSON?, [String: String]?) -> Void) {
 		OHHTTPStubs.stubRequests(passingTest: { request -> Bool in
 			let urlRequest = (request as NSURLRequest)
 			let data = urlRequest.ohhttpStubs_HTTPBody()
 			let json = data.flatMap { try? JSON.dataToJson($0) }
-			
-			matching(urlRequest.url?.path ?? "NO_URL", json)
-			return true
+			let headers = urlRequest.allHTTPHeaderFields
+			let requestURL = urlRequest.url?.path ?? "NO_URL"
+			let expectedURL = url ?? requestURL
+			if requestURL == expectedURL {
+				matching(requestURL, json, headers)
+				return true
+			} else {
+				return false
+			}
 		}, withStubResponse: { _ in StubResponse.stubResponse(with: json) })
 	}
 	
-	class func testRequest(with json: String = "ko.json", matching: @escaping (String) -> Void) {
-		self.testRequest { url, _ in
-			matching(url)
-		}
+	class func testRequest(with json: String = "ko.json", url: String? = nil, matching: @escaping (String) -> Void) {
+		self.testRequest(with: json, url: url) { url, _, _ in matching(url) }
 	}
 	
 	class func stubResponse(with json: String) -> OHHTTPStubsResponse {

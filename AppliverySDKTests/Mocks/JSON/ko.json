@@ -2,6 +2,6 @@
 	"status": false,
 	"error": {
 		"msg": "Error msg",
-		"code": 401
+		"code": 500
 	}
 }

@@ -35,7 +35,11 @@ class DownloadService: DownloadServiceProtocol {
 				let error = response.error ?? NSError
 					.unexpectedError(debugMessage: "unexpected error while fetching download token")
 				logError(error)
-				completionHandler(.error(error))
+				LoginManager().parse(
+					error: error,
+					retry: { self.fetchDownloadToken(with: buildId, completionHandler: completionHandler) },
+					next: {	completionHandler(.error(error)) }
+				)
 			}
 		}
 	}

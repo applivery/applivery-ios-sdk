@@ -43,6 +43,15 @@ class FeedbackCoordinator: PFeedbackCoordinator {
 					app: App(),
 					device: Device(),
 					config: GlobalConfig.shared
+				),
+				configDataManager: ConfigDataManager(),
+				loginInteractor: LoginInteractor(
+					app: App(),
+					loginService: LoginService(),
+					globalConfig: GlobalConfig.shared,
+					sessionPersister: SessionPersister(
+						userDefaults: UserDefaults.standard
+					)
 				)
 			),
 			feedbackCoordinator: self,

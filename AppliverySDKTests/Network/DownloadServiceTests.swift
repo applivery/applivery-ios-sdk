@@ -63,7 +63,7 @@ class DownloadServiceTests: XCTestCase {
 			completionCalled.fulfill()
 			
 			XCTAssert(self.downloadService.request?.endpoint == "/api/builds/test_id/token")
-			XCTAssert(result == Result.error(NSError.appliveryError(nil, debugMessage: "Error msg", code: 401)), "result: \(result)")
+			XCTAssert(result == Result.error(NSError.appliveryError(nil, debugMessage: "Error msg", code: 500)), "result: \(result)")
 		}
 		
 		self.waitForExpectations(timeout: 1, handler: nil)

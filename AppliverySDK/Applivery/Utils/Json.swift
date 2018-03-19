@@ -46,7 +46,7 @@ class JSON: Sequence, CustomStringConvertible {
 				if let jsonObject = jsonDict[key] {
 					json = jsonObject
 					
-					if let jsonDictNext = jsonObject as? [String : AnyObject] {
+					if let jsonDictNext = jsonObject as? [String: AnyObject] {
 						jsonDict = jsonDictNext
 					}
 				} else {
@@ -115,6 +115,14 @@ class JSON: Sequence, CustomStringConvertible {
 		}
 		
 		return dic
+	}
+	
+	func toDate(_ format: String = kDateISOFormat) -> Date? {
+		guard let dateString = self.json as? String else {
+			return nil
+		}
+		
+		return Date.date(from: dateString, format: format)
 	}
 	
 	// MARK: - Sequence Methods
