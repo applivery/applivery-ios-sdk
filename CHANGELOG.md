@@ -1,5 +1,13 @@
 # Change Log
 
+## [v2.6](https://github.com/applivery/applivery-ios-sdk/releases/tag/v2.6)
+
+### New
+* Display Applivery User Authentication before installing new versions (#2)
+* Display Authentication before sending feedback/bug Reports (#3)
+
+---
+
 ## [v2.5.1](https://github.com/applivery/applivery-ios-sdk/releases/tag/v2.5.1)
 
 ### Fixed
@@ -8,8 +16,6 @@
 ---
 
 ## [v2.5](https://github.com/applivery/applivery-ios-sdk/releases/tag/v2.5)
-
----
 
 ### New
 * XCode 9 & Swift 4 compatibility

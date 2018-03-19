@@ -43,7 +43,7 @@ When Applivery's starts, the latests configuration for your build will be retrie
 
 - seealso: [Applivery's README on GitHub](https://github.com/applivery/applivery-ios-sdk/blob/master/README.md)
 - Since: 1.0
-- Version: 2.5.1
+- Version: 2.6
 - Author: Alejandro Jiménez Agudo
 - Copyright: Applivery S.L.
 */
@@ -166,7 +166,13 @@ public class Applivery: NSObject, StartInteractorOutput {
 		feedbackTypeBug: "Bug",
 		feedbackTypeFeedback: "Feedback",
 		feedbackMessagePlaceholder: "Add a message",
-		feedbackAttach: "Attach Screenshot"
+		feedbackAttach: "Attach Screenshot",
+		loginInputEmail: "email",
+		loginInputPassword: "password",
+		loginButton: "Login",
+		loginMessage: "Login is required!",
+		loginInvalidCredentials: "Wrong username or password, please, try again",
+		loginSessionExpired: "Your session has expired. Please, log in again"
 	)
 	```
 	

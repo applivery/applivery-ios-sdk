@@ -41,7 +41,7 @@ import Foundation
      loginInputEmail: "email",
      loginInputPassword: "password",
      loginButton: "Login",
-     loginMessage: "Login is required!,
+     loginMessage: "Login is required!",
      loginInvalidCredentials: "Wrong username or password, please, try again",
      loginSessionExpired: "Your session has expired. Please, log in again"
  )

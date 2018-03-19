@@ -1,6 +1,6 @@
 ![Applivery Logo](https://www.applivery.com/img/icons/applivery-header-1200x627px.png)
 
-![Version](https://img.shields.io/badge/version-2.5.1-blue.svg)
+![Version](https://img.shields.io/badge/version-2.6-blue.svg)
 ![Language](https://img.shields.io/badge/Language-Swift-orange.svg)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Applivery.svg)](https://cocoapods.org/pods/Applivery)
@@ -275,7 +275,13 @@ Applivery.shared.textLiterals = TextLiterals(
 	feedbackTypeBug: "Bug",
 	feedbackTypeFeedback: "Feedback",
 	feedbackMessagePlaceholder: "Add a message",
-	feedbackAttach: "Attach Screenshot"
+	feedbackAttach: "Attach Screenshot",
+	loginInputEmail: "email",
+	loginInputPassword: "password",
+	loginButton: "Login",
+	loginMessage: "Login is required!",
+	loginInvalidCredentials: "Wrong username or password, please, try again",
+	loginSessionExpired: "Your session has expired. Please, log in again"
 )
 ```
 	
