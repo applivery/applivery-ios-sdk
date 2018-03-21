@@ -12,6 +12,14 @@ func runInBackground(_ code: @escaping () -> Void) {
 	DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: code)
 }
 
-func runOnMainThread(_ code: @escaping () -> Void) {
+func runOnMainThreadAsync(_ code: @escaping () -> Void) {
 	DispatchQueue.main.async(execute: code)
+}
+
+func runOnMainThreadSynced(_ code: @escaping () -> Void) {
+	DispatchQueue.main.sync(execute: code)
+}
+
+func sleep(for seconds: TimeInterval) {
+	Thread.sleep(forTimeInterval: seconds)
 }
