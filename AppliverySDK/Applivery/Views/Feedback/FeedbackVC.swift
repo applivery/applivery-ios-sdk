@@ -288,7 +288,7 @@ extension FeedbackVC: FeedbackView {
 			UIAlertAction(
 				title: literal(.alertButtonOK),
 				style: .cancel,
-				handler: { _ in runOnMainThread(self.stopLoading) }
+				handler: { _ in runOnMainThreadAsync(self.stopLoading) }
 			)
 		)
 		
