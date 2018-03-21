@@ -1,5 +1,12 @@
 # Change Log
 
+## [v2.6.1](https://github.com/applivery/applivery-ios-sdk/releases/tag/v2.6.1)
+
+### Fixed
+* Race condition when checking if app is ready to present the update views (Fixes #8). Thanks to @SPopenko
+
+---
+
 ## [v2.6](https://github.com/applivery/applivery-ios-sdk/releases/tag/v2.6)
 
 ### New
