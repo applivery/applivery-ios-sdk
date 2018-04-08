@@ -321,8 +321,3 @@ Depends of your integration method, the solution is:
 	You'll find inside _Build Phases_ tab.
 
 	![Applivery script](https://raw.githubusercontent.com/applivery/applivery-ios-sdk/master/documentation/applivery_script.png)
-
-	Please note that you should edit the `APPLIVERY_FRAMEWORK_PATH` specifing where the framework is, inside your project path.
-
-	This script is based on the [solution that Carthage](https://github.com/Carthage/Carthage/issues/188) found (thank guys!)
-
