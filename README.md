@@ -27,7 +27,8 @@
 * [SDK Setup](#sdk-setup)
 	* [Swift](#swift)
 	* [Objective-C](#objective-c-1)
-* [About params](#about-params)
+	* [About params](#about-params)
+* [Swift & Xcode versions support](#swift--xcode-version-support)
 * [Advanced concepts](#advanced-concepts)
 
 
