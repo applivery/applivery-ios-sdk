@@ -33,37 +33,32 @@ class JSON: Sequence, CustomStringConvertible {
 	}
 	
 	subscript(path: String) -> JSON? {
-		get {
-			guard var jsonDict = self.json as? [String: AnyObject] else {
+		guard var jsonDict = self.json as? [String: AnyObject] else {
+			return nil
+		}
+		
+		var json = self.json
+		let pathArray = path.components(separatedBy: ".")
+		
+		for key in pathArray {
+			
+			if let jsonObject = jsonDict[key] {
+				json = jsonObject
+				
+				if let jsonDictNext = jsonObject as? [String: AnyObject] {
+					jsonDict = jsonDictNext
+				}
+			} else {
 				return nil
 			}
-			
-			var json = self.json
-			let pathArray = path.components(separatedBy: ".")
-			
-			for key in pathArray {
-				
-				if let jsonObject = jsonDict[key] {
-					json = jsonObject
-					
-					if let jsonDictNext = jsonObject as? [String: AnyObject] {
-						jsonDict = jsonDictNext
-					}
-				} else {
-					return nil
-				}
-			}
-			
-			return JSON(from: json)
 		}
+		
+		return JSON(from: json)
 	}
 	
 	subscript(index: Int) -> JSON? {
-		get {
-			guard let array = self.json as? [AnyObject], array.count > index else { return nil }
-			
-			return JSON(from: array[index])
-		}
+		guard let array = self.json as? [AnyObject], array.count > index else { return nil }
+		return JSON(from: array[index])
 	}
 	
 	class func dataToJson(_ data: Data) throws -> JSON {
