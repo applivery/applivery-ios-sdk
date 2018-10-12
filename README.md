@@ -15,7 +15,21 @@
 [![codebeat badge](https://codebeat.co/badges/c5895172-0986-4905-8e6f-38dccb63a059)](https://codebeat.co/projects/github-com-applivery-applivery-ios-sdk-master)
 [![BCH compliance](https://bettercodehub.com/edge/badge/applivery/applivery-ios-sdk)](https://bettercodehub.com/)
 
+### Table of Contents
 
+* [Overview](#overview)
+* [Getting Started](#getting-started)
+* [SDK Installation](#sdk-installation)
+	* [Using Carthage](#using-carthage)
+	* [Using CocoaPods](#using-cocoapods)
+	* [Manual installation](#manual-installation)
+	* [Objective-C](#objective-c)
+* [SDK Setup](#sdk-setup)
+	* [Swift](#swift)
+	* [Objective-C](#objective-c-1)
+	* [About params](#about-params)
+* [Swift & Xcode versions support](#swift--xcode-version-support)
+* [Advanced concepts](#advanced-concepts)
 
 
 ## Overview
@@ -51,9 +65,7 @@ You can get your SDK API KEY in the `Developers` section (left side menu).
 
 ## SDK Installation
 
-### iOS 8 and later
-
-#### Using Carthage
+### Using Carthage
 
 Install carthage with using brew
 
@@ -71,7 +83,7 @@ Run `carthage update` and then drag the built framework into your project.
 More info about Carthage [here](https://github.com/Carthage/Carthage#installing-carthage).
 
 
-#### Using CocoaPods
+### Using CocoaPods
 
 Install the ruby gem
 
@@ -94,7 +106,7 @@ end
 and then run `pod install`. More info about CocoaPods [here](https://cocoapods.org)
 
 
-#### Or you can try manually
+### Manual installation
 
 1. Download the Applivery.framework [here](https://github.com/applivery/applivery-ios-sdk/releases)
 1. Drag it to your frameworks folder
@@ -103,29 +115,18 @@ and then run `pod install`. More info about CocoaPods [here](https://cocoapods.o
 ![Embbeded binaries](https://raw.githubusercontent.com/applivery/applivery-ios-sdk/master/documentation/embbeded_binaries.png)
 
 
-#### Objective-C
+### Objective-C
 
 If your project is written in Objective-C, you should also enable the "_Always Embed Swift Standard Libraries_" option. You'll find it in the _Build Settings_ section:
 
 ![Embedded binaries](https://raw.githubusercontent.com/applivery/applivery-ios-sdk/master/documentation/embedded_content.png)
 
 
-### Swift & XCode version support
-
-The compatibility version is as follow:
-
-| Applivery Version | Xcode Version  | Swift Version |
-|-------------------|----------------|---------------|
-| **v1.2.x**        | 7.x            | 2.0, 2.1, 2.2 |
-| **v1.3.x**        | 8.x            | 2.3           |
-| **v2.x**          | 8.x, 9.x       | 3.0, 3.1, 4.0 |
-
-
-### Ok! Let's go!
+## SDK Setup
 
 At your application start up (for example in the _AppDelegate_) add the following code:
 
-#### Swift
+### Swift
 
 First import the module:
 
@@ -141,7 +142,7 @@ applivery.start(apiKey: "YOUR_API_KEY", appId: "YOUR_APP_ID", appStoreRelease: f
 ```
 
 
-#### Objective-C
+### Objective-C
 
 The import:
 
@@ -169,6 +170,15 @@ Applivery *applivery = [Applivery shared];
 	* True: Applivery SDK will not trigger automatic updates anymore. **Use this for AppStore**
 	* False: Applivery SDK will normally. Use this with builds distributed through Applivery.
 
+## Swift & XCode version support
+
+The compatibility version is as follow:
+
+| Applivery Version | Xcode Version  | Swift Version |
+|-------------------|----------------|---------------|
+| **v1.2.x**        | 7.x            | 2.0, 2.1, 2.2 |
+| **v1.3.x**        | 8.x            | 2.3           |
+| **v2.x**          | 8.x, 9.x       | 3.0, 3.1, 4.0 |
 
 ## Advanced concepts
 
@@ -321,8 +331,3 @@ Depends of your integration method, the solution is:
 	You'll find inside _Build Phases_ tab.
 
 	![Applivery script](https://raw.githubusercontent.com/applivery/applivery-ios-sdk/master/documentation/applivery_script.png)
-
-	Please note that you should edit the `APPLIVERY_FRAMEWORK_PATH` specifing where the framework is, inside your project path.
-
-	This script is based on the [solution that Carthage](https://github.com/Carthage/Carthage/issues/188) found (thank guys!)
-

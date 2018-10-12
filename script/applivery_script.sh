@@ -1,43 +1,28 @@
-# SETUP
-APPLIVERY_FRAMEWORK_PATH="${SRCROOT}/Frameworks/Applivery.framework"
+APP_PATH="${TARGET_BUILD_DIR}/${WRAPPER_NAME}"
 
+# This script loops through the frameworks embedded in the application and
+# removes unused architectures.
+find "$APP_PATH" -name '*.framework' -type d | while read -r FRAMEWORK
+do
+FRAMEWORK_EXECUTABLE_NAME=$(defaults read "$FRAMEWORK/Info.plist" CFBundleExecutable)
+FRAMEWORK_EXECUTABLE_PATH="$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME"
+echo "Executable is $FRAMEWORK_EXECUTABLE_PATH"
 
-# DON'T MODIFY BELOW
+EXTRACTED_ARCHS=()
 
-set -e
+for ARCH in $ARCHS
+do
+echo "Extracting $ARCH from $FRAMEWORK_EXECUTABLE_NAME"
+lipo -extract "$ARCH" "$FRAMEWORK_EXECUTABLE_PATH" -o "$FRAMEWORK_EXECUTABLE_PATH-$ARCH"
+EXTRACTED_ARCHS+=("$FRAMEWORK_EXECUTABLE_PATH-$ARCH")
+done
 
-copy_framework ()
-{
-    local framework=$1
-    local frameworks_folder="${CONFIGURATION_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}"
-    
-    echo "framework: ${framework}"
-    echo "frameworks folder: ${frameworks_folder}"
-    
-    mkdir -p "${CONFIGURATION_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}"
-    rsync -av "$framework" "$frameworks_folder"
-    
-    local framework_path="$frameworks_folder/Applivery.framework"
-    local file_path="$framework_path/Applivery"
-    
-    if [[ ! "$VALID_ARCHS" =~ "$i386" ]];
-    then
-    lipo -remove i386 "$file_path" -output "$file_path"
-    fi
-    
-    if [[ ! "$VALID_ARCHS" =~ "$x86_64" ]];
-    then
-    lipo -remove x86_64 "$file_path" -output "$file_path"
-    fi
-    
-    if [[ "$CODE_SIGNING_REQUIRED" -eq YES ]];
-    then
-    codesign --force --sign "$EXPANDED_CODE_SIGN_IDENTITY" --preserve-metadata=identifier,entitlements,resource-rules "$framework_path"
-    fi
-}
+echo "Merging extracted architectures: ${ARCHS}"
+lipo -o "$FRAMEWORK_EXECUTABLE_PATH-merged" -create "${EXTRACTED_ARCHS[@]}"
+rm "${EXTRACTED_ARCHS[@]}"
 
-export -f copy_framework
+echo "Replacing original executable with thinned version"
+rm "$FRAMEWORK_EXECUTABLE_PATH"
+mv "$FRAMEWORK_EXECUTABLE_PATH-merged" "$FRAMEWORK_EXECUTABLE_PATH"
 
-if [ "${CONFIGURATION}" = "Release" ]; then
-    copy_framework "${APPLIVERY_FRAMEWORK_PATH}"
-fi
+done
