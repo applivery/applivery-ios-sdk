@@ -52,8 +52,8 @@ class DownloadDataManagerTests: XCTestCase {
 		self.downloadData.downloadUrl("test_build_id") { response in
 			completionCalled = true
 
-			let itms_service = "itms-services://?action=download-manifest&url="
-			XCTAssert(response == .success(url: "\(itms_service)\(GlobalConfig.Host)/download/test_build_id/manifest/test_token"))
+			let itmsService = "itms-services://?action=download-manifest&url="
+			XCTAssert(response == .success(url: "\(itmsService)\(GlobalConfig.Host)/download/test_build_id/manifest/test_token"))
 		}
 
 		XCTAssert(completionCalled == true)

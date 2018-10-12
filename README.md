@@ -179,6 +179,7 @@ The compatibility version is as follow:
 | **v1.2.x**        | 7.x            | 2.0, 2.1, 2.2 |
 | **v1.3.x**        | 8.x            | 2.3           |
 | **v2.x**          | 8.x, 9.x       | 3.0, 3.1, 4.0 |
+| **v2.7.x**        | 9.x, 10.x      | 4.0, 4.2      |
 
 ## Advanced concepts
 
