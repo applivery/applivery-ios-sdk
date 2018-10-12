@@ -6,12 +6,11 @@ env:
     - PROJECT=AppliverySDK
     - SCHEME=Applivery
     - OS=12.0
-    - DEVICE="iPhone 8"
+    - DEVICE="iPhone XS"
 cache:
   directories:
   - Carthage
 before_script:
-  - open -b com.apple.iphonesimulator
   - carthage version
   - carthage bootstrap --cache-builds --platform iOS
 script:
