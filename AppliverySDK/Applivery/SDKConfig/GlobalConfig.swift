@@ -13,11 +13,11 @@ class GlobalConfig {
 	static var shared = GlobalConfig()
 
 	// MARK: Global Constants
+	static let SDKVersion = App().getSDKVersion()
 	static let Host = Environments.host() ?? "https://dashboard.applivery.com"
 	static let ErrorDomain = "com.applivery.network"
 	static let AppliveryErrorKey = "AppliveryMessage"
 	static let AppliveryErrorDebugKey = "AppliveryDebugMessage"
-
 
 	// MARK: Global Variables
 	var apiKey: String = ""

@@ -67,7 +67,7 @@ class Request {
 	}
 
 	private func setHeaders() {
-		let version = Bundle.applivery().infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0"
+		let version = GlobalConfig.SDKVersion
 		let apiKey = GlobalConfig.shared.apiKey
 		let accessToken = GlobalConfig.shared.accessToken?.token ?? GlobalConfig.shared.apiKey
 		
