@@ -266,13 +266,27 @@ public class Applivery: NSObject, StartInteractorOutput {
 	/**
 	Disable Applivery's feedback.
 	
-	By default, Applivery will show a feedback formulary to your users when a screenshot is detected. If you want to avoid this, you can disable it calling this method
+	By default, Applivery will show a feedback formulary to your users when a screenshot is detected. If you want to avoid this, you can disable it calling this method.
 	
 	- Since: 1.2
 	- Version: 2.0
 	*/
 	public func disableFeedback() {
 		self.startInteractor.disableFeedback()
+	}
+	
+	/**
+	Present in a modal view the Applivery's feedback.
+	
+	By default, Applivery will show a feedback formulary to your users when a screenshot is detected. If you want to do it programatically controlled by your app (for example in a shake event), you can call this method. Also you may want to prevent the feedback view to be show when a screenshot event is produced, for that you can call `disableFeedback()` method
+	
+	- seealso: `disableFeedback()`
+	- Since: 2.7
+	- Version: 2.7
+	*/
+	public func feedbackEvent() {
+		logInfo("Presenting feedback formulary")
+		self.feedbackCoordinator.showFeedack()
 	}
 	
 	
@@ -286,11 +300,6 @@ public class Applivery: NSObject, StartInteractorOutput {
 	internal func otaUpdate() {
 		logInfo("New OTA update available!")
 		self.updateCoordinator.otaUpdate()
-	}
-	
-	internal func feedbackEvent() {
-		logInfo("Presenting feedback formulary")
-		self.feedbackCoordinator.showFeedack()
 	}
 	
 	internal func credentialError(message: String) {
