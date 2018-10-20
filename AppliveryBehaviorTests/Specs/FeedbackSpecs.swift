@@ -88,7 +88,7 @@ class FeedbackSpecs: QuickSpec {
 					expect(self.feedbackViewMock.spyShowScreenshot.image).to(be(imageFake))
 				}
 			}
-			
+
 			describe("user did tap close button") {
 				beforeEach {
 					self.feedbackPresenter.userDidTapCloseButton()
@@ -281,8 +281,8 @@ class FeedbackSpecs: QuickSpec {
 						
 						it("should send than battery is charging") {
 							expect(matchedFeedbackURL).toEventually(beTrue())
-							expect(json?["deviceInfo.device.batteryStatus"]?.toBool()).toEventually(beTrue())
-							expect(json?["deviceInfo.device.battery"]?.toInt()).toEventually(equal(20))
+							expect(json?["deviceInfo.device.batteryStatus"]?.toBool()).to(beTrue())
+							expect(json?["deviceInfo.device.battery"]?.toInt()).to(equal(20))
 						}
 					}
 					context("and battery is not charging") {
@@ -291,10 +291,10 @@ class FeedbackSpecs: QuickSpec {
 							self.deviceMock.fakeBatteryLevel = 30
 							self.feedbackPresenter.userDidTapSendFeedbackButton()
 						}
-						it("should send that battery is charging") {
+						it("should send that battery is not charging") {
 							expect(matchedFeedbackURL).toEventually(beTrue())
-							expect(json?["deviceInfo.device.batteryStatus"]?.toBool()).toEventuallyNot(beTrue())
-							expect(json?["deviceInfo.device.battery"]?.toInt()).toEventually(equal(30))
+							expect(json?["deviceInfo.device.batteryStatus"]?.toBool()).toNot(beTrue())
+							expect(json?["deviceInfo.device.battery"]?.toInt()).to(equal(30))
 						}
 					}
 					context("and user change to feedback") {
