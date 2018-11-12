@@ -142,15 +142,9 @@ class OTAUpdateSpecs: QuickSpec {
 					expect(self.appMock.spyLoginView.called).toEventually(beTrue())
 					expect(self.appMock.spyLoginView.message).toEventually(equal(literal(.loginMessage)))
 				}
-				it("should not request a download token") {
-					expect(matchedDownloadURL).toNotEventually(beTrue())
-				}
 				context("when login is cancelled") {
 					beforeEach {
 						self.appMock.spyLoginCancelClosure?()
-					}
-					it("should not request a download token") {
-						expect(matchedDownloadURL).toNotEventually(beTrue())
 					}
 					it("should hide loading") {
 						expect(self.appMock.spyHideLoadingCalled).toEventually(beTrue())
@@ -174,10 +168,6 @@ class OTAUpdateSpecs: QuickSpec {
 						expect(matchedLoginURL).toEventually(beTrue())
 						expect(loginBody?["email"]?.toString()).toEventually(equal("test@applivery.com"))
 						expect(loginBody?["password"]?.toString()).toEventually(equal("TEST_PASSWORD"))
-					}
-					it("should not request a download token") {
-						expect(matchedLoginURL).toEventually(beTrue()) // This line is to force the next one to be executed when its true
-						expect(matchedDownloadURL).toNotEventually(beTrue())
 					}
 					it("should ask for login again") {
 						expect(self.appMock.spyLoginView.called).toEventually(beTrue())

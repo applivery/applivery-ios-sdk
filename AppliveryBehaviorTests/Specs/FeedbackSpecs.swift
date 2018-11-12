@@ -174,15 +174,9 @@ class FeedbackSpecs: QuickSpec {
 							expect(self.appMock.spyLoginView.called).toEventually(beTrue())
 							expect(self.appMock.spyLoginView.message).toEventually(equal(literal(.loginMessage)))
 						}
-						it("should not send feedback") {
-							expect(matchedFeedbackURL).toNotEventually(beTrue())
-						}
 						context("when login is cancelled") {
 							beforeEach {
 								self.appMock.spyLoginCancelClosure?()
-							}
-							it("should not request a download token") {
-								expect(matchedFeedbackURL).toNotEventually(beTrue())
 							}
 							it("should hide loading") {
 								expect(self.feedbackViewMock.spyShowMessage.called).to(beTrue())
@@ -208,10 +202,6 @@ class FeedbackSpecs: QuickSpec {
 								expect(loginBody?["email"]?.toString()).toEventually(equal("test@applivery.com"))
 								expect(loginBody?["password"]?.toString()).toEventually(equal("TEST_PASSWORD"))
 							}
-							it("should not request a download token") {
-								expect(matchedLoginURL).toEventually(beTrue()) // This line is to force the next one to be executed when its true
-								expect(matchedFeedbackURL).toNotEventually(beTrue())
-							}
 							it("should ask for login again") {
 								expect(self.appMock.spyLoginView.called).toEventually(beTrue())
 								expect(self.appMock.spyLoginView.message).toEventually(equal(literal(.loginInvalidCredentials)))
@@ -236,7 +226,7 @@ class FeedbackSpecs: QuickSpec {
 								expect(loginBody?["email"]?.toString()).toEventually(equal("test@applivery.com"))
 								expect(loginBody?["password"]?.toString()).toEventually(equal("TEST_PASSWORD"))
 							}
-							it("should request an authenticated download token") {
+							it("should send feedback") {
 								expect(matchedFeedbackURL).toEventually(beTrue())
 								expect(feedbackHeaders?["Authorization"]).toEventually(equal("test_user_token"))
 							}
