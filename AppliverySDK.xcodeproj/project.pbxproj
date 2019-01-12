@@ -125,6 +125,7 @@
 		FAED0E7A1CC97EF2000FD5EB /* ScreenshotInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED0E791CC97EF2000FD5EB /* ScreenshotInteractorMock.swift */; };
 		FAED0E7C1CC980D2000FD5EB /* FeedbackViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED0E7B1CC980D2000FD5EB /* FeedbackViewMock.swift */; };
 		FAED0E7E1CC991DD000FD5EB /* FeedbackInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED0E7D1CC991DD000FD5EB /* FeedbackInteractorMock.swift */; };
+		FAEE75D621EA853C000708D6 /* GeometryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE75D521EA853C000708D6 /* GeometryExtensions.swift */; };
 		FAF382041C25E828007AF670 /* UpdateInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF382031C25E828007AF670 /* UpdateInteractorTests.swift */; };
 		FAFA85761BCBDB26004E1974 /* GlobalConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFA85751BCBDB26004E1974 /* GlobalConfig.swift */; };
 		FAFA857A1BCC07B6004E1974 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFA85791BCC07B6004E1974 /* Log.swift */; };
@@ -292,6 +293,7 @@
 		FAED0E791CC97EF2000FD5EB /* ScreenshotInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScreenshotInteractorMock.swift; path = Mocks/ScreenshotInteractorMock.swift; sourceTree = "<group>"; };
 		FAED0E7B1CC980D2000FD5EB /* FeedbackViewMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FeedbackViewMock.swift; path = Mocks/FeedbackViewMock.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAED0E7D1CC991DD000FD5EB /* FeedbackInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackInteractorMock.swift; path = Mocks/FeedbackInteractorMock.swift; sourceTree = "<group>"; };
+		FAEE75D521EA853C000708D6 /* GeometryExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GeometryExtensions.swift; path = Applivery/Utils/GeometryExtensions.swift; sourceTree = "<group>"; };
 		FAF382031C25E828007AF670 /* UpdateInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = UpdateInteractorTests.swift; path = Interactors/UpdateInteractorTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAFA85751BCBDB26004E1974 /* GlobalConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = GlobalConfig.swift; path = Applivery/SDKConfig/GlobalConfig.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAFA85791BCC07B6004E1974 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = Log.swift; path = Applivery/Utils/Log.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -784,6 +786,7 @@
 				FA1569B81DBD498900C651D4 /* Ram.swift */,
 				FACB9AC520535E340094499A /* DateExtension.swift */,
 				FAB0CCEB205DF2C900F68275 /* UserDefaultsExtension.swift */,
+				FAEE75D521EA853C000708D6 /* GeometryExtensions.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -1011,6 +1014,7 @@
 				FAFBE4631C3EF66E0039BD8C /* DownloadService.swift in Sources */,
 				FA0883DA1DBC311C008A553A /* Result.swift in Sources */,
 				FAC3947E1C95D9FF00F14778 /* Feedback.swift in Sources */,
+				FAEE75D621EA853C000708D6 /* GeometryExtensions.swift in Sources */,
 				FA388B6B1C7CF3D500004042 /* EventDetector.swift in Sources */,
 				FA8D78161BC46064005741D8 /* ConfigService.swift in Sources */,
 				FAA50D4E1C7D232500CE7B65 /* NSError+Applivery.swift in Sources */,

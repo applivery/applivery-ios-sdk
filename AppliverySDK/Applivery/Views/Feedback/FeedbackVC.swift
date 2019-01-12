@@ -331,6 +331,17 @@ extension FeedbackVC {
 		self.localizeView()
 		self.manageKeyboardShowEvent()
 		self.manageKeyboardHideEvent()
+		
+		self.screenshotContainer.translatesAutoresizingMaskIntoConstraints = false
+		self.screenshotContainer.addConstraint(NSLayoutConstraint(
+			item: self.screenshotContainer,
+			attribute: NSLayoutAttribute.width,
+			relatedBy: NSLayoutRelation.equal,
+			toItem: self.screenshotContainer,
+			attribute: NSLayoutAttribute.height,
+			multiplier: UIScreen.main.bounds.width / UIScreen.main.bounds.height,
+			constant: 0
+		))
 	}
 	
 	private func setColors() {
