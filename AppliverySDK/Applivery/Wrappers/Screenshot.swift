@@ -29,8 +29,7 @@ struct Screenshot {
 			return UIImage()
 		}
 		
-		let scale = UIScreen.main.scale
-		UIGraphicsBeginImageContextWithOptions(layer.frame.size, false, scale)
+		UIGraphicsBeginImageContextWithOptions(layer.frame.size, false, UIScreen.main.scale)
 
 		guard let context = UIGraphicsGetCurrentContext() else {
 			logWarn("Couldn't get context")
@@ -45,8 +44,20 @@ struct Screenshot {
 		}
 		
 		UIGraphicsEndImageContext()
-
-		return image
+		var rotatedImage: UIImage
+		
+		switch UIDevice.current.orientation {
+		case .landscapeLeft:
+			rotatedImage = image.imageRotatedByDegrees(degrees: 90)
+//			rotatedImage = image.rotate(to: .right)
+		case .landscapeRight:
+			rotatedImage = image.imageRotatedByDegrees(degrees: -90)
+//			rotatedImage = image.rotate(to: .left)
+		default:
+			rotatedImage = image
+		}
+		
+		return rotatedImage
 	}
 
 

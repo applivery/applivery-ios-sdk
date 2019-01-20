@@ -21,7 +21,7 @@ class PreviewVC: UIViewController, UIGestureRecognizerDelegate {
 	}
 	
 	// PRIVATE
-	private var brushWidth: CGFloat = 3
+	private var brushWidth: CGFloat = 2
 	private var brushColor: UIColor = GlobalConfig.shared.palette.screenshotBrushColor
 	private var lastPoint = CGPoint.zero
 	
@@ -57,20 +57,25 @@ class PreviewVC: UIViewController, UIGestureRecognizerDelegate {
 	}
 	
 	func drawLineFrom(fromPoint: CGPoint, toPoint: CGPoint) {
-		guard let size = self.imageScreenshot?.frame.size else {
+		guard let size = self.imageScreenshot?.frame.size.screenScaled() else {
 			return logWarn("Could not retrieved size")
 		}
-		
-		// Behan to draw
+	
+		// Began to draw
 		UIGraphicsBeginImageContext(size)
 		let context = UIGraphicsGetCurrentContext()
-		self.imageScreenshot?.image?.draw(in: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
+		self.imageScreenshot?.image?.draw(in: CGRect(
+			x: 0,
+			y: 0,
+			width: size.width,
+			height: size.height
+		))
 		
 		// Draw the line in the context
-		context?.move(to: fromPoint)
-		context?.addLine(to: toPoint)
+		context?.move(to: fromPoint.screenScaled())
+		context?.addLine(to: toPoint.screenScaled())
 		context?.setLineCap(.round)
-		context?.setLineWidth(self.brushWidth)
+		context?.setLineWidth(self.brushWidth * UIScreen.main.scale)
 		context?.setStrokeColor(self.brushColor.cgColor)
 		context?.setBlendMode(.normal)
 		context?.strokePath()
