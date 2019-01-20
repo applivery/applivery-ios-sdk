@@ -121,6 +121,7 @@
 		FAD911001BCEE58B00D56617 /* Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD910FF1BCEE58B00D56617 /* Json.swift */; };
 		FADA301C1E90677500DAC96E /* config_success.json in Resources */ = {isa = PBXBuildFile; fileRef = FADA301B1E90677500DAC96E /* config_success.json */; };
 		FADD391D1E8321E700D861B7 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADD391C1E8321E700D861B7 /* Colors.swift */; };
+		FAE9663021F4EA620062FE15 /* AppliveryNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE9662F21F4EA620062FE15 /* AppliveryNavigationController.swift */; };
 		FAEC86661C83824D00A43298 /* FeedbackCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEC86651C83824D00A43298 /* FeedbackCoordinator.swift */; };
 		FAED0E781CC97C99000FD5EB /* FeedbackPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED0E771CC97C99000FD5EB /* FeedbackPresenterTests.swift */; };
 		FAED0E7A1CC97EF2000FD5EB /* ScreenshotInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED0E791CC97EF2000FD5EB /* ScreenshotInteractorMock.swift */; };
@@ -290,6 +291,7 @@
 		FAD910FF1BCEE58B00D56617 /* Json.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = Json.swift; path = Applivery/Utils/Json.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FADA301B1E90677500DAC96E /* config_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = config_success.json; path = Mocks/JSON/config_success.json; sourceTree = "<group>"; };
 		FADD391C1E8321E700D861B7 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Colors.swift; path = Applivery/SDKConfig/Colors.swift; sourceTree = "<group>"; };
+		FAE9662F21F4EA620062FE15 /* AppliveryNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppliveryNavigationController.swift; path = Applivery/Wrappers/AppliveryNavigationController.swift; sourceTree = "<group>"; };
 		FAEC86651C83824D00A43298 /* FeedbackCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackCoordinator.swift; path = Applivery/Coordinators/FeedbackCoordinator.swift; sourceTree = "<group>"; };
 		FAED0E771CC97C99000FD5EB /* FeedbackPresenterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FeedbackPresenterTests.swift; path = Presenters/FeedbackPresenterTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAED0E791CC97EF2000FD5EB /* ScreenshotInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScreenshotInteractorMock.swift; path = Mocks/ScreenshotInteractorMock.swift; sourceTree = "<group>"; };
@@ -477,6 +479,7 @@
 				FA2257E21C8B56E2000B0333 /* Screenshot.swift */,
 				FA2A61CA1C8CE59800DC21FD /* Keyboard.swift */,
 				FA1569B21DBCFB7700C651D4 /* Device.swift */,
+				FAE9662F21F4EA620062FE15 /* AppliveryNavigationController.swift */,
 			);
 			name = Wrappers;
 			sourceTree = "<group>";
@@ -1000,6 +1003,7 @@
 				FA73BF7D1C8B02E800619258 /* ScreenshotInteractor.swift in Sources */,
 				FA3A69451BC2FCFB00179176 /* ConfigPersister.swift in Sources */,
 				FA1569B51DBD313200C651D4 /* Wifi.swift in Sources */,
+				FAE9663021F4EA620062FE15 /* AppliveryNavigationController.swift in Sources */,
 				FA3AB8ED2055F09700B49D3A /* LoginManager.swift in Sources */,
 				FA952FDA1C83904100C32DD0 /* FeedbackPresenter.swift in Sources */,
 				FA952FDC1C83909000C32DD0 /* FeedbackInteractor.swift in Sources */,

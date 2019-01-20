@@ -72,9 +72,10 @@ class UpdateCoordinator: PUpdateCoordinator, UpdateInteractorOutput {
 				view: updateVC
 			)
 			updateVC.presenter.updateInteractor.output = updateVC.presenter
+			let navigationController = AppliveryNavigationController(rootViewController: updateVC)
 			
 			self.app.waitForReadyThen {
-				self.app.presentModal(updateVC)
+				self.app.presentModal(navigationController)
 			}
 		}
 	}

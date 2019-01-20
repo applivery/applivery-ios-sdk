@@ -10,7 +10,28 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--UpdateVC-->
+        <!--Navigation Controller-->
+        <scene sceneID="gWI-Y9-8rT">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ooX-SP-Lmc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="zGR-T3-JUz" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7cV-Qs-mLP">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.3921568627" green="0.58039215690000001" blue="0.64705882349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="22"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Wea-jC-1dn" kind="relationship" relationship="rootViewController" id="Jtj-zf-ufJ"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="-994" y="147"/>
+        </scene>
+        <!--#Applivery#-->
         <scene sceneID="47i-3Y-5CR">
             <objects>
                 <viewController id="Wea-jC-1dn" customClass="UpdateVC" customModule="Applivery" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,24 +39,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OVI-8d-BxC" userLabel="containerTitle">
-                                <rect key="frame" x="0.0" y="24" width="414" height="64"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#Applivery#" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jYC-pG-uFO" userLabel="labelApplivery">
-                                        <rect key="frame" x="150" y="26" width="114" height="26"/>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="22"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="0.3921568627" green="0.58039215690000001" blue="0.64705882349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="ZPE-KP-bwT"/>
-                                    <constraint firstItem="jYC-pG-uFO" firstAttribute="centerX" secondItem="OVI-8d-BxC" secondAttribute="centerX" id="pDA-b7-vZF"/>
-                                    <constraint firstItem="jYC-pG-uFO" firstAttribute="centerY" secondItem="OVI-8d-BxC" secondAttribute="centerY" constant="7" id="z6n-qE-Q44"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FhN-Oy-KDs" userLabel="containerUpdate">
                                 <rect key="frame" x="20" y="362.5" width="374" height="171"/>
                                 <subviews>
@@ -83,10 +86,7 @@
                         <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="FhN-Oy-KDs" firstAttribute="leading" secondItem="NvC-q9-RWb" secondAttribute="leading" constant="20" id="448-Et-zDZ"/>
-                            <constraint firstItem="OVI-8d-BxC" firstAttribute="leading" secondItem="NvC-q9-RWb" secondAttribute="leading" id="BZC-Z1-CUH"/>
-                            <constraint firstItem="OVI-8d-BxC" firstAttribute="top" secondItem="NvC-q9-RWb" secondAttribute="top" constant="-20" id="GED-kU-zIm"/>
                             <constraint firstAttribute="trailingMargin" secondItem="FhN-Oy-KDs" secondAttribute="trailing" constant="20" id="TGD-Ok-lwD"/>
-                            <constraint firstItem="NvC-q9-RWb" firstAttribute="trailing" secondItem="OVI-8d-BxC" secondAttribute="trailing" id="TrD-gJ-3lU"/>
                             <constraint firstItem="NvC-q9-RWb" firstAttribute="trailing" secondItem="FhN-Oy-KDs" secondAttribute="trailing" constant="20" id="WkN-6S-Eaf"/>
                             <constraint firstItem="FhN-Oy-KDs" firstAttribute="centerY" secondItem="dCE-x5-bWe" secondAttribute="centerY" id="qSP-AO-z90"/>
                             <constraint firstItem="FhN-Oy-KDs" firstAttribute="leading" secondItem="dCE-x5-bWe" secondAttribute="leadingMargin" constant="20" id="xtq-nm-J0B"/>
@@ -99,17 +99,16 @@
                             </mask>
                         </variation>
                     </view>
+                    <navigationItem key="navigationItem" title="#Applivery#" id="jTb-OI-Ajk"/>
                     <connections>
                         <outlet property="buttonUpdate" destination="zEI-sj-mbl" id="I2k-Cb-N1g"/>
-                        <outlet property="labelTitle" destination="jYC-pG-uFO" id="E3d-5L-TUj"/>
                         <outlet property="labelUpdateMessage" destination="8CI-zi-0Il" id="u3j-Qu-kxk"/>
-                        <outlet property="navigationBar" destination="OVI-8d-BxC" id="fwo-Di-W1D"/>
                         <outlet property="spiner" destination="OU4-Gt-Wbc" id="QJz-Dq-Kfk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wfF-2J-FcP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-136" y="131"/>
+            <point key="canvasLocation" x="-138" y="147"/>
         </scene>
         <!--FeedbackVC-->
         <scene sceneID="MjP-nB-nym">
@@ -350,7 +349,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-135.19999999999999" y="864.53201970443354"/>
+            <point key="canvasLocation" x="-994" y="862"/>
         </scene>
         <!--PreviewVC-->
         <scene sceneID="sNw-dg-O8g">
@@ -388,7 +387,7 @@
                     </connections>
                 </gestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="877" y="866"/>
+            <point key="canvasLocation" x="-139" y="862"/>
         </scene>
     </scenes>
 </document>
