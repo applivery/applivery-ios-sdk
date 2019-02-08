@@ -12,7 +12,7 @@ class ConfigService {
 
 	func fetchConfig(_ completionHandler: @escaping (Bool, Config?, NSError?) -> Void) {
 		let request = Request(
-			endpoint: "/app/"
+			endpoint: "/v1/app"
 		)
 
 		request.sendAsync { response in

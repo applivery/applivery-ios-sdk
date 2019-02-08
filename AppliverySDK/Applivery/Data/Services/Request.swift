@@ -73,7 +73,6 @@ class Request {
 		
 		self.request?.setValue("application/json", forHTTPHeaderField: "Content-Type")
 		self.request?.setValue(appToken, forHTTPHeaderField: "Authorization")
-//		self.request?.setValue(appToken, forHTTPHeaderField: "x_account_token")
 		self.request?.setValue(App().getLanguage(), forHTTPHeaderField: "Accept-Language")
 		self.request?.setValue("IOS_\(version)", forHTTPHeaderField: "x_sdk_version")
 	}

@@ -13,7 +13,6 @@ import OHHTTPStubs
 
 class StartSpecs: QuickSpec {
 	
-	let appID = "APP_ID_TEST"
 	let appToken = "API_KEY_TEST"
 	
 	var applivery: Applivery!
@@ -85,18 +84,7 @@ class StartSpecs: QuickSpec {
 				beforeEach {
 					self.interactorOutputMock = StartInteractorOutputMock()
 					self.applivery.startInteractor.output = self.interactorOutputMock
-					self.applivery.start(appToken: "", appId: self.appID, appStoreRelease: false)
-				}
-				it("should return credentials error") {
-					expect(self.interactorOutputMock.spyCredentialError.called).to(beTrue())
-				}
-			}
-			
-			context("when appId is empty") {
-				beforeEach {
-					self.interactorOutputMock = StartInteractorOutputMock()
-					self.applivery.startInteractor.output = self.interactorOutputMock
-					self.applivery.start(appToken: self.appToken, appId: "", appStoreRelease: false)
+					self.applivery.start(token: "", appStoreRelease: false)
 				}
 				it("should return credentials error") {
 					expect(self.interactorOutputMock.spyCredentialError.called).to(beTrue())
@@ -106,8 +94,8 @@ class StartSpecs: QuickSpec {
 			context("when api ota version is greater than app version") {
 				beforeEach {
 					self.appMock.stubVersion = "34"
-					StubResponse.mockResponse(for: "/api/apps/\(self.appID)", with: "config_success.json") // OTA UPDATE = 35
-					self.applivery.start(appToken: self.appToken, appId: self.appID, appStoreRelease: false)
+					StubResponse.mockResponse(for: "/v1/app", with: "config_success.json") // OTA UPDATE = 35
+					self.applivery.start(token: self.appToken, appStoreRelease: false)
 				}
 				it("should show ota alert") {
 					expect(self.appMock.spyOtaAlert.called).toEventually(beTrue())
@@ -117,8 +105,8 @@ class StartSpecs: QuickSpec {
 			context("when api min version is greater than app version") {
 				beforeEach {
 					self.appMock.stubVersion = "9"
-					StubResponse.mockResponse(for: "/api/apps/\(self.appID)", with: "config_success.json") // MIN VERSION = 10
-					self.applivery.start(appToken: self.appToken, appId: self.appID, appStoreRelease: false)
+					StubResponse.mockResponse(for: "/v1/app", with: "config_success.json") // MIN VERSION = 10
+					self.applivery.start(token: self.appToken, appStoreRelease: false)
 				}
 				it("should show force update") {
 					expect(self.appMock.spyPresentModal.called)
@@ -131,8 +119,8 @@ class StartSpecs: QuickSpec {
 			context("when app version is up to date") {
 				beforeEach {
 					self.appMock.stubVersion = "50"
-					StubResponse.mockResponse(for: "/api/apps/\(self.appID)", with: "config_success.json")
-					self.applivery.start(appToken: self.appToken, appId: self.appID, appStoreRelease: false)
+					StubResponse.mockResponse(for: "/v1/app", with: "config_success.json")
+					self.applivery.start(token: self.appToken, appStoreRelease: false)
 				}
 				it("should do nothing but syncronize new data") {
 					expect(self.userDefaultsMock.spySynchronizeCalled).toEventually(beTrue()) // This line needs to be invoked first
@@ -144,8 +132,8 @@ class StartSpecs: QuickSpec {
 			context("when api gets config") {
 				beforeEach {
 					self.appMock.stubVersion = "50"
-					StubResponse.mockResponse(for: "/api/apps/\(self.appID)", with: "config_success.json")
-					self.applivery.start(appToken: self.appToken, appId: self.appID, appStoreRelease: false)
+					StubResponse.mockResponse(for: "/v1/app", with: "config_success.json")
+					self.applivery.start(token: self.appToken, appStoreRelease: false)
 				}
 				it("stores a new config") {
 					expect(self.userDefaultsMock.spySynchronizeCalled).toEventually(beTrue())
@@ -156,9 +144,9 @@ class StartSpecs: QuickSpec {
 			context("when api fails and there is a config with min version greater than app version") {
 				beforeEach {
 					self.appMock.stubVersion = "14"
-					StubResponse.mockResponse(for: "/api/apps/\(self.appID)", with: "ko.json")
+					StubResponse.mockResponse(for: "/v1/app", with: "ko.json")
 					self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig() // MIN VERSION = 15
-					self.applivery.start(appToken: self.appToken, appId: self.appID, appStoreRelease: false)
+					self.applivery.start(token: self.appToken, appStoreRelease: false)
 				}
 				it("should show force update") {
 					expect(self.appMock.spyPresentModal.called)
@@ -173,9 +161,9 @@ class StartSpecs: QuickSpec {
 			context("when api fails and there is a config with last version greater than app version") {
 				beforeEach {
 					self.appMock.stubVersion = "49"
-					StubResponse.mockResponse(for: "/api/apps/\(self.appID)", with: "ko.json")
+					StubResponse.mockResponse(for: "/v1/app", with: "ko.json")
 					self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig() // LAST VERSION = 50
-					self.applivery.start(appToken: self.appToken, appId: self.appID, appStoreRelease: false)
+					self.applivery.start(token: self.appToken, appStoreRelease: false)
 				}
 				it("should show force update") {
 					expect(self.appMock.spyOtaAlert.called).toEventually(beTrue())
@@ -187,9 +175,9 @@ class StartSpecs: QuickSpec {
 				beforeEach {
 					// STORED_LAST(50) > API_LAST(35) > STORED_MIN(15) > APP_VERSION(13) > API_MIN(10)
 					self.appMock.stubVersion = "13"
-					StubResponse.mockResponse(for: "/api/apps/\(self.appID)", with: "config_success.json")
+					StubResponse.mockResponse(for: "/v1/app", with: "config_success.json")
 					self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig()
-					self.applivery.start(appToken: self.appToken, appId: self.appID, appStoreRelease: false)
+					self.applivery.start(token: self.appToken, appStoreRelease: false)
 				}
 				it("api shoud have priority") {
 					// SO SHOW OTA ALERT BECAUSE API WINS
@@ -201,9 +189,9 @@ class StartSpecs: QuickSpec {
 			context("when api fails and there is no previous config stored") {
 				beforeEach {
 					self.appMock.stubVersion = "5"
-					StubResponse.mockResponse(for: "/api/apps/\(self.appID)", with: "ko.json")
+					StubResponse.mockResponse(for: "/v1/app", with: "ko.json")
 					self.userDefaultsMock.stubDictionary = nil
-					self.applivery.start(appToken: self.appToken, appId: self.appID, appStoreRelease: false)
+					self.applivery.start(token: self.appToken, appStoreRelease: false)
 				}
 				it("should do nothing") {
 					Thread.sleep(forTimeInterval: 0.1) // Need to wait cause the 3 expects match by default.
@@ -215,9 +203,9 @@ class StartSpecs: QuickSpec {
 			
 			context("when appsStoreRelease enabled") {
 				beforeEach {
-					StubResponse.mockResponse(for: "/api/apps/\(self.appID)", with: "config_success.json")
+					StubResponse.mockResponse(for: "/v1/app", with: "config_success.json")
 					self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig()
-					self.applivery.start(appToken: self.appToken, appId: self.appID, appStoreRelease: true)
+					self.applivery.start(token: self.appToken, appStoreRelease: true)
 				}
 				it("should do nothing") {
 					Thread.sleep(forTimeInterval: 0.1) // Need to wait cause the 3 expects match by default.
@@ -232,7 +220,7 @@ class StartSpecs: QuickSpec {
 			
 			context("when disable feedback") {
 				beforeEach {
-					self.applivery.start(appToken: self.appToken, appId: self.appID, appStoreRelease: true)
+					self.applivery.start(token: self.appToken, appStoreRelease: true)
 					self.applivery.disableFeedback()
 				}
 				it("should not listen events") {
@@ -242,7 +230,7 @@ class StartSpecs: QuickSpec {
 			
 			context("when trigger feedback event") {
 				beforeEach {
-					self.applivery.start(appToken: self.appToken, appId: self.appID, appStoreRelease: true)
+					self.applivery.start(token: self.appToken, appStoreRelease: true)
 					self.eventDetectorMock.spyOnDetectionClosure()
 				}
 				it("should show FeedbackVC") {

@@ -135,13 +135,13 @@ class FeedbackSpecs: QuickSpec {
 				context("when a message is provided") {
 					var matchedFeedbackURL = false
 					var json: JSON?
-					var feedbackHeaders: [String: String]?
+//					var feedbackHeaders: [String: String]?
 					
 					beforeEach {
-						StubResponse.testRequest(url: "/api/feedback") { _, jsonSent, headersSent in
+						StubResponse.testRequest(url: "/api/feedback") { _, jsonSent, _ in
 							matchedFeedbackURL = true
 							json = jsonSent
-							feedbackHeaders = headersSent
+//							feedbackHeaders = headersSent
 						}
 						self.feedbackViewMock.fakeMessage = "Test message"
 						self.config.appId = "APPID_TEST"
@@ -228,7 +228,7 @@ class FeedbackSpecs: QuickSpec {
 							}
 							it("should send feedback") {
 								expect(matchedFeedbackURL).toEventually(beTrue())
-								expect(feedbackHeaders?["Authorization"]).toEventually(equal("test_user_token"))
+//								expect(feedbackHeaders?["Authorization"]).toEventually(equal("test_user_token"))
 							}
 						}
 					}
