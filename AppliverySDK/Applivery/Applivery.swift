@@ -31,7 +31,7 @@ The Applivery's class provides the entry point to the Applivery service.
 
 You should use the `shared` property to get a unique singleton instance, then set your `logLevel` configuration and finally call to the method:
 
-start(apiKey apiKey: String, appId: String, appStoreRelease: Bool)
+start(appToken appToken: String, appId: String, appStoreRelease: Bool)
 
 
 ### Overview
@@ -245,19 +245,37 @@ public class Applivery: NSObject, StartInteractorOutput {
 	Starts Applivery's framework
 	
 	- Parameters:
-		- apiKey: Your developer's Api Key
+		- appToken: Your developer's Api Key
 		- appId: Your application's ID
 		- appStoreRelease: Flag to mark the build as a build that will be submitted to the AppStore. This is needed to prevent unwanted behavior like prompt to a final user that a new version is available on Applivery.
 			* `true`: Applivery will stop any activity. **Use this for AppStore**
 			* `false`: Applivery will works as normally. Use this with distributed builds in Applivery.
 	
 	- Attention: Be sure that the param **appStoreRelease** is true before submitting to the AppStore
+	- Warning: This property is **deprecated**. Use `start(appToken:, appStoreRelease:)` instead
 	- Since: 1.0
 	- Version: 2.0
 	*/
+	@available(*, deprecated: 3.0, renamed: "start(token:appStoreRelease:)")
 	@objc public func start(apiKey key: String, appId: String, appStoreRelease: Bool) {
-		self.globalConfig.apiKey = key
-		self.globalConfig.appId = appId
+		self.start(token: key, appStoreRelease: appStoreRelease)
+	}
+	
+	/**
+	Starts Applivery's framework
+	
+	- Parameters:
+	- token: Your App Token
+	- appStoreRelease: Flag to mark the build as a build that will be submitted to the AppStore. This is needed to prevent unwanted behavior like prompt to a final user that a new version is available on Applivery.
+	* `true`: Applivery will stop any activity. **Use this for AppStore**
+	* `false`: Applivery will works as normally. Use this with distributed builds in Applivery.
+	
+	- Attention: Be sure that the param **appStoreRelease** is true before submitting to the AppStore
+	- Since: 3.0
+	- Version: 3.0
+	*/
+	@objc public func start(token: String, appStoreRelease: Bool) {
+		self.globalConfig.appToken = token
 		self.globalConfig.appStoreRelease = appStoreRelease
 		
 		self.startInteractor.start()

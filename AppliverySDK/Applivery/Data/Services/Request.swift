@@ -68,12 +68,12 @@ class Request {
 
 	private func setHeaders() {
 		let version = GlobalConfig.SDKVersion
-		let apiKey = GlobalConfig.shared.apiKey
-		let accessToken = GlobalConfig.shared.accessToken?.token ?? GlobalConfig.shared.apiKey
+		let appToken = "Bearer \(GlobalConfig.shared.appToken)"
+//		let accessToken = GlobalConfig.shared.accessToken?.token ?? GlobalConfig.shared.appToken
 		
 		self.request?.setValue("application/json", forHTTPHeaderField: "Content-Type")
-		self.request?.setValue(accessToken, forHTTPHeaderField: "Authorization")
-		self.request?.setValue(apiKey, forHTTPHeaderField: "x_account_token")
+		self.request?.setValue(appToken, forHTTPHeaderField: "Authorization")
+//		self.request?.setValue(appToken, forHTTPHeaderField: "x_account_token")
 		self.request?.setValue(App().getLanguage(), forHTTPHeaderField: "Accept-Language")
 		self.request?.setValue("IOS_\(version)", forHTTPHeaderField: "x_sdk_version")
 	}

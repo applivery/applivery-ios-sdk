@@ -52,9 +52,9 @@ class AppliveryTests: XCTestCase {
 
 	// MARK: - Start
 	func test_start() {
-		self.applivery.start(apiKey: "test_api_key", appId: "test_app_id", appStoreRelease: false)
+		self.applivery.start(appToken: "test_api_key", appId: "test_app_id", appStoreRelease: false)
 
-		XCTAssert(self.globalConfigMock.apiKey == "test_api_key")
+		XCTAssert(self.globalConfigMock.appToken == "test_api_key")
 		XCTAssert(self.globalConfigMock.appId == "test_app_id")
 		XCTAssert(self.globalConfigMock.appStoreRelease == false)
 
@@ -62,9 +62,9 @@ class AppliveryTests: XCTestCase {
 	}
 
 	func test_startWithStoreRelease() {
-		self.applivery.start(apiKey: "test_api_key", appId: "test_app_id", appStoreRelease: true)
+		self.applivery.start(appToken: "test_api_key", appId: "test_app_id", appStoreRelease: true)
 
-		XCTAssert(self.globalConfigMock.apiKey == "test_api_key")
+		XCTAssert(self.globalConfigMock.appToken == "test_api_key")
 		XCTAssert(self.globalConfigMock.appId == "test_app_id")
 		XCTAssert(self.globalConfigMock.appStoreRelease == true)
 

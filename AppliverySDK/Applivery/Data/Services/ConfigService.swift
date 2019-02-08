@@ -12,7 +12,7 @@ class ConfigService {
 
 	func fetchConfig(_ completionHandler: @escaping (Bool, Config?, NSError?) -> Void) {
 		let request = Request(
-			endpoint: "/api/apps/\(GlobalConfig.shared.appId)"
+			endpoint: "/app/"
 		)
 
 		request.sendAsync { response in

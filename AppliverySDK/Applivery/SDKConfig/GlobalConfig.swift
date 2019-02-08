@@ -20,7 +20,7 @@ class GlobalConfig {
 	static let AppliveryErrorDebugKey = "AppliveryDebugMessage"
 
 	// MARK: Global Variables
-	var apiKey: String = ""
+	var appToken: String = ""
 	var appId: String = ""
 	var appStoreRelease = false
 	var feedbackEnabled = true
