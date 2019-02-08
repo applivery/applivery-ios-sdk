@@ -13,8 +13,7 @@
         <!--Navigation Controller-->
         <scene sceneID="gWI-Y9-8rT">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ooX-SP-Lmc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController id="zGR-T3-JUz" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavigationController" id="zGR-T3-JUz" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7cV-Qs-mLP">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -28,6 +27,7 @@
                         <segue destination="Wea-jC-1dn" kind="relationship" relationship="rootViewController" id="Jtj-zf-ufJ"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ooX-SP-Lmc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-994" y="147"/>
         </scene>
