@@ -13,19 +13,20 @@ class GlobalConfig {
 	static var shared = GlobalConfig()
 
 	// MARK: Global Constants
-	static let SDKVersion = App().getSDKVersion()
-	static let Host = Environments.host() ?? "https://dashboard.applivery.com"
-	static let ErrorDomain = "com.applivery.network"
-	static let AppliveryErrorKey = "AppliveryMessage"
+	static let SDKVersion             = App().getSDKVersion()
+	static let Host                   = "https://" + (Environments.host() ?? "https://dashboard.applivery.com")
+	static let HostDownload           = "https://" + (Environments.hostDownload() ?? "https://dashboard.applivery.com")
+	static let ErrorDomain            = "com.applivery.network"
+	static let AppliveryErrorKey      = "AppliveryMessage"
 	static let AppliveryErrorDebugKey = "AppliveryDebugMessage"
 
 	// MARK: Global Variables
-	var appToken: String = ""
-	var appId: String = ""
-	var appStoreRelease = false
-	var feedbackEnabled = true
+	var appToken: String   = ""
+	var appId: String      = ""
+	var appStoreRelease    = false
+	var feedbackEnabled    = true
 	var logLevel: LogLevel = .none
-	var palette = Palette()
-	var textLiterals = TextLiterals()
+	var palette            = Palette()
+	var textLiterals       = TextLiterals()
 	var accessToken: AccessToken?
 }

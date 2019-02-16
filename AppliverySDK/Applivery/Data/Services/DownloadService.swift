@@ -20,7 +20,7 @@ class DownloadService: DownloadServiceProtocol {
 
 	func fetchDownloadToken(with buildId: String, completionHandler: @escaping (Result<String, NSError>) -> Void) {
 		self.request = Request(
-			endpoint: "/api/builds/\(buildId)/token"
+			endpoint: "/v1/build/\(buildId)/downloadToken"
 		)
 
 		self.request?.sendAsync { response in
