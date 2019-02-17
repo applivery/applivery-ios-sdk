@@ -1,6 +1,6 @@
 {
 	"status" : true,
-	"response" : {
+	"data" : {
 		"sdk" : {
 			"ios" : {
 				"minVersion" : "10",

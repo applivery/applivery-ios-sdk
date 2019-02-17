@@ -1,6 +1,6 @@
 {
 	"status": true,
-	"response": {
+	"data": {
 		"accessToken": "test_user_token",
 		"expirationDate": "2015-01-27T18:21:13.829Z"
 	}

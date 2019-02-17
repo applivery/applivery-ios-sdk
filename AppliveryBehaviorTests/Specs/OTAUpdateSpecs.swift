@@ -89,17 +89,17 @@ class OTAUpdateSpecs: QuickSpec {
 					StubResponse.testRequest { url = $0 }
 					self.appMock.spyDownloadClosure?()
 					
-					expect(url).toEventually(equal("/api/builds/LAST_BUILD_ID_TEST/token"))
+					expect(url).toEventually(equal("/v1/build/LAST_BUILD_ID_TEST/downloadToken"))
 				}
 				context("and service returns a valid token") {
 					beforeEach {
 						self.appMock.stubOpenUrlResult = true
-						StubResponse.mockResponse(for: "/api/builds/LAST_BUILD_ID_TEST/token", with: "request_token_ok.json")
+						StubResponse.mockResponse(for: "/v1/build/LAST_BUILD_ID_TEST/downloadToken", with: "request_token_ok.json")
 						self.appMock.spyDownloadClosure?()
 					}
 					it("should open download url") {
 						expect(self.appMock.spyOpenUrl.called).toEventually(beTrue())
-						expect(self.appMock.spyOpenUrl.url).toEventually(equal("itms-services://?action=download-manifest&url=\(GlobalConfig.Host)/download/LAST_BUILD_ID_TEST/manifest/test_token"))
+						expect(self.appMock.spyOpenUrl.url).toEventually(equal("itms-services://?action=download-manifest&url=\(GlobalConfig.HostDownload)/v1/download/test_token/manifest.plist"))
 					}
 					it("should hide loading") {
 						expect(self.appMock.spyHideLoadingCalled).toEventually(beTrue())
@@ -108,7 +108,7 @@ class OTAUpdateSpecs: QuickSpec {
 				context("but service returns ko") {
 					beforeEach {
 						self.appMock.stubOpenUrlResult = true
-						StubResponse.mockResponse(for: "/api/builds/LAST_BUILD_ID_TEST/token", with: "ko.json")
+						StubResponse.mockResponse(for: "/v1/build/LAST_BUILD_ID_TEST/downloadToken", with: "ko.json")
 						self.appMock.spyDownloadClosure?()
 					}
 					it("should hide loading") {
@@ -126,7 +126,7 @@ class OTAUpdateSpecs: QuickSpec {
 				beforeEach {
 					matchedDownloadURL = false
 //					downloadHeaders = nil
-					StubResponse.testRequest(with: "ko.json", url: "/api/builds/LAST_BUILD_ID_TEST/token", matching: { _, _, _ in
+					StubResponse.testRequest(with: "ko.json", url: "/v1/build/LAST_BUILD_ID_TEST/downloadToken", matching: { _, _, _ in
 						matchedDownloadURL = true
 //						downloadHeaders = headers
 					})
@@ -205,7 +205,7 @@ class OTAUpdateSpecs: QuickSpec {
 				beforeEach {
 					matchedDownloadURL = false
 //					downloadHeaders = nil
-					StubResponse.testRequest(with: "ko.json", url: "/api/builds/LAST_BUILD_ID_TEST/token", matching: { _, _, _ in
+					StubResponse.testRequest(with: "ko.json", url: "/v1/build/LAST_BUILD_ID_TEST/downloadToken", matching: { _, _, _ in
 						matchedDownloadURL = true
 //						downloadHeaders = headers
 					})

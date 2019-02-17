@@ -279,7 +279,7 @@ class ResponseTests: XCTestCase {
 	func dataJsonSuccess() -> Data {
 		let json = [
 			"status": true,
-			"response": "valid json response"
+			"data": "valid json response"
 		] as [String: Any]
 		let data = try! JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
 
