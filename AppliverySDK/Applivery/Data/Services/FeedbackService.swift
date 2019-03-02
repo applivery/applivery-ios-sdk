@@ -30,10 +30,9 @@ class FeedbackService: PFeedbackService {
 		let screenshot = feedback.screenshot?.base64() ?? ""
 		
 		self.request = Request(
-			endpoint: "/api/feedback",
+			endpoint: "/v1/feedback",
 			method: "POST",
 			bodyParams: [
-				"app": self.config.appId,
 				"type": feedback.feedbackType.rawValue,
 				"message": feedback.message,
 				"packageInfo": [
@@ -46,7 +45,7 @@ class FeedbackService: PFeedbackService {
 						"model": self.device.model(),
 						"vendor": "Apple",
 						"type": self.device.type(),
-						"id": self.device.vendorId(),
+//						"id": self.device.vendorId(),
 						"network": self.device.networkType(),
 						"resolution": self.device.resolution(),
 						"orientation": self.device.orientation(),
@@ -55,11 +54,11 @@ class FeedbackService: PFeedbackService {
 						"diskFree": self.device.diskFree()
 					],
 					"os": [
-						"name": "iOS",
+						"name": "ios",
 						"version": self.device.systemVersion()
 					]
 				],
-				"screenshot": screenshot
+				"screenshot": "data:image/jpeg;base64,\(screenshot)"
 			]
 		)
 		
