@@ -26,7 +26,7 @@ struct FeedbackInteractor: PFeedbackInteractor {
 
 	func sendFeedback(_ feedback: Feedback, completionHandler: @escaping (FeedbackInteractorResult) -> Void) {
 		let config = self.configDataManager.getCurrentConfig().config ?? Config()
-		if config.authFeedback {
+		if config.forceAuth {
 			self.loginInteractor.requestAuthorization(
 				with: config,
 				loginHandler: { self.send(feedback: feedback, completion: completionHandler) },
