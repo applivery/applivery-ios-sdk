@@ -27,11 +27,19 @@ class ConfigService {
 						userInfo: [GlobalConfig.AppliveryErrorKey: "Internal applivery error parsing json"])
 
 					logError(error)
-					completionHandler(false, nil, error)
+					LoginManager().parse(
+						error: response.error,
+						retry: { self.fetchConfig(completionHandler) },
+						next: {	completionHandler(false, nil, error) }
+					)
 				}
 			} else {
 				logError(response.error)
-				completionHandler(response.success, nil, response.error)
+				LoginManager().parse(
+					error: response.error,
+					retry: { self.fetchConfig(completionHandler) },
+					next: {	completionHandler(response.success, nil, response.error) }
+				)
 			}
 		}
 	}

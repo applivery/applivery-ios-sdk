@@ -19,8 +19,8 @@ struct LoginManager {
 	
 	func parse(error: NSError?, retry: @escaping () -> Void, next: @escaping () -> Void) {
 		switch error?.code ?? 0 {
-		case 401, 402:
-			GlobalConfig.shared.accessToken = AccessToken(token: "", expirationDate: Date.today())
+		case 401, 402, 4004:
+			GlobalConfig.shared.accessToken = AccessToken(token: "")
 			self.loginInteractor.showLogin(
 				with: literal(.loginSessionExpired) ?? "<Login is required!>",
 				loginHandler: retry,

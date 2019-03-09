@@ -44,6 +44,7 @@ class Request {
 
 
 	// MARK: Private Helpers
+	
 	private func buildRequest() {
 		guard let url = self.buildURL() else { return logWarn("Could not build the URL") }
 		self.request = URLRequest(url: url)
@@ -69,12 +70,15 @@ class Request {
 	private func setHeaders() {
 		let version = GlobalConfig.SDKVersion
 		let appToken = "Bearer \(GlobalConfig.shared.appToken)"
-//		let accessToken = GlobalConfig.shared.accessToken?.token ?? GlobalConfig.shared.appToken
 		
 		self.request?.setValue("application/json", forHTTPHeaderField: "Content-Type")
 		self.request?.setValue(appToken, forHTTPHeaderField: "Authorization")
 		self.request?.setValue(App().getLanguage(), forHTTPHeaderField: "Accept-Language")
 		self.request?.setValue("IOS_\(version)", forHTTPHeaderField: "x-sdk-version")
+		
+		if let authToken = GlobalConfig.shared.accessToken?.token {
+			self.request?.setValue(authToken, forHTTPHeaderField: "x-sdk-auth-token")
+		}
 	}
 
 
@@ -88,8 +92,8 @@ class Request {
 		log("******** REQUEST ********")
 		log(" - URL:\t" + url)
 		log(" - METHOD:\t" + (self.request?.httpMethod ?? "INVALID REQUEST"))
-		self.logBody()
 		self.logHeaders()
+		self.logBody()
 		log("*************************\n")
 	}
 

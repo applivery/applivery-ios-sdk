@@ -44,7 +44,7 @@ struct LoginInteractor {
 		self.loginService.login(user: user, password: password) { result in
 			switch result {
 			case .success(let accessToken):
-				logInfo("Fetched new access token: \(accessToken.token)")
+				logInfo("Fetched new access token: \(accessToken.token ?? "NO TOKEN")")
 				self.sessionPersister.save(accessToken: accessToken)
 				self.globalConfig.accessToken = accessToken
 				loginHandler()

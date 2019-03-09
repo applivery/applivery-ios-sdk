@@ -12,11 +12,14 @@ struct LoginService {
 	
 	func login(user: String, password: String, result: @escaping (Result<AccessToken, NSError>) -> Void) {
 		let request = Request(
-			endpoint: "/api/auth",
+			endpoint: "/v1/auth/login",
 			method: "POST",
 			bodyParams: [
-				"email": user,
-				"password": password
+				"provider": "traditional",
+				"payload": [
+					"email": user,
+					"password": password				
+				]
 			]
 		)
 		

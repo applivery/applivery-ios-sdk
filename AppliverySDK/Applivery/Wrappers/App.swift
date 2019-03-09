@@ -161,14 +161,10 @@ class App: AppProtocol {
 			passwordText = textField
 		}
 		
-		let actionCancel = UIAlertAction(title: literal(.alertButtonCancel), style: .cancel) { _ in
-			cancelHandler()
-		}
 		let actionLogin = UIAlertAction(title: literal(.loginButton), style: .default) { _ in
 			loginHandler(userText?.text ?? "", passwordText?.text ?? "")
 		}
-		
-		self.alertLogin.addAction(actionCancel)
+		 
 		self.alertLogin.addAction(actionLogin)
 		
 		let topVC = self.topViewController()
