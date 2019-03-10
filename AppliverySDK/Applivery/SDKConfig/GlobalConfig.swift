@@ -14,8 +14,8 @@ class GlobalConfig {
 
 	// MARK: Global Constants
 	static let SDKVersion             = App().getSDKVersion()
-	static let Host                   = "https://" + (Environments.host() ?? "https://dashboard.applivery.com")
-	static let HostDownload           = "https://" + (Environments.hostDownload() ?? "https://dashboard.applivery.com")
+	static let Host                   = "https://" + (Environments.host() ?? "dashboard.applivery.com")
+	static let HostDownload           = "https://" + (Environments.hostDownload() ?? "dashboard.applivery.com")
 	static let ErrorDomain            = "com.applivery.network"
 	static let AppliveryErrorKey      = "AppliveryMessage"
 	static let AppliveryErrorDebugKey = "AppliveryDebugMessage"
