@@ -64,9 +64,9 @@ class Response {
 				self.code = 200
 				self.body = json?["data"]
 			} else {
-				self.code = json?["error.code"]?.toInt() ?? -1
+				self.code = json?["code"]?.toInt() ?? -1
 
-				let debugMessage = json?["error.msg"]?.toString() ?? self.kUnexpectedErrorJson
+				let debugMessage = json?["message"]?.toString() ?? self.kUnexpectedErrorJson
 				self.error = NSError.appliveryError(debugMessage: debugMessage, code: self.code)
 			}
 		} catch let error as NSError {
