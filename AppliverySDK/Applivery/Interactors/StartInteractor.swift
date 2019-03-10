@@ -69,9 +69,8 @@ class StartInteractor {
     // MARK: Private Methods
     
     fileprivate func updateConfig() {
+        self.globalConfig.accessToken = self.sessionPersister.loadAccessToken()
         self.configDataManager.updateConfig { response in
-            self.globalConfig.accessToken = self.sessionPersister.loadAccessToken()
-            
             switch response {
             case .success(let config, let version):
                 if !self.checkForceUpdate(config, version: version) {
