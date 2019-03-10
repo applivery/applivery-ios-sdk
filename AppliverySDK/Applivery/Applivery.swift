@@ -231,7 +231,7 @@ public class Applivery: NSObject, StartInteractorOutput {
 		self.globalConfig = globalConfig
 		self.updateCoordinator = updateCoordinator
 		self.feedbackCoordinator = feedbackCoordinator
-		self.logLevel = .none
+		self.logLevel = .info
 		self.palette = Palette()
 		self.textLiterals = TextLiterals()
 		self.globalConfig.palette = self.palette
@@ -258,6 +258,10 @@ public class Applivery: NSObject, StartInteractorOutput {
 	*/
 	@available(*, deprecated: 3.0, renamed: "start(token:appStoreRelease:)")
 	@objc public func start(apiKey key: String, appId: String, appStoreRelease: Bool) {
+		log("🚸🚸🚸 WARNING: Note that you are using a deprecated method.")
+		log("🚸🚸🚸 WARNING: If you are using Applivery 3.0 (applivery.io), we recommend you to use the new method start(token:appStoreRelease:)")
+		log("🚸🚸🚸 WARNING: If you are using Applivery 2.0 (applivery.com), you should use the SDK v2.x version or, even better, migrate your apps to the new Applivery (https://www.applivery.io)")
+		log("🚸🚸🚸 WARNING: If you need more info, please, contact support@applivery.com")
 		self.start(token: key, appStoreRelease: appStoreRelease)
 	}
 	

@@ -15,11 +15,7 @@ func >= (levelA: LogLevel, levelB: LogLevel) -> Bool {
 
 
 func log(_ log: String) {
-	guard
-		!GlobalConfig.shared.appStoreRelease
-		&& GlobalConfig.shared.logLevel != .none
-		else { return }
-
+	guard !GlobalConfig.shared.appStoreRelease else { return }
 	print("Applivery :: " + log)
 }
 

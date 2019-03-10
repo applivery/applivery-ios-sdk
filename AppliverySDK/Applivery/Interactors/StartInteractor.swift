@@ -47,12 +47,12 @@ class StartInteractor {
         logInfo("Applivery is starting...")
         logInfo("SDK Version: \(GlobalConfig.SDKVersion)")
         guard !self.globalConfig.appToken.isEmpty
-            else { return self.output.credentialError(message: "You must set appToken") }
+            else { return self.output.credentialError(message: "You must set the app token") }
         
         self.eventDetector.listenEvent(self.output.feedbackEvent)
         
         guard !self.globalConfig.appStoreRelease else {
-            return logWarn("The build is marked like an AppStore Release. Applivery won't present any update (or force update) message to the user")
+            return logWarn("The build is marked like an AppStore Release. Applivery won't present any update message to the user")
         }
         
         self.updateConfig()

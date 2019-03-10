@@ -25,7 +25,7 @@ class GlobalConfig {
 	var appId: String      = ""
 	var appStoreRelease    = false
 	var feedbackEnabled    = true
-	var logLevel: LogLevel = .none
+	var logLevel: LogLevel = .info
 	var palette            = Palette()
 	var textLiterals       = TextLiterals()
 	var accessToken: AccessToken?
