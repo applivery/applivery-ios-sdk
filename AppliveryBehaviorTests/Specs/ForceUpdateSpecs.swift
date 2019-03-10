@@ -137,7 +137,7 @@ class ForceUpdateSpecs: QuickSpec {
 					self.appMock.stubVersion = "1"
 					self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig(
 						lastBuildID: "LAST_BUILD_ID_TEST",
-						authUpdate: true
+						forceAuth: true
 					)
 					self.updatePresenter.userDidTapDownload()
 				}
@@ -214,8 +214,8 @@ class ForceUpdateSpecs: QuickSpec {
 					})
 					self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig(
 						lastBuildID: "LAST_BUILD_ID_TEST",
-						authUpdate: true,
-						accessToken: AccessToken(token: "TEST_TOKEN", expirationDate: Date.today())
+						forceAuth: true,
+						accessToken: AccessToken(token: "TEST_TOKEN")
 					)
 					
 					self.appMock.stubVersion = "1"

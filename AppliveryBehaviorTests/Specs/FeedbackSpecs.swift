@@ -166,7 +166,7 @@ class FeedbackSpecs: QuickSpec {
 					context("but need auth") {
 						beforeEach {
 							self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig(
-								authFeedback: true
+								forceAuth: true
 							)
 							self.feedbackPresenter.userDidTapSendFeedbackButton()
 						}
