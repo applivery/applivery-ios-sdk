@@ -126,13 +126,13 @@ class ForceUpdateSpecs: QuickSpec {
 			}
 			context("when download needs auth") {
 				var matchedDownloadURL = false
-//				var downloadHeaders: [String: String]?
+				var downloadHeaders: [String: String]?
 				beforeEach {
 					matchedDownloadURL = false
-//					downloadHeaders = nil
-					StubResponse.testRequest(with: "ko.json", url: "/v1/build/LAST_BUILD_ID_TEST/downloadToken", matching: { _, _, _ in
+					downloadHeaders = nil
+					StubResponse.testRequest(with: "ko.json", url: "/v1/build/LAST_BUILD_ID_TEST/downloadToken", matching: { _, _, headers in
 						matchedDownloadURL = true
-//						downloadHeaders = headers
+						downloadHeaders = headers
 					})
 					self.appMock.stubVersion = "1"
 					self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig(
@@ -157,11 +157,11 @@ class ForceUpdateSpecs: QuickSpec {
 					var matchedLoginURL = false
 					var loginBody: JSON?
 					beforeEach {
+						loginBody = nil
 						let email = "test@applivery.com"
 						let password = "TEST_PASSWORD"
 						matchedLoginURL = false
-						loginBody = nil
-						StubResponse.testRequest(url: "/api/auth") { _, json, _ in
+						StubResponse.testRequest(url: "/v1/auth/login") { _, json, _ in
 							matchedLoginURL = true
 							loginBody = json
 						}
@@ -169,8 +169,9 @@ class ForceUpdateSpecs: QuickSpec {
 					}
 					it("should request user token") {
 						expect(matchedLoginURL).toEventually(beTrue())
-						expect(loginBody?["email"]?.toString()).toEventually(equal("test@applivery.com"))
-						expect(loginBody?["password"]?.toString()).toEventually(equal("TEST_PASSWORD"))
+						expect(loginBody?["provider"]?.toString()).toEventually(equal("traditional"))
+						expect(loginBody?["payload.email"]?.toString()).toEventually(equal("test@applivery.com"))
+						expect(loginBody?["payload.password"]?.toString()).toEventually(equal("TEST_PASSWORD"))
 					}
 					it("should ask for login again") {
 						expect(self.appMock.spyLoginView.called).toEventually(beTrue())
@@ -185,7 +186,7 @@ class ForceUpdateSpecs: QuickSpec {
 						let email = "test@applivery.com"
 						let password = "TEST_PASSWORD"
 						matchedLoginURL = false
-						StubResponse.testRequest(with: "login_success.json", url: "/api/auth") { _, json, _ in
+						StubResponse.testRequest(with: "login_success.json", url: "/v1/auth/login") { _, json, _ in
 							matchedLoginURL = true
 							loginBody = json
 						}
@@ -193,24 +194,25 @@ class ForceUpdateSpecs: QuickSpec {
 					}
 					it("should request user token") {
 						expect(matchedLoginURL).toEventually(beTrue())
-						expect(loginBody?["email"]?.toString()).toEventually(equal("test@applivery.com"))
-						expect(loginBody?["password"]?.toString()).toEventually(equal("TEST_PASSWORD"))
+						expect(loginBody?["provider"]?.toString()).toEventually(equal("traditional"))
+						expect(loginBody?["payload.email"]?.toString()).toEventually(equal("test@applivery.com"))
+						expect(loginBody?["payload.password"]?.toString()).toEventually(equal("TEST_PASSWORD"))
 					}
 					it("should request an authenticated download token") {
 						expect(matchedDownloadURL).toEventually(beTrue())
-//						expect(downloadHeaders?["Authorization"]).toEventually(equal("test_user_token"))
+						expect(downloadHeaders?["x-sdk-auth-token"]).toEventually(equal("test_user_token"))
 					}
 				}
 			}
 			context("when ota needs auth but was previously logged in") {
 				var matchedDownloadURL = false
-//				var downloadHeaders: [String: String]?
+				var downloadHeaders: [String: String]?
 				beforeEach {
 					matchedDownloadURL = false
-//					downloadHeaders = nil
-					StubResponse.testRequest(with: "ko.json", url: "/v1/build/LAST_BUILD_ID_TEST/downloadToken", matching: { _, _, _ in
+					downloadHeaders = nil
+					StubResponse.testRequest(with: "ko.json", url: "/v1/build/LAST_BUILD_ID_TEST/downloadToken", matching: { _, _, headers in
 						matchedDownloadURL = true
-//						downloadHeaders = headers
+						downloadHeaders = headers
 					})
 					self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig(
 						lastBuildID: "LAST_BUILD_ID_TEST",
@@ -226,7 +228,7 @@ class ForceUpdateSpecs: QuickSpec {
 				}
 				it("should request an authenticated download token") {
 					expect(matchedDownloadURL).toEventually(beTrue())
-//					expect(downloadHeaders?["Authorization"]).toEventually(equal("TEST_TOKEN"))
+					expect(downloadHeaders?["x-sdk-auth-token"]).toEventually(equal("TEST_TOKEN"))
 				}
 			}
 		}
