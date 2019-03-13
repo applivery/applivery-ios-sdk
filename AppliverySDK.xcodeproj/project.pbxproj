@@ -45,6 +45,7 @@
 		FA3211D61C3EA6D300668099 /* Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3211D51C3EA6D300668099 /* Localize.swift */; };
 		FA3211D81C3EE15E00668099 /* DownloadDataManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3211D71C3EE15E00668099 /* DownloadDataManagerMock.swift */; };
 		FA388B6B1C7CF3D500004042 /* EventDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA388B6A1C7CF3D500004042 /* EventDetector.swift */; };
+		FA38E5542239B37F003A1612 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA38E5532239B37F003A1612 /* Layout.swift */; };
 		FA3A693D1BC2F9B700179176 /* ConfigDataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A693C1BC2F9B700179176 /* ConfigDataManagerTests.swift */; };
 		FA3A69401BC2FC1200179176 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A693F1BC2FC1200179176 /* App.swift */; };
 		FA3A69421BC2FC6F00179176 /* AppMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A69411BC2FC6F00179176 /* AppMock.swift */; };
@@ -220,6 +221,7 @@
 		FA3211D51C3EA6D300668099 /* Localize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = Localize.swift; path = Applivery/Utils/Localize.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA3211D71C3EE15E00668099 /* DownloadDataManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadDataManagerMock.swift; path = Mocks/DownloadDataManagerMock.swift; sourceTree = "<group>"; };
 		FA388B6A1C7CF3D500004042 /* EventDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = EventDetector.swift; path = Applivery/Wrappers/EventDetector.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FA38E5532239B37F003A1612 /* Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Layout.swift; path = Applivery/Utils/Layout.swift; sourceTree = "<group>"; };
 		FA3A693C1BC2F9B700179176 /* ConfigDataManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigDataManagerTests.swift; path = Data/ConfigDataManagerTests.swift; sourceTree = "<group>"; };
 		FA3A693F1BC2FC1200179176 /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = App.swift; path = Applivery/Wrappers/App.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA3A69411BC2FC6F00179176 /* AppMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = AppMock.swift; path = Mocks/AppMock.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -793,6 +795,7 @@
 				FAB0CCEB205DF2C900F68275 /* UserDefaultsExtension.swift */,
 				FAEE75D521EA853C000708D6 /* GeometryExtensions.swift */,
 				FA54CAE321EB7EB400561DF5 /* UIImageExtension.swift */,
+				FA38E5532239B37F003A1612 /* Layout.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -1029,6 +1032,7 @@
 				FA3D97841DEB79DB00CCC11B /* PreviewVC.swift in Sources */,
 				FA3211D61C3EA6D300668099 /* Localize.swift in Sources */,
 				FAB0CCF0205F17E900F68275 /* SessionPersister.swift in Sources */,
+				FA38E5542239B37F003A1612 /* Layout.swift in Sources */,
 				FA952FD41C838FB500C32DD0 /* UpdatePresenter.swift in Sources */,
 				FA53DE331BC18F6D00DF2EB1 /* Config.swift in Sources */,
 				FAD2A15B1C010D8B001967FD /* UpdateCoordinator.swift in Sources */,
