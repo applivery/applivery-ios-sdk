@@ -30,10 +30,15 @@ class Keyboard {
 	class func size(_ notification: Notification) -> CGSize? {
 		guard
 			let info = (notification as NSNotification).userInfo,
-			let frame = info[UIKeyboardFrameEndUserInfoKey] as? NSValue
+			let keyboardFrame = info[UIKeyboardFrameEndUserInfoKey] as? CGRect
 			else { return nil }
 
-		return frame.cgRectValue.size
+		let size = CGSize(
+			width: keyboardFrame.width,
+			height: keyboardFrame.height - Layout.safeAreaButtomHeight()
+		)
+		
+		return size
 	}
 
 	class func animationDuration(_ notification: Notification) -> TimeInterval {
