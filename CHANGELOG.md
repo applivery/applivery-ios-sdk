@@ -6,8 +6,8 @@
 * iPhone X screens adaptations (#15)
 * Swift 4 adaptations (#16)
 * MIT Licence (#14)
-* Public method to trigger feedbak view programatically (#13)
-* SDK Version shown in console logs
+* Public method to trigger feedback view programmatically (#13)
+* SDK Version displayed in console logs
 
 ### Fixed
 * Landscape feedbacks
