@@ -68,6 +68,13 @@ class App: AppProtocol {
 		return version
 	}
 	
+	func getSDKVersion() -> String {
+		guard let version = Bundle.applivery().infoDictionary?["CFBundleShortVersionString"] as? String else {
+			return "NO_VERSION_FOUND"
+		}
+		return version
+	}
+	
 	func getLanguage() -> String {
 		guard let language = (Locale.current as NSLocale).object(forKey: NSLocale.Key.languageCode) as? String else {
 			return "NO_LANGUAGE_FOUND"

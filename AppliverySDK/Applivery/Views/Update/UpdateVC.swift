@@ -14,8 +14,6 @@ class UpdateVC: UIViewController, UpdateView {
 	var presenter: UpdatePresenter!
 
 	// UI Properties
-	@IBOutlet private weak var navigationBar: UIView!
-	@IBOutlet private weak var labelTitle: UILabel!
 	@IBOutlet private weak var labelUpdateMessage: UILabel!
 	@IBOutlet private weak var buttonUpdate: UIButton!
 	@IBOutlet private weak var spiner: UIActivityIndicatorView!
@@ -78,18 +76,20 @@ class UpdateVC: UIViewController, UpdateView {
 
 	private func setupView() {
 		self.setColors()
-		self.labelTitle.text = literal(.appName)
+		self.title = literal(.appName)
 
 		self.buttonUpdate.setTitle(literal(.buttonForceUpdate), for: UIControlState())
 		self.buttonUpdate.layer.cornerRadius = 6
 
-		self.alert.addAction(UIAlertAction(title: literal(.alertButtonOK), style: UIAlertActionStyle.default, handler: nil))
+		self.alert.addAction(UIAlertAction(
+			title: literal(.alertButtonOK),
+			style: .default,
+			handler: nil
+		))
 	}
 	
 	private func setColors() {
 		let palette = GlobalConfig.shared.palette
-		self.navigationBar.backgroundColor = palette.primaryColor
-		self.labelTitle.textColor = palette.primaryFontColor
 		self.view.backgroundColor = palette.secondaryColor
 		self.labelUpdateMessage.textColor = palette.secondaryFontColor
 	}

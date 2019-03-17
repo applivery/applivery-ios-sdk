@@ -67,6 +67,10 @@ extension FeedbackVC {
 		return .lightContent
 	}
 	
+	override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+		return UIInterfaceOrientationMask.portrait
+	}
+	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		guard let previewVC = segue.destination as? PreviewVC else {
 			return logWarn("Expected PreviewVC")
@@ -158,7 +162,6 @@ extension FeedbackVC: FeedbackView {
 	
 	private func startScreenshotAnimated() {
 		let screenshotCopy = UIImageView(image: self.previewVC?.editedScreenshot)
-		screenshotCopy.frame = self.view.frame
 		screenshotCopy.contentMode = .scaleAspectFit
 		self.view.addSubview(screenshotCopy)
 		self.feedbackForm.alpha = 0
@@ -331,6 +334,26 @@ extension FeedbackVC {
 		self.localizeView()
 		self.manageKeyboardShowEvent()
 		self.manageKeyboardHideEvent()
+		
+		let width = UIScreen.main.bounds.width
+		let height = UIScreen.main.bounds.height
+		var ratio: CGFloat
+		if width > height {
+			ratio = height / width
+		} else {
+			ratio = width / height
+		}
+		
+		self.screenshotContainer.translatesAutoresizingMaskIntoConstraints = false
+		self.screenshotContainer.addConstraint(NSLayoutConstraint(
+			item: self.screenshotContainer,
+			attribute: NSLayoutAttribute.width,
+			relatedBy: NSLayoutRelation.equal,
+			toItem: self.screenshotContainer,
+			attribute: NSLayoutAttribute.height,
+			multiplier: ratio,
+			constant: 0
+		))
 	}
 	
 	private func setColors() {

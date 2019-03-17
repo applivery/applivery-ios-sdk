@@ -121,8 +121,10 @@ class StartSpecs: QuickSpec {
 					self.applivery.start(apiKey: self.apiKey, appId: self.appID, appStoreRelease: false)
 				}
 				it("should show force update") {
-					expect(self.appMock.spyPresentModal.called).toEventually(beTrue())
-					expect(self.appMock.spyPresentModal.viewController).toEventually(beAKindOf(UpdateVC.self))
+					expect(self.appMock.spyPresentModal.called)
+						.toEventually(beTrue())
+					expect((self.appMock.spyPresentModal.viewController as? UINavigationController)?.topViewController)
+						.toEventually(beAKindOf(UpdateVC.self))
 				}
 			}
 			
@@ -159,9 +161,12 @@ class StartSpecs: QuickSpec {
 					self.applivery.start(apiKey: self.apiKey, appId: self.appID, appStoreRelease: false)
 				}
 				it("should show force update") {
-					expect(self.appMock.spyPresentModal.called).toEventually(beTrue())
-					expect(self.appMock.spyPresentModal.viewController).toEventually(beAnInstanceOf(UpdateVC.self))
-					expect(self.userDefaultsMock.spySynchronizeCalled).toEventuallyNot(beTrue())
+					expect(self.appMock.spyPresentModal.called)
+						.toEventually(beTrue())
+					expect((self.appMock.spyPresentModal.viewController as? UINavigationController)?.topViewController)
+						.toEventually(beAKindOf(UpdateVC.self))
+					expect(self.userDefaultsMock.spySynchronizeCalled)
+						.toEventuallyNot(beTrue())
 				}
 			}
 			
