@@ -152,7 +152,7 @@ class App: AppProtocol {
 		self.alertLogin = UIAlertController(title: literal(.appName), message: message, preferredStyle: .alert)
 		
 		self.alertLogin.addTextField { textField in
-			textField.placeholder = literal(.loginInputEmail)
+			textField.placeholder = literal(.loginInputUser)
 			userText = textField
 		}
 		self.alertLogin.addTextField { textField in

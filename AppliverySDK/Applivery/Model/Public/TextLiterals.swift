@@ -38,7 +38,7 @@ import Foundation
      feedbackTypeFeedback: "Feedback",
      feedbackMessagePlaceholder: "Add a message",
      feedbackAttach: "Attach Screenshot",
-     loginInputEmail: "email",
+     loginInputUser: "user",
      loginInputPassword: "password",
      loginButton: "Login",
      loginMessage: "Login is required!",
@@ -133,7 +133,7 @@ public class TextLiterals: NSObject {
     // MARK: - Login
     
     /// "email"
-    public var loginInputEmail: String
+    public var loginInputUser: String
     
     /// "password"
     public var loginInputPassword: String
@@ -175,11 +175,11 @@ public class TextLiterals: NSObject {
          - feedbackTypeFeedback: "Feedback",
          - feedbackMessagePlaceholder: "Add a message",
          - feedbackAttach: "Attach Screenshot",
-         - loginInputEmail: "email",
+         - loginInputUser: "user",
          - loginInputPassword: "password",
          - loginButton: "Login",
          - loginMessage: "Login is required!",
-         - loginInvalidCredentials: "Wrong username or password, please, try again",
+         - loginInvalidCredentials: "Wrong user or password, please, try again",
          - loginSessionExpired: "Your session has expired. Please, log in again"
      - Note: Each parameter has a default literal, so you could set only the values that you really need to change
      - Since: 2.4
@@ -205,7 +205,7 @@ public class TextLiterals: NSObject {
                 feedbackTypeFeedback: String = localize("feedback_button_feedback"),
                 feedbackMessagePlaceholder: String = localize("feedback_text_message_placeholder"),
                 feedbackAttach: String = localize("feedback_label_attach"),
-                loginInputEmail: String = localize("login_input_email"),
+                loginInputUser: String = localize("login_input_user"),
                 loginInputPassword: String = localize("login_input_password"),
                 loginButton: String = localize("login_button"),
                 loginMessage: String = localize("login_alert_message"),
@@ -231,7 +231,7 @@ public class TextLiterals: NSObject {
         self.feedbackTypeFeedback = feedbackTypeFeedback
         self.feedbackMessagePlaceholder = feedbackMessagePlaceholder
         self.feedbackAttach = feedbackAttach
-        self.loginInputEmail = loginInputEmail
+        self.loginInputUser = loginInputUser
         self.loginInputPassword = loginInputPassword
         self.loginButton = loginButton
         self.loginMessage = loginMessage
@@ -261,7 +261,7 @@ enum Literal: CustomStringConvertible {
     case feedbackTypeFeedback
     case feedbackMessagePlaceholder
     case feedbackAttach
-    case loginInputEmail
+    case loginInputUser
     case loginInputPassword
     case loginButton
     case loginMessage
@@ -298,7 +298,7 @@ func literal(_ literal: Literal) -> String? {
     case .feedbackTypeFeedback: return literals.feedbackTypeFeedback
     case .feedbackMessagePlaceholder: return literals.feedbackMessagePlaceholder
     case .feedbackAttach: return literals.feedbackAttach
-    case .loginInputEmail: return literals.loginInputEmail
+    case .loginInputUser: return literals.loginInputUser
     case .loginInputPassword: return literals.loginInputPassword
     case .loginButton: return literals.loginButton
     case .loginMessage: return literals.loginMessage

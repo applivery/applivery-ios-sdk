@@ -17,7 +17,7 @@ struct LoginService {
 			bodyParams: [
 				"provider": "traditional",
 				"payload": [
-					"email": user,
+					"user": user,
 					"password": password				
 				]
 			]

@@ -287,7 +287,7 @@ Applivery.shared.textLiterals = TextLiterals(
 	feedbackTypeFeedback: "Feedback",
 	feedbackMessagePlaceholder: "Add a message",
 	feedbackAttach: "Attach Screenshot",
-	loginInputEmail: "email",
+	loginInputUser: "user",
 	loginInputPassword: "password",
 	loginButton: "Login",
 	loginMessage: "Login is required!",
