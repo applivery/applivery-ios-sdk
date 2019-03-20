@@ -1,5 +1,12 @@
 # Change Log
 
+## [v2.7.1](https://github.com/applivery/applivery-ios-sdk/releases/tag/v2.7.1)
+
+### Fixed
+* Applivery could crash with some project settings running in the simulator. Thanks to @pabloviciano
+
+---
+
 ## [v2.7](https://github.com/applivery/applivery-ios-sdk/releases/tag/v2.7)
 
 ### New
