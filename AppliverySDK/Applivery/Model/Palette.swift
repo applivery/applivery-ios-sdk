@@ -28,7 +28,7 @@ screenshotBrushColor: .green
 
 - seealso: `Applivery.palette`
 - Since: 2.4
-- Version: 2.4
+- Version: 2.7.2
 - Author: Alejandro Jiménez Agudo
 - Copyright: Applivery S.L.
 */
@@ -37,19 +37,19 @@ public class Palette: NSObject {
 	// MARK: - Instance Properties
 	
 	/// Main color of your brand
-	public var primaryColor: UIColor
+	@objc public var primaryColor: UIColor
 	
 	/// Background color
-	public var secondaryColor: UIColor
+	@objc public var secondaryColor: UIColor
 	
 	/// Primary font color. It should be in contrast with the primary color
-	public var primaryFontColor: UIColor
+	@objc public var primaryFontColor: UIColor
 	
 	/// Secondary font color. It should be in contrast with the secondary color
-	public var secondaryFontColor: UIColor
+	@objc public var secondaryFontColor: UIColor
 	
 	/// Sets a color for the brush on screenshot edit mode
-	public var screenshotBrushColor: UIColor
+	@objc public var screenshotBrushColor: UIColor
 	
 	
 	// MARK: - Initializer

@@ -43,7 +43,7 @@ When Applivery's starts, the latests configuration for your build will be retrie
 
 - seealso: [Applivery's README on GitHub](https://github.com/applivery/applivery-ios-sdk/blob/master/README.md)
 - Since: 1.0
-- Version: 2.7.1
+- Version: 2.7.2
 - Author: Alejandro Jiménez Agudo
 - Copyright: Applivery S.L.
 */
@@ -86,10 +86,10 @@ public class Applivery: NSObject, StartInteractorOutput {
 	- Warning: This property is **deprecated**. Use `Palette.screenshotBrushColor` instead
 	
 	- Since: 2.2
-	- Version: 2.4
+	- Version: 2.7.2
 	*/
 	@available(*, deprecated: 2.4, message: "Use palette.screenshotBrushColor instead", renamed: "palette.screenshotBrushColor")
-	public var screenshotBrushColor: UIColor? {
+	@objc public var screenshotBrushColor: UIColor? {
 		didSet {
 			self.globalConfig.palette.screenshotBrushColor = self.screenshotBrushColor ?? self.palette.screenshotBrushColor
 		}
@@ -197,9 +197,9 @@ public class Applivery: NSObject, StartInteractorOutput {
 	- Important: The default literals are only in english. Consider to set localized strings to fully support all languages your app does.
 	- seealso: `TextLiterals`
 	- Since: 2.4
-	- Version: 2.4
+	- Version: 2.7.2
 	*/
-	public var textLiterals: TextLiterals {
+	@objc public var textLiterals: TextLiterals {
 		didSet {
 			self.globalConfig.textLiterals = self.textLiterals
 		}
@@ -269,9 +269,9 @@ public class Applivery: NSObject, StartInteractorOutput {
 	By default, Applivery will show a feedback formulary to your users when a screenshot is detected. If you want to avoid this, you can disable it calling this method.
 	
 	- Since: 1.2
-	- Version: 2.0
+	- Version: 2.7.2
 	*/
-	public func disableFeedback() {
+	@objc public func disableFeedback() {
 		self.startInteractor.disableFeedback()
 	}
 	
@@ -282,9 +282,9 @@ public class Applivery: NSObject, StartInteractorOutput {
 	
 	- seealso: `disableFeedback()`
 	- Since: 2.7
-	- Version: 2.7
+	- Version: 2.7.2
 	*/
-	public func feedbackEvent() {
+	@objc public func feedbackEvent() {
 		logInfo("Presenting feedback formulary")
 		self.feedbackCoordinator.showFeedack()
 	}
