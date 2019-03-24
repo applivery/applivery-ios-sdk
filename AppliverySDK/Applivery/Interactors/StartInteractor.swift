@@ -44,7 +44,7 @@ class StartInteractor {
     // MARK: Internal Methods
     
     func start() {
-        logInfo("Applivery is starting...")
+        logInfo("Applivery is starting... ")
         logInfo("SDK Version: \(GlobalConfig.SDKVersion)")
         guard !self.globalConfig.apiKey.isEmpty, !self.globalConfig.appId.isEmpty else {
             return self.output.credentialError(message: "You must set both apiKey and appID")
