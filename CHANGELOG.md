@@ -1,5 +1,12 @@
 # Change Log
 
+## [v2.7.2](https://github.com/applivery/applivery-ios-sdk/releases/tag/v2.7.2)
+
+### Fixed
+* All the public methods and params are now available for Obj-C
+
+---
+
 ## [v2.7.1](https://github.com/applivery/applivery-ios-sdk/releases/tag/v2.7.1)
 
 ### Fixed
