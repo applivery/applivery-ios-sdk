@@ -36,6 +36,7 @@ class Response {
 			} else {
 				self.success = false
 				self.code = response.statusCode
+				
 				self.parseError(error)
 			}
 		} else {

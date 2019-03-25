@@ -38,6 +38,17 @@ struct LoginInteractor {
 		)
 	}
 	
+	func bind(_ user: User) {
+		self.loginService.bind(user: user) { result in
+			switch result {
+			case .success(let accessToken):
+				logInfo("TOKEN: \(accessToken)")
+			case .error:
+				logInfo("Error trying to bind a user")
+			}
+		}
+	}
+	
 	// MARK: - Private Helpers
 	private func login(user: String, password: String, loginHandler: @escaping () -> Void, cancelHandler: @escaping () -> Void) {
 		self.globalConfig.accessToken = nil // Ensure to clean possibly previous access token
