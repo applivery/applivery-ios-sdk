@@ -42,7 +42,7 @@ struct LoginInteractor {
 		self.loginService.bind(user: user) { result in
 			switch result {
 			case .success(let accessToken):
-				logInfo("TOKEN: \(accessToken)")
+				self.store(accessToken: accessToken)
 			case .error:
 				logInfo("Error trying to bind a user")
 			}
@@ -55,9 +55,7 @@ struct LoginInteractor {
 		self.loginService.login(user: user, password: password) { result in
 			switch result {
 			case .success(let accessToken):
-				logInfo("Fetched new access token: \(accessToken.token ?? "NO TOKEN")")
-				self.sessionPersister.save(accessToken: accessToken)
-				self.globalConfig.accessToken = accessToken
+				self.store(accessToken: accessToken)
 				loginHandler()
 
 			case .error:
@@ -68,6 +66,12 @@ struct LoginInteractor {
 				)
 			}
 		}
+	}
+	
+	private func store(accessToken: AccessToken) {
+		logInfo("Fetched new access token: \(accessToken.token ?? "NO TOKEN")")
+		self.sessionPersister.save(accessToken: accessToken)
+		self.globalConfig.accessToken = accessToken
 	}
 	
 }

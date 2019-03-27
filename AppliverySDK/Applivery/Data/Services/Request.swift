@@ -14,7 +14,7 @@ class Request {
 	var endpoint: String
 	var method: String
 	var urlParams: [String: String]
-	var bodyParams: [String: Any]
+	var bodyParams: [String: Any?]
 
 	private var headers: [String: String]?
 	private var request: URLRequest?
@@ -50,7 +50,8 @@ class Request {
 		self.request = URLRequest(url: url)
 		self.request?.httpMethod = self.method
 		if self.method != "GET" {
-			self.request?.httpBody = JSON(from: self.bodyParams).toData()
+			let body = self.bodyParams.filter { $0.value != nil }.mapValues { $0 }
+			self.request?.httpBody = JSON(from: body).toData()
 		}
 		self.setHeaders()
 	}

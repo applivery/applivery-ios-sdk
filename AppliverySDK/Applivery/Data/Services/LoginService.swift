@@ -28,7 +28,7 @@ struct LoginService {
 	
 	func bind(user: User, result: @escaping (Result<AccessToken, NSError>) -> Void) {
 		let request = Request(
-			endpoint: "/v1/auth/profile",
+			endpoint: "/v1/auth/customLogin",
 			method: "POST",
 			bodyParams: [
 				"email": user.email,
