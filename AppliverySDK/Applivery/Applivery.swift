@@ -41,7 +41,7 @@ import Foundation
  2. Shows a cancellable alert if there is a new available update in Applivery, giving the user the chance to update to the latest build.
  3. Shows a modal screen, that user can not dismiss, with the only option to update to the latest build. This will force yours users to update giving them any chance to continue using the app.
  
- - seealso: [Applivery's README on GitHub](https://github.com/applivery/applivery-ios-sdk/blob/master/README.md)
+ - SeeAlso: [Applivery's README on GitHub](https://github.com/applivery/applivery-ios-sdk/blob/master/README.md)
  - Since: 1.0
  - Version: 2.7
  - Author: Alejandro Jiménez Agudo
@@ -50,12 +50,6 @@ import Foundation
 public class Applivery: NSObject, StartInteractorOutput {
     
     // MARK: - Type Properties
-    
-    /// Singleton instance.
-    ///
-    /// - Warning: This property is **deprecated**. Use `shared` instead
-    @available(*, deprecated: 2.3, message: "Use shared instead", renamed: "shared")
-    public static let sharedInstance = Applivery()
     
     /// Singleton instance
     @objc public static let shared = Applivery()
@@ -77,21 +71,6 @@ public class Applivery: NSObject, StartInteractorOutput {
     @objc public var logLevel: LogLevel {
         didSet {
             self.globalConfig.logLevel = self.logLevel
-        }
-    }
-    
-    /**
-     Sets a color for the brush on screenshot edit mode
-     
-     - Warning: This property is **deprecated**. Use `Palette.screenshotBrushColor` instead
-     
-     - Since: 2.2
-     - Version: 2.4
-     */
-    @available(*, deprecated: 2.4, message: "Use palette.screenshotBrushColor instead", renamed: "palette.screenshotBrushColor")
-    public var screenshotBrushColor: UIColor? {
-        didSet {
-            self.globalConfig.palette.screenshotBrushColor = self.screenshotBrushColor ?? self.palette.screenshotBrushColor
         }
     }
     
@@ -126,7 +105,7 @@ public class Applivery: NSObject, StartInteractorOutput {
      Applivery.shared.palette.primaryColor = .orange
      ```
      
-     - seealso: `Palette`
+     - SeeAlso: `Palette`
      - Since: 2.4
      - Version: 2.4
      */
@@ -195,7 +174,7 @@ public class Applivery: NSObject, StartInteractorOutput {
      ```
      
      - Important: The default literals are only in english. Consider to set localized strings to fully support all languages your app does.
-     - seealso: `TextLiterals`
+     - SeeAlso: `TextLiterals`
      - Since: 2.4
      - Version: 2.4
      */
@@ -249,18 +228,18 @@ public class Applivery: NSObject, StartInteractorOutput {
      Starts Applivery's framework
      
      - Parameters:
-     - appToken: Your developer's Api Key
-     - appId: Your application's ID
-     - appStoreRelease: Flag to mark the build as a build that will be submitted to the AppStore. This is needed to prevent unwanted behavior like prompt to a final user that a new version is available on Applivery.
-     * `true`: Applivery will stop any activity. **Use this for AppStore**
-     * `false`: Applivery will works as normally. Use this with distributed builds in Applivery.
+        - appToken: Your developer's Api Key
+        - appId: Your application's ID
+        - appStoreRelease: Flag to mark the build as a build that will be submitted to the AppStore. This is needed to prevent unwanted behavior like prompt to a final user that a new version is available on Applivery.
+        * `true`: Applivery will stop any activity. **Use this for AppStore**
+        * `false`: Applivery will works as normally. Use this with distributed builds in Applivery.
      
      - Attention: Be sure that the param **appStoreRelease** is true before submitting to the AppStore
-     - Warning: This property is **deprecated**. Use `start(appToken:, appStoreRelease:)` instead
+     - Warning: This property is **deprecated** from version 3.0. Use `start(appToken:, appStoreRelease:)` instead
      - Since: 1.0
-     - Version: 2.0
+     - Version: 3.0
      */
-    @available(*, deprecated: 3.0, renamed: "start(token:appStoreRelease:)")
+    @available(*, deprecated, renamed: "start(token:appStoreRelease:)")
     @objc public func start(apiKey key: String, appId: String, appStoreRelease: Bool) {
         log("🚸🚸🚸 WARNING: Note that you are using a deprecated method.")
         log("🚸🚸🚸 WARNING: If you are using Applivery 3.0 (applivery.io), we recommend you to use the new method start(token:appStoreRelease:)")
@@ -273,10 +252,10 @@ public class Applivery: NSObject, StartInteractorOutput {
      Starts Applivery's framework
      
      - Parameters:
-     - token: Your App Token
-     - appStoreRelease: Flag to mark the build as a build that will be submitted to the AppStore. This is needed to prevent unwanted behavior like prompt to a final user that a new version is available on Applivery.
-     * `true`: Applivery will stop any activity. **Use this for AppStore**
-     * `false`: Applivery will works as normally. Use this with distributed builds in Applivery.
+        - token: Your App Token
+        - appStoreRelease: Flag to mark the build as a build that will be submitted to the AppStore. This is needed to prevent unwanted behavior like prompt to a final user that a new version is available on Applivery.
+        * `true`: Applivery will stop any activity. **Use this for AppStore**
+        * `false`: Applivery will works as normally. Use this with distributed builds in Applivery.
      
      - Attention: Be sure that the param **appStoreRelease** is true before submitting to the AppStore
      - Since: 3.0
@@ -295,11 +274,12 @@ public class Applivery: NSObject, StartInteractorOutput {
      Programatically login a user in Applivery, for example if the app has a custom login and don't want to use Applivery's authentication to track the user in the platform
      
      - Parameters:
-     - email: The user email. **Required**
-     - firstName: The first name of the user. **Optional**
-     - lastName: The last name of the user. **Optional**
-     - tags: A list of tags linked to the user with group / categorize purpose. **Optional**
+        - email: The user email. **Required**
+        - firstName: The first name of the user. **Optional**
+        - lastName: The last name of the user. **Optional**
+        - tags: A list of tags linked to the user with group / categorize purpose. **Optional**
      
+     - SeeAlso: `unbindUser()`
      - Since: 3.0
      - Version: 3.0
      */
@@ -309,7 +289,20 @@ public class Applivery: NSObject, StartInteractorOutput {
         self.loginInteractor.bind(user)
     }
     
-    /**first
+    /**
+     Logout a previously binded user
+     
+     Programatically logout a user in Applivery from a previous custom login.
+     
+     - SeeAlso: `bindUser(email:firstname:lastname:tags)`
+     - Since: 3.0
+     - Version: 3.0
+     */
+    @objc public func unbindUser() {
+        self.loginInteractor.unbindUser()
+    }
+    
+    /**
      Disable Applivery's feedback.
      
      By default, Applivery will show a feedback formulary to your users when a screenshot is detected. If you want to avoid this, you can disable it calling this method.
@@ -326,7 +319,7 @@ public class Applivery: NSObject, StartInteractorOutput {
      
      By default, Applivery will show a feedback formulary to your users when a screenshot is detected. If you want to do it programatically controlled by your app (for example in a shake event), you can call this method. Also you may want to prevent the feedback view to be show when a screenshot event is produced, for that you can call `disableFeedback()` method
      
-     - seealso: `disableFeedback()`
+     - SeeAlso: `disableFeedback()`
      - Since: 2.7
      - Version: 2.7
      */

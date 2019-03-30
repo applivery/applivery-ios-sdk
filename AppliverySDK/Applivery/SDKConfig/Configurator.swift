@@ -13,7 +13,9 @@ struct Configurator {
 	static func loginInteractor() -> LoginInteractor {
 		return LoginInteractor(
 			app: App(),
-			loginService: LoginService(),
+			loginDataManager: LoginDataManager(
+				loginService: LoginService()
+			),
 			globalConfig: GlobalConfig.shared,
 			sessionPersister: SessionPersister(
 				userDefaults: UserDefaults.standard

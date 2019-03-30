@@ -11,7 +11,7 @@ import Foundation
 struct LoginInteractor {
 	
 	let app: AppProtocol
-	let loginService: LoginService
+	let loginDataManager: LoginDataManager
 	let globalConfig: GlobalConfig
 	let sessionPersister: SessionPersister
 	
@@ -39,20 +39,27 @@ struct LoginInteractor {
 	}
 	
 	func bind(_ user: User) {
-		self.loginService.bind(user: user) { result in
+		self.loginDataManager.bind(user: user) { result in
 			switch result {
 			case .success(let accessToken):
 				self.store(accessToken: accessToken)
 			case .error:
 				logInfo("Error trying to bind a user")
+				
 			}
 		}
+	}
+	
+	func unbindUser() {
+		logInfo("Unbinding user...")
+		self.sessionPersister.save(accessToken: nil)
+		self.globalConfig.accessToken = nil
 	}
 	
 	// MARK: - Private Helpers
 	private func login(user: String, password: String, loginHandler: @escaping () -> Void, cancelHandler: @escaping () -> Void) {
 		self.globalConfig.accessToken = nil // Ensure to clean possibly previous access token
-		self.loginService.login(user: user, password: password) { result in
+		self.loginDataManager.login(user: user, password: password) { result in
 			switch result {
 			case .success(let accessToken):
 				self.store(accessToken: accessToken)

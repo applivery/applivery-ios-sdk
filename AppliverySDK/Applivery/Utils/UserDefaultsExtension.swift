@@ -10,8 +10,12 @@ import Foundation
 
 extension UserDefaults {
 	func set(_ value: AccessToken?, forKey key: String) {
+		guard let token = value else {
+			return self.removeObject(forKey: key)
+		}
+		
 		do {
-			let data = try JSONEncoder().encode(value)
+			let data = try JSONEncoder().encode(token)
 			self.set(data, forKey: key)
 		} catch {
 			logWarn("Could not encode value: \(String(describing: value))")
