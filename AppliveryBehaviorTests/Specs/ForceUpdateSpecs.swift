@@ -44,7 +44,9 @@ class ForceUpdateSpecs: QuickSpec {
 						app: self.appMock,
 						loginInteractor: LoginInteractor(
 							app: self.appMock,
-							loginService: LoginService(),
+							loginDataManager: LoginDataManager(
+								loginService: LoginService()
+							),
 							globalConfig: self.config,
 							sessionPersister: SessionPersister(
 								userDefaults: self.userDefaultsMock
@@ -170,7 +172,7 @@ class ForceUpdateSpecs: QuickSpec {
 					it("should request user token") {
 						expect(matchedLoginURL).toEventually(beTrue())
 						expect(loginBody?["provider"]?.toString()).toEventually(equal("traditional"))
-						expect(loginBody?["payload.email"]?.toString()).toEventually(equal("test@applivery.com"))
+						expect(loginBody?["payload.user"]?.toString()).toEventually(equal("test@applivery.com"))
 						expect(loginBody?["payload.password"]?.toString()).toEventually(equal("TEST_PASSWORD"))
 					}
 					it("should ask for login again") {
@@ -195,7 +197,7 @@ class ForceUpdateSpecs: QuickSpec {
 					it("should request user token") {
 						expect(matchedLoginURL).toEventually(beTrue())
 						expect(loginBody?["provider"]?.toString()).toEventually(equal("traditional"))
-						expect(loginBody?["payload.email"]?.toString()).toEventually(equal("test@applivery.com"))
+						expect(loginBody?["payload.user"]?.toString()).toEventually(equal("test@applivery.com"))
 						expect(loginBody?["payload.password"]?.toString()).toEventually(equal("TEST_PASSWORD"))
 					}
 					it("should request an authenticated download token") {

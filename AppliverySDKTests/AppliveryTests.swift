@@ -26,12 +26,13 @@ class AppliveryTests: XCTestCase {
 		self.startInteractorMock = StartInteractorMock()
 		self.updateCoordinatorMock = UpdateCoordinatorMock()
 		self.feedbackCoordinatorMock = FeedbackCoordinatorMock()
-
+		
 		self.applivery = Applivery(
 			startInteractor: self.startInteractorMock,
 			globalConfig: globalConfigMock,
 			updateCoordinator: self.updateCoordinatorMock,
-			feedbackCoordinator: self.feedbackCoordinatorMock
+			feedbackCoordinator: self.feedbackCoordinatorMock,
+			loginInteractor: Configurator.loginInteractor()
 		)
     }
 

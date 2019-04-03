@@ -45,18 +45,25 @@ class StartSpecs: QuickSpec {
 							configService: ConfigService()
 						),
 						globalConfig: globalConfig,
-						eventDetector: self.eventDetectorMock
+						eventDetector: self.eventDetectorMock,
+						sessionPersister: SessionPersister(
+							userDefaults: self.userDefaultsMock
+						)
 					),
 					globalConfig: globalConfig,
 					updateCoordinator: UpdateCoordinator(
 						updateInteractor: UpdateInteractor(
 							output: nil,
 							configData: ConfigDataManager(),
-							downloadData: DownloadDataManager(),
+							downloadData: DownloadDataManager(
+								service: DownloadService()
+							),
 							app: self.appMock,
 							loginInteractor: LoginInteractor(
 								app: self.appMock,
-								loginService: LoginService(),
+								loginDataManager: LoginDataManager(
+									loginService: LoginService()
+								),
 								globalConfig: GlobalConfig(),
 								sessionPersister: SessionPersister(
 									userDefaults: self.userDefaultsMock
@@ -67,6 +74,16 @@ class StartSpecs: QuickSpec {
 					),
 					feedbackCoordinator: FeedbackCoordinator(
 						app: self.appMock
+					),
+					loginInteractor: LoginInteractor(
+						app: self.appMock,
+						loginDataManager: LoginDataManager(
+							loginService: LoginService()
+						),
+						globalConfig: GlobalConfig(),
+						sessionPersister: SessionPersister(
+							userDefaults: self.userDefaultsMock
+						)
 					)
 				)
 				
