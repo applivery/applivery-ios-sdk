@@ -1,6 +1,6 @@
 ![Applivery Logo](https://www.applivery.com/img/icons/applivery-header-1200x627px.png)
 
-![Version](https://img.shields.io/badge/version-2.7-blue.svg)
+![Version](https://img.shields.io/badge/version-2.7.2-blue.svg)
 ![Language](https://img.shields.io/badge/Language-Swift-orange.svg)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Applivery.svg)](https://cocoapods.org/pods/Applivery)
@@ -169,7 +169,7 @@ Applivery *applivery = [Applivery shared];
 	* True: Applivery SDK will not trigger automatic updates anymore. **Use this for AppStore**
 	* False: Applivery SDK will normally. Use this with builds distributed through Applivery.
 
-## Swift & XCode version support
+## Swift & Xcode version support
 
 The compatibility version is as follow:
 

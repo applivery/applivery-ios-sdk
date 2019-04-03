@@ -44,7 +44,7 @@ class StartInteractor {
     // MARK: Internal Methods
     
     func start() {
-        logInfo("Applivery is starting...")
+        logInfo("Applivery is starting... ")
         logInfo("SDK Version: \(GlobalConfig.SDKVersion)")
         guard !self.globalConfig.appToken.isEmpty
             else { return self.output.credentialError(message: "You must set the app token") }

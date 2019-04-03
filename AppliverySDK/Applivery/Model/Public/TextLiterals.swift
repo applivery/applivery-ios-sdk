@@ -18,32 +18,32 @@ import Foundation
  
  ```swift
  Applivery.shared.textLiterals = TextLiterals(
-     appName: "Applivery",
-     alertButtonCancel: "Cancel",
-     alertButtonRetry: "Retry",
-     alertButtonOK: "OK",
-     errorUnexpected: "Unexpected error",
-     errorInvalidCredentials: "Invalid credentials",
-     errorDownloadURL: "Couldn't start download. Invalid url",
-     otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
-     alertButtonLater: "Later",
-     alertButtonUpdate: "Update",
-     forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it",
-     buttonForceUpdate: "Update now",
-     feedbackButtonClose: "Close",
-     feedbackButtonAdd: "Add Feedback",
-     feedbackButtonSend: "Send Feedback",
-     feedbackSelectType: "Select type",
-     feedbackTypeBug: "Bug",
-     feedbackTypeFeedback: "Feedback",
-     feedbackMessagePlaceholder: "Add a message",
-     feedbackAttach: "Attach Screenshot",
-     loginInputUser: "user",
-     loginInputPassword: "password",
-     loginButton: "Login",
-     loginMessage: "Login is required!",
-     loginInvalidCredentials: "Wrong username or password, please, try again",
-     loginSessionExpired: "Your session has expired. Please, log in again"
+ appName: "Applivery",
+ alertButtonCancel: "Cancel",
+ alertButtonRetry: "Retry",
+ alertButtonOK: "OK",
+ errorUnexpected: "Unexpected error",
+ errorInvalidCredentials: "Invalid credentials",
+ errorDownloadURL: "Couldn't start download. Invalid url",
+ otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
+ alertButtonLater: "Later",
+ alertButtonUpdate: "Update",
+ forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it",
+ buttonForceUpdate: "Update now",
+ feedbackButtonClose: "Close",
+ feedbackButtonAdd: "Add Feedback",
+ feedbackButtonSend: "Send Feedback",
+ feedbackSelectType: "Select type",
+ feedbackTypeBug: "Bug",
+ feedbackTypeFeedback: "Feedback",
+ feedbackMessagePlaceholder: "Add a message",
+ feedbackAttach: "Attach Screenshot",
+ loginInputUser: "user",
+ loginInputPassword: "password",
+ loginButton: "Login",
+ loginMessage: "Login is required!",
+ loginInvalidCredentials: "Wrong username or password, please, try again",
+ loginSessionExpired: "Your session has expired. Please, log in again"
  )
  ```
  
@@ -58,159 +58,161 @@ public class TextLiterals: NSObject {
     // MARK: - General
     
     /// The application name. **default**: "Applivery"
-    public var appName: String
+    @objc public var appName: String
     
     
     // MARK: - Alerts
     
     /// "Cancel"
-    public var alertButtonCancel: String
+    @objc public var alertButtonCancel: String
     
     /// "Retry
-    public var alertButtonRetry: String
+    @objc public var alertButtonRetry: String
     
     /// "OK"
-    public var alertButtonOK: String
+    @objc public var alertButtonOK: String
     
     // Errors
     /// "Unexpected error"
-    public var errorUnexpected: String
+    @objc public var errorUnexpected: String
     
     /// "Invalid credentials"
-    public var errorInvalidCredentials: String
+    @objc public var errorInvalidCredentials: String
     
     /// "Couldn't start download. Invalid url"
-    public var errorDownloadURL: String
+    @objc public var errorDownloadURL: String
     
     
     // MARK: - OTA Update
     
     /// "There is a new version available for download. Do you want to update to the latest version?"
-    public var otaUpdateMessage: String?
+    @objc public var otaUpdateMessage: String?
     
     /// "Later"
-    public var alertButtonLater: String
+    @objc public var alertButtonLater: String
     
     /// "Update"
-    public var alertButtonUpdate: String
+    @objc public var alertButtonUpdate: String
     
     
     // MARK: - Force Update
     
     /// "Sorry this App is outdated. Please, update the App to continue using it"
-    public var forceUpdateMessage: String?
+    @objc public var forceUpdateMessage: String?
     
     /// "Update now"
-    public var buttonForceUpdate: String
+    @objc public var buttonForceUpdate: String
     
     
     // MARK: - Feedback
     
     /// "Close"
-    public var feedbackButtonClose: String
+    @objc public var feedbackButtonClose: String
     
     /// "Add feedback"
-    public var feedbackButtonAdd: String
+    @objc public var feedbackButtonAdd: String
     
     /// "Send feedback"
-    public var feedbackButtonSend: String
+    @objc public var feedbackButtonSend: String
     
     /// "Select type"
-    public var feedbackSelectType: String
+    @objc public var feedbackSelectType: String
     
     /// "Bug"
-    public var feedbackTypeBug: String
+    @objc public var feedbackTypeBug: String
     
     /// "Feedback"
-    public var feedbackTypeFeedback: String
+    @objc public var feedbackTypeFeedback: String
     
     /// "Add a message"
-    public var feedbackMessagePlaceholder: String
+    @objc public var feedbackMessagePlaceholder: String
     
     /// "Attach Screenshot"
-    public var feedbackAttach: String
+    @objc public var feedbackAttach: String
     
     // MARK: - Login
     
     /// "email"
-    public var loginInputUser: String
+    @objc public var loginInputUser: String
     
     /// "password"
-    public var loginInputPassword: String
+    @objc public var loginInputPassword: String
     
     /// "email"
-    public var loginButton: String
+    @objc public var loginButton: String
     
     /// "Login is required!"
-    public var loginMessage: String
+    @objc public var loginMessage: String
     
     /// "Wrong username or password, please, try again"
-    public var loginInvalidCredentials: String
+    @objc public var loginInvalidCredentials: String
     
     /// "Your session has expired. Please, log in again"
-    public var loginSessionExpired: String
+    @objc public var loginSessionExpired: String
     
     // MARK: - Initializer
     /**
      Creates a new instance of TextLiterals.
      
      - Parameters:
-        - appName: "Applivery"
-         - alertButtonCancel: "Cancel"
-         - alertButtonRetry: "Retry"
-         - alertButtonOK: "OK"
-         - errorUnexpected: "Unexpected error"
-         - errorInvalidCredentials: "Invalid credentials"
-         - errorDownloadURL: "Couldn't start download. Invalid url",
-         - otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
-         - alertButtonLater: "Later",
-         - alertButtonUpdate: "Update",
-         - forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it",
-         - buttonForceUpdate: "Update now",
-         - feedbackButtonClose: "Close",
-         - feedbackButtonAdd: "Add Feedback",
-         - feedbackButtonSend: "Send Feedback",
-         - feedbackSelectType: "Select type",
-         - feedbackTypeBug: "Bug",
-         - feedbackTypeFeedback: "Feedback",
-         - feedbackMessagePlaceholder: "Add a message",
-         - feedbackAttach: "Attach Screenshot",
-         - loginInputUser: "user",
-         - loginInputPassword: "password",
-         - loginButton: "Login",
-         - loginMessage: "Login is required!",
-         - loginInvalidCredentials: "Wrong user or password, please, try again",
-         - loginSessionExpired: "Your session has expired. Please, log in again"
+     - appName: "Applivery"
+     - alertButtonCancel: "Cancel"
+     - alertButtonRetry: "Retry"
+     - alertButtonOK: "OK"
+     - errorUnexpected: "Unexpected error"
+     - errorInvalidCredentials: "Invalid credentials"
+     - errorDownloadURL: "Couldn't start download. Invalid url",
+     - otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
+     - alertButtonLater: "Later",
+     - alertButtonUpdate: "Update",
+     - forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it",
+     - buttonForceUpdate: "Update now",
+     - feedbackButtonClose: "Close",
+     - feedbackButtonAdd: "Add Feedback",
+     - feedbackButtonSend: "Send Feedback",
+     - feedbackSelectType: "Select type",
+     - feedbackTypeBug: "Bug",
+     - feedbackTypeFeedback: "Feedback",
+     - feedbackMessagePlaceholder: "Add a message",
+     - feedbackAttach: "Attach Screenshot",
+     - loginInputUser: "user",
+     - loginInputPassword: "password",
+     - loginButton: "Login",
+     - loginMessage: "Login is required!",
+     - loginInvalidCredentials: "Wrong user or password, please, try again",
+     - loginSessionExpired: "Your session has expired. Please, log in again"
      - Note: Each parameter has a default literal, so you could set only the values that you really need to change
      - Since: 2.4
      - Version: 2.4
      */
-    public init(appName: String = localize("sdk_name"),
-                alertButtonCancel: String = localize("alert_button_cancel"),
-                alertButtonRetry: String = localize("alert_button_retry"),
-                alertButtonOK: String = localize("alert_button_ok"),
-                errorUnexpected: String = localize("error_unexpected"),
-                errorInvalidCredentials: String = localize("error_invalid_credentials"),
-                errorDownloadURL: String = localize("error_download_url"),
-                otaUpdateMessage: String? = nil,
-                alertButtonLater: String = localize("alert_button_later"),
-                alertButtonUpdate: String = localize("alert_button_update"),
-                forceUpdateMessage: String? = nil,
-                buttonForceUpdate: String = localize("update_view_button_update"),
-                feedbackButtonClose: String = localize("feedback_button_close"),
-                feedbackButtonAdd: String = localize("feedback_button_add"),
-                feedbackButtonSend: String = localize("feedback_button_send"),
-                feedbackSelectType: String = localize("feedback_label_select_type"),
-                feedbackTypeBug: String = localize("feedback_button_bug"),
-                feedbackTypeFeedback: String = localize("feedback_button_feedback"),
-                feedbackMessagePlaceholder: String = localize("feedback_text_message_placeholder"),
-                feedbackAttach: String = localize("feedback_label_attach"),
-                loginInputUser: String = localize("login_input_user"),
-                loginInputPassword: String = localize("login_input_password"),
-                loginButton: String = localize("login_button"),
-                loginMessage: String = localize("login_alert_message"),
-                loginInvalidCredentials: String = localize("login_alert_message_invalid_credentials"),
-                loginSessionExpired: String = localize("login_alert_message_expired")) {
+    @objc public init(
+        appName: String = localize("sdk_name"),
+        alertButtonCancel: String = localize("alert_button_cancel"),
+        alertButtonRetry: String = localize("alert_button_retry"),
+        alertButtonOK: String = localize("alert_button_ok"),
+        errorUnexpected: String = localize("error_unexpected"),
+        errorInvalidCredentials: String = localize("error_invalid_credentials"),
+        errorDownloadURL: String = localize("error_download_url"),
+        otaUpdateMessage: String? = nil,
+        alertButtonLater: String = localize("alert_button_later"),
+        alertButtonUpdate: String = localize("alert_button_update"),
+        forceUpdateMessage: String? = nil,
+        buttonForceUpdate: String = localize("update_view_button_update"),
+        feedbackButtonClose: String = localize("feedback_button_close"),
+        feedbackButtonAdd: String = localize("feedback_button_add"),
+        feedbackButtonSend: String = localize("feedback_button_send"),
+        feedbackSelectType: String = localize("feedback_label_select_type"),
+        feedbackTypeBug: String = localize("feedback_button_bug"),
+        feedbackTypeFeedback: String = localize("feedback_button_feedback"),
+        feedbackMessagePlaceholder: String = localize("feedback_text_message_placeholder"),
+        feedbackAttach: String = localize("feedback_label_attach"),
+        loginInputUser: String = localize("login_input_user"),
+        loginInputPassword: String = localize("login_input_password"),
+        loginButton: String = localize("login_button"),
+        loginMessage: String = localize("login_alert_message"),
+        loginInvalidCredentials: String = localize("login_alert_message_invalid_credentials"),
+        loginSessionExpired: String = localize("login_alert_message_expired")) {
+        
         self.appName = appName
         self.alertButtonCancel = alertButtonCancel
         self.alertButtonRetry = alertButtonRetry

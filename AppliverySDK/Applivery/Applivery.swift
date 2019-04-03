@@ -178,7 +178,7 @@ public class Applivery: NSObject, StartInteractorOutput {
      - Since: 2.4
      - Version: 2.4
      */
-    public var textLiterals: TextLiterals {
+    @objc public var textLiterals: TextLiterals {
         didSet {
             self.globalConfig.textLiterals = self.textLiterals
         }
@@ -310,7 +310,7 @@ public class Applivery: NSObject, StartInteractorOutput {
      - Since: 1.2
      - Version: 2.0
      */
-    public func disableFeedback() {
+    @objc public func disableFeedback() {
         self.startInteractor.disableFeedback()
     }
     
@@ -323,7 +323,7 @@ public class Applivery: NSObject, StartInteractorOutput {
      - Since: 2.7
      - Version: 2.7
      */
-    public func feedbackEvent() {
+    @objc public func feedbackEvent() {
         logInfo("Presenting feedback formulary")
         self.feedbackCoordinator.showFeedack()
     }
