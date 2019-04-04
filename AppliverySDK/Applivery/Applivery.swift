@@ -83,11 +83,11 @@ public class Applivery: NSObject, StartInteractorOutput {
      
      ```swift
      Applivery.shared.palette = Palette(
-     primaryColor: .orange,
-     secondaryColor: .white,
-     primaryFontColor: .white,
-     secondaryFontColor: .black,
-     screenshotBrushColor: .green
+        primaryColor: .orange,
+        secondaryColor: .white,
+        primaryFontColor: .white,
+        secondaryFontColor: .black,
+        screenshotBrushColor: .green
      )
      ```
      
@@ -95,7 +95,7 @@ public class Applivery: NSObject, StartInteractorOutput {
      
      ```swift
      Applivery.shared.palette = Palette(
-     primaryColor: .orange,
+        primaryColor: .orange,
      )
      ```
      
@@ -126,32 +126,32 @@ public class Applivery: NSObject, StartInteractorOutput {
      
      ```swift
      Applivery.shared.textLiterals = TextLiterals(
-     appName: "Applivery",
-     alertButtonCancel: "Cancel",
-     alertButtonRetry: "Retry",
-     alertButtonOK: "OK",
-     errorUnexpected: "Unexpected error",
-     errorInvalidCredentials: "Invalid credentials",
-     errorDownloadURL: "Couldn't start download. Invalid url",
-     otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
-     alertButtonLater: "Later",
-     alertButtonUpdate: "Update",
-     forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it",
-     buttonForceUpdate: "Update now",
-     feedbackButtonClose: "Close",
-     feedbackButtonAdd: "Add Feedback",
-     feedbackButtonSend: "Send Feedback",
-     feedbackSelectType: "Select type",
-     feedbackTypeBug: "Bug",
-     feedbackTypeFeedback: "Feedback",
-     feedbackMessagePlaceholder: "Add a message",
-     feedbackAttach: "Attach Screenshot",
-     loginInputUser: "user",
-     loginInputPassword: "password",
-     loginButton: "Login",
-     loginMessage: "Login is required!",
-     loginInvalidCredentials: "Wrong username or password, please, try again",
-     loginSessionExpired: "Your session has expired. Please, log in again"
+        appName: "Applivery",
+        alertButtonCancel: "Cancel",
+        alertButtonRetry: "Retry",
+        alertButtonOK: "OK",
+        errorUnexpected: "Unexpected error",
+        errorInvalidCredentials: "Invalid credentials",
+        errorDownloadURL: "Couldn't start download. Invalid url",
+        otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
+        alertButtonLater: "Later",
+        alertButtonUpdate: "Update",
+        forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it",
+        buttonForceUpdate: "Update now",
+        feedbackButtonClose: "Close",
+        feedbackButtonAdd: "Add Feedback",
+        feedbackButtonSend: "Send Feedback",
+        feedbackSelectType: "Select type",
+        feedbackTypeBug: "Bug",
+        feedbackTypeFeedback: "Feedback",
+        feedbackMessagePlaceholder: "Add a message",
+        feedbackAttach: "Attach Screenshot",
+        loginInputUser: "user",
+        loginInputPassword: "password",
+        loginButton: "Login",
+        loginMessage: "Login is required!",
+        loginInvalidCredentials: "Wrong username or password, please, try again",
+        loginSessionExpired: "Your session has expired. Please, log in again"
      )
      ```
      
@@ -159,9 +159,9 @@ public class Applivery: NSObject, StartInteractorOutput {
      
      ```swift
      Applivery.shared.textLiterals = Palette(
-     appName: "MyApp",
-     otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
-     forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it"
+        appName: "MyApp",
+        otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
+        forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it"
      )
      ```
      

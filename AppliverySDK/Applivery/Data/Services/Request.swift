@@ -76,6 +76,7 @@ class Request {
 		self.request?.setValue(appToken, forHTTPHeaderField: "Authorization")
 		self.request?.setValue(App().getLanguage(), forHTTPHeaderField: "Accept-Language")
 		self.request?.setValue("IOS_\(version)", forHTTPHeaderField: "x-sdk-version")
+		self.request?.setValue(App().getVersionName(), forHTTPHeaderField: "x-app-version")
 		
 		if let authToken = GlobalConfig.shared.accessToken?.token {
 			self.request?.setValue(authToken, forHTTPHeaderField: "x-sdk-auth-token")
