@@ -1,6 +1,6 @@
 ![Applivery Logo](https://www.applivery.com/img/icons/applivery-header-1200x627px.png)
 
-![Version](https://img.shields.io/badge/version-2.7.2-blue.svg)
+![Version](https://img.shields.io/badge/version-3.0-blue.svg)
 ![Language](https://img.shields.io/badge/Language-Swift-orange.svg)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Applivery.svg)](https://cocoapods.org/pods/Applivery)
@@ -76,7 +76,7 @@ $ brew update && brew install carthage
 Add the following line to your's Cartfile
 
 ```
-github "applivery/applivery-ios-sdk" ~> 2.7
+github "applivery/applivery-ios-sdk" ~> 3.0
 ```
 Run `carthage update` and then drag the built framework into your project. 
 
@@ -100,7 +100,7 @@ project '<Your Project Name>.xcodeproj'
 # platform :ios, '9.0'
 use_frameworks!
 target '<Your Target Name>' do
-  pod 'Applivery', '~> 2.7'
+  pod 'Applivery', '~> 3.0'
 end
 ```
 and then run `pod install`. More info about CocoaPods [here](https://cocoapods.org)

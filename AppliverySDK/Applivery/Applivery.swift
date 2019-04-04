@@ -43,7 +43,7 @@ import Foundation
  
  - SeeAlso: [Applivery's README on GitHub](https://github.com/applivery/applivery-ios-sdk/blob/master/README.md)
  - Since: 1.0
- - Version: 2.7
+ - Version: 3.0
  - Author: Alejandro Jiménez Agudo
  - Copyright: Applivery S.L.
  */
