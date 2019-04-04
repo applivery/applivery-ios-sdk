@@ -34,7 +34,7 @@
 
 ## Overview
 
-Applivery iOS SDK is a Framework to support [Applivery.com Mobile App distribution](http://www.applivery.com) for iOS Apps.
+Applivery iOS SDK is a Framework to support [Applivery.com Mobile App distribution](http://www.applivery.io) for iOS Apps.
 
 With Applivery you can massively distribute your iOS Apps (both Ad-hoc or In-House/Enterprise) through a customizable distribution site with no need of your users have to be registered in the platform. Combined with [Apple Developer Enterprise Program](https://developer.apple.com/programs/enterprise/) and Enterprise certificates, Applivery is perfect not only for beta testing distribute to your QA team, but also for In-House Enterprise distribution for beta testing users, prior to a release, or even for corporative Apps to the employees of a company.
 
@@ -47,7 +47,7 @@ With Applivery you can massively distribute your iOS Apps (both Ad-hoc or In-Hou
 
 ## Getting Started
 
-First of all, you should create an account on [Applivery.com](https://dashboard.applivery.com/register) and then add a new Application.
+First of all, you should create an account on [Applivery.io](https://dashboard.applivery.io) and then add a new Application.
 
 
 ### Get your credentials
@@ -138,7 +138,7 @@ and then the magic:
 
 ``` swift
 let applivery = Applivery.shared
-applivery.start(apiKey: "YOUR_API_KEY", appId: "YOUR_APP_ID", appStoreRelease: false)
+applivery.start(token: "YOUR_TOKEN", appStoreRelease: false)
 ```
 
 
@@ -154,18 +154,17 @@ The magic:
 
 ``` objc
 Applivery *applivery = [Applivery shared];
-[applivery startWithApiKey:@"YOUR_API_KEY" appId:@"YOUR_APP_ID" appStoreRelease:NO];
+[applivery startWithToken:@"YOUR_TOKEN" appStoreRelease:NO];
 ```
 
-**IMPORTANT I:** As you can suspect, you should replace the strings `YOUR_API_KEY` and `YOUR_APP_ID` with you api key and your app id respectively. Easy! Don't you think so?
+**IMPORTANT I:** As you can suspect, you should replace the string `YOUR_TOKEN` with your token. Easy! Don't you think so?
 
 **IMPORTANT II:** If you are experimenting problems submitting your app to the AppStore, please check this known issue about [Embedded Frameworks and AppStore submissions](https://github.com/applivery/applivery-ios-sdk#embedded-frameworks-and-appstore-submissions)
 
 
 ### About params
 
-- **apiKey**: Your developer's Api Key
-- **appId**: Your application's ID
+- **token**: Your app token
 - **appStoreRelease**: Flag to mark that the build will be submitted to the AppStore. This is needed to prevent unwanted behavior like prompt to a final user that a new version is available on Applivery.com.
 	* True: Applivery SDK will not trigger automatic updates anymore. **Use this for AppStore**
 	* False: Applivery SDK will normally. Use this with builds distributed through Applivery.
@@ -180,6 +179,7 @@ The compatibility version is as follow:
 | **v1.3.x**        | 8.x            | 2.3           |
 | **v2.x**          | 8.x, 9.x       | 3.0, 3.1, 4.0 |
 | **v2.7.x**        | 9.x, 10.x      | 4.0, 4.2      |
+| **v3.x**          | 10.x           | 4.0, 4.2, 5.0 |
 
 ## Advanced concepts
 
@@ -287,7 +287,7 @@ Applivery.shared.textLiterals = TextLiterals(
 	feedbackTypeFeedback: "Feedback",
 	feedbackMessagePlaceholder: "Add a message",
 	feedbackAttach: "Attach Screenshot",
-	loginInputEmail: "email",
+	loginInputUser: "user",
 	loginInputPassword: "password",
 	loginButton: "Login",
 	loginMessage: "Login is required!",

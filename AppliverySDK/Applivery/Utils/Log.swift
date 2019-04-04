@@ -15,11 +15,7 @@ func >= (levelA: LogLevel, levelB: LogLevel) -> Bool {
 
 
 func log(_ log: String) {
-	guard
-		!GlobalConfig.shared.appStoreRelease
-		&& GlobalConfig.shared.logLevel != .none
-		else { return }
-
+	guard !GlobalConfig.shared.appStoreRelease else { return }
 	print("Applivery :: " + log)
 }
 
@@ -45,7 +41,7 @@ func logError(_ error: NSError?, filename: NSString = #file, line: Int = #line, 
 		else { return }
 	
 	if let code = error?.code, code == 401 || code == 402 {
-		log("Invalid credentials!! Please, check your ApiKey as described on https://github.com/applivery/applivery-ios-sdk#get-your-credentials")
+		log("Invalid credentials!! Please, check your appToken as described on https://github.com/applivery/applivery-ios-sdk#get-your-credentials")
 		return
 	}
 

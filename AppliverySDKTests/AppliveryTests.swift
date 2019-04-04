@@ -26,12 +26,13 @@ class AppliveryTests: XCTestCase {
 		self.startInteractorMock = StartInteractorMock()
 		self.updateCoordinatorMock = UpdateCoordinatorMock()
 		self.feedbackCoordinatorMock = FeedbackCoordinatorMock()
-
+		
 		self.applivery = Applivery(
 			startInteractor: self.startInteractorMock,
 			globalConfig: globalConfigMock,
 			updateCoordinator: self.updateCoordinatorMock,
-			feedbackCoordinator: self.feedbackCoordinatorMock
+			feedbackCoordinator: self.feedbackCoordinatorMock,
+			loginInteractor: Configurator.loginInteractor()
 		)
     }
 
@@ -52,20 +53,18 @@ class AppliveryTests: XCTestCase {
 
 	// MARK: - Start
 	func test_start() {
-		self.applivery.start(apiKey: "test_api_key", appId: "test_app_id", appStoreRelease: false)
+		self.applivery.start(token: "test_app_token", appStoreRelease: false)
 
-		XCTAssert(self.globalConfigMock.apiKey == "test_api_key")
-		XCTAssert(self.globalConfigMock.appId == "test_app_id")
+		XCTAssert(self.globalConfigMock.appToken == "test_app_token")
 		XCTAssert(self.globalConfigMock.appStoreRelease == false)
 
 		XCTAssert(self.startInteractorMock.startCalled == true)
 	}
 
 	func test_startWithStoreRelease() {
-		self.applivery.start(apiKey: "test_api_key", appId: "test_app_id", appStoreRelease: true)
+		self.applivery.start(token: "test_app_token", appStoreRelease: true)
 
-		XCTAssert(self.globalConfigMock.apiKey == "test_api_key")
-		XCTAssert(self.globalConfigMock.appId == "test_app_id")
+		XCTAssert(self.globalConfigMock.appToken == "test_app_token")
 		XCTAssert(self.globalConfigMock.appStoreRelease == true)
 
 		XCTAssert(self.startInteractorMock.startCalled == true)

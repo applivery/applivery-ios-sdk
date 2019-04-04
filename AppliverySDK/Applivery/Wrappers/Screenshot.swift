@@ -65,7 +65,7 @@ struct Screenshot {
 
 	func base64() -> String? {
 		let imageData = UIImageJPEGRepresentation(self.image, 0.9)
-		let base64String = imageData?.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters)
+		let base64String = imageData?.base64EncodedString()
 
 		return base64String
 	}

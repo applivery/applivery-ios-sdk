@@ -71,6 +71,7 @@
 		FA53DE371BC1950300DF2EB1 /* StartInteractorOutputMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA53DE361BC1950300DF2EB1 /* StartInteractorOutputMock.swift */; };
 		FA53DE3C1BC1B38900DF2EB1 /* StartInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA53DE3B1BC1B38900DF2EB1 /* StartInteractorMock.swift */; };
 		FA54CAE421EB7EB400561DF5 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA54CAE321EB7EB400561DF5 /* UIImageExtension.swift */; };
+		FA54ED38224C3DF900170F86 /* LoginDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA54ED37224C3DF900170F86 /* LoginDataManager.swift */; };
 		FA5EA6501E6CCB6600590120 /* Applivery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA68D8F21BC040B000589DE4 /* Applivery.framework */; };
 		FA5EA6561E6CCBC800590120 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5EA63F1E6CB61500590120 /* Nimble.framework */; };
 		FA5EA6571E6CCBCB00590120 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5EA6401E6CB61500590120 /* Quick.framework */; };
@@ -78,6 +79,8 @@
 		FA5EA65A1E6CCC1100590120 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5EA63F1E6CB61500590120 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FA5EA65B1E6CCC1100590120 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5EA6401E6CB61500590120 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FA5EA65C1E6CCC1100590120 /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAADA53A1DBC14EB00300A5E /* OHHTTPStubs.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FA662BF82241A10500478C38 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA662BF72241A10500478C38 /* User.swift */; };
+		FA662BFA2241AC5800478C38 /* Configurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA662BF92241AC5800478C38 /* Configurator.swift */; };
 		FA68D8F61BC040B100589DE4 /* Applivery.h in Headers */ = {isa = PBXBuildFile; fileRef = FA68D8F51BC040B100589DE4 /* Applivery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA68D8FD1BC040B100589DE4 /* Applivery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA68D8F21BC040B000589DE4 /* Applivery.framework */; };
 		FA68D9021BC040B100589DE4 /* AppliveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA68D9011BC040B100589DE4 /* AppliveryTests.swift */; };
@@ -246,18 +249,21 @@
 		FA53DE361BC1950300DF2EB1 /* StartInteractorOutputMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = StartInteractorOutputMock.swift; path = Mocks/StartInteractorOutputMock.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA53DE3B1BC1B38900DF2EB1 /* StartInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartInteractorMock.swift; path = Mocks/StartInteractorMock.swift; sourceTree = "<group>"; };
 		FA54CAE321EB7EB400561DF5 /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIImageExtension.swift; path = Applivery/Utils/UIImageExtension.swift; sourceTree = "<group>"; };
+		FA54ED37224C3DF900170F86 /* LoginDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginDataManager.swift; path = Applivery/Data/LoginDataManager.swift; sourceTree = "<group>"; };
 		FA5EA63F1E6CB61500590120 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		FA5EA6401E6CB61500590120 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		FA5EA6451E6CB70C00590120 /* Cartfile.private */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile.private; sourceTree = "<group>"; };
 		FA5EA64B1E6CCB6600590120 /* AppliveryBehaviorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppliveryBehaviorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA5EA64F1E6CCB6600590120 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA662BF72241A10500478C38 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = User.swift; path = Applivery/Model/User.swift; sourceTree = "<group>"; };
+		FA662BF92241AC5800478C38 /* Configurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Configurator.swift; path = Applivery/SDKConfig/Configurator.swift; sourceTree = "<group>"; };
 		FA68D8F21BC040B000589DE4 /* Applivery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Applivery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA68D8F51BC040B100589DE4 /* Applivery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Applivery.h; sourceTree = "<group>"; };
 		FA68D8F71BC040B100589DE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA68D8FC1BC040B100589DE4 /* AppliveryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppliveryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA68D9011BC040B100589DE4 /* AppliveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AppliveryTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA68D9031BC040B100589DE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FA68D90E1BC046E300589DE4 /* Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = Applivery.swift; path = Applivery/Applivery.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FA68D90E1BC046E300589DE4 /* Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = Applivery.swift; path = Applivery/Applivery.swift; sourceTree = "<group>"; usesTabs = 0; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA73BF7C1C8B02E800619258 /* ScreenshotInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScreenshotInteractor.swift; path = Applivery/Interactors/ScreenshotInteractor.swift; sourceTree = "<group>"; };
 		FA73BF7F1C8B040D00619258 /* ImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageManager.swift; path = Applivery/Managers/ImageManager.swift; sourceTree = "<group>"; };
 		FA7F4CDC1EE7615100BA2F52 /* test_images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = test_images.xcassets; sourceTree = "<group>"; };
@@ -444,6 +450,7 @@
 			children = (
 				FAFA85751BCBDB26004E1974 /* GlobalConfig.swift */,
 				FA2B9BFF1DC298FD009F11C5 /* Constants */,
+				FA662BF92241AC5800478C38 /* Configurator.swift */,
 			);
 			name = Global;
 			sourceTree = "<group>";
@@ -568,6 +575,7 @@
 			children = (
 				FA53DE2F1BC18ECB00DF2EB1 /* ConfigDataManager.swift */,
 				FA3211D31C3EA11700668099 /* DownloadDataManager.swift */,
+				FA54ED37224C3DF900170F86 /* LoginDataManager.swift */,
 				FA3A69431BC2FCD300179176 /* Persisters */,
 				FA8D78141BC46037005741D8 /* Services */,
 			);
@@ -580,6 +588,7 @@
 				FA53DE321BC18F6D00DF2EB1 /* Config.swift */,
 				FAC3947D1C95D9FF00F14778 /* Feedback.swift */,
 				FACB9AC320535C4B0094499A /* AccessToken.swift */,
+				FA662BF72241A10500478C38 /* User.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -879,28 +888,28 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 1000;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Applivery S.L.";
 				TargetAttributes = {
 					FA5EA64A1E6CCB6600590120 = {
 						CreatedOnToolsVersion = 8.2.1;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 					FA68D8F11BC040B000589DE4 = {
 						CreatedOnToolsVersion = 7.0.1;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1020;
 					};
 					FA68D8FB1BC040B100589DE4 = {
 						CreatedOnToolsVersion = 7.0.1;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = FA68D8EC1BC040B000589DE4 /* Build configuration list for PBXProject "AppliverySDK" */;
 			compatibilityVersion = "Xcode 10.0";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -1008,11 +1017,13 @@
 				FA1569B51DBD313200C651D4 /* Wifi.swift in Sources */,
 				FAE9663021F4EA620062FE15 /* AppliveryNavigationController.swift in Sources */,
 				FA3AB8ED2055F09700B49D3A /* LoginManager.swift in Sources */,
+				FA662BF82241A10500478C38 /* User.swift in Sources */,
 				FA952FDA1C83904100C32DD0 /* FeedbackPresenter.swift in Sources */,
 				FA952FDC1C83909000C32DD0 /* FeedbackInteractor.swift in Sources */,
 				FACB9AC220535A720094499A /* LoginService.swift in Sources */,
 				FA2C455E1C4D228A00E72847 /* NSBundle+Applivery.swift in Sources */,
 				FA3A69401BC2FC1200179176 /* App.swift in Sources */,
+				FA662BFA2241AC5800478C38 /* Configurator.swift in Sources */,
 				FA2B9C021DC29935009F11C5 /* ErrorCodes.swift in Sources */,
 				FACB9AC620535E340094499A /* DateExtension.swift in Sources */,
 				FA952FD81C83901000C32DD0 /* FeedbackVC.swift in Sources */,
@@ -1041,6 +1052,7 @@
 				FACB9AC0205330E80094499A /* LoginInteractor.swift in Sources */,
 				FA53DE271BC188E200DF2EB1 /* StartInteractor.swift in Sources */,
 				FAFA857F1BCC3389004E1974 /* Response.swift in Sources */,
+				FA54ED38224C3DF900170F86 /* LoginDataManager.swift in Sources */,
 				FAFA857D1BCC2EE7004E1974 /* Request.swift in Sources */,
 				FA1569B71DBD465100C651D4 /* DiskStatus.swift in Sources */,
 				FA1569B31DBCFB7700C651D4 /* Device.swift in Sources */,
@@ -1155,7 +1167,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "AppliveryBehaviorTests/AppliveryBehaviorTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1180,7 +1192,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "AppliveryBehaviorTests/AppliveryBehaviorTests-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -1188,6 +1200,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1246,6 +1259,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1381,7 +1395,7 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_STYLE = debugging;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -1405,7 +1419,7 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_STYLE = debugging;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

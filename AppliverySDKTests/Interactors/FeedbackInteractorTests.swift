@@ -25,7 +25,9 @@ class FeedbackInteractorTests: XCTestCase {
 			configDataManager: ConfigDataManager(),
 			loginInteractor: LoginInteractor(
 				app: App(),
-				loginService: LoginService(),
+				loginDataManager: LoginDataManager(
+					loginService: LoginService()
+				),
 				globalConfig: GlobalConfig(),
 				sessionPersister: SessionPersister(
 					userDefaults: UserDefaultsMock())

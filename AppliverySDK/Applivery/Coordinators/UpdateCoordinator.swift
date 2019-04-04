@@ -29,21 +29,7 @@ class UpdateCoordinator: PUpdateCoordinator, UpdateInteractorOutput {
 	
 	init() {
 		self.app = App()
-		self.updateInteractor = UpdateInteractor(
-			output: nil,
-			configData: ConfigDataManager(),
-			downloadData: DownloadDataManager(),
-			app: App(),
-			loginInteractor: LoginInteractor(
-				app: App(),
-				loginService: LoginService(),
-				globalConfig: GlobalConfig.shared,
-				sessionPersister: SessionPersister(
-					userDefaults: UserDefaults.standard
-				)
-			),
-			globalConfig: GlobalConfig.shared
-		)
+		self.updateInteractor = Configurator.updateInteractor()
 		self.updateInteractor.output = self
 	}
 	
@@ -55,20 +41,7 @@ class UpdateCoordinator: PUpdateCoordinator, UpdateInteractorOutput {
 		
 		if let updateVC = UpdateVC.viewController() {
 			updateVC.presenter = UpdatePresenter(
-				updateInteractor: UpdateInteractor(
-					output: nil,
-					configData: ConfigDataManager(),
-					downloadData: DownloadDataManager(),
-					app: App(),
-					loginInteractor: LoginInteractor(
-						app: App(),
-						loginService: LoginService(),
-						globalConfig: GlobalConfig.shared,
-						sessionPersister: SessionPersister(
-							userDefaults: UserDefaults.standard
-						)
-					),
-					globalConfig: GlobalConfig.shared),
+				updateInteractor: Configurator.updateInteractor(),
 				view: updateVC
 			)
 			updateVC.presenter.updateInteractor.output = updateVC.presenter

@@ -14,7 +14,7 @@ class Request {
 	var endpoint: String
 	var method: String
 	var urlParams: [String: String]
-	var bodyParams: [String: Any]
+	var bodyParams: [String: Any?]
 
 	private var headers: [String: String]?
 	private var request: URLRequest?
@@ -44,12 +44,14 @@ class Request {
 
 
 	// MARK: Private Helpers
+	
 	private func buildRequest() {
 		guard let url = self.buildURL() else { return logWarn("Could not build the URL") }
 		self.request = URLRequest(url: url)
 		self.request?.httpMethod = self.method
 		if self.method != "GET" {
-			self.request?.httpBody = JSON(from: self.bodyParams).toData()
+			let body = self.bodyParams.filter { $0.value != nil }.mapValues { $0 }
+			self.request?.httpBody = JSON(from: body).toData()
 		}
 		self.setHeaders()
 	}
@@ -68,14 +70,17 @@ class Request {
 
 	private func setHeaders() {
 		let version = GlobalConfig.SDKVersion
-		let apiKey = GlobalConfig.shared.apiKey
-		let accessToken = GlobalConfig.shared.accessToken?.token ?? GlobalConfig.shared.apiKey
+		let appToken = "Bearer \(GlobalConfig.shared.appToken)"
 		
 		self.request?.setValue("application/json", forHTTPHeaderField: "Content-Type")
-		self.request?.setValue(accessToken, forHTTPHeaderField: "Authorization")
-		self.request?.setValue(apiKey, forHTTPHeaderField: "x_account_token")
+		self.request?.setValue(appToken, forHTTPHeaderField: "Authorization")
 		self.request?.setValue(App().getLanguage(), forHTTPHeaderField: "Accept-Language")
-		self.request?.setValue("IOS_\(version)", forHTTPHeaderField: "x_sdk_version")
+		self.request?.setValue("IOS_\(version)", forHTTPHeaderField: "x-sdk-version")
+		self.request?.setValue(App().getVersionName(), forHTTPHeaderField: "x-app-version")
+		
+		if let authToken = GlobalConfig.shared.accessToken?.token {
+			self.request?.setValue(authToken, forHTTPHeaderField: "x-sdk-auth-token")
+		}
 	}
 
 
@@ -89,8 +94,8 @@ class Request {
 		log("******** REQUEST ********")
 		log(" - URL:\t" + url)
 		log(" - METHOD:\t" + (self.request?.httpMethod ?? "INVALID REQUEST"))
-		self.logBody()
 		self.logHeaders()
+		self.logBody()
 		log("*************************\n")
 	}
 

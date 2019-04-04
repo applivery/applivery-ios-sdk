@@ -1,7 +1,5 @@
 {
 	"status": false,
-	"error": {
-		"msg": "Error msg",
-		"code": 500
-	}
+	"code": 500,
+	"message": "Error msg"
 }

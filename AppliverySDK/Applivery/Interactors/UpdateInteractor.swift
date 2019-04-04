@@ -60,7 +60,7 @@ struct UpdateInteractor: PUpdateInteractor {
 			self.output?.downloadDidFail(literal(.errorUnexpected) ?? localize("Current config is nil")); return
 		}
 		
-		if config.authUpdate {
+		if config.forceAuth {
 			self.loginInteractor.requestAuthorization(
 				with: config,
 				loginHandler: { self.download(with: config)},

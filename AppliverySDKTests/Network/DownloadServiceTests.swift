@@ -36,7 +36,7 @@ class DownloadServiceTests: XCTestCase {
 		self.downloadService.fetchDownloadToken(with: "test_id") { result in
 			completionCalled.fulfill()
 			
-			XCTAssert(self.downloadService.request?.endpoint == "/api/builds/test_id/token")
+			XCTAssert(self.downloadService.request?.endpoint == "/v1/build/test_id/downloadToken")
 			XCTAssert(result == Result.success("test_token"), "result: \(result)")
 		}
 		
@@ -49,7 +49,7 @@ class DownloadServiceTests: XCTestCase {
 		self.downloadService.fetchDownloadToken(with: "test_id") { result in
 			completionCalled.fulfill()
 			
-			XCTAssert(self.downloadService.request?.endpoint == "/api/builds/test_id/token")
+			XCTAssert(self.downloadService.request?.endpoint == "/v1/build/test_id/downloadToken")
 			XCTAssert(result == Result.error(NSError.unexpectedError(debugMessage: "Error trying to parse token", code: ErrorCodes.JsonParse)), "result: \(result)")
 		}
 		
@@ -62,7 +62,7 @@ class DownloadServiceTests: XCTestCase {
 		self.downloadService.fetchDownloadToken(with: "test_id") { result in
 			completionCalled.fulfill()
 			
-			XCTAssert(self.downloadService.request?.endpoint == "/api/builds/test_id/token")
+			XCTAssert(self.downloadService.request?.endpoint == "/v1/build/test_id/downloadToken")
 			XCTAssert(result == Result.error(NSError.appliveryError(nil, debugMessage: "Error msg", code: 500)), "result: \(result)")
 		}
 		
@@ -73,19 +73,19 @@ class DownloadServiceTests: XCTestCase {
 	// MARK: - Private helpers
 	
 	private func stubTokenOK() {
-		_ = stub(condition: isPath("/api/builds/test_id/token")) { _ in
+		_ = stub(condition: isPath("/v1/build/test_id/downloadToken")) { _ in
 			return StubResponse.stubResponse(with: "request_token_ok.json")
 		}
 	}
 	
 	private func stubSuccessNoToken() {
-		_ = stub(condition: isPath("/api/builds/test_id/token")) { _ in
+		_ = stub(condition: isPath("/v1/build/test_id/downloadToken")) { _ in
 			return StubResponse.stubResponse(with: "request_token_ok_no_token.json")
 		}
 	}
 	
 	private func stubKO() {
-		_ = stub(condition: isPath("/api/builds/test_id/token")) { _ in
+		_ = stub(condition: isPath("/v1/build/test_id/downloadToken")) { _ in
 			return StubResponse.stubResponse(with: "ko.json")
 		}
 	}

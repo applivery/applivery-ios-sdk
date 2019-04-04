@@ -38,26 +38,9 @@ class FeedbackCoordinator: PFeedbackCoordinator {
 		self.feedbackVC = feedbackVC
 		feedbackVC.presenter = FeedbackPresenter(
 			view: self.feedbackVC,
-			feedbackInteractor: FeedbackInteractor(
-				service: FeedbackService(
-					app: App(),
-					device: Device(),
-					config: GlobalConfig.shared
-				),
-				configDataManager: ConfigDataManager(),
-				loginInteractor: LoginInteractor(
-					app: App(),
-					loginService: LoginService(),
-					globalConfig: GlobalConfig.shared,
-					sessionPersister: SessionPersister(
-						userDefaults: UserDefaults.standard
-					)
-				)
-			),
+			feedbackInteractor: Configurator.feedbackInteractor(),
 			feedbackCoordinator: self,
-			screenshotInteractor: ScreenshotInteractor(
-				imageManager: ImageManager()
-			)
+			screenshotInteractor: Configurator.screenshotInteractor()
 		)
 		
 		self.app.presentModal(feedbackVC, animated: false)

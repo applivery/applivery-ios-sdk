@@ -12,32 +12,43 @@ import Foundation
 class Environments {
 
 	static let HostKey = "APPLIVERY_HOST"
+	static let HostDownloadKey = "APPLIVERY_HOST_DOWNLOAD"
 
 	class func host() -> String? {
-		guard let host = ProcessInfo.processInfo.environment["AppliveryHost"] else {
-			if let host = self.readHost() {
+		return self.host(with: self.HostKey)
+	}
+	
+	class func hostDownload() -> String? {
+		return self.host(with: self.HostDownloadKey)
+	}
+	
+	
+	// MARK: - Private Helpers
+	
+	private class func host(with key: String) -> String? {
+		guard let host = ProcessInfo.processInfo.environment[key] else {
+			if let host = self.readHost(from: key) {
 				return host
 			}
-
+			
 			return nil
 		}
-
-		self.writeHost(host)
-
+		
+		self.write(host: host, to: key)
+		
 		return host
 	}
 
-
-	fileprivate class func writeHost(_ host: String) {
+	private class func write(host: String, to key: String) {
 		let userDefaults = Foundation.UserDefaults.standard
-		userDefaults.setValue(host, forKey: Environments.HostKey)
+		userDefaults.setValue(host, forKey: key)
 
 		userDefaults.synchronize()
 	}
 
-	fileprivate class func readHost() -> String? {
+	private class func readHost(from key: String) -> String? {
 		let userDefaults = Foundation.UserDefaults.standard
-		let host = userDefaults.value(forKey: Environments.HostKey) as? String
+		let host = userDefaults.value(forKey: key) as? String
 
 		return host
 	}
