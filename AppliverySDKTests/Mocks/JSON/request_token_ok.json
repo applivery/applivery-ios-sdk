@@ -1,6 +1,6 @@
 {
 	"status" : true,
-	"response" : {
+	"data" : {
 		"token" : "test_token"
 	}
 }

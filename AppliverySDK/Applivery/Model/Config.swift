@@ -20,8 +20,7 @@ class Config {
 	var otaUpdate = false
 	var lastVersion: String?
 	var otaUpdateMessage: String?
-	var authUpdate = false
-	var authFeedback = false
+	var forceAuth = false
 
 
 	// MARK: - Initializers
@@ -40,8 +39,7 @@ class Config {
 		self.otaUpdate = otaUpdate
 		self.forceUpdateMessage = json["sdk.ios.mustUpdateMsg"]?.toString()
 		self.otaUpdateMessage	= json["sdk.ios.updateMsg"]?.toString()
-		self.authUpdate = json["sdk.ios.authUpdate"]?.toBool() ?? false
-		self.authFeedback = json["sdk.ios.authFeedback"]?.toBool() ?? false
+		self.forceAuth = json["sdk.ios.forceAuth"]?.toBool() ?? false
 		self.minVersion = self.getParam("sdk.ios.minVersion", json: json, shouldExists: self.forceUpdate)
 		self.lastVersion = self.getParam("sdk.ios.lastBuildVersion", json: json, shouldExists: self.otaUpdate)
 		self.lastBuildId = self.getParam("sdk.ios.lastBuildId", json: json, shouldExists: self.otaUpdate)
@@ -74,6 +72,7 @@ func == (left: Config, right: Config) -> Bool {
 	areEquals = areEquals && left.forceUpdateMessage == right.forceUpdateMessage
 	areEquals = areEquals && left.otaUpdate == right.otaUpdate
 	areEquals = areEquals && left.otaUpdateMessage == right.otaUpdateMessage
+	areEquals = areEquals && left.forceAuth == right.forceAuth
 
 	return areEquals
 }

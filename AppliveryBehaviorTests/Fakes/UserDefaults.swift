@@ -21,14 +21,13 @@ class UserDefaultFakes {
 			kOtaUpdateKey: true,
 			kLastBuildVersion: "35",
 			kOtaUpdateMessageKey: "There is a new version available for download! Do you want to update to the latest version?",
-			kAuthUpdateKey: false,
-			kAuthFeedbackKey: false
+			kForceAuth: false
 		]
 		
 		return dictionary
 	}
 	
-	class func storedConfig(lastBuildID: String? = nil, authUpdate: Bool = false, authFeedback: Bool = false, accessToken: AccessToken? = nil) -> [String: Any] {
+	class func storedConfig(lastBuildID: String? = nil, forceAuth: Bool = false, accessToken: AccessToken? = nil) -> [String: Any] {
 		let dictionary: [String: Any] = [
 			kMinVersionKey: "15",
 			kForceUpdateKey: true,
@@ -37,8 +36,7 @@ class UserDefaultFakes {
 			kOtaUpdateKey: true,
 			kLastBuildVersion: "50",
 			kOtaUpdateMessageKey: "There is a new version available for download! Do you want to update to the latest version?",
-			kAuthUpdateKey: authUpdate,
-			kAuthFeedbackKey: authFeedback,
+			kForceAuth: forceAuth,
 			kAccessTokenKey: accessToken as Any
 		]
 		

@@ -9,13 +9,12 @@
 import Foundation
 
 struct AccessToken: Codable {
-	let token: String
-	let expirationDate: Date
+	let token: String?
 }
 
 extension AccessToken: Equatable {
 	static func == (lhs: AccessToken, rhs: AccessToken) -> Bool {
-		return lhs.token == rhs.token && lhs.expirationDate == rhs.expirationDate
+		return lhs.token == rhs.token
 	}
 }
 
@@ -23,8 +22,7 @@ extension AccessToken: Equatable {
 extension AccessToken {
 	static func parse(from json: JSON) -> AccessToken {
 		return AccessToken(
-			token: json["accessToken"]?.toString() ?? "",
-			expirationDate: json["expirationDate"]?.toDate() ?? Date.today()
+			token: json["bearer"]?.toString()
 		)
 	}
 }

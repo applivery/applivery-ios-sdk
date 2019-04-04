@@ -34,8 +34,8 @@ class DownloadDataManager: PDownloadDataManager {
 			switch response {
 
 			case .success(let token):
-				let itmsService = "itms-services://?action=download-manifest&url="
-				completionHandler(.success(url: "\(itmsService)\(GlobalConfig.Host)/download/\(lastBuildId)/manifest/\(token)"))
+				let downloadURL = "itms-services://?action=download-manifest&url=\(GlobalConfig.HostDownload)/v1/download/\(token)/manifest.plist"
+				completionHandler(.success(url: downloadURL))
 
 			case .error(let error):
 				completionHandler(.error(message: error.message()))

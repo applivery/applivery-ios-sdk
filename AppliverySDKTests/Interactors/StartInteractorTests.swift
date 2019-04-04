@@ -33,7 +33,7 @@ class StartInteractorTests: XCTestCase {
 			eventDetector: self.eventDetectorMock
 		)
 		self.startInteractor.output = self.startInteractorOutputMock
-		self.globalConfigMock.apiKey = "APIKEY TEST"
+		self.globalConfigMock.appToken = "appToken TEST"
 		self.globalConfigMock.appId = "APPID TEST"
     }
 

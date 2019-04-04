@@ -34,7 +34,9 @@ class UpdateInteractorTests: XCTestCase {
 			app: self.appMock,
 			loginInteractor: LoginInteractor(
 				app: self.appMock,
-				loginService: LoginService(),
+				loginDataManager: LoginDataManager(
+					loginService: LoginService()
+				),
 				globalConfig: GlobalConfig(),
 				sessionPersister: SessionPersister(
 					userDefaults: UserDefaults()

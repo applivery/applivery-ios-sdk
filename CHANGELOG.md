@@ -1,5 +1,13 @@
 # Change Log
 
+## [v3.0](https://github.com/applivery/applivery-ios-sdk/releases/tag/v3.0)
+
+### New
+* SDK works with the new Applivery's API. (www.applivery.io)
+* Support for custom login using `bindUser()` function.
+
+---
+
 ## [v2.7.2](https://github.com/applivery/applivery-ios-sdk/releases/tag/v2.7.2)
 
 ### Fixed
