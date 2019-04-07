@@ -52,15 +52,9 @@ First of all, you should create an account on [Applivery.io](https://dashboard.a
 
 ### Get your credentials
 
-**SDK API KEY**: that identifies and grants access to your account in order to use the SDK.
+**API TOKEN**: that identifies and grants access to your account in order to use the SDK.
 
-You can get your SDK API KEY in the `Developers` section (left side menu).
-
-![Developers section](https://raw.githubusercontent.com/applivery/applivery-ios-sdk/master/documentation/developers_section.png)
-
-**APP ID**: Is your application identifier. You can find it in the App details, going to `Applications` -> Click desired App -> (i) Box
-
-![APP ID](https://raw.githubusercontent.com/applivery/applivery-ios-sdk/master/documentation/application_id.png)
+You can get your API TOKEN in your `App -> Settings -> Integrations` section.
 
 
 ## SDK Installation
@@ -78,6 +72,7 @@ Add the following line to your's Cartfile
 ```
 github "applivery/applivery-ios-sdk" ~> 3.0
 ```
+
 Run `carthage update` and then drag the built framework into your project. 
 
 More info about Carthage [here](https://github.com/Carthage/Carthage#installing-carthage).
@@ -103,6 +98,7 @@ target '<Your Target Name>' do
   pod 'Applivery', '~> 3.0'
 end
 ```
+
 and then run `pod install`. More info about CocoaPods [here](https://cocoapods.org)
 
 
@@ -200,7 +196,7 @@ applivery.logLevel = LogLevelInfo;
 ```
 
 Possible values are:
-	
+
 - **None**: Default value. No logs will be shown. Recommended for production environments.
 - **Error**: Only warnings and errors. Recommended for develop environments.
 - **Info**: Errors and relevant information. Recommended for test integrating Applivery.
@@ -222,28 +218,51 @@ applivery.disableFeedback()
 [applivery disableFeedback];
 ```
 
+### Bind User
+
+Programatically login a user in Applivery. If your app has a custom login and you need to track the user in the platform. Used for know who has downloaded a build or who sent a feedback report.
+
+```swift
+applivery.bindUser(
+    email: "user@email.com",  // Required
+    firstName: "John",        // Optional
+    lastName: "Dow",          // Optional
+    tags: [ios, testers]      // Optional
+)
+```
+
+### Unbind User
+
+Logout a previously binded user
+
+```swift
+applivery.unbindUser()
+```
+
+
 ### Customize SDK's colors
 
 You can create a new instance of `Palette` class and assign it to `Applivery.shared.palette`
-	
+
 ```swift
 Applivery.shared.palette = Palette(
-	primaryColor: .orange,
-	secondaryColor: .white,
-	primaryFontColor: .white,
-	secondaryFontColor: .black,
-	screenshotBrushColor: .green
+    primaryColor: .orange,
+    secondaryColor: .white,
+    primaryFontColor: .white,
+    secondaryFontColor: .black,
+    screenshotBrushColor: .green
 )
 ```
-	
+
+
 The SDK has Applivery's colors by default so, if you only need to change the primary color, yo can do this:
-	
+
 ```swift
 Applivery.shared.palette = Palette(
-	primaryColor: .orange,
+    primaryColor: .orange,
 )
 ```
-	
+
 Or even directly change the property
 
 ```swift
@@ -262,58 +281,58 @@ Applivery.shared.palette.primaryColor = .orange
 ### Customize string literals
 
 You can customize the SDK string literals to fit your app. 
-	
+
 #### Examples
-	
+
 ```swift
 Applivery.shared.textLiterals = TextLiterals(
-	appName: "Applivery",
-	alertButtonCancel: "Cancel",
-	alertButtonRetry: "Retry",
-	alertButtonOK: "OK",
-	errorUnexpected: "Unexpected error",
-	errorInvalidCredentials: "Invalid credentials",
-	errorDownloadURL: "Couldn't start download. Invalid url",
-	otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
-	alertButtonLater: "Later",
-	alertButtonUpdate: "Update",
-	forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it",
-	buttonForceUpdate: "Update now",
-	feedbackButtonClose: "Close",
-	feedbackButtonAdd: "Add Feedback",
-	feedbackButtonSend: "Send Feedback",
-	feedbackSelectType: "Select type",
-	feedbackTypeBug: "Bug",
-	feedbackTypeFeedback: "Feedback",
-	feedbackMessagePlaceholder: "Add a message",
-	feedbackAttach: "Attach Screenshot",
-	loginInputUser: "user",
-	loginInputPassword: "password",
-	loginButton: "Login",
-	loginMessage: "Login is required!",
-	loginInvalidCredentials: "Wrong username or password, please, try again",
-	loginSessionExpired: "Your session has expired. Please, log in again"
+    appName: "Applivery",
+    alertButtonCancel: "Cancel",
+    alertButtonRetry: "Retry",
+    alertButtonOK: "OK",
+    errorUnexpected: "Unexpected error",
+    errorInvalidCredentials: "Invalid credentials",
+    errorDownloadURL: "Couldn't start download. Invalid url",
+    otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
+    alertButtonLater: "Later",
+    alertButtonUpdate: "Update",
+    forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it",
+    buttonForceUpdate: "Update now",
+    feedbackButtonClose: "Close",
+    feedbackButtonAdd: "Add Feedback",
+    feedbackButtonSend: "Send Feedback",
+    feedbackSelectType: "Select type",
+    feedbackTypeBug: "Bug",
+    feedbackTypeFeedback: "Feedback",
+    feedbackMessagePlaceholder: "Add a message",
+    feedbackAttach: "Attach Screenshot",
+    loginInputUser: "user",
+    loginInputPassword: "password",
+    loginButton: "Login",
+    loginMessage: "Login is required!",
+    loginInvalidCredentials: "Wrong username or password, please, try again",
+    loginSessionExpired: "Your session has expired. Please, log in again"
 )
 ```
-	
+
 The SDK has literals by default so, if you only need to change the update messages, yo can do this:
-	
+
 ```swift
 Applivery.shared.textLiterals = Palette(
-	appName: "MyApp",
-	otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
-	forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it"
+    appName: "MyApp",
+    otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
+    forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it"
 )
 ```
-	
+
 Or even directly change the property
-	
+
 ```swift
 Applivery.shared.textLiterals.appName: "MyApp"
 Applivery.shared.textLiterals.otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?"
 Applivery.shared.textLiterals.forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it"
 ```
-	
+
 _**Important**_: The default literals are only in english. Consider to set localized strings to fully support all languages your app does.
 
 
