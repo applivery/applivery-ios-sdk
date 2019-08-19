@@ -1,4 +1,4 @@
-![Applivery Logo](https://www.applivery.com/img/icons/applivery-header-1200x627px.png)
+![Applivery Logo](https://www.applivery.com/wp-content/uploads/2019/06/applivery-og.png)
 
 ![Version](https://img.shields.io/badge/version-3.0-blue.svg)
 ![Language](https://img.shields.io/badge/Language-Swift-orange.svg)
