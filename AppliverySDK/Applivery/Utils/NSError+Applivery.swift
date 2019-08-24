@@ -39,7 +39,7 @@ extension NSError {
 
 	func message() -> String {
 		guard let message = self.userInfo[GlobalConfig.AppliveryErrorKey] as? String else {
-			return literal(.errorUnexpected) ?? localize("error_unexpected")
+			return literal(.errorUnexpected) ?? kLocaleErrorUnexpected
 		}
 
 		return message
