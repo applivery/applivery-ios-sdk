@@ -108,6 +108,18 @@ class StartSpecs: QuickSpec {
 				}
 			}
 			
+			context("when server returns error 5004") {
+				beforeEach {
+					self.interactorOutputMock = StartInteractorOutputMock()
+					self.applivery.startInteractor.output = self.interactorOutputMock
+					StubResponse.mockResponse(for: "/v1/app", with: "error_5004.json")
+					self.applivery.start(token: self.appToken, appStoreRelease: false)
+				}
+				it("should return credentials error") {
+					expect(self.interactorOutputMock.spyCredentialError.called).to(beTrue())
+				}
+			}
+			
 			context("when api ota version is greater than app version") {
 				beforeEach {
 					self.appMock.stubVersion = "34"

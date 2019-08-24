@@ -14,7 +14,7 @@ class AppMock: AppProtocol {
 
 	// Inputs
 	var stubBundleID: String!
-	var stubVersion: String!
+	var stubVersion: String = "NO VERSION"
 	var stubVersionName: String!
 	var stubOpenUrlResult = false
 

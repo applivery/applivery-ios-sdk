@@ -101,6 +101,7 @@
 		FA952FDC1C83909000C32DD0 /* FeedbackInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA952FDB1C83909000C32DD0 /* FeedbackInteractor.swift */; };
 		FA952FDE1C83929100C32DD0 /* Storyboard+Applivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA952FDD1C83929100C32DD0 /* Storyboard+Applivery.swift */; };
 		FA9EE9201E9984A500EEC056 /* request_token_ok.json in Resources */ = {isa = PBXBuildFile; fileRef = FA2B9C0A1DC2AFEE009F11C5 /* request_token_ok.json */; };
+		FAA043EA2311B2E600F8C42B /* error_5004.json in Resources */ = {isa = PBXBuildFile; fileRef = FAA043E92311B2E600F8C42B /* error_5004.json */; };
 		FAA50D4C1C7D21D300CE7B65 /* ResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA50D4B1C7D21D300CE7B65 /* ResponseTests.swift */; };
 		FAA50D4E1C7D232500CE7B65 /* NSError+Applivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA50D4D1C7D232500CE7B65 /* NSError+Applivery.swift */; };
 		FAAA50E81E917CFC0004FBF8 /* ko.json in Resources */ = {isa = PBXBuildFile; fileRef = FA0883DB1DBC3C03008A553A /* ko.json */; };
@@ -277,6 +278,7 @@
 		FA952FD91C83904100C32DD0 /* FeedbackPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackPresenter.swift; path = Applivery/Views/Feedback/FeedbackPresenter.swift; sourceTree = "<group>"; };
 		FA952FDB1C83909000C32DD0 /* FeedbackInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackInteractor.swift; path = Applivery/Interactors/FeedbackInteractor.swift; sourceTree = "<group>"; };
 		FA952FDD1C83929100C32DD0 /* Storyboard+Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = "Storyboard+Applivery.swift"; path = "Applivery/Utils/Storyboard+Applivery.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FAA043E92311B2E600F8C42B /* error_5004.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = error_5004.json; path = Mocks/JSON/error_5004.json; sourceTree = "<group>"; };
 		FAA50D4B1C7D21D300CE7B65 /* ResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = ResponseTests.swift; path = Network/ResponseTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAA50D4D1C7D232500CE7B65 /* NSError+Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = "NSError+Applivery.swift"; path = "Applivery/Utils/NSError+Applivery.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAAAE1211E8040010065E6AC /* Palette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Palette.swift; path = Applivery/Model/Palette.swift; sourceTree = "<group>"; };
@@ -402,8 +404,8 @@
 		FA201F7A1E9065BF0090128F /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				FA7F4CD71EE760DD00BA2F52 /* Images */,
 				FA201F7B1E9065C80090128F /* JSON */,
+				FA7F4CD71EE760DD00BA2F52 /* Images */,
 				FA2EAC851E915EDE00CC9BBF /* Fakes */,
 			);
 			name = Mocks;
@@ -415,6 +417,7 @@
 				FADA301B1E90677500DAC96E /* config_success.json */,
 				FA3AB8E92055AE3B00B49D3A /* login_success.json */,
 				FA3AB8EE2055FB4700B49D3A /* invalid_credentials.json */,
+				FAA043E92311B2E600F8C42B /* error_5004.json */,
 			);
 			name = JSON;
 			sourceTree = "<group>";
@@ -933,6 +936,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA3AB8EF2055FB4700B49D3A /* invalid_credentials.json in Resources */,
+				FAA043EA2311B2E600F8C42B /* error_5004.json in Resources */,
 				FAB355D01EE8A21E000F48F5 /* feedback_ok.json in Resources */,
 				FADA301C1E90677500DAC96E /* config_success.json in Resources */,
 				FA7F4CDE1EE763A600BA2F52 /* test_images.xcassets in Resources */,
