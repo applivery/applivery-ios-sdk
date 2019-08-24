@@ -35,10 +35,10 @@ struct UpdateInteractor: PUpdateInteractor {
 	func forceUpdateMessage() -> String {
 		let (currentConfig, _) = self.configData.getCurrentConfig()
 		
-		var message = literal(.forceUpdateMessage) ?? currentConfig?.forceUpdateMessage ?? localize("force_update_message")
+		var message = literal(.forceUpdateMessage) ?? currentConfig?.forceUpdateMessage ?? kLocaleForceUpdateMessage
 		
 		if message == "" {
-			message = localize("force_update_message")
+			message = kLocaleForceUpdateMessage
 		}
 		
 		return message
@@ -46,10 +46,10 @@ struct UpdateInteractor: PUpdateInteractor {
 	
 	func otaUpdateMessage() -> String {
 		let (currentConfig, _) = self.configData.getCurrentConfig()
-		var message = literal(.otaUpdateMessage) ?? currentConfig?.otaUpdateMessage ?? localize("ota_update_message")
+		var message = literal(.otaUpdateMessage) ?? currentConfig?.otaUpdateMessage ?? kLocaleOtaUpdateMessage
 		
 		if message == "" {
-			message = localize("ota_update_message")
+			message = kLocaleOtaUpdateMessage
 		}
 		
 		return message

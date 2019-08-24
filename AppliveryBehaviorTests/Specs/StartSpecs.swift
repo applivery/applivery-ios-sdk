@@ -105,6 +105,7 @@ class StartSpecs: QuickSpec {
 				}
 				it("should return credentials error") {
 					expect(self.interactorOutputMock.spyCredentialError.called).to(beTrue())
+					expect(self.interactorOutputMock.spyCredentialError.message).toEventually(equal(kLocaleErrorEmptyCredentials))
 				}
 			}
 			
@@ -115,8 +116,9 @@ class StartSpecs: QuickSpec {
 					StubResponse.mockResponse(for: "/v1/app", with: "error_5004.json")
 					self.applivery.start(token: self.appToken, appStoreRelease: false)
 				}
-				it("should return credentials error") {
-					expect(self.interactorOutputMock.spyCredentialError.called).to(beTrue())
+				it("should return subscription plan error") {
+					expect(self.interactorOutputMock.spyCredentialError.called).toEventually(beTrue())
+					expect(self.interactorOutputMock.spyCredentialError.message).toEventually(equal(kLocaleErrorSubscriptionPlan))
 				}
 			}
 			
