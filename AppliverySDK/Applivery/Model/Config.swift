@@ -12,7 +12,7 @@ enum ConfigError: Error {
 	case parseJson
 }
 
-class Config {
+class Config: Equatable {
 	var minVersion: String?
 	var forceUpdate = false
 	var lastBuildId: String?

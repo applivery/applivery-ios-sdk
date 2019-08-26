@@ -47,7 +47,7 @@ class StartInteractor {
         logInfo("Applivery is starting... ")
         logInfo("SDK Version: \(GlobalConfig.SDKVersion)")
         guard !self.globalConfig.appToken.isEmpty
-            else { return self.output.credentialError(message: "You must set the app token") }
+            else { return self.output.credentialError(message: kLocaleErrorEmptyCredentials) }
         
         self.eventDetector.listenEvent(self.output.feedbackEvent)
         
@@ -72,11 +72,12 @@ class StartInteractor {
         self.globalConfig.accessToken = self.sessionPersister.loadAccessToken()
         self.configDataManager.updateConfig { response in
             switch response {
-            case .success(let config, let version):
-                if !self.checkForceUpdate(config, version: version) {
-                    self.checkOtaUpdate(config, version: version)
+            case .success(let configResponse):
+                if !self.checkForceUpdate(configResponse.config, version: configResponse.version) {
+                    self.checkOtaUpdate(configResponse.config, version: configResponse.version)
                 }
-            case .error:
+            case .error(let error):
+                self.output.credentialError(message: error.message())
                 let currentConfig = self.configDataManager.getCurrentConfig()
                 if !self.checkForceUpdate(currentConfig.config, version: currentConfig.version) {
                     self.checkOtaUpdate(currentConfig.config, version: currentConfig.version)
