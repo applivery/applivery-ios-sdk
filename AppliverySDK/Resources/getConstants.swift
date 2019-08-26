@@ -61,6 +61,7 @@ for key in sortedKeys {
 content += """
 
 // swiftlint:enable identifier_name
+
 """
 
 // Save
