@@ -19,9 +19,9 @@ struct ErrorManager {
 	}
 	
 	func error(from json: JSON?) -> NSError {
-		let code = json?["code"]?.toInt() ?? -1
+		let code = json?["error.code"]?.toInt() ?? -1
 		let message = self.message(from: code)
-		let debugMessage = json?["message"]?.toString() ?? self.kUnexpectedErrorJson
+		let debugMessage = json?["error.message"]?.toString() ?? self.kUnexpectedErrorJson
 		
 		return NSError.appliveryError(message, debugMessage: debugMessage, code: code)
 	}

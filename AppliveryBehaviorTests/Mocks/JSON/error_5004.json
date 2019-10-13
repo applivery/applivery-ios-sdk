@@ -1,4 +1,7 @@
 {
-	"status": false,
-	"code": 5004
+  "status" : false,
+  "error" : {
+    "message" : "Your billing plan is not allowed to use the native SDK",
+    "code" : 5004
+  }
 }
