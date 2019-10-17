@@ -28,7 +28,7 @@ extension NSError {
 			userInfo[GlobalConfig.AppliveryErrorDebugKey] = debugMessage
 		}
 
-		let error = NSError (
+		let error = NSError(
 			domain: GlobalConfig.ErrorDomain,
 			code: code,
 			userInfo: userInfo

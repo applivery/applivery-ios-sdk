@@ -45,7 +45,7 @@ class StartInteractor {
     
     func start() {
         logInfo("Applivery is starting... ")
-        logInfo("SDK Version: \(GlobalConfig.SDKVersion)")
+        logInfo("SDK Version: \(GlobalConfig.shared.app.getSDKVersion())")
         guard !self.globalConfig.appToken.isEmpty
             else { return self.output.credentialError(message: kLocaleErrorEmptyCredentials) }
         

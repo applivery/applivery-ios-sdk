@@ -69,14 +69,23 @@ class Request {
 	}
 
 	private func setHeaders() {
-		let version = GlobalConfig.SDKVersion
 		let appToken = "Bearer \(GlobalConfig.shared.appToken)"
+		let app = GlobalConfig.shared.app
+		let device = GlobalConfig.shared.device
+		let version = app.getSDKVersion()
 		
 		self.request?.setValue("application/json", forHTTPHeaderField: "Content-Type")
 		self.request?.setValue(appToken, forHTTPHeaderField: "Authorization")
-		self.request?.setValue(App().getLanguage(), forHTTPHeaderField: "Accept-Language")
+		self.request?.setValue(app.getLanguage(), forHTTPHeaderField: "Accept-Language")
 		self.request?.setValue("IOS_\(version)", forHTTPHeaderField: "x-sdk-version")
-		self.request?.setValue(App().getVersionName(), forHTTPHeaderField: "x-app-version")
+		self.request?.setValue(app.getVersionName(), forHTTPHeaderField: "x-app-version")
+		self.request?.setValue(device.systemVersion(), forHTTPHeaderField: "x-os-version")
+		self.request?.setValue(device.systemName(), forHTTPHeaderField: "x-os-name")
+		self.request?.setValue("Apple", forHTTPHeaderField: "x-device-vendor")
+		self.request?.setValue(device.model(), forHTTPHeaderField: "x-device-model")
+		self.request?.setValue(device.type(), forHTTPHeaderField: "x-device-type")
+		self.request?.setValue(app.bundleId(), forHTTPHeaderField: "x-package-name")
+		self.request?.setValue(app.getVersion(), forHTTPHeaderField: "x-package-version")
 		
 		if let authToken = GlobalConfig.shared.accessToken?.token {
 			self.request?.setValue(authToken, forHTTPHeaderField: "x-sdk-auth-token")
