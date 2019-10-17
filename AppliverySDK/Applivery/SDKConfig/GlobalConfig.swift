@@ -11,9 +11,8 @@ import Foundation
 class GlobalConfig {
 
 	static var shared = GlobalConfig()
-
+	
 	// MARK: Global Constants
-	static let SDKVersion             = App().getSDKVersion()
 	static let Host                   = "https://" + (Environments.host() ?? "sdk-api.applivery.io")
 	static let HostDownload           = "https://" + (Environments.hostDownload() ?? "download-api.applivery.io")
 	static let ErrorDomain            = "com.applivery.network"
@@ -21,12 +20,14 @@ class GlobalConfig {
 	static let AppliveryErrorDebugKey = "AppliveryDebugMessage"
 
 	// MARK: Global Variables
-	var appToken: String   = ""
-	var appId: String      = ""
-	var appStoreRelease    = false
-	var feedbackEnabled    = true
-	var logLevel: LogLevel = .info
-	var palette            = Palette()
-	var textLiterals       = TextLiterals()
+	var appToken: String       = ""
+	var appId: String          = ""
+	var appStoreRelease        = false
+	var feedbackEnabled        = true
+	var logLevel: LogLevel     = .info
+	var palette                = Palette()
+	var textLiterals           = TextLiterals()
+	var app: AppProtocol 	   = App()
+	var device: DeviceProtocol = Device()
 	var accessToken: AccessToken?
 }

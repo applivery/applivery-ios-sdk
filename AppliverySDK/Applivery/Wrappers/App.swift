@@ -13,6 +13,7 @@ import Foundation
 
 protocol AppProtocol {
 	func bundleId() -> String
+	func getSDKVersion() -> String
 	func getVersion() -> String
 	func getVersionName() -> String
 	func getLanguage() -> String

@@ -15,19 +15,19 @@ class DeviceMock: DeviceProtocol {
 	var enableBatteryMonitoringCalled = false
 	var disableBatteryMonitoringCalled = false
 	
-	var fakeModel: String!
-	var fakeType: String!
-	var fakeSystemVersion: String!
-	var fakeVendorId: String!
+	var fakeModel: String = "NO VALUE SET"
+	var fakeType: String = "NO VALUE SET"
+	var fakeSystemVersion: String = "NO VALUE SET"
+	var fakeSystemName: String = "NO VALUE SET"
+	var fakeVendorId: String = "NO VALUE SET"
 	var fakeBatteryLevel: Int!
 	var fakeBatteryState: Bool?
-	var fakeNetworkType: String!
-	var fakeResolution: String!
-	var fakeOrientation: String!
-	var fakeRamUsed: String!
-	var fakeRamTotal: String!
-	var fakeDiskFree: String!
-	
+	var fakeNetworkType: String = "NO VALUE SET"
+	var fakeResolution: String = "NO VALUE SET"
+	var fakeOrientation: String = "NO VALUE SET"
+	var fakeRamUsed: String = "NO VALUE SET"
+	var fakeRamTotal: String = "NO VALUE SET"
+	var fakeDiskFree: String = "NO VALUE SET"
 	
 	func enableBatteryMonitoring() {
 		self.enableBatteryMonitoringCalled = true
@@ -47,6 +47,10 @@ class DeviceMock: DeviceProtocol {
 	
 	func systemVersion() -> String {
 		return self.fakeSystemVersion
+	}
+	
+	func systemName() -> String {
+		return self.fakeSystemName
 	}
 	
 	func vendorId() -> String {

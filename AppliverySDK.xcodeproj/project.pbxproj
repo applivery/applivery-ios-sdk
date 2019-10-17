@@ -89,6 +89,7 @@
 		FA73BF801C8B040D00619258 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA73BF7F1C8B040D00619258 /* ImageManager.swift */; };
 		FA7F4CD11EE7547E00BA2F52 /* DeviceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1569BA1DBD52CF00C651D4 /* DeviceMock.swift */; };
 		FA7F4CDE1EE763A600BA2F52 /* test_images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA7F4CDC1EE7615100BA2F52 /* test_images.xcassets */; };
+		FA879950231455DE0033B392 /* RequestSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA87994F231455DE0033B392 /* RequestSpecs.swift */; };
 		FA8D78161BC46064005741D8 /* ConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D78151BC46064005741D8 /* ConfigService.swift */; };
 		FA8D78181BC46584005741D8 /* ConfigServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8D78171BC46584005741D8 /* ConfigServiceMock.swift */; };
 		FA8DDA081E99671000A2BB95 /* OTAUpdateSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8DDA071E99671000A2BB95 /* OTAUpdateSpecs.swift */; };
@@ -264,6 +265,7 @@
 		FA73BF7C1C8B02E800619258 /* ScreenshotInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScreenshotInteractor.swift; path = Applivery/Interactors/ScreenshotInteractor.swift; sourceTree = "<group>"; };
 		FA73BF7F1C8B040D00619258 /* ImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageManager.swift; path = Applivery/Managers/ImageManager.swift; sourceTree = "<group>"; };
 		FA7F4CDC1EE7615100BA2F52 /* test_images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = test_images.xcassets; sourceTree = "<group>"; };
+		FA87994F231455DE0033B392 /* RequestSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RequestSpecs.swift; path = Specs/RequestSpecs.swift; sourceTree = "<group>"; };
 		FA8D78151BC46064005741D8 /* ConfigService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = ConfigService.swift; path = Applivery/Data/Services/ConfigService.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA8D78171BC46584005741D8 /* ConfigServiceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigServiceMock.swift; path = Mocks/ConfigServiceMock.swift; sourceTree = "<group>"; };
 		FA8DDA071E99671000A2BB95 /* OTAUpdateSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OTAUpdateSpecs.swift; path = Specs/OTAUpdateSpecs.swift; sourceTree = "<group>"; };
@@ -391,6 +393,7 @@
 				FA8DDA071E99671000A2BB95 /* OTAUpdateSpecs.swift */,
 				FABA22F61E9D30040000EBA9 /* ForceUpdateSpecs.swift */,
 				FAFF91B51EA14794007B20C9 /* FeedbackSpecs.swift */,
+				FA87994F231455DE0033B392 /* RequestSpecs.swift */,
 			);
 			name = Specs;
 			sourceTree = "<group>";
@@ -882,7 +885,7 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1110;
 				ORGANIZATIONNAME = "Applivery S.L.";
 				TargetAttributes = {
 					FA5EA64A1E6CCB6600590120 = {
@@ -986,6 +989,7 @@
 				FAAA50E91E91841C0004FBF8 /* EventDetectorMock.swift in Sources */,
 				FAFF91B61EA14794007B20C9 /* FeedbackSpecs.swift in Sources */,
 				FA6F7C781E9CEE5D006492E6 /* UpdateInteractorOutputMock.swift in Sources */,
+				FA879950231455DE0033B392 /* RequestSpecs.swift in Sources */,
 				FA201F791E90625A0090128F /* UserDefaultsMock.swift in Sources */,
 				FA201F771E904F0F0090128F /* AppMock.swift in Sources */,
 				FA2EAC871E915EFE00CC9BBF /* UserDefaults.swift in Sources */,
@@ -1307,7 +1311,7 @@
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				BITCODE_GENERATION_MODE = bitcode;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 3.0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -1339,7 +1343,7 @@
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				BITCODE_GENERATION_MODE = bitcode;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 3.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";

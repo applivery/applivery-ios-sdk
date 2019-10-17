@@ -13,6 +13,7 @@ protocol DeviceProtocol {
 	func model() -> String
 	func type() -> String
 	func systemVersion() -> String
+	func systemName() -> String
 	func vendorId() -> String
 	func enableBatteryMonitoring()
 	func disableBatteryMonitoring()
@@ -38,6 +39,10 @@ struct Device: DeviceProtocol {
 	
 	func systemVersion() -> String {
 		return UIDevice.current.systemVersion
+	}
+	
+	func systemName() -> String {
+		return UIDevice.current.systemName
 	}
 	
 	func vendorId() -> String {
