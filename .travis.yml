@@ -6,7 +6,7 @@ env:
     - PROJECT=AppliverySDK
     - SCHEME=Applivery
     - OS=13.1
-    - DEVICE="iPhone XS"
+    - DEVICE="iPhone 11 Pro"
 cache:
   directories:
   - Carthage
