@@ -249,6 +249,19 @@ class StartSpecs: QuickSpec {
 				}
 			}
 			
+			context("when automatic updates is false") {
+				beforeEach {
+					self.appMock.stubVersion = "13"
+					StubResponse.mockResponse(for: "/v1/app", with: "config_success.json")
+					self.applivery.automaticUpdates = false
+					self.applivery.start(token: self.appToken, appStoreRelease: false)
+				}
+				it("should not prompt ota update") {
+					Thread.sleep(forTimeInterval: 0.1) // Need to wait cause expect match by default.
+					expect(self.appMock.spyOtaAlert.called).toNotEventually(beTrue())
+				}
+			}
+			
 			context("when disable feedback") {
 				beforeEach {
 					self.applivery.start(token: self.appToken, appStoreRelease: true)

@@ -184,6 +184,19 @@ public class Applivery: NSObject, StartInteractorOutput {
         }
     }
     
+    /**
+    Automatically download newest build  if availbale.
+     
+     If true, an alert is prompted to the user asking if he wants to download the latest build. If you want to implement your own alert / update view you should set this property to false
+    
+     - Important: The default value is **true**
+     - Warning: Be sure to set this property before call `start(token:appStoreRelease:)` method
+     - SeeAlso: `update()`
+     - Since: 3.1
+     - Version: 3.1
+    */
+    @objc public var automaticUpdates: Bool = true
+    
     // MARK: - Private properties
     internal let startInteractor: StartInteractor
     private let globalConfig: GlobalConfig
@@ -235,7 +248,7 @@ public class Applivery: NSObject, StartInteractorOutput {
         * `false`: Applivery will works as normally. Use this with distributed builds in Applivery.
      
      - Attention: Be sure that the param **appStoreRelease** is true before submitting to the AppStore
-     - Warning: This property is **deprecated** from version 3.0. Use `start(appToken:, appStoreRelease:)` instead
+     - Warning: This property is **deprecated** from version 3.0. Use `start(appToken:appStoreRelease:)` instead
      - Since: 1.0
      - Version: 3.0
      */
@@ -254,8 +267,8 @@ public class Applivery: NSObject, StartInteractorOutput {
      - Parameters:
         - token: Your App Token
         - appStoreRelease: Flag to mark the build as a build that will be submitted to the AppStore. This is needed to prevent unwanted behavior like prompt to a final user that a new version is available on Applivery.
-        * `true`: Applivery will stop any activity. **Use this for AppStore**
-        * `false`: Applivery will works as normally. Use this with distributed builds in Applivery.
+            * `true`: Applivery will stop any activity. **Use this for AppStore**
+            * `false`: Applivery will works as normally. Use this with distributed builds in Applivery.
      
      - Attention: Be sure that the param **appStoreRelease** is true before submitting to the AppStore
      - Since: 3.0
@@ -266,6 +279,17 @@ public class Applivery: NSObject, StartInteractorOutput {
         self.globalConfig.appStoreRelease = appStoreRelease
         
         self.startInteractor.start()
+    }
+    
+    /**
+    Download newest build if available
+     
+    - Since: 3.1
+    - Version: 3.1
+    */
+    @objc public func update() {
+        // TODO: to implement
+        print("TODO")
     }
     
     /**
@@ -338,6 +362,11 @@ public class Applivery: NSObject, StartInteractorOutput {
     
     internal func otaUpdate() {
         logInfo("New OTA update available!")
+        
+        guard self.automaticUpdates else {
+            return logInfo("Automatic update is false. You need to call update() method in order to download the latest build")
+        }
+        
         self.updateCoordinator.otaUpdate()
     }
     
