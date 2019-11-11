@@ -71,6 +71,7 @@
 		FA53DE3C1BC1B38900DF2EB1 /* StartInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA53DE3B1BC1B38900DF2EB1 /* StartInteractorMock.swift */; };
 		FA54CAE421EB7EB400561DF5 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA54CAE321EB7EB400561DF5 /* UIImageExtension.swift */; };
 		FA54ED38224C3DF900170F86 /* LoginDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA54ED37224C3DF900170F86 /* LoginDataManager.swift */; };
+		FA5DA02C237A11F700B0BC12 /* ConfiguratorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9F506E2368F599008D591C /* ConfiguratorMock.swift */; };
 		FA5EA6501E6CCB6600590120 /* Applivery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA68D8F21BC040B000589DE4 /* Applivery.framework */; };
 		FA5EA6561E6CCBC800590120 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5EA63F1E6CB61500590120 /* Nimble.framework */; };
 		FA5EA6571E6CCBCB00590120 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5EA6401E6CB61500590120 /* Quick.framework */; };
@@ -1096,6 +1097,7 @@
 				FA232D2F1C753A5F0097AE79 /* UserDefaultsMock.swift in Sources */,
 				FA53DE3C1BC1B38900DF2EB1 /* StartInteractorMock.swift in Sources */,
 				FA1569BB1DBD52CF00C651D4 /* DeviceMock.swift in Sources */,
+				FA5DA02C237A11F700B0BC12 /* ConfiguratorMock.swift in Sources */,
 				FA2B3DCA1C178705002DC5C9 /* UpdatePresenterTests.swift in Sources */,
 				FA53DE371BC1950300DF2EB1 /* StartInteractorOutputMock.swift in Sources */,
 				FAD2A15D1C010EA6001967FD /* UpdateCoordinatorMock.swift in Sources */,
