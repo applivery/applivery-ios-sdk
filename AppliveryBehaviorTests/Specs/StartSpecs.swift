@@ -35,58 +35,13 @@ class StartSpecs: QuickSpec {
 				self.userDefaultsMock = UserDefaultsMock()
 				self.eventDetectorMock = EventDetectorMock()
 				
-				self.applivery = Applivery(
-					startInteractor: StartInteractor(
-						configDataManager: ConfigDataManager(
-							appInfo: self.appMock,
-							configPersister: ConfigPersister(
-								userDefaults: self.userDefaultsMock
-							),
-							configService: ConfigService()
-						),
-						globalConfig: globalConfig,
-						eventDetector: self.eventDetectorMock,
-						sessionPersister: SessionPersister(
-							userDefaults: self.userDefaultsMock
-						)
-					),
+				let configurator = ConfiguratorMock(
+					appMock: self.appMock,
+					userDefaultsMock: self.userDefaultsMock,
 					globalConfig: globalConfig,
-					updateCoordinator: UpdateCoordinator(
-						updateInteractor: UpdateInteractor(
-							output: nil,
-							configData: ConfigDataManager(),
-							downloadData: DownloadDataManager(
-								service: DownloadService()
-							),
-							app: self.appMock,
-							loginInteractor: LoginInteractor(
-								app: self.appMock,
-								loginDataManager: LoginDataManager(
-									loginService: LoginService()
-								),
-								globalConfig: GlobalConfig(),
-								sessionPersister: SessionPersister(
-									userDefaults: self.userDefaultsMock
-								)
-							),
-							globalConfig: GlobalConfig()),
-						app: self.appMock
-					),
-					feedbackCoordinator: FeedbackCoordinator(
-						app: self.appMock
-					),
-					loginInteractor: LoginInteractor(
-						app: self.appMock,
-						loginDataManager: LoginDataManager(
-							loginService: LoginService()
-						),
-						globalConfig: GlobalConfig(),
-						sessionPersister: SessionPersister(
-							userDefaults: self.userDefaultsMock
-						)
-					)
+					eventDetectorMock: self.eventDetectorMock
 				)
-				
+				self.applivery = configurator.applivery()
 				self.applivery.startInteractor.output = self.applivery
 			}
 			afterEach {
@@ -260,6 +215,20 @@ class StartSpecs: QuickSpec {
 					Thread.sleep(forTimeInterval: 0.1) // Need to wait cause expect match by default.
 					expect(self.appMock.spyOtaAlert.called).toNotEventually(beTrue())
 				}
+				context("and developer call update method") {
+					beforeEach {
+						self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig(
+							lastBuildID: "LAST_BUILD_ID_TEST"
+						)
+						StubResponse.mockResponse(for: "/v1/build/LAST_BUILD_ID_TEST/downloadToken", with: "request_token_ok.json")
+						self.applivery.update()
+					}
+					it("should open download url") {
+						expect(self.appMock.spyOpenUrl.called).toEventually(beTrue())
+						expect(self.appMock.spyOpenUrl.url)
+							.toEventually(equal("itms-services://?action=download-manifest&url=\(GlobalConfig.HostDownload)/v1/download/test_token/manifest.plist"))
+					}
+				}
 			}
 			
 			context("when disable feedback") {
@@ -292,5 +261,4 @@ class StartSpecs: QuickSpec {
 			}
 		}
 	}
-	
 }

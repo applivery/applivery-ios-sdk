@@ -201,6 +201,7 @@ public class Applivery: NSObject, StartInteractorOutput {
     internal let startInteractor: StartInteractor
     private let globalConfig: GlobalConfig
     private let updateCoordinator: PUpdateCoordinator
+    private let updateInteractor: PUpdateInteractor
     private let feedbackCoordinator: PFeedbackCoordinator
     private let loginInteractor: LoginInteractor
     
@@ -211,6 +212,7 @@ public class Applivery: NSObject, StartInteractorOutput {
             startInteractor: StartInteractor(),
             globalConfig: GlobalConfig.shared,
             updateCoordinator: UpdateCoordinator(),
+            updateInteractor: Configurator.updateInteractor(),
             feedbackCoordinator: FeedbackCoordinator(),
             loginInteractor: Configurator.loginInteractor()
         )
@@ -220,11 +222,13 @@ public class Applivery: NSObject, StartInteractorOutput {
     internal init (startInteractor: StartInteractor,
                    globalConfig: GlobalConfig,
                    updateCoordinator: PUpdateCoordinator,
+                   updateInteractor: PUpdateInteractor,
                    feedbackCoordinator: PFeedbackCoordinator,
                    loginInteractor: LoginInteractor) {
         self.startInteractor = startInteractor
         self.globalConfig = globalConfig
         self.updateCoordinator = updateCoordinator
+        self.updateInteractor = updateInteractor
         self.feedbackCoordinator = feedbackCoordinator
         self.loginInteractor = loginInteractor
         self.logLevel = .info
@@ -288,8 +292,7 @@ public class Applivery: NSObject, StartInteractorOutput {
     - Version: 3.1
     */
     @objc public func update() {
-        // TODO: to implement
-        print("TODO")
+        self.updateInteractor.downloadLasBuild()
     }
     
     /**
