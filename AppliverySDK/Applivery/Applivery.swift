@@ -47,8 +47,8 @@ import Foundation
  - Author: Alejandro Jiménez Agudo
  - Copyright: Applivery S.L.
  */
-public class Applivery: NSObject, StartInteractorOutput {
-    
+public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput {
+
     // MARK: - Type Properties
     
     /// Singleton instance
@@ -199,11 +199,14 @@ public class Applivery: NSObject, StartInteractorOutput {
     
     // MARK: - Private properties
     internal let startInteractor: StartInteractor
+    internal var updateInteractor: PUpdateInteractor
     private let globalConfig: GlobalConfig
     private let updateCoordinator: PUpdateCoordinator
-    private let updateInteractor: PUpdateInteractor
     private let feedbackCoordinator: PFeedbackCoordinator
     private let loginInteractor: LoginInteractor
+    private var isUpdating = false
+    private var updateCallbackSuccess: (() -> Void)?
+    private var updateCallbackError: ((String) -> Void)?
     
     
     // MARK: Initializers
@@ -217,6 +220,7 @@ public class Applivery: NSObject, StartInteractorOutput {
             loginInteractor: Configurator.loginInteractor()
         )
         self.startInteractor.output = self
+        self.updateInteractor.output = self
     }
     
     internal init (startInteractor: StartInteractor,
@@ -291,8 +295,14 @@ public class Applivery: NSObject, StartInteractorOutput {
     - Since: 3.1
     - Version: 3.1
     */
-    @objc public func update() {
-        self.updateInteractor.downloadLasBuild()
+    @objc public func update(onSuccess: (() -> Void)? = nil, onError: ((String) -> Void)? = nil) {
+        guard !isUpdating else {
+            return logWarn("Can't call update method until previous call is finished")
+        }
+        self.isUpdating = true
+        self.updateCallbackSuccess = onSuccess
+        self.updateCallbackError = onError
+        self.updateInteractor.downloadLastBuild()
     }
     
     /**
@@ -356,7 +366,7 @@ public class Applivery: NSObject, StartInteractorOutput {
     }
     
     
-    // MARK: Start Interactor
+    // MARK: Start Interactor Delegate
     
     internal func forceUpdate() {
         logInfo("Application must be updated!!")
@@ -375,6 +385,20 @@ public class Applivery: NSObject, StartInteractorOutput {
     
     internal func credentialError(message: String) {
         logWarn(message)
+    }
+    
+    
+    // MARK: - Update Interactor Delegate
+    
+    func downloadDidEnd() {
+        self.updateCallbackSuccess?()
+        self.isUpdating = false
+    }
+    
+    func downloadDidFail(_ message: String) {
+        self.updateCallbackError?(message)
+        logWarn("Update did fail: \(message)")
+        self.isUpdating = false
     }
     
 }

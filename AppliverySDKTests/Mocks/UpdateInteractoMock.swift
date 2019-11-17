@@ -11,7 +11,7 @@ import Foundation
 
 
 class UpdateInteractoMock: PUpdateInteractor {
-	func downloadLasBuild() {
+	func downloadLastBuild() {
 		
 	}
 	

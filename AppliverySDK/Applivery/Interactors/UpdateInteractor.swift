@@ -19,7 +19,7 @@ protocol PUpdateInteractor {
 	
 	func forceUpdateMessage() -> String
 	func otaUpdateMessage() -> String
-	func downloadLasBuild()
+	func downloadLastBuild()
 }
 
 
@@ -55,7 +55,7 @@ struct UpdateInteractor: PUpdateInteractor {
 		return message
 	}
 	
-	func downloadLasBuild() {
+	func downloadLastBuild() {
 		guard let config = self.configData.getCurrentConfig().config else {
 			self.output?.downloadDidFail(literal(.errorUnexpected) ?? localize("Current config is nil")); return
 		}
