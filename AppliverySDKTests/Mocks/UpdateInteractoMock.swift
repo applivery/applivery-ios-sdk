@@ -11,6 +11,18 @@ import Foundation
 
 
 class UpdateInteractoMock: PUpdateInteractor {
+	func isUpToDate() -> Bool {
+		return false
+	}
+	
+	func checkForceUpdate(_ config: Config?, version: String) -> Bool {
+		return false
+	}
+	
+	func checkOtaUpdate(_ config: Config?, version: String) -> Bool {
+		return false
+	}
+	
 	func downloadLastBuild() {
 		
 	}

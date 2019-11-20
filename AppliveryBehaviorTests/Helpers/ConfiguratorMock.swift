@@ -32,7 +32,8 @@ struct ConfiguratorMock {
 			configDataManager: self.configDataManager(),
 			globalConfig: globalConfig,
 			eventDetector: eventDetectorMock,
-			sessionPersister: self.sessionPersister()
+			sessionPersister: self.sessionPersister(),
+			updateInteractor: self.updateInteractor()
 		)
 	}
 	

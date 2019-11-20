@@ -277,6 +277,16 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
     }
     
     /**
+    Returns if application is updated to the latest version available
+    
+    - Since: 3.1
+    - Version: 3.1
+    */
+    @objc public func isUpToDate() -> Bool {
+        return self.updateInteractor.isUpToDate()
+    }
+    
+    /**
     Download newest build available
     
     - Parameters:

@@ -152,7 +152,7 @@ class StartSpecs: QuickSpec {
 					self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig() // LAST VERSION = 50
 					self.applivery.start(token: self.appToken, appStoreRelease: false)
 				}
-				it("should show force update") {
+				it("should show ota update") {
 					expect(self.appMock.spyOtaAlert.called).toEventually(beTrue())
 					expect(self.userDefaultsMock.spySynchronizeCalled).toEventuallyNot(beTrue())
 				}
@@ -208,10 +208,6 @@ class StartSpecs: QuickSpec {
 				var onSuccessCalled = false
 				var onError = (called: false, message: "")
 				beforeEach {
-//					self.appMock.stubVersion = "13"
-//					StubResponse.mockResponse(for: "/v1/app", with: "config_success.json")
-//					self.applivery.start(token: self.appToken, appStoreRelease: false)
-					
 					onSuccessCalled = false
 					onError = (called: false, message: "")
 					self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig(
@@ -258,6 +254,36 @@ class StartSpecs: QuickSpec {
 						expect(onError.message).toEventually(equal(kLocaleErrorSubscriptionPlan))
 					}
 				}
+			}
+			context("developer calls isUpToDate method") {
+				context("when app version is older than newest applivery version") {
+					beforeEach {
+						self.appMock.stubVersion = "14"
+						self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig() // LAST VERSION = 50
+					}
+					it("should return false") {
+						expect(self.applivery.isUpToDate()).to(beFalse())
+					}
+				}
+				context("when app version is newest than newest applivery version") {
+					beforeEach {
+						self.appMock.stubVersion = "55"
+						self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig() // LAST VERSION = 50
+					}
+					it("should return true") {
+						expect(self.applivery.isUpToDate()).to(beTrue())
+					}
+				}
+				context("when app version is equal than newest applivery version") {
+					beforeEach {
+						self.appMock.stubVersion = "50"
+						self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig() // LAST VERSION = 50
+					}
+					it("should return true") {
+						expect(self.applivery.isUpToDate()).to(beTrue())
+					}
+				}
+				
 			}
 			
 			context("when disable feedback") {
