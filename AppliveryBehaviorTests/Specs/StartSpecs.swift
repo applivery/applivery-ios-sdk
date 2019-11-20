@@ -204,69 +204,59 @@ class StartSpecs: QuickSpec {
 					expect(self.eventDetectorMock.spyListenEventCalled).to(beTrue())
 				}
 			}
-			
-			context("when automatic updates is false") {
+			context("developer call update method") {
+				var onSuccessCalled = false
+				var onError = (called: false, message: "")
 				beforeEach {
-					self.appMock.stubVersion = "13"
-					StubResponse.mockResponse(for: "/v1/app", with: "config_success.json")
-					self.applivery.automaticUpdates = false
-					self.applivery.start(token: self.appToken, appStoreRelease: false)
-				}
-				it("should not prompt ota update") {
-					Thread.sleep(forTimeInterval: 0.1) // Need to wait cause expect match by default.
-					expect(self.appMock.spyOtaAlert.called).toNotEventually(beTrue())
-				}
-				context("and developer call update method") {
-					var onSuccessCalled = false
-					var onError = (called: false, message: "")
-					beforeEach {
-						onSuccessCalled = false
-						onError = (called: false, message: "")
-						self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig(
-							lastBuildID: "LAST_BUILD_ID_TEST"
-						)
-						self.appMock.stubOpenUrlResult = true
-						
-					}
-					context("when request token is OK") {
-						beforeEach {
-							StubResponse.mockResponse(for: "/v1/build/LAST_BUILD_ID_TEST/downloadToken", with: "request_token_ok.json")
-							self.applivery.update(
-								onSuccess: {
-									onSuccessCalled = true
-							},
-								onError: { message in
-									onError.called = true
-									onError.message = message
-							})
-						}
-						it("should open download url") {
-							expect(self.appMock.spyOpenUrl.called).toEventually(beTrue())
-							expect(self.appMock.spyOpenUrl.url)
-								.toEventually(equal("itms-services://?action=download-manifest&url=\(GlobalConfig.HostDownload)/v1/download/test_token/manifest.plist"))
-						}
-						it("should call success") {
-							expect(onSuccessCalled).toEventually(beTrue())
-						}
-					}
-					context("when request token fails") {
-						beforeEach {
-							StubResponse.mockResponse(for: "/v1/build/LAST_BUILD_ID_TEST/downloadToken", with: "error_5004.json")
-							self.applivery.update(
-								onSuccess: {
-									onSuccessCalled = true
-							},
-								onError: { message in
-									onError.called = true
-									onError.message = message
-							})
-						}
-						it("should call error") {
-							expect(onError.called).toEventually(beTrue())
-							expect(onError.message).toEventually(equal(kLocaleErrorSubscriptionPlan))
-						}
-					}
+//					self.appMock.stubVersion = "13"
+//					StubResponse.mockResponse(for: "/v1/app", with: "config_success.json")
+//					self.applivery.start(token: self.appToken, appStoreRelease: false)
 					
+					onSuccessCalled = false
+					onError = (called: false, message: "")
+					self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig(
+						lastBuildID: "LAST_BUILD_ID_TEST"
+					)
+					self.appMock.stubOpenUrlResult = true
+					
+				}
+				context("when request token is OK") {
+					beforeEach {
+						StubResponse.mockResponse(for: "/v1/build/LAST_BUILD_ID_TEST/downloadToken", with: "request_token_ok.json")
+						self.applivery.update(
+							onSuccess: {
+								onSuccessCalled = true
+						},
+							onError: { message in
+								onError.called = true
+								onError.message = message
+						})
+					}
+					it("should open download url") {
+						expect(self.appMock.spyOpenUrl.called).toEventually(beTrue())
+						expect(self.appMock.spyOpenUrl.url)
+							.toEventually(equal("itms-services://?action=download-manifest&url=\(GlobalConfig.HostDownload)/v1/download/test_token/manifest.plist"))
+					}
+					it("should call success") {
+						expect(onSuccessCalled).toEventually(beTrue())
+					}
+				}
+				context("when request token fails") {
+					beforeEach {
+						StubResponse.mockResponse(for: "/v1/build/LAST_BUILD_ID_TEST/downloadToken", with: "error_5004.json")
+						self.applivery.update(
+							onSuccess: {
+								onSuccessCalled = true
+						},
+							onError: { message in
+								onError.called = true
+								onError.message = message
+						})
+					}
+					it("should call error") {
+						expect(onError.called).toEventually(beTrue())
+						expect(onError.message).toEventually(equal(kLocaleErrorSubscriptionPlan))
+					}
 				}
 			}
 			

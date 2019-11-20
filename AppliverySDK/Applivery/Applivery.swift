@@ -184,19 +184,6 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
         }
     }
     
-    /**
-    Automatically download newest build  if availbale.
-     
-     If true, an alert is prompted to the user asking if he wants to download the latest build. If you want to implement your own alert / update view you should set this property to false
-    
-     - Important: The default value is **true**
-     - Warning: Be sure to set this property before call `start(token:appStoreRelease:)` method
-     - SeeAlso: `update()`
-     - Since: 3.1
-     - Version: 3.1
-    */
-    @objc public var automaticUpdates: Bool = true
-    
     // MARK: - Private properties
     internal let startInteractor: StartInteractor
     internal var updateInteractor: PUpdateInteractor
@@ -290,8 +277,13 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
     }
     
     /**
-    Download newest build if available
+    Download newest build available
+    
+    - Parameters:
+        - onSuccess: Completion handler called when success
+        - onError: Completion handler called when something went wrong. A string whith the reason is passed to this callback.
      
+    - Attention: Be sure to call `start(token:appStoreRelease)` before this method.
     - Since: 3.1
     - Version: 3.1
     */
@@ -375,11 +367,6 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
     
     internal func otaUpdate() {
         logInfo("New OTA update available!")
-        
-        guard self.automaticUpdates else {
-            return logInfo("Automatic update is false. You need to call update() method in order to download the latest build")
-        }
-        
         self.updateCoordinator.otaUpdate()
     }
     
