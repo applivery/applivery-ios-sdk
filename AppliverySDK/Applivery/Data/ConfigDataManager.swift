@@ -10,13 +10,13 @@ import Foundation
 
 
 struct UpdateConfigResponse: Equatable {
-	let config: Config
+	let config: Config?
 	let version: String
 }
 
 
 protocol PConfigDataManager {
-	func getCurrentConfig() -> (config: Config?, version: String)
+	func getCurrentConfig() -> UpdateConfigResponse
 	func updateConfig(_ completionHandler: @escaping (_ response: Result<UpdateConfigResponse, NSError>) -> Void)
 }
 
@@ -48,11 +48,11 @@ class ConfigDataManager: PConfigDataManager {
 
 	// MARK: Public methods
 
-	func getCurrentConfig() -> (config: Config?, version: String) {
+	func getCurrentConfig() -> UpdateConfigResponse {
 		let version = self.appInfo.getVersion()
 		let config = self.configPersister.getConfig()
 
-		return (config, version)
+		return UpdateConfigResponse(config: config, version: version)
 	}
 
 	func updateConfig(_ completionHandler: @escaping (_ response: Result<UpdateConfigResponse, NSError>) -> Void) {

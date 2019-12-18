@@ -19,7 +19,10 @@ protocol PUpdateInteractor {
 	
 	func forceUpdateMessage() -> String
 	func otaUpdateMessage() -> String
-	func downloadLasBuild()
+	func downloadLastBuild()
+	func isUpToDate() -> Bool
+	func checkForceUpdate(_ config: Config?, version: String) -> Bool
+	func checkOtaUpdate(_ config: Config?, version: String) -> Bool
 }
 
 
@@ -33,9 +36,9 @@ struct UpdateInteractor: PUpdateInteractor {
 	let globalConfig: GlobalConfig
 	
 	func forceUpdateMessage() -> String {
-		let (currentConfig, _) = self.configData.getCurrentConfig()
+		let currentConfig = self.configData.getCurrentConfig()
 		
-		var message = literal(.forceUpdateMessage) ?? currentConfig?.forceUpdateMessage ?? kLocaleForceUpdateMessage
+		var message = literal(.forceUpdateMessage) ?? currentConfig.config?.forceUpdateMessage ?? kLocaleForceUpdateMessage
 		
 		if message == "" {
 			message = kLocaleForceUpdateMessage
@@ -45,8 +48,8 @@ struct UpdateInteractor: PUpdateInteractor {
 	}
 	
 	func otaUpdateMessage() -> String {
-		let (currentConfig, _) = self.configData.getCurrentConfig()
-		var message = literal(.otaUpdateMessage) ?? currentConfig?.otaUpdateMessage ?? kLocaleOtaUpdateMessage
+		let currentConfig = self.configData.getCurrentConfig()
+		var message = literal(.otaUpdateMessage) ?? currentConfig.config?.otaUpdateMessage ?? kLocaleOtaUpdateMessage
 		
 		if message == "" {
 			message = kLocaleOtaUpdateMessage
@@ -55,7 +58,7 @@ struct UpdateInteractor: PUpdateInteractor {
 		return message
 	}
 	
-	func downloadLasBuild() {
+	func downloadLastBuild() {
 		guard let config = self.configData.getCurrentConfig().config else {
 			self.output?.downloadDidFail(literal(.errorUnexpected) ?? localize("Current config is nil")); return
 		}
@@ -70,6 +73,40 @@ struct UpdateInteractor: PUpdateInteractor {
 			self.download(with: config)
 		}
 	}
+	
+	func isUpToDate() -> Bool {
+		let currentConfig = self.configData.getCurrentConfig()
+		return !self.checkOtaUpdate(currentConfig.config, version: currentConfig.version)
+	}
+	
+	func checkForceUpdate(_ config: Config?, version: String) -> Bool {
+        guard
+            let minVersion = config?.minVersion,
+            let forceUpdate = config?.forceUpdate,
+            forceUpdate
+            else { return false }
+        
+        logInfo("Checking if app version: \(version) is older than minVersion: \(minVersion)")
+        if self.isOlder(version, minVersion: minVersion) {
+            return true
+        }
+        
+        return false
+    }
+    
+    func checkOtaUpdate(_ config: Config?, version: String) -> Bool {
+        guard
+            let lastVersion = config?.lastVersion,
+            let otaUpdate = config?.otaUpdate,
+            otaUpdate
+            else { return false}
+        
+        logInfo("Checking if app version: \(version) is older than last build version: \(lastVersion)")
+        if self.isOlder(version, minVersion: lastVersion) {
+            return true
+        }
+		return false
+    }
 	
 	// MARK: - Private Helpers
 	
@@ -96,4 +133,37 @@ struct UpdateInteractor: PUpdateInteractor {
 			}
 		}
 	}
+	
+	private func isOlder(_ currentVersion: String, minVersion: String) -> Bool {
+        let (current, min) = self.equalLengthFillingWithZeros(left: currentVersion, right: minVersion)
+        let result = current.compare(min, options: NSString.CompareOptions.numeric, range: nil, locale: nil)
+        
+        return result == ComparisonResult.orderedAscending
+    }
+    
+    fileprivate func equalLengthFillingWithZeros(left: String, right: String) -> (String, String) {
+        let componentsLeft = left.components(separatedBy: ".")
+        let componentsRight = right.components(separatedBy: ".")
+        
+        if componentsLeft.count == componentsRight.count {
+            return (left, right)
+        } else if componentsLeft.count < componentsRight.count {
+            let dif = componentsRight.count - componentsLeft.count
+            let leftFilled = self.fillWithZeros(string: componentsLeft, length: dif)
+            return (leftFilled, right)
+        } else {
+            let dif = componentsLeft.count - componentsRight.count
+            let rightFilled = self.fillWithZeros(string: componentsRight, length: dif)
+            return (left, rightFilled)
+        }
+    }
+    
+    fileprivate func fillWithZeros(string: [String], length: Int) -> String {
+        var zeroFilledString = string
+        for _ in 1...length {
+            zeroFilledString.append("0")
+        }
+        
+        return zeroFilledString.joined(separator: ".")
+    }
 }

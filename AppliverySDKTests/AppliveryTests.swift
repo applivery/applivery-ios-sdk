@@ -17,6 +17,7 @@ class AppliveryTests: XCTestCase {
 	var globalConfigMock: GlobalConfig!
 	var updateCoordinatorMock: UpdateCoordinatorMock!
 	var feedbackCoordinatorMock: FeedbackCoordinatorMock!
+	var updateInteractorMock: UpdateInteractoMock!
 
 
     override func setUp() {
@@ -26,11 +27,13 @@ class AppliveryTests: XCTestCase {
 		self.startInteractorMock = StartInteractorMock()
 		self.updateCoordinatorMock = UpdateCoordinatorMock()
 		self.feedbackCoordinatorMock = FeedbackCoordinatorMock()
+		self.updateInteractorMock = UpdateInteractoMock()
 		
 		self.applivery = Applivery(
 			startInteractor: self.startInteractorMock,
 			globalConfig: globalConfigMock,
 			updateCoordinator: self.updateCoordinatorMock,
+			updateInteractor: self.updateInteractorMock,
 			feedbackCoordinator: self.feedbackCoordinatorMock,
 			loginInteractor: Configurator.loginInteractor()
 		)
@@ -41,6 +44,7 @@ class AppliveryTests: XCTestCase {
 		self.globalConfigMock = nil
 		self.startInteractorMock = nil
 		self.updateCoordinatorMock = nil
+		self.updateInteractorMock = nil
 		self.applivery = nil
 
         super.tearDown()
