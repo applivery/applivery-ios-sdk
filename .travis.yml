@@ -5,7 +5,7 @@ env:
     - FRAMEWORK_NAME=Applivery
     - PROJECT=AppliverySDK
     - SCHEME=Applivery
-    - OS=13.2
+    - OS=13.3
     - DEVICE="iPhone 11 Pro"
 cache:
   directories:
