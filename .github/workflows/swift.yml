@@ -9,9 +9,8 @@ jobs:
     - name: Cache
       uses: actions/cache@v1.1.0
       with:
-        # A directory to store and save the cache
-        path: 
-          Carthage
+        path: Carthage
+        key: carthage
     - uses: actions/checkout@v1
     - name: Carthge
       run: carthage version && carthage bootstrap --cache-builds --platform iOS
