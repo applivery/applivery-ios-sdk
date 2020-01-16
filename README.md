@@ -1,6 +1,6 @@
 ![Applivery Logo](https://www.applivery.com/wp-content/uploads/2019/06/applivery-og.png)
 
-![Version](https://img.shields.io/badge/version-3.0-blue.svg)
+![Version](https://img.shields.io/badge/version-3.1-blue.svg)
 ![Language](https://img.shields.io/badge/Language-Swift-orange.svg)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Applivery.svg)](https://cocoapods.org/pods/Applivery)
@@ -20,17 +20,16 @@
 * [Overview](#overview)
 * [Getting Started](#getting-started)
 * [SDK Installation](#sdk-installation)
-	* [Using Carthage](#using-carthage)
-	* [Using CocoaPods](#using-cocoapods)
-	* [Manual installation](#manual-installation)
-	* [Objective-C](#objective-c)
+  * [Using Carthage](#using-carthage)
+  * [Using CocoaPods](#using-cocoapods)
+  * [Manual installation](#manual-installation)
+  * [Objective-C](#objective-c)
 * [SDK Setup](#sdk-setup)
-	* [Swift](#swift)
-	* [Objective-C](#objective-c-1)
-	* [About params](#about-params)
+  * [Swift](#swift)
+  * [Objective-C](#objective-c-1)
+  * [About params](#about-params)
 * [Swift & Xcode versions support](#swift--xcode-version-support)
 * [Advanced concepts](#advanced-concepts)
-
 
 ## Overview
 
@@ -44,18 +43,15 @@ With Applivery you can massively distribute your iOS Apps (both Ad-hoc or In-Hou
 * **Force update** if App version is lower than the minimum version configured in Applivery.
 * **Send feedback**. Your test users can report a bug or send improvements feedback by simply taking a screenshot.
 
-
 ## Getting Started
 
 First of all, you should create an account on [Applivery.io](https://dashboard.applivery.io) and then add a new Application.
-
 
 ### Get your credentials
 
 **API TOKEN**: that identifies and grants access to your account in order to use the SDK.
 
 You can get your API TOKEN in your `App -> Settings -> Integrations` section.
-
 
 ## SDK Installation
 
@@ -64,26 +60,25 @@ You can get your API TOKEN in your `App -> Settings -> Integrations` section.
 Install carthage with using brew
 
 ```bash
-$ brew update && brew install carthage
+brew update && brew install carthage
 ```
 
 Add the following line to your's Cartfile
 
-```
-github "applivery/applivery-ios-sdk" ~> 3.0
+```bash
+github "applivery/applivery-ios-sdk" ~> 3.1
 ```
 
 Run `carthage update` and then drag the built framework into your project. 
 
 More info about Carthage [here](https://github.com/Carthage/Carthage#installing-carthage).
 
-
 ### Using CocoaPods
 
 Install the ruby gem
 
 ```bash
-$ gem install cocoapods
+gem install cocoapods
 ```
 
 Add the following line to your's Podfile
@@ -95,28 +90,21 @@ project '<Your Project Name>.xcodeproj'
 # platform :ios, '9.0'
 use_frameworks!
 target '<Your Target Name>' do
-  pod 'Applivery', '~> 3.0'
+  pod 'Applivery', '~> 3.1'
 end
 ```
 
 and then run `pod install`. More info about CocoaPods [here](https://cocoapods.org)
 
-
 ### Manual installation
 
 1. Download the Applivery.framework [here](https://github.com/applivery/applivery-ios-sdk/releases)
-1. Drag it to your frameworks folder
-1. Add it to the embedded binaries
-
-![Embbeded binaries](https://raw.githubusercontent.com/applivery/applivery-ios-sdk/master/documentation/embbeded_binaries.png)
-
-
-### Objective-C
+2. Drag it to your frameworks folder
+3. Add it to "Frameworks, Libraries, and Embedded Content"
 
 If your project is written in Objective-C, you should also enable the "_Always Embed Swift Standard Libraries_" option. You'll find it in the _Build Settings_ section:
 
 ![Embedded binaries](https://raw.githubusercontent.com/applivery/applivery-ios-sdk/master/documentation/embedded_content.png)
-
 
 ## SDK Setup
 
@@ -137,7 +125,6 @@ let applivery = Applivery.shared
 applivery.start(token: "YOUR_TOKEN", appStoreRelease: false)
 ```
 
-
 ### Objective-C
 
 The import:
@@ -157,13 +144,12 @@ Applivery *applivery = [Applivery shared];
 
 **IMPORTANT II:** If you are experimenting problems submitting your app to the AppStore, please check this known issue about [Embedded Frameworks and AppStore submissions](https://github.com/applivery/applivery-ios-sdk#embedded-frameworks-and-appstore-submissions)
 
-
 ### About params
 
-- **token**: Your app token
-- **appStoreRelease**: Flag to mark that the build will be submitted to the AppStore. This is needed to prevent unwanted behavior like prompt to a final user that a new version is available on Applivery.com.
-	* True: Applivery SDK will not trigger automatic updates anymore. **Use this for AppStore**
-	* False: Applivery SDK will normally. Use this with builds distributed through Applivery.
+* **token**: Your app token
+* **appStoreRelease**: Flag to mark that the build will be submitted to the AppStore. This is needed to prevent unwanted behavior like prompt to a final user that a new version is available on Applivery.com.
+  * True: Applivery SDK will not trigger automatic updates anymore. **Use this for AppStore**
+  * False: Applivery SDK will normally. Use this with builds distributed through Applivery.
 
 ## Swift & Xcode version support
 
@@ -175,7 +161,8 @@ The compatibility version is as follow:
 | **v1.3.x**        | 8.x            | 2.3           |
 | **v2.x**          | 8.x, 9.x       | 3.0, 3.1, 4.0 |
 | **v2.7.x**        | 9.x, 10.x      | 4.0, 4.2      |
-| **v3.x**          | 10.x           | 4.0, 4.2, 5.0 |
+| **v3.0**          | 10.x, 11.x     | 4.0, 4.2, 5.0 |
+| **v3.1**          | 11.x           | 4.0, 4.2, 5.x |
 
 ## Advanced concepts
 
@@ -183,13 +170,13 @@ The compatibility version is as follow:
 
 In some cases you'll find usefull to see what is happening inside Applivery SDK. If so, you can enable logs for debugging purposes.
 
-**Swift**
+#### Swift
 
 ``` swift
 applivery.logLevel = .info
 ```
 
-**Objective-C**
+#### Objective-C
 
 ``` objc
 applivery.logLevel = LogLevelInfo;
@@ -197,22 +184,22 @@ applivery.logLevel = LogLevelInfo;
 
 Possible values are:
 
-- **None**: Default value. No logs will be shown. Recommended for production environments.
-- **Error**: Only warnings and errors. Recommended for develop environments.
-- **Info**: Errors and relevant information. Recommended for test integrating Applivery.
-- **Debug**: Request and Responses to Applivery's server will be displayed. Not recommended to use, only for debugging Applivery.
+* **None**: Default value. No logs will be shown. Recommended for production environments.
+* **Error**: Only warnings and errors. Recommended for develop environments.
+* **Info**: Errors and relevant information. Recommended for test integrating Applivery.
+* **Debug**: Request and Responses to Applivery's server will be displayed. Not recommended to use, only for debugging Applivery.
 
 ### Disable feedback
 
 By default, Applivery will show a feedback formulary to your users when a screenshot is detected. If you want to avoid this, you can disable it calling the following method:
 
-**Swift**
+#### Swift
 
 ``` swift
 applivery.disableFeedback()
 ```
 
-**Objective-C**
+#### Objective-C
 
 ``` objc
 [applivery disableFeedback];
@@ -226,7 +213,7 @@ Programatically login a user in Applivery. If your app has a custom login and yo
 applivery.bindUser(
     email: "user@email.com",  // Required
     firstName: "John",        // Optional
-    lastName: "Dow",          // Optional
+    lastName: "Doe",          // Optional
     tags: [ios, testers]      // Optional
 )
 ```
@@ -239,6 +226,23 @@ Logout a previously binded user
 applivery.unbindUser()
 ```
 
+### Implement your own Update Alert/Screen
+
+You can customize the update process to be fully controlled by your app. In order to achive that, first you must disable automatic updates in the settings of your app in Applivery's dashboard. Then you can use the following SDK methods: 
+
+```swift
+func isUpToDate() -> Bool
+```
+
+With this function you can check if application is updated to the latest version available.
+
+```swift
+applivery.update(
+    onSuccess: { (...) }  // Handle here any action you must perform on success
+    onError: { errorString in (...) } // Handle here the error case. A string whith the reason is passed to this callback
+)
+```
+Use this method to download and install the newest build available.
 
 ### Customize SDK's colors
 
@@ -253,7 +257,6 @@ Applivery.shared.palette = Palette(
     screenshotBrushColor: .green
 )
 ```
-
 
 The SDK has Applivery's colors by default so, if you only need to change the primary color, yo can do this:
 
@@ -271,12 +274,11 @@ Applivery.shared.palette.primaryColor = .orange
 
 #### Colors you can change
 
-- `primaryColor`: Main color of your brand
-- `secondaryColor`: Background color
-- `primaryFontColor`: Primary font color. It should be in contrast with the primary color
-- `secondaryFontColor`: Secondary font color. It should be in contrast with the secondary color
-- `screenshotBrushColor`: In the feedback's view, users can edit the screenshot to draw lines on top of it. By default, these lines are red, but you are allowed to change the color to fit better with your application's color palette.
-
+* `primaryColor`: Main color of your brand
+* `secondaryColor`: Background color
+* `primaryFontColor`: Primary font color. It should be in contrast with the primary color
+* `secondaryFontColor`: Secondary font color. It should be in contrast with the secondary color
+* `screenshotBrushColor`: In the feedback's view, users can edit the screenshot to draw lines on top of it. By default, these lines are red, but you are allowed to change the color to fit better with your application's color palette.
 
 ### Customize string literals
 
@@ -318,7 +320,7 @@ Applivery.shared.textLiterals = TextLiterals(
 The SDK has literals by default so, if you only need to change the update messages, yo can do this:
 
 ```swift
-Applivery.shared.textLiterals = Palette(
+Applivery.shared.textLiterals = TextLiterals(
     appName: "MyApp",
     otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
     forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it"
@@ -335,19 +337,9 @@ Applivery.shared.textLiterals.forceUpdateMessage: "Sorry this App is outdated. P
 
 _**Important**_: The default literals are only in english. Consider to set localized strings to fully support all languages your app does.
 
-
 ### Embedded frameworks and AppStore submissions
 
-Applivery.framework is built with a fat universal library, this means that you can compile for devices or simulator without any problem, but due to a possible (and strange) [Apple's bug](http://www.openradar.me/19209161), you can not submit an App to the AppStore if it has inside an embedded framework with simulator slices.
+Applivery.framework is built with a fat universal library, this means that you can compile for devices or simulator without any problem, but you can not submit an app to the AppStore if it has inside an embedded framework with simulator slices.
 
-Depends of your integration method, the solution is:
-
-1. **If you are using Carthage**. 
-
-	Remember to run the `copy-frameworks` as described [here](https://github.com/Carthage/Carthage#if-youre-building-for-ios-tvos-or-watchos) in the step 4.
-1. **If you added Applivery manually**.
- 
-	In this case, the solution is as simple as add [this script](https://github.com/applivery/applivery-ios-sdk/blob/master/script/applivery_script.sh) in "New Run Script Phase". 
-	You'll find inside _Build Phases_ tab.
-
-	![Applivery script](https://raw.githubusercontent.com/applivery/applivery-ios-sdk/master/documentation/applivery_script.png)
+ In this case, the solution is as simple as add [this script](https://github.com/applivery/applivery-ios-sdk/blob/master/script/applivery_script.sh) in "New Run Script Phase".
+ You'll find inside _Build Phases_ tab.
