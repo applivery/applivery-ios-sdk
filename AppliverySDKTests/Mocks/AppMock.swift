@@ -13,9 +13,11 @@ import UIKit
 class AppMock: AppProtocol {
 
 	// Inputs
-	var stubBundleID: String!
-	var stubVersion: String!
-	var stubVersionName: String!
+	var stubBundleID: String = "NO BUNDLE ID SET"
+	var stubSDKVersion: String = "NO VERSION SET"
+	var stubVersion: String = "NO VERSION SET"
+	var stubVersionName: String = "NO VERSION SET"
+	var stubLanguage: String = "NO LANGUAGE SET"
 	var stubOpenUrlResult = false
 
 	// Outputs
@@ -36,6 +38,10 @@ class AppMock: AppProtocol {
 	func bundleId() -> String {
 		return self.stubBundleID
 	}
+	
+	func getSDKVersion() -> String {
+		return self.stubSDKVersion
+	}
 
 	func getVersion() -> String {
 		return self.stubVersion
@@ -46,8 +52,7 @@ class AppMock: AppProtocol {
 	}
 
 	func getLanguage() -> String {
-		// DO WHEN NEEDED
-		return ""
+		return self.stubLanguage
 	}
 
 	func openUrl(_ url: String) -> Bool {

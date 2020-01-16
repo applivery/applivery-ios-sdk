@@ -35,59 +35,15 @@ class StartSpecs: QuickSpec {
 				self.userDefaultsMock = UserDefaultsMock()
 				self.eventDetectorMock = EventDetectorMock()
 				
-				self.applivery = Applivery(
-					startInteractor: StartInteractor(
-						configDataManager: ConfigDataManager(
-							appInfo: self.appMock,
-							configPersister: ConfigPersister(
-								userDefaults: self.userDefaultsMock
-							),
-							configService: ConfigService()
-						),
-						globalConfig: globalConfig,
-						eventDetector: self.eventDetectorMock,
-						sessionPersister: SessionPersister(
-							userDefaults: self.userDefaultsMock
-						)
-					),
+				let configurator = ConfiguratorMock(
+					appMock: self.appMock,
+					userDefaultsMock: self.userDefaultsMock,
 					globalConfig: globalConfig,
-					updateCoordinator: UpdateCoordinator(
-						updateInteractor: UpdateInteractor(
-							output: nil,
-							configData: ConfigDataManager(),
-							downloadData: DownloadDataManager(
-								service: DownloadService()
-							),
-							app: self.appMock,
-							loginInteractor: LoginInteractor(
-								app: self.appMock,
-								loginDataManager: LoginDataManager(
-									loginService: LoginService()
-								),
-								globalConfig: GlobalConfig(),
-								sessionPersister: SessionPersister(
-									userDefaults: self.userDefaultsMock
-								)
-							),
-							globalConfig: GlobalConfig()),
-						app: self.appMock
-					),
-					feedbackCoordinator: FeedbackCoordinator(
-						app: self.appMock
-					),
-					loginInteractor: LoginInteractor(
-						app: self.appMock,
-						loginDataManager: LoginDataManager(
-							loginService: LoginService()
-						),
-						globalConfig: GlobalConfig(),
-						sessionPersister: SessionPersister(
-							userDefaults: self.userDefaultsMock
-						)
-					)
+					eventDetectorMock: self.eventDetectorMock
 				)
-				
+				self.applivery = configurator.applivery()
 				self.applivery.startInteractor.output = self.applivery
+				self.applivery.updateInteractor.output = self.applivery
 			}
 			afterEach {
 				self.interactorOutputMock = nil
@@ -105,6 +61,20 @@ class StartSpecs: QuickSpec {
 				}
 				it("should return credentials error") {
 					expect(self.interactorOutputMock.spyCredentialError.called).to(beTrue())
+					expect(self.interactorOutputMock.spyCredentialError.message).toEventually(equal(kLocaleErrorEmptyCredentials))
+				}
+			}
+			
+			context("when server returns error 5004") {
+				beforeEach {
+					self.interactorOutputMock = StartInteractorOutputMock()
+					self.applivery.startInteractor.output = self.interactorOutputMock
+					StubResponse.mockResponse(for: "/v1/app", with: "error_5004.json")
+					self.applivery.start(token: self.appToken, appStoreRelease: false)
+				}
+				it("should return subscription plan error") {
+					expect(self.interactorOutputMock.spyCredentialError.called).toEventually(beTrue())
+					expect(self.interactorOutputMock.spyCredentialError.message).toEventually(equal(kLocaleErrorSubscriptionPlan))
 				}
 			}
 			
@@ -182,7 +152,7 @@ class StartSpecs: QuickSpec {
 					self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig() // LAST VERSION = 50
 					self.applivery.start(token: self.appToken, appStoreRelease: false)
 				}
-				it("should show force update") {
+				it("should show ota update") {
 					expect(self.appMock.spyOtaAlert.called).toEventually(beTrue())
 					expect(self.userDefaultsMock.spySynchronizeCalled).toEventuallyNot(beTrue())
 				}
@@ -234,6 +204,87 @@ class StartSpecs: QuickSpec {
 					expect(self.eventDetectorMock.spyListenEventCalled).to(beTrue())
 				}
 			}
+			context("developer call update method") {
+				var onSuccessCalled = false
+				var onError = (called: false, message: "")
+				beforeEach {
+					onSuccessCalled = false
+					onError = (called: false, message: "")
+					self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig(
+						lastBuildID: "LAST_BUILD_ID_TEST"
+					)
+					self.appMock.stubOpenUrlResult = true
+					
+				}
+				context("when request token is OK") {
+					beforeEach {
+						StubResponse.mockResponse(for: "/v1/build/LAST_BUILD_ID_TEST/downloadToken", with: "request_token_ok.json")
+						self.applivery.update(
+							onSuccess: {
+								onSuccessCalled = true
+						},
+							onError: { message in
+								onError.called = true
+								onError.message = message
+						})
+					}
+					it("should open download url") {
+						expect(self.appMock.spyOpenUrl.called).toEventually(beTrue())
+						expect(self.appMock.spyOpenUrl.url)
+							.toEventually(equal("itms-services://?action=download-manifest&url=\(GlobalConfig.HostDownload)/v1/download/test_token/manifest.plist"))
+					}
+					it("should call success") {
+						expect(onSuccessCalled).toEventually(beTrue())
+					}
+				}
+				context("when request token fails") {
+					beforeEach {
+						StubResponse.mockResponse(for: "/v1/build/LAST_BUILD_ID_TEST/downloadToken", with: "error_5004.json")
+						self.applivery.update(
+							onSuccess: {
+								onSuccessCalled = true
+						},
+							onError: { message in
+								onError.called = true
+								onError.message = message
+						})
+					}
+					it("should call error") {
+						expect(onError.called).toEventually(beTrue())
+						expect(onError.message).toEventually(equal(kLocaleErrorSubscriptionPlan))
+					}
+				}
+			}
+			context("developer calls isUpToDate method") {
+				context("when app version is older than newest applivery version") {
+					beforeEach {
+						self.appMock.stubVersion = "14"
+						self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig() // LAST VERSION = 50
+					}
+					it("should return false") {
+						expect(self.applivery.isUpToDate()).to(beFalse())
+					}
+				}
+				context("when app version is newest than newest applivery version") {
+					beforeEach {
+						self.appMock.stubVersion = "55"
+						self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig() // LAST VERSION = 50
+					}
+					it("should return true") {
+						expect(self.applivery.isUpToDate()).to(beTrue())
+					}
+				}
+				context("when app version is equal than newest applivery version") {
+					beforeEach {
+						self.appMock.stubVersion = "50"
+						self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig() // LAST VERSION = 50
+					}
+					it("should return true") {
+						expect(self.applivery.isUpToDate()).to(beTrue())
+					}
+				}
+				
+			}
 			
 			context("when disable feedback") {
 				beforeEach {
@@ -265,5 +316,4 @@ class StartSpecs: QuickSpec {
 			}
 		}
 	}
-	
 }

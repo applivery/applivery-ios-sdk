@@ -6,17 +6,18 @@
 //  Copyright © 2015 Applivery S.L. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 
-enum UpdateConfigResponse {
-	case success(config: Config, version: String)
-	case error
+struct UpdateConfigResponse: Equatable {
+	let config: Config?
+	let version: String
 }
 
+
 protocol PConfigDataManager {
-	func getCurrentConfig() -> (config: Config?, version: String)
-	func updateConfig(_ completionHandler: @escaping (_ response: UpdateConfigResponse) -> Void)
+	func getCurrentConfig() -> UpdateConfigResponse
+	func updateConfig(_ completionHandler: @escaping (_ response: Result<UpdateConfigResponse, NSError>) -> Void)
 }
 
 
@@ -47,22 +48,22 @@ class ConfigDataManager: PConfigDataManager {
 
 	// MARK: Public methods
 
-	func getCurrentConfig() -> (config: Config?, version: String) {
+	func getCurrentConfig() -> UpdateConfigResponse {
 		let version = self.appInfo.getVersion()
 		let config = self.configPersister.getConfig()
 
-		return (config, version)
+		return UpdateConfigResponse(config: config, version: version)
 	}
 
-	func updateConfig(_ completionHandler: @escaping (_ response: UpdateConfigResponse) -> Void) {
+	func updateConfig(_ completionHandler: @escaping (_ response: Result<UpdateConfigResponse, NSError>) -> Void) {
 		self.configService.fetchConfig { success, config, error in
 			if let config = config, success {
 				let version = self.appInfo.getVersion()
 				self.configPersister.saveConfig(config)
-				completionHandler(.success(config: config, version: version))
+				completionHandler(.success(UpdateConfigResponse(config: config, version: version)))
 			
 			} else {
-				completionHandler(.error)
+				completionHandler(.error(error ?? NSError.unexpectedError()))
 			}
 		}
 	}

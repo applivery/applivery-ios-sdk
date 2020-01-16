@@ -13,6 +13,7 @@ import Foundation
 
 protocol AppProtocol {
 	func bundleId() -> String
+	func getSDKVersion() -> String
 	func getVersion() -> String
 	func getVersionName() -> String
 	func getLanguage() -> String
@@ -142,6 +143,7 @@ class App: AppProtocol {
 	}
 	
 	func presentModal(_ viewController: UIViewController, animated: Bool) {
+		viewController.modalPresentationStyle = .overFullScreen
 		let topVC = self.topViewController()
 		topVC?.present(viewController, animated: animated, completion: nil)
 	}

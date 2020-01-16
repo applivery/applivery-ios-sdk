@@ -25,6 +25,7 @@ class StartInteractor {
     private let globalConfig: GlobalConfig
     private let eventDetector: EventDetector
     private let sessionPersister: SessionPersister
+    private let updateInteractor: PUpdateInteractor
     
     
     // MARK: Initializers
@@ -32,12 +33,14 @@ class StartInteractor {
     init(configDataManager: PConfigDataManager = ConfigDataManager(),
          globalConfig: GlobalConfig = GlobalConfig.shared,
          eventDetector: EventDetector = ScreenshotDetector(),
-         sessionPersister: SessionPersister = SessionPersister(userDefaults: UserDefaults.standard)
-        ) {
+         sessionPersister: SessionPersister = SessionPersister(userDefaults: UserDefaults.standard),
+         updateInteractor: PUpdateInteractor = Configurator.updateInteractor()
+    ) {
         self.configDataManager = configDataManager
         self.globalConfig = globalConfig
         self.eventDetector = eventDetector
-        self.sessionPersister =  sessionPersister
+        self.sessionPersister = sessionPersister
+        self.updateInteractor = updateInteractor
     }
     
     
@@ -45,9 +48,9 @@ class StartInteractor {
     
     func start() {
         logInfo("Applivery is starting... ")
-        logInfo("SDK Version: \(GlobalConfig.SDKVersion)")
+        logInfo("SDK Version: \(GlobalConfig.shared.app.getSDKVersion())")
         guard !self.globalConfig.appToken.isEmpty
-            else { return self.output.credentialError(message: "You must set the app token") }
+            else { return self.output.credentialError(message: kLocaleErrorEmptyCredentials) }
         
         self.eventDetector.listenEvent(self.output.feedbackEvent)
         
@@ -68,82 +71,26 @@ class StartInteractor {
     
     // MARK: Private Methods
     
-    fileprivate func updateConfig() {
+    private func updateConfig() {
         self.globalConfig.accessToken = self.sessionPersister.loadAccessToken()
         self.configDataManager.updateConfig { response in
             switch response {
-            case .success(let config, let version):
-                if !self.checkForceUpdate(config, version: version) {
-                    self.checkOtaUpdate(config, version: version)
-                }
-            case .error:
+            case .success(let configResponse):
+                self.checkUpdate(for: configResponse)
+            case .error(let error):
+                self.output.credentialError(message: error.message())
                 let currentConfig = self.configDataManager.getCurrentConfig()
-                if !self.checkForceUpdate(currentConfig.config, version: currentConfig.version) {
-                    self.checkOtaUpdate(currentConfig.config, version: currentConfig.version)
-                }
+                self.checkUpdate(for: currentConfig)
             }
         }
     }
     
-    private func checkForceUpdate(_ config: Config?, version: String) -> Bool {
-        guard
-            let minVersion = config?.minVersion,
-            let forceUpdate = config?.forceUpdate,
-            forceUpdate
-            else { return false }
-        
-        logInfo("Checking if app version: \(version) is older than minVersion: \(minVersion)")
-        if self.isOlder(version, minVersion: minVersion) {
+    private func checkUpdate(for updateConfig: UpdateConfigResponse) {
+        if self.updateInteractor.checkForceUpdate(updateConfig.config, version: updateConfig.version) {
             self.output.forceUpdate()
-            return true
-        }
-        
-        return false
-    }
-    
-    private func checkOtaUpdate(_ config: Config?, version: String) {
-        guard
-            let lastVersion = config?.lastVersion,
-            let otaUpdate = config?.otaUpdate,
-            otaUpdate
-            else { return }
-        
-        logInfo("Checking if app version: \(version) is older than last build version: \(lastVersion)")
-        if self.isOlder(version, minVersion: lastVersion) {
+        } else if self.updateInteractor.checkOtaUpdate(updateConfig.config, version: updateConfig.version) {
             self.output.otaUpdate()
         }
     }
     
-    private func isOlder(_ currentVersion: String, minVersion: String) -> Bool {
-        let (current, min) = self.equalLengthFillingWithZeros(left: currentVersion, right: minVersion)
-        let result = current.compare(min, options: NSString.CompareOptions.numeric, range: nil, locale: nil)
-        
-        return result == ComparisonResult.orderedAscending
-    }
-    
-    fileprivate func equalLengthFillingWithZeros(left: String, right: String) -> (String, String) {
-        let componentsLeft = left.components(separatedBy: ".")
-        let componentsRight = right.components(separatedBy: ".")
-        
-        if componentsLeft.count == componentsRight.count {
-            return (left, right)
-        } else if componentsLeft.count < componentsRight.count {
-            let dif = componentsRight.count - componentsLeft.count
-            let leftFilled = self.fillWithZeros(string: componentsLeft, length: dif)
-            return (leftFilled, right)
-        } else {
-            let dif = componentsLeft.count - componentsRight.count
-            let rightFilled = self.fillWithZeros(string: componentsRight, length: dif)
-            return (left, rightFilled)
-        }
-    }
-    
-    fileprivate func fillWithZeros(string: [String], length: Int) -> String {
-        var zeroFilledString = string
-        for _ in 1...length {
-            zeroFilledString.append("0")
-        }
-        
-        return zeroFilledString.joined(separator: ".")
-    }
 }

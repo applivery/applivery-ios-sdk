@@ -29,8 +29,8 @@ func logWarn(_ message: String, filename: NSString = #file, line: Int = #line, f
 	guard GlobalConfig.shared.logLevel >= .error else { return }
 
 	let caller = "\(filename.lastPathComponent)(\(line)) \(funcname)"
-	log("🚸🚸🚸 WARNING: " + message)
-	log("🚸🚸🚸 ⤷ FROM CALLER: " + caller + "\n")
+	log("⚠️⚠️⚠️ WARNING: " + message)
+	log("⚠️⚠️⚠️ ⤷ FROM CALLER: " + caller + "\n")
 }
 
 
@@ -46,7 +46,7 @@ func logError(_ error: NSError?, filename: NSString = #file, line: Int = #line, 
 	}
 
 	let caller = "\(filename.lastPathComponent)(\(line)) \(funcname)"
-	log("❌❌❌ ERROR: " + err.localizedDescription)
-	log("❌❌❌ ⤷ FROM CALLER: " + caller)
-	log("❌❌❌ ⤷ USER INFO: \(err.userInfo)\n")
+	log("‼️‼️‼️ ERROR: " + err.localizedDescription)
+	log("‼️‼️‼️ ⤷ FROM CALLER: " + caller)
+	log("‼️‼️‼️ ⤷ USER INFO: \(err.userInfo)\n")
 }

@@ -1,12 +1,12 @@
-osx_image: xcode10.2
+osx_image: xcode11.3
 language: objective-c
 env:
   global:
     - FRAMEWORK_NAME=Applivery
     - PROJECT=AppliverySDK
     - SCHEME=Applivery
-    - OS=12.2
-    - DEVICE="iPhone XS"
+    - OS=13.3
+    - DEVICE="iPhone 11 Pro"
 cache:
   directories:
   - Carthage
