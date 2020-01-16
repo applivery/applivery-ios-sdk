@@ -43,7 +43,7 @@ import Foundation
  
  - SeeAlso: [Applivery's README on GitHub](https://github.com/applivery/applivery-ios-sdk/blob/master/README.md)
  - Since: 1.0
- - Version: 3.0
+ - Version: 3.1
  - Author: Alejandro Jiménez Agudo
  - Copyright: Applivery S.L.
  */
@@ -158,7 +158,7 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
      The SDK has literals by default so, if you only need to change the update messages, yo can do this:
      
      ```swift
-     Applivery.shared.textLiterals = Palette(
+     Applivery.shared.textLiterals = TextLiterals(
         appName: "MyApp",
         otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
         forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it"
