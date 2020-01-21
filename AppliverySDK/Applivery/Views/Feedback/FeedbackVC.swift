@@ -367,7 +367,18 @@ extension FeedbackVC {
 		self.buttonSendFeedback.setTitleColor(palette.primaryFontColor, for: .normal)
 		self.feedbackForm.backgroundColor = palette.secondaryColor
 		self.labelFeedbackType.textColor = palette.secondaryFontColor
-		self.segmentedControlType.tintColor = palette.primaryColor
+		
+		if #available(iOS 13.0, *) {
+			self.segmentedControlType.selectedSegmentTintColor = palette.primaryColor
+			self.segmentedControlType.backgroundColor = palette.secondaryColor
+			let selectedTextColor = [NSAttributedStringKey.foregroundColor: palette.primaryFontColor]
+			let normalTextColor = [NSAttributedStringKey.foregroundColor: palette.secondaryFontColor]
+			self.segmentedControlType.setTitleTextAttributes(normalTextColor, for: .normal)
+			self.segmentedControlType.setTitleTextAttributes(selectedTextColor, for: .selected)
+		} else {
+			self.segmentedControlType.tintColor = palette.primaryColor
+		}
+		
 		self.labelAttach.textColor = palette.secondaryFontColor
 		self.switchAttach.onTintColor = palette.primaryColor
 		self.textViewMessage.tintColor = palette.primaryColor
