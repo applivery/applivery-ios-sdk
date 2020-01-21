@@ -323,7 +323,13 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
      - Version: 3.0
      */
     @objc public func bindUser(email: String, firstName: String? = nil, lastName: String? = nil, tags: [String]? = nil) {
-        let user = User(email: email, firstName: firstName, lastName: lastName, tags: tags)
+        let compactedTags = tags?.compactMap(removeEmpty) // Example: ["", "aaa", ""] -> ["aaa"]
+        let user = User(
+            email: email,
+            firstName: firstName,
+            lastName: lastName,
+            tags: compactedTags
+        )
         user.log()
         self.loginInteractor.bind(user)
     }
