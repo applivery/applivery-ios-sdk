@@ -8,7 +8,8 @@ Pod::Spec.new do |s|
   s.social_media_url    = "https://twitter.com/Applivery"
   s.source              = { :git => "https://github.com/applivery/applivery-ios-sdk.git", :tag => "v#{s.version}" }
   s.platform            = :ios, "9.0"
-  s.source_files        = "AppliverySDK/Applivery/**/*.swift"
+  s.source_files        = "AppliverySDK/**/*.swift"
+  s.exclude_files       = "AppliverySDK/**/getConstants.swift"
   s.resources           = ["AppliverySDK/**/*.storyboard", "AppliverySDK/**/*.strings"]
   s.swift_version       = "4.0"
 end
