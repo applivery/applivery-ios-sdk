@@ -1,5 +1,15 @@
 # Change Log
 
+## [v3.1.1](https://github.com/applivery/applivery-ios-sdk/releases/tag/v3.1.1)
+
+### Fixed
+
+* SDK is available with CocoaPods again (#32)
+* Fixed custom login (bind user) error if empty tags are setted (#26)
+* Segmented control in Feedback View is not using the palette defined colors with iOS 13 (#30)
+
+---
+
 ## [v3.1](https://github.com/applivery/applivery-ios-sdk/releases/tag/v3.1)
 
 ### New

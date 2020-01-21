@@ -43,7 +43,7 @@ import Foundation
  
  - SeeAlso: [Applivery's README on GitHub](https://github.com/applivery/applivery-ios-sdk/blob/master/README.md)
  - Since: 1.0
- - Version: 3.1
+ - Version: 3.1.1
  - Author: Alejandro Jiménez Agudo
  - Copyright: Applivery S.L.
  */
@@ -320,7 +320,7 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
      
      - SeeAlso: `unbindUser()`
      - Since: 3.0
-     - Version: 3.0
+     - Version: 3.1.1
      */
     @objc public func bindUser(email: String, firstName: String? = nil, lastName: String? = nil, tags: [String]? = nil) {
         let compactedTags = tags?.compactMap(removeEmpty) // Example: ["", "aaa", ""] -> ["aaa"]
