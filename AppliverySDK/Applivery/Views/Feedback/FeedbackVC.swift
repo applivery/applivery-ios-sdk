@@ -117,7 +117,7 @@ extension FeedbackVC {
 		self.presenter.userDidTapPreview()
 	}
 	
-	override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+	override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
 		if motion == .motionShake {
 			self.presenter.userDidShake()
 		}
@@ -346,11 +346,11 @@ extension FeedbackVC {
 		
 		self.screenshotContainer.translatesAutoresizingMaskIntoConstraints = false
 		self.screenshotContainer.addConstraint(NSLayoutConstraint(
-			item: self.screenshotContainer,
-			attribute: NSLayoutAttribute.width,
-			relatedBy: NSLayoutRelation.equal,
+			item: self.screenshotContainer as Any,
+			attribute: NSLayoutConstraint.Attribute.width,
+			relatedBy: NSLayoutConstraint.Relation.equal,
 			toItem: self.screenshotContainer,
-			attribute: NSLayoutAttribute.height,
+			attribute: NSLayoutConstraint.Attribute.height,
 			multiplier: ratio,
 			constant: 0
 		))
@@ -371,8 +371,8 @@ extension FeedbackVC {
 		if #available(iOS 13.0, *) {
 			self.segmentedControlType.selectedSegmentTintColor = palette.primaryColor
 			self.segmentedControlType.backgroundColor = palette.secondaryColor
-			let selectedTextColor = [NSAttributedStringKey.foregroundColor: palette.primaryFontColor]
-			let normalTextColor = [NSAttributedStringKey.foregroundColor: palette.secondaryFontColor]
+			let selectedTextColor = [NSAttributedString.Key.foregroundColor: palette.primaryFontColor]
+			let normalTextColor = [NSAttributedString.Key.foregroundColor: palette.secondaryFontColor]
 			self.segmentedControlType.setTitleTextAttributes(normalTextColor, for: .normal)
 			self.segmentedControlType.setTitleTextAttributes(selectedTextColor, for: .selected)
 		} else {
@@ -388,10 +388,10 @@ extension FeedbackVC {
 	}
 	
 	private func localizeView() {
-		self.buttonClose.setTitle(literal(.feedbackButtonClose), for: UIControlState())
+		self.buttonClose.setTitle(literal(.feedbackButtonClose), for: UIControl.State())
 		self.labelApplivery.text = literal(.appName)
-		self.buttonAddFeedback.setTitle(literal(.feedbackButtonAdd), for: UIControlState())
-		self.buttonSendFeedback.setTitle(literal(.feedbackButtonSend), for: UIControlState())
+		self.buttonAddFeedback.setTitle(literal(.feedbackButtonAdd), for: UIControl.State())
+		self.buttonSendFeedback.setTitle(literal(.feedbackButtonSend), for: UIControl.State())
 		self.labelFeedbackType.text = literal(.feedbackSelectType)
 		self.segmentedControlType.setTitle(literal(.feedbackTypeBug), forSegmentAt: FeedbackVC.BugTypeIndex)
 		self.segmentedControlType.setTitle(literal(.feedbackTypeFeedback), forSegmentAt: FeedbackVC.FeedbackTypeIndex)

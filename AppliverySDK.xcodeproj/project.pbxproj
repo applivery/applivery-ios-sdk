@@ -221,6 +221,7 @@
 		FA2B9C0C1DC2B3AC009F11C5 /* request_token_ok_no_token.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = request_token_ok_no_token.json; path = Mocks/JSON/request_token_ok_no_token.json; sourceTree = "<group>"; };
 		FA2C455B1C4D20A300E72847 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FA2C455D1C4D228A00E72847 /* NSBundle+Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSBundle+Applivery.swift"; path = "Applivery/Utils/NSBundle+Applivery.swift"; sourceTree = "<group>"; };
+		FA2D30AC2414363300F04B5D /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		FA2EAC861E915EFE00CC9BBF /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserDefaults.swift; path = Fakes/UserDefaults.swift; sourceTree = "<group>"; };
 		FA3211D31C3EA11700668099 /* DownloadDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = DownloadDataManager.swift; path = Applivery/Data/DownloadDataManager.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA3211D51C3EA6D300668099 /* Localize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = Localize.swift; path = Applivery/Utils/Localize.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -608,6 +609,7 @@
 		FA68D8E81BC040B000589DE4 = {
 			isa = PBXGroup;
 			children = (
+				FA2D30AC2414363300F04B5D /* Package.swift */,
 				FA68D8F41BC040B000589DE4 /* AppliverySDK */,
 				FA68D9001BC040B100589DE4 /* AppliverySDKTests */,
 				FA5EA64C1E6CCB6600590120 /* AppliveryBehaviorTests */,

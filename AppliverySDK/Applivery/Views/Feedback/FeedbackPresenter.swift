@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import UIKit
 
 protocol FeedbackView {
 	func showScreenshot(_ screenshot: UIImage?)

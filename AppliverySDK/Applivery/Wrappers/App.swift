@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import UIKit
 
 // Wrapper for Application's operation
 

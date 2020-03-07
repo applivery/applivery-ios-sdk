@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreTelephony
+import UIKit
 
 protocol DeviceProtocol {
 	func model() -> String
@@ -66,6 +67,7 @@ struct Device: DeviceProtocol {
 		case .charging, .full: return true
 		case .unplugged: return false
 		case .unknown: return nil
+		@unknown default: return nil
 		}
 	}
 

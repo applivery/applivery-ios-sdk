@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 public struct Colors {
 	public static let appliveryPrimary			= #colorLiteral(red: 0.1137254902, green: 0.4392156863, blue: 0.7176470588, alpha: 1)
