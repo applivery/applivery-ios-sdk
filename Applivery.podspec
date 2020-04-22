@@ -10,6 +10,6 @@ Pod::Spec.new do |s|
   s.platform            = :ios, "9.0"
   s.source_files        = "AppliverySDK/**/*.swift"
   s.exclude_files       = "AppliverySDK/**/getConstants.swift"
-  s.resources           = ["AppliverySDK/**/*.storyboard", "AppliverySDK/**/*.strings"]
+  s.resource_bundle     = { 'Applivery' => ["AppliverySDK/**/*.storyboard", "AppliverySDK/**/*.strings"] }
   s.swift_version       = "4.0"
 end
