@@ -1,5 +1,13 @@
 # Change Log
 
+## [v3.1.2](https://github.com/applivery/applivery-ios-sdk/releases/tag/v3.1.2)
+
+### Fixed
+
+* Conflict with localization file using cocoapods as a static framework (#34). Thanks to @RafaelFernandezAlv
+
+---
+
 ## [v3.1.1](https://github.com/applivery/applivery-ios-sdk/releases/tag/v3.1.1)
 
 ### Fixed
