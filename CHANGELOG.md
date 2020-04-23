@@ -1,6 +1,6 @@
 # Change Log
 
-## [v3.1.2](https://github.com/applivery/applivery-ios-sdk/releases/tag/v3.1.2)
+## [v3.1.3](https://github.com/applivery/applivery-ios-sdk/releases/tag/v3.1.3)
 
 ### Fixed
 
