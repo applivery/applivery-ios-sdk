@@ -66,7 +66,7 @@ class ForceUpdateSpecs: QuickSpec {
 				self.appMock = nil
 				self.userDefaultsMock = nil
 				self.updatePresenter = nil
-				OHHTTPStubs.removeAllStubs()
+				HTTPStubs.removeAllStubs()
 			}
 			
 			describe("view did load") {

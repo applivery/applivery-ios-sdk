@@ -41,7 +41,7 @@ class RequestSpecs: QuickSpec {
 				self.deviceMock = nil
 				self.globalConfigMock = nil
 				GlobalConfig.shared = GlobalConfig()
-				OHHTTPStubs.removeAllStubs()
+				HTTPStubs.removeAllStubs()
 			}
 			context("when any request is performed") {
 				beforeEach {
