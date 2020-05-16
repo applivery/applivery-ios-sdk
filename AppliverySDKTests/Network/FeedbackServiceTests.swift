@@ -39,7 +39,7 @@ class FeedbackServiceTests: XCTestCase {
 		self.deviceMock = nil
 		self.configMock = nil
 		
-		OHHTTPStubs.removeAllStubs()
+		HTTPStubs.removeAllStubs()
 		
 		super.tearDown()
 	}
