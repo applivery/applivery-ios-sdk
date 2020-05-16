@@ -19,7 +19,7 @@ class StubResponse {
 	}
 	
 	class func testRequest(with json: String = "ko.json", url: String? = nil, matching: @escaping (String, JSON?, [String: String]?) -> Void) {
-		OHHTTPStubs.stubRequests(passingTest: { request -> Bool in
+		HTTPStubs.stubRequests(passingTest: { request -> Bool in
 			let urlRequest = (request as NSURLRequest)
 			let data = urlRequest.ohhttpStubs_HTTPBody()
 			let json = data.flatMap { try? JSON.dataToJson($0) }
@@ -39,8 +39,8 @@ class StubResponse {
 		self.testRequest(with: json, url: url) { url, _, _ in matching(url) }
 	}
 	
-	class func stubResponse(with json: String) -> OHHTTPStubsResponse {
-		return OHHTTPStubsResponse(
+	class func stubResponse(with json: String) -> HTTPStubsResponse {
+		return HTTPStubsResponse(
 			fileAtPath: OHPathForFile(json, StubResponse.self)!,
 			statusCode: 200,
 			headers: ["Content-Type": "application/json"]

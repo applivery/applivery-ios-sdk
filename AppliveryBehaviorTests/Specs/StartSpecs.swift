@@ -50,7 +50,7 @@ class StartSpecs: QuickSpec {
 				self.appMock = nil
 				self.userDefaultsMock = nil
 				self.applivery = nil
-				OHHTTPStubs.removeAllStubs()
+				HTTPStubs.removeAllStubs()
 			}
 			
 			context("when appToken is empty") {

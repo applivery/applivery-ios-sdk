@@ -59,7 +59,7 @@ class OTAUpdateSpecs: QuickSpec {
 				self.appMock = nil
 				self.userDefaultsMock = nil
 				self.updateCoordinator = nil
-				OHHTTPStubs.removeAllStubs()
+				HTTPStubs.removeAllStubs()
 			}
 			context("when there is a new update") {
 				beforeEach {
