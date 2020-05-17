@@ -23,9 +23,6 @@ jobs:
       with:
         project: AppliverySDK.xcodeproj
         scheme: Applivery
-        destination: "platform=iOS Simulator,OS=${OS},name=${DEVICE}"
+        destination: "platform=iOS Simulator,OS=13.4.1,name=iPhone 11 Pro"
         sdk: iphonesimulator
         action: test
-      env:
-        OS: 13.4.1
-        DEVICE: "iPhone 11 Pro"
