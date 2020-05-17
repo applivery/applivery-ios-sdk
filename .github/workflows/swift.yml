@@ -6,12 +6,12 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
+    - uses: actions/checkout@v1
     - name: Cache
       uses: actions/cache@v1.1.0
       with:
         path: Carthage
         key: carthage
-    - uses: actions/checkout@v1
     - name: Setup Xcode version
       uses: maxim-lobanov/setup-xcode@1.0
       with:
