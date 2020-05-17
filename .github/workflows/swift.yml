@@ -23,7 +23,7 @@ jobs:
       with:
         project: AppliverySDK.xcodeproj
         scheme: Applivery
-        destination: "platform=iOS Simulator,OS=$OS,name=$DEVICE"
+        destination: "platform=iOS Simulator,OS=${OS},name=${DEVICE}"
         sdk: iphonesimulator
         action: test
       env:
