@@ -107,6 +107,20 @@ class OTAUpdateSpecs: QuickSpec {
 						expect(self.appMock.spyHideLoadingCalled).toEventually(beTrue())
 					}
 				}
+				context("but service returns limit exceeded") {
+					beforeEach {
+						self.appMock.stubOpenUrlResult = true
+						StubResponse.mockResponse(for: "/v1/build/LAST_BUILD_ID_TEST/downloadToken", with: "error_5003.json")
+						self.appMock.spyDownloadClosure?()
+					}
+					it("should hide loading") {
+						expect(self.appMock.spyHideLoadingCalled).toEventually(beTrue())
+					}
+					it("should show error alert") {
+						expect(self.appMock.spyAlertError.called).toEventually(beTrue())
+						expect(self.appMock.spyAlertError.message).toEventually(equal(kLocaleErrorDownloadLimitMonth.replacingOccurrences(of: "%s", with: "3000")))
+					}
+				}
 				context("but service returns ko") {
 					beforeEach {
 						self.appMock.stubOpenUrlResult = true

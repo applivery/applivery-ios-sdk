@@ -237,7 +237,7 @@ class StartSpecs: QuickSpec {
 						expect(onSuccessCalled).toEventually(beTrue())
 					}
 				}
-				context("when request token fails") {
+				context("but request token fails") {
 					beforeEach {
 						StubResponse.mockResponse(for: "/v1/build/LAST_BUILD_ID_TEST/downloadToken", with: "error_5004.json")
 						self.applivery.update(
@@ -254,6 +254,24 @@ class StartSpecs: QuickSpec {
 						expect(onError.message).toEventually(equal(kLocaleErrorSubscriptionPlan))
 					}
 				}
+				context("but service returns limit exceeded") {
+					beforeEach {
+						StubResponse.mockResponse(for: "/v1/build/LAST_BUILD_ID_TEST/downloadToken", with: "error_5003.json")
+						self.applivery.update(
+							onSuccess: {
+								onSuccessCalled = true
+						},
+							onError: { message in
+								onError.called = true
+								onError.message = message
+						})
+					}
+					it("should call error") {
+						expect(onError.called).toEventually(beTrue())
+						expect(onError.message).toEventually(equal(kLocaleErrorDownloadLimitMonth.replacingOccurrences(of: "%s", with: "3000")))
+					}
+				}
+				
 			}
 			context("developer calls isUpToDate method") {
 				context("when app version is older than newest applivery version") {

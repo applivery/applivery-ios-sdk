@@ -101,6 +101,7 @@
 		FA952FDA1C83904100C32DD0 /* FeedbackPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA952FD91C83904100C32DD0 /* FeedbackPresenter.swift */; };
 		FA952FDC1C83909000C32DD0 /* FeedbackInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA952FDB1C83909000C32DD0 /* FeedbackInteractor.swift */; };
 		FA952FDE1C83929100C32DD0 /* Storyboard+Applivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA952FDD1C83929100C32DD0 /* Storyboard+Applivery.swift */; };
+		FA9A70C1248D6402001DF55E /* error_5003.json in Resources */ = {isa = PBXBuildFile; fileRef = FA9A70C0248D6402001DF55E /* error_5003.json */; };
 		FA9EE9201E9984A500EEC056 /* request_token_ok.json in Resources */ = {isa = PBXBuildFile; fileRef = FA2B9C0A1DC2AFEE009F11C5 /* request_token_ok.json */; };
 		FA9F506F2368F599008D591C /* ConfiguratorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9F506E2368F599008D591C /* ConfiguratorMock.swift */; };
 		FAA043EA2311B2E600F8C42B /* error_5004.json in Resources */ = {isa = PBXBuildFile; fileRef = FAA043E92311B2E600F8C42B /* error_5004.json */; };
@@ -279,6 +280,7 @@
 		FA952FD91C83904100C32DD0 /* FeedbackPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackPresenter.swift; path = Applivery/Views/Feedback/FeedbackPresenter.swift; sourceTree = "<group>"; };
 		FA952FDB1C83909000C32DD0 /* FeedbackInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackInteractor.swift; path = Applivery/Interactors/FeedbackInteractor.swift; sourceTree = "<group>"; };
 		FA952FDD1C83929100C32DD0 /* Storyboard+Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = "Storyboard+Applivery.swift"; path = "Applivery/Utils/Storyboard+Applivery.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FA9A70C0248D6402001DF55E /* error_5003.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = error_5003.json; path = Mocks/JSON/error_5003.json; sourceTree = "<group>"; };
 		FA9F506E2368F599008D591C /* ConfiguratorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ConfiguratorMock.swift; path = Helpers/ConfiguratorMock.swift; sourceTree = "<group>"; };
 		FAA043E92311B2E600F8C42B /* error_5004.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = error_5004.json; path = Mocks/JSON/error_5004.json; sourceTree = "<group>"; };
 		FAA50D4D1C7D232500CE7B65 /* NSError+Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = "NSError+Applivery.swift"; path = "Applivery/Utils/NSError+Applivery.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -420,6 +422,7 @@
 				FA3AB8E92055AE3B00B49D3A /* login_success.json */,
 				FA3AB8EE2055FB4700B49D3A /* invalid_credentials.json */,
 				FAA043E92311B2E600F8C42B /* error_5004.json */,
+				FA9A70C0248D6402001DF55E /* error_5003.json */,
 			);
 			name = JSON;
 			sourceTree = "<group>";
@@ -454,8 +457,8 @@
 			isa = PBXGroup;
 			children = (
 				FAFA85751BCBDB26004E1974 /* GlobalConfig.swift */,
-				FA2B9BFF1DC298FD009F11C5 /* Constants */,
 				FA662BF92241AC5800478C38 /* Configurator.swift */,
+				FA2B9BFF1DC298FD009F11C5 /* Constants */,
 			);
 			name = Global;
 			sourceTree = "<group>";
@@ -950,6 +953,7 @@
 				FADA301C1E90677500DAC96E /* config_success.json in Resources */,
 				FA7F4CDE1EE763A600BA2F52 /* test_images.xcassets in Resources */,
 				FA3AB8EA2055AE3B00B49D3A /* login_success.json in Resources */,
+				FA9A70C1248D6402001DF55E /* error_5003.json in Resources */,
 				FA9EE9201E9984A500EEC056 /* request_token_ok.json in Resources */,
 				FAAA50E81E917CFC0004FBF8 /* ko.json in Resources */,
 			);

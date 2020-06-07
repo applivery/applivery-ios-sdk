@@ -1,0 +1,12 @@
+{
+  "status" : false,
+  "error" : {
+    "message" : "Limit Exceeded",
+    "data" : {
+      "limit" : 3000,
+      "num" : 3000,
+      "itemName" : "downloadsByMonth.202006"
+    },
+    "code" : 5003
+  }
+}

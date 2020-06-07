@@ -20,7 +20,7 @@ struct ErrorManager {
 	
 	func error(from json: JSON?) -> NSError {
 		let code = json?["error.code"]?.toInt() ?? -1
-		let message = self.message(from: code)
+		let message = self.message(from: code, with: json?["error.data"])
 		let debugMessage = json?["error.message"]?.toString() ?? self.kUnexpectedErrorJson
 		
 		return NSError.appliveryError(message, debugMessage: debugMessage, code: code)
@@ -29,12 +29,17 @@ struct ErrorManager {
 	
 	// MARK: - Private Helpers
 	
-	private func message(from code: Int) -> String {
+	private func message(from code: Int, with json: JSON? = nil) -> String {
 		switch code {
 		case 401:
 			return literal(.errorInvalidCredentials) ?? kLocaleErrorInvalidCredentials
 		case 5004:
 			return kLocaleErrorSubscriptionPlan
+		case 5003:
+			guard let limit = json?["limit"]?.toInt() else {
+				return kLocaleErrorDownloadLimit
+			}
+			return kLocaleErrorDownloadLimitMonth.replacingOccurrences(of: "%s", with: String(limit))
 		default:
 			return literal(.errorUnexpected) ?? kLocaleErrorUnexpected
 		}
