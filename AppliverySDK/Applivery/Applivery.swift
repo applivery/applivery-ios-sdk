@@ -387,7 +387,8 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
     }
     
     internal func credentialError(message: String) {
-        logWarn(message)
+        log(message)
+        log("App Token you did set: \(GlobalConfig.shared.appToken)")
     }
     
     

@@ -110,6 +110,7 @@
 		FAAA50E91E91841C0004FBF8 /* EventDetectorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4EBF521C7D009000664C1E /* EventDetectorMock.swift */; };
 		FAAAE1221E8040010065E6AC /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAAE1211E8040010065E6AC /* Palette.swift */; };
 		FAADA5351DBBF25B00300A5E /* FeedbackServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAADA5341DBBF25B00300A5E /* FeedbackServiceTests.swift */; };
+		FAAFFA28249EAB43009CC5DF /* error_4002.json in Resources */ = {isa = PBXBuildFile; fileRef = FAAFFA27249EAB43009CC5DF /* error_4002.json */; };
 		FAB0CCEC205DF2C900F68275 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB0CCEB205DF2C900F68275 /* UserDefaultsExtension.swift */; };
 		FAB0CCF0205F17E900F68275 /* SessionPersister.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB0CCEF205F17E800F68275 /* SessionPersister.swift */; };
 		FAB355D01EE8A21E000F48F5 /* feedback_ok.json in Resources */ = {isa = PBXBuildFile; fileRef = FA0883D71DBC231E008A553A /* feedback_ok.json */; };
@@ -287,6 +288,7 @@
 		FAAAE1211E8040010065E6AC /* Palette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Palette.swift; path = Applivery/Model/Palette.swift; sourceTree = "<group>"; };
 		FAADA5341DBBF25B00300A5E /* FeedbackServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FeedbackServiceTests.swift; path = Network/FeedbackServiceTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FAADA53A1DBC14EB00300A5E /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
+		FAAFFA27249EAB43009CC5DF /* error_4002.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = error_4002.json; path = Mocks/JSON/error_4002.json; sourceTree = "<group>"; };
 		FAB0CCEB205DF2C900F68275 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserDefaultsExtension.swift; path = Applivery/Utils/UserDefaultsExtension.swift; sourceTree = "<group>"; };
 		FAB0CCEF205F17E800F68275 /* SessionPersister.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SessionPersister.swift; path = Applivery/Data/Persisters/SessionPersister.swift; sourceTree = "<group>"; };
 		FABA22F61E9D30040000EBA9 /* ForceUpdateSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ForceUpdateSpecs.swift; path = Specs/ForceUpdateSpecs.swift; sourceTree = "<group>"; };
@@ -423,6 +425,7 @@
 				FA3AB8EE2055FB4700B49D3A /* invalid_credentials.json */,
 				FAA043E92311B2E600F8C42B /* error_5004.json */,
 				FA9A70C0248D6402001DF55E /* error_5003.json */,
+				FAAFFA27249EAB43009CC5DF /* error_4002.json */,
 			);
 			name = JSON;
 			sourceTree = "<group>";
@@ -955,6 +958,7 @@
 				FA3AB8EA2055AE3B00B49D3A /* login_success.json in Resources */,
 				FA9A70C1248D6402001DF55E /* error_5003.json in Resources */,
 				FA9EE9201E9984A500EEC056 /* request_token_ok.json in Resources */,
+				FAAFFA28249EAB43009CC5DF /* error_4002.json in Resources */,
 				FAAA50E81E917CFC0004FBF8 /* ko.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

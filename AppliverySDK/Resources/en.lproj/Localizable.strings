@@ -15,7 +15,7 @@
 
 // ERRORS
 "error_unexpected" = "Unexpected error";
-"error_invalid_credentials" = "Invalid credentials";
+"error_invalid_credentials" = "Invalid credentials!! Please, check your appToken as described on https://github.com/applivery/applivery-ios-sdk#get-your-credentials";
 "error_empty_credentials" = "You must set the app token";
 "error_subscription_plan" = "SDK usage is not allowed under your current subscription plan. Please upgrade or contact us at support@applivery.com.";
 "error_download_limit" = "Installations limit exceeded.";

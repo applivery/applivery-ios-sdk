@@ -31,7 +31,7 @@ struct ErrorManager {
 	
 	private func message(from code: Int, with json: JSON? = nil) -> String {
 		switch code {
-		case 401:
+		case 401, 4002:
 			return literal(.errorInvalidCredentials) ?? kLocaleErrorInvalidCredentials
 		case 5004:
 			return kLocaleErrorSubscriptionPlan
