@@ -41,7 +41,7 @@ class RequestSpecs: QuickSpec {
 				self.deviceMock = nil
 				self.globalConfigMock = nil
 				GlobalConfig.shared = GlobalConfig()
-				OHHTTPStubs.removeAllStubs()
+				HTTPStubs.removeAllStubs()
 			}
 			context("when any request is performed") {
 				beforeEach {
@@ -55,6 +55,7 @@ class RequestSpecs: QuickSpec {
 					self.deviceMock?.fakeSystemName = "iOS"
 					self.deviceMock?.fakeModel = "iPhone 11 Pro"
 					self.deviceMock?.fakeType = "iPhone"
+					self.deviceMock?.fakeVendorId = "DEVICE_TEST_ID"
 					
 					StubResponse.testRequest(url: "/test") { _, _, headersSent in
 						self.headersSent = headersSent
@@ -68,6 +69,9 @@ class RequestSpecs: QuickSpec {
 				}
 				it("should send the Bearer header") {
 					expect(self.headersSent?["Authorization"]).toEventually(equal("Bearer TEST_TOKEN"))
+				}
+				it("should send the device identifier header") {
+					expect(self.headersSent?["x-installation-token"]).toEventually(equal("DEVICE_TEST_ID"))
 				}
 				it("should send custom SDK headers") {
 					expect(self.headersSent?["x-sdk-version"]).toEventually(equal("IOS_3.0"))

@@ -14,7 +14,7 @@ let kLastBuildId			= "APPLIVERY_LAST_BUILD_ID"
 let kForceUpdateMessageKey	= "APPLIVERY_FORCE_UPDATE_MESSAGE"
 let kOtaUpdateKey			= "APPLIVERY_OTA_UPDATE_KEY"
 let kLastBuildVersion		= "APPLIVERY_LAST_BUILD_VERSION"
-let kOtaUpdateMessageKey	= "ApPLIVERY_OTA_UPDATE_MESSAGE"
+let kOtaUpdateMessageKey	= "APPLIVERY_OTA_UPDATE_MESSAGE"
 let kForceAuth				= "APPLIVERY_FORCE_AUTH"
 
 protocol UserDefaultsProtocol {

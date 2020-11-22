@@ -23,6 +23,8 @@ public let kLocaleErrorDownloadUrl: String = localize("error_download_url")
 public let kLocaleErrorEmptyCredentials: String = localize("error_empty_credentials")
 public let kLocaleErrorInvalidCredentials: String = localize("error_invalid_credentials")
 public let kLocaleErrorSubscriptionPlan: String = localize("error_subscription_plan")
+public let kLocaleErrorDownloadLimit: String = localize("error_download_limit")
+public let kLocaleErrorDownloadLimitMonth: String = localize("error_download_limit_month")
 public let kLocaleErrorUnexpected: String = localize("error_unexpected")
 
 // Feedback

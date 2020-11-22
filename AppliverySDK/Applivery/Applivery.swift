@@ -43,7 +43,7 @@ import Foundation
  
  - SeeAlso: [Applivery's README on GitHub](https://github.com/applivery/applivery-ios-sdk/blob/master/README.md)
  - Since: 1.0
- - Version: 3.1.1
+ - Version: 3.1.3
  - Author: Alejandro Jiménez Agudo
  - Copyright: Applivery S.L.
  */
@@ -387,7 +387,8 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
     }
     
     internal func credentialError(message: String) {
-        logWarn(message)
+        log(message)
+        log("App Token you did set: \(GlobalConfig.shared.appToken)")
     }
     
     

@@ -75,7 +75,7 @@ class FeedbackSpecs: QuickSpec {
 				self.config = nil
 				self.userDefaultsMock = nil
 				
-				OHHTTPStubs.removeAllStubs()
+				HTTPStubs.removeAllStubs()
 			}
 			
 			describe("view did load") {

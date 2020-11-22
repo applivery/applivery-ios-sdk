@@ -9,9 +9,12 @@
 import Foundation
 
 extension Bundle {
-
+	
 	class func applivery() -> Bundle {
-		return Bundle(for: Applivery.self)
+		Bundle(for: Applivery.self)
+			.url(forResource: "Applivery", withExtension: "bundle")
+			.flatMap(Bundle.init(url:))
+			?? Bundle(for: Applivery.self)
 	}
-
+	
 }
