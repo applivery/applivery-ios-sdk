@@ -9,6 +9,7 @@
 import Quick
 import Nimble
 import OHHTTPStubs
+import UIKit
 @testable import Applivery
 
 class StartSpecs: QuickSpec {
@@ -104,10 +105,7 @@ class StartSpecs: QuickSpec {
 					self.applivery.start(token: self.appToken, appStoreRelease: false)
 				}
 				it("should show force update") {
-					expect(self.appMock.spyPresentModal.called)
-						.toEventually(beTrue())
-					expect((self.appMock.spyPresentModal.viewController as? UINavigationController)?.topViewController)
-						.toEventually(beAKindOf(UpdateVC.self))
+                    expect(self.appMock.spyForceUpdateCalled).toEventually(beTrue())
 				}
 			}
 			context("when app version is up to date") {
@@ -141,10 +139,7 @@ class StartSpecs: QuickSpec {
 					self.applivery.start(token: self.appToken, appStoreRelease: false)
 				}
 				it("should show force update") {
-					expect(self.appMock.spyPresentModal.called)
-						.toEventually(beTrue())
-					expect((self.appMock.spyPresentModal.viewController as? UINavigationController)?.topViewController)
-						.toEventually(beAKindOf(UpdateVC.self))
+                    expect(self.appMock.spyForceUpdateCalled).toEventually(beTrue())
 					expect(self.userDefaultsMock.spySynchronizeCalled)
 						.toEventuallyNot(beTrue())
 				}

@@ -21,6 +21,7 @@ protocol AppProtocol {
 	func showLoading()
 	func hideLoading()
 	func showOtaAlert(_ message: String, downloadHandler: @escaping () -> Void)
+    func showForceUpdate()
 	func showErrorAlert(_ message: String, retryHandler: @escaping () -> Void)
 	func waitForReadyThen(_ onReady: @escaping () -> Void)
 	func presentModal(_ viewController: UIViewController, animated: Bool)
@@ -126,6 +127,21 @@ class App: AppProtocol {
 		
 		topVC?.present(self.alertOta, animated: true, completion: nil)
 	}
+    
+    func showForceUpdate() {
+        if let updateVC = UpdateVC.viewController() {
+            updateVC.presenter = UpdatePresenter(
+                updateInteractor: Configurator.updateInteractor(),
+                view: updateVC
+            )
+            updateVC.presenter.updateInteractor.output = updateVC.presenter
+            let navigationController = AppliveryNavigationController(rootViewController: updateVC)
+            
+            self.waitForReadyThen {
+                self.presentModal(navigationController)
+            }
+        }
+    }
 	
 	func showErrorAlert(_ message: String, retryHandler: @escaping () -> Void) {
 		self.alertError = UIAlertController(title: literal(.appName), message: message, preferredStyle: .alert)

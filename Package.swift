@@ -1,22 +1,21 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.3
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
 let package = Package(
 	name: "Applivery",
+	defaultLocalization: "en",
 	platforms: [
-		.iOS(.v9)
+		.iOS(.v11)
 	],
 	products: [
-		// Products define the executables and libraries produced by a package, and make them visible to other packages.
-		.library(
-			name: "Applivery",
-			targets: ["Applivery"])
+		.library(name: "Applivery", targets: ["Applivery"])
 	],
 	dependencies: [
-		// Dependencies declare other packages that this package depends on.
-		// .package(url: /* package url */, from: "1.0.0"),
+        .package(url: "https://github.com/Quick/Quick.git", from: "3.0.0"),
+        .package(url: "https://github.com/Quick/Nimble.git", from: "9.0.0"),
+        .package(url: "https://github.com/AliSoftware/OHHTTPStubs.git", from: "9.0.0")
 	],
 	targets: [
 		// Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -25,14 +24,18 @@ let package = Package(
 			name: "Applivery",
 			dependencies: [],
 			path: "AppliverySDK",
-			exclude: ["Resources"]),
+			exclude: ["Info.plist", "Resources/getConstants.swift"]),
 		.testTarget(
 			name: "AppliveryBehaviorTests",
-			dependencies: ["Applivery"],
-			path: "AppliveryBehaviorTests"),
-		.testTarget(
-			name: "AppliveryTests",
-			dependencies: ["Applivery"],
-			path: "AppliverySDKTests")
+			dependencies: [
+                "Applivery",
+                "Quick", "Nimble", "OHHTTPStubs",
+                .product(name: "OHHTTPStubsSwift", package: "OHHTTPStubs")],
+			path: "AppliveryBehaviorTests",
+			exclude: ["Info.plist"],
+			resources: [
+                .process("./Mocks/JSON"),
+                .process("./Mocks/Images")
+            ])
 	]
 )

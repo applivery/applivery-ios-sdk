@@ -23,6 +23,7 @@ class AppMock: AppProtocol {
 	// Outputs
 	var spyOpenUrl = (called: false, url: "")
 	var spyOtaAlert = (called: false, message: "")
+    var spyForceUpdateCalled = false
 	var spyAlertError = (called: false, message: "")
 	var spyWaitForReadyCalled = false
 	var spyPresentModal: (called: Bool, viewController: UIViewController?) = (false, nil)
@@ -72,6 +73,10 @@ class AppMock: AppProtocol {
 		self.spyOtaAlert = (true, message)
 		self.spyDownloadClosure = downloadHandler
 	}
+    
+    func showForceUpdate() {
+        self.spyForceUpdateCalled = true
+    }
 
 	func showErrorAlert(_ message: String, retryHandler: @escaping () -> Void) {
 		self.spyAlertError = (true, message)

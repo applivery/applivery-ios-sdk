@@ -8,6 +8,7 @@
 
 import Foundation
 import OHHTTPStubs
+import OHHTTPStubsSwift
 @testable import Applivery
 
 class StubResponse {
@@ -40,11 +41,19 @@ class StubResponse {
 	}
 	
 	class func stubResponse(with json: String) -> HTTPStubsResponse {
-		return HTTPStubsResponse(
-			fileAtPath: OHPathForFile(json, StubResponse.self)!,
-			statusCode: 200,
-			headers: ["Content-Type": "application/json"]
-		)
+        #if SWIFT_PACKAGE
+        return HTTPStubsResponse(
+            fileAtPath: OHPathForFileInBundle(json, Bundle.module)!,
+            statusCode: 200,
+            headers: ["Content-Type": "application/json"]
+        )
+        #else
+        return HTTPStubsResponse(
+            fileAtPath: OHPathForFile(json, StubResponse.self)!,
+            statusCode: 200,
+            headers: ["Content-Type": "application/json"]
+        )
+        #endif
 	}
 	
 }
