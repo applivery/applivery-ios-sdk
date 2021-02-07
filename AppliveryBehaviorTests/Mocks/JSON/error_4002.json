@@ -1,0 +1,7 @@
+{
+  "status" : false,
+  "error" : {
+    "message" : "Invalid Token",
+    "code" : 4002
+  }
+}

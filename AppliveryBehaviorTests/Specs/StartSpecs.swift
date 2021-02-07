@@ -9,6 +9,7 @@
 import Quick
 import Nimble
 import OHHTTPStubs
+import UIKit
 @testable import Applivery
 
 class StartSpecs: QuickSpec {
@@ -52,7 +53,6 @@ class StartSpecs: QuickSpec {
 				self.applivery = nil
 				HTTPStubs.removeAllStubs()
 			}
-			
 			context("when appToken is empty") {
 				beforeEach {
 					self.interactorOutputMock = StartInteractorOutputMock()
@@ -64,7 +64,6 @@ class StartSpecs: QuickSpec {
 					expect(self.interactorOutputMock.spyCredentialError.message).toEventually(equal(kLocaleErrorEmptyCredentials))
 				}
 			}
-			
 			context("when server returns error 5004") {
 				beforeEach {
 					self.interactorOutputMock = StartInteractorOutputMock()
@@ -77,7 +76,18 @@ class StartSpecs: QuickSpec {
 					expect(self.interactorOutputMock.spyCredentialError.message).toEventually(equal(kLocaleErrorSubscriptionPlan))
 				}
 			}
-			
+			context("when server returns error 4002") {
+				beforeEach {
+					self.interactorOutputMock = StartInteractorOutputMock()
+					self.applivery.startInteractor.output = self.interactorOutputMock
+					StubResponse.mockResponse(for: "/v1/app", with: "error_4002.json")
+					self.applivery.start(token: self.appToken, appStoreRelease: false)
+				}
+				it("should return subscription plan error") {
+					expect(self.interactorOutputMock.spyCredentialError.called).toEventually(beTrue())
+					expect(self.interactorOutputMock.spyCredentialError.message).toEventually(equal(kLocaleErrorInvalidCredentials))
+				}
+			}
 			context("when api ota version is greater than app version") {
 				beforeEach {
 					self.appMock.stubVersion = "34"
@@ -88,7 +98,6 @@ class StartSpecs: QuickSpec {
 					expect(self.appMock.spyOtaAlert.called).toEventually(beTrue())
 				}
 			}
-			
 			context("when api min version is greater than app version") {
 				beforeEach {
 					self.appMock.stubVersion = "9"
@@ -96,13 +105,9 @@ class StartSpecs: QuickSpec {
 					self.applivery.start(token: self.appToken, appStoreRelease: false)
 				}
 				it("should show force update") {
-					expect(self.appMock.spyPresentModal.called)
-						.toEventually(beTrue())
-					expect((self.appMock.spyPresentModal.viewController as? UINavigationController)?.topViewController)
-						.toEventually(beAKindOf(UpdateVC.self))
+                    expect(self.appMock.spyForceUpdateCalled).toEventually(beTrue())
 				}
 			}
-			
 			context("when app version is up to date") {
 				beforeEach {
 					self.appMock.stubVersion = "50"
@@ -115,7 +120,6 @@ class StartSpecs: QuickSpec {
 					expect(self.appMock.spyPresentModal.called).toNotEventually(beTrue())
 				}
 			}
-			
 			context("when api gets config") {
 				beforeEach {
 					self.appMock.stubVersion = "50"
@@ -127,7 +131,6 @@ class StartSpecs: QuickSpec {
 					expect(self.userDefaultsMock.spyDictionary).toEventually(equal(UserDefaultFakes.jsonConfigSuccess()))
 				}
 			}
-			
 			context("when api fails and there is a config with min version greater than app version") {
 				beforeEach {
 					self.appMock.stubVersion = "14"
@@ -136,15 +139,11 @@ class StartSpecs: QuickSpec {
 					self.applivery.start(token: self.appToken, appStoreRelease: false)
 				}
 				it("should show force update") {
-					expect(self.appMock.spyPresentModal.called)
-						.toEventually(beTrue())
-					expect((self.appMock.spyPresentModal.viewController as? UINavigationController)?.topViewController)
-						.toEventually(beAKindOf(UpdateVC.self))
+                    expect(self.appMock.spyForceUpdateCalled).toEventually(beTrue())
 					expect(self.userDefaultsMock.spySynchronizeCalled)
 						.toEventuallyNot(beTrue())
 				}
 			}
-			
 			context("when api fails and there is a config with last version greater than app version") {
 				beforeEach {
 					self.appMock.stubVersion = "49"
@@ -157,7 +156,6 @@ class StartSpecs: QuickSpec {
 					expect(self.userDefaultsMock.spySynchronizeCalled).toEventuallyNot(beTrue())
 				}
 			}
-			
 			context("when api is success and there is a previous stored version") {
 				beforeEach {
 					// STORED_LAST(50) > API_LAST(35) > STORED_MIN(15) > APP_VERSION(13) > API_MIN(10)
@@ -172,7 +170,6 @@ class StartSpecs: QuickSpec {
 					expect(self.userDefaultsMock.spySynchronizeCalled).toEventually(beTrue())
 				}
 			}
-			
 			context("when api fails and there is no previous config stored") {
 				beforeEach {
 					self.appMock.stubVersion = "5"
@@ -187,7 +184,6 @@ class StartSpecs: QuickSpec {
 					expect(self.appMock.spyPresentModal.called).toNotEventually(beTrue())
 				}
 			}
-			
 			context("when appsStoreRelease enabled") {
 				beforeEach {
 					StubResponse.mockResponse(for: "/v1/app", with: "config_success.json")
@@ -237,7 +233,7 @@ class StartSpecs: QuickSpec {
 						expect(onSuccessCalled).toEventually(beTrue())
 					}
 				}
-				context("when request token fails") {
+				context("but request token fails") {
 					beforeEach {
 						StubResponse.mockResponse(for: "/v1/build/LAST_BUILD_ID_TEST/downloadToken", with: "error_5004.json")
 						self.applivery.update(
@@ -254,6 +250,24 @@ class StartSpecs: QuickSpec {
 						expect(onError.message).toEventually(equal(kLocaleErrorSubscriptionPlan))
 					}
 				}
+				context("but service returns limit exceeded") {
+					beforeEach {
+						StubResponse.mockResponse(for: "/v1/build/LAST_BUILD_ID_TEST/downloadToken", with: "error_5003.json")
+						self.applivery.update(
+							onSuccess: {
+								onSuccessCalled = true
+						},
+							onError: { message in
+								onError.called = true
+								onError.message = message
+						})
+					}
+					it("should call error") {
+						expect(onError.called).toEventually(beTrue())
+						expect(onError.message).toEventually(equal(kLocaleErrorDownloadLimitMonth.replacingOccurrences(of: "%s", with: "3000")))
+					}
+				}
+				
 			}
 			context("developer calls isUpToDate method") {
 				context("when app version is older than newest applivery version") {
@@ -285,7 +299,6 @@ class StartSpecs: QuickSpec {
 				}
 				
 			}
-			
 			context("when disable feedback") {
 				beforeEach {
 					self.applivery.start(token: self.appToken, appStoreRelease: true)
@@ -295,7 +308,6 @@ class StartSpecs: QuickSpec {
 					expect(self.eventDetectorMock.spyEndListeningCalled).to(beTrue())
 				}
 			}
-			
 			context("when trigger feedback event") {
 				beforeEach {
 					self.applivery.start(token: self.appToken, appStoreRelease: true)

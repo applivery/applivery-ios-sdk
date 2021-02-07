@@ -6,6 +6,7 @@
 //  Copyright © 2017 Applivery S.L. All rights reserved.
 //
 
+import UIKit
 import Quick
 import Nimble
 import OHHTTPStubs
@@ -417,15 +418,20 @@ class FeedbackSpecs: QuickSpec {
 	}
 	
 	private func base64(image: UIImage) -> String? {
-		let imageData = UIImageJPEGRepresentation(image, 0.9)
+        let imageData = image.jpegData(compressionQuality: 0.9)
 		let base64String = imageData?.base64EncodedString()
 		
 		return base64String
 	}
 	
 	private func load(image: String) -> UIImage {
-		let bundle = Bundle.init(for: FeedbackSpecs.self)
-		let image = UIImage(named: image, in: bundle, compatibleWith: nil)
-		return image!
+        #if SWIFT_PACKAGE
+        let bundle = Bundle.module
+        #else
+        let bundle = Bundle.init(for: FeedbackSpecs.self)
+        #endif
+
+        let img = UIImage(named: image, in: bundle, compatibleWith: nil)
+		return img!
 	}
 }

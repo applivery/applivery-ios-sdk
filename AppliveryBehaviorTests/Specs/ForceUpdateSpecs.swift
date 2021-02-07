@@ -125,6 +125,20 @@ class ForceUpdateSpecs: QuickSpec {
 						expect(self.updateViewMock.spyShowErrorMessage.message).toEventually(equal("Unexpected error"))
 					}
 				}
+				context("but service returns limit exceeded") {
+					beforeEach {
+						self.appMock.stubOpenUrlResult = true
+						StubResponse.mockResponse(for: "/v1/build/LAST_BUILD_ID_TEST/downloadToken", with: "error_5003.json")
+						self.updatePresenter.userDidTapDownload()
+					}
+					it("should hide loading") {
+						expect(self.updateViewMock.spyStopLoadingCalled).toEventually(beTrue())
+					}
+					it("should show error alert") {
+						expect(self.updateViewMock.spyShowErrorMessage.called).toEventually(beTrue())
+						expect(self.updateViewMock.spyShowErrorMessage.message).toEventually(equal(kLocaleErrorDownloadLimitMonth.replacingOccurrences(of: "%s", with: "3000")))
+					}
+				}
 			}
 			context("when download needs auth") {
 				var matchedDownloadURL = false

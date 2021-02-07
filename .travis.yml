@@ -1,11 +1,11 @@
-osx_image: xcode11.3
+osx_image: xcode11.4.1
 language: objective-c
 env:
   global:
     - FRAMEWORK_NAME=Applivery
     - PROJECT=AppliverySDK
     - SCHEME=Applivery
-    - OS=13.3
+    - OS=13.4.1
     - DEVICE="iPhone 11 Pro"
 cache:
   directories:
@@ -16,7 +16,7 @@ before_script:
 script:
   - set -o pipefail && xcodebuild -project $PROJECT.xcodeproj -scheme $SCHEME -sdk iphonesimulator -destination "platform=iOS Simulator,OS=$OS,name=$DEVICE" test | xcpretty
 before_deploy:
-  - carthage build --archive
+  - carthage build --archive --platform iOS
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 notifications:

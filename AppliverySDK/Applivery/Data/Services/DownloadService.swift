@@ -20,16 +20,13 @@ class DownloadService: DownloadServiceProtocol {
 
 	func fetchDownloadToken(with buildId: String, completionHandler: @escaping (Result<String, NSError>) -> Void) {
 		self.request = Request(
-			endpoint: "/v1/build/\(buildId)/downloadToken"
-		)
-
+			endpoint: "/v1/build/\(buildId)/downloadToken")
 		self.request?.sendAsync { response in
 			if response.success {
 				guard let token = response.body?["token"]?.toString() else {
 					let error = NSError.unexpectedError(debugMessage: "Error trying to parse token", code: ErrorCodes.JsonParse)
 					completionHandler(.error(error))
-					return
-				}
+					return}
 				completionHandler(.success(token))
 			} else {
 				let error = response.error ?? NSError

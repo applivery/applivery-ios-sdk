@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 protocol EventDetector {
@@ -25,7 +26,7 @@ class ScreenshotDetector: EventDetector {
 
 		self.observer = NotificationCenter.default
 			.addObserver(
-				forName: NSNotification.Name.UIApplicationUserDidTakeScreenshot,
+				forName: UIApplication.userDidTakeScreenshotNotification,
 				object: nil,
 				queue: OperationQueue.main) { _ in
 					onDetection()

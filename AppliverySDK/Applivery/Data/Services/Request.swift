@@ -75,8 +75,9 @@ class Request {
 		let version = app.getSDKVersion()
 		
 		self.request?.setValue("application/json", forHTTPHeaderField: "Content-Type")
-		self.request?.setValue(appToken, forHTTPHeaderField: "Authorization")
 		self.request?.setValue(app.getLanguage(), forHTTPHeaderField: "Accept-Language")
+		self.request?.setValue(appToken, forHTTPHeaderField: "Authorization")
+		self.request?.setValue(device.vendorId(), forHTTPHeaderField: "x-installation-token")
 		self.request?.setValue("IOS_\(version)", forHTTPHeaderField: "x-sdk-version")
 		self.request?.setValue(app.getVersionName(), forHTTPHeaderField: "x-app-version")
 		self.request?.setValue(device.systemVersion(), forHTTPHeaderField: "x-os-version")
