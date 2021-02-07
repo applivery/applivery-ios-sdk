@@ -38,19 +38,7 @@ class UpdateCoordinator: PUpdateCoordinator, UpdateInteractorOutput {
 	func forceUpdate() {
 		guard !forceUpdateCalled else { return }
 		forceUpdateCalled = true
-		
-		if let updateVC = UpdateVC.viewController() {
-			updateVC.presenter = UpdatePresenter(
-				updateInteractor: Configurator.updateInteractor(),
-				view: updateVC
-			)
-			updateVC.presenter.updateInteractor.output = updateVC.presenter
-			let navigationController = AppliveryNavigationController(rootViewController: updateVC)
-			
-			self.app.waitForReadyThen {
-				self.app.presentModal(navigationController)
-			}
-		}
+        self.app.showForceUpdate()
 	}
 	
 	func otaUpdate() {

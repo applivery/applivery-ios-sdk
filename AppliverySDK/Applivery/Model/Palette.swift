@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 /**
 A color palette for view's customization

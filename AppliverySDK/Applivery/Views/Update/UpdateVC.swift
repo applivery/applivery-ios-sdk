@@ -78,7 +78,7 @@ class UpdateVC: UIViewController, UpdateView {
 		self.setColors()
 		self.title = literal(.appName)
 
-		self.buttonUpdate.setTitle(literal(.buttonForceUpdate), for: UIControlState())
+		self.buttonUpdate.setTitle(literal(.buttonForceUpdate), for: UIControl.State())
 		self.buttonUpdate.layer.cornerRadius = 6
 
 		self.alert.addAction(UIAlertAction(
