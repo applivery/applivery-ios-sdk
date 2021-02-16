@@ -57,11 +57,8 @@ You can get your API TOKEN in your `App -> Settings -> Integrations` section.
 
 ### Using Swift Package Manager
 
-Add to your dependencies
+In the Xcode menu, you just need to open “File -> Swift Packages -> Add Package Dependency…” and enter the git url: https://github.com/applivery/applivery-ios-sdk.git
 
-```swift
-.package(url: "https://github.com/applivery/applivery-ios-sdk.git", from: "3.2.0"),
-```
 
 ### Using Carthage
 
