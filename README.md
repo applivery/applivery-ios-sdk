@@ -1,6 +1,6 @@
 ![Applivery Logo](https://www.applivery.com/wp-content/uploads/2019/06/applivery-og.png)
 
-![Version](https://img.shields.io/badge/version-3.2-blue.svg)
+![Version](https://img.shields.io/badge/version-3.2.2-blue.svg)
 ![Language](https://img.shields.io/badge/Language-Swift-orange.svg)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Applivery.svg)](https://cocoapods.org/pods/Applivery)
@@ -168,6 +168,7 @@ The compatibility version is as follow:
 | **v2.7.x**        | 9.x, 10.x      | 4.0, 4.2      |
 | **v3.0**          | 10.x, 11.x     | 4.0, 4.2, 5.0 |
 | **v3.1**          | 11.x           | 4.0, 4.2, 5.x |
+| **v3.2**          | 12.x           | 5.x           |
 
 ## Advanced concepts
 
