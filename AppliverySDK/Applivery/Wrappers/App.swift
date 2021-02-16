@@ -71,10 +71,7 @@ class App: AppProtocol {
 	}
 	
 	func getSDKVersion() -> String {
-		guard let version = Bundle.applivery().infoDictionary?["CFBundleShortVersionString"] as? String else {
-			return "NO_VERSION_FOUND"
-		}
-		return version
+        Applivery.sdkVersion
 	}
 	
 	func getLanguage() -> String {

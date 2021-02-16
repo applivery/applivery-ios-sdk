@@ -1,5 +1,15 @@
 # Change Log
 
+## [v3.2.2](https://github.com/applivery/applivery-ios-sdk/releases/tag/v3.2.2)
+
+### New
+
+* Swift Package Manager support (#25)
+* Improved feedback when downloads limits are reached (#33)
+* Installation identificacion (#36)
+
+---
+
 ## [v3.2](https://github.com/applivery/applivery-ios-sdk/releases/tag/v3.2)
 
 ### New
