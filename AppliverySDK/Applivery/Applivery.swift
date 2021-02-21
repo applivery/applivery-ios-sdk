@@ -43,7 +43,7 @@ import Foundation
  
  - SeeAlso: [Applivery's README on GitHub](https://github.com/applivery/applivery-ios-sdk/blob/master/README.md)
  - Since: 1.0
- - Version: 3.2.2
+ - Version: 3.2.3
  - Author: Alejandro Jiménez Agudo
  - Copyright: Applivery S.L.
  */
@@ -51,7 +51,7 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
 
     // MARK: - Static Properties
     
-    internal static let sdkVersion = "3.2.2"
+    internal static let sdkVersion = "3.2.3"
     
     // MARK: - Type Properties
     

@@ -1,12 +1,18 @@
 # Change Log
 
+## [v3.2.3](https://github.com/applivery/applivery-ios-sdk/releases/tag/v3.2.3)
+
+### Fix
+
+* Workaround to fix Xcode bug while loading storyboards with Swift Package Manager
+
+---
+
 ## [v3.2.2](https://github.com/applivery/applivery-ios-sdk/releases/tag/v3.2.2)
 
-### New
+### Fix
 
-* Swift Package Manager support (#25)
-* Improved feedback when downloads limits are reached (#33)
-* Installation identificacion (#36)
+* Error when trying to update while integrating applivery with swift package manager
 
 ---
 
