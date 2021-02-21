@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Wea-jC-1dn">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Wea-jC-1dn">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -34,7 +31,7 @@
         <!--#Applivery#-->
         <scene sceneID="47i-3Y-5CR">
             <objects>
-                <viewController id="Wea-jC-1dn" customClass="UpdateVC" customModule="Applivery" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Wea-jC-1dn" customClass="UpdateVC" customModule="Applivery" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dCE-x5-bWe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -48,7 +45,7 @@
                                         <color key="textColor" red="0.23529411759999999" green="0.26274509800000001" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zEI-sj-mbl" userLabel="buttonUpdate">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zEI-sj-mbl" userLabel="buttonUpdate">
                                         <rect key="frame" x="117" y="101" width="140" height="50"/>
                                         <color key="backgroundColor" red="0.36078431372549019" green="0.72156862745098038" blue="0.36078431372549019" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -83,6 +80,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="NvC-q9-RWb"/>
                         <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="FhN-Oy-KDs" firstAttribute="leading" secondItem="NvC-q9-RWb" secondAttribute="leading" constant="20" id="448-Et-zDZ"/>
@@ -91,7 +89,6 @@
                             <constraint firstItem="FhN-Oy-KDs" firstAttribute="centerY" secondItem="dCE-x5-bWe" secondAttribute="centerY" id="qSP-AO-z90"/>
                             <constraint firstItem="FhN-Oy-KDs" firstAttribute="leading" secondItem="dCE-x5-bWe" secondAttribute="leadingMargin" constant="20" id="xtq-nm-J0B"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="NvC-q9-RWb"/>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="TGD-Ok-lwD"/>
@@ -113,7 +110,7 @@
         <!--FeedbackVC-->
         <scene sceneID="MjP-nB-nym">
             <objects>
-                <viewController storyboardIdentifier="FeedbackVC" id="Oa8-bc-K33" customClass="FeedbackVC" customModule="Applivery" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FeedbackVC" id="Oa8-bc-K33" customClass="FeedbackVC" customModule="Applivery" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mfp-uX-ah8">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -121,7 +118,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eff-qi-Sah" userLabel="navigationBar">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="89a-zf-xIp" userLabel="buttonClose">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="89a-zf-xIp" userLabel="buttonClose">
                                         <rect key="frame" x="20" y="0.0" width="54" height="44"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="#Close#">
@@ -138,7 +135,7 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VLa-oq-kkA" userLabel="buttonAddFeedback">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VLa-oq-kkA" userLabel="buttonAddFeedback">
                                         <rect key="frame" x="293" y="0.0" width="111" height="44"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="#Add Feedback#">
@@ -148,7 +145,7 @@
                                             <action selector="onButtonAddFeedback:" destination="Oa8-bc-K33" eventType="touchUpInside" id="YwL-tS-r59"/>
                                         </connections>
                                     </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9zJ-G3-jRu" userLabel="buttonSendFeedback">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9zJ-G3-jRu" userLabel="buttonSendFeedback">
                                         <rect key="frame" x="286" y="0.0" width="118" height="44"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="#Send Feedback#">
@@ -195,16 +192,16 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="134-6J-zx4" userLabel="viewType">
-                                        <rect key="frame" x="10" y="10" width="394" height="32"/>
+                                        <rect key="frame" x="10" y="10" width="394" height="35"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#Select type#" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SLI-PW-pEH" userLabel="labelTypeInfo">
-                                                <rect key="frame" x="10" y="7" width="176" height="18"/>
+                                                <rect key="frame" x="10" y="8.5" width="176" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" red="0.23529411759999999" green="0.26274509800000001" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="oin-KM-8gu" userLabel="segmentedControlType">
-                                                <rect key="frame" x="194" y="2" width="200" height="29"/>
+                                                <rect key="frame" x="194" y="2" width="200" height="32"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="200" id="mgP-Ez-HOa"/>
                                                 </constraints>
@@ -229,10 +226,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5u6-US-edA" userLabel="viewMessage">
-                                        <rect key="frame" x="10" y="52" width="394" height="667"/>
+                                        <rect key="frame" x="10" y="55" width="394" height="664"/>
                                         <subviews>
                                             <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gyg-Pd-3jI" userLabel="imagePreview">
-                                                <rect key="frame" x="276" y="0.0" width="118" height="667"/>
+                                                <rect key="frame" x="276" y="0.0" width="118" height="664"/>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <gestureRecognizers/>
                                                 <connections>
@@ -240,7 +237,7 @@
                                                 </connections>
                                             </imageView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="#Add a message#" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="XTu-E8-GkR" userLabel="textMessage">
-                                                <rect key="frame" x="0.0" y="0.0" width="271" height="667"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="271" height="664"/>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="textColor" red="0.23529411759999999" green="0.26274509800000001" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -304,6 +301,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="B8l-hp-3xH"/>
                         <color key="backgroundColor" red="0.39215686917304993" green="0.58039218187332153" blue="0.64705884456634521" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="B8l-hp-3xH" firstAttribute="bottom" secondItem="zWW-ge-0i7" secondAttribute="bottom" constant="10" id="3IA-Yo-qeC"/>
@@ -321,7 +319,6 @@
                             <constraint firstItem="zWW-ge-0i7" firstAttribute="centerX" secondItem="B8l-hp-3xH" secondAttribute="centerX" id="rfV-jc-KLo"/>
                             <constraint firstItem="B8l-hp-3xH" firstAttribute="trailing" secondItem="Efi-hL-Mrq" secondAttribute="trailing" id="yDH-hz-aEW"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="B8l-hp-3xH"/>
                     </view>
                     <connections>
                         <outlet property="bottomFeedbackFormConstraint" destination="L0R-uF-uBS" id="peS-jd-L1L"/>
@@ -354,7 +351,7 @@
         <!--PreviewVC-->
         <scene sceneID="sNw-dg-O8g">
             <objects>
-                <viewController id="Q2s-L3-nFt" customClass="PreviewVC" customModule="Applivery" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Q2s-L3-nFt" customClass="PreviewVC" customModule="Applivery" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleAspectFit" id="82f-Rg-ETH">
                         <rect key="frame" x="0.0" y="0.0" width="348" height="754"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -367,6 +364,7 @@
                                 </connections>
                             </imageView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="igv-iK-d8H"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="igv-iK-d8H" firstAttribute="trailing" secondItem="Kap-QR-Oxj" secondAttribute="trailing" id="6rq-5f-8mX"/>
@@ -374,7 +372,6 @@
                             <constraint firstItem="Kap-QR-Oxj" firstAttribute="leading" secondItem="igv-iK-d8H" secondAttribute="leading" id="RSK-2y-DCJ"/>
                             <constraint firstAttribute="bottom" secondItem="Kap-QR-Oxj" secondAttribute="bottom" id="dE8-cU-L0F"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="igv-iK-d8H"/>
                     </view>
                     <connections>
                         <outlet property="imageScreenshot" destination="Kap-QR-Oxj" id="giO-eh-ShX"/>
