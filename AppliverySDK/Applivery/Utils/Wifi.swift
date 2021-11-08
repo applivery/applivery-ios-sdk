@@ -32,10 +32,11 @@ class Wifi {
 			return false
 		}
 		
-		let isReachable = flags == .reachable
-		let needsConnection = flags == .connectionRequired
+        let isReachable = flags.contains(.reachable)
+        let needsConnection = flags.contains(.connectionRequired)
+        let isWWAN = flags.contains(.isWWAN)
 		
-		return isReachable && !needsConnection
+		return isReachable && !needsConnection && !isWWAN
 		
 	}
 	
