@@ -35,38 +35,15 @@ class FeedbackSpecs: QuickSpec {
 				self.deviceMock = DeviceMock()
 				let feedbackCoordinator = FeedbackCoordinator()
 				feedbackCoordinator.feedbackVC = self.feedbackViewMock
-				
-				self.feedbackPresenter = FeedbackPresenter(
-					view: self.feedbackViewMock,
-					feedbackInteractor: FeedbackInteractor(
-						service: FeedbackService(
-							app: self.appMock,
-							device: self.deviceMock,
-							config: self.config
-						),
-						configDataManager: ConfigDataManager(
-							appInfo: self.appMock,
-							configPersister: ConfigPersister(
-								userDefaults: self.userDefaultsMock
-							),
-							configService: ConfigService()
-						),
-						loginInteractor: LoginInteractor(
-							app: self.appMock,
-							loginDataManager: LoginDataManager(
-								loginService: LoginService()
-							),
-							globalConfig: self.config,
-							sessionPersister: SessionPersister(
-								userDefaults: self.userDefaultsMock
-							)
-						)
-					),
-					feedbackCoordinator: feedbackCoordinator,
-					screenshotInteractor: ScreenshotInteractor(
-						imageManager: self.imageManagerMock
-					)
-				)
+                self.feedbackPresenter = TestBuilder.feedbackPresenter(
+                    view: self.feedbackViewMock,
+                    app: self.appMock,
+                    device: self.deviceMock,
+                    config: self.config,
+                    userDefaults: self.userDefaultsMock,
+                    feedbackCoordinator: feedbackCoordinator,
+                    imageManager: self.imageManagerMock
+                )
 			}
 			afterEach {
 				self.feedbackPresenter = nil
@@ -75,13 +52,10 @@ class FeedbackSpecs: QuickSpec {
 				self.appMock = nil
 				self.config = nil
 				self.userDefaultsMock = nil
-				
 				HTTPStubs.removeAllStubs()
 			}
-			
 			describe("view did load") {
 				let imageFake = self.load(image: "test1")
-				
 				beforeEach {
 					self.imageManagerMock.fakeScreenshot = Screenshot(image: imageFake)
 					self.feedbackPresenter.viewDidLoad()
@@ -91,7 +65,6 @@ class FeedbackSpecs: QuickSpec {
 					expect(self.feedbackViewMock.spyShowScreenshot.image).to(be(imageFake))
 				}
 			}
-
 			describe("user did tap close button") {
 				beforeEach {
 					self.feedbackPresenter.userDidTapCloseButton()
@@ -100,11 +73,9 @@ class FeedbackSpecs: QuickSpec {
 					expect(self.feedbackViewMock.spyDismissCalled).to(beTrue())
 				}
 			}
-			
 			describe("user did tap add feedback button") {
 				let imageFake = self.load(image: "test1")
 				let editedImageFake = self.load(image: "test2")
-				
 				beforeEach {
 					self.feedbackViewMock.fakeEditedScreenshot = editedImageFake
 					self.imageManagerMock.fakeScreenshot = Screenshot(image: imageFake)
@@ -115,7 +86,6 @@ class FeedbackSpecs: QuickSpec {
 					expect(self.feedbackViewMock.spyShowFeedbackFormulary.preview).to(be(editedImageFake))
 				}
 			}
-			
 			describe("user did tap send feedback button") {
 				let imageFake = self.load(image: "test1")
 				let editedImageFake = self.load(image: "test2")
@@ -139,7 +109,6 @@ class FeedbackSpecs: QuickSpec {
 					var matchedFeedbackURL = false
 					var json: JSON?
 					var feedbackHeaders: [String: String]?
-					
 					beforeEach {
 						StubResponse.testRequest(url: "/v1/feedback") { _, jsonSent, headersSent in
 							matchedFeedbackURL = true
@@ -240,15 +209,14 @@ class FeedbackSpecs: QuickSpec {
 					// WHEN AUTH IS NOT NEEDED
 					it("should start loading") {
 						self.feedbackPresenter.userDidTapSendFeedbackButton()
-						
 						expect(self.feedbackViewMock.spyShowLoadingCalled).to(beTrue())
 					}
-					it("should send feedback with default feedback info and battery charging") {
+					it("should send feedback with default feedback info") {
 						self.feedbackPresenter.userDidTapSendFeedbackButton()
-						
 						expect(matchedFeedbackURL).toEventually(beTrue())
 						expect(json?["type"]?.toString()).toEventually(equal(FeedbackType.bug.rawValue))
 						expect(json?["message"]?.toString()).toEventually(equal("Test message"))
+                        expect(json?["email"]?.toString()).toEventually(equal("user@email.com"))
 						expect(json?["packageInfo.name"]?.toString()).toEventually(equal("BUNDLEID_TEST"))
 						expect(json?["packageInfo.version"]?.toString()).toEventually(equal("500"))
 						expect(json?["packageInfo.versionName"]?.toString()).toEventually(equal("1.3"))
@@ -271,7 +239,6 @@ class FeedbackSpecs: QuickSpec {
 							self.deviceMock.fakeBatteryLevel = 20
 							self.feedbackPresenter.userDidTapSendFeedbackButton()
 						}
-						
 						it("should send than battery is charging") {
 							expect(matchedFeedbackURL).toEventually(beTrue())
 							expect(json?["deviceInfo.device.batteryStatus"]?.toBool()).to(beTrue())
@@ -334,7 +301,6 @@ class FeedbackSpecs: QuickSpec {
 					}
 				}
 			}
-			
 			describe("user did tap attach screenshot") {
 				beforeEach {
 					self.feedbackPresenter.userDidChangedAttachScreenshot(attach: true)
@@ -343,7 +309,6 @@ class FeedbackSpecs: QuickSpec {
 					expect(self.feedbackViewMock.spyShowScreenshotPreviewCalled).to(beTrue())
 				}
 			}
-			
 			describe("user dip tap don't attach screenshot") {
 				beforeEach {
 					self.feedbackPresenter.userDidChangedAttachScreenshot(attach: false)
@@ -352,11 +317,9 @@ class FeedbackSpecs: QuickSpec {
 					expect(self.feedbackViewMock.spyHideScreenshotPreviewCalled).to(beTrue())
 				}
 			}
-			
 			describe("user did tap preview") {
 				let imageFake = self.load(image: "test1")
 				let editedImageFake = self.load(image: "test2")
-				
 				beforeEach {
 					self.feedbackViewMock.fakeEditedScreenshot = editedImageFake
 					self.imageManagerMock.fakeScreenshot = Screenshot(image: imageFake)
@@ -373,7 +336,6 @@ class FeedbackSpecs: QuickSpec {
 					expect(self.feedbackViewMock.spyShowScreenshot.image).to(beNil())
 				}
 			}
-			
 			describe("user did shake") {
 				let imageFake = self.load(image: "test1")
 				let editedImageFake = self.load(image: "test2")
@@ -430,7 +392,6 @@ class FeedbackSpecs: QuickSpec {
         #else
         let bundle = Bundle.init(for: FeedbackSpecs.self)
         #endif
-
         let img = UIImage(named: image, in: bundle, compatibleWith: nil)
 		return img!
 	}
