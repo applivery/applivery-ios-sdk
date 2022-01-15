@@ -49,15 +49,10 @@ class StartInteractor {
     func start() {
         logInfo("Applivery is starting... ")
         logInfo("SDK Version: \(GlobalConfig.shared.app.getSDKVersion())")
-        guard !self.globalConfig.appToken.isEmpty
-            else { return self.output.credentialError(message: kLocaleErrorEmptyCredentials) }
-        
-        self.eventDetector.listenEvent(self.output.feedbackEvent)
-        
-        guard !self.globalConfig.appStoreRelease else {
-            return logWarn("The build is marked like an AppStore Release. Applivery won't present any update message to the user")
+        guard !self.globalConfig.appToken.isEmpty else {
+            return self.output.credentialError(message: kLocaleErrorEmptyCredentials)
         }
-        
+        self.eventDetector.listenEvent(self.output.feedbackEvent)
         self.updateConfig()
     }
     
