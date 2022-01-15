@@ -80,11 +80,11 @@ Select `AppliveryDynamic` if you are using Applivery for internal beta testing a
 
 ### Step 1 
 
-First, you should add the framework with "Embbed & Sign" and be sure that is included in "Build Phases" -> "Embed Frameworks"
+First add the framework with "Embbed & Sign" flag and be sure that is included in "Build Phases" -> "Embed Frameworks"
 
 ### Step 2
 
-Then you should change the linking option from `required` to `optional` in "Build Phases" -> "Link Binary With Libraries"
+Then change the linking option from `required` to `optional` in "Build Phases" -> "Link Binary With Libraries"
 
 ### Step 3
 
@@ -405,7 +405,7 @@ _**Important**_: The default literals are only in english. Consider to set local
 
 ## Embedded frameworks & ipa generation
 
-If you install the SDK with Carthage, Applivery.framework is built as a fat universal library, this means that you can compile for devices or simulator without any problem, but you can not make an ipa file if it has inside an embedded framework with simulator slices.
+If you have installed the SDK with Carthage and as a Dynamic framework, Applivery.framework is built as a fat universal library, that means that you can compile for devices or simulator without any problem, but you can not make an ipa file if it has inside an embedded framework with simulator slices.
 
  In this case, the solution is as simple as add [this script](https://github.com/applivery/applivery-ios-sdk/blob/master/script/applivery_script.sh) in "New Run Script Phase".
  You'll find inside _Build Phases_ tab.
