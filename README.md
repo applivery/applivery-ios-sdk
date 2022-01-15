@@ -9,9 +9,8 @@
 
 ### Quality checks
 
-[![Build Status](https://travis-ci.org/applivery/applivery-ios-sdk.svg?branch=master)](https://travis-ci.org/applivery/applivery-ios-sdk)
+[![Swift](https://github.com/applivery/applivery-ios-sdk/actions/workflows/swift.yml/badge.svg?branch=master)](https://github.com/applivery/applivery-ios-sdk/actions/workflows/swift.yml)
 [![codecov](https://codecov.io/gh/applivery/applivery-ios-sdk/branch/develop/graph/badge.svg)](https://codecov.io/gh/applivery/applivery-ios-sdk)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d9f8d737904b4785b846afec3df3e26c)](https://www.codacy.com/app/a-j-agudo/applivery-ios-sdk?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=applivery/applivery-ios-sdk&amp;utm_campaign=Badge_Grade)
 [![codebeat badge](https://codebeat.co/badges/c5895172-0986-4905-8e6f-38dccb63a059)](https://codebeat.co/projects/github-com-applivery-applivery-ios-sdk-master)
 [![BCH compliance](https://bettercodehub.com/edge/badge/applivery/applivery-ios-sdk)](https://bettercodehub.com/)
 
@@ -20,6 +19,7 @@
 * [Overview](#overview)
 * [Getting Started](#getting-started)
 * [SDK Installation](#sdk-installation)
+  * [Using SwiftPM](#using-swift-package-manager)
   * [Using Carthage](#using-carthage)
   * [Using CocoaPods](#using-cocoapods)
   * [Manual installation](#manual-installation)
@@ -31,36 +31,105 @@
 * [Swift & Xcode versions support](#swift--xcode-version-support)
 * [Advanced concepts](#advanced-concepts)
 
-## Overview
+# Overview
 
 Applivery iOS SDK is a Framework to support [Applivery.com Mobile App distribution](http://www.applivery.io) for iOS Apps.
 
 With Applivery you can massively distribute your iOS Apps (both Ad-hoc or In-House/Enterprise) through a customizable distribution site with no need of your users have to be registered in the platform. Combined with [Apple Developer Enterprise Program](https://developer.apple.com/programs/enterprise/) and Enterprise certificates, Applivery is perfect not only for beta testing distribute to your QA team, but also for In-House Enterprise distribution for beta testing users, prior to a release, or even for corporative Apps to the employees of a company.
 
-### Features
+## Features
 
 * **Automatic OTA Updates** when uploading new versions to Applivery.
 * **Force update** if App version is lower than the minimum version configured in Applivery.
 * **Send feedback**. Your test users can report a bug or send improvements feedback by simply taking a screenshot.
+* **Employee authentication**. You can login yours employees in order to track analytics of installations, block app usage, to know who sent a feedback or report, etc..
 
-## Getting Started
+# Getting Started
 
 First of all, you should create an account on [Applivery.io](https://dashboard.applivery.io) and then add a new Application.
 
-### Get your credentials
+## Get your credentials
 
 **API TOKEN**: that identifies and grants access to your account in order to use the SDK.
 
-You can get your API TOKEN in your `App -> Settings -> Integrations` section.
+You can get your API TOKEN in your `App -> Settings -> API Auth` section.
 
 ## SDK Installation
 
 ### Using Swift Package Manager
 
-In the Xcode menu, you just need to open “File -> Swift Packages -> Add Package Dependency…” and enter the git url: https://github.com/applivery/applivery-ios-sdk.git
+(**RECOMMENDED**)
+
+In the Xcode menu, you just need to open “File -> Add Packages...” and enter the Github url: https://github.com/applivery/applivery-ios-sdk.git
+
+then we recommend to configure the dependency rule as "Up to next major version" (3.3.0 < 4.0.0).
+
+At this point, you should choose **one** of the following sdk versions:
+
+* Applivery 
+* AppliveryDynamic
+
+Select `Applivery` if your app is for internal use only. For example, an in-house business app for your employees (your not going to upload it to the Appstore). This is a static version of the library.
+
+**Publish an app with the Applivery SDK in the Appstore is forbidden** and your build may be rejected at review process. You should manually delete Applivery each time you upload to the Appstore, or you can use the AppliveryDynamic framework and excluding it at build time.
+
+--- 
+### Dynamically exclude Applivery SDK for Appstore schemes
+
+Select `AppliveryDynamic` if you are using Applivery for internal beta testing and eventually you are going to upload a build to the Appstore. With this dynamic framework version, you could dynamically exclude applivery when compiling a build for the Appstore. 
+
+### Step 1 
+
+First add the framework with "Embbed & Sign" flag and be sure that is included in "Build Phases" -> "Embed Frameworks"
+
+### Step 2
+
+Then change the linking option from `required` to `optional` in "Build Phases" -> "Link Binary With Libraries"
+
+### Step 3
+
+Now, you can exclude `AppliveryDynamic.framework` in the "Exclude Source Filenames" build option for your appstore configuration in the build settings. Alternatively to this step, if your are using **xcconfig** files (this is our recommendation) you can ignore the framework adding the following line to your xcconfig:
+
+```
+EXCLUDED_SOURCE_FILE_NAMES = AppliveryDynamic.framework
+```
+
+### Step 4
+
+Finally you may also exclude source code that invokes applivery methods at build time using Swift macros. For example:
+
+```swift
+#if !APPSTORE && !DEBUG
+import Applivery
+#endif
+
+struct AppliveryWrapper {
+  
+  func setup() {
+#if !APPSTORE && !DEBUG
+    let applivery = Applivery.shared
+    applivery.logLevel = .info
+    applivery.start(token: APPLIVERY_TOKEN, appStoreRelease: false)
+#endif
+	}
+
+}
+```
+
+The lines between the `#if` macros will not compile (as they wouldn't exists) if you are compiling for a build configuration that has those `Swift Compiler - Custom Flags` (you can add/edit them in the Build settings)
 
 
-### Using Carthage
+You can find a tutorial about dinamicaly exclude Applivery for an Appstore scheme [here](https://www.applivery.com/docs/troubleshooting/exclude-applivery-ios-sdk/)
+
+
+### Troubleshooting
+
+Beware if you are using a script for removing simulator slices of dynamic frameworks [like this](https://github.com/applivery/applivery-ios-sdk/blob/master/script/applivery_script.sh). Xcode only build the framework for the configuration selected, so when archiving a release configuration, no simulator slice is generated inside the framework and the script may fail or remove the applivery framework itself. You should ignore AppliveryDynamic in this kind of scripts (commonly used with carthage)
+
+---
+
+### Using Carthage 
+(deprecated)
 
 Install carthage with using brew
 
@@ -71,14 +140,16 @@ brew update && brew install carthage
 Add the following line to your's Cartfile
 
 ```bash
-github "applivery/applivery-ios-sdk" ~> 3.2
+github "applivery/applivery-ios-sdk" ~> 3.3
 ```
 
 Run `carthage update` and then drag the built framework into your project. 
 
 More info about Carthage [here](https://github.com/Carthage/Carthage#installing-carthage).
 
-### Using CocoaPods
+
+### Using CocoaPods 
+(deprecated)
 
 Install the ruby gem
 
@@ -95,21 +166,11 @@ project '<Your Project Name>.xcodeproj'
 # platform :ios, '11.0'
 # use_frameworks!  # Starting from v3.2 you can use applivery as a static framework, leave this line commented if you wish
 target '<Your Target Name>' do
-  pod 'Applivery', '~> 3.2'
+  pod 'Applivery', '~> 3.3'
 end
 ```
 
 and then run `pod install`. More info about CocoaPods [here](https://cocoapods.org)
-
-### Manual installation
-
-1. Download the Applivery.framework [here](https://github.com/applivery/applivery-ios-sdk/releases)
-2. Drag it to your frameworks folder
-3. Add it to "Frameworks, Libraries, and Embedded Content"
-
-If your project is written in Objective-C, you should also enable the "_Always Embed Swift Standard Libraries_" option. You'll find it in the _Build Settings_ section:
-
-![Embedded binaries](https://raw.githubusercontent.com/applivery/applivery-ios-sdk/master/documentation/embedded_content.png)
 
 ## SDK Setup
 
@@ -152,9 +213,7 @@ Applivery *applivery = [Applivery shared];
 ### About params
 
 * **token**: Your app token
-* **appStoreRelease**: Flag to mark that the build will be submitted to the AppStore. This is needed to prevent unwanted behavior like prompt to a final user that a new version is available on Applivery.com.
-  * True: Applivery SDK will not trigger automatic updates anymore. **Use this for AppStore**
-  * False: Applivery SDK will normally. Use this with builds distributed through Applivery.
+* **appStoreRelease**: (DEPRECATED - You should not upload a build with Applivery to the Appstore)
 
 ## Swift & Xcode version support
 
@@ -169,20 +228,21 @@ The compatibility version is as follow:
 | **v3.0**          | 10.x, 11.x     | 4.0, 4.2, 5.0 |
 | **v3.1**          | 11.x           | 4.0, 4.2, 5.x |
 | **v3.2**          | 12.x           | 5.x           |
+| **v3.3**           | 13.x           | 5.X           |
 
-## Advanced concepts
+# Advanced concepts
 
-### Logs and debugging
+## Logs and debugging
 
 In some cases you'll find usefull to see what is happening inside Applivery SDK. If so, you can enable logs for debugging purposes.
 
-#### Swift
+### Swift
 
 ``` swift
 applivery.logLevel = .info
 ```
 
-#### Objective-C
+### Objective-C
 
 ``` objc
 applivery.logLevel = LogLevelInfo;
@@ -195,23 +255,23 @@ Possible values are:
 * **Info**: Errors and relevant information. Recommended for test integrating Applivery.
 * **Debug**: Request and Responses to Applivery's server will be displayed. Not recommended to use, only for debugging Applivery.
 
-### Disable feedback
+## Disable feedback
 
 By default, Applivery will show a feedback formulary to your users when a screenshot is detected. If you want to avoid this, you can disable it calling the following method:
 
-#### Swift
+### Swift
 
 ``` swift
 applivery.disableFeedback()
 ```
 
-#### Objective-C
+### Objective-C
 
 ``` objc
 [applivery disableFeedback];
 ```
 
-### Bind User
+## Bind User
 
 Programatically login a user in Applivery. If your app has a custom login and you need to track the user in the platform. Used for know who has downloaded a build or who sent a feedback report.
 
@@ -224,7 +284,7 @@ applivery.bindUser(
 )
 ```
 
-### Unbind User
+## Unbind User
 
 Logout a previously binded user
 
@@ -232,7 +292,7 @@ Logout a previously binded user
 applivery.unbindUser()
 ```
 
-### Implement your own Update Alert/Screen
+## Implement your own Update Alert/Screen
 
 You can customize the update process to be fully controlled by your app. In order to achive that, first you must disable automatic updates in the settings of your app in Applivery's dashboard. Then you can use the following SDK methods: 
 
@@ -250,7 +310,7 @@ applivery.update(
 ```
 Use this method to download and install the newest build available.
 
-### Customize SDK's colors
+## Customize SDK's colors
 
 You can create a new instance of `Palette` class and assign it to `Applivery.shared.palette`
 
@@ -278,7 +338,7 @@ Or even directly change the property
 Applivery.shared.palette.primaryColor = .orange
 ```
 
-#### Colors you can change
+### Colors you can change
 
 * `primaryColor`: Main color of your brand
 * `secondaryColor`: Background color
@@ -286,11 +346,11 @@ Applivery.shared.palette.primaryColor = .orange
 * `secondaryFontColor`: Secondary font color. It should be in contrast with the secondary color
 * `screenshotBrushColor`: In the feedback's view, users can edit the screenshot to draw lines on top of it. By default, these lines are red, but you are allowed to change the color to fit better with your application's color palette.
 
-### Customize string literals
+## Customize string literals
 
 You can customize the SDK string literals to fit your app. 
 
-#### Examples
+### Examples
 
 ```swift
 Applivery.shared.textLiterals = TextLiterals(
@@ -343,9 +403,9 @@ Applivery.shared.textLiterals.forceUpdateMessage: "Sorry this App is outdated. P
 
 _**Important**_: The default literals are only in english. Consider to set localized strings to fully support all languages your app does.
 
-### Embedded frameworks and AppStore submissions
+## Embedded frameworks & ipa generation
 
-Applivery.framework is built with a fat universal library, this means that you can compile for devices or simulator without any problem, but you can not submit an app to the AppStore if it has inside an embedded framework with simulator slices.
+If you have installed the SDK with Carthage and as a Dynamic framework, Applivery.framework is built as a fat universal library, that means that you can compile for devices or simulator without any problem, but you can not make an ipa file if it has inside an embedded framework with simulator slices.
 
  In this case, the solution is as simple as add [this script](https://github.com/applivery/applivery-ios-sdk/blob/master/script/applivery_script.sh) in "New Run Script Phase".
  You'll find inside _Build Phases_ tab.

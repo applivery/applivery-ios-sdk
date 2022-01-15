@@ -22,7 +22,6 @@ class GlobalConfig {
 	// MARK: Global Variables
 	var appToken: String       = ""
 	var appId: String          = ""
-	var appStoreRelease        = false
 	var feedbackEnabled        = true
 	var logLevel: LogLevel     = .info
 	var palette                = Palette()

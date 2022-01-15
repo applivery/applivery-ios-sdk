@@ -8,6 +8,7 @@ FRAMEWORK_EXECUTABLE_NAME=$(defaults read "$FRAMEWORK/Info.plist" CFBundleExecut
 FRAMEWORK_EXECUTABLE_PATH="$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME"
 echo "Executable is $FRAMEWORK_EXECUTABLE_PATH"
 
+if ["$FRAMEWORK_EXECUTABLE_NAME" != "AppliveryDynamic"]; then
 EXTRACTED_ARCHS=()
 
 for ARCH in $ARCHS
@@ -24,5 +25,5 @@ rm "${EXTRACTED_ARCHS[@]}"
 echo "Replacing original executable with thinned version"
 rm "$FRAMEWORK_EXECUTABLE_PATH"
 mv "$FRAMEWORK_EXECUTABLE_PATH-merged" "$FRAMEWORK_EXECUTABLE_PATH"
-
+fi
 done

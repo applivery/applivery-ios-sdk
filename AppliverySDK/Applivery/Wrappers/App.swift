@@ -85,7 +85,7 @@ class App: AppProtocol {
 	func openUrl(_ urlString: String) -> Bool {
 		logInfo("Opening \(urlString)")
 		guard let url = URL(string: urlString) else { return false }
-		UIApplication.shared.openURL(url)
+		UIApplication.shared.open(url)
 		
 		return true
 	}

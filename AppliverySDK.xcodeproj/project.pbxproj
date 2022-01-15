@@ -709,7 +709,7 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 1310;
 				ORGANIZATIONNAME = "Applivery S.L.";
 				TargetAttributes = {
 					FA5EA64A1E6CCB6600590120 = {
@@ -1207,7 +1207,7 @@
 			repositoryURL = "https://github.com/Quick/Quick.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 3.1.0;
+				minimumVersion = 4.0.0;
 			};
 		};
 		D880104925D005C9005490FA /* XCRemoteSwiftPackageReference "OHHTTPStubs" */ = {
