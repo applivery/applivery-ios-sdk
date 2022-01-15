@@ -48,7 +48,7 @@ import Foundation
  - Copyright: Applivery S.L.
  */
 public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput {
-
+    
     // MARK: - Static Properties
     
     internal static let sdkVersion = "3.2.3"
@@ -71,11 +71,9 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
      - Since: 1.0
      - Version: 2.0
      */
-    @objc public var logLevel: LogLevel {
-        didSet {
-            self.globalConfig.logLevel = self.logLevel
-        }
-    }
+    @objc public var logLevel: LogLevel { didSet {
+        self.globalConfig.logLevel = self.logLevel
+    }}
     
     /**
      Customize the SDK colors to fit your app
@@ -86,11 +84,11 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
      
      ```swift
      Applivery.shared.palette = Palette(
-        primaryColor: .orange,
-        secondaryColor: .white,
-        primaryFontColor: .white,
-        secondaryFontColor: .black,
-        screenshotBrushColor: .green
+     primaryColor: .orange,
+     secondaryColor: .white,
+     primaryFontColor: .white,
+     secondaryFontColor: .black,
+     screenshotBrushColor: .green
      )
      ```
      
@@ -98,7 +96,7 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
      
      ```swift
      Applivery.shared.palette = Palette(
-        primaryColor: .orange,
+     primaryColor: .orange,
      )
      ```
      
@@ -112,11 +110,9 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
      - Since: 2.4
      - Version: 2.4
      */
-    @objc public var palette: Palette {
-        didSet {
-            self.globalConfig.palette = self.palette
-        }
-    }
+    @objc public var palette: Palette { didSet {
+        self.globalConfig.palette = self.palette
+    }}
     
     /**
      Customize the SDK string literals to fit your app.
@@ -129,32 +125,32 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
      
      ```swift
      Applivery.shared.textLiterals = TextLiterals(
-        appName: "Applivery",
-        alertButtonCancel: "Cancel",
-        alertButtonRetry: "Retry",
-        alertButtonOK: "OK",
-        errorUnexpected: "Unexpected error",
-        errorInvalidCredentials: "Invalid credentials",
-        errorDownloadURL: "Couldn't start download. Invalid url",
-        otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
-        alertButtonLater: "Later",
-        alertButtonUpdate: "Update",
-        forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it",
-        buttonForceUpdate: "Update now",
-        feedbackButtonClose: "Close",
-        feedbackButtonAdd: "Add Feedback",
-        feedbackButtonSend: "Send Feedback",
-        feedbackSelectType: "Select type",
-        feedbackTypeBug: "Bug",
-        feedbackTypeFeedback: "Feedback",
-        feedbackMessagePlaceholder: "Add a message",
-        feedbackAttach: "Attach Screenshot",
-        loginInputUser: "user",
-        loginInputPassword: "password",
-        loginButton: "Login",
-        loginMessage: "Login is required!",
-        loginInvalidCredentials: "Wrong username or password, please, try again",
-        loginSessionExpired: "Your session has expired. Please, log in again"
+     appName: "Applivery",
+     alertButtonCancel: "Cancel",
+     alertButtonRetry: "Retry",
+     alertButtonOK: "OK",
+     errorUnexpected: "Unexpected error",
+     errorInvalidCredentials: "Invalid credentials",
+     errorDownloadURL: "Couldn't start download. Invalid url",
+     otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
+     alertButtonLater: "Later",
+     alertButtonUpdate: "Update",
+     forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it",
+     buttonForceUpdate: "Update now",
+     feedbackButtonClose: "Close",
+     feedbackButtonAdd: "Add Feedback",
+     feedbackButtonSend: "Send Feedback",
+     feedbackSelectType: "Select type",
+     feedbackTypeBug: "Bug",
+     feedbackTypeFeedback: "Feedback",
+     feedbackMessagePlaceholder: "Add a message",
+     feedbackAttach: "Attach Screenshot",
+     loginInputUser: "user",
+     loginInputPassword: "password",
+     loginButton: "Login",
+     loginMessage: "Login is required!",
+     loginInvalidCredentials: "Wrong username or password, please, try again",
+     loginSessionExpired: "Your session has expired. Please, log in again"
      )
      ```
      
@@ -162,9 +158,9 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
      
      ```swift
      Applivery.shared.textLiterals = TextLiterals(
-        appName: "MyApp",
-        otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
-        forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it"
+     appName: "MyApp",
+     otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
+     forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it"
      )
      ```
      
@@ -181,11 +177,9 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
      - Since: 2.4
      - Version: 2.4
      */
-    @objc public var textLiterals: TextLiterals {
-        didSet {
-            self.globalConfig.textLiterals = self.textLiterals
-        }
-    }
+    @objc public var textLiterals: TextLiterals { didSet {
+        self.globalConfig.textLiterals = self.textLiterals
+    }}
     
     // MARK: - Private properties
     internal let startInteractor: StartInteractor
@@ -239,67 +233,54 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
      Starts Applivery's framework
      
      - Parameters:
-        - appToken: Your developer's Api Key
-        - appId: Your application's ID
-        - appStoreRelease: Flag to mark the build as a build that will be submitted to the AppStore. This is needed to prevent unwanted behavior like prompt to a final user that a new version is available on Applivery.
-        * `true`: Applivery will stop any activity. **Use this for AppStore**
-        * `false`: Applivery will works as normally. Use this with distributed builds in Applivery.
-     
-     - Attention: Be sure that the param **appStoreRelease** is true before submitting to the AppStore
-     - Warning: This property is **deprecated** from version 3.0. Use `start(appToken:appStoreRelease:)` instead
-     - Since: 1.0
-     - Version: 3.0
+     - token: Your App Token
+     - appStoreRelease: Flag to mark the build as a build that will be submitted to the AppStore. This is needed to prevent unwanted behavior like prompt to a final user that a new version is available on Applivery.
+     * `true`: Applivery will stop any activity. **Use this for AppStore**
+     * `false`: Applivery will works as normally. Use this with distributed builds in Applivery.
+     - Attention: Since apps with Applivery framework are forbidden in the Appstore, the flag `appStoreRelease` has been removed. You can dinamically exclude Applivery framework while compiling an Appstore build as explained [here](https://github.com/applivery/applivery-ios-sdk#dynamically-exclude-applivery-sdk-for-appstore-schemes)
+     - Warning: This method is **deprecated** from version 3.3. Use `start(appToken:)` instead
+     - Since: 3.0
+     - Version: 3.3
      */
-    @available(*, deprecated, renamed: "start(token:appStoreRelease:)")
-    @objc public func start(apiKey key: String, appId: String, appStoreRelease: Bool) {
-        log("🚸🚸🚸 WARNING: Note that you are using a deprecated method.")
-        log("🚸🚸🚸 WARNING: If you are using Applivery 3.0 (applivery.io), we recommend you to use the new method start(token:appStoreRelease:)")
-        log("🚸🚸🚸 WARNING: If you are using Applivery 2.0 (applivery.com), you should use the SDK v2.x version or, even better, migrate your apps to the new Applivery (https://www.applivery.io)")
-        log("🚸🚸🚸 WARNING: If you need more info, please, contact support@applivery.com")
-        self.start(token: key, appStoreRelease: appStoreRelease)
+    @available(*, deprecated, renamed: "start(token:)")
+    @objc public func start(token: String, appStoreRelease: Bool) {
+        self.start(token: token)
     }
     
     /**
      Starts Applivery's framework
      
      - Parameters:
-        - token: Your App Token
-        - appStoreRelease: Flag to mark the build as a build that will be submitted to the AppStore. This is needed to prevent unwanted behavior like prompt to a final user that a new version is available on Applivery.
-            * `true`: Applivery will stop any activity. **Use this for AppStore**
-            * `false`: Applivery will works as normally. Use this with distributed builds in Applivery.
-     
-     - Attention: Be sure that the param **appStoreRelease** is true before submitting to the AppStore
-     - Since: 3.0
-     - Version: 3.0
+     - token: Your App Token
+     - Since: 3.3
+     - Version: 3.3
      */
-    @objc public func start(token: String, appStoreRelease: Bool) {
+    @objc public func start(token: String) {
         self.globalConfig.appToken = token
-        self.globalConfig.appStoreRelease = appStoreRelease
-        
         self.startInteractor.start()
     }
     
     /**
-    Returns if application is updated to the latest version available
-    
-    - Since: 3.1
-    - Version: 3.1
-    */
+     Returns if application is updated to the latest version available
+     
+     - Since: 3.1
+     - Version: 3.1
+     */
     @objc public func isUpToDate() -> Bool {
         return self.updateInteractor.isUpToDate()
     }
     
     /**
-    Download newest build available
-    
-    - Parameters:
-        - onSuccess: Completion handler called when success
-        - onError: Completion handler called when something went wrong. A string whith the reason is passed to this callback.
+     Download newest build available
      
-    - Attention: Be sure to call `start(token:appStoreRelease)` before this method.
-    - Since: 3.1
-    - Version: 3.1
-    */
+     - Parameters:
+     - onSuccess: Completion handler called when success
+     - onError: Completion handler called when something went wrong. A string whith the reason is passed to this callback.
+     
+     - Attention: Be sure to call `start(token:appStoreRelease)` before this method.
+     - Since: 3.1
+     - Version: 3.1
+     */
     @objc public func update(onSuccess: (() -> Void)? = nil, onError: ((String) -> Void)? = nil) {
         guard !isUpdating else {
             return logWarn("Can't call update method until previous call is finished")
@@ -316,10 +297,10 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
      Programatically login a user in Applivery, for example if the app has a custom login and don't want to use Applivery's authentication to track the user in the platform
      
      - Parameters:
-        - email: The user email. **Required**
-        - firstName: The first name of the user. **Optional**
-        - lastName: The last name of the user. **Optional**
-        - tags: A list of tags linked to the user with group / categorize purpose. **Optional**
+     - email: The user email. **Required**
+     - firstName: The first name of the user. **Optional**
+     - lastName: The last name of the user. **Optional**
+     - tags: A list of tags linked to the user with group / categorize purpose. **Optional**
      
      - SeeAlso: `unbindUser()`
      - Since: 3.0
