@@ -1,5 +1,19 @@
 # Change Log
 
+## [v3.3](https://github.com/applivery/applivery-ios-sdk/releases/tag/v3.3)
+
+### New
+
+* Add `AppliveryDynamic` product version to SwiftPM integration. With this versión you can dinamically exclude Applivery when compiling a build for the Appstore. See the [README](https://github.com/applivery/applivery-ios-sdk#using-swift-package-manager) for more information
+* Removed the `appStoreRelease` flag since uploading a build with Applivery to the Appstore is forbidden.
+
+### Fix
+
+* Feedback fails detecting if user is over wifi in the latest iOS version
+* Updated iOS devices list for your analytics.
+
+---
+
 ## [v3.2.3](https://github.com/applivery/applivery-ios-sdk/releases/tag/v3.2.3)
 
 ### Fix
