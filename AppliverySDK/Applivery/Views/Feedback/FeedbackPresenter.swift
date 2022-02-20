@@ -73,7 +73,6 @@ class FeedbackPresenter {
 		guard let editedScreenshot = self.view.editedScreenshot() else {
 			return logWarn("Could not get edited screenshot")
 		}
-
 		self.editedScreenshot = Screenshot(image: editedScreenshot)
 		self.view.showFeedbackFormulary(with: editedScreenshot)
 		self.viewState = .formulary
@@ -83,8 +82,11 @@ class FeedbackPresenter {
 		guard let message = self.view.textMessage() else {
 			return self.view.needMessage()
 		}
-		let screenshot = self.attachScreenshot ? self.editedScreenshot : nil
-        let feedback = Feedback(feedbackType: self.feedbackType, message: message, screenshot: screenshot, email: self.view.email())
+        let feedback = Feedback(
+            feedbackType: self.feedbackType,
+            message: message,
+            screenshot: self.attachScreenshot ? self.editedScreenshot : nil,
+            email: self.view.email()?.isEmpty == true ? nil : self.view.email())
 		self.view.showLoading()
 		self.feedbackInteractor.sendFeedback(feedback) { result in
 			switch result {

@@ -11,12 +11,12 @@ import UIKit
 class FeedbackVC: UIViewController {
 	var presenter: FeedbackPresenter!
 	
-	fileprivate var previewVC: PreviewVC?
-	fileprivate var isMessagePlaceholderShown = true
+	private var previewVC: PreviewVC?
+	private var isMessagePlaceholderShown = true
 	
 	// MARK: - Constants
-	fileprivate static let BugTypeIndex = 0
-	fileprivate static let FeedbackTypeIndex = 1
+	private static let BugTypeIndex = 0
+	private static let FeedbackTypeIndex = 1
 	
 	// MARK: - UI Properties
 	@IBOutlet weak var navigationBar: UIView!
@@ -39,7 +39,6 @@ class FeedbackVC: UIViewController {
 	@IBOutlet weak var bottomFeedbackFormConstraint: NSLayoutConstraint!
 	@IBOutlet weak var widthScreenshotConstraint: NSLayoutConstraint!
 	private var widthScreenshotConstant: CGFloat!
-	
 	
 	class func viewController() -> FeedbackVC {
 		let feedbackVC = UIStoryboard.viewController("FeedbackVC") as? FeedbackVC
@@ -102,10 +101,8 @@ extension FeedbackVC {
 		switch sender.selectedSegmentIndex {
 		case FeedbackVC.BugTypeIndex:
 			self.presenter.userDidSelectedFeedbackType(.bug)
-			
 		case FeedbackVC.FeedbackTypeIndex:
 			self.presenter.userDidSelectedFeedbackType(.feedback)
-			
 		default: logWarn("Selected segment index out of bounds")
 		}
 	}
@@ -127,11 +124,22 @@ extension FeedbackVC: UITextViewDelegate {
 
 	func textViewDidBeginEditing(_ textView: UITextView) {
 		if self.isMessagePlaceholderShown {
-			self.textViewMessage.text = nil
+            self.textViewMessage.text = nil
+            self.textViewMessage.textColor = .black
 			self.isMessagePlaceholderShown = false
 		}
 	}
 	
+}
+
+// MARK: - TextFieldDelegate
+extension FeedbackVC: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.textViewMessage.becomeFirstResponder()
+        return true
+    }
+    
 }
 
 // MARK: - FeedbackView
@@ -232,7 +240,6 @@ extension FeedbackVC: FeedbackView {
 			completion: { _ in
 				self.imageScreenshotPreview.isHidden = false
 				screenshotCopy.removeFromSuperview()
-				self.textViewMessage.becomeFirstResponder()
 		})
 	}
 	
@@ -306,7 +313,7 @@ extension FeedbackVC: FeedbackView {
 // MARK: - Private Helpers
 extension FeedbackVC {
 	
-	fileprivate func setupView() {
+	private func setupView() {
 		self.setColors()
 		self.buttonSendFeedback.isHidden = true
 		self.buttonAddFeedback.isHidden = false
@@ -358,7 +365,14 @@ extension FeedbackVC {
 		}
 		self.labelAttach.textColor = palette.secondaryFontColor
 		self.switchAttach.onTintColor = palette.primaryColor
+        self.emailTextField.tintColor = palette.primaryColor
+        self.emailTextField.layer.borderColor = palette.primaryColor.cgColor
+        self.emailTextField.layer.borderWidth = 1
+        self.emailTextField.layer.cornerRadius = 5
 		self.textViewMessage.tintColor = palette.primaryColor
+        if #available(iOS 13.0, *) {
+            self.textViewMessage.textColor = .systemGray3
+        }
 		self.textViewMessage.layer.borderColor = palette.primaryColor.cgColor
 		self.textViewMessage.layer.borderWidth = 1
 		self.textViewMessage.layer.cornerRadius = 5

@@ -278,10 +278,19 @@ class FeedbackSpecs: QuickSpec {
 						}
 					}
                     context("and user provide email") {
-                        it("should not send email") {
+                        it("should send email") {
                             self.feedbackViewMock.fakeEmail = "user@email.com"
                             self.feedbackPresenter.userDidTapSendFeedbackButton()
+                            expect(matchedFeedbackURL).toEventually(beTrue())
                             expect(json?["email"]?.toString()).toEventually(equal("user@email.com"))
+                        }
+                    }
+                    context("but user provide empty email") {
+                        it("should not send email") {
+                            self.feedbackViewMock.fakeEmail = ""
+                            self.feedbackPresenter.userDidTapSendFeedbackButton()
+                            expect(matchedFeedbackURL).toEventually(beTrue())
+                            expect(json?["email"]?.toString()).toEventually(beNil())
                         }
                     }
 					context("and service return with error") {
