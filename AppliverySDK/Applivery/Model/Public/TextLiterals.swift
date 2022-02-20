@@ -36,6 +36,7 @@ import Foundation
  feedbackSelectType: "Select type",
  feedbackTypeBug: "Bug",
  feedbackTypeFeedback: "Feedback",
+ feedbackEmailPlaceholder: "Add  your email (optional)",
  feedbackMessagePlaceholder: "Add a message",
  feedbackAttach: "Attach Screenshot",
  loginInputUser: "user",
@@ -124,6 +125,9 @@ public class TextLiterals: NSObject {
     /// "Feedback"
     @objc public var feedbackTypeFeedback: String
     
+    /// "Add  your email (optional)"
+    @objc public var feedbackEmailPlaceholder: String
+    
     /// "Add a message"
     @objc public var feedbackMessagePlaceholder: String
     
@@ -173,6 +177,7 @@ public class TextLiterals: NSObject {
      - feedbackSelectType: "Select type",
      - feedbackTypeBug: "Bug",
      - feedbackTypeFeedback: "Feedback",
+     - feedbackEmailPlaceholder: "Add  your email (optional)",
      - feedbackMessagePlaceholder: "Add a message",
      - feedbackAttach: "Attach Screenshot",
      - loginInputUser: "user",
@@ -204,6 +209,7 @@ public class TextLiterals: NSObject {
         feedbackSelectType: String = kLocaleFeedbackLabelSelectType,
         feedbackTypeBug: String = kLocaleFeedbackButtonBug,
         feedbackTypeFeedback: String = kLocaleFeedbackButtonFeedback,
+        feebackEmailPlaceholder: String = kLocaleFeedbackEmailPlaceholder,
         feedbackMessagePlaceholder: String = kLocaleFeedbackTextMessagePlaceholder,
         feedbackAttach: String = kLocaleFeedbackLabelAttach,
         loginInputUser: String = kLocaleLoginInputUser,
@@ -212,34 +218,34 @@ public class TextLiterals: NSObject {
         loginMessage: String = kLocaleLoginAlertMessage,
         loginInvalidCredentials: String = kLocaleLoginAlertMessageInvalidCredentials,
         loginSessionExpired: String = kLocaleLoginAlertMessageExpired) {
-        
-        self.appName = appName
-        self.alertButtonCancel = alertButtonCancel
-        self.alertButtonRetry = alertButtonRetry
-        self.alertButtonOK = alertButtonOK
-        self.errorUnexpected = errorUnexpected
-        self.errorInvalidCredentials = errorInvalidCredentials
-        self.errorDownloadURL = errorDownloadURL
-        self.otaUpdateMessage = otaUpdateMessage
-        self.alertButtonLater = alertButtonLater
-        self.alertButtonUpdate = alertButtonUpdate
-        self.forceUpdateMessage = forceUpdateMessage
-        self.buttonForceUpdate = buttonForceUpdate
-        self.feedbackButtonClose = feedbackButtonClose
-        self.feedbackButtonAdd = feedbackButtonAdd
-        self.feedbackButtonSend = feedbackButtonSend
-        self.feedbackSelectType = feedbackSelectType
-        self.feedbackTypeBug = feedbackTypeBug
-        self.feedbackTypeFeedback = feedbackTypeFeedback
-        self.feedbackMessagePlaceholder = feedbackMessagePlaceholder
-        self.feedbackAttach = feedbackAttach
-        self.loginInputUser = loginInputUser
-        self.loginInputPassword = loginInputPassword
-        self.loginButton = loginButton
-        self.loginMessage = loginMessage
-        self.loginInvalidCredentials = loginInvalidCredentials
-        self.loginSessionExpired = loginSessionExpired
-    }
+            self.appName = appName
+            self.alertButtonCancel = alertButtonCancel
+            self.alertButtonRetry = alertButtonRetry
+            self.alertButtonOK = alertButtonOK
+            self.errorUnexpected = errorUnexpected
+            self.errorInvalidCredentials = errorInvalidCredentials
+            self.errorDownloadURL = errorDownloadURL
+            self.otaUpdateMessage = otaUpdateMessage
+            self.alertButtonLater = alertButtonLater
+            self.alertButtonUpdate = alertButtonUpdate
+            self.forceUpdateMessage = forceUpdateMessage
+            self.buttonForceUpdate = buttonForceUpdate
+            self.feedbackButtonClose = feedbackButtonClose
+            self.feedbackButtonAdd = feedbackButtonAdd
+            self.feedbackButtonSend = feedbackButtonSend
+            self.feedbackSelectType = feedbackSelectType
+            self.feedbackTypeBug = feedbackTypeBug
+            self.feedbackTypeFeedback = feedbackTypeFeedback
+            self.feedbackEmailPlaceholder = feebackEmailPlaceholder
+            self.feedbackMessagePlaceholder = feedbackMessagePlaceholder
+            self.feedbackAttach = feedbackAttach
+            self.loginInputUser = loginInputUser
+            self.loginInputPassword = loginInputPassword
+            self.loginButton = loginButton
+            self.loginMessage = loginMessage
+            self.loginInvalidCredentials = loginInvalidCredentials
+            self.loginSessionExpired = loginSessionExpired
+        }
 }
 
 enum Literal: CustomStringConvertible {
@@ -261,6 +267,7 @@ enum Literal: CustomStringConvertible {
     case feedbackSelectType
     case feedbackTypeBug
     case feedbackTypeFeedback
+    case feedbackEmailPlaceholder
     case feedbackMessagePlaceholder
     case feedbackAttach
     case loginInputUser
@@ -271,7 +278,7 @@ enum Literal: CustomStringConvertible {
     case loginSessionExpired
     
     var description: String {
-        return literal(self) ?? String(self.hashValue)
+        literal(self) ?? String(self.hashValue)
     }
 }
 
@@ -298,6 +305,7 @@ func literal(_ literal: Literal) -> String? {
     case .feedbackSelectType: return literals.feedbackSelectType
     case .feedbackTypeBug: return literals.feedbackTypeBug
     case .feedbackTypeFeedback: return literals.feedbackTypeFeedback
+    case .feedbackEmailPlaceholder: return literals.feedbackEmailPlaceholder
     case .feedbackMessagePlaceholder: return literals.feedbackMessagePlaceholder
     case .feedbackAttach: return literals.feedbackAttach
     case .loginInputUser: return literals.loginInputUser

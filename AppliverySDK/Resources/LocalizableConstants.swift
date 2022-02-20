@@ -35,6 +35,7 @@ public let kLocaleFeedbackButtonFeedback: String = localize("feedback_button_fee
 public let kLocaleFeedbackButtonSend: String = localize("feedback_button_send")
 public let kLocaleFeedbackLabelAttach: String = localize("feedback_label_attach")
 public let kLocaleFeedbackLabelSelectType: String = localize("feedback_label_select_type")
+public let kLocaleFeedbackEmailPlaceholder: String = localize("feedback_text_email_placeholder")
 public let kLocaleFeedbackTextMessagePlaceholder: String = localize("feedback_text_message_placeholder")
 
 // Force

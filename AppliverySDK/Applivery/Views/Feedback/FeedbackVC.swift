@@ -386,6 +386,7 @@ extension FeedbackVC {
 		self.labelFeedbackType.text = literal(.feedbackSelectType)
 		self.segmentedControlType.setTitle(literal(.feedbackTypeBug), forSegmentAt: FeedbackVC.BugTypeIndex)
 		self.segmentedControlType.setTitle(literal(.feedbackTypeFeedback), forSegmentAt: FeedbackVC.FeedbackTypeIndex)
+        self.emailTextField.placeholder = literal(.feedbackEmailPlaceholder)
 		self.textViewMessage.text = literal(.feedbackMessagePlaceholder)
 		self.labelAttach.text = literal(.feedbackAttach)
 	}

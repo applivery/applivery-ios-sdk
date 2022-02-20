@@ -38,6 +38,7 @@
 "feedback_label_select_type" = "Select type";
 "feedback_button_bug" = "Bug";
 "feedback_button_feedback" = "Feedback";
+"feedback_text_email_placeholder" = "Add  your email (optional)";
 "feedback_text_message_placeholder" = "Add a message";
 "feedback_label_attach" = "Attach Screenshot";
 
