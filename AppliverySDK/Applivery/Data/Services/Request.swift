@@ -19,7 +19,7 @@ class Request {
 	private var headers: [String: String]?
 	private var request: URLRequest?
 	
-	init(endpoint: String, method: String = "GET", urlParams: [String: String] = [:], bodyParams: [String: Any] = [:]) {
+	init(endpoint: String, method: String = "GET", urlParams: [String: String] = [:], bodyParams: [String: Any?] = [:]) {
 		self.method = method
 		self.endpoint = endpoint
 		self.urlParams = urlParams

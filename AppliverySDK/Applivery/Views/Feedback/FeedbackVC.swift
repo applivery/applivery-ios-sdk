@@ -19,20 +19,21 @@ class FeedbackVC: UIViewController {
 	fileprivate static let FeedbackTypeIndex = 1
 	
 	// MARK: - UI Properties
-	@IBOutlet weak fileprivate var navigationBar: UIView!
-	@IBOutlet weak fileprivate var buttonClose: UIButton!
-	@IBOutlet weak fileprivate var labelApplivery: UILabel!
-	@IBOutlet weak fileprivate var buttonAddFeedback: UIButton!
-	@IBOutlet weak fileprivate var buttonSendFeedback: UIButton!
-	@IBOutlet weak fileprivate var screenshotContainer: UIView!
-	@IBOutlet weak fileprivate var screenshotBackground: UIView!
-	@IBOutlet weak fileprivate var labelFeedbackType: UILabel!
-	@IBOutlet weak fileprivate var segmentedControlType: UISegmentedControl!
-	@IBOutlet weak fileprivate var feedbackForm: UIView!
-	@IBOutlet weak fileprivate var imageScreenshotPreview: UIImageView!
-	@IBOutlet weak fileprivate var textViewMessage: UITextView!
-	@IBOutlet weak fileprivate var labelAttach: UILabel!
-	@IBOutlet weak fileprivate var switchAttach: UISwitch!
+	@IBOutlet weak var navigationBar: UIView!
+	@IBOutlet weak var buttonClose: UIButton!
+	@IBOutlet weak var labelApplivery: UILabel!
+	@IBOutlet weak var buttonAddFeedback: UIButton!
+	@IBOutlet weak var buttonSendFeedback: UIButton!
+	@IBOutlet weak var screenshotContainer: UIView!
+	@IBOutlet weak var screenshotBackground: UIView!
+	@IBOutlet weak var labelFeedbackType: UILabel!
+	@IBOutlet weak var segmentedControlType: UISegmentedControl!
+	@IBOutlet weak var feedbackForm: UIStackView!
+	@IBOutlet weak var imageScreenshotPreview: UIImageView!
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var textViewMessage: UITextView!
+    @IBOutlet weak var labelAttach: UILabel!
+    @IBOutlet weak var switchAttach: UISwitch!
 	
 	// MARK: - UI Constraints
 	@IBOutlet weak var bottomFeedbackFormConstraint: NSLayoutConstraint!
@@ -52,19 +53,17 @@ extension FeedbackVC {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
 		self.presenter.viewDidLoad()
 		self.setupView()
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		App().hideLoading()
-		
 		super.viewWillDisappear(animated)
 	}
 	
 	override var preferredStatusBarStyle: UIStatusBarStyle {
-		return .lightContent
+		.lightContent
 	}
 	
 	override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -75,12 +74,10 @@ extension FeedbackVC {
 		guard let previewVC = segue.destination as? PreviewVC else {
 			return logWarn("Expected PreviewVC")
 		}
-		
 		self.previewVC = previewVC
 	}
 	
 }
-
 
 // MARK: - UI Actions
 extension FeedbackVC {
@@ -125,7 +122,6 @@ extension FeedbackVC {
 	
 }
 
-
 // MARK: - TextView
 extension FeedbackVC: UITextViewDelegate {
 
@@ -138,7 +134,6 @@ extension FeedbackVC: UITextViewDelegate {
 	
 }
 
-
 // MARK: - FeedbackView
 extension FeedbackVC: FeedbackView {
 	
@@ -146,16 +141,13 @@ extension FeedbackVC: FeedbackView {
 	func showScreenshot(_ screenshot: UIImage?) {
 		self.buttonAddFeedback.isHidden = false
 		self.buttonSendFeedback.isHidden = true
-		
 		if let screenshot = screenshot {
 			self.previewVC?.screenshot = screenshot
 			self.startScreenshotAnimated()
-			
 		} else {
 			Keyboard.didHide { _ in
 				self.showScreenshotAnimated()
 			}
-			
 			self.view.endEditing(true)
 		}
 	}
@@ -165,7 +157,6 @@ extension FeedbackVC: FeedbackView {
 		screenshotCopy.contentMode = .scaleAspectFit
 		self.view.addSubview(screenshotCopy)
 		self.feedbackForm.alpha = 0
-		
 		DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(700)) {
 			UIView.animate(
 				withDuration: 0.4,
@@ -186,14 +177,12 @@ extension FeedbackVC: FeedbackView {
 		let screenshotCopy = UIImageView(image: self.previewVC?.editedScreenshot)
 		let frame = CGRect(
 			origin: self.view.convert(CGPoint.zero, from: self.imageScreenshotPreview),
-			size: self.imageScreenshotPreview.frame.size
-		)
+			size: self.imageScreenshotPreview.frame.size)
 		screenshotCopy.frame = frame
 		screenshotCopy.contentMode = .scaleAspectFit
 		self.view.addSubview(screenshotCopy)
 		self.imageScreenshotPreview.isHidden = true
 		self.screenshotContainer.isHidden = true
-		
 		UIView.animate(
 			withDuration: 0.4,
 			delay: 0,
@@ -217,17 +206,14 @@ extension FeedbackVC: FeedbackView {
 	
 	func showFeedbackFormulary(with preview: UIImage) {
 		self.imageScreenshotPreview.image = preview
-		
 		self.buttonAddFeedback.isHidden = true
 		self.buttonSendFeedback.isHidden = false
-		
 		let screenshotCopy = UIImageView(image: self.previewVC?.editedScreenshot)
 		screenshotCopy.frame = self.screenshotContainer.frame
 		screenshotCopy.contentMode = .scaleAspectFit
 		self.view.addSubview(screenshotCopy)
 		self.imageScreenshotPreview.isHidden = true
 		self.screenshotContainer.isHidden = true
-		
 		UIView.animate(
 			withDuration: 0.4,
 			delay: 0,
@@ -252,7 +238,6 @@ extension FeedbackVC: FeedbackView {
 	
 	func showScreenshotPreview() {
 		self.widthScreenshotConstraint.constant = 0
-		
 		UIView.animate(withDuration: 0.4) {
 			self.imageScreenshotPreview.alpha = 1
 			self.view.layoutIfNeeded()
@@ -261,7 +246,6 @@ extension FeedbackVC: FeedbackView {
 	
 	func hideScreenshotPreview() {
 		self.widthScreenshotConstraint.constant = -self.imageScreenshotPreview.frame.size.width
-		
 		UIView.animate(withDuration: 0.4) {
 			self.imageScreenshotPreview.alpha = 0
 			self.view.layoutIfNeeded()
@@ -269,13 +253,16 @@ extension FeedbackVC: FeedbackView {
 	}
 	
 	func textMessage() -> String? {
-		guard !self.isMessagePlaceholderShown && self.textViewMessage.text.count > 0 else {
+        guard !self.isMessagePlaceholderShown && !self.textViewMessage.text.isEmpty else {
 			return nil
 		}
-		
 		return self.textViewMessage.text
 	}
 	
+    func email() -> String? {
+        self.emailTextField.text
+    }
+    
 	func needMessage() {
 		self.textViewMessage.becomeFirstResponder()
 	}
@@ -284,17 +271,12 @@ extension FeedbackVC: FeedbackView {
 		let alert = UIAlertController(
 			title: literal(.appName),
 			message: message,
-			preferredStyle: .alert
-		)
-		
+			preferredStyle: .alert)
 		alert.addAction(
 			UIAlertAction(
 				title: literal(.alertButtonOK),
 				style: .cancel,
-				handler: { _ in runOnMainThreadAsync(self.stopLoading) }
-			)
-		)
-		
+				handler: { _ in runOnMainThreadAsync(self.stopLoading) }))
 		self.present(alert, animated: true, completion: nil)
 	}
 	
@@ -330,11 +312,9 @@ extension FeedbackVC {
 		self.buttonAddFeedback.isHidden = false
 		self.screenshotContainer.isHidden = false
 		self.feedbackForm.isHidden = false
-		
 		self.localizeView()
 		self.manageKeyboardShowEvent()
 		self.manageKeyboardHideEvent()
-		
 		let width = UIScreen.main.bounds.width
 		let height = UIScreen.main.bounds.height
 		var ratio: CGFloat
@@ -343,7 +323,6 @@ extension FeedbackVC {
 		} else {
 			ratio = width / height
 		}
-		
 		self.screenshotContainer.translatesAutoresizingMaskIntoConstraints = false
 		self.screenshotContainer.addConstraint(NSLayoutConstraint(
 			item: self.screenshotContainer as Any,
@@ -367,7 +346,6 @@ extension FeedbackVC {
 		self.buttonSendFeedback.setTitleColor(palette.primaryFontColor, for: .normal)
 		self.feedbackForm.backgroundColor = palette.secondaryColor
 		self.labelFeedbackType.textColor = palette.secondaryFontColor
-		
 		if #available(iOS 13.0, *) {
 			self.segmentedControlType.selectedSegmentTintColor = palette.primaryColor
 			self.segmentedControlType.backgroundColor = palette.secondaryColor
@@ -378,7 +356,6 @@ extension FeedbackVC {
 		} else {
 			self.segmentedControlType.tintColor = palette.primaryColor
 		}
-		
 		self.labelAttach.textColor = palette.secondaryFontColor
 		self.switchAttach.onTintColor = palette.primaryColor
 		self.textViewMessage.tintColor = palette.primaryColor
@@ -405,7 +382,6 @@ extension FeedbackVC {
 				logWarn("Couldn't get keyboard size")
 				return
 			}
-			
 			self.bottomFeedbackFormConstraint.constant = size.height
 			self.animateKeyboardChanges(notification as Notification)
 		}
@@ -421,7 +397,6 @@ extension FeedbackVC {
 	private func animateKeyboardChanges(_ notification: Notification) {
 		let duration = Keyboard.animationDuration(notification)
 		let curve = Keyboard.animationCurve(notification)
-		
 		UIView.animate(
 			withDuration: duration,
 			delay: 0,

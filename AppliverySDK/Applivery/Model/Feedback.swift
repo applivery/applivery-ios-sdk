@@ -8,17 +8,14 @@
 
 import Foundation
 
-
 enum FeedbackType: String {
 	case bug
 	case feedback
 }
 
-
 struct Feedback {
-
 	let feedbackType: FeedbackType
 	let message: String
 	let screenshot: Screenshot?
-
+    let email: String?
 }

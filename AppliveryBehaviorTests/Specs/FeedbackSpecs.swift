@@ -216,7 +216,7 @@ class FeedbackSpecs: QuickSpec {
 						expect(matchedFeedbackURL).toEventually(beTrue())
 						expect(json?["type"]?.toString()).toEventually(equal(FeedbackType.bug.rawValue))
 						expect(json?["message"]?.toString()).toEventually(equal("Test message"))
-                        expect(json?["email"]?.toString()).toEventually(equal("user@email.com"))
+                        expect(json?["email"]?.toString()).toEventually(beNil())
 						expect(json?["packageInfo.name"]?.toString()).toEventually(equal("BUNDLEID_TEST"))
 						expect(json?["packageInfo.version"]?.toString()).toEventually(equal("500"))
 						expect(json?["packageInfo.versionName"]?.toString()).toEventually(equal("1.3"))
@@ -277,6 +277,13 @@ class FeedbackSpecs: QuickSpec {
 							expect(json?["screenshot"]?.toString()).toEventually(equal("data:image/jpeg;base64,"))
 						}
 					}
+                    context("and user provide email") {
+                        it("should not send email") {
+                            self.feedbackViewMock.fakeEmail = "user@email.com"
+                            self.feedbackPresenter.userDidTapSendFeedbackButton()
+                            expect(json?["email"]?.toString()).toEventually(equal("user@email.com"))
+                        }
+                    }
 					context("and service return with error") {
 						beforeEach {
 							StubResponse.mockResponse(for: "/v1/feedback", with: "ko.json")

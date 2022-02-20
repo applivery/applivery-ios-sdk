@@ -31,7 +31,7 @@ struct FeedbackInteractor: PFeedbackInteractor {
 				with: config,
 				loginHandler: { self.send(feedback: feedback, completion: completionHandler) },
 				cancelHandler: { completionHandler(.error(literal(.loginMessage) ?? "<Need authentication>")) }
-			)
+            )
 		} else {
 			self.send(feedback: feedback, completion: completionHandler)
 		}
@@ -43,7 +43,6 @@ struct FeedbackInteractor: PFeedbackInteractor {
 			switch result {
 			case .success:
 				completion(.success)
-				
 			case .error(let error):
 				completion(.error(error.message()))
 			}

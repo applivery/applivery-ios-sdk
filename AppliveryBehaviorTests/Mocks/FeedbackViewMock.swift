@@ -12,9 +12,10 @@ import UIKit
 
 
 class FeedbackViewMock: FeedbackView {
-
+    
 	// INPUTS
 	var fakeMessage: String?
+    var fakeEmail: String?
 	var fakeEditedScreenshot: UIImage?
 
 	// OUTPUTS
@@ -28,7 +29,6 @@ class FeedbackViewMock: FeedbackView {
 	var spyStopLoadingCalled = false
 	var spyShowMessage: (called: Bool, message: String?) = (false, nil)
 	var spyDismissCalled = false
-
 
 	// MARK: - Methods
 
@@ -53,8 +53,12 @@ class FeedbackViewMock: FeedbackView {
 	}
 
 	func textMessage() -> String? {
-		return self.fakeMessage
+		self.fakeMessage
 	}
+    
+    func email() -> String? {
+        self.fakeEmail
+    }
 
 	func needMessage() {
 		self.spyNeedMessageCalled = true
@@ -73,7 +77,7 @@ class FeedbackViewMock: FeedbackView {
 	}
 	
 	func editedScreenshot() -> UIImage? {
-		return self.fakeEditedScreenshot
+		self.fakeEditedScreenshot
 	}
 	
 	func dismiss(animated flag: Bool, completion: (() -> Void)?) {

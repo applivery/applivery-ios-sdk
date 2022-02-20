@@ -28,18 +28,17 @@ class FeedbackService: PFeedbackService {
 	func postFeedback(_ feedback: Feedback, completionHandler: @escaping (Result<Bool, NSError>) -> Void) {
 		self.device.enableBatteryMonitoring()
 		let screenshot = feedback.screenshot?.base64() ?? ""
-		
 		self.request = Request(
 			endpoint: "/v1/feedback",
 			method: "POST",
 			bodyParams: [
 				"type": feedback.feedbackType.rawValue,
 				"message": feedback.message,
+                "email": feedback.email,
 				"packageInfo": [
 					"name": self.app.bundleId(),
 					"version": self.app.getVersion(),
-					"versionName": self.app.getVersionName()
-				],
+					"versionName": self.app.getVersionName()],
 				"deviceInfo": [
 					"device": [
 						"model": self.device.model(),
@@ -51,13 +50,10 @@ class FeedbackService: PFeedbackService {
 						"orientation": self.device.orientation(),
 						"ramUsed": self.device.ramUsed(),
 						"ramTotal": self.device.ramTotal(),
-						"diskFree": self.device.diskFree()
-					],
+						"diskFree": self.device.diskFree()],
 					"os": [
 						"name": "ios",
-						"version": self.device.systemVersion()
-					]
-				],
+						"version": self.device.systemVersion()]],
 				"screenshot": "data:image/jpeg;base64,\(screenshot)"
 			]
 		)

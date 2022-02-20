@@ -16,6 +16,7 @@ protocol FeedbackView {
 	func showScreenshotPreview()
 	func hideScreenshotPreview()
 	func textMessage() -> String?
+    func email() -> String?
 	func needMessage()
 	func showMessage(_ message: String)
 	func showLoading()
@@ -44,7 +45,6 @@ class FeedbackPresenter {
 	private var editedScreenshot: Screenshot?
 	private var attachScreenshot = true
 	private var viewState: FeedbackViewState = .preview
-	
 	
 	// MARK: - Initializers
 	init(view: FeedbackView,
@@ -83,18 +83,14 @@ class FeedbackPresenter {
 		guard let message = self.view.textMessage() else {
 			return self.view.needMessage()
 		}
-
 		let screenshot = self.attachScreenshot ? self.editedScreenshot : nil
-		let feedback = Feedback(feedbackType: self.feedbackType, message: message, screenshot: screenshot)
-
+        let feedback = Feedback(feedbackType: self.feedbackType, message: message, screenshot: screenshot, email: self.view.email())
 		self.view.showLoading()
-
 		self.feedbackInteractor.sendFeedback(feedback) { result in
 			switch result {
 			case .success:
 				self.view.stopLoading()
 				self.feedbackCoordinator.closeFeedback()
-
 			case .error(let message):
 				self.view.showMessage(message)
 			}
@@ -107,7 +103,6 @@ class FeedbackPresenter {
 
 	func userDidChangedAttachScreenshot(attach: Bool) {
 		self.attachScreenshot = attach
-
 		if attach {
 			self.view.showScreenshotPreview()
 		} else {
