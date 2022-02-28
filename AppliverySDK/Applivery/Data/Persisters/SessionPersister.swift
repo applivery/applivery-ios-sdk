@@ -9,17 +9,24 @@
 import Foundation
 
 let kAccessTokenKey = "ACCESS_TOKEN"
+let kFeedbackEmail = "FEEDBACK_EMAIL"
 
 struct SessionPersister {
 	let userDefaults: UserDefaultsProtocol
 	
 	func save(accessToken: AccessToken?) {
 		self.userDefaults.set(accessToken, forKey: kAccessTokenKey)
-		_ = self.userDefaults.synchronize()
 	}
 	
 	func loadAccessToken() -> AccessToken? {
-		let accessToken: AccessToken? = self.userDefaults.token(forKey: kAccessTokenKey)
-		return accessToken
+		self.userDefaults.token(forKey: kAccessTokenKey)
 	}
+    
+    func save(email: String?) {
+        self.userDefaults.set(email, forKey: kFeedbackEmail)
+    }
+    
+    func loadEmail() -> String? {
+        self.userDefaults.string(forKey: kFeedbackEmail)
+    }
 }

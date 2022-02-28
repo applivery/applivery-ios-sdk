@@ -29,6 +29,7 @@ class FeedbackViewMock: FeedbackView {
 	var spyStopLoadingCalled = false
 	var spyShowMessage: (called: Bool, message: String?) = (false, nil)
 	var spyDismissCalled = false
+    var spyShowEmail: (called: Bool, email: String?) = (false, nil)
 
 	// MARK: - Methods
 
@@ -58,6 +59,10 @@ class FeedbackViewMock: FeedbackView {
     
     func email() -> String? {
         self.fakeEmail
+    }
+    
+    func show(email: String) {
+        self.spyShowEmail = (true, email)
     }
 
 	func needMessage() {

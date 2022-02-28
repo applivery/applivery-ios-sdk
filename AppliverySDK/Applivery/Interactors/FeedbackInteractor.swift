@@ -16,6 +16,7 @@ enum FeedbackInteractorResult {
 
 protocol PFeedbackInteractor {
 	func sendFeedback(_ feedback: Feedback, completionHandler: @escaping (FeedbackInteractorResult) -> Void)
+    func latestEmail() -> String
 }
 
 struct FeedbackInteractor: PFeedbackInteractor {
@@ -33,9 +34,14 @@ struct FeedbackInteractor: PFeedbackInteractor {
 				cancelHandler: { completionHandler(.error(literal(.loginMessage) ?? "<Need authentication>")) }
             )
 		} else {
+            self.loginInteractor.save(email: feedback.email)
 			self.send(feedback: feedback, completion: completionHandler)
 		}
 	}
+    
+    func latestEmail() -> String {
+        self.loginInteractor.email() ?? ""
+    }
 	
 	// MARK: - Private Helpers
 	private func send(feedback: Feedback, completion: @escaping (FeedbackInteractorResult) -> Void) {

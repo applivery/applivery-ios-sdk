@@ -58,12 +58,17 @@ class FeedbackSpecs: QuickSpec {
 				let imageFake = self.load(image: "test1")
 				beforeEach {
 					self.imageManagerMock.fakeScreenshot = Screenshot(image: imageFake)
+                    self.userDefaultsMock.stubDictionary = [kFeedbackEmail: "fake@email.com"]
 					self.feedbackPresenter.viewDidLoad()
 				}
 				it("should show screenshot") {
 					expect(self.feedbackViewMock.spyShowScreenshot.called).to(beTrue())
 					expect(self.feedbackViewMock.spyShowScreenshot.image).to(be(imageFake))
 				}
+                it("should prefill with latest email") {
+                    expect(self.feedbackViewMock.spyShowEmail.called).to(beTrue())
+                    expect(self.feedbackViewMock.spyShowEmail.email).to(equal("fake@email.com"))
+                }
 			}
 			describe("user did tap close button") {
 				beforeEach {
@@ -135,7 +140,7 @@ class FeedbackSpecs: QuickSpec {
 						matchedFeedbackURL = false
 						json = nil
 					}
-					context("but need auth") {
+					context("but needs auth") {
 						beforeEach {
 							self.userDefaultsMock.stubDictionary = UserDefaultFakes.storedConfig(
 								forceAuth: true
@@ -278,11 +283,16 @@ class FeedbackSpecs: QuickSpec {
 						}
 					}
                     context("and user provide email") {
-                        it("should send email") {
+                        beforeEach {
                             self.feedbackViewMock.fakeEmail = "user@email.com"
                             self.feedbackPresenter.userDidTapSendFeedbackButton()
+                        }
+                        it("should send email") {
                             expect(matchedFeedbackURL).toEventually(beTrue())
                             expect(json?["email"]?.toString()).toEventually(equal("user@email.com"))
+                        }
+                        it("should save email") {
+                            expect(self.userDefaultsMock.spyDictionary?[kFeedbackEmail] as? String).to(equal("user@email.com"))
                         }
                     }
                     context("but user provide empty email") {

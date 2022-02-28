@@ -144,7 +144,7 @@ extension FeedbackVC: UITextFieldDelegate {
 
 // MARK: - FeedbackView
 extension FeedbackVC: FeedbackView {
-	
+    
 	/// If nil, will reuse the current screenshot
 	func showScreenshot(_ screenshot: UIImage?) {
 		self.buttonAddFeedback.isHidden = false
@@ -158,54 +158,6 @@ extension FeedbackVC: FeedbackView {
 			}
 			self.view.endEditing(true)
 		}
-	}
-	
-	private func startScreenshotAnimated() {
-		let screenshotCopy = UIImageView(image: self.previewVC?.editedScreenshot)
-		screenshotCopy.contentMode = .scaleAspectFit
-		self.view.addSubview(screenshotCopy)
-		self.feedbackForm.alpha = 0
-		DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(700)) {
-			UIView.animate(
-				withDuration: 0.4,
-				delay: 0,
-				usingSpringWithDamping: 0.5,
-				initialSpringVelocity: 0.4,
-				options: .curveLinear,
-				animations: {
-					screenshotCopy.frame = self.screenshotContainer.frame
-			},
-				completion: { _ in
-					screenshotCopy.removeFromSuperview()
-			})
-		}
-	}
-	
-	private func showScreenshotAnimated() {
-		let screenshotCopy = UIImageView(image: self.previewVC?.editedScreenshot)
-		let frame = CGRect(
-			origin: self.view.convert(CGPoint.zero, from: self.imageScreenshotPreview),
-			size: self.imageScreenshotPreview.frame.size)
-		screenshotCopy.frame = frame
-		screenshotCopy.contentMode = .scaleAspectFit
-		self.view.addSubview(screenshotCopy)
-		self.imageScreenshotPreview.isHidden = true
-		self.screenshotContainer.isHidden = true
-		UIView.animate(
-			withDuration: 0.4,
-			delay: 0,
-			usingSpringWithDamping: 0.6,
-			initialSpringVelocity: 0.2,
-			options: .curveLinear,
-			animations: {
-				screenshotCopy.frame = self.screenshotContainer.frame
-				self.screenshotContainer.alpha = 1
-				self.feedbackForm.alpha = 0
-		},
-			completion: { _ in
-				self.screenshotContainer.isHidden = false
-				screenshotCopy.removeFromSuperview()
-		})
 	}
 	
 	func restoreSceenshot(_ screenshot: UIImage) {
@@ -268,6 +220,10 @@ extension FeedbackVC: FeedbackView {
 	
     func email() -> String? {
         self.emailTextField.text
+    }
+    
+    func show(email: String) {
+        self.emailTextField.text = email
     }
     
 	func needMessage() {
@@ -420,5 +376,53 @@ extension FeedbackVC {
 				self.view.layoutIfNeeded()
 		})
 	}
+    
+    private func startScreenshotAnimated() {
+        let screenshotCopy = UIImageView(image: self.previewVC?.editedScreenshot)
+        screenshotCopy.contentMode = .scaleAspectFit
+        self.view.addSubview(screenshotCopy)
+        self.feedbackForm.alpha = 0
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(700)) {
+            UIView.animate(
+                withDuration: 0.4,
+                delay: 0,
+                usingSpringWithDamping: 0.5,
+                initialSpringVelocity: 0.4,
+                options: .curveLinear,
+                animations: {
+                    screenshotCopy.frame = self.screenshotContainer.frame
+                },
+                completion: { _ in
+                    screenshotCopy.removeFromSuperview()
+                })
+        }
+    }
+    
+    private func showScreenshotAnimated() {
+        let screenshotCopy = UIImageView(image: self.previewVC?.editedScreenshot)
+        let frame = CGRect(
+            origin: self.view.convert(CGPoint.zero, from: self.imageScreenshotPreview),
+            size: self.imageScreenshotPreview.frame.size)
+        screenshotCopy.frame = frame
+        screenshotCopy.contentMode = .scaleAspectFit
+        self.view.addSubview(screenshotCopy)
+        self.imageScreenshotPreview.isHidden = true
+        self.screenshotContainer.isHidden = true
+        UIView.animate(
+            withDuration: 0.4,
+            delay: 0,
+            usingSpringWithDamping: 0.6,
+            initialSpringVelocity: 0.2,
+            options: .curveLinear,
+            animations: {
+                screenshotCopy.frame = self.screenshotContainer.frame
+                self.screenshotContainer.alpha = 1
+                self.feedbackForm.alpha = 0
+            },
+            completion: { _ in
+                self.screenshotContainer.isHidden = false
+                screenshotCopy.removeFromSuperview()
+            })
+    }
 	
 }

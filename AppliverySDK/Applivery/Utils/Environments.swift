@@ -42,8 +42,6 @@ class Environments {
 	private class func write(host: String, to key: String) {
 		let userDefaults = Foundation.UserDefaults.standard
 		userDefaults.setValue(host, forKey: key)
-
-		userDefaults.synchronize()
 	}
 
 	private class func readHost(from key: String) -> String? {

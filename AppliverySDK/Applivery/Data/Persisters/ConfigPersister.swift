@@ -17,17 +17,6 @@ let kLastBuildVersion		= "APPLIVERY_LAST_BUILD_VERSION"
 let kOtaUpdateMessageKey	= "APPLIVERY_OTA_UPDATE_MESSAGE"
 let kForceAuth				= "APPLIVERY_FORCE_AUTH"
 
-protocol UserDefaultsProtocol {
-	func value(forKey key: String) -> Any?
-	func setValue(_ value: Any?, forKey key: String)
-	func set(_ value: Bool, forKey key: String)
-	func synchronize() -> Bool
-	func set(_ value: AccessToken?, forKey key: String)
-	func token(forKey key: String) -> AccessToken?
-}
-
-extension UserDefaults: UserDefaultsProtocol {}
-
 class ConfigPersister: NSObject {
 
 	fileprivate var userDefaults: UserDefaultsProtocol

@@ -15,7 +15,6 @@ struct LoginInteractor {
 	let globalConfig: GlobalConfig
 	let sessionPersister: SessionPersister
 	
-	
 	func requestAuthorization(with config: Config, loginHandler: @escaping () -> Void, cancelHandler: @escaping () -> Void) {
 		self.globalConfig.accessToken = self.sessionPersister.loadAccessToken()
 		if self.globalConfig.accessToken == nil {
@@ -55,6 +54,14 @@ struct LoginInteractor {
 		self.sessionPersister.save(accessToken: nil)
 		self.globalConfig.accessToken = nil
 	}
+    
+    func save(email: String?) {
+        self.sessionPersister.save(email: email)
+    }
+    
+    func email() -> String? {
+        self.sessionPersister.loadEmail()
+    }
 	
 	// MARK: - Private Helpers
 	private func login(user: String, password: String, loginHandler: @escaping () -> Void, cancelHandler: @escaping () -> Void) {

@@ -17,6 +17,7 @@ protocol FeedbackView {
 	func hideScreenshotPreview()
 	func textMessage() -> String?
     func email() -> String?
+    func show(email: String)
 	func needMessage()
 	func showMessage(_ message: String)
 	func showLoading()
@@ -63,6 +64,7 @@ class FeedbackPresenter {
 	func viewDidLoad() {
 		self.screenshot = self.screenshotInteractor.getScreenshot()
 		self.view.showScreenshot(self.screenshot?.image)
+        self.view.show(email: self.feedbackInteractor.latestEmail())
 	}
 
 	func userDidTapCloseButton() {

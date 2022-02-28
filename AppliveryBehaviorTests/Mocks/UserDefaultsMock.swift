@@ -11,7 +11,7 @@ import Foundation
 
 
 class UserDefaultsMock: UserDefaultsProtocol {
-	
+    
 	// INPUTS
 	var stubDictionary: [String: Any]?
 
@@ -30,10 +30,12 @@ class UserDefaultsMock: UserDefaultsProtocol {
 
 	func setValue(_ value: Any?, forKey key: String) {
 		self.tempDictionary[key] = value
+        self.spyDictionary = self.tempDictionary
 	}
 
 	func set(_ value: Bool, forKey key: String) {
 		self.tempDictionary[key] = value as AnyObject?
+        self.spyDictionary = self.tempDictionary
 	}
 
 	func synchronize() -> Bool {
@@ -45,9 +47,17 @@ class UserDefaultsMock: UserDefaultsProtocol {
 	func set(_ value: AccessToken?, forKey key: String) {
 		self.setValue(value, forKey: key)
 	}
+    
+    func set(_ value: String?, forKey key: String) {
+        self.setValue(value, forKey: key)
+    }
 	
 	func token(forKey key: String) -> AccessToken? {
-		return self.value(forKey: key) as? AccessToken
+		self.value(forKey: key) as? AccessToken
 	}
+    
+    func string(forKey key: String) -> String? {
+        self.value(forKey: key) as? String
+    }
 
 }
