@@ -188,6 +188,7 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
     private let updateCoordinator: PUpdateCoordinator
     private let feedbackCoordinator: PFeedbackCoordinator
     private let loginInteractor: LoginInteractor
+    private let recorder: Recorder
     private var isUpdating = false
     private var updateCallbackSuccess: (() -> Void)?
     private var updateCallbackError: ((String) -> Void)?
@@ -201,7 +202,8 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
             updateCoordinator: UpdateCoordinator(),
             updateInteractor: Configurator.updateInteractor(),
             feedbackCoordinator: FeedbackCoordinator(),
-            loginInteractor: Configurator.loginInteractor()
+            loginInteractor: Configurator.loginInteractor(),
+            recorder: Recorder()
         )
         self.startInteractor.output = self
         self.updateInteractor.output = self
@@ -212,13 +214,15 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
                    updateCoordinator: PUpdateCoordinator,
                    updateInteractor: PUpdateInteractor,
                    feedbackCoordinator: PFeedbackCoordinator,
-                   loginInteractor: LoginInteractor) {
+                   loginInteractor: LoginInteractor,
+                   recorder: Recorder) {
         self.startInteractor = startInteractor
         self.globalConfig = globalConfig
         self.updateCoordinator = updateCoordinator
         self.updateInteractor = updateInteractor
         self.feedbackCoordinator = feedbackCoordinator
         self.loginInteractor = loginInteractor
+        self.recorder = recorder
         self.logLevel = .info
         self.palette = Palette()
         self.textLiterals = TextLiterals()
@@ -268,6 +272,14 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
      */
     @objc public func isUpToDate() -> Bool {
         return self.updateInteractor.isUpToDate()
+    }
+    
+    @objc public func startRecoding() {
+        return self.recorder.startRecording()
+    }
+    
+    @objc public func stopRecoding() {
+        return self.recorder.stopRecording()
     }
     
     /**
