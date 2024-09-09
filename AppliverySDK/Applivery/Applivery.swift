@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 /// Type of Applivery's logs you want displayed in the debug console
 @objc public enum LogLevel: Int {
@@ -57,6 +58,8 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
     
     /// Singleton instance
     @objc public static let shared = Applivery()
+    
+    var window: AppliveryWindow?
     
     // MARK: - Instance Properties
     
@@ -188,7 +191,6 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
     private let updateCoordinator: PUpdateCoordinator
     private let feedbackCoordinator: PFeedbackCoordinator
     private let loginInteractor: LoginInteractor
-    private let recorder: Recorder
     private var isUpdating = false
     private var updateCallbackSuccess: (() -> Void)?
     private var updateCallbackError: ((String) -> Void)?
@@ -202,8 +204,7 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
             updateCoordinator: UpdateCoordinator(),
             updateInteractor: Configurator.updateInteractor(),
             feedbackCoordinator: FeedbackCoordinator(),
-            loginInteractor: Configurator.loginInteractor(),
-            recorder: Recorder()
+            loginInteractor: Configurator.loginInteractor()
         )
         self.startInteractor.output = self
         self.updateInteractor.output = self
@@ -214,15 +215,13 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
                    updateCoordinator: PUpdateCoordinator,
                    updateInteractor: PUpdateInteractor,
                    feedbackCoordinator: PFeedbackCoordinator,
-                   loginInteractor: LoginInteractor,
-                   recorder: Recorder) {
+                   loginInteractor: LoginInteractor) {
         self.startInteractor = startInteractor
         self.globalConfig = globalConfig
         self.updateCoordinator = updateCoordinator
         self.updateInteractor = updateInteractor
         self.feedbackCoordinator = feedbackCoordinator
         self.loginInteractor = loginInteractor
-        self.recorder = recorder
         self.logLevel = .info
         self.palette = Palette()
         self.textLiterals = TextLiterals()
@@ -262,6 +261,13 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
     @objc public func start(token: String) {
         self.globalConfig.appToken = token
         self.startInteractor.start()
+        showFirstWindow()
+    }
+    
+    func showFirstWindow() {
+        window = AppliveryWindow(frame: UIScreen.main.bounds)
+        window?.windowLevel = .alert + 1000
+        window?.makeKeyAndVisible()
     }
     
     /**
@@ -272,14 +278,6 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
      */
     @objc public func isUpToDate() -> Bool {
         return self.updateInteractor.isUpToDate()
-    }
-    
-    @objc public func startRecoding() {
-        return self.recorder.startRecording()
-    }
-    
-    @objc public func stopRecoding() {
-        return self.recorder.stopRecording()
     }
     
     /**
