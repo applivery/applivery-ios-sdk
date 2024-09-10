@@ -50,5 +50,5 @@
 "login_alert_message_expired" = "Your session has expired. Please, log in again";
 
 // MAIN SHEET
-"sheet_screenshoot_action" = "Record Screen";
-"sheet_record_action" = "Take Screenshot";
+"sheet_screenshoot_action" = "Take Screenshot";
+"sheet_record_action" = "Record Screen";

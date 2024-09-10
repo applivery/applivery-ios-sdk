@@ -51,11 +51,11 @@ struct ScreenshootPreview: View {
                         .edgesIgnoringSafeArea(.all)
                 }
                 Picker("Select Type: ", selection: $selectionType) {
-                    Text(literal(.feedbackTypeBug) ?? "").tag(0)
-                    Text(literal(.feedbackTypeFeedback) ?? "").tag(1)
+                    Text(literal(.feedbackTypeFeedback) ?? "").tag(0)
+                    Text(literal(.feedbackTypeBug) ?? "").tag(1)
                 }
                 .pickerStyle(.segmented)
-                TextField("Escribe una descripción...", text: $description)
+                TextField("", text: $description)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
             }
             .padding()

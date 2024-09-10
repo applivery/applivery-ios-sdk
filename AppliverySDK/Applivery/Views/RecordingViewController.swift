@@ -131,15 +131,15 @@ class RecordingViewController: UIViewController {
     func presentActionSheet() {
         actionSheet = UIAlertController(title: "Applivery SDK", message: "Powered by Applivery", preferredStyle: .actionSheet)
         
-        let screenshotAction = UIAlertAction(title: "Tomar Captura de Pantalla", style: .default) { _ in
+        let screenshotAction = UIAlertAction(title: localize("sheet_screenshoot_action"), style: .default) { _ in
             ScreenRecorderManager.shared.presentPreviewWithScreenshoot()
         }
         
-        let screenRecordingAction = UIAlertAction(title: "Iniciar Grabación de Pantalla", style: .default) { _ in
+        let screenRecordingAction = UIAlertAction(title: localize("sheet_record_action"), style: .default) { _ in
             ScreenRecorderManager.shared.startClipBuffering()
         }
         
-        let cancelAction = UIAlertAction(title: "Cancelar", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         actionSheet.addAction(screenshotAction)
         actionSheet.addAction(screenRecordingAction)
