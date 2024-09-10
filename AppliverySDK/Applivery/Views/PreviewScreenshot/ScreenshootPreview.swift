@@ -13,29 +13,6 @@ struct ScreenshootPreview: View {
     @State var description: String = ""
     @State var selectionType: Int = 0
     
-    init(screenshot: UIImage? = nil) {
-        let palette = GlobalConfig.shared.palette
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = palette.primaryColor
-        appearance.titleTextAttributes = [.foregroundColor: palette.primaryFontColor]
-        appearance.largeTitleTextAttributes = [.foregroundColor: palette.primaryFontColor]
-        
-        UINavigationBar.appearance().standardAppearance = appearance
-        UINavigationBar.appearance().scrollEdgeAppearance = appearance
-        UINavigationBar.appearance().compactAppearance = appearance
-        
-        UISegmentedControl.appearance().selectedSegmentTintColor = palette.primaryColor
-        UISegmentedControl.appearance().backgroundColor = palette.secondaryColor
-        let selectedTextColor = [NSAttributedString.Key.foregroundColor: palette.primaryFontColor]
-        let normalTextColor = [NSAttributedString.Key.foregroundColor: palette.secondaryFontColor]
-        UISegmentedControl.appearance().setTitleTextAttributes(normalTextColor, for: .normal)
-        UISegmentedControl.appearance().setTitleTextAttributes(selectedTextColor, for: .selected)
-
-        
-        self.screenshot = screenshot
-    }
-    
     var body: some View {
         NavigationView {
             VStack {
@@ -50,7 +27,7 @@ struct ScreenshootPreview: View {
                         .scaledToFit()
                         .edgesIgnoringSafeArea(.all)
                 }
-                Picker("Select Type: ", selection: $selectionType) {
+                Picker("Select Type", selection: $selectionType) {
                     Text(literal(.feedbackTypeFeedback) ?? "").tag(0)
                     Text(literal(.feedbackTypeBug) ?? "").tag(1)
                 }
@@ -89,6 +66,41 @@ struct ScreenshootPreview: View {
                     })
                 }
             })
+        }
+        .onAppear {
+            let palette = GlobalConfig.shared.palette
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = palette.primaryColor
+            appearance.titleTextAttributes = [.foregroundColor: palette.primaryFontColor]
+            appearance.largeTitleTextAttributes = [.foregroundColor: palette.primaryFontColor]
+
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+            UINavigationBar.appearance().compactAppearance = appearance
+
+            UISegmentedControl.appearance().selectedSegmentTintColor = palette.primaryColor
+            UISegmentedControl.appearance().backgroundColor = palette.secondaryColor
+            let selectedTextColor = [NSAttributedString.Key.foregroundColor: palette.primaryFontColor]
+            let normalTextColor = [NSAttributedString.Key.foregroundColor: palette.secondaryFontColor]
+            UISegmentedControl.appearance().setTitleTextAttributes(normalTextColor, for: .normal)
+            UISegmentedControl.appearance().setTitleTextAttributes(selectedTextColor, for: .selected)
+        }
+        .onDisappear {
+            let defaultAppearance = UINavigationBarAppearance()
+            defaultAppearance.configureWithOpaqueBackground()
+            defaultAppearance.backgroundColor = .systemBackground
+            defaultAppearance.titleTextAttributes = [.foregroundColor: UIColor.label]
+            defaultAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.label]
+
+            UINavigationBar.appearance().standardAppearance = defaultAppearance
+            UINavigationBar.appearance().scrollEdgeAppearance = defaultAppearance
+            UINavigationBar.appearance().compactAppearance = defaultAppearance
+
+            UISegmentedControl.appearance().selectedSegmentTintColor = nil
+            UISegmentedControl.appearance().backgroundColor = nil
+            UISegmentedControl.appearance().setTitleTextAttributes(nil, for: .normal)
+            UISegmentedControl.appearance().setTitleTextAttributes(nil, for: .selected)
         }
     }
 }
