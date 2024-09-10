@@ -266,7 +266,6 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
     
     func showFirstWindow() {
         window = AppliveryWindow(frame: UIScreen.main.bounds)
-        window?.windowLevel = .alert + 1000
         window?.makeKeyAndVisible()
     }
     

@@ -129,10 +129,10 @@ class RecordingViewController: UIViewController {
     }
     
     func presentActionSheet() {
-        actionSheet = UIAlertController(title: "Applivery", message: "Powered by Applivery", preferredStyle: .actionSheet)
+        actionSheet = UIAlertController(title: "Applivery SDK", message: "Powered by Applivery", preferredStyle: .actionSheet)
         
         let screenshotAction = UIAlertAction(title: "Tomar Captura de Pantalla", style: .default) { _ in
-            self.feedbackCoordinator.showFeedack()
+            ScreenRecorderManager.shared.presentPreviewWithScreenshoot()
         }
         
         let screenRecordingAction = UIAlertAction(title: "Iniciar Grabación de Pantalla", style: .default) { _ in
@@ -151,6 +151,12 @@ class RecordingViewController: UIViewController {
             popoverController.permittedArrowDirections = []
         }
         
+        generateImpactFeedback(style: .heavy)
         self.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    func generateImpactFeedback(style: UIImpactFeedbackGenerator.FeedbackStyle = .medium) {
+        let generator = UIImpactFeedbackGenerator(style: style)
+        generator.impactOccurred()
     }
 }

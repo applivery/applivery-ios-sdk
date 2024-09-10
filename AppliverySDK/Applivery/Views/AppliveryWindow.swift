@@ -60,10 +60,17 @@ extension UIWindow {
         
         
         if motion == .motionShake {
-            let window = UIApplication.shared.windows.filter { $0 is AppliveryWindow }.first
-            window?.makeKeyAndVisible()
-            if let vc = window?.rootViewController as? RecordingViewController {
-                vc.presentActionSheet()
+            
+            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let window = scene.windows.filter({ $0 is AppliveryWindow }).first {
+                window.makeKeyAndVisible()
+                if var topController = window.rootViewController {
+                    while let presentedController = topController.presentedViewController {
+                        topController = presentedController
+                    }
+                    let vcToPresent = topController as? RecordingViewController
+                    vcToPresent?.presentActionSheet()
+                }
             }
         }
     }

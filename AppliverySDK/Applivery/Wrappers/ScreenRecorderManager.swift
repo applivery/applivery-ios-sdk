@@ -1,5 +1,5 @@
 //
-//  ShakeManager.swift
+//  ScreenRecorderManager.swift
 //  Applivery
 //
 //  Created by Fran Alarza on 2/9/24.
@@ -43,6 +43,24 @@ public final class ScreenRecorderManager: NSObject, RPScreenRecorderDelegate, RP
         }
     }
     
+    func exportClip() async {
+        let clipURL = getDirectory()
+        let interval = TimeInterval(15)
+        
+        print("Generating clip at URL: ", clipURL)
+        do {
+            try await recorder.exportClip(to: clipURL, duration: interval)
+            self.isRecording = false
+            
+            presentVideoFeedback(clipURL: clipURL)
+            logInfo("stopping the record")
+            
+        } catch {
+            print("Error attempting to export Clip Buffering: \(error.localizedDescription)")
+            
+        }
+    }
+    
     func stopClipBuffering() {
         Task {
             do {
@@ -55,28 +73,44 @@ public final class ScreenRecorderManager: NSObject, RPScreenRecorderDelegate, RP
         }
     }
     
-    func exportClip() async {
-        let clipURL = getDirectory()
-        let interval = TimeInterval(15)
-        
-        print("Generating clip at URL: ", clipURL)
-        do {
-            try await recorder.exportClip(to: clipURL, duration: interval)
-            self.isRecording = false
-            let previewVC = await VideoPlayerViewController(videoURL: clipURL)
-            if let windowScene = await UIApplication.shared.connectedScenes.first as? UIWindowScene,
-               let window = await windowScene.windows.first {
-                let rootVC = await window.rootViewController
-                await rootVC?.present(previewVC, animated: true)
+    func presentPreviewWithScreenshoot() {
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = scene.windows.first {
+            
+            guard let screenshot = takeScreenshotIncludingAlertBackground() else { return }
+            
+            if var topController = window.rootViewController {
+                while let presentedController = topController.presentedViewController {
+                    topController = presentedController
+                }
+                
+                let view = ScreenshootPreview(screenshot: screenshot)
+                let hosting = UIHostingController(rootView: view)
+                
+                topController.present(hosting, animated: true)
             }
-            logInfo("stopping the record")
-            
-        } catch {
-            print("Error attempting to export Clip Buffering: \(error.localizedDescription)")
-            
         }
     }
     
+    func presentVideoFeedback(clipURL: URL) {
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = scene.windows.first {
+            
+            if var topController = window.rootViewController {
+                while let presentedController = topController.presentedViewController {
+                    topController = presentedController
+                }
+                
+                let previewVC = VideoPlayerViewController(videoURL: clipURL)
+                runOnMainThreadAsync {
+                    topController.present(previewVC, animated: true)
+                }
+            }
+        }
+    }
+}
+
+private extension ScreenRecorderManager {
     func getDirectory() -> URL {
         var tempPath = URL(fileURLWithPath: NSTemporaryDirectory())
         let formatter = DateFormatter()
@@ -85,6 +119,16 @@ public final class ScreenRecorderManager: NSObject, RPScreenRecorderDelegate, RP
         print(stringDate)
         tempPath.appendPathComponent(String.localizedStringWithFormat("output-%@.mp4", stringDate))
         return tempPath
+    }
+    
+    func takeScreenshotIncludingAlertBackground() -> UIImage? {
+        if let window = UIApplication.shared.windows.first {
+            let renderer = UIGraphicsImageRenderer(size: window.bounds.size)
+            return renderer.image { ctx in
+                window.drawHierarchy(in: window.bounds, afterScreenUpdates: true)
+            }
+        }
+        return nil
     }
 }
 

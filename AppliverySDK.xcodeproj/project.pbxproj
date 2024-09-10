@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		268E6A492C85ED5800D4D5B3 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E6A482C85ED5800D4D5B3 /* Recorder.swift */; };
+		26C2D9052C90922900FB968B /* AppliveryWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C2D9042C90922900FB968B /* AppliveryWindow.swift */; };
+		26C2D9072C90927A00FB968B /* ScreenRecorderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C2D9062C90927A00FB968B /* ScreenRecorderManager.swift */; };
+		26C2D90C2C90929D00FB968B /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C2D9082C90929D00FB968B /* VideoPlayerViewController.swift */; };
+		26C2D90D2C90929D00FB968B /* ScreenshootPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C2D90A2C90929D00FB968B /* ScreenshootPreview.swift */; };
+		26C2D90F2C9092AC00FB968B /* RecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C2D90E2C9092AC00FB968B /* RecordingViewController.swift */; };
+		26C2D9122C9092FB00FB968B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26C2D9102C9092FB00FB968B /* Media.xcassets */; };
 		D880104325D00582005490FA /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = D880104225D00582005490FA /* Nimble */; };
 		D880104725D005A5005490FA /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = D880104625D005A5005490FA /* Quick */; };
 		D880104B25D005C9005490FA /* OHHTTPStubs in Frameworks */ = {isa = PBXBuildFile; productRef = D880104A25D005C9005490FA /* OHHTTPStubs */; };
@@ -146,7 +151,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		268E6A482C85ED5800D4D5B3 /* Recorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
+		26C2D9042C90922900FB968B /* AppliveryWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppliveryWindow.swift; path = Applivery/Views/AppliveryWindow.swift; sourceTree = "<group>"; };
+		26C2D9062C90927A00FB968B /* ScreenRecorderManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScreenRecorderManager.swift; path = Applivery/Wrappers/ScreenRecorderManager.swift; sourceTree = "<group>"; };
+		26C2D9082C90929D00FB968B /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
+		26C2D90A2C90929D00FB968B /* ScreenshootPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshootPreview.swift; sourceTree = "<group>"; };
+		26C2D90E2C9092AC00FB968B /* RecordingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecordingViewController.swift; path = Applivery/Views/RecordingViewController.swift; sourceTree = "<group>"; };
+		26C2D9102C9092FB00FB968B /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		D8F3DE2725D0066E009E036C /* DeviceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceMock.swift; path = Mocks/DeviceMock.swift; sourceTree = "<group>"; };
 		D8F3DE2825D0066E009E036C /* DownloadDataManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadDataManagerMock.swift; path = Mocks/DownloadDataManagerMock.swift; sourceTree = "<group>"; };
 		D8F3DE2925D0066E009E036C /* FeedbackInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackInteractorMock.swift; path = Mocks/FeedbackInteractorMock.swift; sourceTree = "<group>"; };
@@ -285,6 +295,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		26C2D9092C90929D00FB968B /* PreviewVideo */ = {
+			isa = PBXGroup;
+			children = (
+				26C2D9082C90929D00FB968B /* VideoPlayerViewController.swift */,
+			);
+			name = PreviewVideo;
+			path = Applivery/Views/PreviewVideo;
+			sourceTree = "<group>";
+		};
+		26C2D90B2C90929D00FB968B /* PreviewScreenshot */ = {
+			isa = PBXGroup;
+			children = (
+				26C2D90A2C90929D00FB968B /* ScreenshootPreview.swift */,
+			);
+			name = PreviewScreenshot;
+			path = Applivery/Views/PreviewScreenshot;
+			sourceTree = "<group>";
+		};
+		26C2D9112C9092FB00FB968B /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				26C2D9102C9092FB00FB968B /* Media.xcassets */,
+			);
+			name = Assets;
+			path = Resources/Assets;
+			sourceTree = "<group>";
+		};
 		FA07FDF31E87E18E0073B580 /* Public */ = {
 			isa = PBXGroup;
 			children = (
@@ -404,13 +441,13 @@
 		FA3A693E1BC2FBE500179176 /* Wrappers */ = {
 			isa = PBXGroup;
 			children = (
+				26C2D9062C90927A00FB968B /* ScreenRecorderManager.swift */,
 				FA3A693F1BC2FC1200179176 /* App.swift */,
 				FA388B6A1C7CF3D500004042 /* EventDetector.swift */,
 				FA2257E21C8B56E2000B0333 /* Screenshot.swift */,
 				FA2A61CA1C8CE59800DC21FD /* Keyboard.swift */,
 				FA1569B21DBCFB7700C651D4 /* Device.swift */,
 				FAE9662F21F4EA620062FE15 /* AppliveryNavigationController.swift */,
-				268E6A482C85ED5800D4D5B3 /* Recorder.swift */,
 			);
 			name = Wrappers;
 			sourceTree = "<group>";
@@ -604,6 +641,10 @@
 		FAD2A15E1C011CA8001967FD /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				26C2D90E2C9092AC00FB968B /* RecordingViewController.swift */,
+				26C2D90B2C90929D00FB968B /* PreviewScreenshot */,
+				26C2D9092C90929D00FB968B /* PreviewVideo */,
+				26C2D9042C90922900FB968B /* AppliveryWindow.swift */,
 				FA2900E31C064DAD00778A4C /* Applivery.storyboard */,
 				FA952FD11C838F4B00C32DD0 /* Update */,
 				FA952FD61C838FB900C32DD0 /* Feedback */,
@@ -614,6 +655,7 @@
 		FAF382051C2614F6007AF670 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				26C2D9112C9092FB00FB968B /* Assets */,
 				FA486A2B2311DD2000E464F5 /* LocalizableConstants.swift */,
 				FA2C455C1C4D20A300E72847 /* Localizable.strings */,
 			);
@@ -777,6 +819,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA2C455A1C4D20A300E72847 /* Localizable.strings in Resources */,
+				26C2D9122C9092FB00FB968B /* Media.xcassets in Resources */,
 				FA2900E41C064DAD00778A4C /* Applivery.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -848,9 +891,11 @@
 				FA1569B51DBD313200C651D4 /* Wifi.swift in Sources */,
 				FAE9663021F4EA620062FE15 /* AppliveryNavigationController.swift in Sources */,
 				FA3AB8ED2055F09700B49D3A /* LoginManager.swift in Sources */,
+				26C2D90F2C9092AC00FB968B /* RecordingViewController.swift in Sources */,
 				FA662BF82241A10500478C38 /* User.swift in Sources */,
 				FA952FDA1C83904100C32DD0 /* FeedbackPresenter.swift in Sources */,
 				FA952FDC1C83909000C32DD0 /* FeedbackInteractor.swift in Sources */,
+				26C2D9072C90927A00FB968B /* ScreenRecorderManager.swift in Sources */,
 				FACB9AC220535A720094499A /* LoginService.swift in Sources */,
 				FA2C455E1C4D228A00E72847 /* NSBundle+Applivery.swift in Sources */,
 				FA3A69401BC2FC1200179176 /* App.swift in Sources */,
@@ -867,16 +912,17 @@
 				FAFBE4631C3EF66E0039BD8C /* DownloadService.swift in Sources */,
 				FA0883DA1DBC311C008A553A /* Result.swift in Sources */,
 				FAC3947E1C95D9FF00F14778 /* Feedback.swift in Sources */,
+				26C2D90D2C90929D00FB968B /* ScreenshootPreview.swift in Sources */,
 				FAEE75D621EA853C000708D6 /* GeometryExtensions.swift in Sources */,
 				FA388B6B1C7CF3D500004042 /* EventDetector.swift in Sources */,
 				FA8D78161BC46064005741D8 /* ConfigService.swift in Sources */,
 				FAA50D4E1C7D232500CE7B65 /* NSError+Applivery.swift in Sources */,
-				268E6A492C85ED5800D4D5B3 /* Recorder.swift in Sources */,
 				FA2257E31C8B56E2000B0333 /* Screenshot.swift in Sources */,
 				FA3D97841DEB79DB00CCC11B /* PreviewVC.swift in Sources */,
 				FA3211D61C3EA6D300668099 /* Localize.swift in Sources */,
 				FAB0CCF0205F17E900F68275 /* SessionPersister.swift in Sources */,
 				FA38E5542239B37F003A1612 /* Layout.swift in Sources */,
+				26C2D9052C90922900FB968B /* AppliveryWindow.swift in Sources */,
 				FA952FD41C838FB500C32DD0 /* UpdatePresenter.swift in Sources */,
 				FA53DE331BC18F6D00DF2EB1 /* Config.swift in Sources */,
 				FAD2A15B1C010D8B001967FD /* UpdateCoordinator.swift in Sources */,
@@ -890,6 +936,7 @@
 				FA1569B71DBD465100C651D4 /* DiskStatus.swift in Sources */,
 				FA1569B31DBCFB7700C651D4 /* Device.swift in Sources */,
 				FADD391D1E8321E700D861B7 /* Colors.swift in Sources */,
+				26C2D90C2C90929D00FB968B /* VideoPlayerViewController.swift in Sources */,
 				FA486A2C2311DD2100E464F5 /* LocalizableConstants.swift in Sources */,
 				FAC394801C95EA3000F14778 /* FeedbackService.swift in Sources */,
 				FAAAE1221E8040010065E6AC /* Palette.swift in Sources */,
@@ -1024,7 +1071,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1080,7 +1127,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -1110,7 +1157,7 @@
 				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = AppliverySDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1144,7 +1191,7 @@
 				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = AppliverySDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
