@@ -84,9 +84,9 @@ public final class ScreenRecorderManager: NSObject, RPScreenRecorderDelegate, RP
                     topController = presentedController
                 }
                 
-                let view = ScreenshootPreview(screenshot: screenshot)
+                let view = ScreenshootPreviewScreen(screenshot: screenshot)
                 let hosting = UIHostingController(rootView: view)
-                
+                hosting.modalPresentationStyle = .fullScreen
                 topController.present(hosting, animated: true)
             }
         }
@@ -102,6 +102,7 @@ public final class ScreenRecorderManager: NSObject, RPScreenRecorderDelegate, RP
                 }
                 
                 let previewVC = VideoPlayerViewController(videoURL: clipURL)
+                previewVC.modalPresentationStyle = .fullScreen
                 runOnMainThreadAsync {
                     topController.present(previewVC, animated: true)
                 }

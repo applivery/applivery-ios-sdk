@@ -22,7 +22,6 @@ struct ConfiguratorMock {
 			globalConfig: globalConfig,
 			updateCoordinator: self.updateCoordinator(),
 			updateInteractor: self.updateInteractor(),
-			feedbackCoordinator: self.feedbackCoordinator(),
 			loginInteractor: self.loginInteractor()
 		)
 	}

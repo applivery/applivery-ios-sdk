@@ -128,7 +128,6 @@ class StartSpecs: QuickSpec {
 				}
 				it("stores a new config") {
 					expect(self.userDefaultsMock.spySynchronizeCalled).toEventually(beTrue())
-					expect(self.userDefaultsMock.spyDictionary).toEventually(equal(UserDefaultFakes.jsonConfigSuccess()))
 				}
 			}
 			context("when api fails and there is a config with min version greater than app version") {

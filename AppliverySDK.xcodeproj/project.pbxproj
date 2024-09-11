@@ -7,10 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2690AE442C91E761003FDFA4 /* EditScreenshotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2690AE3D2C91E761003FDFA4 /* EditScreenshotView.swift */; };
+		2690AE452C91E761003FDFA4 /* ScreenShootRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2690AE3E2C91E761003FDFA4 /* ScreenShootRowView.swift */; };
+		2690AE462C91E761003FDFA4 /* ScreenshootPreviewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2690AE402C91E761003FDFA4 /* ScreenshootPreviewScreen.swift */; };
+		2690AE472C91E761003FDFA4 /* ScreenshootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2690AE412C91E761003FDFA4 /* ScreenshootViewModel.swift */; };
 		26C2D9052C90922900FB968B /* AppliveryWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C2D9042C90922900FB968B /* AppliveryWindow.swift */; };
 		26C2D9072C90927A00FB968B /* ScreenRecorderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C2D9062C90927A00FB968B /* ScreenRecorderManager.swift */; };
 		26C2D90C2C90929D00FB968B /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C2D9082C90929D00FB968B /* VideoPlayerViewController.swift */; };
-		26C2D90D2C90929D00FB968B /* ScreenshootPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C2D90A2C90929D00FB968B /* ScreenshootPreview.swift */; };
 		26C2D90F2C9092AC00FB968B /* RecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C2D90E2C9092AC00FB968B /* RecordingViewController.swift */; };
 		26C2D9122C9092FB00FB968B /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26C2D9102C9092FB00FB968B /* Media.xcassets */; };
 		D880104325D00582005490FA /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = D880104225D00582005490FA /* Nimble */; };
@@ -151,10 +154,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2690AE3D2C91E761003FDFA4 /* EditScreenshotView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditScreenshotView.swift; sourceTree = "<group>"; };
+		2690AE3E2C91E761003FDFA4 /* ScreenShootRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenShootRowView.swift; sourceTree = "<group>"; };
+		2690AE402C91E761003FDFA4 /* ScreenshootPreviewScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshootPreviewScreen.swift; sourceTree = "<group>"; };
+		2690AE412C91E761003FDFA4 /* ScreenshootViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshootViewModel.swift; sourceTree = "<group>"; };
 		26C2D9042C90922900FB968B /* AppliveryWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppliveryWindow.swift; path = Applivery/Views/AppliveryWindow.swift; sourceTree = "<group>"; };
 		26C2D9062C90927A00FB968B /* ScreenRecorderManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScreenRecorderManager.swift; path = Applivery/Wrappers/ScreenRecorderManager.swift; sourceTree = "<group>"; };
 		26C2D9082C90929D00FB968B /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
-		26C2D90A2C90929D00FB968B /* ScreenshootPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenshootPreview.swift; sourceTree = "<group>"; };
 		26C2D90E2C9092AC00FB968B /* RecordingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecordingViewController.swift; path = Applivery/Views/RecordingViewController.swift; sourceTree = "<group>"; };
 		26C2D9102C9092FB00FB968B /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		D8F3DE2725D0066E009E036C /* DeviceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceMock.swift; path = Mocks/DeviceMock.swift; sourceTree = "<group>"; };
@@ -193,7 +199,7 @@
 		FA19E48A1C822CA900DC31E8 /* Environments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Environments.swift; path = Applivery/Utils/Environments.swift; sourceTree = "<group>"; };
 		FA201F731E9049410090128F /* AppliveryBehaviorTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppliveryBehaviorTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		FA201F741E9049410090128F /* StartSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartSpecs.swift; path = Specs/StartSpecs.swift; sourceTree = "<group>"; };
-		FA2257E21C8B56E2000B0333 /* Screenshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = Screenshot.swift; path = Applivery/Wrappers/Screenshot.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FA2257E21C8B56E2000B0333 /* Screenshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = Screenshot.swift; path = Applivery/Wrappers/Screenshot.swift; sourceTree = "<group>"; };
 		FA2900E31C064DAD00778A4C /* Applivery.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Applivery.storyboard; path = Applivery/Views/Applivery.storyboard; sourceTree = "<group>"; };
 		FA2A61CA1C8CE59800DC21FD /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = Keyboard.swift; path = Applivery/Wrappers/Keyboard.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA2B9C011DC29935009F11C5 /* ErrorCodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ErrorCodes.swift; path = Applivery/SDKConfig/ErrorCodes/ErrorCodes.swift; sourceTree = "<group>"; };
@@ -234,7 +240,7 @@
 		FA8DDA071E99671000A2BB95 /* OTAUpdateSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OTAUpdateSpecs.swift; path = Specs/OTAUpdateSpecs.swift; sourceTree = "<group>"; };
 		FA952FD21C838FB500C32DD0 /* UpdatePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = UpdatePresenter.swift; path = Applivery/Views/Update/UpdatePresenter.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FA952FD31C838FB500C32DD0 /* UpdateVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = UpdateVC.swift; path = Applivery/Views/Update/UpdateVC.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		FA952FD71C83901000C32DD0 /* FeedbackVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FeedbackVC.swift; path = Applivery/Views/Feedback/FeedbackVC.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FA952FD71C83901000C32DD0 /* FeedbackVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FeedbackVC.swift; path = Applivery/Views/Feedback/FeedbackVC.swift; sourceTree = "<group>"; };
 		FA952FD91C83904100C32DD0 /* FeedbackPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackPresenter.swift; path = Applivery/Views/Feedback/FeedbackPresenter.swift; sourceTree = "<group>"; };
 		FA952FDB1C83909000C32DD0 /* FeedbackInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackInteractor.swift; path = Applivery/Interactors/FeedbackInteractor.swift; sourceTree = "<group>"; };
 		FA952FDD1C83929100C32DD0 /* Storyboard+Applivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = "Storyboard+Applivery.swift"; path = "Applivery/Utils/Storyboard+Applivery.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -249,7 +255,7 @@
 		FABA22F61E9D30040000EBA9 /* ForceUpdateSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ForceUpdateSpecs.swift; path = Specs/ForceUpdateSpecs.swift; sourceTree = "<group>"; };
 		FABC164823D798970041F8DB /* ListHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ListHelper.swift; path = Applivery/Utils/ListHelper.swift; sourceTree = "<group>"; };
 		FAC3947D1C95D9FF00F14778 /* Feedback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Feedback.swift; path = Applivery/Model/Feedback.swift; sourceTree = "<group>"; };
-		FAC3947F1C95EA3000F14778 /* FeedbackService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FeedbackService.swift; path = Applivery/Data/Services/FeedbackService.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FAC3947F1C95EA3000F14778 /* FeedbackService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = FeedbackService.swift; path = Applivery/Data/Services/FeedbackService.swift; sourceTree = "<group>"; };
 		FAC394811C96078A00F14778 /* UIDevice+ModelName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIDevice+ModelName.swift"; path = "Applivery/Utils/UIDevice+ModelName.swift"; sourceTree = "<group>"; };
 		FACB9ABF205330E80094499A /* LoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginInteractor.swift; path = Applivery/Interactors/LoginInteractor.swift; sourceTree = "<group>"; };
 		FACB9AC120535A720094499A /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginService.swift; path = Applivery/Data/Services/LoginService.swift; sourceTree = "<group>"; };
@@ -295,6 +301,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2690AE3F2C91E761003FDFA4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2690AE3D2C91E761003FDFA4 /* EditScreenshotView.swift */,
+				2690AE3E2C91E761003FDFA4 /* ScreenShootRowView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2690AE422C91E761003FDFA4 /* Screenshoot */ = {
+			isa = PBXGroup;
+			children = (
+				2690AE3F2C91E761003FDFA4 /* Views */,
+				2690AE402C91E761003FDFA4 /* ScreenshootPreviewScreen.swift */,
+				2690AE412C91E761003FDFA4 /* ScreenshootViewModel.swift */,
+			);
+			path = Screenshoot;
+			sourceTree = "<group>";
+		};
+		2690AE432C91E761003FDFA4 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				2690AE422C91E761003FDFA4 /* Screenshoot */,
+			);
+			name = Modules;
+			path = Applivery/Modules;
+			sourceTree = "<group>";
+		};
 		26C2D9092C90929D00FB968B /* PreviewVideo */ = {
 			isa = PBXGroup;
 			children = (
@@ -302,15 +336,6 @@
 			);
 			name = PreviewVideo;
 			path = Applivery/Views/PreviewVideo;
-			sourceTree = "<group>";
-		};
-		26C2D90B2C90929D00FB968B /* PreviewScreenshot */ = {
-			isa = PBXGroup;
-			children = (
-				26C2D90A2C90929D00FB968B /* ScreenshootPreview.swift */,
-			);
-			name = PreviewScreenshot;
-			path = Applivery/Views/PreviewScreenshot;
 			sourceTree = "<group>";
 		};
 		26C2D9112C9092FB00FB968B /* Assets */ = {
@@ -537,6 +562,7 @@
 		FA68D8F41BC040B000589DE4 /* AppliverySDK */ = {
 			isa = PBXGroup;
 			children = (
+				2690AE432C91E761003FDFA4 /* Modules */,
 				FA07FDF31E87E18E0073B580 /* Public */,
 				FA68D90D1BC046AB00589DE4 /* Source */,
 				FAF382051C2614F6007AF670 /* Resources */,
@@ -642,7 +668,6 @@
 			isa = PBXGroup;
 			children = (
 				26C2D90E2C9092AC00FB968B /* RecordingViewController.swift */,
-				26C2D90B2C90929D00FB968B /* PreviewScreenshot */,
 				26C2D9092C90929D00FB968B /* PreviewVideo */,
 				26C2D9042C90922900FB968B /* AppliveryWindow.swift */,
 				FA2900E31C064DAD00778A4C /* Applivery.storyboard */,
@@ -895,6 +920,7 @@
 				FA662BF82241A10500478C38 /* User.swift in Sources */,
 				FA952FDA1C83904100C32DD0 /* FeedbackPresenter.swift in Sources */,
 				FA952FDC1C83909000C32DD0 /* FeedbackInteractor.swift in Sources */,
+				2690AE462C91E761003FDFA4 /* ScreenshootPreviewScreen.swift in Sources */,
 				26C2D9072C90927A00FB968B /* ScreenRecorderManager.swift in Sources */,
 				FACB9AC220535A720094499A /* LoginService.swift in Sources */,
 				FA2C455E1C4D228A00E72847 /* NSBundle+Applivery.swift in Sources */,
@@ -912,9 +938,9 @@
 				FAFBE4631C3EF66E0039BD8C /* DownloadService.swift in Sources */,
 				FA0883DA1DBC311C008A553A /* Result.swift in Sources */,
 				FAC3947E1C95D9FF00F14778 /* Feedback.swift in Sources */,
-				26C2D90D2C90929D00FB968B /* ScreenshootPreview.swift in Sources */,
 				FAEE75D621EA853C000708D6 /* GeometryExtensions.swift in Sources */,
 				FA388B6B1C7CF3D500004042 /* EventDetector.swift in Sources */,
+				2690AE452C91E761003FDFA4 /* ScreenShootRowView.swift in Sources */,
 				FA8D78161BC46064005741D8 /* ConfigService.swift in Sources */,
 				FAA50D4E1C7D232500CE7B65 /* NSError+Applivery.swift in Sources */,
 				FA2257E31C8B56E2000B0333 /* Screenshot.swift in Sources */,
@@ -928,6 +954,7 @@
 				FAD2A15B1C010D8B001967FD /* UpdateCoordinator.swift in Sources */,
 				FAFA85761BCBDB26004E1974 /* GlobalConfig.swift in Sources */,
 				FA952FD51C838FB500C32DD0 /* UpdateVC.swift in Sources */,
+				2690AE472C91E761003FDFA4 /* ScreenshootViewModel.swift in Sources */,
 				FACB9AC0205330E80094499A /* LoginInteractor.swift in Sources */,
 				FA53DE271BC188E200DF2EB1 /* StartInteractor.swift in Sources */,
 				FAFA857F1BCC3389004E1974 /* Response.swift in Sources */,
@@ -946,6 +973,7 @@
 				FABC164923D798970041F8DB /* ListHelper.swift in Sources */,
 				FA54CAE421EB7EB400561DF5 /* UIImageExtension.swift in Sources */,
 				FA19E48B1C822CA900DC31E8 /* Environments.swift in Sources */,
+				2690AE442C91E761003FDFA4 /* EditScreenshotView.swift in Sources */,
 				FA952FDE1C83929100C32DD0 /* Storyboard+Applivery.swift in Sources */,
 				FA53DE301BC18ECB00DF2EB1 /* ConfigDataManager.swift in Sources */,
 				FAC394821C96078A00F14778 /* UIDevice+ModelName.swift in Sources */,
