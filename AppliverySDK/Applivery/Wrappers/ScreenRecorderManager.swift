@@ -84,10 +84,12 @@ public final class ScreenRecorderManager: NSObject, RPScreenRecorderDelegate, RP
                     topController = presentedController
                 }
                 
-                let view = ScreenshootPreviewScreen(screenshot: screenshot)
-                let hosting = UIHostingController(rootView: view)
-                hosting.modalPresentationStyle = .fullScreen
-                topController.present(hosting, animated: true)
+                DispatchQueue.main.async {
+                    let view = ScreenshootPreviewScreen(screenshot: screenshot)
+                    let hosting = UIHostingController(rootView: view)
+                    hosting.modalPresentationStyle = .fullScreen
+                    topController.present(hosting, animated: true)
+                }
             }
         }
     }
@@ -101,10 +103,11 @@ public final class ScreenRecorderManager: NSObject, RPScreenRecorderDelegate, RP
                     topController = presentedController
                 }
                 
-                let previewVC = VideoPlayerViewController(videoURL: clipURL)
-                previewVC.modalPresentationStyle = .fullScreen
-                runOnMainThreadAsync {
-                    topController.present(previewVC, animated: true)
+                DispatchQueue.main.async {
+                    let view = VideoPreviewScreen(url: clipURL)
+                    let hosting = UIHostingController(rootView: view)
+                    hosting.modalPresentationStyle = .fullScreen
+                    topController.present(hosting, animated: true)
                 }
             }
         }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ScreenShootRowView: View {
     @Binding var image: UIImage?
+    @Binding var lines: [Line]
     @State var isSelected: Bool = true
     @State var editScreenshootSheetIsPresented = false
     
@@ -48,11 +49,11 @@ struct ScreenShootRowView: View {
                 .stroke(Color.black, lineWidth: 1)
         )
         .fullScreenCover(isPresented: $editScreenshootSheetIsPresented, content: {
-            EditScreenshotView(screenshot: $image)
+            EditScreenshotView(screenshot: $image, lines: $lines)
         })
     }
 }
 
 #Preview {
-    ScreenShootRowView(image: .constant(UIImage(systemName: "checkmark.circle.fill")))
+    ScreenShootRowView(image: .constant(UIImage(systemName: "checkmark.circle.fill")), lines: .constant([]))
 }
