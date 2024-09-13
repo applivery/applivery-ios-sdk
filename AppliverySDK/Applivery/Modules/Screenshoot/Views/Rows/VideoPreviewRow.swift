@@ -59,7 +59,10 @@ struct VideoPreviewRow: View {
             RoundedRectangle(cornerRadius: 4)
                 .stroke(Color.black, lineWidth: 1)
         )
-        .fullScreenCover(isPresented: $editScreenshootSheetIsPresented, content: {
+        .sheet(isPresented: $editScreenshootSheetIsPresented, content: {
+            if let videoURL {
+                ViedeoPlayerView(videoURL: videoURL)
+            }
         })
     }
     

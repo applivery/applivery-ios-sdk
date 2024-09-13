@@ -28,6 +28,13 @@ struct ScreenshootPreviewScreen: View {
                 }
                 Divider()
                 TextEditor(text: $description)
+                    .overlay(alignment: .topLeading, content: {
+                        if description.isEmpty {
+                            Text("Type Here ...")
+                                .foregroundColor(.gray)
+                                .padding(.top, 6)
+                        }
+                    })
                     .frame(maxHeight: .infinity)
                     .lineLimit(0)
                     .focused($focused)
@@ -51,7 +58,7 @@ struct ScreenshootPreviewScreen: View {
                 
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
-
+                        screenshot = viewModel.saveDrawing(image: screenshot ?? UIImage(), lines: imageLines)
                     }, label: {
                         Image(systemName: "location.fill")
                             .foregroundColor(.blue)

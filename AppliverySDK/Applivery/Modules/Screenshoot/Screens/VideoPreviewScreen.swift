@@ -28,6 +28,13 @@ struct VideoPreviewScreen: View {
                 }
                 Divider()
                 TextEditor(text: $description)
+                    .overlay(alignment: .topLeading, content: {
+                        if description.isEmpty {
+                            Text("Type Here ...")
+                                .foregroundColor(.gray)
+                                .padding(.top, 6)
+                        }
+                    })
                     .frame(maxHeight: .infinity)
                     .lineLimit(0)
                     .focused($focused)

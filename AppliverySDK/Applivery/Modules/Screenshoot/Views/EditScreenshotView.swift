@@ -10,7 +10,7 @@ import SwiftUI
 struct Line {
     var path: Path = Path()
     var color: Color = .red
-    var lineWith: Double = 1.0
+    var lineWith: Double = 2.0
 }
 
 struct EditScreenshotView: View {
@@ -19,29 +19,29 @@ struct EditScreenshotView: View {
     @Binding var lines: [Line]
     @State private var currentLine: Line = Line()
     @State private var selectedColor: Color = .red
+    @State private var selectedStroke: Double = 2.0
     @State private var editMode = false
     
     var body: some View {
         VStack {
             Spacer()
             drawedImage
-            VStack(spacing: 0) {
-                if editMode {
-                    ColorPicker("Color", selection: $selectedColor)
-                } else {
-                    ColorPicker("Color", selection: $selectedColor)
-                        .hidden()
-                }
-                topBarView
+            VStack(spacing: 12) {
+                
+                bottomBarView
             }
+            .padding()
         }
-        .onChange(of: selectedColor, perform: { value in
-            currentLine.color = value
+        .overlay(alignment: .bottom, content: {
+            if editMode {
+                editTools
+                    .padding(.bottom, 72)
+            }
         })
         .animation(.easeIn, value: editMode)
     }
     
-    var topBarView: some View {
+    var bottomBarView: some View {
         HStack {
             Button(action: {
                 dismiss.callAsFunction()
@@ -73,34 +73,34 @@ struct EditScreenshotView: View {
             Spacer()
             
             Button(action: {
-                saveDrawing()
+                dismiss.callAsFunction()
             }, label: {
                 Image(systemName: "checkmark")
-                    .foregroundColor(.blue)
+                    .foregroundColor(lines.isEmpty ? .gray : .blue)
                     .rotationEffect(.degrees(10))
             })
+            .disabled(lines.isEmpty)
         }
-        .padding()
     }
     
     var drawedImage: some View {
         ZStack {
             Image(uiImage: screenshot ?? UIImage())
                 .resizable()
-                .scaledToFit()
             
             Canvas { context, size in
                 for line in lines {
                     context.stroke(line.path, with: .color(line.color), lineWidth: line.lineWith)
                 }
-                context.stroke(currentLine.path, with: .color(selectedColor), lineWidth: currentLine.lineWith)
+
+                context.stroke(currentLine.path, with: .color(currentLine.color), lineWidth: currentLine.lineWith)
             }
             .gesture(dragGesture)
         }
     }
     
     var dragGesture: some Gesture {
-        DragGesture(minimumDistance: 0, coordinateSpace: .local)
+        DragGesture(minimumDistance: 0)
             .onChanged { value in
                 if editMode {
                     currentLine.path.addLine(to: value.location)
@@ -108,41 +108,23 @@ struct EditScreenshotView: View {
             }
             .onEnded { _ in
                 lines.append(currentLine)
-                currentLine = Line()
+                currentLine = Line(path: Path(), color: selectedColor, lineWith: selectedStroke)
             }
     }
     
-    func saveDrawing() {
-        guard let baseImage = screenshot else { return }
-
-        // Crear un renderizador con el tamaño de la imagen
-        let renderer = UIGraphicsImageRenderer(size: baseImage.size)
-        
-        let transformedImage = renderer.image { context in
-            baseImage.draw(at: .zero)
-            
-            // Dibujar las líneas en la imagen
-            let scaleX = baseImage.size.width / UIScreen.main.bounds.width
-            let scaleY = baseImage.size.height / UIScreen.main.bounds.height
-            
-//            let firstLineStart = CGPoint(x: baseImage.size.width * 0.1, y: baseImage.size.height * 0.1)
-//            let firstLineEnd = CGPoint(x: baseImage.size.width * 0.9, y: baseImage.size.height * 0.1)
-//            context.cgContext.move(to: firstLineStart)
-//            context.cgContext.addLine(to: firstLineEnd)
-//            context.cgContext.strokePath()
-            
-            for line in lines {
-                let path = line.path
-                let transformedPath = path.applying(CGAffineTransform(scaleX: scaleX, y: scaleY))
-                context.cgContext.move(to: line.path.boundingRect.origin)
-                context.cgContext.addLine(to: line.path.currentPoint ?? CGPoint())
-                context.cgContext.setStrokeColor(UIColor(line.color).cgColor)
-                context.cgContext.setLineWidth(line.lineWith)
-                context.cgContext.strokePath()
-            }
+    var editTools: some View {
+        HStack {
+            Slider(value: $selectedStroke, in: 2...10, step: 0.1)
+                .onChange(of: selectedStroke, perform: { newWith in
+                    currentLine = Line(color: currentLine.color, lineWith: newWith)
+                })
+            ColorPicker("", selection: $selectedColor)
+                .onChange(of: selectedColor, perform: { newColor in
+                    currentLine = Line(color: newColor, lineWith: currentLine.lineWith)
+                })
         }
-        
-        self.screenshot = transformedImage
+        .background(.white)
+        .padding(.horizontal, 100)
     }
 }
 
