@@ -38,6 +38,14 @@ struct ScreenshootPreviewScreen: View {
                     .frame(maxHeight: .infinity)
                     .lineLimit(0)
                     .focused($focused)
+                #if DEBUG
+                if let screenshot {
+                    Image(uiImage: screenshot)
+                        .resizable()
+                        .frame(width: 200, height: 300)
+                        .aspectRatio(contentMode: .fit)
+                }
+                #endif
                 ScreenShootRowView(image: $screenshot, lines: $imageLines)
                     .frame(height: 64)
                 Spacer()
@@ -58,8 +66,14 @@ struct ScreenshootPreviewScreen: View {
                 
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
-                        screenshot = viewModel.saveDrawing(image: screenshot ?? UIImage(), lines: imageLines)
-                    }, label: {
+                        guard let screenshot else { return }
+                        let newScreenShot = viewModel.exportDrawing(
+                            image: screenshot,
+                            lines: imageLines
+                        )
+                        self.screenshot = newScreenShot
+                    },
+                           label: {
                         Image(systemName: "location.fill")
                             .foregroundColor(.blue)
                             .rotationEffect(.degrees(10))

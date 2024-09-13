@@ -41,11 +41,11 @@ final class ScreenshootViewModel {
             return nil
         }
         
-        image.draw(at: .zero)
+        image.draw(in: CGRect(origin: .zero, size: image.size))
         
         for line in lines {
             context.setStrokeColor(line.color.cgColor ?? CGColor(red: 1, green: 1, blue: 1, alpha: 1))
-            context.setLineWidth(line.lineWith)
+            context.setLineWidth(line.lineWidth)
             context.setLineCap(.round)
             
             let cgPath = line.path.cgPath
@@ -55,7 +55,43 @@ final class ScreenshootViewModel {
         }
         
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
+        UIGraphicsEndImageContext()
         return newImage
+    }
+    
+    func exportDrawing(image: UIImage, lines: [Line]) -> UIImage {
+        
+        // Create a context of the starting image size and set it as the current one
+        UIGraphicsBeginImageContext(image.size)
+        
+        // Draw the starting image in the current context as background
+        image.draw(at: CGPoint.zero)
+        
+        // Get the current context
+        let context = UIGraphicsGetCurrentContext()!
+        
+        func toImagePoint(point: CGPoint) -> CGPoint {
+            .init(x: point.x * image.size.width, y: point.y * image.size.height)
+        }
+        
+        for line in lines {
+            context.setStrokeColor(line.color.cgColor ?? UIColor.systemPink.cgColor)
+            context.setLineWidth(line.lineWidth)
+            
+            var points = line.points
+            let firstPoint = points.removeFirst()
+            
+            context.move(to: toImagePoint(point: firstPoint))
+            for point in points {
+                context.addLine(to: toImagePoint(point: point))
+            }
+            context.strokePath()
+        }
+        // Save the context as a new UIImage
+        let myImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        // Return modified image
+        return myImage!
     }
 }

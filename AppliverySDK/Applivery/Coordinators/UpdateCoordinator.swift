@@ -36,9 +36,9 @@ class UpdateCoordinator: PUpdateCoordinator, UpdateInteractorOutput {
 	
 	// MARK: - Public Methods
 	func forceUpdate() {
-		guard !forceUpdateCalled else { return }
-		forceUpdateCalled = true
-        self.app.showForceUpdate()
+//		guard !forceUpdateCalled else { return }
+//		forceUpdateCalled = true
+//        self.app.showForceUpdate()
 	}
 	
 	func otaUpdate() {

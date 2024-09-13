@@ -218,7 +218,7 @@ extension VideoPlayerViewController {
         discardButton.addTarget(self, action: #selector(discardTapped), for: .touchUpInside)
         discardButton.translatesAutoresizingMaskIntoConstraints = false
         
-        let centerImageView = UIImageView(image: UIImage(resource: .appliveryLogo))
+        let centerImageView = UIImageView(image: UIImage(systemName: "video")!)
         centerImageView.contentMode = .scaleAspectFit
         centerImageView.tintColor = .white
         centerImageView.translatesAutoresizingMaskIntoConstraints = false
