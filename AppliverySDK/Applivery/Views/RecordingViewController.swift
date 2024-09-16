@@ -10,11 +10,11 @@ import UIKit
 class RecordingViewController: UIViewController {
     
     private var recordButton: UIButton = UIButton(type: .system)
+    private let borderLayer = CAShapeLayer()
     private var actionSheet: UIAlertController = UIAlertController()
     var buttonAction: (() -> Void)?
     
     private var feedbackCoordinator: PFeedbackCoordinator
-    private let shapeLayer = CAShapeLayer()
     
     init(feedbackCoordinator: PFeedbackCoordinator) {
         self.feedbackCoordinator = feedbackCoordinator
@@ -29,7 +29,16 @@ class RecordingViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .clear
         addRecordButton()
-        setupProgressBorder()
+    }
+    
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        recordButton.layer.cornerRadius = recordButton.bounds.size.width / 2
+        
+        borderLayer.frame = recordButton.bounds
+        borderLayer.path = UIBezierPath(ovalIn: borderLayer.bounds).cgPath
     }
     
     deinit {
@@ -41,23 +50,43 @@ class RecordingViewController: UIViewController {
     }
 
     private func addRecordButton() {
-        let configuration = UIImage.SymbolConfiguration(pointSize: 32, weight: .heavy)
+        let configuration = UIImage.SymbolConfiguration(pointSize: 48, weight: .heavy)
         let symbolImage = UIImage(systemName: "stop.circle.fill", withConfiguration: configuration)
         recordButton.setImage(symbolImage, for: .normal)
         recordButton.tintColor = .white
         recordButton.addTarget(self, action: #selector(recordButtonTapped), for: .touchUpInside)
         recordButton.translatesAutoresizingMaskIntoConstraints = false
+        recordButton.clipsToBounds = true
         recordButton.isHidden = true
 
         view.addSubview(self.recordButton)
         
+        // Set up constraints
+        NSLayoutConstraint.activate([
+            recordButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 48),
+            recordButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -48),
+            recordButton.widthAnchor.constraint(equalToConstant: 48),
+            recordButton.heightAnchor.constraint(equalToConstant: 48),
+        ])
+        
+        borderLayer.strokeColor = UIColor.red.cgColor
+        borderLayer.lineWidth = 8
+        borderLayer.fillColor = nil
+
+        recordButton.layer.addSublayer(borderLayer)
+        
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
         recordButton.addGestureRecognizer(panGesture)
+    }
+    
+    private func animateBorder() {
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        animation.duration = 30
+        animation.fromValue = 0
+        animation.toValue = 1
+        animation.timingFunction = CAMediaTimingFunction(name: .linear)
         
-        NSLayoutConstraint.activate([
-            recordButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            recordButton.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
+        borderLayer.add(animation, forKey: "borderAnimation")
     }
     
     @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
@@ -70,44 +99,9 @@ class RecordingViewController: UIViewController {
         gesture.setTranslation(.zero, in: view)
     }
     
-    private func setupProgressBorder() {
-        let circularPath = UIBezierPath(
-            arcCenter: .init(
-                x: recordButton.frame.midX,
-                y: recordButton.frame.midY
-            ),
-            radius: recordButton.bounds.width + 10,
-            startAngle: -CGFloat.pi / 2,
-            endAngle: 1.5 * CGFloat.pi,
-            clockwise: true
-        )
-        
-        shapeLayer.path = circularPath.cgPath
-        shapeLayer.strokeColor = UIColor.red.cgColor
-        shapeLayer.lineWidth = 4
-        shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.lineCap = .round
-        shapeLayer.strokeEnd = 0
-        
-        //view.layer.addSublayer(shapeLayer)
-        
-    }
-    
-    private func startProgressAnimation() {
-        shapeLayer.strokeEnd = 0
-
-        let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
-        basicAnimation.toValue = 1
-        basicAnimation.duration = 30
-        basicAnimation.fillMode = .forwards
-        basicAnimation.isRemovedOnCompletion = false
-        
-        shapeLayer.add(basicAnimation, forKey: "progressAnimation")
-    }
-    
     func showRecordButton() {
         self.recordButton.isHidden = false
-        startProgressAnimation()
+        animateBorder()
     }
 
     func hideRecordButton() {

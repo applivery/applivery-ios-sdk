@@ -10,7 +10,7 @@ import SwiftUI
 struct ScreenShootRowView: View {
     @Binding var image: UIImage?
     @Binding var lines: [Line]
-    @State var isSelected: Bool = true
+    @Binding var isSelected: Bool
     @State var editScreenshootSheetIsPresented = false
     
     var body: some View {
@@ -55,5 +55,9 @@ struct ScreenShootRowView: View {
 }
 
 #Preview {
-    ScreenShootRowView(image: .constant(UIImage(systemName: "checkmark.circle.fill")), lines: .constant([]))
+    ScreenShootRowView(
+        image: .constant(UIImage(systemName: "checkmark.circle.fill")),
+        lines: .constant([]),
+        isSelected: .constant(false)
+    )
 }

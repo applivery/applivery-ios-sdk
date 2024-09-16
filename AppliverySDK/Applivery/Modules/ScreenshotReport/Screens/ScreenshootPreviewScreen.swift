@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct ScreenshootPreviewScreen: View {
-    let viewModel = ScreenshootViewModel()
+    @ObservedObject var viewModel = ScreenshootViewModel()
     @Environment(\.dismiss) var dismiss
     @State var screenshot: UIImage?
     @State var user: String = ""
     @State var description: String = ""
     @State var reportType: FeedbackType = .feedback
     @State var imageLines: [Line] = []
+    @State var imageIsSelected: Bool = true
     @FocusState var focused: Bool
     
     var body: some View {
@@ -38,18 +39,21 @@ struct ScreenshootPreviewScreen: View {
                     .frame(maxHeight: .infinity)
                     .lineLimit(0)
                     .focused($focused)
-                #if DEBUG
-                if let screenshot {
-                    Image(uiImage: screenshot)
-                        .resizable()
-                        .frame(width: 200, height: 300)
-                        .aspectRatio(contentMode: .fit)
-                }
-                #endif
-                ScreenShootRowView(image: $screenshot, lines: $imageLines)
+                ScreenShootRowView(
+                    image: $screenshot,
+                    lines: $imageLines,
+                    isSelected: $imageIsSelected
+                )
                     .frame(height: 64)
                 Spacer()
             }
+            .alert(viewModel.isReportSended.title ?? "", isPresented: $viewModel.isAlertPresented, actions: {
+                Button(action: {
+                    dismiss.callAsFunction()
+                }, label: {
+                    Text("Ok")
+                })
+            })
             .padding()
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Send \(reportType.rawValue.capitalized)")
@@ -71,7 +75,16 @@ struct ScreenshootPreviewScreen: View {
                             image: screenshot,
                             lines: imageLines
                         )
-                        self.screenshot = newScreenShot
+                        
+                        if let newScreenShot {
+                            viewModel.sendScreenshootFeedback(
+                                feedback: .init(
+                                    feedbackType: reportType,
+                                    message: description,
+                                    screenshot: imageIsSelected ? .init(image: newScreenShot) : nil
+                                )
+                            )
+                        }
                     },
                            label: {
                         Image(systemName: "location.fill")

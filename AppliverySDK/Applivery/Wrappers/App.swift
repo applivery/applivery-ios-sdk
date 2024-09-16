@@ -156,7 +156,7 @@ class App: AppProtocol {
 	}
 	
 	func presentModal(_ viewController: UIViewController, animated: Bool) {
-		viewController.modalPresentationStyle = .overFullScreen
+        viewController.modalPresentationStyle = .fullScreen
 		let topVC = self.topViewController()
 		topVC?.present(viewController, animated: animated, completion: nil)
 	}
@@ -216,14 +216,20 @@ class App: AppProtocol {
 	}
 	
 	private func topViewController() -> UIViewController? {
-		var rootVC = UIApplication.shared
-			.keyWindow?
-			.rootViewController
-		while let presentedController = rootVC?.presentedViewController {
-			rootVC = presentedController
-		}
-		
-		return rootVC
+        
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = scene.windows.first {
+            
+            if var topController = window.rootViewController {
+                while let presentedController = topController.presentedViewController {
+                    topController = presentedController
+                }
+                
+                return topController
+            }
+        }
+        
+        return nil
 	}
 	
 }

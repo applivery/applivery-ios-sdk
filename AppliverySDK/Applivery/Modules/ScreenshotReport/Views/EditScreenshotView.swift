@@ -167,15 +167,15 @@ struct EditScreenshotView: View {
         .padding(.horizontal, 100)
     }
     
-    func screenPoint(_ point: CGPoint) -> CGPoint {
-        // Convert 0->1 to view's coordinates
-        debugPrint("ViewSize \(viewSize)")
-        let vw = viewSize.width
-        let vh = viewSize.height
-        let nextX = min(1, max(0, point.x)) * vw
-        let nextY = min(1, max(0, point.y)) * vh
-        return CGPoint(x: nextX, y: nextY)
-    }
+//    func screenPoint(_ point: CGPoint) -> CGPoint {
+//        // Convert 0->1 to view's coordinates
+//        debugPrint("ViewSize \(viewSize)")
+//        let vw = viewSize.width
+//        let vh = viewSize.height
+//        let nextX = min(1, max(0, point.x)) * vw
+//        let nextY = min(1, max(0, point.y)) * vh
+//        return CGPoint(x: nextX, y: nextY)
+//    }
 
     func limitPoint(_ point: CGPoint) -> CGPoint {
         debugPrint("ViewSize \(viewSize)")

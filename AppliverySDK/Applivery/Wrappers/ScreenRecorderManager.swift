@@ -15,6 +15,7 @@ public final class ScreenRecorderManager: NSObject, RPScreenRecorderDelegate, RP
     public static let shared = ScreenRecorderManager()
     
     private let recorder = RPScreenRecorder.shared()
+    private var timer: Timer?
     
     var isRecording = false
     private var isShowingSheet = false
@@ -22,9 +23,13 @@ public final class ScreenRecorderManager: NSObject, RPScreenRecorderDelegate, RP
     
     var recordViewController: RecordingViewController?
     
-    init(recordViewController: RecordingViewController? = RecordingViewController(feedbackCoordinator: FeedbackCoordinator())) {
+    init(
+        recordViewController: RecordingViewController? = RecordingViewController(feedbackCoordinator: FeedbackCoordinator()),
+        timer: Timer? = nil
+    ) {
         super.init()
         self.recordViewController = recordViewController
+        self.timer = timer
         recorder.delegate = self
     }
     
@@ -33,19 +38,20 @@ public final class ScreenRecorderManager: NSObject, RPScreenRecorderDelegate, RP
     }
     
     func startClipBuffering() {
-        recorder.startClipBuffering { (error) in
+        recorder.startClipBuffering { [weak self] (error) in
             if error != nil {
-                print("Error attempting to start Clip Buffering: \(error?.localizedDescription)")
+                print("Error attempting to start Clip Buffering: \(String(describing: error?.localizedDescription))")
             } else {
-                self.isRecording = true
-                self.recordViewController?.showRecordButton()
+                self?.isRecording = true
+                self?.setTimer()
+                self?.recordViewController?.showRecordButton()
             }
         }
     }
     
     func exportClip() async {
         let clipURL = getDirectory()
-        let interval = TimeInterval(15)
+        let interval = TimeInterval(30)
         
         print("Generating clip at URL: ", clipURL)
         do {
@@ -67,6 +73,8 @@ public final class ScreenRecorderManager: NSObject, RPScreenRecorderDelegate, RP
                 await exportClip()
                 try await recorder.stopClipBuffering()
                 await self.recordViewController?.hideRecordButton()
+                self.timer?.invalidate()
+                self.timer = nil
             } catch {
                 print("Error attempting to stop Clip Buffering: \(error.localizedDescription)")
             }
@@ -87,7 +95,7 @@ public final class ScreenRecorderManager: NSObject, RPScreenRecorderDelegate, RP
                 DispatchQueue.main.async {
                     let view = ScreenshootPreviewScreen(screenshot: screenshot)
                     let hosting = UIHostingController(rootView: view)
-                    hosting.modalPresentationStyle = .fullScreen
+                    hosting.modalPresentationStyle = .overFullScreen
                     topController.present(hosting, animated: true)
                 }
             }
@@ -106,11 +114,17 @@ public final class ScreenRecorderManager: NSObject, RPScreenRecorderDelegate, RP
                 DispatchQueue.main.async {
                     let view = VideoPreviewScreen(url: clipURL)
                     let hosting = UIHostingController(rootView: view)
-                    hosting.modalPresentationStyle = .fullScreen
+                    hosting.modalPresentationStyle = .overFullScreen
                     topController.present(hosting, animated: true)
                 }
             }
         }
+    }
+    
+    func setTimer() {
+        self.timer = Timer.scheduledTimer(withTimeInterval: 30, repeats: false, block: { [weak self] _ in
+            self?.stopClipBuffering()
+        })
     }
 }
 
