@@ -48,3 +48,7 @@
 "login_alert_message" = "Login is required!";
 "login_alert_message_invalid_credentials" = "Wrong user or password, please, try again";
 "login_alert_message_expired" = "Your session has expired. Please, log in again";
+
+// MAIN SHEET
+"sheet_screenshoot_action" = "Take Screenshot";
+"sheet_record_action" = "Record Screen";

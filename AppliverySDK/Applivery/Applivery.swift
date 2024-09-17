@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 /// Type of Applivery's logs you want displayed in the debug console
 @objc public enum LogLevel: Int {
@@ -57,6 +58,8 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
     
     /// Singleton instance
     @objc public static let shared = Applivery()
+    
+    var window: AppliveryWindow?
     
     // MARK: - Instance Properties
     
@@ -186,7 +189,6 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
     internal var updateInteractor: PUpdateInteractor
     private let globalConfig: GlobalConfig
     private let updateCoordinator: PUpdateCoordinator
-    private let feedbackCoordinator: PFeedbackCoordinator
     private let loginInteractor: LoginInteractor
     private var isUpdating = false
     private var updateCallbackSuccess: (() -> Void)?
@@ -200,7 +202,6 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
             globalConfig: GlobalConfig.shared,
             updateCoordinator: UpdateCoordinator(),
             updateInteractor: Configurator.updateInteractor(),
-            feedbackCoordinator: FeedbackCoordinator(),
             loginInteractor: Configurator.loginInteractor()
         )
         self.startInteractor.output = self
@@ -211,13 +212,11 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
                    globalConfig: GlobalConfig,
                    updateCoordinator: PUpdateCoordinator,
                    updateInteractor: PUpdateInteractor,
-                   feedbackCoordinator: PFeedbackCoordinator,
                    loginInteractor: LoginInteractor) {
         self.startInteractor = startInteractor
         self.globalConfig = globalConfig
         self.updateCoordinator = updateCoordinator
         self.updateInteractor = updateInteractor
-        self.feedbackCoordinator = feedbackCoordinator
         self.loginInteractor = loginInteractor
         self.logLevel = .info
         self.palette = Palette()
@@ -258,6 +257,12 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
     @objc public func start(token: String) {
         self.globalConfig.appToken = token
         self.startInteractor.start()
+        showFirstWindow()
+    }
+    
+    func showFirstWindow() {
+        window = AppliveryWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
     }
     
     /**
@@ -354,7 +359,7 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
      */
     @objc public func feedbackEvent() {
         logInfo("Presenting feedback formulary")
-        self.feedbackCoordinator.showFeedack()
+        ScreenRecorderManager.shared.presentPreviewWithScreenshoot()
     }
     
     

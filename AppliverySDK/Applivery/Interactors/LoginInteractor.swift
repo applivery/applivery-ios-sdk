@@ -42,7 +42,7 @@ struct LoginInteractor {
 		self.loginDataManager.bind(user: user) { result in
 			switch result {
 			case .success(let accessToken):
-				self.store(accessToken: accessToken)
+                self.store(accessToken: accessToken, userName: user.email)
 			case .error:
 				logInfo("Error trying to bind a user")
 				
@@ -53,6 +53,7 @@ struct LoginInteractor {
 	func unbindUser() {
 		logInfo("Unbinding user...")
 		self.sessionPersister.save(accessToken: nil)
+        self.sessionPersister.removeUser()
 		self.globalConfig.accessToken = nil
 	}
 	
@@ -62,7 +63,7 @@ struct LoginInteractor {
 		self.loginDataManager.login(user: user, password: password) { result in
 			switch result {
 			case .success(let accessToken):
-				self.store(accessToken: accessToken)
+                self.store(accessToken: accessToken, userName: user)
 				loginHandler()
 
 			case .error:
@@ -75,9 +76,10 @@ struct LoginInteractor {
 		}
 	}
 	
-	private func store(accessToken: AccessToken) {
+    private func store(accessToken: AccessToken, userName: String) {
 		logInfo("Fetched new access token: \(accessToken.token ?? "NO TOKEN")")
 		self.sessionPersister.save(accessToken: accessToken)
+        self.sessionPersister.saveUserName(userName: userName)
 		self.globalConfig.accessToken = accessToken
 	}
 	
