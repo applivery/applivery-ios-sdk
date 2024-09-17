@@ -33,15 +33,18 @@ final class ScreenshootViewModel: ObservableObject {
     @Published var isAlertPresented: Bool = false
     
     private let feedbackService: PFeedbackService
+    private let sessionPersister: SessionPersister
     
     init(
         feedbackService: PFeedbackService = FeedbackService(
             app: App(),
             device: Device(),
             config: GlobalConfig.shared
-        )
+        ),
+        sessionPersister: SessionPersister = SessionPersister(userDefaults: UserDefaults.standard)
     ) {
         self.feedbackService = feedbackService
+        self.sessionPersister = sessionPersister
     }
     
     @MainActor
@@ -61,15 +64,16 @@ final class ScreenshootViewModel: ObservableObject {
         }
     }
     
+    func loadUserName() -> String {
+        return sessionPersister.loadUserName()
+    }
+    
     func exportDrawing(image: UIImage, lines: [Line]) -> UIImage? {
         
-        // Create a context of the starting image size and set it as the current one
         UIGraphicsBeginImageContext(image.size)
         
-        // Draw the starting image in the current context as background
         image.draw(at: CGPoint.zero)
         
-        // Get the current context
         let context = UIGraphicsGetCurrentContext()
         
         func toImagePoint(point: CGPoint) -> CGPoint {
@@ -91,11 +95,9 @@ final class ScreenshootViewModel: ObservableObject {
                 context?.strokePath()
             }
         }
-        // Save the context as a new UIImage
         let renderedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        // Return modified image
         return renderedImage
     }
 }

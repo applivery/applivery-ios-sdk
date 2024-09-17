@@ -64,7 +64,7 @@ struct EditScreenshotView: View {
             }, label: {
                 Text("X")
                     .font(.system(size: 20))
-                    .foregroundColor(.black)
+                    .foregroundColor(.primary)
             })
             
             Spacer()
@@ -73,7 +73,7 @@ struct EditScreenshotView: View {
                 editMode.toggle()
             }, label: {
                 Image(systemName: "pencil.and.scribble")
-                    .foregroundColor(editMode ? .blue : .black)
+                    .foregroundColor(editMode ? .blue : .primary)
             })
             
             Spacer()
@@ -137,10 +137,8 @@ struct EditScreenshotView: View {
     var dragGesture: some Gesture {
         DragGesture(minimumDistance: 0)
             .onChanged { value in
-                if editMode {
-                    currentLine.path.addLine(to: value.location)
-                    currentLine.points.append(limitPoint(value.location))
-                }
+                currentLine.path.addLine(to: value.location)
+                currentLine.points.append(limitPoint(value.location))
             }
             .onEnded { _ in
                 lines.append(currentLine)
@@ -163,8 +161,10 @@ struct EditScreenshotView: View {
                     currentLine = Line(color: newColor, lineWidth: currentLine.lineWidth)
                 })
         }
-        .background(.white)
-        .padding(.horizontal, 100)
+        .padding(8)
+        .background()
+        .padding(.horizontal, 50)
+        
     }
     
 //    func screenPoint(_ point: CGPoint) -> CGPoint {

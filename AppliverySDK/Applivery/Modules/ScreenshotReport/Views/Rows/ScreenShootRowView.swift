@@ -46,7 +46,7 @@ struct ScreenShootRowView: View {
         }
         .overlay(
             RoundedRectangle(cornerRadius: 4)
-                .stroke(Color.black, lineWidth: 1)
+                .stroke(Color.primary, lineWidth: 1)
         )
         .fullScreenCover(isPresented: $editScreenshootSheetIsPresented, content: {
             EditScreenshotView(screenshot: $image, lines: $lines)

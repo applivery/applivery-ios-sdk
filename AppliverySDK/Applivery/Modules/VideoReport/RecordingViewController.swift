@@ -53,7 +53,7 @@ class RecordingViewController: UIViewController {
         let configuration = UIImage.SymbolConfiguration(pointSize: 48, weight: .heavy)
         let symbolImage = UIImage(systemName: "stop.circle.fill", withConfiguration: configuration)
         recordButton.setImage(symbolImage, for: .normal)
-        recordButton.tintColor = .white
+        recordButton.tintColor = .lightGray
         recordButton.addTarget(self, action: #selector(recordButtonTapped), for: .touchUpInside)
         recordButton.translatesAutoresizingMaskIntoConstraints = false
         recordButton.clipsToBounds = true

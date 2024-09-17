@@ -27,6 +27,7 @@ struct ScreenshootPreviewScreen: View {
                 EmailTextFieldView(user: $user) {
                     focused = true
                 }
+                .disabled(!viewModel.loadUserName().isEmpty)
                 Divider()
                 TextEditor(text: $description)
                     .overlay(alignment: .topLeading, content: {
@@ -47,13 +48,6 @@ struct ScreenshootPreviewScreen: View {
                     .frame(height: 64)
                 Spacer()
             }
-            .alert(viewModel.isReportSended.title ?? "", isPresented: $viewModel.isAlertPresented, actions: {
-                Button(action: {
-                    dismiss.callAsFunction()
-                }, label: {
-                    Text("Ok")
-                })
-            })
             .padding()
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Send \(reportType.rawValue.capitalized)")
@@ -85,14 +79,25 @@ struct ScreenshootPreviewScreen: View {
                                 )
                             )
                         }
-                    },
-                           label: {
+                    }, label: {
                         Image(systemName: "location.fill")
                             .foregroundColor(.blue)
                             .rotationEffect(.degrees(10))
                     })
+                    .opacity(description.isEmpty ? 0.4 : 1)
+                    .disabled(description.isEmpty)
                 }
             })
+            .alert(viewModel.isReportSended.title ?? "", isPresented: $viewModel.isAlertPresented, actions: {
+                Button(action: {
+                    dismiss.callAsFunction()
+                }, label: {
+                    Text("Ok")
+                })
+            })
+            .onAppear {
+                user = viewModel.loadUserName()
+            }
         }
     }
 }

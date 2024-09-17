@@ -26,6 +26,7 @@ struct VideoPreviewScreen: View {
                 EmailTextFieldView(user: $user) {
                     focused = true
                 }
+                .disabled(!viewModel.loadUserName().isEmpty)
                 Divider()
                 TextEditor(text: $description)
                     .overlay(alignment: .topLeading, content: {
@@ -42,6 +43,9 @@ struct VideoPreviewScreen: View {
                 VideoPreviewRow(videoURL: $url)
                     .frame(height: 64)
             }
+            .onAppear(perform: {
+                user = viewModel.loadUserName()
+            })
             .padding()
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Send \(reportType.rawValue.capitalized)")
