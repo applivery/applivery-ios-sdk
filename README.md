@@ -409,3 +409,29 @@ If you have installed the SDK with Carthage and as a Dynamic framework, Appliver
 
  In this case, the solution is as simple as add [this script](https://github.com/applivery/applivery-ios-sdk/blob/master/script/applivery_script.sh) in "New Run Script Phase".
  You'll find inside _Build Phases_ tab.
+
+## Configuring a Custom Host
+
+If you need to point the Applivery SDK to a custom server host (for example, for testing purposes or to use a private instance), you can configure it by setting specific environment variables in your Xcode scheme. Follow the steps below to set up a custom host:
+
+### Step 1: Open Scheme Settings
+
+1. In Xcode, select your project in the Project Navigator.
+2. Choose the target you want to configure.
+3. Go to the menu bar and select **Product > Scheme > Edit Scheme...**
+
+### Step 2: Add Environment Variables
+
+1. In the **Edit Scheme** window, select the **Run** action from the left sidebar.
+2. Navigate to the **Arguments** tab.
+3. Under **Environment Variables**, click the **+** button to add a new variable.
+
+   - **Host Download:**
+
+     - **Name:** `APPLIVERY_HOST_DOWNLOAD`
+     - **Value:** `com.applivery.custom.download`
+
+   - **Host:**
+
+     - **Name:** `APPLIVERY_HOST`
+     - **Value:** `com.applivery.custom`
