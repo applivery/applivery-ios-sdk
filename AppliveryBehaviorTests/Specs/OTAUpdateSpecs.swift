@@ -101,7 +101,7 @@ class OTAUpdateSpecs: QuickSpec {
 					}
 					it("should open download url") {
 						expect(self.appMock.spyOpenUrl.called).toEventually(beTrue())
-						expect(self.appMock.spyOpenUrl.url).toEventually(equal("itms-services://?action=download-manifest&url=\(GlobalConfig.HostDownload)/v1/download/test_token/manifest.plist"))
+                        expect(self.appMock.spyOpenUrl.url).toEventually(equal("itms-services://?action=download-manifest&url=\(GlobalConfig().hostDownload)/v1/download/test_token/manifest.plist"))
 					}
 					it("should hide loading") {
 						expect(self.appMock.spyHideLoadingCalled).toEventually(beTrue())

@@ -19,13 +19,18 @@ struct ConfiguratorMock {
 	func applivery() -> Applivery {
 		return Applivery(
 			startInteractor: self.startInteractor(),
-			globalConfig: globalConfig,
+            globalConfig: globalConfig,
 			updateCoordinator: self.updateCoordinator(),
 			updateInteractor: self.updateInteractor(),
 			feedbackCoordinator: self.feedbackCoordinator(),
-			loginInteractor: self.loginInteractor()
+            loginInteractor: self.loginInteractor(),
+            environments: self.environment()
 		)
 	}
+    
+    func environment() -> EnvironmentProtocol {
+        return MockEnvironments()
+    }
 	
 	func startInteractor() -> StartInteractor {
 		return StartInteractor(

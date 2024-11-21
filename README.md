@@ -410,28 +410,30 @@ If you have installed the SDK with Carthage and as a Dynamic framework, Appliver
  In this case, the solution is as simple as add [this script](https://github.com/applivery/applivery-ios-sdk/blob/master/script/applivery_script.sh) in "New Run Script Phase".
  You'll find inside _Build Phases_ tab.
 
-## Configuring a Custom Host
+# Configuring a Custom Host
 
-If you need to point the Applivery SDK to a custom server host (for example, for testing purposes or to use a private instance), you can configure it by setting specific environment variables in your Xcode scheme. Follow the steps below to set up a custom host:
+If you need to point the Applivery SDK to a custom server host—for example, for testing purposes or to use a private instance—you can now configure it directly through the SDK's `start` method. Follow the steps below to set up a custom host:
 
-### Step 1: Open Scheme Settings
+## Step 1: Import Applivery SDK
 
-1. In Xcode, select your project in the Project Navigator.
-2. Choose the target you want to configure.
-3. Go to the menu bar and select **Product > Scheme > Edit Scheme...**
+Ensure you have the Applivery SDK imported in your project:
 
-### Step 2: Add Environment Variables
+```swift
+import Applivery
+```
 
-1. In the **Edit Scheme** window, select the **Run** action from the left sidebar.
-2. Navigate to the **Arguments** tab.
-3. Under **Environment Variables**, click the **+** button to add a new variable.
+## Step 2: Update the SDK Start Method
 
-   - **Host Download:**
+In your application code, where you initialize the Applivery SDK (typically in your `AppDelegate` or `SceneDelegate`), modify the `start` method to include the custom host parameters.
 
-     - **Name:** `APPLIVERY_HOST_DOWNLOAD`
-     - **Value:** `com.applivery.custom.download`
+### Swift
 
-   - **Host:**
+```swift
+        let applivery = Applivery.shared
+        applivery.start(token: appToken, tenant: "YOUR_TENANT")
+```
 
-     - **Name:** `APPLIVERY_HOST`
-     - **Value:** `com.applivery.custom`
+- **Parameters:**
+  - `token`: Your Applivery APP token.
+  - `tenant`: Your Applivery tenant id.
+

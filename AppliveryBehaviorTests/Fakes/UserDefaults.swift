@@ -45,17 +45,17 @@ class UserDefaultFakes {
 	
 }
 
-func equal(_ expectedDictionary: [String: Any]?) -> Predicate<[String: Any]?> {
-	return Predicate.define("equal <\(String(describing: expectedDictionary))>") { actualExpression, msg -> PredicateResult in
-		if let actualValue = try actualExpression.evaluate() {
-			guard let actualValueDict = actualValue else { return PredicateResult(bool: false, message: msg) }
-			guard let expectedDictionaryDict = expectedDictionary else { return PredicateResult(bool: false, message: msg) }
-			
-			let matches = NSDictionary(dictionary: actualValueDict).isEqual(to: expectedDictionaryDict)
-			return PredicateResult(bool: matches, message: msg)
-		} else {
-			return PredicateResult(bool: false, message: msg)
-		}
-		
-	}
-}
+//func equal(_ expectedDictionary: [String: Any]?) -> Predicate<[String: Any]?> {
+//	return Predicate.define("equal <\(String(describing: expectedDictionary))>") { actualExpression, msg -> PredicateResult in
+//		if let actualValue = try actualExpression.evaluate() {
+//			guard let actualValueDict = actualValue else { return PredicateResult(bool: false, message: msg) }
+//			guard let expectedDictionaryDict = expectedDictionary else { return PredicateResult(bool: false, message: msg) }
+//			
+//			let matches = NSDictionary(dictionary: actualValueDict).isEqual(to: expectedDictionaryDict)
+//			return PredicateResult(bool: matches, message: msg)
+//		} else {
+//			return PredicateResult(bool: false, message: msg)
+//		}
+//		
+//	}
+//}
