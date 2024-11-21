@@ -429,8 +429,8 @@ In your application code, where you initialize the Applivery SDK (typically in y
 ### Swift
 
 ```swift
-        let applivery = Applivery.shared
-        applivery.start(token: appToken, tenant: "YOUR_TENANT")
+let applivery = Applivery.shared
+applivery.start(token: appToken, tenant: "YOUR_TENANT")
 ```
 
 - **Parameters:**
