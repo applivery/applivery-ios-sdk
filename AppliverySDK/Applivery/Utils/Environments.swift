@@ -53,7 +53,7 @@ final class Environments: EnvironmentProtocol {
 
     func setHostDownload(_ tenant: String?) {
         guard let tenant = tenant else {
-            writeValue("download-api.applivery.io", forKey: hostKey)
+            writeValue("download-api.applivery.io", forKey: hostDownloadKey)
             return
         }
         writeValue("download-api.\(tenant).applivery.io", forKey: hostDownloadKey)
