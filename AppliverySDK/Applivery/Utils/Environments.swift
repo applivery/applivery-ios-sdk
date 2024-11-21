@@ -10,9 +10,9 @@ import Foundation
 
 protocol EnvironmentProtocol {
     func getHost() -> String?
-    func setHost(_ host: String?)
+    func setHost(_ tenant: String?)
     func getHostDownload() -> String?
-    func setHostDownload(_ hostDownload: String?)
+    func setHostDownload(_ tenant: String?)
 }
 
 final class Environments: EnvironmentProtocol {
@@ -39,18 +39,24 @@ final class Environments: EnvironmentProtocol {
         return readValue(forKey: hostKey) ?? processInfo.environment[hostKey]
     }
 
-    func setHost(_ host: String?) {
-        guard let host = host else { return }
-        writeValue(host, forKey: hostKey)
+    func setHost(_ tenant: String?) {
+        guard let tenant = tenant else {
+            writeValue("sdk-api.applivery.io", forKey: hostKey)
+            return
+        }
+        writeValue("sdk-api.\(tenant).applivery.io", forKey: hostKey)
     }
 
     func getHostDownload() -> String? {
         return readValue(forKey: hostDownloadKey) ?? processInfo.environment[hostDownloadKey]
     }
 
-    func setHostDownload(_ hostDownload: String?) {
-        guard let hostDownload = hostDownload else { return }
-        writeValue(hostDownload, forKey: hostDownloadKey)
+    func setHostDownload(_ tenant: String?) {
+        guard let tenant = tenant else {
+            writeValue("download-api.applivery.io", forKey: hostKey)
+            return
+        }
+        writeValue("download-api.\(tenant).applivery.io", forKey: hostDownloadKey)
     }
 
     // MARK: - Private Helpers

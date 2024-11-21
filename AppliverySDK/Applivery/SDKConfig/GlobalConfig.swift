@@ -25,6 +25,7 @@ class GlobalConfig {
     var hostDownload: String {
         return "https://" + (environments.getHostDownload() ?? "download-api.applivery.io")
     }
+    
 	// MARK: Global Constants
 	static let ErrorDomain            = "com.applivery.network"
 	static let AppliveryErrorKey      = "AppliveryMessage"

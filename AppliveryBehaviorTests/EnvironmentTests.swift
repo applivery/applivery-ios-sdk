@@ -12,13 +12,13 @@ struct EnvironmentTests {
 
     @Test func testGlobalConfigWithCustomHost() async throws {
         let mockEnvironments = MockEnvironments()
-        mockEnvironments.setHost("applivery.com")
-        mockEnvironments.setHostDownload("download-applivery.com")
+        mockEnvironments.setHost("tesla")
+        mockEnvironments.setHostDownload("tesla")
         
         let globalConfig = GlobalConfig(environments: mockEnvironments)
         
-        #expect(globalConfig.host == "https://applivery.com")
-        #expect(globalConfig.hostDownload == "https://download-applivery.com")
+        #expect(globalConfig.host == "https://sdk-api.tesla.applivery.io")
+        #expect(globalConfig.hostDownload == "https://download-api.tesla.applivery.io")
     }
     
     @Test func testGlobalConfigWithNoCustomHost() async throws {

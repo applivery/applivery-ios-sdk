@@ -181,12 +181,12 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
         self.globalConfig.textLiterals = self.textLiterals
     }}
     
-    public var host: String? {
+    private var host: String? {
         get { environments.getHost() }
         set { environments.setHost(newValue) }
     }
 
-    public var hostDownload: String? {
+    private var hostDownload: String? {
         get { environments.getHostDownload() }
         set { environments.setHostDownload(newValue) }
     }
@@ -258,8 +258,8 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
      - Version: 3.3
      */
     @available(*, deprecated, renamed: "start(token:)")
-    @objc public func start(token: String, appStoreRelease: Bool) {
-        self.start(token: token)
+    @objc public func start(token: String, tenant: String?, appStoreRelease: Bool) {
+        self.start(token: token, tenant: tenant)
     }
     
     /**
@@ -270,8 +270,10 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
      - Since: 3.3
      - Version: 3.3
      */
-    @objc public func start(token: String) {
+    @objc public func start(token: String, tenant: String? = nil) {
         self.globalConfig.appToken = token
+        host = tenant
+        hostDownload = tenant
         self.startInteractor.start()
     }
     
