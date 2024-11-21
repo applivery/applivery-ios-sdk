@@ -1,6 +1,6 @@
 ![Applivery Logo](https://www.applivery.com/wp-content/uploads/2019/06/applivery-og.png)
 
-![Version](https://img.shields.io/badge/version-3.3-blue.svg)
+![Version](https://img.shields.io/badge/version-3.4.0-blue.svg)
 ![Language](https://img.shields.io/badge/Language-Swift-orange.svg)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Applivery.svg)](https://cocoapods.org/pods/Applivery)
@@ -229,6 +229,7 @@ The compatibility version is as follow:
 | **v3.1**          | 11.x           | 4.0, 4.2, 5.x |
 | **v3.2**          | 12.x           | 5.x           |
 | **v3.3**          | 13.x           | 5.X           |
+| **v3.4**          | 13.x           | 5.X           |
 
 # Advanced concepts
 
@@ -424,16 +425,18 @@ import Applivery
 
 ## Step 2: Update the SDK Start Method
 
-In your application code, where you initialize the Applivery SDK (typically in your `AppDelegate` or `SceneDelegate`), modify the `start` method to include the custom host parameters.
-
-### Swift
+In your application code, where you initialize the Applivery SDK (typically in your `AppDelegate` or `SceneDelegate`), modify the `start` method to include the custom host parameters if needed.
 
 ```swift
+import Applivery
+
 let applivery = Applivery.shared
 applivery.start(token: appToken, tenant: "YOUR_TENANT")
 ```
 
-- **Parameters:**
-  - `token`: Your Applivery APP token.
-  - `tenant`: Your Applivery tenant id.
+#### Parameters:
+- **`token`**: Your Applivery APP token (required).
+- **`tenant`**: Your Applivery tenant ID (optional).  
+  If you do not specify a value for the `tenant` parameter, the SDK will use the default Applivery host.
+
 
