@@ -23,9 +23,14 @@ protocol PDownloadDataManager {
 class DownloadDataManager: PDownloadDataManager {
 
 	fileprivate var service: DownloadServiceProtocol
+    private var globalConfig: GlobalConfig
 
-	init(service: DownloadServiceProtocol = DownloadService()) {
+    init(
+        service: DownloadServiceProtocol = DownloadService(),
+        globalConfig: GlobalConfig = GlobalConfig()
+    ) {
 		self.service = service
+        self.globalConfig = globalConfig
 	}
 
 
@@ -34,7 +39,7 @@ class DownloadDataManager: PDownloadDataManager {
 			switch response {
 
 			case .success(let token):
-				let downloadURL = "itms-services://?action=download-manifest&url=\(GlobalConfig.HostDownload)/v1/download/\(token)/manifest.plist"
+                let downloadURL = "itms-services://?action=download-manifest&url=\(self.globalConfig.hostDownload)/v1/download/\(token)/manifest.plist"
 				completionHandler(.success(url: downloadURL))
 
 			case .error(let error):

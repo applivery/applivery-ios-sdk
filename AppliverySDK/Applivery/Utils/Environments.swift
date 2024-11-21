@@ -8,48 +8,57 @@
 
 import Foundation
 
+protocol EnvironmentProtocol {
+    func getHost() -> String?
+    func setHost(_ host: String?)
+    func getHostDownload() -> String?
+    func setHostDownload(_ hostDownload: String?)
+}
 
-class Environments {
+final class Environments: EnvironmentProtocol {
+    
+    // MARK: - Keys
+    private let hostKey: String = "APPLIVERY_HOST"
+    private let hostDownloadKey: String = "APPLIVERY_HOST_DOWNLOAD"
 
-	static let HostKey = "APPLIVERY_HOST"
-	static let HostDownloadKey = "APPLIVERY_HOST_DOWNLOAD"
+    // MARK: - Properties
+    private let userDefaults: UserDefaults
+    private let processInfo: ProcessInfo
 
-	class func host() -> String? {
-		return self.host(with: self.HostKey)
-	}
-	
-	class func hostDownload() -> String? {
-		return self.host(with: self.HostDownloadKey)
-	}
-	
-	
-	// MARK: - Private Helpers
-	
-	private class func host(with key: String) -> String? {
-		guard let host = ProcessInfo.processInfo.environment[key] else {
-			if let host = self.readHost(from: key) {
-				return host
-			}
-			
-			return nil
-		}
-		
-		self.write(host: host, to: key)
-		
-		return host
-	}
+    // MARK: - Initializer
+    init(
+        userDefaults: UserDefaults = .standard,
+        processInfo: ProcessInfo = .processInfo
+    ) {
+        self.userDefaults = userDefaults
+        self.processInfo = processInfo
+    }
 
-	private class func write(host: String, to key: String) {
-		let userDefaults = Foundation.UserDefaults.standard
-		userDefaults.setValue(host, forKey: key)
+    // MARK: - Public API
+    func getHost() -> String? {
+        return readValue(forKey: hostKey) ?? processInfo.environment[hostKey]
+    }
 
-		userDefaults.synchronize()
-	}
+    func setHost(_ host: String?) {
+        guard let host = host else { return }
+        writeValue(host, forKey: hostKey)
+    }
 
-	private class func readHost(from key: String) -> String? {
-		let userDefaults = Foundation.UserDefaults.standard
-		let host = userDefaults.value(forKey: key) as? String
+    func getHostDownload() -> String? {
+        return readValue(forKey: hostDownloadKey) ?? processInfo.environment[hostDownloadKey]
+    }
 
-		return host
-	}
+    func setHostDownload(_ hostDownload: String?) {
+        guard let hostDownload = hostDownload else { return }
+        writeValue(hostDownload, forKey: hostDownloadKey)
+    }
+
+    // MARK: - Private Helpers
+    private func readValue(forKey key: String) -> String? {
+        return userDefaults.string(forKey: key)
+    }
+
+    private func writeValue(_ value: String, forKey key: String) {
+        userDefaults.setValue(value, forKey: key)
+    }
 }

@@ -11,10 +11,21 @@ import Foundation
 class GlobalConfig {
 
 	static var shared = GlobalConfig()
+    
+    private let environments: EnvironmentProtocol
+    
+    init(environments: EnvironmentProtocol = Environments()) {
+        self.environments = environments
+    }
 	
+    var host: String {
+        return "https://" + (environments.getHost() ?? "sdk-api.applivery.io")
+    }
+
+    var hostDownload: String {
+        return "https://" + (environments.getHostDownload() ?? "download-api.applivery.io")
+    }
 	// MARK: Global Constants
-	static let Host                   = "https://" + (Environments.host() ?? "sdk-api.applivery.io")
-	static let HostDownload           = "https://" + (Environments.hostDownload() ?? "download-api.applivery.io")
 	static let ErrorDomain            = "com.applivery.network"
 	static let AppliveryErrorKey      = "AppliveryMessage"
 	static let AppliveryErrorDebugKey = "AppliveryDebugMessage"
