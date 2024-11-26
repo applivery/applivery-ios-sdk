@@ -52,7 +52,7 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
     
     // MARK: - Static Properties
     
-    internal static let sdkVersion = "3.2.3"
+    internal static let sdkVersion = "3.3.1"
     
     // MARK: - Type Properties
     
@@ -184,12 +184,24 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
         self.globalConfig.textLiterals = self.textLiterals
     }}
     
+    private var host: String? {
+        get { environments.getHost() }
+        set { environments.setHost(newValue) }
+    }
+
+    private var hostDownload: String? {
+        get { environments.getHostDownload() }
+        set { environments.setHostDownload(newValue) }
+    }
+    
+    
     // MARK: - Private properties
     internal let startInteractor: StartInteractor
     internal var updateInteractor: PUpdateInteractor
     private let globalConfig: GlobalConfig
     private let updateCoordinator: PUpdateCoordinator
     private let loginInteractor: LoginInteractor
+    private let environments: EnvironmentProtocol
     private var isUpdating = false
     private var updateCallbackSuccess: (() -> Void)?
     private var updateCallbackError: ((String) -> Void)?
@@ -202,7 +214,9 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
             globalConfig: GlobalConfig.shared,
             updateCoordinator: UpdateCoordinator(),
             updateInteractor: Configurator.updateInteractor(),
-            loginInteractor: Configurator.loginInteractor()
+            feedbackCoordinator: FeedbackCoordinator(),
+            loginInteractor: Configurator.loginInteractor(),
+            environments: Environments()
         )
         self.startInteractor.output = self
         self.updateInteractor.output = self
@@ -212,12 +226,15 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
                    globalConfig: GlobalConfig,
                    updateCoordinator: PUpdateCoordinator,
                    updateInteractor: PUpdateInteractor,
-                   loginInteractor: LoginInteractor) {
+                   feedbackCoordinator: PFeedbackCoordinator,
+                   loginInteractor: LoginInteractor,
+                   environments: EnvironmentProtocol) {
         self.startInteractor = startInteractor
         self.globalConfig = globalConfig
         self.updateCoordinator = updateCoordinator
         self.updateInteractor = updateInteractor
         self.loginInteractor = loginInteractor
+        self.environments = environments
         self.logLevel = .info
         self.palette = Palette()
         self.textLiterals = TextLiterals()
@@ -242,8 +259,8 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
      - Version: 3.3
      */
     @available(*, deprecated, renamed: "start(token:)")
-    @objc public func start(token: String, appStoreRelease: Bool) {
-        self.start(token: token)
+    @objc public func start(token: String, tenant: String?, appStoreRelease: Bool) {
+        self.start(token: token, tenant: tenant)
     }
     
     /**
@@ -254,8 +271,10 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
      - Since: 3.3
      - Version: 3.3
      */
-    @objc public func start(token: String) {
+    @objc public func start(token: String, tenant: String? = nil) {
         self.globalConfig.appToken = token
+        host = tenant
+        hostDownload = tenant
         self.startInteractor.start()
         showFirstWindow()
     }
