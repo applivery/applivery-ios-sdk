@@ -21,12 +21,13 @@ protocol PUpdateInteractor {
 	func otaUpdateMessage() -> String
 	func downloadLastBuild()
 	func isUpToDate() -> Bool
-	func checkForceUpdate(_ config: Config?, version: String) -> Bool
-	func checkOtaUpdate(_ config: Config?, version: String) -> Bool
+    func checkForceUpdate(_ config: SDKData?, version: String) -> Bool
+    func checkOtaUpdate(_ config: SDKData?, version: String) -> Bool
 }
 
 
 struct UpdateInteractor: PUpdateInteractor {
+    
 	var output: UpdateInteractorOutput?
 	
 	let configData: PConfigDataManager
@@ -38,7 +39,7 @@ struct UpdateInteractor: PUpdateInteractor {
 	func forceUpdateMessage() -> String {
 		let currentConfig = self.configData.getCurrentConfig()
 		
-		var message = literal(.forceUpdateMessage) ?? currentConfig.config?.forceUpdateMessage ?? kLocaleForceUpdateMessage
+        var message = literal(.forceUpdateMessage) ?? currentConfig.config?.mustUpdateMsg ?? kLocaleForceUpdateMessage
 		
 		if message == "" {
 			message = kLocaleForceUpdateMessage
@@ -49,7 +50,7 @@ struct UpdateInteractor: PUpdateInteractor {
 	
 	func otaUpdateMessage() -> String {
 		let currentConfig = self.configData.getCurrentConfig()
-		var message = literal(.otaUpdateMessage) ?? currentConfig.config?.otaUpdateMessage ?? kLocaleOtaUpdateMessage
+        var message = literal(.otaUpdateMessage) ?? currentConfig.config?.updateMsg ?? kLocaleOtaUpdateMessage
 		
 		if message == "" {
 			message = kLocaleOtaUpdateMessage
@@ -59,7 +60,7 @@ struct UpdateInteractor: PUpdateInteractor {
 	}
 	
 	func downloadLastBuild() {
-		guard let config = self.configData.getCurrentConfig().config else {
+        guard let config = self.configData.getCurrentConfig().config else {
 			self.output?.downloadDidFail(literal(.errorUnexpected) ?? localize("Current config is nil")); return
 		}
 		
@@ -75,11 +76,11 @@ struct UpdateInteractor: PUpdateInteractor {
 	}
 	
 	func isUpToDate() -> Bool {
-		let currentConfig = self.configData.getCurrentConfig()
-		return !self.checkOtaUpdate(currentConfig.config, version: currentConfig.version)
+        let currentConfig = self.configData.getCurrentConfig()
+        return !self.checkOtaUpdate(currentConfig.config, version: currentConfig.version)
 	}
 	
-	func checkForceUpdate(_ config: Config?, version: String) -> Bool {
+    func checkForceUpdate(_ config: SDKData?, version: String) -> Bool {
         guard
             let minVersion = config?.minVersion,
             let forceUpdate = config?.forceUpdate,
@@ -94,10 +95,10 @@ struct UpdateInteractor: PUpdateInteractor {
         return false
     }
     
-    func checkOtaUpdate(_ config: Config?, version: String) -> Bool {
+    func checkOtaUpdate(_ config: SDKData?, version: String) -> Bool {
         guard
-            let lastVersion = config?.lastVersion,
-            let otaUpdate = config?.otaUpdate,
+            let lastVersion = config?.lastBuildVersion,
+            let otaUpdate = config?.ota,
             otaUpdate
             else { return false}
         
@@ -110,28 +111,49 @@ struct UpdateInteractor: PUpdateInteractor {
 	
 	// MARK: - Private Helpers
 	
-	private func download(with config: Config) {
-		guard let lastBuildId = config.lastBuildId else {
-			self.output?.downloadDidFail(literal(.errorUnexpected) ?? localize("Last build id not found")); return
-		}
+    private func download(with config: SDKData) {
+        guard let lastBuildId = config.lastBuildId else {
+            self.output?.downloadDidFail(literal(.errorUnexpected) ?? localize("Last build id not found"))
+            return
+        }
+
+        Task {
+            if let url = await downloadData.downloadURL(lastBuildId) {
+                await MainActor.run {
+                    if app.openUrl(url) {
+                        output?.downloadDidEnd()
+                    } else {
+                        let error = NSError.appliveryError(literal(.errorDownloadURL))
+                        logError(error)
+                        output?.downloadDidFail(error.message())
+                    }
+                }
+            } else {
+                let error = NSError.appliveryError(literal(.errorDownloadURL))
+                // Update UI on the main thread
+                await MainActor.run {
+                    output?.downloadDidFail(error.localizedDescription)
+                }
+            }
+        }
 		
-		self.downloadData.downloadUrl(lastBuildId) { response in
-			switch response {
-				
-			case .success(let url):
-				if self.app.openUrl(url) {
-					self.output?.downloadDidEnd()
-				} else {
-					let error = NSError.appliveryError(literal(.errorDownloadURL))
-					logError(error)
-					
-					self.output?.downloadDidFail(error.message())
-				}
-				
-			case .error(let message):
-				self.output?.downloadDidFail(message)
-			}
-		}
+//		self.downloadData.downloadUrl(lastBuildId) { response in
+//			switch response {
+//				
+//			case .success(let url):
+//				if self.app.openUrl(url) {
+//					self.output?.downloadDidEnd()
+//				} else {
+//					let error = NSError.appliveryError(literal(.errorDownloadURL))
+//					logError(error)
+//					
+//					self.output?.downloadDidFail(error.message())
+//				}
+//				
+//			case .error(let message):
+//				self.output?.downloadDidFail(message)
+//			}
+//		}
 	}
 	
 	private func isOlder(_ currentVersion: String, minVersion: String) -> Bool {

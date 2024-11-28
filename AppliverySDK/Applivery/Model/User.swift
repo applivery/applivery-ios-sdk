@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct User {
+struct User: Encodable {
 	let email: String
 	let firstName: String?
 	let lastName: String?

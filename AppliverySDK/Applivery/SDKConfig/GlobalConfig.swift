@@ -19,11 +19,11 @@ class GlobalConfig {
     }
 	
     var host: String {
-        return "https://" + (environments.getHost() ?? "sdk-api.applivery.io")
+        return (environments.getHost() ?? "sdk-api.applivery.io")
     }
 
     var hostDownload: String {
-        return "https://" + (environments.getHostDownload() ?? "download-api.applivery.io")
+        return (environments.getHostDownload() ?? "download-api.applivery.io")
     }
     
 	// MARK: Global Constants

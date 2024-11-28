@@ -52,7 +52,7 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
     
     // MARK: - Static Properties
     
-    internal static let sdkVersion = "3.3.1"
+    internal static let sdkVersion = "3.4.0"
     
     // MARK: - Type Properties
     

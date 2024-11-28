@@ -8,16 +8,25 @@
 
 import Foundation
 
-struct LoginDataManager {
-	
-	let loginService: LoginService
-	
-	func login(user: String, password: String, result: @escaping (Result<AccessToken, NSError>) -> Void) {
-		self.loginService.login(user: user, password: password, result: result)
-	}
-	
-	func bind(user: User, result: @escaping (Result<AccessToken, NSError>) -> Void) {
-		self.loginService.bind(user: user, result: result)
-	}
+protocol LoginDataManagerProtocol {
+    func login(loginData: LoginData) async throws -> AccessToken
+    func bind(user: User) async throws -> AccessToken
+}
+
+final class LoginDataManager: LoginDataManagerProtocol {
+
+	let loginService: LoginServiceProtocol
+    
+    init(loginService: LoginServiceProtocol = LoginService()) {
+        self.loginService = loginService
+    }
+    
+    func login(loginData: LoginData) async throws -> AccessToken {
+        try await loginService.login(loginData: loginData)
+    }
+    
+    func bind(user: User) async throws -> AccessToken {
+        try await loginService.bind(user: user)
+    }
 	
 }

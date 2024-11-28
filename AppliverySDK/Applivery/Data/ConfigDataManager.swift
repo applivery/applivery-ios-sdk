@@ -9,15 +9,15 @@
 import Foundation
 
 
-struct UpdateConfigResponse: Equatable {
-	let config: Config?
+struct UpdateConfigResponse {
+    let config: SDKData?
 	let version: String
 }
 
 
 protocol PConfigDataManager {
 	func getCurrentConfig() -> UpdateConfigResponse
-	func updateConfig(_ completionHandler: @escaping (_ response: Result<UpdateConfigResponse, NSError>) -> Void)
+    func updateConfig() async throws -> UpdateConfigResponse
 }
 
 
@@ -30,7 +30,11 @@ class ConfigDataManager: PConfigDataManager {
 
 	// MARK: Initializers
 
-	init(appInfo: AppProtocol, configPersister: ConfigPersister, configService: ConfigService) {
+    init(
+        appInfo: AppProtocol,
+        configPersister: ConfigPersister,
+        configService: ConfigService
+    ) {
 		self.appInfo = appInfo
 		self.configPersister = configPersister
 		self.configService = configService
@@ -55,17 +59,11 @@ class ConfigDataManager: PConfigDataManager {
 		return UpdateConfigResponse(config: config, version: version)
 	}
 
-	func updateConfig(_ completionHandler: @escaping (_ response: Result<UpdateConfigResponse, NSError>) -> Void) {
-		self.configService.fetchConfig { success, config, error in
-			if let config = config, success {
-				let version = self.appInfo.getVersion()
-				self.configPersister.saveConfig(config)
-				completionHandler(.success(UpdateConfigResponse(config: config, version: version)))
-			
-			} else {
-				completionHandler(.error(error ?? NSError.unexpectedError()))
-			}
-		}
-	}
+    func updateConfig() async throws -> UpdateConfigResponse {
+        let config = try await self.configService.fetchConfig().data.sdk.ios
+        let version = self.appInfo.getVersion()
+        self.configPersister.saveConfig(config)
+        return UpdateConfigResponse(config: config, version: version)
+    }
 
 }

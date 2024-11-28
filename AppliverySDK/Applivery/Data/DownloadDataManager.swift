@@ -16,7 +16,7 @@ enum DownloadUrlResponse {
 
 
 protocol PDownloadDataManager {
-	func downloadUrl(_ lastBuildId: String, completionHandler: @escaping (_ response: DownloadUrlResponse) -> Void)
+    func downloadURL(_ lastBuildId: String) async -> String?
 }
 
 
@@ -33,19 +33,13 @@ class DownloadDataManager: PDownloadDataManager {
         self.globalConfig = globalConfig
 	}
 
-
-	func downloadUrl(_ lastBuildId: String, completionHandler: @escaping (_ response: DownloadUrlResponse) -> Void) {
-		self.service.fetchDownloadToken(with: lastBuildId) { response in
-			switch response {
-
-			case .success(let token):
-                let downloadURL = "itms-services://?action=download-manifest&url=\(self.globalConfig.hostDownload)/v1/download/\(token)/manifest.plist"
-				completionHandler(.success(url: downloadURL))
-
-			case .error(let error):
-				completionHandler(.error(message: error.message()))
-			}
-		}
-	}
+    func downloadURL(_ lastBuildId: String) async -> String? {
+        if let token = await service.fetchDownloadToken(with: lastBuildId) {
+            let downloadURL = "itms-services://?action=download-manifest&url=\(self.globalConfig.hostDownload)/v1/download/\(token.data.token)/manifest.plist"
+            return downloadURL
+        } else {
+            return nil
+        }
+    }
 
 }

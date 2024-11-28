@@ -8,15 +8,27 @@
 
 import Foundation
 
-struct LoginInteractor {
+final class LoginInteractor {
 	
 	let app: AppProtocol
-	let loginDataManager: LoginDataManager
+    let loginDataManager: LoginDataManagerProtocol
 	let globalConfig: GlobalConfig
 	let sessionPersister: SessionPersister
+    
+    init(
+        app: AppProtocol,
+        loginDataManager: LoginDataManagerProtocol,
+        globalConfig: GlobalConfig,
+        sessionPersister: SessionPersister
+    ) {
+        self.app = app
+        self.loginDataManager = loginDataManager
+        self.globalConfig = globalConfig
+        self.sessionPersister = sessionPersister
+    }
 	
 	
-	func requestAuthorization(with config: Config, loginHandler: @escaping () -> Void, cancelHandler: @escaping () -> Void) {
+    func requestAuthorization(with config: SDKData, loginHandler: @escaping () -> Void, cancelHandler: @escaping () -> Void) {
 		self.globalConfig.accessToken = self.sessionPersister.loadAccessToken()
 		if self.globalConfig.accessToken == nil {
 			logInfo("User authentication is required!")
@@ -39,15 +51,14 @@ struct LoginInteractor {
 	}
 	
 	func bind(_ user: User) {
-		self.loginDataManager.bind(user: user) { result in
-			switch result {
-			case .success(let accessToken):
-                self.store(accessToken: accessToken, userName: user.email)
-			case .error:
-				logInfo("Error trying to bind a user")
-				
-			}
-		}
+        Task {
+            do {
+                let accessToken = try await loginDataManager.bind(user: user)
+                store(accessToken: accessToken, userName: user.email)
+            } catch {
+                logInfo("Error trying to bind a user \(error)")
+            }
+        }
 	}
 	
 	func unbindUser() {
@@ -60,20 +71,20 @@ struct LoginInteractor {
 	// MARK: - Private Helpers
 	private func login(user: String, password: String, loginHandler: @escaping () -> Void, cancelHandler: @escaping () -> Void) {
 		self.globalConfig.accessToken = nil // Ensure to clean possibly previous access token
-		self.loginDataManager.login(user: user, password: password) { result in
-			switch result {
-			case .success(let accessToken):
-                self.store(accessToken: accessToken, userName: user)
-				loginHandler()
-
-			case .error:
-				self.showLogin(
-					with: literal(.loginInvalidCredentials) ?? "<Wrong credentials, try again>",
-					loginHandler: loginHandler,
-					cancelHandler: cancelHandler
-				)
-			}
-		}
+        Task {
+            do {
+                let accessToken = try await loginDataManager.login(loginData: .init(provider: "", payload: .init(user: user, password: password)))
+                store(accessToken: accessToken, userName: user)
+                loginHandler()
+            } catch {
+                self.showLogin(
+                    with: literal(.loginInvalidCredentials) ?? "<Wrong credentials, try again>",
+                    loginHandler: loginHandler,
+                    cancelHandler: cancelHandler
+                )
+            }
+            
+        }
 	}
 	
     private func store(accessToken: AccessToken, userName: String) {

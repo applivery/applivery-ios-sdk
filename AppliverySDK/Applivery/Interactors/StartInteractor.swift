@@ -16,7 +16,6 @@ protocol StartInteractorOutput {
     func credentialError(message: String)
 }
 
-
 class StartInteractor {
     
     var output: StartInteractorOutput!
@@ -27,14 +26,14 @@ class StartInteractor {
     private let sessionPersister: SessionPersister
     private let updateInteractor: PUpdateInteractor
     
-    
     // MARK: Initializers
     
-    init(configDataManager: PConfigDataManager = ConfigDataManager(),
-         globalConfig: GlobalConfig = GlobalConfig.shared,
-         eventDetector: EventDetector = ScreenshotDetector(),
-         sessionPersister: SessionPersister = SessionPersister(userDefaults: UserDefaults.standard),
-         updateInteractor: PUpdateInteractor = Configurator.updateInteractor()
+    init(
+        configDataManager: PConfigDataManager = ConfigDataManager(),
+        globalConfig: GlobalConfig = GlobalConfig.shared,
+        eventDetector: EventDetector = ScreenshotDetector(),
+        sessionPersister: SessionPersister = SessionPersister(userDefaults: UserDefaults.standard),
+        updateInteractor: PUpdateInteractor = Configurator.updateInteractor()
     ) {
         self.configDataManager = configDataManager
         self.globalConfig = globalConfig
@@ -63,17 +62,16 @@ class StartInteractor {
         self.eventDetector.endListening()
     }
     
-    
     // MARK: Private Methods
     
     private func updateConfig() {
         self.globalConfig.accessToken = self.sessionPersister.loadAccessToken()
-        self.configDataManager.updateConfig { response in
-            switch response {
-            case .success(let configResponse):
-                self.checkUpdate(for: configResponse)
-            case .error(let error):
-                self.output.credentialError(message: error.message())
+        Task {
+            do {
+                let updateConfig = try await configDataManager.updateConfig()
+                self.checkUpdate(for: updateConfig)
+            } catch {
+                self.output.credentialError(message: "Credentials are invalid.")
                 let currentConfig = self.configDataManager.getCurrentConfig()
                 self.checkUpdate(for: currentConfig)
             }
