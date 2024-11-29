@@ -9,6 +9,7 @@ import Foundation
 
 protocol APIClientProtocol {
     func fetch<T: Decodable>(endpoint: Endpoint) async throws -> T
+    func uploadVideo(localFileURL: URL, to destinationURL: URL) async throws
 }
 
 final class APIClient: APIClientProtocol {
@@ -37,11 +38,30 @@ final class APIClient: APIClientProtocol {
         switch httpResponse.statusCode {
         case 200...299:
             return try decoder.decode(T.self, from: data)
-        case 401:
-            throw APIError.unathorizedResponse
         default:
             throw APIError.statusCode(httpResponse.statusCode)
         }
+    }
+    
+    func uploadVideo(localFileURL: URL, to destinationURL: URL) async throws {
+        var request = URLRequest(url: destinationURL)
+        request.httpMethod = "PUT"
+        request.setValue("video/mp4", forHTTPHeaderField: "Content-Type")
+        
+        let (data, response) = try await session.upload(for: request, fromFile: localFileURL)
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw APIError.invalidResponse
+        }
+        
+        switch httpResponse.statusCode {
+        case 200...299:
+            logInfo("Video uploaded successfully")
+        default:
+            throw APIError.statusCode(httpResponse.statusCode)
+        }
+        
+        data.prettyPrintedJSON()
     }
 }
 

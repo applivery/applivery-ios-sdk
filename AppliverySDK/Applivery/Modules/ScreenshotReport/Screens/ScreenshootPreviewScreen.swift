@@ -75,7 +75,8 @@ struct ScreenshootPreviewScreen: View {
                                 feedback: .init(
                                     feedbackType: reportType,
                                     message: description,
-                                    screenshot: imageIsSelected ? .init(image: newScreenShot) : nil
+                                    screenshot: imageIsSelected ? .init(image: newScreenShot) : nil,
+                                    videoURL: nil
                                 )
                             )
                         }

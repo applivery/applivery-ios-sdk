@@ -15,4 +15,5 @@ enum APIError: Error {
     case unathorizedResponse
     case statusCode(Int)
     case ottCheckTimeout
+    case apiErrorResponse(APIErrorResponse)
 }

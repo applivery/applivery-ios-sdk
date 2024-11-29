@@ -24,7 +24,7 @@ public final class ScreenRecorderManager: NSObject, RPScreenRecorderDelegate, RP
     var recordViewController: RecordingViewController?
     
     init(
-        recordViewController: RecordingViewController? = RecordingViewController(feedbackCoordinator: FeedbackCoordinator()),
+        recordViewController: RecordingViewController? = RecordingViewController(),
         timer: Timer? = nil
     ) {
         super.init()

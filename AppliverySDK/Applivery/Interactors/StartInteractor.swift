@@ -20,7 +20,7 @@ class StartInteractor {
     
     var output: StartInteractorOutput!
     
-    private let configDataManager: PConfigDataManager
+    private let configService: ConfigServiceProtocol
     private let globalConfig: GlobalConfig
     private let eventDetector: EventDetector
     private let sessionPersister: SessionPersister
@@ -29,13 +29,13 @@ class StartInteractor {
     // MARK: Initializers
     
     init(
-        configDataManager: PConfigDataManager = ConfigDataManager(),
+        configService: ConfigServiceProtocol = ConfigService(),
         globalConfig: GlobalConfig = GlobalConfig.shared,
         eventDetector: EventDetector = ScreenshotDetector(),
         sessionPersister: SessionPersister = SessionPersister(userDefaults: UserDefaults.standard),
         updateInteractor: PUpdateInteractor = Configurator.updateInteractor()
     ) {
-        self.configDataManager = configDataManager
+        self.configService = configService
         self.globalConfig = globalConfig
         self.eventDetector = eventDetector
         self.sessionPersister = sessionPersister
@@ -68,11 +68,11 @@ class StartInteractor {
         self.globalConfig.accessToken = self.sessionPersister.loadAccessToken()
         Task {
             do {
-                let updateConfig = try await configDataManager.updateConfig()
+                let updateConfig = try await configService.updateConfig()
                 self.checkUpdate(for: updateConfig)
             } catch {
                 self.output.credentialError(message: "Credentials are invalid.")
-                let currentConfig = self.configDataManager.getCurrentConfig()
+                let currentConfig = self.configService.getCurrentConfig()
                 self.checkUpdate(for: currentConfig)
             }
         }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct VideoPreviewScreen: View {
-    let viewModel = ScreenshootViewModel()
+    @StateObject var viewModel = ScreenshootViewModel()
     @Environment(\.dismiss) var dismiss
     @State var url: URL?
     @State var user: String = ""
@@ -43,6 +43,13 @@ struct VideoPreviewScreen: View {
                 VideoPreviewRow(videoURL: $url)
                     .frame(height: 64)
             }
+            .alert(viewModel.isReportSended.title ?? "", isPresented: $viewModel.isAlertPresented, actions: {
+                Button(action: {
+                    dismiss.callAsFunction()
+                }, label: {
+                    Text("Ok")
+                })
+            })
             .onAppear(perform: {
                 user = viewModel.loadUserName()
             })
@@ -62,7 +69,7 @@ struct VideoPreviewScreen: View {
                 
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
-
+                        viewModel.sendVideoFeedback(feedback: .init(feedbackType: reportType, message: description, screenshot: nil, videoURL: url))
                     }, label: {
                         Image(systemName: "location.fill")
                             .foregroundColor(.blue)

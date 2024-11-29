@@ -201,6 +201,7 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
     private let globalConfig: GlobalConfig
     private let updateCoordinator: PUpdateCoordinator
     private let loginInteractor: LoginInteractor
+    private let app: AppProtocol
     private let environments: EnvironmentProtocol
     private var isUpdating = false
     private var updateCallbackSuccess: (() -> Void)?
@@ -214,8 +215,8 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
             globalConfig: GlobalConfig.shared,
             updateCoordinator: UpdateCoordinator(),
             updateInteractor: Configurator.updateInteractor(),
-            feedbackCoordinator: FeedbackCoordinator(),
             loginInteractor: Configurator.loginInteractor(),
+            app: App(),
             environments: Environments()
         )
         self.startInteractor.output = self
@@ -226,14 +227,15 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
                    globalConfig: GlobalConfig,
                    updateCoordinator: PUpdateCoordinator,
                    updateInteractor: PUpdateInteractor,
-                   feedbackCoordinator: PFeedbackCoordinator,
                    loginInteractor: LoginInteractor,
+                   app: AppProtocol,
                    environments: EnvironmentProtocol) {
         self.startInteractor = startInteractor
         self.globalConfig = globalConfig
         self.updateCoordinator = updateCoordinator
         self.updateInteractor = updateInteractor
         self.loginInteractor = loginInteractor
+        self.app = app
         self.environments = environments
         self.logLevel = .info
         self.palette = Palette()
@@ -378,7 +380,7 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
      */
     @objc public func feedbackEvent() {
         logInfo("Presenting feedback formulary")
-        ScreenRecorderManager.shared.presentPreviewWithScreenshoot()
+        app.presentFeedbackForm()
     }
     
     

@@ -25,6 +25,7 @@ protocol AppProtocol {
 	func showErrorAlert(_ message: String, retryHandler: @escaping () -> Void)
 	func waitForReadyThen(_ onReady: @escaping () -> Void)
 	func presentModal(_ viewController: UIViewController, animated: Bool)
+    func presentFeedbackForm()
 	func showLoginView(message: String, cancelHandler: @escaping () -> Void, loginHandler: @escaping (_ user: String, _ password: String) -> Void)
 }
 
@@ -160,6 +161,20 @@ class App: AppProtocol {
 		let topVC = self.topViewController()
 		topVC?.present(viewController, animated: animated, completion: nil)
 	}
+    
+    func presentFeedbackForm() {
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = scene.windows.filter({ $0 is AppliveryWindow }).first {
+            window.makeKeyAndVisible()
+            if var topController = window.rootViewController {
+                while let presentedController = topController.presentedViewController {
+                    topController = presentedController
+                }
+                let vcToPresent = topController as? RecordingViewController
+                vcToPresent?.presentActionSheet()
+            }
+        }
+    }
 	
 	func showLoginView(message: String, cancelHandler: @escaping () -> Void, loginHandler: @escaping (_ user: String, _ password: String) -> Void) {
 		var userText: UITextField?

@@ -35,7 +35,7 @@ class DownloadDataManager: PDownloadDataManager {
 
     func downloadURL(_ lastBuildId: String) async -> String? {
         if let token = await service.fetchDownloadToken(with: lastBuildId) {
-            let downloadURL = "itms-services://?action=download-manifest&url=\(self.globalConfig.hostDownload)/v1/download/\(token.data.token)/manifest.plist"
+            let downloadURL = "itms-services://?action=download-manifest&url=https://\(self.globalConfig.hostDownload)/v1/download/\(token.data.token)/manifest.plist"
             return downloadURL
         } else {
             return nil

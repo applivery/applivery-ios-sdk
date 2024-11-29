@@ -14,17 +14,6 @@ class RecordingViewController: UIViewController {
     private var actionSheet: UIAlertController = UIAlertController()
     var buttonAction: (() -> Void)?
     
-    private var feedbackCoordinator: PFeedbackCoordinator
-    
-    init(feedbackCoordinator: PFeedbackCoordinator) {
-        self.feedbackCoordinator = feedbackCoordinator
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear

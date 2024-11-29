@@ -26,7 +26,7 @@ struct Configurator {
 	static func updateInteractor() -> UpdateInteractor {
 		return UpdateInteractor(
 			output: nil,
-			configData: ConfigDataManager(),
+            configService: ConfigService(),
 			downloadData: DownloadDataManager(),
 			app: App(),
 			loginInteractor: Configurator.loginInteractor(),
@@ -34,17 +34,17 @@ struct Configurator {
 		)
 	}
 	
-	static func feedbackInteractor() -> FeedbackInteractor {
-		return FeedbackInteractor(
-			service: FeedbackService(
-				app: App(),
-				device: Device(),
-				config: GlobalConfig.shared
-			),
-			configDataManager: ConfigDataManager(),
-			loginInteractor: Configurator.loginInteractor()
-		)
-	}
+//	static func feedbackInteractor() -> FeedbackInteractor {
+//		return FeedbackInteractor(
+//			service: FeedbackService(
+//				app: App(),
+//				device: Device(),
+//				config: GlobalConfig.shared
+//			),
+//			configDataManager: ConfigDataManager(),
+//			loginInteractor: Configurator.loginInteractor()
+//		)
+//	}
 	
 	static func screenshotInteractor() -> ScreenshotInteractor {
 		return ScreenshotInteractor(

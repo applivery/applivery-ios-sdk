@@ -9,20 +9,24 @@
 import UIKit
 
 protocol ConfigServiceProtocol {
-    func fetchConfig() async -> Config
+    func updateConfig() async throws -> UpdateConfigResponse
+    func getCurrentConfig() -> UpdateConfigResponse
 }
 
-final class ConfigService {
+final class ConfigService: ConfigServiceProtocol {
     
     private let client: APIClientProtocol
-    private let loginManager: LoginManager
+    private let appInfo: AppProtocol
+    private let configPersister: ConfigPersister
     
     init(
         client: APIClientProtocol = APIClient(),
-        loginManager: LoginManager = LoginManager()
+        appInfo: AppProtocol = App(),
+        configPersister: ConfigPersister = ConfigPersister()
     ) {
         self.client = client
-        self.loginManager = loginManager
+        self.appInfo = appInfo
+        self.configPersister = configPersister
     }
     
     func fetchConfig() async throws -> Config {
@@ -30,40 +34,19 @@ final class ConfigService {
         let config: Config = try await client.fetch(endpoint: endpoint)
         return config
     }
+    
+    func getCurrentConfig() -> UpdateConfigResponse {
+        let version = self.appInfo.getVersion()
+        let config = self.configPersister.getConfig()
 
+        return UpdateConfigResponse(config: config, version: version)
+    }
 
-//	func fetchConfig(_ completionHandler: @escaping (Bool, Config?, NSError?) -> Void) {
-//		let request = Request(
-//			endpoint: "/v1/app"
-//		)
-//
-//		request.sendAsync { response in
-//			if response.success {
-//				do {
-//					let config = try response.body.map(Config.init(json:))
-//					completionHandler(response.success, config, nil)
-//				} catch {
-//					let error = NSError(
-//						domain: GlobalConfig.ErrorDomain,
-//						code: -1,
-//						userInfo: [GlobalConfig.AppliveryErrorKey: "Internal applivery error parsing json"])
-//
-//					logError(error)
-//					LoginManager().parse(
-//						error: response.error,
-//						retry: { self.fetchConfig(completionHandler) },
-//						next: {	completionHandler(false, nil, error) }
-//					)
-//				}
-//			} else {
-//				logError(response.error)
-//				LoginManager().parse(
-//					error: response.error,
-//					retry: { self.fetchConfig(completionHandler) },
-//					next: {	completionHandler(response.success, nil, response.error) }
-//				)
-//			}
-//		}
-//	}
+    func updateConfig() async throws -> UpdateConfigResponse {
+        let config = try await fetchConfig().data.sdk.ios
+        let version = self.appInfo.getVersion()
+        self.configPersister.saveConfig(config)
+        return UpdateConfigResponse(config: config, version: version)
+    }
 
 }

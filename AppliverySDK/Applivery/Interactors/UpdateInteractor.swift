@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 protocol UpdateInteractorOutput {
 	func downloadDidEnd()
 	func downloadDidFail(_ message: String)
@@ -30,14 +29,14 @@ struct UpdateInteractor: PUpdateInteractor {
     
 	var output: UpdateInteractorOutput?
 	
-	let configData: PConfigDataManager
+    let configService: ConfigServiceProtocol
 	let downloadData: PDownloadDataManager
 	let app: AppProtocol
 	let loginInteractor: LoginInteractor
 	let globalConfig: GlobalConfig
 	
 	func forceUpdateMessage() -> String {
-		let currentConfig = self.configData.getCurrentConfig()
+		let currentConfig = self.configService.getCurrentConfig()
 		
         var message = literal(.forceUpdateMessage) ?? currentConfig.config?.mustUpdateMsg ?? kLocaleForceUpdateMessage
 		
@@ -49,7 +48,7 @@ struct UpdateInteractor: PUpdateInteractor {
 	}
 	
 	func otaUpdateMessage() -> String {
-		let currentConfig = self.configData.getCurrentConfig()
+		let currentConfig = self.configService.getCurrentConfig()
         var message = literal(.otaUpdateMessage) ?? currentConfig.config?.updateMsg ?? kLocaleOtaUpdateMessage
 		
 		if message == "" {
@@ -60,7 +59,7 @@ struct UpdateInteractor: PUpdateInteractor {
 	}
 	
 	func downloadLastBuild() {
-        guard let config = self.configData.getCurrentConfig().config else {
+        guard let config = self.configService.getCurrentConfig().config else {
 			self.output?.downloadDidFail(literal(.errorUnexpected) ?? localize("Current config is nil")); return
 		}
 		
@@ -76,7 +75,7 @@ struct UpdateInteractor: PUpdateInteractor {
 	}
 	
 	func isUpToDate() -> Bool {
-        let currentConfig = self.configData.getCurrentConfig()
+        let currentConfig = self.configService.getCurrentConfig()
         return !self.checkOtaUpdate(currentConfig.config, version: currentConfig.version)
 	}
 	
@@ -136,24 +135,6 @@ struct UpdateInteractor: PUpdateInteractor {
                 }
             }
         }
-		
-//		self.downloadData.downloadUrl(lastBuildId) { response in
-//			switch response {
-//				
-//			case .success(let url):
-//				if self.app.openUrl(url) {
-//					self.output?.downloadDidEnd()
-//				} else {
-//					let error = NSError.appliveryError(literal(.errorDownloadURL))
-//					logError(error)
-//					
-//					self.output?.downloadDidFail(error.message())
-//				}
-//				
-//			case .error(let message):
-//				self.output?.downloadDidFail(message)
-//			}
-//		}
 	}
 	
 	private func isOlder(_ currentVersion: String, minVersion: String) -> Bool {

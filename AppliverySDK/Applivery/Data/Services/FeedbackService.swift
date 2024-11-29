@@ -8,8 +8,28 @@
 
 import Foundation
 
+struct StatusCall: Decodable {
+    let status: Bool
+}
+
+struct VideoFile: Decodable {
+    let status: Bool
+    let data: ViedeoFileData
+}
+
+struct ViedeoFileData: Decodable {
+    let videoFile: VideoLocationInfo
+}
+
+struct VideoLocationInfo: Decodable {
+    let bucket: String
+    let key: String
+    let location: String
+}
+
 protocol PFeedbackService {
-	func postFeedback(_ feedback: Feedback, completionHandler: @escaping (Result<Bool, NSError>) -> Void)
+    func postFeedback(_ feedback: Feedback) async throws
+    func postVideoFeedback(inputFeedback: Feedback) async throws
 }
 
 class FeedbackService: PFeedbackService {
@@ -18,66 +38,63 @@ class FeedbackService: PFeedbackService {
 	let device: DeviceProtocol
 	let config: GlobalConfig
 	var request: Request?
+    
+    private let client: APIClientProtocol
 	
-	init(app: AppProtocol, device: DeviceProtocol, config: GlobalConfig) {
+    init(
+        app: AppProtocol,
+        device: DeviceProtocol,
+        config: GlobalConfig,
+        client: APIClientProtocol = APIClient()
+) {
 		self.app = app
 		self.device = device
 		self.config = config
+        self.client = client
+
 	}
 	
-	func postFeedback(_ feedback: Feedback, completionHandler: @escaping (Result<Bool, NSError>) -> Void) {
-		self.device.enableBatteryMonitoring()
-		let screenshot = feedback.screenshot?.base64() ?? ""
-		
-		self.request = Request(
-			endpoint: "/v1/feedback",
-			method: "POST",
-			bodyParams: [
-				"type": feedback.feedbackType.rawValue,
-				"message": feedback.message,
-				"packageInfo": [
-					"name": self.app.bundleId(),
-					"version": self.app.getVersion(),
-					"versionName": self.app.getVersionName()
-				],
-				"deviceInfo": [
-					"device": [
-						"model": self.device.model(),
-						"vendor": "Apple",
-						"type": self.device.type(),
-//						"id": self.device.vendorId(),
-						"network": self.device.networkType(),
-						"resolution": self.device.resolution(),
-						"orientation": self.device.orientation(),
-						"ramUsed": self.device.ramUsed(),
-						"ramTotal": self.device.ramTotal(),
-						"diskFree": self.device.diskFree()
-					],
-					"os": [
-						"name": "ios",
-						"version": self.device.systemVersion()
-					]
-				],
-				"screenshot": "data:image/jpeg;base64,\(screenshot)"
-			]
-		)
-		
-		self.setBatteryInfo()
-		self.device.disableBatteryMonitoring()
-		
-		self.request?.sendAsync { response in
-			if response.success {
-				completionHandler(.success(true))
-			} else {
-				logError(response.error)
-				LoginManager().parse(
-					error: response.error,
-					retry: { self.postFeedback(feedback, completionHandler: completionHandler) },
-					next: {	completionHandler(.error(NSError.unexpectedError()))}
-				)
-			}
-		}
-	}
+    func postFeedback(_ feedback: Feedback) async throws {
+        let screenshot = feedback.screenshot?.base64() ?? ""
+        let feedbackData: FeedbackData = .init(
+            type: feedback.feedbackType.rawValue,
+            message: feedback.message,
+            packageInfo: .init(app: app),
+            deviceInfo: .init(device: device),
+            screenshot: "data:image/jpeg;base64,\(screenshot)",
+            hasVideo: false
+        )
+        
+        let endpoint: AppliveryEndpoint = .feedback(feedbackData)
+        let _: StatusCall = try await client.fetch(endpoint: endpoint)
+    }
+    
+    func postVideoFeedback(inputFeedback: Feedback) async throws {
+        let feedbackData: FeedbackData = .init(
+            type: inputFeedback.feedbackType.rawValue,
+            message: inputFeedback.message,
+            packageInfo: .init(app: app),
+            deviceInfo: .init(device: device),
+            screenshot: nil,
+            hasVideo: true
+        )
+        
+        let endpoint: AppliveryEndpoint = .feedback(feedbackData)
+        
+        self.setBatteryInfo()
+        self.device.disableBatteryMonitoring()
+        
+        Task {
+            do {
+                let videoURL: VideoFile = try await client.fetch(endpoint: endpoint)
+                if let destinationVideoURL = URL(string: videoURL.data.videoFile.location), let localURL = inputFeedback.videoURL {
+                    try await client.uploadVideo(localFileURL: localURL, to: destinationVideoURL)
+                }
+            } catch {
+                logError(error as NSError)
+            }
+        }
+    }
 	
 	
 	// MARK: - Private Helpers

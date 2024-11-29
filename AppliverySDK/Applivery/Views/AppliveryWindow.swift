@@ -53,25 +53,3 @@ class AppliveryWindow: UIWindow {
     }
     
 }
-
-extension UIWindow {
-    open override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-        super.motionEnded(motion, with: event)
-        
-        
-        if motion == .motionShake {
-            
-            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-               let window = scene.windows.filter({ $0 is AppliveryWindow }).first {
-                window.makeKeyAndVisible()
-                if var topController = window.rootViewController {
-                    while let presentedController = topController.presentedViewController {
-                        topController = presentedController
-                    }
-                    let vcToPresent = topController as? RecordingViewController
-                    vcToPresent?.presentActionSheet()
-                }
-            }
-        }
-    }
-}

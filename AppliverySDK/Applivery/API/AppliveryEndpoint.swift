@@ -13,6 +13,7 @@ enum AppliveryEndpoint {
     case login(LoginData)
     case bind(User)
     case download(String)
+    case feedback(FeedbackData)
 }
 
 extension AppliveryEndpoint: Endpoint {
@@ -23,6 +24,7 @@ extension AppliveryEndpoint: Endpoint {
         case .login: return GlobalConfig().host
         case .bind: return GlobalConfig().host
         case .download: return GlobalConfig().host
+        case .feedback: return GlobalConfig().host
         }
     }
     
@@ -65,6 +67,8 @@ extension AppliveryEndpoint: Endpoint {
             return "/v1/auth/customLogin"
         case .download(let buildId):
             return "/v1/build/\(buildId)/downloadToken"
+        case .feedback:
+            return "/v1/feedback"
         }
     }
     
@@ -72,7 +76,7 @@ extension AppliveryEndpoint: Endpoint {
         switch self {
         case .config, .download:
             return .get
-        case .login, .bind:
+        case .login, .bind, .feedback:
             return .post
         }
     }
@@ -85,6 +89,8 @@ extension AppliveryEndpoint: Endpoint {
             return loginData.dictionary
         case .bind(let user):
             return user.dictionary
+        case .feedback(let feedback):
+            return feedback.dictionary
         }
     }
 }

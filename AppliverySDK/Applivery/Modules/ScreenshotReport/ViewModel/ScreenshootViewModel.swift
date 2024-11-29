@@ -50,16 +50,32 @@ final class ScreenshootViewModel: ObservableObject {
     @MainActor
     func sendScreenshootFeedback(feedback: Feedback) {
         isReportSended = .loading
-        feedbackService.postFeedback(feedback) { result in
-            switch result {
-            case .success:
+        Task {
+            do {
+                try await feedbackService.postFeedback(feedback)
                 self.isReportSended = .success
                 self.isAlertPresented = true
-                print("Feedback sended succesfully")
-            case .error:
+                logInfo("Feedback sended succesfully")
+            } catch {
                 self.isReportSended = .failed
                 self.isAlertPresented = true
-                print("Feedback sended error:")
+                print("Feedback sended error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func sendVideoFeedback(feedback: Feedback) {
+        isReportSended = .loading
+        Task {
+            do {
+                try await feedbackService.postVideoFeedback(inputFeedback: feedback)
+                self.isReportSended = .success
+                self.isAlertPresented = true
+                logInfo("Feedback sended succesfully")
+            } catch {
+                self.isReportSended = .failed
+                self.isAlertPresented = true
+                print("Feedback sended error: \(error.localizedDescription)")
             }
         }
     }
