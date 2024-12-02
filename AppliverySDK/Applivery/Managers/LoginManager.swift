@@ -12,9 +12,7 @@ struct LoginManager {
 	
 	private let loginInteractor = LoginInteractor(
 		app: App(),
-		loginDataManager: LoginDataManager(
-			loginService: LoginService()
-		),
+        loginService: LoginService(),
 		globalConfig: GlobalConfig.shared,
 		sessionPersister: SessionPersister(userDefaults: UserDefaults.standard)
 	)

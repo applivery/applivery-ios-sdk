@@ -11,18 +11,18 @@ import Foundation
 final class LoginInteractor {
 	
 	let app: AppProtocol
-    let loginDataManager: LoginDataManagerProtocol
+    let loginService: LoginServiceProtocol
 	let globalConfig: GlobalConfig
 	let sessionPersister: SessionPersister
     
     init(
         app: AppProtocol,
-        loginDataManager: LoginDataManagerProtocol,
+        loginService: LoginServiceProtocol,
         globalConfig: GlobalConfig,
         sessionPersister: SessionPersister
     ) {
         self.app = app
-        self.loginDataManager = loginDataManager
+        self.loginService = loginService
         self.globalConfig = globalConfig
         self.sessionPersister = sessionPersister
     }
@@ -53,7 +53,7 @@ final class LoginInteractor {
 	func bind(_ user: User) {
         Task {
             do {
-                let accessToken = try await loginDataManager.bind(user: user)
+                let accessToken = try await loginService.bind(user: user)
                 store(accessToken: accessToken, userName: user.email)
             } catch {
                 logInfo("Error trying to bind a user \(error)")
@@ -73,7 +73,7 @@ final class LoginInteractor {
 		self.globalConfig.accessToken = nil // Ensure to clean possibly previous access token
         Task {
             do {
-                let accessToken = try await loginDataManager.login(loginData: .init(provider: "", payload: .init(user: user, password: password)))
+                let accessToken = try await loginService.login(loginData: .init(provider: "", payload: .init(user: user, password: password)))
                 store(accessToken: accessToken, userName: user)
                 loginHandler()
             } catch {

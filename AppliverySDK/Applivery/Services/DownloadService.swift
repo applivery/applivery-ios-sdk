@@ -1,0 +1,66 @@
+//
+//  DownloadService.swift
+//  AppliverySDK
+//
+//  Created by Alejandro Jiménez on 7/1/16.
+//  Copyright © 2016 Applivery S.L. All rights reserved.
+//
+
+import Foundation
+
+struct TokenData: Decodable {
+    let token: String
+}
+
+struct DownloadToken: Decodable {
+    let status: Bool
+    let data: TokenData
+}
+
+protocol DownloadServiceProtocol {
+    func fetchDownloadToken(with buildId: String) async -> DownloadToken?
+    func downloadURL(_ lastBuildId: String) async -> String?
+}
+
+
+class DownloadService: DownloadServiceProtocol {
+	
+    private let client: APIClientProtocol
+    private let webView: WebViewManager
+    private var globalConfig: GlobalConfig
+    
+    init(
+        client: APIClientProtocol = APIClient(),
+        webView: WebViewManager = WebViewManager(),
+        globalConfig: GlobalConfig = GlobalConfig()
+    ) {
+        self.client = client
+        self.webView = webView
+        self.globalConfig = globalConfig
+    }
+    
+    func fetchDownloadToken(with buildId: String) async -> DownloadToken? {
+        do {
+            logInfo("Requesting download token for build \(buildId).")
+            let endpoint: AppliveryEndpoint = .download(buildId)
+            let accessToken: DownloadToken = try await client.fetch(endpoint: endpoint)
+            logInfo("Download token received.")
+            return accessToken
+        } catch {
+            logError(error as NSError)
+            return nil
+        }
+    }
+    
+    func downloadURL(_ lastBuildId: String) async -> String? {
+        if let token = await fetchDownloadToken(with: lastBuildId) {
+            let downloadURL = "itms-services://?action=download-manifest&url=https://\(self.globalConfig.hostDownload)/v1/download/\(token.data.token)/manifest.plist"
+            return downloadURL
+        } else {
+            if let url = URL(string: "https://sdk-api.h.applivery.dev/v1/auth/redirect") {
+                webView.showWebView(url: url)
+            }
+            return nil
+        }
+    }
+}

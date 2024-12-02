@@ -1,5 +1,5 @@
 //
-//  LoginDataManager.swift
+//  LoginService.swift
 //  Applivery
 //
 //  Created by Alejandro Jiménez Agudo on 28/03/2019.
@@ -8,25 +8,25 @@
 
 import Foundation
 
-protocol LoginDataManagerProtocol {
+protocol LoginServiceProtocol {
     func login(loginData: LoginData) async throws -> AccessToken
     func bind(user: User) async throws -> AccessToken
 }
 
-final class LoginDataManager: LoginDataManagerProtocol {
+final class LoginService: LoginServiceProtocol {
 
-	let loginService: LoginServiceProtocol
+    let loginRepository: LoginRepositoryProtocol
     
-    init(loginService: LoginServiceProtocol = LoginService()) {
-        self.loginService = loginService
+    init(loginRepository: LoginRepositoryProtocol = LoginRepository()) {
+        self.loginRepository = loginRepository
     }
     
     func login(loginData: LoginData) async throws -> AccessToken {
-        try await loginService.login(loginData: loginData)
+        try await loginRepository.login(loginData: loginData)
     }
     
     func bind(user: User) async throws -> AccessToken {
-        try await loginService.bind(user: user)
+        try await loginRepository.bind(user: user)
     }
 	
 }

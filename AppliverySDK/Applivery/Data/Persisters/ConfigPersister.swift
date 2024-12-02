@@ -62,15 +62,6 @@ class ConfigPersister: NSObject {
             updateMsg: self.userDefaults.value(forKey: kForceUpdateMessageKey) as? String,
             forceAuth: self.userDefaults.value(forKey: kForceAuth)                as? Bool ?? false
         )
-        
-//		config.forceUpdate	= forceUpdate
-//		config.minVersion	= minVersion
-//		config.lastBuildId	= lastBuildId
-//		config.otaUpdate	= otaUpdate
-//		config.lastVersion	= lastBuildVersion
-//		config.forceUpdateMessage	= self.userDefaults.value(forKey: kForceUpdateMessageKey)	as? String
-//		config.otaUpdateMessage		= self.userDefaults.value(forKey: kOtaUpdateMessageKey)		as? String
-//		config.forceAuth			= self.userDefaults.value(forKey: kForceAuth)				as? Bool ?? false
 
 		return sdkData
 	}

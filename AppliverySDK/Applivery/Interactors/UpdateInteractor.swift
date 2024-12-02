@@ -30,7 +30,7 @@ struct UpdateInteractor: PUpdateInteractor {
 	var output: UpdateInteractorOutput?
 	
     let configService: ConfigServiceProtocol
-	let downloadData: PDownloadDataManager
+    let downloadService: DownloadServiceProtocol
 	let app: AppProtocol
 	let loginInteractor: LoginInteractor
 	let globalConfig: GlobalConfig
@@ -117,7 +117,7 @@ struct UpdateInteractor: PUpdateInteractor {
         }
 
         Task {
-            if let url = await downloadData.downloadURL(lastBuildId) {
+            if let url = await downloadService.downloadURL(lastBuildId) {
                 await MainActor.run {
                     if app.openUrl(url) {
                         output?.downloadDidEnd()

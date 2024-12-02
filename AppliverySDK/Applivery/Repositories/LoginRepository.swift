@@ -1,5 +1,5 @@
 //
-//  LoginService.swift
+//  LoginRepository.swift
 //  Applivery
 //
 //  Created by Alejandro Jiménez Agudo on 10/3/18.
@@ -19,12 +19,12 @@ struct UserData: Encodable {
     let password: String
 }
 
-protocol LoginServiceProtocol {
+protocol LoginRepositoryProtocol {
     func login(loginData: LoginData) async throws -> AccessToken
     func bind(user: User) async throws -> AccessToken
 }
 
-final class LoginService: LoginServiceProtocol {
+final class LoginRepository: LoginRepositoryProtocol {
     
     private let client: APIClientProtocol
     
