@@ -48,7 +48,7 @@ import UIKit
  - Author: Alejandro Jiménez Agudo
  - Copyright: Applivery S.L.
  */
-public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput {
+public class Applivery: NSObject, StartInteractorOutput {
     
     // MARK: - Static Properties
     
@@ -197,10 +197,9 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
     
     // MARK: - Private properties
     internal let startInteractor: StartInteractor
-    internal var updateInteractor: PUpdateInteractor
+    private let updateService: UpdateServiceProtocol
     private let globalConfig: GlobalConfig
-    private let updateCoordinator: PUpdateCoordinator
-    private let loginInteractor: LoginInteractor
+    private let loginService: LoginServiceProtocol
     private let app: AppProtocol
     private let environments: EnvironmentProtocol
     private var isUpdating = false
@@ -213,28 +212,24 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
         self.init(
             startInteractor: StartInteractor(),
             globalConfig: GlobalConfig.shared,
-            updateCoordinator: UpdateCoordinator(),
-            updateInteractor: Configurator.updateInteractor(),
-            loginInteractor: Configurator.loginInteractor(),
+            updateService: UpdateService(),
+            loginService: LoginService(),
             app: App(),
             environments: Environments()
         )
         self.startInteractor.output = self
-        self.updateInteractor.output = self
     }
     
     internal init (startInteractor: StartInteractor,
                    globalConfig: GlobalConfig,
-                   updateCoordinator: PUpdateCoordinator,
-                   updateInteractor: PUpdateInteractor,
-                   loginInteractor: LoginInteractor,
+                   updateService: UpdateServiceProtocol,
+                   loginService: LoginServiceProtocol,
                    app: AppProtocol,
                    environments: EnvironmentProtocol) {
         self.startInteractor = startInteractor
         self.globalConfig = globalConfig
-        self.updateCoordinator = updateCoordinator
-        self.updateInteractor = updateInteractor
-        self.loginInteractor = loginInteractor
+        self.updateService = updateService
+        self.loginService = loginService
         self.app = app
         self.environments = environments
         self.logLevel = .info
@@ -293,7 +288,7 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
      - Version: 3.1
      */
     @objc public func isUpToDate() -> Bool {
-        return self.updateInteractor.isUpToDate()
+        return self.updateService.isUpToDate()
     }
     
     /**
@@ -314,7 +309,7 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
         self.isUpdating = true
         self.updateCallbackSuccess = onSuccess
         self.updateCallbackError = onError
-        self.updateInteractor.downloadLastBuild()
+        self.updateService.downloadLastBuild()
     }
     
     /**
@@ -341,7 +336,9 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
             tags: compactedTags
         )
         user.log()
-        self.loginInteractor.bind(user)
+        Task {
+            try await loginService.bind(user: user)
+        }
     }
     
     /**
@@ -354,7 +351,7 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
      - Version: 3.0
      */
     @objc public func unbindUser() {
-        self.loginInteractor.unbindUser()
+        self.loginService.unbindUser()
     }
     
     /**
@@ -388,12 +385,12 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
     
     internal func forceUpdate() {
         logInfo("Application must be updated!!")
-        self.updateCoordinator.forceUpdate()
+        //self.updateCoordinator.forceUpdate()
     }
     
     internal func otaUpdate() {
         logInfo("New OTA update available!")
-        self.updateCoordinator.otaUpdate()
+        //self.updateCoordinator.otaUpdate()
     }
     
     internal func credentialError(message: String) {
@@ -414,5 +411,4 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
         logWarn("Update did fail: \(message)")
         self.isUpdating = false
     }
-    
 }

@@ -10,7 +10,7 @@ import Foundation
 @testable import Applivery
 
 
-class UpdateInteractoMock: PUpdateInteractor {
+class UpdateInteractoMock: UpdateServiceProtocol {
 	func isUpToDate() -> Bool {
 		return false
 	}

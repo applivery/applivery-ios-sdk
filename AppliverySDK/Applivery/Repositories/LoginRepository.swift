@@ -22,14 +22,23 @@ struct UserData: Encodable {
 protocol LoginRepositoryProtocol {
     func login(loginData: LoginData) async throws -> AccessToken
     func bind(user: User) async throws -> AccessToken
+    func unbindUser()
 }
 
 final class LoginRepository: LoginRepositoryProtocol {
     
     private let client: APIClientProtocol
+    private let globalConfig: GlobalConfig
+    private let sessionPersister: SessionPersister
     
-    init(client: APIClientProtocol = APIClient()) {
+    init(
+        client: APIClientProtocol = APIClient(),
+        globalConfig: GlobalConfig = GlobalConfig.shared,
+        sessionPersister: SessionPersister = SessionPersister(userDefaults: UserDefaults.standard)
+    ) {
         self.client = client
+        self.globalConfig = globalConfig
+        self.sessionPersister = sessionPersister
     }
 	
     func login(loginData: LoginData) async throws -> AccessToken {
@@ -42,5 +51,12 @@ final class LoginRepository: LoginRepositoryProtocol {
         let endpoint: AppliveryEndpoint = .bind(user)
         let accessToken: AccessToken = try await client.fetch(endpoint: endpoint)
         return accessToken
+    }
+    
+    func unbindUser() {
+        logInfo("Unbinding user...")
+        self.sessionPersister.save(accessToken: nil)
+        self.sessionPersister.removeUser()
+        self.globalConfig.accessToken = nil
     }
 }

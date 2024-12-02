@@ -24,7 +24,7 @@ class StartInteractor {
     private let globalConfig: GlobalConfig
     private let eventDetector: EventDetector
     private let sessionPersister: SessionPersister
-    private let updateInteractor: PUpdateInteractor
+    private let updateService: UpdateServiceProtocol
     
     // MARK: Initializers
     
@@ -33,13 +33,13 @@ class StartInteractor {
         globalConfig: GlobalConfig = GlobalConfig.shared,
         eventDetector: EventDetector = ScreenshotDetector(),
         sessionPersister: SessionPersister = SessionPersister(userDefaults: UserDefaults.standard),
-        updateInteractor: PUpdateInteractor = Configurator.updateInteractor()
+        updateService: UpdateServiceProtocol = UpdateService()
     ) {
         self.configService = configService
         self.globalConfig = globalConfig
         self.eventDetector = eventDetector
         self.sessionPersister = sessionPersister
-        self.updateInteractor = updateInteractor
+        self.updateService = updateService
     }
     
     
@@ -79,10 +79,10 @@ class StartInteractor {
     }
     
     private func checkUpdate(for updateConfig: UpdateConfigResponse) {
-        if self.updateInteractor.checkForceUpdate(updateConfig.config, version: updateConfig.version) {
-            self.output.forceUpdate()
-        } else if self.updateInteractor.checkOtaUpdate(updateConfig.config, version: updateConfig.version) {
-            self.output.otaUpdate()
+        if self.updateService.checkForceUpdate(updateConfig.config, version: updateConfig.version) {
+            updateService.forceUpdate()
+        } else if self.updateService.checkOtaUpdate(updateConfig.config, version: updateConfig.version) {
+            updateService.otaUpdate()
         }
     }
     

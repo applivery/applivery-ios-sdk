@@ -1,5 +1,5 @@
 //
-//  UpdateInteractor.swift
+//  UpdateService.swift
 //  AppliverySDK
 //
 //  Created by Alejandro Jiménez on 21/11/15.
@@ -8,16 +8,10 @@
 
 import Foundation
 
-protocol UpdateInteractorOutput {
-	func downloadDidEnd()
-	func downloadDidFail(_ message: String)
-}
-
-protocol PUpdateInteractor {
-	var output: UpdateInteractorOutput? { get set }
+protocol UpdateServiceProtocol {
 	
-	func forceUpdateMessage() -> String
-	func otaUpdateMessage() -> String
+    func forceUpdate()
+    func otaUpdate()
 	func downloadLastBuild()
 	func isUpToDate() -> Bool
     func checkForceUpdate(_ config: SDKData?, version: String) -> Bool
@@ -25,15 +19,44 @@ protocol PUpdateInteractor {
 }
 
 
-struct UpdateInteractor: PUpdateInteractor {
+final class UpdateService: UpdateServiceProtocol {
+    	
+    private let configService: ConfigServiceProtocol
+    private let downloadService: DownloadServiceProtocol
+	private let app: AppProtocol
+    private let loginService: LoginServiceProtocol
+	private let globalConfig: GlobalConfig
+    var forceUpdateCalled = false
     
-	var output: UpdateInteractorOutput?
-	
-    let configService: ConfigServiceProtocol
-    let downloadService: DownloadServiceProtocol
-	let app: AppProtocol
-	let loginInteractor: LoginInteractor
-	let globalConfig: GlobalConfig
+    init(
+        configService: ConfigServiceProtocol = ConfigService(),
+        downloadService: DownloadServiceProtocol = DownloadService(),
+        app: AppProtocol = App(),
+        loginService: LoginServiceProtocol = LoginService(),
+        globalConfig: GlobalConfig = GlobalConfig.shared
+    ) {
+        self.configService = configService
+        self.downloadService = downloadService
+        self.app = app
+        self.loginService = loginService
+        self.globalConfig = globalConfig
+    }
+    
+    func forceUpdate() {
+        guard !forceUpdateCalled else { return }
+        forceUpdateCalled = true
+        self.app.showForceUpdate()
+    }
+    
+    func otaUpdate() {
+        let message = otaUpdateMessage()
+        
+        self.app.waitForReadyThen {
+            self.app.showOtaAlert(message) {
+                self.downloadLastBuild()
+            }
+        }
+    }
 	
 	func forceUpdateMessage() -> String {
 		let currentConfig = self.configService.getCurrentConfig()
@@ -60,17 +83,13 @@ struct UpdateInteractor: PUpdateInteractor {
 	
 	func downloadLastBuild() {
         guard let config = self.configService.getCurrentConfig().config else {
-			self.output?.downloadDidFail(literal(.errorUnexpected) ?? localize("Current config is nil")); return
+            return
 		}
 		
 		if config.forceAuth {
-			self.loginInteractor.requestAuthorization(
-				with: config,
-				loginHandler: { self.download(with: config)},
-				cancelHandler: {self.output?.downloadDidEnd()}
-			)
+            loginService.requestAuthorization()
 		} else {
-			self.download(with: config)
+            loginService.download()
 		}
 	}
 	
@@ -107,12 +126,12 @@ struct UpdateInteractor: PUpdateInteractor {
         }
 		return false
     }
-	
-	// MARK: - Private Helpers
-	
-    private func download(with config: SDKData) {
+}
+
+private extension UpdateService {
+    func download(with config: SDKData) {
         guard let lastBuildId = config.lastBuildId else {
-            self.output?.downloadDidFail(literal(.errorUnexpected) ?? localize("Last build id not found"))
+//            self.output?.downloadDidFail(literal(.errorUnexpected) ?? localize("Last build id not found"))
             return
         }
 
@@ -120,31 +139,31 @@ struct UpdateInteractor: PUpdateInteractor {
             if let url = await downloadService.downloadURL(lastBuildId) {
                 await MainActor.run {
                     if app.openUrl(url) {
-                        output?.downloadDidEnd()
+                        //output?.downloadDidEnd()
                     } else {
                         let error = NSError.appliveryError(literal(.errorDownloadURL))
                         logError(error)
-                        output?.downloadDidFail(error.message())
+                        //output?.downloadDidFail(error.message())
                     }
                 }
             } else {
                 let error = NSError.appliveryError(literal(.errorDownloadURL))
                 // Update UI on the main thread
                 await MainActor.run {
-                    output?.downloadDidFail(error.localizedDescription)
+                    //output?.downloadDidFail(error.localizedDescription)
                 }
             }
         }
-	}
-	
-	private func isOlder(_ currentVersion: String, minVersion: String) -> Bool {
+    }
+    
+    func isOlder(_ currentVersion: String, minVersion: String) -> Bool {
         let (current, min) = self.equalLengthFillingWithZeros(left: currentVersion, right: minVersion)
         let result = current.compare(min, options: NSString.CompareOptions.numeric, range: nil, locale: nil)
         
         return result == ComparisonResult.orderedAscending
     }
     
-    fileprivate func equalLengthFillingWithZeros(left: String, right: String) -> (String, String) {
+    func equalLengthFillingWithZeros(left: String, right: String) -> (String, String) {
         let componentsLeft = left.components(separatedBy: ".")
         let componentsRight = right.components(separatedBy: ".")
         
@@ -161,7 +180,7 @@ struct UpdateInteractor: PUpdateInteractor {
         }
     }
     
-    fileprivate func fillWithZeros(string: [String], length: Int) -> String {
+    func fillWithZeros(string: [String], length: Int) -> String {
         var zeroFilledString = string
         for _ in 1...length {
             zeroFilledString.append("0")

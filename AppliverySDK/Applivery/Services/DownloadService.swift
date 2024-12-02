@@ -32,7 +32,7 @@ class DownloadService: DownloadServiceProtocol {
     init(
         client: APIClientProtocol = APIClient(),
         webView: WebViewManager = WebViewManager(),
-        globalConfig: GlobalConfig = GlobalConfig()
+        globalConfig: GlobalConfig = GlobalConfig.shared
     ) {
         self.client = client
         self.webView = webView
