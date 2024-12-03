@@ -8,22 +8,12 @@
 
 import Foundation
 
-struct TokenData: Decodable {
-    let token: String
-}
-
-struct DownloadToken: Decodable {
-    let status: Bool
-    let data: TokenData
-}
-
 protocol DownloadServiceProtocol {
     func fetchDownloadToken(with buildId: String) async -> DownloadToken?
     func downloadURL(_ lastBuildId: String) async -> String?
 }
 
-
-class DownloadService: DownloadServiceProtocol {
+final class DownloadService: DownloadServiceProtocol {
 	
     private let client: APIClientProtocol
     private let webView: WebViewManager

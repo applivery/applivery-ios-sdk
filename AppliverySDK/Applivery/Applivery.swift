@@ -275,7 +275,7 @@ public class Applivery: NSObject {
         showFirstWindow()
     }
     
-    func showFirstWindow() {
+    private func showFirstWindow() {
         window = AppliveryWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
     }

@@ -16,6 +16,7 @@ protocol UpdateServiceProtocol {
 	func isUpToDate() -> Bool
     func checkForceUpdate(_ config: SDKData?, version: String) -> Bool
     func checkOtaUpdate(_ config: SDKData?, version: String) -> Bool
+    func forceUpdateMessage() -> String
 }
 
 

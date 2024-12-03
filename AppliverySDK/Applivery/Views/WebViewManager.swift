@@ -7,7 +7,7 @@
 
 
 import UIKit
-import WebKit
+@preconcurrency import WebKit
 
 final class WebViewManager: NSObject {
     private var webView: WKWebView?
@@ -42,5 +42,21 @@ final class WebViewManager: NSObject {
 }
 
 extension WebViewManager: WKNavigationDelegate {
-    // Implement WKNavigationDelegate methods if needed
+    // Called before navigation starts
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction,
+                 decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        if let newURL = navigationAction.request.url {
+            print("Will navigate to URL: \(newURL)")
+            // You can perform actions based on the new URL here
+        }
+        decisionHandler(.allow)  // Allow the navigation to proceed
+    }
+    
+    // Called after navigation finishes
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        if let currentURL = webView.url {
+            print("Did finish navigating to URL: \(currentURL)")
+            // You can perform actions based on the current URL here
+        }
+    }
 }

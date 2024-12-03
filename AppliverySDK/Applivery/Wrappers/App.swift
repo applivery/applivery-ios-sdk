@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 // Wrapper for Application's operation
 
@@ -127,18 +128,12 @@ class App: AppProtocol {
 	}
     
     func showForceUpdate() {
-//        if let updateVC = UpdateVC.viewController() {
-//            updateVC.presenter = UpdatePresenter(
-//                updateInteractor: Configurator.updateInteractor(),
-//                view: updateVC
-//            )
-//            //updateVC.presenter.updateInteractor.output = updateVC.presenter
-//            let navigationController = AppliveryNavigationController(rootViewController: updateVC)
-//            
-//            self.waitForReadyThen {
-//                self.presentModal(navigationController)
-//            }
-//        }
+        let viewController = UIHostingController(rootView: ForceUpdateScreen())
+        let navigationController = AppliveryNavigationController(rootViewController: viewController)
+        
+        self.waitForReadyThen {
+            self.presentModal(navigationController)
+        }
     }
 	
 	func showErrorAlert(_ message: String, retryHandler: @escaping () -> Void) {
