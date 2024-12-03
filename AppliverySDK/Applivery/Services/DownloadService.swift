@@ -47,9 +47,7 @@ final class DownloadService: DownloadServiceProtocol {
             let downloadURL = "itms-services://?action=download-manifest&url=https://\(self.globalConfig.hostDownload)/v1/download/\(token.data.token)/manifest.plist"
             return downloadURL
         } else {
-            if let url = URL(string: "https://sdk-api.h.applivery.dev/v1/auth/redirect") {
-                webView.showWebView(url: url)
-            }
+            log("Token is nil.")
             return nil
         }
     }

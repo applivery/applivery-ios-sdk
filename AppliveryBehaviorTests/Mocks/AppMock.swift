@@ -11,7 +11,7 @@ import UIKit
 
 
 class AppMock: AppProtocol {
-
+    
 	// Inputs
 	var stubBundleID: String = "NO BUNDLE ID SET"
 	var stubSDKVersion: String = "NO VERSION SET"
@@ -30,7 +30,8 @@ class AppMock: AppProtocol {
 	var spyDownloadClosure: (() -> Void)?
 	var spyRetryClosure: (() -> Void)?
 	var spyShowLoadingCalled = false
-	var spyHideLoadingCalled = false
+    var spyHideLoadingCalled = false
+	var spyPresentFeedbackForm = false
 	var spyLoginView = (called: false, message: "")
 	var spyLoginCancelClosure: (() -> Void)?
 	var spyLoginClosure: ((String, String) -> Void)?
@@ -97,4 +98,8 @@ class AppMock: AppProtocol {
 		self.spyLoginCancelClosure = cancelHandler
 		self.spyLoginClosure = loginHandler
 	}
+    
+    func presentFeedbackForm() {
+        self.spyPresentFeedbackForm = true
+    }
 }

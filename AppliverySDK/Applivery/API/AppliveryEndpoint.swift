@@ -14,6 +14,7 @@ enum AppliveryEndpoint {
     case bind(User)
     case download(String)
     case feedback(FeedbackData)
+    case redirect
 }
 
 extension AppliveryEndpoint: Endpoint {
@@ -25,6 +26,7 @@ extension AppliveryEndpoint: Endpoint {
         case .bind: return GlobalConfig().host
         case .download: return GlobalConfig().host
         case .feedback: return GlobalConfig().host
+        case .redirect: return GlobalConfig().host
         }
     }
     
@@ -69,12 +71,14 @@ extension AppliveryEndpoint: Endpoint {
             return "/v1/build/\(buildId)/downloadToken"
         case .feedback:
             return "/v1/feedback"
+        case .redirect:
+            return "/v1/auth/redirect"
         }
     }
     
     var method: HTTPMethod {
         switch self {
-        case .config, .download:
+        case .config, .download, .redirect:
             return .get
         case .login, .bind, .feedback:
             return .post
@@ -83,7 +87,7 @@ extension AppliveryEndpoint: Endpoint {
     
     var body: [String : Any]? {
         switch self {
-        case .config, .download:
+        case .config, .download, .redirect:
             return nil
         case .login(let loginData):
             return loginData.dictionary

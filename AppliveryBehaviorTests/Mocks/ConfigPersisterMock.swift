@@ -12,16 +12,16 @@ import UIKit
 class ConfigPersisterMock: ConfigPersister {
 
 	// INPUT
-	var config: Config?
+	var config: SDKData?
 
 	// OUTPUT
 	var saveCalled = false
 
-	override func getConfig() -> Config? {
+	override func getConfig() -> SDKData? {
 		return self.config
 	}
 
-	override func saveConfig(_ config: Config) {
+	override func saveConfig(_ config: SDKData) {
 		self.saveCalled = true
 	}
 }

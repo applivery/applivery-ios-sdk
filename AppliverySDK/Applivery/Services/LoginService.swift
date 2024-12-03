@@ -46,9 +46,11 @@ final class LoginService: LoginServiceProtocol {
     
     func requestAuthorization() {
         globalConfig.accessToken = sessionPersister.loadAccessToken()
-        if globalConfig.accessToken == nil, let url = URL(string: "https://sdk-api.h.applivery.dev/v1/auth/redirect") {
+        if globalConfig.accessToken == nil {
             logInfo("User authentication is required!")
-            webViewManager.showWebView(url: url)
+            Task {
+                await openAuthWebView()
+            }
         } else {
             download()
         }
@@ -59,10 +61,21 @@ final class LoginService: LoginServiceProtocol {
             let accessToken: AccessToken = try await loginRepository.login(loginData: loginData)
             store(accessToken: accessToken, userName: loginData.payload.user)
         } catch {
-            if let url = URL(string: "https://sdk-api.h.applivery.dev/v1/auth/redirect") {
+            log("Access token is not available. Opening auth web view...")
+            await openAuthWebView()
+        }
+    }
+    
+    func openAuthWebView() async {
+        do {
+            let redirectURL = try await loginRepository.getRedirctURL()
+            if let url = redirectURL {
                 webViewManager.showWebView(url: url)
             }
+        } catch {
+            log("Error obtaining redirect URL: \(error.localizedDescription)")
         }
+        
     }
     
     func bind(user: User) async throws -> AccessToken {
