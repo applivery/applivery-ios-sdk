@@ -10,7 +10,7 @@ import Foundation
 @testable import Applivery
 
 
-class FeedbackServiceMock: PFeedbackService {
+class FeedbackServiceMock: FeedbackServiceProtocol {
 
 	// Inputs
 	var inResult: Result<Bool, NSError>!

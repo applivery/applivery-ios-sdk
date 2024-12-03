@@ -48,7 +48,7 @@ import UIKit
  - Author: Alejandro Jiménez Agudo
  - Copyright: Applivery S.L.
  */
-public class Applivery: NSObject, StartInteractorOutput {
+public class Applivery: NSObject {
     
     // MARK: - Static Properties
     
@@ -196,7 +196,7 @@ public class Applivery: NSObject, StartInteractorOutput {
     
     
     // MARK: - Private properties
-    internal let startInteractor: StartInteractor
+    private let startInteractor: StartInteractor
     private let updateService: UpdateServiceProtocol
     private let globalConfig: GlobalConfig
     private let loginService: LoginServiceProtocol
@@ -217,7 +217,6 @@ public class Applivery: NSObject, StartInteractorOutput {
             app: App(),
             environments: Environments()
         )
-        self.startInteractor.output = self
     }
     
     internal init (startInteractor: StartInteractor,
@@ -380,23 +379,10 @@ public class Applivery: NSObject, StartInteractorOutput {
         app.presentFeedbackForm()
     }
     
-    
-    // MARK: Start Interactor Delegate
-    
-    internal func forceUpdate() {
-        logInfo("Application must be updated!!")
-        //self.updateCoordinator.forceUpdate()
-    }
-    
-    internal func otaUpdate() {
-        logInfo("New OTA update available!")
-        //self.updateCoordinator.otaUpdate()
-    }
-    
-    internal func credentialError(message: String) {
-        log(message)
-        log("App Token you did set: \(GlobalConfig.shared.appToken)")
-    }
+//    internal func credentialError(message: String) {
+//        log(message)
+//        log("App Token you did set: \(GlobalConfig.shared.appToken)")
+//    }
     
     
     // MARK: - Update Interactor Delegate

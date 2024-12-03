@@ -12,32 +12,16 @@ struct StatusCall: Decodable {
     let status: Bool
 }
 
-struct VideoFile: Decodable {
-    let status: Bool
-    let data: ViedeoFileData
-}
-
-struct ViedeoFileData: Decodable {
-    let videoFile: VideoLocationInfo
-}
-
-struct VideoLocationInfo: Decodable {
-    let bucket: String
-    let key: String
-    let location: String
-}
-
-protocol PFeedbackService {
+protocol FeedbackServiceProtocol {
     func postFeedback(_ feedback: Feedback) async throws
     func postVideoFeedback(inputFeedback: Feedback) async throws
 }
 
-class FeedbackService: PFeedbackService {
+class FeedbackService: FeedbackServiceProtocol {
 	
 	let app: AppProtocol
 	let device: DeviceProtocol
 	let config: GlobalConfig
-	var request: Request?
     
     private let client: APIClientProtocol
 	
@@ -81,7 +65,6 @@ class FeedbackService: PFeedbackService {
         
         let endpoint: AppliveryEndpoint = .feedback(feedbackData)
         
-        self.setBatteryInfo()
         self.device.disableBatteryMonitoring()
         
         Task {
@@ -99,17 +82,17 @@ class FeedbackService: PFeedbackService {
 	
 	// MARK: - Private Helpers
 	
-	private func setBatteryInfo() {
-		guard
-			let batteryState = self.device.batteryState(),
-			var deviceInfo = self.request?.bodyParams["deviceInfo"] as? [String: Any],
-			var device = deviceInfo["device"] as? [String: Any]
-			else { return }
-		
-		device.updateValue(self.device.batteryLevel(), forKey: "battery")
-		device.updateValue(batteryState, forKey: "batteryStatus")
-		deviceInfo.updateValue(device, forKey: "device")
-		_ = self.request?.bodyParams.updateValue(deviceInfo, forKey: "deviceInfo")
-	}
+//	private func setBatteryInfo() {
+//		guard
+//			let batteryState = self.device.batteryState(),
+//			var deviceInfo = self.request?.bodyParams["deviceInfo"] as? [String: Any],
+//			var device = deviceInfo["device"] as? [String: Any]
+//			else { return }
+//		
+//		device.updateValue(self.device.batteryLevel(), forKey: "battery")
+//		device.updateValue(batteryState, forKey: "batteryStatus")
+//		deviceInfo.updateValue(device, forKey: "device")
+//		_ = self.request?.bodyParams.updateValue(deviceInfo, forKey: "deviceInfo")
+//	}
 	
 }

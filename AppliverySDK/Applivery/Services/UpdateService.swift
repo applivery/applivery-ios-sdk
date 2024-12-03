@@ -107,6 +107,7 @@ final class UpdateService: UpdateServiceProtocol {
         
         logInfo("Checking if app version: \(version) is older than minVersion: \(minVersion)")
         if self.isOlder(version, minVersion: minVersion) {
+            logInfo("Application must be updated!!")
             return true
         }
         
@@ -122,6 +123,7 @@ final class UpdateService: UpdateServiceProtocol {
         
         logInfo("Checking if app version: \(version) is older than last build version: \(lastVersion)")
         if self.isOlder(version, minVersion: lastVersion) {
+            logInfo("New OTA update available!")
             return true
         }
 		return false
@@ -131,7 +133,6 @@ final class UpdateService: UpdateServiceProtocol {
 private extension UpdateService {
     func download(with config: SDKData) {
         guard let lastBuildId = config.lastBuildId else {
-//            self.output?.downloadDidFail(literal(.errorUnexpected) ?? localize("Last build id not found"))
             return
         }
 
@@ -139,11 +140,9 @@ private extension UpdateService {
             if let url = await downloadService.downloadURL(lastBuildId) {
                 await MainActor.run {
                     if app.openUrl(url) {
-                        //output?.downloadDidEnd()
                     } else {
                         let error = NSError.appliveryError(literal(.errorDownloadURL))
                         logError(error)
-                        //output?.downloadDidFail(error.message())
                     }
                 }
             } else {

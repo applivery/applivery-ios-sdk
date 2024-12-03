@@ -17,9 +17,8 @@ protocol StartInteractorOutput {
 }
 
 class StartInteractor {
-    
-    var output: StartInteractorOutput!
-    
+        
+    private let app: AppProtocol
     private let configService: ConfigServiceProtocol
     private let globalConfig: GlobalConfig
     private let eventDetector: EventDetector
@@ -29,12 +28,14 @@ class StartInteractor {
     // MARK: Initializers
     
     init(
+        app: AppProtocol = App(),
         configService: ConfigServiceProtocol = ConfigService(),
         globalConfig: GlobalConfig = GlobalConfig.shared,
         eventDetector: EventDetector = ScreenshotDetector(),
         sessionPersister: SessionPersister = SessionPersister(userDefaults: UserDefaults.standard),
         updateService: UpdateServiceProtocol = UpdateService()
     ) {
+        self.app = app
         self.configService = configService
         self.globalConfig = globalConfig
         self.eventDetector = eventDetector
@@ -49,9 +50,9 @@ class StartInteractor {
         logInfo("Applivery is starting... ")
         logInfo("SDK Version: \(GlobalConfig.shared.app.getSDKVersion())")
         guard !self.globalConfig.appToken.isEmpty else {
-            return self.output.credentialError(message: kLocaleErrorEmptyCredentials)
+            return //self.output.credentialError(message: kLocaleErrorEmptyCredentials)
         }
-        self.eventDetector.listenEvent(self.output.feedbackEvent)
+        self.eventDetector.listenEvent(app.presentFeedbackForm)
         self.updateConfig()
     }
     
@@ -71,7 +72,7 @@ class StartInteractor {
                 let updateConfig = try await configService.updateConfig()
                 self.checkUpdate(for: updateConfig)
             } catch {
-                self.output.credentialError(message: "Credentials are invalid.")
+                //self.output.credentialError(message: "Credentials are invalid.")
                 let currentConfig = self.configService.getCurrentConfig()
                 self.checkUpdate(for: currentConfig)
             }

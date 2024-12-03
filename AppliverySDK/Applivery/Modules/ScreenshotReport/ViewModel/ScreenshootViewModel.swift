@@ -32,11 +32,11 @@ final class ScreenshootViewModel: ObservableObject {
     @Published var isReportSended: ReportRequestState = .idle
     @Published var isAlertPresented: Bool = false
     
-    private let feedbackService: PFeedbackService
+    private let feedbackService: FeedbackServiceProtocol
     private let sessionPersister: SessionPersister
     
     init(
-        feedbackService: PFeedbackService = FeedbackService(
+        feedbackService: FeedbackServiceProtocol = FeedbackService(
             app: App(),
             device: Device(),
             config: GlobalConfig.shared
