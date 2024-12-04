@@ -33,6 +33,7 @@ final class APIClient: APIClientProtocol {
             throw APIError.invalidResponse
         }
         
+        logInfo("STATUS CODE: \(httpResponse.statusCode)")
         data.prettyPrintedJSON()
         
         switch httpResponse.statusCode {
@@ -61,6 +62,7 @@ final class APIClient: APIClientProtocol {
             throw APIError.statusCode(httpResponse.statusCode)
         }
         
+        logInfo("STATUS CODE: \(httpResponse.statusCode)")
         data.prettyPrintedJSON()
     }
 }
@@ -70,9 +72,9 @@ extension Data {
         if let jsonObject = try? JSONSerialization.jsonObject(with: self, options: []),
            let prettyPrintedData = try? JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted),
            let prettyJSONString = String(data: prettyPrintedData, encoding: .utf8) {
-            print("- RESPONSE: \n \(prettyJSONString)")
+            logInfo("- RESPONSE: \n \(prettyJSONString)")
         } else {
-            print(String(data: self, encoding: .utf8) ?? "")
+            logInfo(String(data: self, encoding: .utf8) ?? "")
         }
     }
 }

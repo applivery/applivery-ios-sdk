@@ -8,7 +8,12 @@
 
 import Foundation
 struct RedirectInfo: Decodable {
-    let url: String
+    let status: Bool
+    let data: RedirectInfoData
+}
+
+struct RedirectInfoData: Decodable {
+    let redirectUrl: String
 }
 
 struct LoginData: Encodable {
@@ -46,18 +51,21 @@ final class LoginRepository: LoginRepositoryProtocol {
     }
 	
     func login(loginData: LoginData) async throws -> AccessToken {
+        logInfo("Logging in...")
         let endpoint: AppliveryEndpoint = .login(loginData)
         let accessToken: AccessToken = try await client.fetch(endpoint: endpoint)
         return accessToken
     }
     
     func getRedirctURL() async throws -> URL? {
+        logInfo("Getting redirect URL...")
         let endpoint: AppliveryEndpoint = .redirect
         let url: RedirectInfo = try await client.fetch(endpoint: endpoint)
-        return URL(string: url.url)
+        return URL(string: url.data.redirectUrl)
     }
     
     func bind(user: User) async throws -> AccessToken {
+        logInfo("Binding user...")
         let endpoint: AppliveryEndpoint = .bind(user)
         let accessToken: AccessToken = try await client.fetch(endpoint: endpoint)
         return accessToken

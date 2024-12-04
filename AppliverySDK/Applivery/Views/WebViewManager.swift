@@ -7,10 +7,17 @@
 
 
 import UIKit
+import Combine
 @preconcurrency import WebKit
 
 final class WebViewManager: NSObject {
     private var webView: WKWebView?
+    
+    private let tokenSubject = CurrentValueSubject<String?, Never>(nil)
+    
+    var tokenPublisher: AnyPublisher<String?, Never> {
+        return tokenSubject.eraseToAnyPublisher()
+    }
     
     func showWebView(url: URL) {
         guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else {
@@ -18,7 +25,10 @@ final class WebViewManager: NSObject {
             return
         }
         
-        let webView = WKWebView(frame: window.bounds)
+        let configuration = WKWebViewConfiguration()
+        configuration.websiteDataStore = WKWebsiteDataStore.nonPersistent()
+        let webView = WKWebView(frame: window.bounds, configuration: configuration)
+        
         webView.navigationDelegate = self
         webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         window.addSubview(webView)
@@ -26,37 +36,47 @@ final class WebViewManager: NSObject {
         let request = URLRequest(url: url)
         webView.load(request)
         
-        let closeButton = UIButton(type: .system)
-        closeButton.frame = CGRect(x: 16, y: 44, width: 60, height: 40)
-        closeButton.setTitle("Close", for: .normal)
-        closeButton.addTarget(self, action: #selector(closeWebView), for: .touchUpInside)
-        webView.addSubview(closeButton)
-        
         self.webView = webView
     }
     
-    @objc private func closeWebView() {
+    func closeWebView() {
+        logInfo("Closing web view..")
         webView?.removeFromSuperview()
         webView = nil
     }
 }
 
 extension WebViewManager: WKNavigationDelegate {
-    // Called before navigation starts
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction,
                  decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if let newURL = navigationAction.request.url {
             print("Will navigate to URL: \(newURL)")
-            // You can perform actions based on the new URL here
+            if newURL.absoluteString.contains("success") {
+                getAuthToken(redirectUrl: newURL.absoluteString)
+            } else {
+                
+            }
         }
-        decisionHandler(.allow)  // Allow the navigation to proceed
+        decisionHandler(.allow)
     }
     
-    // Called after navigation finishes
+    
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         if let currentURL = webView.url {
             print("Did finish navigating to URL: \(currentURL)")
-            // You can perform actions based on the current URL here
+        }
+    }
+    
+    func getAuthToken(redirectUrl: String) {
+        if let urlComponents = URLComponents(string: redirectUrl),
+           let queryItems = urlComponents.queryItems {
+            if let bearerValue = queryItems.first(where: { $0.name == "bearer" })?.value {
+                tokenSubject.send(bearerValue)
+                logInfo("Auth success the bearer is: \(bearerValue)")
+                closeWebView()
+            } else {
+                tokenSubject.send(nil)
+            }
         }
     }
 }

@@ -58,24 +58,32 @@ final class LoginService: LoginServiceProtocol {
     
     func login(loginData: LoginData) async {
         do {
+            logInfo("Logging in...")
             let accessToken: AccessToken = try await loginRepository.login(loginData: loginData)
             store(accessToken: accessToken, userName: loginData.payload.user)
+        } catch APIError.statusCode(let errorCode) {
+            if errorCode == 401 {
+                log("Access token is not available. Opening auth web view...")
+                await openAuthWebView()
+            }
         } catch {
-            log("Access token is not available. Opening auth web view...")
-            await openAuthWebView()
+            log("Access token is not available. \(error)")
         }
     }
     
     func openAuthWebView() async {
         do {
+            logInfo("Opening auth web view...")
             let redirectURL = try await loginRepository.getRedirctURL()
             if let url = redirectURL {
                 webViewManager.showWebView(url: url)
             }
         } catch {
             log("Error obtaining redirect URL: \(error.localizedDescription)")
+            await MainActor.run {
+                app.showErrorAlert("Error obtaining redirect URL: \(error)", retryHandler: {})
+            }
         }
-        
     }
     
     func bind(user: User) async throws -> AccessToken {
@@ -104,9 +112,8 @@ final class LoginService: LoginServiceProtocol {
                 }
             } else {
                 let error = NSError.appliveryError(literal(.errorDownloadURL))
-                await MainActor.run {
-                    app.showErrorAlert(error.message(), retryHandler: {})
-                }
+                logError(error)
+                await openAuthWebView()
             }
         }
     }

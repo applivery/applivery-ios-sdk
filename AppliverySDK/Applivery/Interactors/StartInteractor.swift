@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import Combine
 
 protocol StartInteractorOutput {
     func forceUpdate()
@@ -24,6 +24,9 @@ class StartInteractor {
     private let eventDetector: EventDetector
     private let sessionPersister: SessionPersister
     private let updateService: UpdateServiceProtocol
+    private let webViewManager: WebViewManager
+    private let loginRepository: LoginRepositoryProtocol
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: Initializers
     
@@ -33,7 +36,9 @@ class StartInteractor {
         globalConfig: GlobalConfig = GlobalConfig.shared,
         eventDetector: EventDetector = ScreenshotDetector(),
         sessionPersister: SessionPersister = SessionPersister(userDefaults: UserDefaults.standard),
-        updateService: UpdateServiceProtocol = UpdateService()
+        updateService: UpdateServiceProtocol = UpdateService(),
+        webViewManager: WebViewManager = WebViewManager(),
+        loginRepository: LoginRepositoryProtocol = LoginRepository()
     ) {
         self.app = app
         self.configService = configService
@@ -41,6 +46,8 @@ class StartInteractor {
         self.eventDetector = eventDetector
         self.sessionPersister = sessionPersister
         self.updateService = updateService
+        self.webViewManager = webViewManager
+        self.loginRepository = loginRepository
     }
     
     
@@ -49,8 +56,10 @@ class StartInteractor {
     func start() {
         logInfo("Applivery is starting... ")
         logInfo("SDK Version: \(GlobalConfig.shared.app.getSDKVersion())")
+        setupBindings()
         guard !self.globalConfig.appToken.isEmpty else {
-            return //self.output.credentialError(message: kLocaleErrorEmptyCredentials)
+            logInfo("App token is empty")
+            return
         }
         self.eventDetector.listenEvent(app.presentFeedbackForm)
         self.updateConfig()
@@ -67,19 +76,36 @@ class StartInteractor {
     
     private func updateConfig() {
         self.globalConfig.accessToken = self.sessionPersister.loadAccessToken()
+        
         Task {
             do {
                 let updateConfig = try await configService.updateConfig()
                 self.checkUpdate(for: updateConfig)
-            } catch {
-                //self.output.credentialError(message: "Credentials are invalid.")
-                let currentConfig = self.configService.getCurrentConfig()
-                self.checkUpdate(for: currentConfig)
+            } catch APIError.statusCode(let statusCode) {
+                if statusCode == 401 {
+                    await openAuthWebView()
+                } else {
+                    let currentConfig = self.configService.getCurrentConfig()
+                    self.checkUpdate(for: currentConfig)
+                }
             }
         }
     }
     
-    private func checkUpdate(for updateConfig: UpdateConfigResponse) {
+}
+
+private extension StartInteractor {
+    
+    func setupBindings() {
+        webViewManager.tokenPublisher.sink { token in
+            guard let token else { return }
+            self.sessionPersister.save(accessToken: .init(token: token))
+            self.updateConfig()
+        }
+        .store(in: &cancellables)
+    }
+    
+    func checkUpdate(for updateConfig: UpdateConfigResponse) {
         if self.updateService.checkForceUpdate(updateConfig.config, version: updateConfig.version) {
             updateService.forceUpdate()
         } else if self.updateService.checkOtaUpdate(updateConfig.config, version: updateConfig.version) {
@@ -87,4 +113,20 @@ class StartInteractor {
         }
     }
     
+    func openAuthWebView() async {
+        do {
+            logInfo("Opening auth web view...")
+            let redirectURL = try await loginRepository.getRedirctURL()
+            await MainActor.run {
+                if let url = redirectURL {
+                    webViewManager.showWebView(url: url)
+                }
+            }
+        } catch {
+            log("Error obtaining redirect URL: \(error.localizedDescription)")
+            await MainActor.run {
+                app.showErrorAlert("Error obtaining redirect URL: \(error)", retryHandler: {})
+            }
+        }
+    }
 }

@@ -120,7 +120,10 @@ final class UpdateService: UpdateServiceProtocol {
             let lastVersion = config?.lastBuildVersion,
             let otaUpdate = config?.ota,
             otaUpdate
-            else { return false}
+        else {
+            logInfo("ota update is false")
+            return false
+        }
         
         logInfo("Checking if app version: \(version) is older than last build version: \(lastVersion)")
         if self.isOlder(version, minVersion: lastVersion) {
@@ -148,10 +151,7 @@ private extension UpdateService {
                 }
             } else {
                 let error = NSError.appliveryError(literal(.errorDownloadURL))
-                // Update UI on the main thread
-                await MainActor.run {
-                    //output?.downloadDidFail(error.localizedDescription)
-                }
+                logError(error)
             }
         }
     }
