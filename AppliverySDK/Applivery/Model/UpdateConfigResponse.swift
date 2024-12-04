@@ -9,4 +9,5 @@
 struct UpdateConfigResponse {
     let config: SDKData?
 	let version: String
+    let bundleVersion: String
 }

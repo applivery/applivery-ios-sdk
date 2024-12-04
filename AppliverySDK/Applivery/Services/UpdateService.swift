@@ -46,17 +46,19 @@ final class UpdateService: UpdateServiceProtocol {
     func forceUpdate() {
         guard !forceUpdateCalled else { return }
         forceUpdateCalled = true
-        self.app.showForceUpdate()
+        DispatchQueue.main.async { [weak self] in
+            self?.app.showForceUpdate()
+        }
     }
     
     func otaUpdate() {
         let message = otaUpdateMessage()
-        
-        self.app.waitForReadyThen {
-            self.app.showOtaAlert(message) {
-                self.downloadLastBuild()
+        DispatchQueue.main.async { [weak self] in
+            self?.app.showOtaAlert(message) {
+                self?.downloadLastBuild()
             }
         }
+        
     }
 	
 	func forceUpdateMessage() -> String {
@@ -84,6 +86,7 @@ final class UpdateService: UpdateServiceProtocol {
 	
 	func downloadLastBuild() {
         guard let config = self.configService.getCurrentConfig().config else {
+            logInfo("No current config found")
             return
 		}
 		

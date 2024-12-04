@@ -108,7 +108,7 @@ private extension StartInteractor {
     func checkUpdate(for updateConfig: UpdateConfigResponse) {
         if self.updateService.checkForceUpdate(updateConfig.config, version: updateConfig.version) {
             updateService.forceUpdate()
-        } else if self.updateService.checkOtaUpdate(updateConfig.config, version: updateConfig.version) {
+        } else if self.updateService.checkOtaUpdate(updateConfig.config, version: updateConfig.bundleVersion) {
             updateService.otaUpdate()
         }
     }

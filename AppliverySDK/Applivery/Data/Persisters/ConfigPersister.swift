@@ -45,7 +45,6 @@ class ConfigPersister: NSObject {
     func getConfig() -> SDKData? {
         
 		guard
-			let minVersion			= self.userDefaults.value(forKey: kMinVersionKey)		as? String,
 			let forceUpdate			= self.userDefaults.value(forKey: kForceUpdateKey)		as? Bool,
 			let lastBuildId			= self.userDefaults.value(forKey: kLastBuildId)			as? String,
 			let otaUpdate			= self.userDefaults.value(forKey: kOtaUpdateKey)		as? Bool,
@@ -53,14 +52,14 @@ class ConfigPersister: NSObject {
 			else { return nil }
 
         let sdkData = SDKData(
-            minVersion: minVersion,
+            minVersion: self.userDefaults.value(forKey: kMinVersionKey) as? String ?? "",
             forceUpdate: forceUpdate,
             lastBuildId: lastBuildId,
-            mustUpdateMsg: self.userDefaults.value(forKey: kForceUpdateMessageKey)    as? String,
+            mustUpdateMsg: self.userDefaults.value(forKey: kForceUpdateMessageKey) as? String ?? "",
             ota: otaUpdate,
             lastBuildVersion: lastBuildVersion,
-            updateMsg: self.userDefaults.value(forKey: kForceUpdateMessageKey) as? String,
-            forceAuth: self.userDefaults.value(forKey: kForceAuth)                as? Bool ?? false
+            updateMsg: self.userDefaults.value(forKey: kForceUpdateMessageKey) as? String ?? "",
+            forceAuth: self.userDefaults.value(forKey: kForceAuth) as? Bool ?? false
         )
 
 		return sdkData

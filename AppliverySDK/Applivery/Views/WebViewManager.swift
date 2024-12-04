@@ -12,9 +12,14 @@ import Combine
 
 final class WebViewManager: NSObject {
     private var webView: WKWebView?
+    private let app: AppProtocol
+    
+    init(webView: WKWebView? = nil, app: AppProtocol = App()) {
+        self.webView = webView
+        self.app = app
+    }
     
     private let tokenSubject = CurrentValueSubject<String?, Never>(nil)
-    
     var tokenPublisher: AnyPublisher<String?, Never> {
         return tokenSubject.eraseToAnyPublisher()
     }
