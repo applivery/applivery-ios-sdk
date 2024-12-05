@@ -10,7 +10,11 @@ import UIKit
 import Combine
 @preconcurrency import WebKit
 
-final class WebViewManager: NSObject {
+protocol WebViewManagerProtocol {
+    func showWebView(url: URL)
+}
+
+final class WebViewManager: NSObject, WebViewManagerProtocol {
     private var webView: WKWebView?
     private let app: AppProtocol
     

@@ -112,7 +112,7 @@ class RecordingViewController: UIViewController {
     }
     
     func presentActionSheet() {
-        actionSheet = UIAlertController(title: "Applivery SDK", message: "Powered by Applivery", preferredStyle: .actionSheet)
+        actionSheet = UIAlertController()
         
         let screenshotAction = UIAlertAction(title: localize("sheet_screenshoot_action"), style: .default) { _ in
             ScreenRecorderManager.shared.presentPreviewWithScreenshoot()

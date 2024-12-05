@@ -25,7 +25,7 @@ class StartInteractor {
     private let sessionPersister: SessionPersister
     private let updateService: UpdateServiceProtocol
     private let webViewManager: WebViewManager
-    private let loginRepository: LoginRepositoryProtocol
+    private let loginService: LoginServiceProtocol
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: Initializers
@@ -38,7 +38,7 @@ class StartInteractor {
         sessionPersister: SessionPersister = SessionPersister(userDefaults: UserDefaults.standard),
         updateService: UpdateServiceProtocol = UpdateService(),
         webViewManager: WebViewManager = WebViewManager(),
-        loginRepository: LoginRepositoryProtocol = LoginRepository()
+        loginService: LoginServiceProtocol = LoginService()
     ) {
         self.app = app
         self.configService = configService
@@ -47,7 +47,7 @@ class StartInteractor {
         self.sessionPersister = sessionPersister
         self.updateService = updateService
         self.webViewManager = webViewManager
-        self.loginRepository = loginRepository
+        self.loginService = loginService
     }
     
     
@@ -116,7 +116,7 @@ private extension StartInteractor {
     func openAuthWebView() async {
         do {
             logInfo("Opening auth web view...")
-            let redirectURL = try await loginRepository.getRedirctURL()
+            let redirectURL = try await loginService.getRedirectURL()
             await MainActor.run {
                 if let url = redirectURL {
                     webViewManager.showWebView(url: url)

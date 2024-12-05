@@ -12,6 +12,7 @@ protocol LoginServiceProtocol {
     func login(loginData: LoginData) async throws
     func bind(user: User) async throws -> AccessToken
     func unbindUser()
+    func getRedirectURL() async throws -> URL?
     func requestAuthorization()
     func download()
 }
@@ -69,6 +70,10 @@ final class LoginService: LoginServiceProtocol {
         } catch {
             log("Access token is not available. \(error)")
         }
+    }
+    
+    func getRedirectURL() async throws -> URL? {
+        return try await loginRepository.getRedirctURL()
     }
     
     func openAuthWebView() async {
