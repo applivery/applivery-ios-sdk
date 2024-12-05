@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 // Wrapper for Application's operation
 
@@ -25,6 +26,7 @@ protocol AppProtocol {
 	func showErrorAlert(_ message: String, retryHandler: @escaping () -> Void)
 	func waitForReadyThen(_ onReady: @escaping () -> Void)
 	func presentModal(_ viewController: UIViewController, animated: Bool)
+    func presentFeedbackForm()
 	func showLoginView(message: String, cancelHandler: @escaping () -> Void, loginHandler: @escaping (_ user: String, _ password: String) -> Void)
 }
 
@@ -126,17 +128,11 @@ class App: AppProtocol {
 	}
     
     func showForceUpdate() {
-        if let updateVC = UpdateVC.viewController() {
-            updateVC.presenter = UpdatePresenter(
-                updateInteractor: Configurator.updateInteractor(),
-                view: updateVC
-            )
-            updateVC.presenter.updateInteractor.output = updateVC.presenter
-            let navigationController = AppliveryNavigationController(rootViewController: updateVC)
-            
-            self.waitForReadyThen {
-                self.presentModal(navigationController)
-            }
+        let viewController = UIHostingController(rootView: ForceUpdateScreen())
+        let navigationController = AppliveryNavigationController(rootViewController: viewController)
+        
+        self.waitForReadyThen {
+            self.presentModal(navigationController)
         }
     }
 	
@@ -156,10 +152,24 @@ class App: AppProtocol {
 	}
 	
 	func presentModal(_ viewController: UIViewController, animated: Bool) {
-		viewController.modalPresentationStyle = .overFullScreen
+        viewController.modalPresentationStyle = .fullScreen
 		let topVC = self.topViewController()
 		topVC?.present(viewController, animated: animated, completion: nil)
 	}
+    
+    func presentFeedbackForm() {
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = scene.windows.filter({ $0 is AppliveryWindow }).first {
+            window.makeKeyAndVisible()
+            if var topController = window.rootViewController {
+                while let presentedController = topController.presentedViewController {
+                    topController = presentedController
+                }
+                let vcToPresent = topController as? RecordingViewController
+                vcToPresent?.presentActionSheet()
+            }
+        }
+    }
 	
 	func showLoginView(message: String, cancelHandler: @escaping () -> Void, loginHandler: @escaping (_ user: String, _ password: String) -> Void) {
 		var userText: UITextField?
@@ -216,14 +226,20 @@ class App: AppProtocol {
 	}
 	
 	private func topViewController() -> UIViewController? {
-		var rootVC = UIApplication.shared
-			.keyWindow?
-			.rootViewController
-		while let presentedController = rootVC?.presentedViewController {
-			rootVC = presentedController
-		}
-		
-		return rootVC
+        
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = scene.windows.first {
+            
+            if var topController = window.rootViewController {
+                while let presentedController = topController.presentedViewController {
+                    topController = presentedController
+                }
+                
+                return topController
+            }
+        }
+        
+        return nil
 	}
 	
 }

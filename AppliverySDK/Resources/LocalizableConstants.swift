@@ -57,4 +57,8 @@ public let kLocaleSdkName: String = localize("sdk_name")
 // Update
 public let kLocaleUpdateViewButtonUpdate: String = localize("update_view_button_update")
 
+// Main Sheet
+public let kLocaleSheetScreenshotAction: String = localize("sheet_screenshoot_action")
+public let kLocaleSheetRecordAction: String = localize("sheet_record_action")
+
 // swiftlint:enable identifier_name

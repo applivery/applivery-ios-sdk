@@ -9,6 +9,7 @@
 import Foundation
 
 let kAccessTokenKey = "ACCESS_TOKEN"
+let kUserNameKey = "USER_NAME"
 
 struct SessionPersister {
 	let userDefaults: UserDefaultsProtocol
@@ -22,4 +23,17 @@ struct SessionPersister {
 		let accessToken: AccessToken? = self.userDefaults.token(forKey: kAccessTokenKey)
 		return accessToken
 	}
+    
+    func saveUserName(userName: String) {
+        self.userDefaults.setValue(userName, forKey: kUserNameKey)
+    }
+    
+    func loadUserName() -> String {
+        let userName: String = userDefaults.value(forKey: kUserNameKey) as? String ?? ""
+        return userName
+    }
+    
+    func removeUser() {
+        userDefaults.setValue(nil, forKey: kUserNameKey)
+    }
 }

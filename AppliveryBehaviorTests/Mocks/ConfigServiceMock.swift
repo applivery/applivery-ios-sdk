@@ -1,21 +1,31 @@
 //
 //  ConfigServiceMock.swift
-//  AppliverySDK
+//  Applivery
 //
-//  Created by Alejandro Jiménez on 6/10/15.
-//  Copyright © 2015 Applivery S.L. All rights reserved.
+//  Created by Fran Alarza on 5/12/24.
 //
 
-import UIKit
+import Foundation
 @testable import Applivery
 
-class ConfigServiceMock: ConfigService {
-
-	var success: Bool!
-	var config: Config!
-	var error: NSError!
-
-	override func fetchConfig(_ completionHandler: @escaping (_ success: Bool, _ config: Config?, _ error: NSError?) -> Void) {
-		completionHandler(self.success, self.config, self.error)
-	}
+final class ConfigServiceMock: ConfigServiceProtocol {
+    
+    var updateConfigResponse: UpdateConfigResponse?
+    var currentConfigResponse: UpdateConfigResponse?
+    
+    func updateConfig() async throws -> UpdateConfigResponse {
+        if let response = updateConfigResponse {
+            return response
+        } else {
+            throw NSError(domain: "MockConfigServiceError", code: 1, userInfo: [NSLocalizedDescriptionKey: "No response configured for updateConfig"])
+        }
+    }
+    
+    func getCurrentConfig() -> UpdateConfigResponse {
+        if let response = currentConfigResponse {
+            return response
+        }
+        fatalError("No response configured for getCurrentConfig")
+    }
 }
+

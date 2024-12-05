@@ -16,9 +16,9 @@ enum FeedbackType: String {
 
 
 struct Feedback {
-
+    
 	let feedbackType: FeedbackType
 	let message: String
 	let screenshot: Screenshot?
-
+    let videoURL: URL?
 }

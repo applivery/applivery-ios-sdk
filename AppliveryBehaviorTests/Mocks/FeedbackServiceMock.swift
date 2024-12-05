@@ -10,18 +10,26 @@ import Foundation
 @testable import Applivery
 
 
-class FeedbackServiceMock: PFeedbackService {
+class FeedbackServiceMock: FeedbackServiceProtocol {
+    func postFeedback(_ feedback: Feedback) async throws {
+        //
+    }
+    
+    func postVideoFeedback(inputFeedback: Feedback) async throws {
+        //
+    }
+    
 
-	// Inputs
-	var inResult: Result<Bool, NSError>!
-
-	// Outputs
-	var outPostFeedback: (called: Bool, feedback: Feedback?) = (false, nil)
-
-
-	func postFeedback(_ feedback: Feedback, completionHandler: @escaping (Result<Bool, NSError>) -> Void) {
-		self.outPostFeedback = (true, feedback)
-		completionHandler(self.inResult)
-	}
+//	// Inputs
+//	var inResult: Result<Bool, NSError>!
+//
+//	// Outputs
+//	var outPostFeedback: (called: Bool, feedback: Feedback?) = (false, nil)
+//
+//
+//	func postFeedback(_ feedback: Feedback, completionHandler: @escaping (Result<Bool, NSError>) -> Void) {
+//		self.outPostFeedback = (true, feedback)
+//		completionHandler(self.inResult)
+//	}
 
 }

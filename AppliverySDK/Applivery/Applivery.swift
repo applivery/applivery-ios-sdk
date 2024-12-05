@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 /// Type of Applivery's logs you want displayed in the debug console
 @objc public enum LogLevel: Int {
@@ -47,16 +48,18 @@ import Foundation
  - Author: Alejandro Jiménez Agudo
  - Copyright: Applivery S.L.
  */
-public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput {
+public class Applivery: NSObject {
     
     // MARK: - Static Properties
     
-    internal static let sdkVersion = "3.3.1"
+    internal static let sdkVersion = "3.4.0"
     
     // MARK: - Type Properties
     
     /// Singleton instance
     @objc public static let shared = Applivery()
+    
+    var window: AppliveryWindow?
     
     // MARK: - Instance Properties
     
@@ -193,12 +196,11 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
     
     
     // MARK: - Private properties
-    internal let startInteractor: StartInteractor
-    internal var updateInteractor: PUpdateInteractor
+    private let startInteractor: StartInteractor
+    private let updateService: UpdateServiceProtocol
     private let globalConfig: GlobalConfig
-    private let updateCoordinator: PUpdateCoordinator
-    private let feedbackCoordinator: PFeedbackCoordinator
-    private let loginInteractor: LoginInteractor
+    private let loginService: LoginServiceProtocol
+    private let app: AppProtocol
     private let environments: EnvironmentProtocol
     private var isUpdating = false
     private var updateCallbackSuccess: (() -> Void)?
@@ -210,29 +212,24 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
         self.init(
             startInteractor: StartInteractor(),
             globalConfig: GlobalConfig.shared,
-            updateCoordinator: UpdateCoordinator(),
-            updateInteractor: Configurator.updateInteractor(),
-            feedbackCoordinator: FeedbackCoordinator(),
-            loginInteractor: Configurator.loginInteractor(),
+            updateService: UpdateService(),
+            loginService: LoginService(),
+            app: App(),
             environments: Environments()
         )
-        self.startInteractor.output = self
-        self.updateInteractor.output = self
     }
     
     internal init (startInteractor: StartInteractor,
                    globalConfig: GlobalConfig,
-                   updateCoordinator: PUpdateCoordinator,
-                   updateInteractor: PUpdateInteractor,
-                   feedbackCoordinator: PFeedbackCoordinator,
-                   loginInteractor: LoginInteractor,
+                   updateService: UpdateServiceProtocol,
+                   loginService: LoginServiceProtocol,
+                   app: AppProtocol,
                    environments: EnvironmentProtocol) {
         self.startInteractor = startInteractor
         self.globalConfig = globalConfig
-        self.updateCoordinator = updateCoordinator
-        self.updateInteractor = updateInteractor
-        self.feedbackCoordinator = feedbackCoordinator
-        self.loginInteractor = loginInteractor
+        self.updateService = updateService
+        self.loginService = loginService
+        self.app = app
         self.environments = environments
         self.logLevel = .info
         self.palette = Palette()
@@ -275,6 +272,12 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
         host = tenant
         hostDownload = tenant
         self.startInteractor.start()
+        showFirstWindow()
+    }
+    
+    private func showFirstWindow() {
+        window = AppliveryWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
     }
     
     /**
@@ -284,7 +287,7 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
      - Version: 3.1
      */
     @objc public func isUpToDate() -> Bool {
-        return self.updateInteractor.isUpToDate()
+        return self.updateService.isUpToDate()
     }
     
     /**
@@ -305,7 +308,7 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
         self.isUpdating = true
         self.updateCallbackSuccess = onSuccess
         self.updateCallbackError = onError
-        self.updateInteractor.downloadLastBuild()
+        self.updateService.downloadLastBuild()
     }
     
     /**
@@ -332,7 +335,9 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
             tags: compactedTags
         )
         user.log()
-        self.loginInteractor.bind(user)
+        Task {
+            try await loginService.bind(user: user)
+        }
     }
     
     /**
@@ -345,7 +350,7 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
      - Version: 3.0
      */
     @objc public func unbindUser() {
-        self.loginInteractor.unbindUser()
+        self.loginService.unbindUser()
     }
     
     /**
@@ -371,27 +376,8 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
      */
     @objc public func feedbackEvent() {
         logInfo("Presenting feedback formulary")
-        self.feedbackCoordinator.showFeedack()
+        app.presentFeedbackForm()
     }
-    
-    
-    // MARK: Start Interactor Delegate
-    
-    internal func forceUpdate() {
-        logInfo("Application must be updated!!")
-        self.updateCoordinator.forceUpdate()
-    }
-    
-    internal func otaUpdate() {
-        logInfo("New OTA update available!")
-        self.updateCoordinator.otaUpdate()
-    }
-    
-    internal func credentialError(message: String) {
-        log(message)
-        log("App Token you did set: \(GlobalConfig.shared.appToken)")
-    }
-    
     
     // MARK: - Update Interactor Delegate
     
@@ -405,5 +391,4 @@ public class Applivery: NSObject, StartInteractorOutput, UpdateInteractorOutput 
         logWarn("Update did fail: \(message)")
         self.isUpdating = false
     }
-    
 }

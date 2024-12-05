@@ -10,46 +10,4 @@ import Foundation
 
 struct Configurator {
 	
-	static func loginInteractor() -> LoginInteractor {
-		return LoginInteractor(
-			app: App(),
-			loginDataManager: LoginDataManager(
-				loginService: LoginService()
-			),
-			globalConfig: GlobalConfig.shared,
-			sessionPersister: SessionPersister(
-				userDefaults: UserDefaults.standard
-			)
-		)
-	}
-	
-	static func updateInteractor() -> UpdateInteractor {
-		return UpdateInteractor(
-			output: nil,
-			configData: ConfigDataManager(),
-			downloadData: DownloadDataManager(),
-			app: App(),
-			loginInteractor: Configurator.loginInteractor(),
-			globalConfig: GlobalConfig.shared
-		)
-	}
-	
-	static func feedbackInteractor() -> FeedbackInteractor {
-		return FeedbackInteractor(
-			service: FeedbackService(
-				app: App(),
-				device: Device(),
-				config: GlobalConfig.shared
-			),
-			configDataManager: ConfigDataManager(),
-			loginInteractor: Configurator.loginInteractor()
-		)
-	}
-	
-	static func screenshotInteractor() -> ScreenshotInteractor {
-		return ScreenshotInteractor(
-			imageManager: ImageManager()
-		)
-	}
-	
 }
