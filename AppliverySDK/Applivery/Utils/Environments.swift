@@ -41,7 +41,7 @@ final class Environments: EnvironmentProtocol {
 
     func setHost(_ tenant: String?) {
         guard let tenant = tenant else {
-            writeValue("sdk-api.s.applivery.dev", forKey: hostKey) //SANDBOX "sdk-api.s.applivery.dev"
+            writeValue("sdk-api.applivery.io", forKey: hostKey)
             return
         }
         writeValue("sdk-api.\(tenant).applivery.io", forKey: hostKey)
@@ -53,7 +53,7 @@ final class Environments: EnvironmentProtocol {
 
     func setHostDownload(_ tenant: String?) {
         guard let tenant = tenant else {
-            writeValue("download-api.s.applivery.dev", forKey: hostDownloadKey) //SANDBOX "download-api.s.applivery.dev"
+            writeValue("download-api.applivery.io", forKey: hostDownloadKey)
             return
         }
         writeValue("download-api.\(tenant).applivery.io", forKey: hostDownloadKey)
