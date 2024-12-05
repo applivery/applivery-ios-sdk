@@ -24,7 +24,6 @@ class MockAPIClient: APIClientProtocol {
         if let handler = uploadVideoHandler {
             try await handler(localFileURL, destinationURL)
         } else {
-            
             print("Mock upload successful")
         }
     }

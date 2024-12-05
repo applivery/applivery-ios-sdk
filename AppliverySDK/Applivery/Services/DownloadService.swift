@@ -16,16 +16,13 @@ protocol DownloadServiceProtocol {
 final class DownloadService: DownloadServiceProtocol {
 	
     private let client: APIClientProtocol
-    private let webView: WebViewManager
     private var globalConfig: GlobalConfig
     
     init(
         client: APIClientProtocol = APIClient(),
-        webView: WebViewManager = WebViewManager(),
         globalConfig: GlobalConfig = GlobalConfig.shared
     ) {
         self.client = client
-        self.webView = webView
         self.globalConfig = globalConfig
     }
     

@@ -61,7 +61,7 @@ class StartInteractor {
             logInfo("App token is empty")
             return
         }
-        self.eventDetector.listenEvent(app.presentFeedbackForm)
+        self.eventDetector.listenEvent(ScreenRecorderManager.shared.presentPreviewWithScreenshoot)
         self.updateConfig()
     }
     

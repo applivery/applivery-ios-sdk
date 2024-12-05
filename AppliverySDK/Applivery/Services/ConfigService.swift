@@ -2,7 +2,7 @@
 //  ConfigService.swift
 //  AppliverySDK
 //
-//  Created by Alejandro Jiménez on 6/10/15.
+//  Created by Fran Alarza on 4/12/2024.
 //  Copyright © 2015 Applivery S.L. All rights reserved.
 //
 

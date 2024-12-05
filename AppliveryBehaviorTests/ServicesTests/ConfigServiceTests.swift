@@ -12,8 +12,8 @@ struct ConfigServiceTests {
     
     let sut: ConfigService
     let client: MockAPIClient
-    let appInfo: AppProtocol
-    let configPersister: ConfigPersister
+    let appInfo: AppMock
+    let configPersister: ConfigPersisterMock
     
     init() {
         self.client = MockAPIClient()
@@ -27,23 +27,74 @@ struct ConfigServiceTests {
         )
     }
 
-    @Test func fetchConfigSuccess() async throws {
-        let expectedConfig = ConfigMockData.expectedConfig
+    @Test
+    func fetchConfigSuccess() async throws {
+        // GIVEN
+        let expectedConfig = ConfigMockData.config
         client.fetchHandler = { endpoint in
             #expect(endpoint.path == "/v1/app")
             return expectedConfig
         }
+        
+        // WHEN
         let config = try await sut.fetchConfig()
+        
+        // THEN
         #expect(config.status)
         #expect(!config.data.sdk.ios.forceAuth)
         #expect(!config.data.sdk.ios.forceUpdate)
     }
-
+    
+    @Test
+    func getCurrentConfigSuccess() async throws {
+        // GIVEN
+        let expectedConfig = ConfigMockData.config
+        configPersister.config = expectedConfig.data.sdk.ios
+        appInfo.stubVersionName = "1.0.0"
+        appInfo.stubVersion = "50"
+        
+        // WHEN
+        let currentConfig = sut.getCurrentConfig()
+        
+        // THEN
+        #expect(currentConfig.version == "1.0.0")
+        #expect(currentConfig.bundleVersion == "50")
+        #expect(currentConfig != nil)
+        #expect(!(currentConfig.config?.forceUpdate ?? false))
+        #expect(currentConfig.config?.ota ?? false)
+        #expect(currentConfig.config?.updateMsg == "Update available")
+    }
+    
+    @Test
+    func getUpdateConfigSuccess() async throws {
+        // GIVEN
+        let expectedConfig = ConfigMockData.config
+        client.fetchHandler = { endpoint in
+            #expect(endpoint.path == "/v1/app")
+            return expectedConfig
+        }
+        configPersister.config = expectedConfig.data.sdk.ios
+        appInfo.stubVersionName = "1.0.0"
+        appInfo.stubVersion = "50"
+        
+        // WHEN
+        let currentConfig = try await sut.updateConfig()
+        
+        // THEN
+        #expect(currentConfig.version == "1.0.0")
+        #expect(currentConfig.bundleVersion == "50")
+        #expect(currentConfig != nil)
+        #expect(!(currentConfig.config?.forceUpdate ?? false))
+        #expect(currentConfig.config?.ota ?? false)
+        #expect(currentConfig.config?.updateMsg == "Update available")
+        #expect(configPersister.saveCalled)
+        #expect(configPersister.config != nil)
+    }
 }
 
 struct ConfigMockData {
     
-    static let expectedConfig = Config(
+    static let config = Config(
         status: true,
         data: ConfigData(
             sdk: SDK(

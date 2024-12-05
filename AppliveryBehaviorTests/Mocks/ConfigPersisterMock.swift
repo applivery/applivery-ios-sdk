@@ -23,5 +23,6 @@ class ConfigPersisterMock: ConfigPersister {
 
 	override func saveConfig(_ config: SDKData) {
 		self.saveCalled = true
+        self.config = config
 	}
 }

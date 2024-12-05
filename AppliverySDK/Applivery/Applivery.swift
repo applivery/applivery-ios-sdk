@@ -379,12 +379,6 @@ public class Applivery: NSObject {
         app.presentFeedbackForm()
     }
     
-//    internal func credentialError(message: String) {
-//        log(message)
-//        log("App Token you did set: \(GlobalConfig.shared.appToken)")
-//    }
-    
-    
     // MARK: - Update Interactor Delegate
     
     func downloadDidEnd() {
