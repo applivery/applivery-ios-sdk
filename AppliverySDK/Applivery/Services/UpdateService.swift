@@ -124,7 +124,7 @@ final class UpdateService: UpdateServiceProtocol {
             let otaUpdate = config?.ota,
             otaUpdate
         else {
-            logInfo("ota update is false")
+            logInfo("ota update is \(String(describing: otaUpdate))")
             return false
         }
         

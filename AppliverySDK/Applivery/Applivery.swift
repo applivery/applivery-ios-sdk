@@ -379,6 +379,19 @@ public class Applivery: NSObject {
         app.presentFeedbackForm()
     }
     
+    /**
+     Handles a given redirect URL as part of the SAML authentication flow.
+     
+     When implementing SAML-based authentication, your app may receive a redirect URL
+     after the user completes their authentication on an external SAML identity provider.
+     By calling this method, you pass that redirect URL to `AppliveryWebViewManager` to
+     proceed with the final steps of the authentication flow.
+     
+     - Parameter url: The redirect `URL` returned by the SAML provider.
+     - Since: 4.1.0
+     - Version: 4.1.0
+     */
+
     public func handleRedirectURL(url: URL) {
         let webview = AppliveryWebViewManager.shared
         webview.urlReceived(url: url)

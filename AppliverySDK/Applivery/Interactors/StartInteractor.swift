@@ -58,7 +58,6 @@ class StartInteractor {
     // MARK: Internal Methods
     
     func start() {
-        try? keychain.remove(for: app.bundleId())
         logInfo("Applivery is starting... ")
         logInfo("SDK Version: \(GlobalConfig.shared.app.getSDKVersion())")
         setupBindings()
@@ -127,7 +126,8 @@ private extension StartInteractor {
             logInfo("Opening auth web view...")
             let redirectURL = try await loginService.getRedirectURL()
             await MainActor.run {
-                if let url = redirectURL, let rootViewController = UIApplication.shared.windows.first?.rootViewController  {
+                if let url = redirectURL,
+                   let rootViewController = UIApplication.shared.windows.first?.rootViewController  {
                     webViewManager.showWebView(url: url, from: rootViewController)
                 }
             }

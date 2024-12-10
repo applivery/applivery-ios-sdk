@@ -41,7 +41,6 @@ final class AppliveryWebViewManager: NSObject, AppliveryWebViewManagerProtocol {
     
     func urlReceived(url: URL) {
         if let token = getTokenfromURL(url: url) {
-            logInfo("Token: \(token)")
             closeWebView()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
                 self?.tokenSubject.send(token)
@@ -52,7 +51,6 @@ final class AppliveryWebViewManager: NSObject, AppliveryWebViewManagerProtocol {
 
 extension AppliveryWebViewManager: SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        // El usuario cerró el safari manualmente
         tokenSubject.send(nil)
         safariViewController = nil
     }
@@ -62,7 +60,6 @@ private extension AppliveryWebViewManager {
     func getTokenfromURL(url: URL) -> String? {
         if let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
            let bearer = components.queryItems?.first(where: { $0.name == "bearer" })?.value {
-            logInfo("Bearer: \(bearer)")
             return bearer
         }
         return nil
