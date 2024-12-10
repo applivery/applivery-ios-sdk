@@ -379,6 +379,11 @@ public class Applivery: NSObject {
         app.presentFeedbackForm()
     }
     
+    public func handleRedirectURL(url: URL) {
+        let webview = AppliveryWebViewManager.shared
+        webview.urlReceived(url: url)
+    }
+    
     // MARK: - Update Interactor Delegate
     
     func downloadDidEnd() {

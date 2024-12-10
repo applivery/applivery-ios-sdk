@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import UIKit
 
 protocol StartInteractorOutput {
     func forceUpdate()
@@ -25,7 +26,7 @@ class StartInteractor {
     private let sessionPersister: SessionPersister
     private let keychain: KeychainAccessible
     private let updateService: UpdateServiceProtocol
-    private let webViewManager: WebViewManager
+    private let webViewManager: AppliveryWebViewManagerProtocol
     private let loginService: LoginServiceProtocol
     private var cancellables = Set<AnyCancellable>()
     
@@ -39,7 +40,7 @@ class StartInteractor {
         sessionPersister: SessionPersister = SessionPersister(userDefaults: UserDefaults.standard),
         keychain: KeychainAccessible = Keychain(),
         updateService: UpdateServiceProtocol = UpdateService(),
-        webViewManager: WebViewManager = WebViewManager(),
+        webViewManager: AppliveryWebViewManagerProtocol = AppliveryWebViewManager.shared,
         loginService: LoginServiceProtocol = LoginService()
     ) {
         self.app = app
@@ -126,8 +127,8 @@ private extension StartInteractor {
             logInfo("Opening auth web view...")
             let redirectURL = try await loginService.getRedirectURL()
             await MainActor.run {
-                if let url = redirectURL {
-                    webViewManager.showWebView(url: url)
+                if let url = redirectURL, let rootViewController = UIApplication.shared.windows.first?.rootViewController  {
+                    webViewManager.showWebView(url: url, from: rootViewController)
                 }
             }
         } catch {
