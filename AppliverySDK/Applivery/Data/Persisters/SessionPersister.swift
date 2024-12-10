@@ -7,9 +7,17 @@
 //
 
 import Foundation
+import Security
 
 let kAccessTokenKey = "ACCESS_TOKEN"
 let kUserNameKey = "USER_NAME"
+
+enum KeychainError: Error {
+    case unexpectedPasswordData
+    case unhandledError(status: OSStatus)
+    case itemNotFound
+}
+
 
 struct SessionPersister {
 	let userDefaults: UserDefaultsProtocol

@@ -23,6 +23,7 @@ class StartInteractor {
     private let globalConfig: GlobalConfig
     private let eventDetector: EventDetector
     private let sessionPersister: SessionPersister
+    private let keychain: KeychainAccessible
     private let updateService: UpdateServiceProtocol
     private let webViewManager: WebViewManager
     private let loginService: LoginServiceProtocol
@@ -36,6 +37,7 @@ class StartInteractor {
         globalConfig: GlobalConfig = GlobalConfig.shared,
         eventDetector: EventDetector = ScreenshotDetector(),
         sessionPersister: SessionPersister = SessionPersister(userDefaults: UserDefaults.standard),
+        keychain: KeychainAccessible = Keychain(),
         updateService: UpdateServiceProtocol = UpdateService(),
         webViewManager: WebViewManager = WebViewManager(),
         loginService: LoginServiceProtocol = LoginService()
@@ -45,6 +47,7 @@ class StartInteractor {
         self.globalConfig = globalConfig
         self.eventDetector = eventDetector
         self.sessionPersister = sessionPersister
+        self.keychain = keychain
         self.updateService = updateService
         self.webViewManager = webViewManager
         self.loginService = loginService
@@ -54,6 +57,7 @@ class StartInteractor {
     // MARK: Internal Methods
     
     func start() {
+        try? keychain.remove(for: app.bundleId())
         logInfo("Applivery is starting... ")
         logInfo("SDK Version: \(GlobalConfig.shared.app.getSDKVersion())")
         setupBindings()
@@ -75,7 +79,7 @@ class StartInteractor {
     // MARK: Private Methods
     
     private func updateConfig() {
-        self.globalConfig.accessToken = self.sessionPersister.loadAccessToken()
+        self.globalConfig.accessToken = .init(token: try? keychain.retrieve(for: app.bundleId()))
         
         Task {
             do {
@@ -99,8 +103,12 @@ private extension StartInteractor {
     func setupBindings() {
         webViewManager.tokenPublisher.sink { token in
             guard let token else { return }
-            self.sessionPersister.save(accessToken: .init(token: token))
-            self.updateConfig()
+            do {
+                try self.keychain.store(token, for: self.app.bundleId())
+                self.updateConfig()
+            } catch {
+                logError(error as NSError)
+            }
         }
         .store(in: &cancellables)
     }
