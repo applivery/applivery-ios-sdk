@@ -1,6 +1,7 @@
 ![Applivery Logo](https://www.applivery.com/wp-content/uploads/2019/06/applivery-og.png)
 
-![Version](https://img.shields.io/badge/version-3.4.0-blue.svg)
+![Version](https://img.shields.io/badge/version-4.1.0-blue.svg)
+![Minimum iOS Version](https://img.shields.io/badge/iOS-15.0%2B-blue.svg)
 ![Language](https://img.shields.io/badge/Language-Swift-orange.svg)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Applivery.svg)](https://cocoapods.org/pods/Applivery)
@@ -11,8 +12,7 @@
 
 [![Swift](https://github.com/applivery/applivery-ios-sdk/actions/workflows/swift.yml/badge.svg?branch=master)](https://github.com/applivery/applivery-ios-sdk/actions/workflows/swift.yml)
 [![codecov](https://codecov.io/gh/applivery/applivery-ios-sdk/branch/develop/graph/badge.svg)](https://codecov.io/gh/applivery/applivery-ios-sdk)
-[![codebeat badge](https://codebeat.co/badges/c5895172-0986-4905-8e6f-38dccb63a059)](https://codebeat.co/projects/github-com-applivery-applivery-ios-sdk-master)
-[![BCH compliance](https://bettercodehub.com/edge/badge/applivery/applivery-ios-sdk)](https://bettercodehub.com/)
+
 
 ### Table of Contents
 
@@ -230,6 +230,9 @@ The compatibility version is as follow:
 | **v3.2**          | 12.x           | 5.x           |
 | **v3.3**          | 13.x           | 5.X           |
 | **v3.4**          | 13.x           | 5.X           |
+| **v4.0**          | 13.x           | 5.X           |
+| **v4.0.x**        | 13.x           | 5.X           |
+
 
 # Advanced concepts
 
@@ -438,5 +441,44 @@ applivery.start(token: appToken, tenant: "YOUR_TENANT")
 - **`token`**: Your Applivery APP token (required).
 - **`tenant`**: Your Applivery tenant ID (optional).  
   If you do not specify a value for the `tenant` parameter, the SDK will use the default Applivery host.
+  
+Below is an updated README section including instructions on how to configure a custom host and handle redirect URLs within your iOS app using the Applivery SDK.
+
+# Handling SAML Redirect URLs
+
+When integrating SAML authentication, your app may receive a redirect URL once the user completes the authentication with the SAML Identity Provider. The Applivery SDK provides a method to handle this redirect and proceed with the authentication flow.
+
+## Step 1: Configure the URL Scheme
+
+1. Open your app's `Info.plist` file.
+2. Add a new `URL Type` entry.
+3. Set the **URL Schemes** field to the scheme your SAML provider uses to redirect back to your app with `applivery` in `URL Schemes` field.
+
+The `Info.plist` snippet might look like this:
 
 
+## Step 2: Handling the Redirect URL in AppDelegate (iOS 12 and earlier, or if Scenes are not used)
+
+Implement the following method in your `AppDelegate`:
+
+```swift
+func application(_ app: UIApplication,
+                 open url: URL,
+                 options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+    // Pass the URL to the Applivery SDK handler
+    Applivery.shared.handleRedirectURL(url: url)
+    return true
+}
+```
+
+## Step 3: Handling the Redirect URL in SceneDelegate (iOS 13+)
+
+If your project uses SceneDelegate, you should implement the URL handling here:
+
+```swift
+func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+    guard let url = URLContexts.first?.url else { return }
+    // Pass the URL to the Applivery SDK handler
+    Applivery.shared.handleRedirectURL(url: url)
+}
+```
