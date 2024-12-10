@@ -62,7 +62,7 @@ You can get your API TOKEN in your `App -> Settings -> API Auth` section.
 
 In the Xcode menu, you just need to open “File -> Add Packages...” and enter the Github url: https://github.com/applivery/applivery-ios-sdk.git
 
-then we recommend to configure the dependency rule as "Up to next major version" (3.3.0 < 4.0.0).
+then we recommend to configure the dependency rule as "Up to next major version" (4.0.0 < 5.0.0).
 
 At this point, you should choose **one** of the following sdk versions:
 
@@ -450,12 +450,9 @@ When integrating SAML authentication, your app may receive a redirect URL once t
 
 ## Step 1: Configure the URL Scheme
 
-1. Open your app's `Info.plist` file.
+1. Open your app's `Info` section > URL Types.
 2. Add a new `URL Type` entry.
 3. Set the **URL Schemes** field to the scheme your SAML provider uses to redirect back to your app with `applivery` in `URL Schemes` field.
-
-The `Info.plist` snippet might look like this:
-
 
 ## Step 2: Handling the Redirect URL in AppDelegate (iOS 12 and earlier, or if Scenes are not used)
 
