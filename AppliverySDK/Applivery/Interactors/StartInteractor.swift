@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import UIKit
 
 protocol StartInteractorOutput {
     func forceUpdate()
@@ -23,8 +24,9 @@ class StartInteractor {
     private let globalConfig: GlobalConfig
     private let eventDetector: EventDetector
     private let sessionPersister: SessionPersister
+    private let keychain: KeychainAccessible
     private let updateService: UpdateServiceProtocol
-    private let webViewManager: WebViewManager
+    private let webViewManager: AppliveryWebViewManagerProtocol
     private let loginService: LoginServiceProtocol
     private var cancellables = Set<AnyCancellable>()
     
@@ -36,8 +38,9 @@ class StartInteractor {
         globalConfig: GlobalConfig = GlobalConfig.shared,
         eventDetector: EventDetector = ScreenshotDetector(),
         sessionPersister: SessionPersister = SessionPersister(userDefaults: UserDefaults.standard),
+        keychain: KeychainAccessible = Keychain(),
         updateService: UpdateServiceProtocol = UpdateService(),
-        webViewManager: WebViewManager = WebViewManager(),
+        webViewManager: AppliveryWebViewManagerProtocol = AppliveryWebViewManager.shared,
         loginService: LoginServiceProtocol = LoginService()
     ) {
         self.app = app
@@ -45,6 +48,7 @@ class StartInteractor {
         self.globalConfig = globalConfig
         self.eventDetector = eventDetector
         self.sessionPersister = sessionPersister
+        self.keychain = keychain
         self.updateService = updateService
         self.webViewManager = webViewManager
         self.loginService = loginService
@@ -75,7 +79,7 @@ class StartInteractor {
     // MARK: Private Methods
     
     private func updateConfig() {
-        self.globalConfig.accessToken = self.sessionPersister.loadAccessToken()
+        self.globalConfig.accessToken = .init(token: try? keychain.retrieve(for: app.bundleId()))
         
         Task {
             do {
@@ -99,8 +103,12 @@ private extension StartInteractor {
     func setupBindings() {
         webViewManager.tokenPublisher.sink { token in
             guard let token else { return }
-            self.sessionPersister.save(accessToken: .init(token: token))
-            self.updateConfig()
+            do {
+                try self.keychain.store(token, for: self.app.bundleId())
+                self.updateConfig()
+            } catch {
+                logError(error as NSError)
+            }
         }
         .store(in: &cancellables)
     }
@@ -118,8 +126,9 @@ private extension StartInteractor {
             logInfo("Opening auth web view...")
             let redirectURL = try await loginService.getRedirectURL()
             await MainActor.run {
-                if let url = redirectURL {
-                    webViewManager.showWebView(url: url)
+                if let url = redirectURL,
+                   let rootViewController = UIApplication.shared.windows.first?.rootViewController  {
+                    webViewManager.showWebView(url: url, from: rootViewController)
                 }
             }
         } catch {

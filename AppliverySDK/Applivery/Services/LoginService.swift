@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol LoginServiceProtocol {
     func login(loginData: LoginData) async throws
@@ -24,8 +25,9 @@ final class LoginService: LoginServiceProtocol {
     let downloadService: DownloadServiceProtocol
     let globalConfig: GlobalConfig
     let sessionPersister: SessionPersister
-    let webViewManager: WebViewManager
+    let webViewManager: AppliveryWebViewManagerProtocol
     let app: AppProtocol
+    let keychain: KeychainAccessible
     
     init(
         loginRepository: LoginRepositoryProtocol = LoginRepository(),
@@ -33,8 +35,9 @@ final class LoginService: LoginServiceProtocol {
         downloadService: DownloadServiceProtocol = DownloadService(),
         globalConfig: GlobalConfig = GlobalConfig.shared,
         sessionPersister: SessionPersister = SessionPersister(userDefaults: UserDefaults.standard),
-        webViewManager: WebViewManager = WebViewManager(),
-        app: AppProtocol = App()
+        webViewManager: AppliveryWebViewManagerProtocol = AppliveryWebViewManager.shared,
+        app: AppProtocol = App(),
+        keychain: KeychainAccessible = Keychain()
     ) {
         self.loginRepository = loginRepository
         self.downloadService = downloadService
@@ -43,17 +46,20 @@ final class LoginService: LoginServiceProtocol {
         self.sessionPersister = sessionPersister
         self.webViewManager = webViewManager
         self.app = app
+        self.keychain = keychain
     }
     
     func requestAuthorization() {
-        globalConfig.accessToken = sessionPersister.loadAccessToken()
-        if globalConfig.accessToken == nil {
+        
+        do {
+            let token = try keychain.retrieve(for: app.bundleId())
+            globalConfig.accessToken = AccessToken(token: token)
+            download()
+        } catch {
             logInfo("User authentication is required!")
             Task {
                 await openAuthWebView()
             }
-        } else {
-            download()
         }
     }
     
@@ -76,12 +82,13 @@ final class LoginService: LoginServiceProtocol {
         return try await loginRepository.getRedirctURL()
     }
     
+    @MainActor
     func openAuthWebView() async {
         do {
             logInfo("Opening auth web view...")
             let redirectURL = try await loginRepository.getRedirctURL()
-            if let url = redirectURL {
-                webViewManager.showWebView(url: url)
+            if let url = redirectURL, let rootViewController = UIApplication.shared.windows.first?.rootViewController {
+                webViewManager.showWebView(url: url, from: rootViewController)
             }
         } catch {
             log("Error obtaining redirect URL: \(error.localizedDescription)")
