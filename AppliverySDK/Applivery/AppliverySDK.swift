@@ -1,5 +1,5 @@
 //
-//  Applivery.swift
+//  AppliverySDK.swift
 //  AppliverySDK
 //
 //  Created by Alejandro Jiménez on 3/10/15.
@@ -48,7 +48,7 @@ import UIKit
  - Author: Alejandro Jiménez Agudo
  - Copyright: Applivery S.L.
  */
-public class Applivery: NSObject {
+public class AppliverySDK: NSObject {
     
     // MARK: - Static Properties
     
@@ -57,7 +57,7 @@ public class Applivery: NSObject {
     // MARK: - Type Properties
     
     /// Singleton instance
-    @objc public static let shared = Applivery()
+    @objc public static let shared = AppliverySDK()
     
     var window: AppliveryWindow?
     

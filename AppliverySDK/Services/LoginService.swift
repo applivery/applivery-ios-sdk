@@ -92,9 +92,7 @@ final class LoginService: LoginServiceProtocol {
             }
         } catch {
             log("Error obtaining redirect URL: \(error.localizedDescription)")
-            await MainActor.run {
-                app.showErrorAlert("Error obtaining redirect URL: \(error)", retryHandler: {})
-            }
+            app.showErrorAlert("Error obtaining redirect URL", retryHandler: {})
         }
     }
     
@@ -135,8 +133,16 @@ private extension LoginService {
     
     func store(accessToken: AccessToken, userName: String) {
         logInfo("Fetched new access token: \(accessToken.token ?? "NO TOKEN")")
-        self.sessionPersister.save(accessToken: accessToken)
-        self.sessionPersister.saveUserName(userName: userName)
-        self.globalConfig.accessToken = accessToken
+        if let token = accessToken.token {
+            do {
+                try keychain.store(token, for: app.bundleId())
+                self.sessionPersister.saveUserName(userName: userName)
+                self.globalConfig.accessToken = accessToken
+            } catch {
+                app.showErrorAlert("", retryHandler: {})
+            }
+        }
+        
+        
     }
 }

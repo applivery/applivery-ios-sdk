@@ -21,14 +21,12 @@ public final class ScreenRecorderManager: NSObject, RPScreenRecorderDelegate, RP
     private var isShowingSheet = false
     private var errorMessage: String?
     
-    var recordViewController: RecordingViewController?
+    var recordViewController: RecordingViewController = RecordingViewController()
     
-    init(
-        recordViewController: RecordingViewController? = RecordingViewController(),
+    public init(
         timer: Timer? = nil
     ) {
         super.init()
-        self.recordViewController = recordViewController
         self.timer = timer
         recorder.delegate = self
     }
@@ -38,13 +36,25 @@ public final class ScreenRecorderManager: NSObject, RPScreenRecorderDelegate, RP
     }
     
     func startClipBuffering() {
-        recorder.startClipBuffering { [weak self] (error) in
-            if error != nil {
-                print("Error attempting to start Clip Buffering: \(String(describing: error?.localizedDescription))")
-            } else {
-                self?.isRecording = true
-                self?.setTimer()
-                self?.recordViewController?.showRecordButton()
+        if #available(iOS 15.0, *) {
+            recorder.startClipBuffering { [weak self] (error) in
+                if error != nil {
+                    print("Error attempting to start Clip Buffering: \(String(describing: error?.localizedDescription))")
+                } else {
+                    self?.isRecording = true
+                    self?.setTimer()
+                    self?.recordViewController.showRecordButton()
+                }
+            }
+        } else {
+            recorder.startRecording { [weak self] (error) in
+                if let error = error {
+                    print("Error attempting to start Recording: \(error.localizedDescription)")
+                } else {
+                    self?.isRecording = true
+                    self?.setTimer()
+                    self?.recordViewController.showRecordButton()
+                }
             }
         }
     }
@@ -54,30 +64,38 @@ public final class ScreenRecorderManager: NSObject, RPScreenRecorderDelegate, RP
         let interval = TimeInterval(30)
         
         print("Generating clip at URL: ", clipURL)
-        do {
-            try await recorder.exportClip(to: clipURL, duration: interval)
-            self.isRecording = false
-            
-            presentVideoFeedback(clipURL: clipURL)
-            logInfo("stopping the record")
-            
-        } catch {
-            print("Error attempting to export Clip Buffering: \(error.localizedDescription)")
+        if #available(iOS 15.0, *) {
+            do {
+                try await recorder.exportClip(to: clipURL, duration: interval)
+                self.isRecording = false
+                
+                presentVideoFeedback(clipURL: clipURL)
+                logInfo("stopping the record")
+                
+            } catch {
+                print("Error attempting to export Clip Buffering: \(error.localizedDescription)")
+            }
+        } else {
             
         }
+
     }
     
     func stopClipBuffering() {
-        Task {
-            do {
-                await exportClip()
-                try await recorder.stopClipBuffering()
-                await self.recordViewController?.hideRecordButton()
-                self.timer?.invalidate()
-                self.timer = nil
-            } catch {
-                print("Error attempting to stop Clip Buffering: \(error.localizedDescription)")
+        if #available(iOS 15.0, *) {
+            Task {
+                do {
+                    await exportClip()
+                    try await recorder.stopClipBuffering()
+                    await self.recordViewController.hideRecordButton()
+                    self.timer?.invalidate()
+                    self.timer = nil
+                } catch {
+                    print("Error attempting to stop Clip Buffering: \(error.localizedDescription)")
+                }
             }
+        } else {
+            
         }
     }
     

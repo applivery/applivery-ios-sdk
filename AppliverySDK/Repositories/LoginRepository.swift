@@ -39,15 +39,21 @@ final class LoginRepository: LoginRepositoryProtocol {
     private let client: APIClientProtocol
     private let globalConfig: GlobalConfig
     private let sessionPersister: SessionPersister
+    private let app: AppProtocol
+    private let keychain: KeychainAccessible
     
     init(
         client: APIClientProtocol = APIClient(),
         globalConfig: GlobalConfig = GlobalConfig.shared,
-        sessionPersister: SessionPersister = SessionPersister(userDefaults: UserDefaults.standard)
+        sessionPersister: SessionPersister = SessionPersister(userDefaults: UserDefaults.standard),
+        app: AppProtocol = App(),
+        keychain: KeychainAccessible = Keychain()
     ) {
         self.client = client
         self.globalConfig = globalConfig
         self.sessionPersister = sessionPersister
+        self.app = app
+        self.keychain = keychain
     }
 	
     func login(loginData: LoginData) async throws -> AccessToken {
@@ -61,7 +67,10 @@ final class LoginRepository: LoginRepositoryProtocol {
         logInfo("Getting redirect URL...")
         let endpoint: AppliveryEndpoint = .redirect
         let url: RedirectInfo = try await client.fetch(endpoint: endpoint)
-        return URL(string: url.data.redirectUrl)
+        let sanitizedbundleId = app.bundleId().replacingOccurrences(of: ".", with: "-")
+        let urlWithSchema = URL(string: "\(url.data.redirectUrl)?scheme=applivery-\(sanitizedbundleId)")
+        logInfo("Redirect URL: \(urlWithSchema?.absoluteString ?? "")")
+        return urlWithSchema
     }
     
     func bind(user: User) async throws -> AccessToken {
@@ -73,7 +82,7 @@ final class LoginRepository: LoginRepositoryProtocol {
     
     func unbindUser() {
         logInfo("Unbinding user...")
-        self.sessionPersister.save(accessToken: nil)
+        try? keychain.remove(for: app.bundleId())
         self.sessionPersister.removeUser()
         self.globalConfig.accessToken = nil
     }

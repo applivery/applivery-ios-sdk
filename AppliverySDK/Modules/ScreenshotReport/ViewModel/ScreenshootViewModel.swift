@@ -97,7 +97,11 @@ final class ScreenshootViewModel: ObservableObject {
         }
         
         for line in lines {
-            context?.setStrokeColor(line.color.cgColor ?? UIColor.systemPink.cgColor)
+            if #available(iOS 14.0, *) {
+                context?.setStrokeColor(line.color.cgColor ?? UIColor.systemPink.cgColor)
+            } else {
+                context?.setStrokeColor(UIColor.systemPink.cgColor)
+            }
             context?.setLineWidth(line.lineWidth)
             
             var points = line.points

@@ -40,5 +40,5 @@ class GlobalConfig {
 	var textLiterals           = TextLiterals()
 	var app: AppProtocol 	   = App()
 	var device: DeviceProtocol = Device()
-	var accessToken: AccessToken?
+    var accessToken: AccessToken?
 }

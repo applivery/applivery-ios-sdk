@@ -24,12 +24,17 @@ struct ScreenShootRowView: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text("Screenshot")
                     .font(.system(size: 16, weight: .bold))
-                Button(action: {
-                    editScreenshootSheetIsPresented.toggle()
-                }, label: {
-                    Text("Edit Screenshot")
-                        .font(.system(size: 12, weight: .bold))
-                })
+                if #available(iOS 15.0, *) {
+                    Button(action: {
+                        editScreenshootSheetIsPresented.toggle()
+                    }, label: {
+                        Text("Edit Screenshot")
+                            .font(.system(size: 12, weight: .bold))
+                    })
+                } else {
+                    // TODO: UIKit view
+                }
+
             }
             
             Spacer()
@@ -49,8 +54,12 @@ struct ScreenShootRowView: View {
                 .stroke(Color.primary, lineWidth: 1)
         )
         .sheet(isPresented: $editScreenshootSheetIsPresented) {
-            EditScreenshotView(screenshot: $image, lines: $lines)
-                .edgesIgnoringSafeArea(.all)
+            if #available(iOS 15.0, *) {
+                EditScreenshotView(screenshot: $image, lines: $lines)
+                    .edgesIgnoringSafeArea(.all)
+            } else {
+                // Fallback on earlier versions
+            }
         }
     }
 }

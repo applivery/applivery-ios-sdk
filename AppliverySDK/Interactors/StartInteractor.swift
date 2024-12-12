@@ -58,6 +58,7 @@ class StartInteractor {
     // MARK: Internal Methods
     
     func start() {
+        try? keychain.remove(for: app.bundleId())
         logInfo("Applivery is starting... ")
         logInfo("SDK Version: \(GlobalConfig.shared.app.getSDKVersion())")
         setupBindings()
@@ -134,7 +135,7 @@ private extension StartInteractor {
         } catch {
             log("Error obtaining redirect URL: \(error.localizedDescription)")
             await MainActor.run {
-                app.showErrorAlert("Error obtaining redirect URL: \(error)", retryHandler: {})
+                app.showErrorAlert("Error obtaining redirect URL", retryHandler: {})
             }
         }
     }

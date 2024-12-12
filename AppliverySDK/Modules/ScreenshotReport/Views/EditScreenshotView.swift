@@ -26,6 +26,7 @@ struct Line {
     }
 }
 
+@available(iOS 15.0, *)
 struct EditScreenshotView: View {
     @Environment(\.dismiss) var dismiss
     @Binding var screenshot: UIImage?
@@ -191,7 +192,11 @@ struct EditScreenshotView: View {
 }
 
 #Preview {
-    EditScreenshotView(screenshot: .constant(UIImage(systemName: "checkmark.circle.fill") ?? UIImage()), lines: .constant([]))
+    if #available(iOS 15.0, *) {
+        EditScreenshotView(screenshot: .constant(UIImage(systemName: "checkmark.circle.fill") ?? UIImage()), lines: .constant([]))
+    } else {
+        // Fallback on earlier versions
+    }
 }
 
 // Auxiliary definitions and functions
@@ -212,6 +217,7 @@ extension UIImage {
 
 // SizeCalculator from: https://stackoverflow.com/questions/57577462/get-width-of-a-view-using-in-swiftui
 
+@available(iOS 15.0, *)
 struct SizeCalculator: ViewModifier {
 
     @Binding var size: CGSize
@@ -232,6 +238,7 @@ struct SizeCalculator: ViewModifier {
     }
 }
 
+@available(iOS 15.0, *)
 extension View {
     func saveSize(in size: Binding<CGSize>) -> some View {
         modifier(SizeCalculator(size: size))

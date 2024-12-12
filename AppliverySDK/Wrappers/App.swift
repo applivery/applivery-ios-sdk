@@ -73,7 +73,7 @@ class App: AppProtocol {
 	}
 	
 	func getSDKVersion() -> String {
-        Applivery.sdkVersion
+        AppliverySDK.sdkVersion
 	}
 	
 	func getLanguage() -> String {
@@ -139,13 +139,9 @@ class App: AppProtocol {
 	func showErrorAlert(_ message: String, retryHandler: @escaping () -> Void) {
 		self.alertError = UIAlertController(title: literal(.appName), message: message, preferredStyle: .alert)
 		
-		let actionCancel = UIAlertAction(title: literal(.alertButtonCancel), style: .cancel, handler: nil)
-		let actionRetry = UIAlertAction(title: literal(.alertButtonRetry), style: .default) { _ in
-			retryHandler()
-		}
+        let actionCancel = UIAlertAction(title: literal(.alertButtonCancel), style: .default, handler: nil)
 		
 		self.alertError.addAction(actionCancel)
-		self.alertError.addAction(actionRetry)
 		
 		let topVC = self.topViewController()
 		topVC?.present(self.alertError, animated: true, completion: nil)

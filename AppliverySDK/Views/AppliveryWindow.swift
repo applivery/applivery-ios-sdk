@@ -15,7 +15,7 @@ class AppliveryWindow: UIWindow {
         super.init(frame: frame)
         self.rootViewController = shakeManager.recordViewController
         self.backgroundColor = .clear
-        shakeManager.recordViewController?.buttonAction = {
+        shakeManager.recordViewController.buttonAction = {
             if self.shakeManager.isRecording {
                 self.shakeManager.stopClipBuffering()
             } else {

@@ -67,15 +67,9 @@ class FeedbackService: FeedbackServiceProtocol {
         
         self.device.disableBatteryMonitoring()
         
-        Task {
-            do {
-                let videoURL: VideoFile = try await client.fetch(endpoint: endpoint)
-                if let destinationVideoURL = URL(string: videoURL.data.videoFile.location), let localURL = inputFeedback.videoURL {
-                    try await client.uploadVideo(localFileURL: localURL, to: destinationVideoURL)
-                }
-            } catch {
-                logError(error as NSError)
-            }
+        let videoURL: VideoFile = try await client.fetch(endpoint: endpoint)
+        if let destinationVideoURL = URL(string: videoURL.data.videoFile.location), let localURL = inputFeedback.videoURL {
+            try await client.uploadVideo(localFileURL: localURL, to: destinationVideoURL)
         }
     }
 	
