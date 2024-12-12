@@ -14,13 +14,18 @@ struct EmailTextFieldView: View {
     var body: some View {
         HStack(spacing: 16) {
             Text("From:")
-            TextField("Introduce your email", text: $user)
-                .textContentType(.emailAddress)
-                .keyboardType(.emailAddress)
-                .submitLabel(.next)
-                .onSubmit {
+            TextField(
+                "Introduce your email",
+                text: $user,
+                onEditingChanged: { _ in
+                    // If needed, handle when editing begins/ends.
+                },
+                onCommit: {
                     onSubmit()
                 }
+            )
+            .textContentType(.emailAddress)
+            .keyboardType(.emailAddress)
             Spacer()
         }
     }

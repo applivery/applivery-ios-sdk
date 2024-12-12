@@ -7,16 +7,17 @@
 
 import SwiftUI
 
+
 struct ScreenshootPreviewScreen: View {
     @ObservedObject var viewModel = ScreenshootViewModel()
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.presentationMode) var presentationMode
     @State var screenshot: UIImage?
     @State var user: String = ""
     @State var description: String = ""
     @State var reportType: FeedbackType = .feedback
     @State var imageLines: [Line] = []
     @State var imageIsSelected: Bool = true
-    @FocusState var focused: Bool
+    @State var showAlert: Bool = false
     
     var body: some View {
         NavigationView {
@@ -24,53 +25,52 @@ struct ScreenshootPreviewScreen: View {
                 Divider()
                 ReportTypeView(reportType: $reportType)
                 Divider()
-                EmailTextFieldView(user: $user) {
-                    focused = true
-                }
+                EmailTextFieldView(user: $user, onSubmit: {
+                    // No focus state, just a placeholder callback
+                })
                 .disabled(!viewModel.loadUserName().isEmpty)
                 Divider()
-                TextEditor(text: $description)
-                    .overlay(alignment: .topLeading, content: {
-                        if description.isEmpty {
-                            Text("Type Here ...")
-                                .foregroundColor(.gray)
-                                .padding(.top, 6)
-                        }
-                    })
-                    .frame(maxHeight: .infinity)
-                    .lineLimit(0)
-                    .focused($focused)
+
+                ZStack(alignment: .topLeading) {
+                    MultilineTextView(text: $description)
+                        .frame(maxHeight: .infinity)
+                    if description.isEmpty {
+                        Text("Type Here ...")
+                            .foregroundColor(.gray)
+                            .padding(.top, 8)
+                            .padding(.leading, 4)
+                    }
+                }
+
                 ScreenShootRowView(
                     image: $screenshot,
                     lines: $imageLines,
                     isSelected: $imageIsSelected
                 )
-                    .frame(height: 64)
+                .frame(height: 64)
                 Spacer()
             }
             .padding()
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("Send \(reportType.rawValue.capitalized)")
-            .toolbar(content: {
-                ToolbarItem(placement: .topBarLeading) {
+            // iOS 13 only supports:
+            .navigationBarTitle("Send \(reportType.rawValue.capitalized)")
+            .navigationBarItems(
+                leading:
                     Button(action: {
-                        dismiss.callAsFunction()
+                        self.presentationMode.wrappedValue.dismiss()
                     }, label: {
                         Text("X")
                             .font(.system(size: 20))
                             .foregroundColor(.black)
-                    })
-                }
-                
-                ToolbarItem(placement: .topBarTrailing) {
+                    }),
+                trailing:
                     Button(action: {
-                        guard let screenshot else { return }
+                        guard let screenshot = screenshot else { return }
                         let newScreenShot = viewModel.exportDrawing(
                             image: screenshot,
                             lines: imageLines
                         )
                         
-                        if let newScreenShot {
+                        if let newScreenShot = newScreenShot {
                             viewModel.sendScreenshootFeedback(
                                 feedback: .init(
                                     feedbackType: reportType,
@@ -87,17 +87,18 @@ struct ScreenshootPreviewScreen: View {
                     })
                     .opacity(description.isEmpty ? 0.4 : 1)
                     .disabled(description.isEmpty)
-                }
-            })
-            .alert(viewModel.isReportSended.title ?? "", isPresented: $viewModel.isAlertPresented, actions: {
-                Button(action: {
-                    dismiss.callAsFunction()
-                }, label: {
-                    Text("Ok")
-                })
-            })
+            )
             .onAppear {
                 user = viewModel.loadUserName()
+            }
+            .alert(isPresented: $viewModel.isAlertPresented) {
+                Alert(
+                    title: Text(viewModel.isReportSended.title ?? ""),
+                    message: nil,
+                    dismissButton: .default(Text("Ok"), action: {
+                        self.presentationMode.wrappedValue.dismiss()
+                    })
+                )
             }
         }
     }

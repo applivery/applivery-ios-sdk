@@ -48,9 +48,10 @@ struct ScreenShootRowView: View {
             RoundedRectangle(cornerRadius: 4)
                 .stroke(Color.primary, lineWidth: 1)
         )
-        .fullScreenCover(isPresented: $editScreenshootSheetIsPresented, content: {
+        .sheet(isPresented: $editScreenshootSheetIsPresented) {
             EditScreenshotView(screenshot: $image, lines: $lines)
-        })
+                .edgesIgnoringSafeArea(.all)
+        }
     }
 }
 

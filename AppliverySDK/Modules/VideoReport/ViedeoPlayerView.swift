@@ -10,7 +10,6 @@ import AVKit
 import AVFoundation
 
 struct ViedeoPlayerView: View {
-    @Environment(\.dismiss) var dismiss
     let videoURL: URL
     
     var body: some View {
