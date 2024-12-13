@@ -23,7 +23,7 @@ let package = Package(
 			name: "Applivery",
 			dependencies: [],
 			path: "AppliverySDK",
-			exclude: ["Info.plist", "Resources/getConstants.swift"],
+			exclude: ["Info.plist"],
             resources: [.process("Resources/Assets")]),
         
 		.testTarget(
