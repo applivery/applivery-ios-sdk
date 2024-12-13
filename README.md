@@ -452,7 +452,8 @@ When integrating SAML authentication, your app may receive a redirect URL once t
 
 1. Open your app's `Info` section > URL Types.
 2. Add a new `URL Type` entry.
-3. Set the **URL Schemes** field to the scheme your SAML provider uses to redirect back to your app with `applivery` in `URL Schemes` field.
+3. Set the **URL Schemes** field to the scheme your SAML provider uses to redirect back to your app with `applivery-(your bundle id replacing the dots by dashes)` in `URL Schemes` field.
+e.g if the bundle of your app is `com.example.myAwesomeApp` the url type would be: `applivery-com-example-myAwesomeApp`
 
 ## Step 2: Handling the Redirect URL in AppDelegate (iOS 12 and earlier, or if Scenes are not used)
 
