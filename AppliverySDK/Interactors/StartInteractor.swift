@@ -58,7 +58,6 @@ class StartInteractor {
     // MARK: Internal Methods
     
     func start() {
-        try? keychain.remove(for: app.bundleId())
         logInfo("Applivery is starting... ")
         logInfo("SDK Version: \(GlobalConfig.shared.app.getSDKVersion())")
         setupBindings()

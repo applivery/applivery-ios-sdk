@@ -17,7 +17,9 @@ class RecordingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear
-        addRecordButton()
+        if #available(iOS 15.0, *) {
+            addRecordButton()
+        }
     }
     
     
@@ -114,19 +116,24 @@ class RecordingViewController: UIViewController {
     func presentActionSheet() {
         actionSheet = UIAlertController()
         
-        let screenshotAction = UIAlertAction(title: localize("sheet_screenshoot_action"), style: .default) { _ in
+        let screenshotAction = UIAlertAction(title: literal(.sheetScreenshotAction), style: .default) { _ in
             ScreenRecorderManager.shared.presentPreviewWithScreenshoot()
         }
         
-        let screenRecordingAction = UIAlertAction(title: localize("sheet_record_action"), style: .default) { _ in
+        let screenRecordingAction = UIAlertAction(title: literal(.sheetRecordAction), style: .default) { _ in
             ScreenRecorderManager.shared.startClipBuffering()
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
-        actionSheet.addAction(screenshotAction)
-        actionSheet.addAction(screenRecordingAction)
-        actionSheet.addAction(cancelAction)
+        if #available(iOS 15.0, *) {
+            actionSheet.addAction(screenshotAction)
+            actionSheet.addAction(screenRecordingAction)
+            actionSheet.addAction(cancelAction)
+        } else {
+            actionSheet.addAction(screenshotAction)
+            actionSheet.addAction(cancelAction)
+        }
         
         if let popoverController = actionSheet.popoverPresentationController {
             popoverController.sourceView = self.view
