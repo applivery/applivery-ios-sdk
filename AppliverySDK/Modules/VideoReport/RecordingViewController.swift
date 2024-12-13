@@ -19,7 +19,6 @@ class RecordingViewController: UIViewController {
         view.backgroundColor = .clear
         if #available(iOS 15.0, *) {
             addRecordButton()
-        } else {
         }
     }
     
