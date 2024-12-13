@@ -17,7 +17,10 @@ class RecordingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear
-        addRecordButton()
+        if #available(iOS 15.0, *) {
+            addRecordButton()
+        } else {
+        }
     }
     
     
@@ -124,9 +127,14 @@ class RecordingViewController: UIViewController {
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
-        actionSheet.addAction(screenshotAction)
-        actionSheet.addAction(screenRecordingAction)
-        actionSheet.addAction(cancelAction)
+        if #available(iOS 15.0, *) {
+            actionSheet.addAction(screenshotAction)
+            actionSheet.addAction(screenRecordingAction)
+            actionSheet.addAction(cancelAction)
+        } else {
+            actionSheet.addAction(screenshotAction)
+            actionSheet.addAction(cancelAction)
+        }
         
         if let popoverController = actionSheet.popoverPresentationController {
             popoverController.sourceView = self.view
