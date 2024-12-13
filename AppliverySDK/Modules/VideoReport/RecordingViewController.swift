@@ -114,11 +114,11 @@ class RecordingViewController: UIViewController {
     func presentActionSheet() {
         actionSheet = UIAlertController()
         
-        let screenshotAction = UIAlertAction(title: localize("sheet_screenshoot_action"), style: .default) { _ in
+        let screenshotAction = UIAlertAction(title: literal(.sheetScreenshotAction), style: .default) { _ in
             ScreenRecorderManager.shared.presentPreviewWithScreenshoot()
         }
         
-        let screenRecordingAction = UIAlertAction(title: localize("sheet_record_action"), style: .default) { _ in
+        let screenRecordingAction = UIAlertAction(title: literal(.sheetRecordAction), style: .default) { _ in
             ScreenRecorderManager.shared.startClipBuffering()
         }
         

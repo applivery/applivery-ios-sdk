@@ -71,7 +71,6 @@ struct VideoPreviewRow: View {
         let imageGenerator = AVAssetImageGenerator(asset: asset)
         imageGenerator.appliesPreferredTrackTransform = true
 
-        // Extraer el primer segundo del video (puedes ajustar el tiempo si es necesario)
         let time = CMTime(seconds: 1, preferredTimescale: 60)
         DispatchQueue.global().async {
             do {

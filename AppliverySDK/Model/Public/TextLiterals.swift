@@ -150,6 +150,12 @@ public class TextLiterals: NSObject {
     /// "Your session has expired. Please, log in again"
     @objc public var loginSessionExpired: String
     
+    /// "Your session has expired. Please, log in again"
+    @objc public var sheetScreenshotAction: String
+    
+    /// "Your session has expired. Please, log in again"
+    @objc public var sheetRecordAction: String
+    
     // MARK: - Initializer
     /**
      Creates a new instance of TextLiterals.
@@ -186,32 +192,35 @@ public class TextLiterals: NSObject {
      - Version: 2.4
      */
     @objc public init(
-        appName: String = kLocaleSdkName,
-        alertButtonCancel: String = kLocaleAlertButtonCancel,
-        alertButtonRetry: String = kLocaleAlertButtonRetry,
-        alertButtonOK: String = kLocaleAlertButtonOk,
-        errorUnexpected: String = kLocaleErrorUnexpected,
-        errorInvalidCredentials: String = kLocaleErrorInvalidCredentials,
-        errorDownloadURL: String = kLocaleErrorDownloadUrl,
-        otaUpdateMessage: String? = nil,
-        alertButtonLater: String = kLocaleAlertButtonLater,
-        alertButtonUpdate: String = kLocaleAlertButtonUpdate,
-        forceUpdateMessage: String? = nil,
-        buttonForceUpdate: String = kLocaleUpdateViewButtonUpdate,
-        feedbackButtonClose: String = kLocaleFeedbackButtonClose,
-        feedbackButtonAdd: String = kLocaleFeedbackButtonAdd,
-        feedbackButtonSend: String = kLocaleFeedbackButtonSend,
-        feedbackSelectType: String = kLocaleFeedbackLabelSelectType,
-        feedbackTypeBug: String = kLocaleFeedbackButtonBug,
-        feedbackTypeFeedback: String = kLocaleFeedbackButtonFeedback,
-        feedbackMessagePlaceholder: String = kLocaleFeedbackTextMessagePlaceholder,
-        feedbackAttach: String = kLocaleFeedbackLabelAttach,
-        loginInputUser: String = kLocaleLoginInputUser,
-        loginInputPassword: String = kLocaleLoginInputPassword,
-        loginButton: String = kLocaleLoginButton,
-        loginMessage: String = kLocaleLoginAlertMessage,
-        loginInvalidCredentials: String = kLocaleLoginAlertMessageInvalidCredentials,
-        loginSessionExpired: String = kLocaleLoginAlertMessageExpired) {
+        appName: String = "Applivery",
+        alertButtonCancel: String = "Cancel",
+        alertButtonRetry: String = "Retry",
+        alertButtonOK: String = "OK",
+        errorUnexpected: String = "Unexpected error",
+        errorInvalidCredentials: String = "Invalid credentials",
+        errorDownloadURL: String = "Couldn't start download. Invalid url",
+        otaUpdateMessage: String? = "There is a new version available for download. Do you want to update to the latest version?",
+        alertButtonLater: String = "Later",
+        alertButtonUpdate: String = "Update",
+        forceUpdateMessage: String? = "Sorry this App is outdated. Please, update the App to continue using it",
+        buttonForceUpdate: String = "Update now",
+        feedbackButtonClose: String = "Close",
+        feedbackButtonAdd: String = "Add Feedback",
+        feedbackButtonSend: String = "Send Feedback",
+        feedbackSelectType: String = "Select type",
+        feedbackTypeBug: String = "Bug",
+        feedbackTypeFeedback: String = "Feedback",
+        feedbackMessagePlaceholder: String = "Add a message",
+        feedbackAttach: String = "Attach Screenshot",
+        loginInputUser: String = "user",
+        loginInputPassword: String = "password",
+        loginButton: String = "Login",
+        loginMessage: String = "Login is required!",
+        loginInvalidCredentials: String = "Wrong user or password, please, try again",
+        loginSessionExpired: String = "Your session has expired. Please, log in again",
+        sheetScreenshotAction: String = "Take Screenshoot",
+        sheetRecordAction: String = "Record Screen"
+    ) {
         
         self.appName = appName
         self.alertButtonCancel = alertButtonCancel
@@ -239,6 +248,8 @@ public class TextLiterals: NSObject {
         self.loginMessage = loginMessage
         self.loginInvalidCredentials = loginInvalidCredentials
         self.loginSessionExpired = loginSessionExpired
+        self.sheetScreenshotAction = sheetScreenshotAction
+        self.sheetRecordAction = sheetRecordAction
     }
 }
 
@@ -269,6 +280,8 @@ enum Literal: CustomStringConvertible {
     case loginMessage
     case loginInvalidCredentials
     case loginSessionExpired
+    case sheetScreenshotAction
+    case sheetRecordAction
     
     var description: String {
         return literal(self) ?? String(self.hashValue)
@@ -306,6 +319,8 @@ func literal(_ literal: Literal) -> String? {
     case .loginMessage: return literals.loginMessage
     case .loginInvalidCredentials: return literals.loginInvalidCredentials
     case .loginSessionExpired: return literals.loginSessionExpired
+    case .sheetScreenshotAction: return literals.sheetScreenshotAction
+    case .sheetRecordAction: return literals.sheetRecordAction
     }
 }
 // swiftlint:enable cyclomatic_complexity
