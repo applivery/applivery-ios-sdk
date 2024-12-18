@@ -392,7 +392,7 @@ public class AppliverySDK: NSObject {
      - Version: 4.1.0
      */
 
-    public func handleRedirectURL(url: URL) {
+    @objc public func handleRedirectURL(url: URL) {
         let webview = AppliveryWebViewManager.shared
         webview.urlReceived(url: url)
     }
