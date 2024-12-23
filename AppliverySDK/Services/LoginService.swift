@@ -25,7 +25,7 @@ final class LoginService: LoginServiceProtocol {
     let downloadService: DownloadServiceProtocol
     let globalConfig: GlobalConfig
     let sessionPersister: SessionPersister
-    let webViewManager: AppliveryWebViewManagerProtocol
+    let safariManager: AppliverySafariManagerProtocol
     let app: AppProtocol
     let keychain: KeychainAccessible
     
@@ -35,7 +35,7 @@ final class LoginService: LoginServiceProtocol {
         downloadService: DownloadServiceProtocol = DownloadService(),
         globalConfig: GlobalConfig = GlobalConfig.shared,
         sessionPersister: SessionPersister = SessionPersister(userDefaults: UserDefaults.standard),
-        webViewManager: AppliveryWebViewManagerProtocol = AppliveryWebViewManager.shared,
+        webViewManager: AppliverySafariManagerProtocol = AppliverySafariManager.shared,
         app: AppProtocol = App(),
         keychain: KeychainAccessible = Keychain()
     ) {
@@ -44,7 +44,7 @@ final class LoginService: LoginServiceProtocol {
         self.configService = configService
         self.globalConfig = globalConfig
         self.sessionPersister = sessionPersister
-        self.webViewManager = webViewManager
+        self.safariManager = webViewManager
         self.app = app
         self.keychain = keychain
     }
@@ -88,7 +88,7 @@ final class LoginService: LoginServiceProtocol {
             logInfo("Opening auth web view...")
             let redirectURL = try await loginRepository.getRedirctURL()
             if let url = redirectURL {
-                webViewManager.showWebView(url: url)
+                safariManager.openSafari(from: url)
             }
         } catch {
             log("Error obtaining redirect URL: \(error.localizedDescription)")

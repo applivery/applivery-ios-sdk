@@ -384,7 +384,7 @@ public class AppliverySDK: NSObject {
      
      When implementing SAML-based authentication, your app may receive a redirect URL
      after the user completes their authentication on an external SAML identity provider.
-     By calling this method, you pass that redirect URL to `AppliveryWebViewManager` to
+     By calling this method, you pass that redirect URL to `AppliverySafariManager` to
      proceed with the final steps of the authentication flow.
      
      - Parameter url: The redirect `URL` returned by the SAML provider.
@@ -393,7 +393,7 @@ public class AppliverySDK: NSObject {
      */
 
     @objc public func handleRedirectURL(url: URL) {
-        let webview = AppliveryWebViewManager.shared
+        let webview = AppliverySafariManager.shared
         webview.urlReceived(url: url)
     }
     
