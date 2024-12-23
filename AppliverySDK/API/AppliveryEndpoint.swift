@@ -54,6 +54,8 @@ extension AppliveryEndpoint: Endpoint {
 
         if let authToken = GlobalConfig.shared.accessToken?.token {
             headers["x-sdk-auth-token"] = authToken
+        } else {
+            logInfo("Token is empty")
         }
         
         return headers

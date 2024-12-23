@@ -53,8 +53,8 @@ struct VideoPreviewScreen: View {
                         self.presentationMode.wrappedValue.dismiss()
                     }, label: {
                         Text("X")
-                            .font(.system(size: 20))
-                            .foregroundColor(.black)
+                            .font(.system(size: 20, weight: .bold))
+                            .foregroundColor(.blue)
                     }),
                 trailing:
                     Button(action: {

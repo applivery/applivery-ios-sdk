@@ -17,7 +17,7 @@ protocol StartInteractorOutput {
     func credentialError(message: String)
 }
 
-class StartInteractor {
+final class StartInteractor {
         
     private let app: AppProtocol
     private let configService: ConfigServiceProtocol
@@ -26,7 +26,7 @@ class StartInteractor {
     private let sessionPersister: SessionPersister
     private let keychain: KeychainAccessible
     private let updateService: UpdateServiceProtocol
-    private let webViewManager: AppliveryWebViewManagerProtocol
+    private let safariManager: AppliverySafariManagerProtocol
     private let loginService: LoginServiceProtocol
     private var cancellables = Set<AnyCancellable>()
     
@@ -40,7 +40,7 @@ class StartInteractor {
         sessionPersister: SessionPersister = SessionPersister(userDefaults: UserDefaults.standard),
         keychain: KeychainAccessible = Keychain(),
         updateService: UpdateServiceProtocol = UpdateService(),
-        webViewManager: AppliveryWebViewManagerProtocol = AppliveryWebViewManager.shared,
+        webViewManager: AppliverySafariManagerProtocol = AppliverySafariManager.shared,
         loginService: LoginServiceProtocol = LoginService()
     ) {
         self.app = app
@@ -50,7 +50,7 @@ class StartInteractor {
         self.sessionPersister = sessionPersister
         self.keychain = keychain
         self.updateService = updateService
-        self.webViewManager = webViewManager
+        self.safariManager = webViewManager
         self.loginService = loginService
     }
     
@@ -101,7 +101,7 @@ class StartInteractor {
 private extension StartInteractor {
     
     func setupBindings() {
-        webViewManager.tokenPublisher.sink { token in
+        safariManager.tokenPublisher.sink { token in
             guard let token else { return }
             do {
                 try self.keychain.store(token, for: self.app.bundleId())
@@ -126,9 +126,8 @@ private extension StartInteractor {
             logInfo("Opening auth web view...")
             let redirectURL = try await loginService.getRedirectURL()
             await MainActor.run {
-                if let url = redirectURL,
-                   let rootViewController = UIApplication.shared.windows.first?.rootViewController  {
-                    webViewManager.showWebView(url: url, from: rootViewController)
+                if let url = redirectURL  {
+                    safariManager.openSafari(from: url)
                 }
             }
         } catch {
