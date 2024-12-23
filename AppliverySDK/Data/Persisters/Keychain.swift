@@ -40,7 +40,7 @@ final class Keychain: KeychainAccessible {
         guard status == errSecSuccess else {
             throw KeychainError.unhandledError(status: status)
         }
-        logInfo("Password stored for account \(account), password: \(data)")
+        logInfo("Password stored for account \(account)")
     }
     
     func retrieve(for account: String) throws -> String {
@@ -64,7 +64,7 @@ final class Keychain: KeychainAccessible {
                   let password = String(data: data, encoding: .utf8) else {
                 throw KeychainError.unexpectedPasswordData
             }
-            logInfo("Retrieved password for account \(account), password: \(password)")
+            logInfo("Retrieved password for account \(account)")
             return password
         } else {
             throw KeychainError.unhandledError(status: status)

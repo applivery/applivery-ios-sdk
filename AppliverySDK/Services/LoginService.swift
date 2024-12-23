@@ -87,8 +87,8 @@ final class LoginService: LoginServiceProtocol {
         do {
             logInfo("Opening auth web view...")
             let redirectURL = try await loginRepository.getRedirctURL()
-            if let url = redirectURL, let rootViewController = UIApplication.shared.windows.first?.rootViewController {
-                webViewManager.showWebView(url: url, from: rootViewController)
+            if let url = redirectURL {
+                webViewManager.showWebView(url: url)
             }
         } catch {
             log("Error obtaining redirect URL: \(error.localizedDescription)")
