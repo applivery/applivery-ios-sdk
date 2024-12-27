@@ -87,11 +87,20 @@ final class StartInteractor {
                 self.checkUpdate(for: updateConfig)
             } catch APIError.statusCode(let statusCode) {
                 if statusCode == 401 {
-                    await openAuthWebView()
+                    await showLoginAlert()
                 } else {
                     let currentConfig = self.configService.getCurrentConfig()
                     self.checkUpdate(for: currentConfig)
                 }
+            }
+        }
+    }
+    
+    @MainActor
+    private func showLoginAlert() {
+        app.showLoginAlert() {
+            Task {
+                await self.openAuthWebView()
             }
         }
     }
@@ -126,8 +135,9 @@ private extension StartInteractor {
             logInfo("Opening auth web view...")
             let redirectURL = try await loginService.getRedirectURL()
             await MainActor.run {
-                if let url = redirectURL  {
-                    safariManager.openSafari(from: url)
+                if let url = redirectURL,
+                   let topController = app.topViewController() {
+                    safariManager.openSafari(from: url, from: topController)
                 }
             }
         } catch {

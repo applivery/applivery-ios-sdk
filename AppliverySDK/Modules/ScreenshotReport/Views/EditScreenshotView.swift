@@ -64,8 +64,8 @@ struct EditScreenshotView: View {
                 dismiss.callAsFunction()
             }, label: {
                 Text("X")
-                    .font(.system(size: 20))
-                    .foregroundColor(.primary)
+                    .font(.system(size: 20, weight: .bold))
+                    .foregroundColor(.blue)
             })
             
             Spacer()

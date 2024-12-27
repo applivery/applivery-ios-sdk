@@ -202,7 +202,6 @@ public class AppliverySDK: NSObject {
     private let loginService: LoginServiceProtocol
     private let app: AppProtocol
     private let environments: EnvironmentProtocol
-    private var isUpdating = false
     private var updateCallbackSuccess: (() -> Void)?
     private var updateCallbackError: ((String) -> Void)?
     
@@ -277,7 +276,6 @@ public class AppliverySDK: NSObject {
     
     private func showFirstWindow() {
         window = AppliveryWindow(frame: UIScreen.main.bounds)
-        window?.makeKeyAndVisible()
     }
     
     /**
@@ -302,10 +300,6 @@ public class AppliverySDK: NSObject {
      - Version: 3.1
      */
     @objc public func update(onSuccess: (() -> Void)? = nil, onError: ((String) -> Void)? = nil) {
-        guard !isUpdating else {
-            return logWarn("Can't call update method until previous call is finished")
-        }
-        self.isUpdating = true
         self.updateCallbackSuccess = onSuccess
         self.updateCallbackError = onError
         self.updateService.downloadLastBuild()
@@ -401,12 +395,10 @@ public class AppliverySDK: NSObject {
     
     func downloadDidEnd() {
         self.updateCallbackSuccess?()
-        self.isUpdating = false
     }
     
     func downloadDidFail(_ message: String) {
         self.updateCallbackError?(message)
         logWarn("Update did fail: \(message)")
-        self.isUpdating = false
     }
 }

@@ -10,7 +10,7 @@ import SafariServices
 import Combine
 
 protocol AppliverySafariManagerProtocol {
-    func openSafari(from url: URL)
+    func openSafari(from url: URL, from viewController: UIViewController)
     var tokenPublisher: AnyPublisher<String?, Never> { get }
 }
 
@@ -18,8 +18,6 @@ final class AppliverySafariManager: NSObject, AppliverySafariManagerProtocol {
     
     static let shared = AppliverySafariManager()
     
-    private let windowPresenter: WindowPresentable
-
     private var safariViewController: SFSafariViewController?
 
     private let tokenSubject = CurrentValueSubject<String?, Never>(nil)
@@ -28,28 +26,29 @@ final class AppliverySafariManager: NSObject, AppliverySafariManagerProtocol {
     }
     
     // MARK: - Init
-    init(
-        windowPresenter: WindowPresentable = WindowManager()
-    ) {
-        self.windowPresenter = windowPresenter
-        super.init()
-    }
-    
+        
     // MARK: - Public Methods
-    func openSafari(from url: URL) {
+    func openSafari(from url: URL, from viewController: UIViewController) {
         let safariVC = SFSafariViewController(url: url)
         safariVC.delegate = self
-        windowPresenter.present(viewController: safariVC)
-        safariViewController = safariVC
+        viewController.present(safariVC, animated: true, completion: nil)
+        self.safariViewController = safariVC
+    }
+    
+    func closeWebView() {
+        safariViewController?.dismiss(animated: true, completion: nil)
+        safariViewController = nil
     }
     
     func urlReceived(url: URL) {
-        guard let token = getTokenFromURL(url: url) else { return }
-        
-        removeWindow()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-            self?.tokenSubject.send(token)
+        if let token = getTokenFromURL(url: url) {
+            closeWebView()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+                self?.tokenSubject.send(token)
+            }
         }
+        closeWebView()
+        
     }
     
     // MARK: - Private Helpers
@@ -64,19 +63,11 @@ final class AppliverySafariManager: NSObject, AppliverySafariManagerProtocol {
         return bearer
     }
     
-    private func removeWindow() {
-        if let safariVC = safariViewController {
-            windowPresenter.dismiss(viewController: safariVC)
-        }
-        safariViewController = nil
-        windowPresenter.hide()
-    }
 }
 
 // MARK: - SafariViewControllerDelegate
 extension AppliverySafariManager: SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         tokenSubject.send(nil)
-        removeWindow()
     }
 }

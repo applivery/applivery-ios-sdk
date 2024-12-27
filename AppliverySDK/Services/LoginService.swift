@@ -87,8 +87,10 @@ final class LoginService: LoginServiceProtocol {
         do {
             logInfo("Opening auth web view...")
             let redirectURL = try await loginRepository.getRedirctURL()
-            if let url = redirectURL {
-                safariManager.openSafari(from: url)
+            
+            if let url = redirectURL,
+               let topController = app.topViewController() {
+                safariManager.openSafari(from: url, from: topController)
             }
         } catch {
             log("Error obtaining redirect URL: \(error.localizedDescription)")
