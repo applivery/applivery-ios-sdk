@@ -25,9 +25,7 @@ struct ScreenshootPreviewScreen: View {
                 Divider()
                 ReportTypeView(reportType: $reportType)
                 Divider()
-                EmailTextFieldView(user: $user, onSubmit: {
-                    // No focus state, just a placeholder callback
-                })
+                EmailTextFieldView(user: $user, onSubmit: {})
                 .disabled(!viewModel.loadUserName().isEmpty)
                 Divider()
 
@@ -59,8 +57,8 @@ struct ScreenshootPreviewScreen: View {
                         self.presentationMode.wrappedValue.dismiss()
                     }, label: {
                         Text("X")
-                            .font(.system(size: 20))
-                            .foregroundColor(.black)
+                            .font(.system(size: 20, weight: .bold))
+                            .foregroundColor(.blue)
                     }),
                 trailing:
                     Button(action: {

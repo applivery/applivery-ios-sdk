@@ -23,10 +23,7 @@ struct VideoPreviewScreen: View {
                 Divider()
                 ReportTypeView(reportType: $reportType)
                 Divider()
-                EmailTextFieldView(user: $user) {
-                    // Removed focus state since it's iOS15+
-                    // If you need to do something on submit, handle here.
-                }
+                EmailTextFieldView(user: $user) {}
                 .disabled(!viewModel.loadUserName().isEmpty)
                 Divider()
                 

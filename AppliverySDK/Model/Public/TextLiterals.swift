@@ -215,7 +215,7 @@ public class TextLiterals: NSObject {
         loginInputUser: String = "user",
         loginInputPassword: String = "password",
         loginButton: String = "Login",
-        loginMessage: String = "Login is required!",
+        loginMessage: String = "Please log-in before using this app",
         loginInvalidCredentials: String = "Wrong user or password, please, try again",
         loginSessionExpired: String = "Your session has expired. Please, log in again",
         sheetScreenshotAction: String = "Take Screenshoot",

@@ -19,15 +19,14 @@ protocol AppProtocol {
 	func getVersionName() -> String
 	func getLanguage() -> String
 	func openUrl(_ url: String) -> Bool
-	func showLoading()
-	func hideLoading()
 	func showOtaAlert(_ message: String, downloadHandler: @escaping () -> Void)
     func showForceUpdate()
 	func showErrorAlert(_ message: String, retryHandler: @escaping () -> Void)
+    func showLoginAlert(downloadHandler: @escaping () -> Void)
 	func waitForReadyThen(_ onReady: @escaping () -> Void)
 	func presentModal(_ viewController: UIViewController, animated: Bool)
     func presentFeedbackForm()
-	func showLoginView(message: String, cancelHandler: @escaping () -> Void, loginHandler: @escaping (_ user: String, _ password: String) -> Void)
+    func topViewController() -> UIViewController?
 }
 
 extension AppProtocol {
@@ -36,7 +35,6 @@ extension AppProtocol {
 	func presentModal(_ viewController: UIViewController, animated: Bool = true) {
 		self.presentModal(viewController, animated: animated)
 	}
-	
 }
 
 
@@ -92,13 +90,7 @@ class App: AppProtocol {
 		return true
 	}
 	
-	func showLoading() {
-		UIApplication.shared.isNetworkActivityIndicatorVisible = true
-	}
-	
-	func hideLoading() {
-		UIApplication.shared.isNetworkActivityIndicatorVisible = false
-	}
+
 	
 	func showAlert(_ message: String) {
 		let alert = UIAlertController(title: literal(.appName), message: message, preferredStyle: .alert)
@@ -110,6 +102,20 @@ class App: AppProtocol {
 		
 		topVC?.present(alert, animated: true, completion: nil)
 	}
+    
+    func showLoginAlert(downloadHandler: @escaping () -> Void) {
+        self.alertOta = UIAlertController(title: literal(.appName), message: literal(.loginMessage), preferredStyle: .alert)
+        
+        let aceptAction = UIAlertAction(title: literal(.loginButton), style: .default) { _ in
+            downloadHandler()
+        }
+        
+        self.alertOta.addAction(aceptAction)
+        
+        let topVC = self.topViewController()
+        
+        topVC?.present(self.alertOta, animated: true, completion: nil)
+    }
 	
 	func showOtaAlert(_ message: String, downloadHandler: @escaping () -> Void ) {
 		self.alertOta = UIAlertController(title: literal(.appName), message: message, preferredStyle: .alert)
@@ -167,32 +173,6 @@ class App: AppProtocol {
         }
     }
 	
-	func showLoginView(message: String, cancelHandler: @escaping () -> Void, loginHandler: @escaping (_ user: String, _ password: String) -> Void) {
-		var userText: UITextField?
-		var passwordText: UITextField?
-		self.alertLogin = UIAlertController(title: literal(.appName), message: message, preferredStyle: .alert)
-		
-		self.alertLogin.addTextField { textField in
-			textField.placeholder = literal(.loginInputUser)
-			userText = textField
-		}
-		self.alertLogin.addTextField { textField in
-			textField.placeholder = literal(.loginInputPassword)
-			textField.isSecureTextEntry = true
-			passwordText = textField
-		}
-		
-		let actionLogin = UIAlertAction(title: literal(.loginButton), style: .default) { _ in
-			loginHandler(userText?.text ?? "", passwordText?.text ?? "")
-		}
-		 
-		self.alertLogin.addAction(actionLogin)
-		
-		let topVC = self.topViewController()
-		
-		topVC?.present(self.alertLogin, animated: true, completion: nil)
-	}
-	
 	func waitForReadyThen(_ onReady: @escaping () -> Void) {
 		runInBackground {
 			self.sleepUntilReady()
@@ -221,7 +201,7 @@ class App: AppProtocol {
 		return isReady
 	}
 	
-	private func topViewController() -> UIViewController? {
+	func topViewController() -> UIViewController? {
         
         if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let window = scene.windows.first {
