@@ -201,21 +201,24 @@ class App: AppProtocol {
 		return isReady
 	}
 	
-	func topViewController() -> UIViewController? {
-        
-        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let window = scene.windows.first {
-            
-            if var topController = window.rootViewController {
-                while let presentedController = topController.presentedViewController {
-                    topController = presentedController
-                }
-                
-                return topController
-            }
+    func topViewController() -> UIViewController? {
+        guard let windowScene = UIApplication.shared.connectedScenes
+            .compactMap({ $0 as? UIWindowScene })
+            .first(where: { $0.activationState == .foregroundActive }) else {
+            logInfo("The scene is not active")
+            return nil
         }
         
-        return nil
-	}
-	
+        guard let window = windowScene.windows.first else {
+            logInfo("The scene is missing a window")
+            return nil
+        }
+
+        var topController = window.rootViewController
+        while let presented = topController?.presentedViewController {
+            topController = presented
+        }
+
+        return topController
+    }
 }

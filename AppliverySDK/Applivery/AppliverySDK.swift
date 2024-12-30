@@ -271,11 +271,13 @@ public class AppliverySDK: NSObject {
         host = tenant
         hostDownload = tenant
         self.startInteractor.start()
-        showFirstWindow()
     }
     
     private func showFirstWindow() {
-        window = AppliveryWindow(frame: UIScreen.main.bounds)
+        guard window != nil else {
+            window = AppliveryWindow(frame: UIScreen.main.bounds)
+            return
+        }
     }
     
     /**
@@ -369,6 +371,7 @@ public class AppliverySDK: NSObject {
      - Version: 2.7
      */
     @objc public func feedbackEvent() {
+        showFirstWindow()
         logInfo("Presenting feedback formulary")
         app.presentFeedbackForm()
     }

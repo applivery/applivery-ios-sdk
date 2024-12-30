@@ -115,9 +115,7 @@ final class LoginService: LoginServiceProtocol {
         Task {
             if let url = await downloadService.downloadURL(lastBuildId) {
                 await MainActor.run {
-                    if app.openUrl(url) {
-                        // Do things here
-                    } else {
+                    if app.openUrl(url) {} else {
                         let error = NSError.appliveryError(literal(.errorDownloadURL))
                         logError(error)
                     }
