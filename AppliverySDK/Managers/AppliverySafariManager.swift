@@ -31,24 +31,27 @@ final class AppliverySafariManager: NSObject, AppliverySafariManagerProtocol {
     func openSafari(from url: URL, from viewController: UIViewController) {
         let safariVC = SFSafariViewController(url: url)
         safariVC.delegate = self
+        safariVC.modalPresentationStyle = .fullScreen
+
         viewController.present(safariVC, animated: true, completion: nil)
         self.safariViewController = safariVC
     }
     
-    func closeWebView() {
-        safariViewController?.dismiss(animated: true, completion: nil)
-        safariViewController = nil
+    func closeWebView(completion: (() -> Void)? = nil) {
+        DispatchQueue.main.async { [weak self] in
+            self?.safariViewController?.dismiss(animated: true, completion: completion)
+            self?.safariViewController = nil
+        }
     }
     
     func urlReceived(url: URL) {
         if let token = getTokenFromURL(url: url) {
-            closeWebView()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            closeWebView() { [weak self] in
                 self?.tokenSubject.send(token)
             }
+        } else {
+            closeWebView()
         }
-        closeWebView()
-        
     }
     
     // MARK: - Private Helpers
@@ -68,6 +71,6 @@ final class AppliverySafariManager: NSObject, AppliverySafariManagerProtocol {
 // MARK: - SafariViewControllerDelegate
 extension AppliverySafariManager: SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        tokenSubject.send(nil)
+        closeWebView()
     }
 }
