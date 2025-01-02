@@ -24,6 +24,14 @@ import UIKit
     case debug = 3
 }
 
+public typealias AppliveryLogHandler = @convention(block) (
+    NSString,         // message
+    Int,              // level
+    NSString,         // filename
+    Int,              // line
+    NSString          // function
+) -> Void
+
 
 /**
  The Applivery's class provides the entry point to the Applivery service.
@@ -52,7 +60,7 @@ public class AppliverySDK: NSObject {
     
     // MARK: - Static Properties
     
-    internal static let sdkVersion = "3.4.0"
+    internal static let sdkVersion = "4.2.6"
     
     // MARK: - Type Properties
     
@@ -77,6 +85,12 @@ public class AppliverySDK: NSObject {
     @objc public var logLevel: LogLevel { didSet {
         self.globalConfig.logLevel = self.logLevel
     }}
+
+    /// Allows the client to provide a custom log callback, so they can
+    /// integrate Applivery logs into their own logging system.
+    @objc public func setLogHandler(_ handler: AppliveryLogHandler?) {
+        self.globalConfig.logHandler = handler
+    }
     
     /**
      Customize the SDK colors to fit your app

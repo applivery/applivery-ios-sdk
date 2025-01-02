@@ -93,8 +93,8 @@ final class LoginService: LoginServiceProtocol {
                 safariManager.openSafari(from: url, from: topController)
             }
         } catch {
-            log("Error obtaining redirect URL: \(error.localizedDescription)")
-            app.showErrorAlert("Error obtaining redirect URL", retryHandler: {})
+            logInfo("Error obtaining redirect URL: \(error)")
+            app.showErrorAlert("Error obtaining redirect URL")
         }
     }
     
@@ -139,7 +139,8 @@ private extension LoginService {
                 self.sessionPersister.saveUserName(userName: userName)
                 self.globalConfig.accessToken = accessToken
             } catch {
-                app.showErrorAlert("", retryHandler: {})
+                logError(error as NSError)
+                app.showErrorAlert("Error storing token")
             }
         }
         

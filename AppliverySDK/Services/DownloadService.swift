@@ -41,10 +41,11 @@ final class DownloadService: DownloadServiceProtocol {
     
     func downloadURL(_ lastBuildId: String) async -> String? {
         if let token = await fetchDownloadToken(with: lastBuildId) {
+            logInfo("Download URL received. Requesting download manifest.")
             let downloadURL = "itms-services://?action=download-manifest&url=https://\(self.globalConfig.hostDownload)/v1/download/\(token.data.token)/manifest.plist"
             return downloadURL
         } else {
-            log("Token is nil.")
+            logInfo("Token is nil.")
             return nil
         }
     }

@@ -480,3 +480,68 @@ func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>)
     AppliverySDK.shared.handleRedirectURL(url: url)
 }
 ```
+
+## Custom Log Handler
+
+In addition to controlling the verbosity via `logLevel`, you can capture Applivery SDK logs by providing a custom log handler. This allows you to integrate the logs into your own logging system or send them to a remote server for analysis.
+
+### Swift
+
+```swift
+import Applivery
+
+// ...
+
+// Somewhere early in the app's lifecycle, e.g., AppDelegate or SceneDelegate
+let applivery = AppliverySDK.shared
+
+// Set a custom log handler
+applivery.setLogHandler { message, level, filename, line, funcname in
+    // You can filter logs by level or reformat them
+    if level <= LogLevel.info.rawValue {
+        print("[Applivery INFO] - \(message)")
+    } else {
+        print("[Applivery ERROR] - \(message)")
+    }
+}
+
+// Optionally set the logLevel to print more or less data
+applivery.logLevel = .info
+```
+
+### Objective-C
+
+```objc
+@import Applivery;
+
+// ...
+
+AppliverySDK *applivery = [AppliverySDK shared];
+
+// Set a custom log handler
+[applivery setLogHandler:^(NSString * _Nonnull message,
+                           NSInteger level,
+                           NSString * _Nonnull filename,
+                           NSInteger line,
+                           NSString * _Nonnull funcname) {
+    // For example, only display log messages that are .info or below
+    if (level <= LogLevelInfo) {
+        NSLog(@"[Applivery INFO] - %@", message);
+    } else {
+        NSLog(@"[Applivery ERROR] - %@", message);
+    }
+}];
+
+// Optionally set the logLevel to print more or less data
+applivery.logLevel = LogLevelInfo;
+```
+
+### Log Handler Parameters
+
+- **`message`**: The actual log message from the SDK.
+- **`level`**: The log level as an integer. Compare against `LogLevel` enum values to filter or handle logs differently.
+- **`filename`**: The name of the file where the log message originated (for debugging).
+- **`line`**: The line number in the file where the log message originated (for debugging).
+- **`funcname`**: The function name from which the log message was sent (for debugging).
+
+You can implement any desired behavior within this handler, such as sending logs to a remote logging service, filtering them by level, or integrating them with an existing logging framework.
