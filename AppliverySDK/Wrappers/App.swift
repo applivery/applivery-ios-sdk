@@ -21,7 +21,7 @@ protocol AppProtocol {
 	func openUrl(_ url: String) -> Bool
 	func showOtaAlert(_ message: String, downloadHandler: @escaping () -> Void)
     func showForceUpdate()
-	func showErrorAlert(_ message: String, retryHandler: @escaping () -> Void)
+    func showErrorAlert(_ message: String)
     func showLoginAlert(downloadHandler: @escaping () -> Void)
 	func waitForReadyThen(_ onReady: @escaping () -> Void)
 	func presentModal(_ viewController: UIViewController, animated: Bool)
@@ -142,13 +142,12 @@ class App: AppProtocol {
         }
     }
 	
-	func showErrorAlert(_ message: String, retryHandler: @escaping () -> Void) {
+	func showErrorAlert(_ message: String) {
 		self.alertError = UIAlertController(title: literal(.appName), message: message, preferredStyle: .alert)
 		
         let actionCancel = UIAlertAction(title: literal(.alertButtonCancel), style: .default, handler: nil)
-		
-		self.alertError.addAction(actionCancel)
-		
+				
+        alertError.addAction(actionCancel)
 		let topVC = self.topViewController()
 		topVC?.present(self.alertError, animated: true, completion: nil)
 	}
@@ -202,23 +201,38 @@ class App: AppProtocol {
 	}
 	
     func topViewController() -> UIViewController? {
-        guard let windowScene = UIApplication.shared.connectedScenes
-            .compactMap({ $0 as? UIWindowScene })
-            .first(where: { $0.activationState == .foregroundActive }) else {
-            logInfo("The scene is not active")
+        guard
+            let keyWindow = UIApplication.shared
+                .connectedScenes
+                .compactMap({ $0 as? UIWindowScene })
+                .flatMap({ $0.windows })
+                .first(where: { $0.isKeyWindow }),
+            let rootVC = keyWindow.rootViewController
+        else {
             return nil
         }
         
-        guard let window = windowScene.windows.first else {
-            logInfo("The scene is missing a window")
-            return nil
-        }
+        return findTopViewController(from: rootVC)
+    }
 
-        var topController = window.rootViewController
-        while let presented = topController?.presentedViewController {
-            topController = presented
+    private func findTopViewController(from root: UIViewController) -> UIViewController {
+        if let presentedVC = root.presentedViewController {
+            logInfo("Top VC find presented VC")
+            return findTopViewController(from: presentedVC)
         }
-
-        return topController
+        
+        if let navController = root as? UINavigationController,
+           let visibleVC = navController.visibleViewController {
+            logInfo("Top VC find nav VC")
+            return findTopViewController(from: visibleVC)
+        }
+        
+        if let tabController = root as? UITabBarController,
+           let selectedVC = tabController.selectedViewController {
+            logInfo("Top VC find tab VC")
+            return findTopViewController(from: selectedVC)
+        }
+        
+        return root
     }
 }

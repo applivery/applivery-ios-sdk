@@ -29,6 +29,7 @@ final class AppliverySafariManager: NSObject, AppliverySafariManagerProtocol {
         
     // MARK: - Public Methods
     func openSafari(from url: URL, from viewController: UIViewController) {
+        logInfo("Opening Safari...")
         let safariVC = SFSafariViewController(url: url)
         safariVC.delegate = self
         safariVC.modalPresentationStyle = .fullScreen
@@ -47,6 +48,7 @@ final class AppliverySafariManager: NSObject, AppliverySafariManagerProtocol {
     func urlReceived(url: URL) {
         if let token = getTokenFromURL(url: url) {
             closeWebView() { [weak self] in
+                logInfo("Received token!")
                 self?.tokenSubject.send(token)
             }
         } else {

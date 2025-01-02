@@ -98,6 +98,7 @@ final class StartInteractor {
     
     @MainActor
     private func showLoginAlert() {
+        logInfo("Presenting login alert")
         app.showLoginAlert() {
             Task {
                 await self.openAuthWebView()
@@ -124,8 +125,10 @@ private extension StartInteractor {
     
     func checkUpdate(for updateConfig: UpdateConfigResponse) {
         if self.updateService.checkForceUpdate(updateConfig.config, version: updateConfig.version) {
+            logInfo("Performing force update...")
             updateService.forceUpdate()
         } else if self.updateService.checkOtaUpdate(updateConfig.config, version: updateConfig.bundleVersion) {
+            logInfo("Performing OTA update...")
             updateService.otaUpdate()
         }
     }
@@ -141,9 +144,9 @@ private extension StartInteractor {
                 }
             }
         } catch {
-            log("Error obtaining redirect URL: \(error.localizedDescription)")
+            log("Error obtaining redirect URL: \(error)")
             await MainActor.run {
-                app.showErrorAlert("Error obtaining redirect URL", retryHandler: {})
+                app.showErrorAlert("Error obtaining redirect URL")
             }
         }
     }

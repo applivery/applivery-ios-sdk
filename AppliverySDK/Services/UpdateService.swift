@@ -44,6 +44,7 @@ final class UpdateService: UpdateServiceProtocol {
     }
     
     func forceUpdate() {
+        logInfo("Opening force update screen")
         guard !forceUpdateCalled else { return }
         forceUpdateCalled = true
         DispatchQueue.main.async { [weak self] in
@@ -91,8 +92,10 @@ final class UpdateService: UpdateServiceProtocol {
 		}
 		
 		if config.forceAuth {
+            logInfo("Force authorization is enabled - requesting authorization")
             loginService.requestAuthorization()
 		} else {
+            logInfo("Force authorization is disabled - downloading last build")
             loginService.download()
 		}
 	}
@@ -124,7 +127,7 @@ final class UpdateService: UpdateServiceProtocol {
             let otaUpdate = config?.ota,
             otaUpdate
         else {
-            logInfo("ota update is \(String(describing: otaUpdate))")
+            logInfo("ota update not needed")
             return false
         }
         
