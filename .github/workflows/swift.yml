@@ -1,21 +1,26 @@
+#name of your config
 name: Swift
 
-on: [push]
+#when to trigger the jobs
+on:
+  push:
+    branches: [ master ] #trigger on each push to master
+  pull_request:
+    branches: [ master ] #trigger on each PR for master
 
+#list of jobs to perform
 jobs:
+  #the only job in the list, named `build`
   build:
-    runs-on: 'macos-11'
+    #specify OS to run the jobs on
+    runs-on: macos-15
+    #sequential steps to run for the `build` job
     steps:
-    - uses: actions/checkout@v1
-    - name: Setup Xcode version
-      uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: '13.1'
-    - name: Xcode Test
-      uses: sersoft-gmbh/xcodebuild-action@v1.1
-      with:
-        project: AppliverySDK.xcodeproj
-        scheme: Applivery
-        destination: "platform=iOS Simulator,OS=15.0,name=iPhone 13"
-        sdk: iphonesimulator
-        action: test
+      # step 1, use Marketplace action called Checkout@v2, to checkout the code
+    - uses: actions/checkout@v2 #'uses' keyword launches the Marketplace action
+      # step 2, verbosely build the package using the `swift` CLI
+    - name: Build
+      run: swift build -v #'run' keyword executes the command, as if it's run in terminal
+      # step 3, verbosely test the package using the `swift` CLI
+    - name: Run tests
+      run: swift test -v #'run' keyword executes the command, as if it's run in terminal
