@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ForceUpdateScreen: View {
     private let pallete = GlobalConfig.shared.palette
-    let service: UpdateServiceProtocol = UpdateService()
+    private let service: UpdateServiceProtocol = UpdateService()
     @State var isLoading: Bool = false
 
     var body: some View {
@@ -30,7 +30,6 @@ struct ForceUpdateScreen: View {
                         .cornerRadius(8)
                 }
             }
-            .background(Color(pallete.secondaryColor))
             
             if isLoading {
                 Color.black.opacity(0.4)
@@ -39,6 +38,7 @@ struct ForceUpdateScreen: View {
                 ActivityIndicatorView(isAnimating: .constant(true), style: .large)
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
