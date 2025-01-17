@@ -304,11 +304,37 @@ func isUpToDate() -> Bool
 
 With this function you can check if application is updated to the latest version available.
 
+### Swift
+
 ```swift
-applivery.update(
-    onSuccess: { (...) }  // Handle here any action you must perform on success
-    onError: { errorString in (...) } // Handle here the error case. A string whith the reason is passed to this callback
-)
+self.applivery.update { result in
+            switch result.type {
+            case .success:
+                print("Success")
+            case .error:
+		print("Error: \(result.error)")
+		/// or you can handle the error
+                switch result.error {
+                case .authRequired:
+                    /// More cases bellow
+                default:
+                    print("Error: \(result.error)")
+                }
+            }
+        }
+```
+
+### Objective-C
+
+```objc
+[[AppliverySDK shared] updateOnResult:^(UpdateResult * _Nonnull result) {
+            switch (result.type) {
+                case UpdateResultTypeSuccess:
+                    NSLog(@"Success");
+                case UpdateResultTypeError:
+                    NSLog(@"Error: %ld", (long)result.error);
+            }
+        }];
 ```
 
 Use this method to download and install the newest build available.
