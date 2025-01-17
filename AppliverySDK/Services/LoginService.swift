@@ -14,8 +14,8 @@ protocol LoginServiceProtocol {
     func bind(user: User) async throws -> AccessToken
     func unbindUser()
     func getRedirectURL() async throws -> URL?
-    func requestAuthorization()
-    func download()
+    func requestAuthorization(onResult: ((UpdateResult) -> Void)?)
+    func download(onResult: ((UpdateResult) -> Void)?)
 }
 
 final class LoginService: LoginServiceProtocol {
@@ -49,17 +49,15 @@ final class LoginService: LoginServiceProtocol {
         self.keychain = keychain
     }
     
-    func requestAuthorization() {
-        
+    func requestAuthorization(onResult: ((UpdateResult) -> Void)?) {
+
         do {
             let token = try keychain.retrieve(for: app.bundleId())
             globalConfig.accessToken = AccessToken(token: token)
-            download()
+            download(onResult: onResult)
         } catch {
             logInfo("User authentication is required!")
-            Task {
-                await openAuthWebView()
-            }
+            onResult?(.init(error: .authRequired))
         }
     }
     
@@ -106,24 +104,29 @@ final class LoginService: LoginServiceProtocol {
         loginRepository.unbindUser()
     }
     
-    func download() {
+    func download(onResult: ((UpdateResult) -> Void)? = nil) {
         let lastConfig = configService.getCurrentConfig()
         guard let lastBuildId = lastConfig.config?.lastBuildId else {
+            onResult?(.init(error: .noConfigFound))
             return
         }
 
         Task {
             if let url = await downloadService.downloadURL(lastBuildId) {
                 await MainActor.run {
-                    if app.openUrl(url) {} else {
+                    if app.openUrl(url) {
+                        onResult?(.init(success: true))
+                    }
+                    else {
                         let error = NSError.appliveryError(literal(.errorDownloadURL))
                         logError(error)
+                        onResult?(.init(error: .downloadManifestError))
                     }
                 }
             } else {
                 let error = NSError.appliveryError(literal(.errorDownloadURL))
                 logError(error)
-                await openAuthWebView()
+                onResult?(.init(error: .downloadUrlNotFound))
             }
         }
     }

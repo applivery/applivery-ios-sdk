@@ -24,6 +24,80 @@ import UIKit
     case debug = 3
 }
 
+/// Represents the possible result types of an update operation.
+///
+/// This enumeration is compatible with Objective-C and defines the possible states of an update,
+/// whether it was successful or encountered an error.
+@objc public enum UpdateResultType: Int {
+
+    /// Indicates that the update operation completed successfully.
+    case success
+
+    /// Indicates that the update operation failed due to an error.
+    case error
+}
+
+/// Defines specific error codes that can occur during an update operation.
+///
+/// This enumeration is compatible with Objective-C and provides a list of detailed errors that
+/// describe potential failures during the update process.
+@objc public enum UpdateError: Int {
+
+    /// No error; used to represent a state without errors.
+    case noError = 0
+
+    /// Indicates that the necessary configuration was not found to proceed with the update.
+    case noConfigFound = 1001
+
+    /// Indicates that authentication is required to complete the update.
+    case authRequired = 1002
+
+    /// Indicates that there was an error downloading the update manifest.
+    case downloadManifestError = 1003
+
+    /// Indicates that the required download URL for the update was not found.
+    case downloadUrlNotFound = 1004
+}
+
+/// Represents the result of an update operation, indicating whether it was successful or if an error occurred.
+///
+/// This class is compatible with Objective-C and encapsulates both the result type and any associated
+/// error that may have occurred during the update operation.
+@objc public class UpdateResult: NSObject {
+
+    /// The type of result of the update operation.
+    ///
+    /// - SeeAlso: `UpdateResultType`
+    @objc public let type: UpdateResultType
+
+    /// The error associated with the update operation, if any.
+    ///
+    /// - Note: If `type` is `.success`, this value will be `.noError`.
+    @objc public let error: UpdateError
+
+    // MARK: - Initializers
+
+    /// Initializes a new instance of `UpdateResult` representing a successful update operation.
+    ///
+    /// - Parameter success: A Boolean value indicating whether the operation was successful. Defaults to `true`.
+    ///
+    /// - Note: This initializer sets `type` to `.success` and `error` to `.noError`.
+    @objc public init(success: Bool = true) {
+        self.type = .success
+        self.error = .noError
+    }
+
+    /// Initializes a new instance of `UpdateResult` representing a failed update operation with a specific error.
+    ///
+    /// - Parameter error: The error code that describes the reason for the failure.
+    ///
+    /// - Note: This initializer sets `type` to `.error` and assigns the provided `error`.
+    @objc public init(error: UpdateError) {
+        self.type = .error
+        self.error = error
+    }
+}
+
 public typealias AppliveryLogHandler = @convention(block) (
     NSString,         // message
     Int,              // level
@@ -216,8 +290,6 @@ public class AppliverySDK: NSObject {
     private let loginService: LoginServiceProtocol
     private let app: AppProtocol
     private let environments: EnvironmentProtocol
-    private var updateCallbackSuccess: (() -> Void)?
-    private var updateCallbackError: ((String) -> Void)?
     
     
     // MARK: Initializers
@@ -315,10 +387,8 @@ public class AppliverySDK: NSObject {
      - Since: 3.1
      - Version: 3.1
      */
-    @objc public func update(onSuccess: (() -> Void)? = nil, onError: ((String) -> Void)? = nil) {
-        self.updateCallbackSuccess = onSuccess
-        self.updateCallbackError = onError
-        self.updateService.downloadLastBuild()
+    @objc public func update(onResult: ((UpdateResult) -> Void)? = nil) {
+        self.updateService.downloadLastBuild(onResult: onResult)
     }
     
     /**
@@ -406,16 +476,5 @@ public class AppliverySDK: NSObject {
     @objc public func handleRedirectURL(url: URL) {
         let webview = AppliverySafariManager.shared
         webview.urlReceived(url: url)
-    }
-    
-    // MARK: - Update Interactor Delegate
-    
-    func downloadDidEnd() {
-        self.updateCallbackSuccess?()
-    }
-    
-    func downloadDidFail(_ message: String) {
-        self.updateCallbackError?(message)
-        logWarn("Update did fail: \(message)")
     }
 }
