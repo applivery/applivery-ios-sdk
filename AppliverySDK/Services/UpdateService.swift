@@ -12,7 +12,7 @@ protocol UpdateServiceProtocol {
 	
     func forceUpdate()
     func otaUpdate()
-	func downloadLastBuild()
+	func downloadLastBuild(onResult: ((UpdateResult) -> Void)?)
 	func isUpToDate() -> Bool
     func checkForceUpdate(_ config: SDKData?, version: String) -> Bool
     func checkOtaUpdate(_ config: SDKData?, version: String) -> Bool
@@ -85,18 +85,19 @@ final class UpdateService: UpdateServiceProtocol {
 		return message
 	}
 	
-	func downloadLastBuild() {
+	func downloadLastBuild(onResult: ((UpdateResult) -> Void)? = nil) {
         guard let config = self.configService.getCurrentConfig().config else {
             logInfo("No current config found")
+            onResult?(.failure(error: .noConfigFound))
             return
 		}
 		
 		if config.forceAuth {
             logInfo("Force authorization is enabled - requesting authorization")
-            loginService.requestAuthorization()
+            loginService.requestAuthorization(onResult: onResult)
 		} else {
             logInfo("Force authorization is disabled - downloading last build")
-            loginService.download()
+            loginService.download(onResult: onResult)
 		}
 	}
 	
