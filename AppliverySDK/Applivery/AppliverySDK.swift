@@ -57,6 +57,7 @@ import UIKit
 
     /// Indicates that the required download URL for the update was not found.
     case downloadUrlNotFound = 1004
+    
 }
 
 /// Represents the result of an update operation, indicating whether it was successful or if an error occurred.
@@ -64,37 +65,20 @@ import UIKit
 /// This class is compatible with Objective-C and encapsulates both the result type and any associated
 /// error that may have occurred during the update operation.
 @objc public class UpdateResult: NSObject {
-
-    /// The type of result of the update operation.
-    ///
-    /// - SeeAlso: `UpdateResultType`
     @objc public let type: UpdateResultType
-
-    /// The error associated with the update operation, if any.
-    ///
-    /// - Note: If `type` is `.success`, this value will be `.noError`.
     @objc public let error: UpdateError
 
-    // MARK: - Initializers
-
-    /// Initializes a new instance of `UpdateResult` representing a successful update operation.
-    ///
-    /// - Parameter success: A Boolean value indicating whether the operation was successful. Defaults to `true`.
-    ///
-    /// - Note: This initializer sets `type` to `.success` and `error` to `.noError`.
-    @objc public init(success: Bool = true) {
-        self.type = .success
-        self.error = .noError
+    @objc private init(type: UpdateResultType, error: UpdateError) {
+        self.type = type
+        self.error = error
     }
 
-    /// Initializes a new instance of `UpdateResult` representing a failed update operation with a specific error.
-    ///
-    /// - Parameter error: The error code that describes the reason for the failure.
-    ///
-    /// - Note: This initializer sets `type` to `.error` and assigns the provided `error`.
-    @objc public init(error: UpdateError) {
-        self.type = .error
-        self.error = error
+    @objc public static func success() -> UpdateResult {
+        return UpdateResult(type: .success, error: .noError)
+    }
+
+    @objc public static func failure(error: UpdateError) -> UpdateResult {
+        return UpdateResult(type: .error, error: error)
     }
 }
 

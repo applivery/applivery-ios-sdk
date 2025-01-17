@@ -88,7 +88,7 @@ final class UpdateService: UpdateServiceProtocol {
 	func downloadLastBuild(onResult: ((UpdateResult) -> Void)? = nil) {
         guard let config = self.configService.getCurrentConfig().config else {
             logInfo("No current config found")
-            onResult?(.init(error: .noConfigFound))
+            onResult?(.failure(error: .noConfigFound))
             return
 		}
 		

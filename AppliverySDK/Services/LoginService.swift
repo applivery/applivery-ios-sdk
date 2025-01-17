@@ -57,7 +57,7 @@ final class LoginService: LoginServiceProtocol {
             download(onResult: onResult)
         } catch {
             logInfo("User authentication is required!")
-            onResult?(.init(error: .authRequired))
+            onResult?(.failure(error: .authRequired))
         }
     }
     
@@ -107,7 +107,7 @@ final class LoginService: LoginServiceProtocol {
     func download(onResult: ((UpdateResult) -> Void)? = nil) {
         let lastConfig = configService.getCurrentConfig()
         guard let lastBuildId = lastConfig.config?.lastBuildId else {
-            onResult?(.init(error: .noConfigFound))
+            onResult?(.failure(error: .noConfigFound))
             return
         }
 
@@ -115,18 +115,18 @@ final class LoginService: LoginServiceProtocol {
             if let url = await downloadService.downloadURL(lastBuildId) {
                 await MainActor.run {
                     if app.openUrl(url) {
-                        onResult?(.init(success: true))
+                        onResult?(.success())
                     }
                     else {
                         let error = NSError.appliveryError(literal(.errorDownloadURL))
                         logError(error)
-                        onResult?(.init(error: .downloadManifestError))
+                        onResult?(.failure(error: .downloadManifestError))
                     }
                 }
             } else {
                 let error = NSError.appliveryError(literal(.errorDownloadURL))
                 logError(error)
-                onResult?(.init(error: .downloadUrlNotFound))
+                onResult?(.failure(error: .downloadUrlNotFound))
             }
         }
     }
