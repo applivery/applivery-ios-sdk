@@ -58,7 +58,7 @@ struct ConfigServiceTests {
         
         // THEN
         #expect(currentConfig.version == "1.0.0")
-        #expect(currentConfig.bundleVersion == "50")
+        #expect(currentConfig.buildNumber == "50")
         #expect(currentConfig != nil)
         #expect(!(currentConfig.config?.forceUpdate ?? false))
         #expect(currentConfig.config?.ota ?? false)
@@ -82,7 +82,7 @@ struct ConfigServiceTests {
         
         // THEN
         #expect(currentConfig.version == "1.0.0")
-        #expect(currentConfig.bundleVersion == "50")
+        #expect(currentConfig.buildNumber == "50")
         #expect(currentConfig != nil)
         #expect(!(currentConfig.config?.forceUpdate ?? false))
         #expect(currentConfig.config?.ota ?? false)

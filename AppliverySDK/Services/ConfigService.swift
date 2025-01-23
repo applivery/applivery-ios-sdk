@@ -43,7 +43,7 @@ final class ConfigService: ConfigServiceProtocol {
         return UpdateConfigResponse(
             config: config,
             version: version,
-            bundleVersion: bundleVersion
+            buildNumber: bundleVersion
         )
     }
 
@@ -56,7 +56,7 @@ final class ConfigService: ConfigServiceProtocol {
         return UpdateConfigResponse(
             config: config,
             version: version,
-            bundleVersion: bundleVersion
+            buildNumber: bundleVersion
         )
     }
 

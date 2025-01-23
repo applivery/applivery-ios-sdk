@@ -103,7 +103,20 @@ final class UpdateService: UpdateServiceProtocol {
 	
 	func isUpToDate() -> Bool {
         let currentConfig = self.configService.getCurrentConfig()
-        return !self.checkOtaUpdate(currentConfig.config, version: currentConfig.version)
+        
+        if let minVersion = currentConfig.config?.minVersion, !minVersion.isEmpty {
+            let isOlder = isOlder(currentConfig.version, minVersion: minVersion)
+            logInfo("Min version is available, isUpToDate: \(isOlder)")
+            return !isOlder
+        }
+        
+        if let lastVersion = currentConfig.config?.lastBuildVersion {
+            let isOlder = isOlder(currentConfig.buildNumber, minVersion: lastVersion)
+            logInfo("Last version is available, isUpToDate: \(isOlder)")
+            return !isOlder
+        }
+        
+        return true
 	}
 	
     func checkForceUpdate(_ config: SDKData?, version: String) -> Bool {

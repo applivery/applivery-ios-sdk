@@ -127,7 +127,7 @@ private extension StartInteractor {
         if self.updateService.checkForceUpdate(updateConfig.config, version: updateConfig.version) {
             logInfo("Performing force update...")
             updateService.forceUpdate()
-        } else if self.updateService.checkOtaUpdate(updateConfig.config, version: updateConfig.bundleVersion) {
+        } else if self.updateService.checkOtaUpdate(updateConfig.config, version: updateConfig.buildNumber) {
             logInfo("Performing OTA update...")
             updateService.otaUpdate()
         }
