@@ -108,15 +108,18 @@ final class UpdateService: UpdateServiceProtocol {
 	func isUpToDate() -> Bool {
         let currentConfig = self.configService.getCurrentConfig()
         
-        if let minVersion = currentConfig.config?.minVersion, !minVersion.isEmpty {
+        if let minVersion = currentConfig.config?.minVersion,
+            let forceUpdate = currentConfig.config?.forceUpdate,
+            forceUpdate,
+            !minVersion.isEmpty {
             let isOlder = isOlder(currentConfig.version, minVersion: minVersion)
-            logInfo("Min version is available, Need update: \(isOlder)")
+            logInfo("Force update is available, Need update: \(isOlder)")
             return !isOlder
         }
         
         if let lastVersion = currentConfig.config?.lastBuildVersion, !lastVersion.isEmpty {
             let isOlder = isOlder(currentConfig.buildNumber, minVersion: lastVersion)
-            logInfo("Last version is available, Need update: \(isOlder)")
+            logInfo("Last Build version is available, Need update: \(isOlder)")
             return !isOlder
         }
         
