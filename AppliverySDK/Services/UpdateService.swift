@@ -91,19 +91,39 @@ final class UpdateService: UpdateServiceProtocol {
             onResult?(.failure(error: .noConfigFound))
             return
 		}
-		
-		if config.forceAuth {
-            logInfo("Force authorization is enabled - requesting authorization")
-            loginService.requestAuthorization(onResult: onResult)
-		} else {
-            logInfo("Force authorization is disabled - downloading last build")
-            loginService.download(onResult: onResult)
-		}
+        if isUpToDate() {
+            onResult?(.failure(error: .isUpToDate))
+        } else {
+            if config.forceAuth {
+                logInfo("Force authorization is enabled - requesting authorization")
+                loginService.requestAuthorization(onResult: onResult)
+            } else {
+                logInfo("Force authorization is disabled - downloading last build")
+                loginService.download(onResult: onResult)
+            }
+        }
+
 	}
 	
 	func isUpToDate() -> Bool {
         let currentConfig = self.configService.getCurrentConfig()
-        return !self.checkOtaUpdate(currentConfig.config, version: currentConfig.version)
+        
+        if let minVersion = currentConfig.config?.minVersion,
+            let forceUpdate = currentConfig.config?.forceUpdate,
+            forceUpdate,
+            !minVersion.isEmpty {
+            let isOlder = isOlder(currentConfig.version, minVersion: minVersion)
+            logInfo("Force update is available, Need update: \(isOlder)")
+            return !isOlder
+        }
+        
+        if let lastVersion = currentConfig.config?.lastBuildVersion, !lastVersion.isEmpty {
+            let isOlder = isOlder(currentConfig.buildNumber, minVersion: lastVersion)
+            logInfo("Last Build version is available, Need update: \(isOlder)")
+            return !isOlder
+        }
+        
+        return true
 	}
 	
     func checkForceUpdate(_ config: SDKData?, version: String) -> Bool {
