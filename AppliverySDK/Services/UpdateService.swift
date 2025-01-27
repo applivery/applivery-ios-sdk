@@ -91,14 +91,18 @@ final class UpdateService: UpdateServiceProtocol {
             onResult?(.failure(error: .noConfigFound))
             return
 		}
-		
-		if config.forceAuth {
-            logInfo("Force authorization is enabled - requesting authorization")
-            loginService.requestAuthorization(onResult: onResult)
-		} else {
-            logInfo("Force authorization is disabled - downloading last build")
-            loginService.download(onResult: onResult)
-		}
+        if isUpToDate() {
+            onResult?(.failure(error: .isUpToDate))
+        } else {
+            if config.forceAuth {
+                logInfo("Force authorization is enabled - requesting authorization")
+                loginService.requestAuthorization(onResult: onResult)
+            } else {
+                logInfo("Force authorization is disabled - downloading last build")
+                loginService.download(onResult: onResult)
+            }
+        }
+
 	}
 	
 	func isUpToDate() -> Bool {
@@ -106,13 +110,13 @@ final class UpdateService: UpdateServiceProtocol {
         
         if let minVersion = currentConfig.config?.minVersion, !minVersion.isEmpty {
             let isOlder = isOlder(currentConfig.version, minVersion: minVersion)
-            logInfo("Min version is available, isUpToDate: \(isOlder)")
+            logInfo("Min version is available, Need update: \(isOlder)")
             return !isOlder
         }
         
-        if let lastVersion = currentConfig.config?.lastBuildVersion {
+        if let lastVersion = currentConfig.config?.lastBuildVersion, !lastVersion.isEmpty {
             let isOlder = isOlder(currentConfig.buildNumber, minVersion: lastVersion)
-            logInfo("Last version is available, isUpToDate: \(isOlder)")
+            logInfo("Last version is available, Need update: \(isOlder)")
             return !isOlder
         }
         

@@ -58,6 +58,9 @@ import UIKit
     /// Indicates that the required download URL for the update was not found.
     case downloadUrlNotFound = 1004
     
+    /// Indicates that the app is up to date.
+    case isUpToDate = 1005
+    
 }
 
 /// Represents the result of an update operation, indicating whether it was successful or if an error occurred.

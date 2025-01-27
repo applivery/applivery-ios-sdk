@@ -23,8 +23,8 @@ struct FeedbackPackageInfo: Encodable {
     
     init(app: AppProtocol) {
         name = app.bundleId()
-        version = app.getVersion()
-        versionName = app.getVersionName()
+        version = app.getBuildNumber()
+        versionName = app.getVersion()
     }
 }
 

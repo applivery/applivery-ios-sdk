@@ -124,7 +124,7 @@ private extension StartInteractor {
     }
     
     func checkUpdate(for updateConfig: UpdateConfigResponse) {
-        if self.updateService.checkForceUpdate(updateConfig.config, version: updateConfig.version) {
+        if self.updateService.checkForceUpdate(updateConfig.config, version: updateConfig.buildNumber) {
             logInfo("Performing force update...")
             updateService.forceUpdate()
         } else if self.updateService.checkOtaUpdate(updateConfig.config, version: updateConfig.buildNumber) {

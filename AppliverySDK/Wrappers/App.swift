@@ -15,8 +15,8 @@ import SwiftUI
 protocol AppProtocol {
 	func bundleId() -> String
 	func getSDKVersion() -> String
+	func getBuildNumber() -> String
 	func getVersion() -> String
-	func getVersionName() -> String
 	func getLanguage() -> String
 	func openUrl(_ url: String) -> Bool
 	func showOtaAlert(_ message: String, downloadHandler: @escaping () -> Void)
@@ -56,14 +56,14 @@ class App: AppProtocol {
 		return bundleId
 	}
 	
-	func getVersion() -> String {
+	func getBuildNumber() -> String {
 		guard let version = Bundle.main.infoDictionary?["CFBundleVersion"] as? String else {
 			return "NO_VERSION_FOUND"
 		}
 		return version
 	}
 	
-	func getVersionName() -> String {
+	func getVersion() -> String {
 		guard let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else {
 			return "NO_VERSION_FOUND"
 		}

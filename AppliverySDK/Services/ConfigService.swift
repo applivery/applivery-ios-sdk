@@ -36,8 +36,8 @@ final class ConfigService: ConfigServiceProtocol {
     }
     
     func getCurrentConfig() -> UpdateConfigResponse {
-        let version = self.appInfo.getVersionName()
-        let bundleVersion = self.appInfo.getVersion()
+        let version = self.appInfo.getVersion()
+        let bundleVersion = self.appInfo.getBuildNumber()
         let config = self.configPersister.getConfig()
 
         return UpdateConfigResponse(
@@ -49,14 +49,14 @@ final class ConfigService: ConfigServiceProtocol {
 
     func updateConfig() async throws -> UpdateConfigResponse {
         let config = try await fetchConfig().data.sdk.ios
-        let version = self.appInfo.getVersionName()
-        let bundleVersion = self.appInfo.getVersion()
+        let version = self.appInfo.getVersion()
+        let buildNumber = self.appInfo.getBuildNumber()
         self.configPersister.saveConfig(config)
         
         return UpdateConfigResponse(
             config: config,
             version: version,
-            buildNumber: bundleVersion
+            buildNumber: buildNumber
         )
     }
 
