@@ -80,7 +80,7 @@ Select `AppliveryDynamic` if you are using Applivery for internal beta testing a
 
 ### Step 1
 
-First add the framework with "Embed & Sign" flag and be sure that is included in "Build Phases" -> "Embed Frameworks"
+First add the framework with "Embed & Sign" flag (under "<Your Target\>" -> "General" -> "Frameworks, Libraries, and Embedded Content") and be sure that it is included in "Build Phases" -> "Embed Frameworks"
 
 ### Step 2
 
