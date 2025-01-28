@@ -59,7 +59,7 @@ You can get your API TOKEN in your `App -> Settings -> API Auth` section.
 
 (**RECOMMENDED**)
 
-In the Xcode menu, you just need to open “File -> Add Packages...” and enter the Github url: https://github.com/applivery/applivery-ios-sdk.git
+In the Xcode menu, you just need to open “File -> Add Package Dependencies...” and enter the Github url: https://github.com/applivery/applivery-ios-sdk.git
 
 then we recommend to configure the dependency rule as "Up to next major version" (4.0.0 < 5.0.0).
 
