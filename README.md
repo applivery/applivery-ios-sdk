@@ -118,7 +118,7 @@ struct AppliveryWrapper {
 
 The lines between the `#if` macros will not compile (as they wouldn't exists) if you are compiling for a build configuration that has those `Swift Compiler - Custom Flags` (you can add/edit them in the Build settings)
 
-You can find a tutorial about dinamicaly exclude Applivery for an Appstore scheme [here](https://www.applivery.com/docs/troubleshooting/exclude-applivery-ios-sdk/)
+You can find a tutorial about dynamically excluding Applivery for an AppStore scheme [here](https://www.applivery.com/docs/troubleshooting/exclude-applivery-ios-sdk/)
 
 ### Troubleshooting
 
