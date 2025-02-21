@@ -109,7 +109,9 @@ class App: AppProtocol {
         let aceptAction = UIAlertAction(title: literal(.loginButton), style: .default) { _ in
             downloadHandler()
         }
+        let cancelAction = UIAlertAction(title: literal(.alertButtonCancel), style: .cancel, handler: nil)
         
+        self.alertOta.addAction(cancelAction)
         self.alertOta.addAction(aceptAction)
         
         let topVC = self.topViewController()
