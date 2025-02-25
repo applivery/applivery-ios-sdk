@@ -53,12 +53,24 @@ extension Endpoint {
 
 extension URLRequest {
     func debug() {
-        print("""
-                              - METHOD: \(self.httpMethod ?? "")
-                              - URL: \(String(describing: self.url))
-                              - HEADERS: \(self.allHTTPHeaderFields ?? ["": ""])
-                              - BODY: \(String(data: self.httpBody ?? Data(), encoding: .utf8) ?? "")
-                              """)
+        var safeHeaders = [String: String]()
+        
+        if let headers = self.allHTTPHeaderFields {
+            for (key, value) in headers {
+                if key == "Authorization" || key == "x-installation-token" {
+                    safeHeaders[key] = "*********"
+                } else {
+                    safeHeaders[key] = value
+                }
+            }
+        }
+        
+        logInfo("""
+                - METHOD: \(self.httpMethod ?? "")
+                - URL: \(String(describing: self.url))
+                - HEADERS: \(safeHeaders)
+                - BODY: \(String(data: self.httpBody ?? Data(), encoding: .utf8) ?? "")
+                """)
     }
 }
 
