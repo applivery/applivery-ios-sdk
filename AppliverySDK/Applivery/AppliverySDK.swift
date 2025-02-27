@@ -121,7 +121,7 @@ public class AppliverySDK: NSObject {
     
     // MARK: - Static Properties
     
-    internal static let sdkVersion = "4.2.6"
+    internal static let sdkVersion = "4.3.5"
     
     // MARK: - Type Properties
     

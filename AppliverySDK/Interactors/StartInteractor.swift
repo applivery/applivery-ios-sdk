@@ -144,7 +144,7 @@ private extension StartInteractor {
                 }
             }
         } catch {
-            log("Error obtaining redirect URL: \(error)")
+            logInfo("Error obtaining redirect URL: \(error)")
             await MainActor.run {
                 app.showErrorAlert("Error obtaining redirect URL")
             }
