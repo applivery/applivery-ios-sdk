@@ -68,11 +68,11 @@ final class LoginService: LoginServiceProtocol {
             store(accessToken: accessToken, userName: loginData.payload.user)
         } catch APIError.statusCode(let errorCode) {
             if errorCode == 401 {
-                log("Access token is not available. Opening auth web view...")
+                logInfo("Access token is not available. Opening auth web view...")
                 await openAuthWebView()
             }
         } catch {
-            log("Access token is not available. \(error)")
+            logInfo("Access token is not available. \(error)")
         }
     }
     

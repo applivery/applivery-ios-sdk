@@ -20,6 +20,8 @@ func log(_ log: String) {
 func sdkLog(_ message: @autoclosure () -> String, level: LogLevel, filename: NSString = #file, line: Int = #line, funcname: String = #function) {
     if let handler = GlobalConfig.shared.logHandler {
         handler(message() as NSString, level.rawValue, filename as String as NSString, line, funcname as NSString)
+    } else {
+        log(message())
     }
 }
 
