@@ -91,16 +91,13 @@ final class UpdateService: UpdateServiceProtocol {
             onResult?(.failure(error: .noConfigFound))
             return
 		}
-        if isUpToDate() {
-            onResult?(.failure(error: .isUpToDate))
+
+        if config.forceAuth {
+            logInfo("Force authorization is enabled - requesting authorization")
+            loginService.requestAuthorization(onResult: onResult)
         } else {
-            if config.forceAuth {
-                logInfo("Force authorization is enabled - requesting authorization")
-                loginService.requestAuthorization(onResult: onResult)
-            } else {
-                logInfo("Force authorization is disabled - downloading last build")
-                loginService.download(onResult: onResult)
-            }
+            logInfo("Force authorization is disabled - downloading last build")
+            loginService.download(onResult: onResult)
         }
 
 	}
@@ -113,13 +110,13 @@ final class UpdateService: UpdateServiceProtocol {
             forceUpdate,
             !minVersion.isEmpty {
             let isOlder = isOlder(currentConfig.version, minVersion: minVersion)
-            logInfo("Force update is available, Need update: \(isOlder)")
+            logInfo("[isUpToDate] - Force update is available, checking if \(currentConfig.version) is older than \(minVersion), Need update: \(!isOlder)")
             return !isOlder
         }
         
         if let lastVersion = currentConfig.config?.lastBuildVersion, !lastVersion.isEmpty {
             let isOlder = isOlder(currentConfig.buildNumber, minVersion: lastVersion)
-            logInfo("Last Build version is available, Need update: \(isOlder)")
+            logInfo("[isUpToDate] - Last Build version is available, Need update: \(isOlder)")
             return !isOlder
         }
         
@@ -133,9 +130,9 @@ final class UpdateService: UpdateServiceProtocol {
             forceUpdate
             else { return false }
         
-        logInfo("Checking if app version: \(version) is older than minVersion: \(minVersion)")
+        logInfo("[checkForceUpdate] - Checking if build version: \(version) is older than minBuildVersion: \(minVersion)")
         if self.isOlder(version, minVersion: minVersion) {
-            logInfo("Application must be updated!!")
+            logInfo("[checkForceUpdate] - Application must be updated!!")
             return true
         }
         
@@ -148,15 +145,16 @@ final class UpdateService: UpdateServiceProtocol {
             let otaUpdate = config?.ota,
             otaUpdate
         else {
-            logInfo("ota update not needed")
+            logInfo("[checkOtaUpdate] - ota update not needed")
             return false
         }
         
-        logInfo("Checking if app version: \(version) is older than last build version: \(lastVersion)")
+        logInfo("[checkOtaUpdate] - Checking if app version: \(version) is older than last build version: \(lastVersion)")
         if self.isOlder(version, minVersion: lastVersion) {
-            logInfo("New OTA update available!")
+            logInfo("[checkOtaUpdate] - New OTA update available!")
             return true
         }
+        logInfo("ota update not needed")
 		return false
     }
 }
