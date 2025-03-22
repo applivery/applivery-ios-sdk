@@ -60,6 +60,30 @@ final class EnvironmentsTests: XCTestCase {
         XCTAssertEqual(result, "sdk-api.custom.tenant.com")
     }
 
+    func test_setHost_withAppliveryDomain_keepsItUnchanged() {
+        environments.setHost("custom.applivery.io")
+        let result = environments.getHost()
+        XCTAssertEqual(result, "sdk-api.custom.applivery.io")
+    }
+
+    func test_setHost_withTrailingSpaces_trimsAndAddsDefaultDomain() {
+        environments.setHost("  customTenant  ")
+        let result = environments.getHost()
+        XCTAssertEqual(result, "sdk-api.customTenant.applivery.io")
+    }
+
+    func test_setHost_withDomainAndTrailingSpaces_trimsAndKeepsOriginalDomain() {
+        environments.setHost(" custom.tenant.com ")
+        let result = environments.getHost()
+        XCTAssertEqual(result, "sdk-api.custom.tenant.com")
+    }
+
+    func test_setHost_withUppercaseCharacters_preservesCase() {
+        environments.setHost("CUSTOMtenant")
+        let result = environments.getHost()
+        XCTAssertEqual(result, "sdk-api.CUSTOMtenant.applivery.io")
+    }
+
     // MARK: - setHostDownload Tests
 
     func test_setHostDownload_withNilTenant_usesDefaultDomain() {
@@ -92,12 +116,10 @@ final class EnvironmentsTests: XCTestCase {
         XCTAssertEqual(result, "download-api.custom.tenant.com")
     }
 
-    // MARK: - Additional Tests for Edge Cases
-
-    func test_setHost_withTrailingSpaces_trimsAndAddsDefaultDomain() {
-        environments.setHost("  customTenant  ")
-        let result = environments.getHost()
-        XCTAssertEqual(result, "sdk-api.customTenant.applivery.io")
+    func test_setHostDownload_withAppliveryDomain_keepsItUnchanged() {
+        environments.setHostDownload("custom.applivery.io")
+        let result = environments.getHostDownload()
+        XCTAssertEqual(result, "download-api.custom.applivery.io")
     }
 
     func test_setHostDownload_withTrailingSpaces_trimsAndAddsDefaultDomain() {
@@ -106,27 +128,15 @@ final class EnvironmentsTests: XCTestCase {
         XCTAssertEqual(result, "download-api.customTenant.applivery.io")
     }
 
-    func test_setHost_withUppercaseCharacters_preservesCase() {
-        environments.setHost("CUSTOMtenant")
-        let result = environments.getHost()
-        XCTAssertEqual(result, "sdk-api.CUSTOMtenant.applivery.io")
+    func test_setHostDownload_withDomainAndTrailingSpaces_trimsAndKeepsOriginalDomain() {
+        environments.setHostDownload(" custom.tenant.com ")
+        let result = environments.getHostDownload()
+        XCTAssertEqual(result, "download-api.custom.tenant.com")
     }
 
     func test_setHostDownload_withUppercaseCharacters_preservesCase() {
         environments.setHostDownload("CUSTOMtenant")
         let result = environments.getHostDownload()
         XCTAssertEqual(result, "download-api.CUSTOMtenant.applivery.io")
-    }
-
-    func test_setHost_withDomainAndTrailingSpaces_trimsAndKeepsOriginalDomain() {
-        environments.setHost(" custom.tenant.com ")
-        let result = environments.getHost()
-        XCTAssertEqual(result, "sdk-api.custom.tenant.com")
-    }
-
-    func test_setHostDownload_withDomainAndTrailingSpaces_trimsAndKeepsOriginalDomain() {
-        environments.setHostDownload(" custom.tenant.com ")
-        let result = environments.getHostDownload()
-        XCTAssertEqual(result, "download-api.custom.tenant.com")
     }
 }
