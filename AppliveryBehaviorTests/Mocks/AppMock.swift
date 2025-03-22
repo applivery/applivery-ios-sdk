@@ -9,97 +9,110 @@
 import UIKit
 @testable import Applivery
 
-
 class AppMock: AppProtocol {
-    
-	// Inputs
-	var stubBundleID: String = "NO BUNDLE ID SET"
-	var stubSDKVersion: String = "NO VERSION SET"
-	var stubVersion: String = "NO VERSION SET"
-	var stubVersionName: String = "NO VERSION SET"
-	var stubLanguage: String = "NO LANGUAGE SET"
-	var stubOpenUrlResult = false
 
-	// Outputs
-	var spyOpenUrl = (called: false, url: "")
-	var spyOtaAlert = (called: false, message: "")
+    // Inputs
+    var stubBundleID: String = "NO BUNDLE ID SET"
+    var stubSDKVersion: String = "NO VERSION SET"
+    var stubBuildNumber: String = "NO VERSION SET"
+    var stubVersion: String = "NO VERSION SET"
+    var stubVersionName: String = "NO VERSION SET"
+    var stubLanguage: String = "NO LANGUAGE SET"
+    var stubOpenUrlResult = false
+
+    // Outputs
+    var spyOpenUrl = (called: false, url: "")
+    var spyOtaAlert = (called: false, message: "")
     var spyForceUpdateCalled = false
-	var spyAlertError = (called: false, message: "")
-	var spyWaitForReadyCalled = false
-	var spyPresentModal: (called: Bool, viewController: UIViewController?) = (false, nil)
-	var spyDownloadClosure: (() -> Void)?
-	var spyRetryClosure: (() -> Void)?
-	var spyShowLoadingCalled = false
+    var spyAlertError = (called: false, message: "")
+    var spyWaitForReadyCalled = false
+    var spyPresentModal: (called: Bool, viewController: UIViewController?) = (false, nil)
+    var spyDownloadClosure: (() -> Void)?
+    var spyRetryClosure: (() -> Void)?
+    var spyShowLoadingCalled = false
     var spyHideLoadingCalled = false
-	var spyPresentFeedbackForm = false
-	var spyLoginView = (called: false, message: "")
-	var spyLoginCancelClosure: (() -> Void)?
-	var spyLoginClosure: ((String, String) -> Void)?
+    var spyPresentFeedbackForm = false
+    var spyLoginView = (called: false, message: "")
+    var spyLoginCancelClosure: (() -> Void)?
+    var spyLoginClosure: ((String, String) -> Void)?
+    var spyShowLoginAlert = false
+    var spyLoginAlertDownloadClosure: (() -> Void)?
 
+    func bundleId() -> String {
+        return self.stubBundleID
+    }
 
-	func bundleId() -> String {
-		return self.stubBundleID
-	}
-	
-	func getSDKVersion() -> String {
-		return self.stubSDKVersion
-	}
+    func getSDKVersion() -> String {
+        return self.stubSDKVersion
+    }
 
-	func getVersion() -> String {
-		return self.stubVersion
-	}
-	
-	func getVersionName() -> String {
-		return self.stubVersionName
-	}
+    func getBuildNumber() -> String {
+        return self.stubBuildNumber
+    }
 
-	func getLanguage() -> String {
-		return self.stubLanguage
-	}
+    func getVersion() -> String {
+        return self.stubVersion
+    }
 
-	func openUrl(_ url: String) -> Bool {
-		self.spyOpenUrl = (true, url)
-		return self.stubOpenUrlResult
-	}
+    func getVersionName() -> String {
+        return self.stubVersionName
+    }
 
-	func showLoading() {
-		self.spyShowLoadingCalled = true
-	}
+    func getLanguage() -> String {
+        return self.stubLanguage
+    }
 
-	func hideLoading() {
-		self.spyHideLoadingCalled = true
-	}
+    func openUrl(_ url: String) -> Bool {
+        self.spyOpenUrl = (true, url)
+        return self.stubOpenUrlResult
+    }
 
-	func showOtaAlert(_ message: String, downloadHandler: @escaping () -> Void) {
-		self.spyOtaAlert = (true, message)
-		self.spyDownloadClosure = downloadHandler
-	}
-    
+    func showLoading() {
+        self.spyShowLoadingCalled = true
+    }
+
+    func hideLoading() {
+        self.spyHideLoadingCalled = true
+    }
+
+    func showOtaAlert(_ message: String, downloadHandler: @escaping () -> Void) {
+        self.spyOtaAlert = (true, message)
+        self.spyDownloadClosure = downloadHandler
+    }
+
     func showForceUpdate() {
         self.spyForceUpdateCalled = true
     }
 
-	func showErrorAlert(_ message: String, retryHandler: @escaping () -> Void) {
-		self.spyAlertError = (true, message)
-		self.spyRetryClosure = retryHandler
-	}
+    func showErrorAlert(_ message: String) {
+        self.spyAlertError = (true, message)
+    }
 
-	func waitForReadyThen(_ onReady: @escaping () -> Void) {
-		self.spyWaitForReadyCalled = true
-		onReady()
-	}
+    func waitForReadyThen(_ onReady: @escaping () -> Void) {
+        self.spyWaitForReadyCalled = true
+        onReady()
+    }
 
-	func presentModal(_ viewController: UIViewController, animated: Bool) {
-		self.spyPresentModal = (true, viewController)
-	}
-	
-	func showLoginView(message: String, cancelHandler: @escaping () -> Void, loginHandler: @escaping (String, String) -> Void) {
-		self.spyLoginView = (true, message)
-		self.spyLoginCancelClosure = cancelHandler
-		self.spyLoginClosure = loginHandler
-	}
-    
+    func presentModal(_ viewController: UIViewController, animated: Bool) {
+        self.spyPresentModal = (true, viewController)
+    }
+
+    func showLoginView(message: String, cancelHandler: @escaping () -> Void, loginHandler: @escaping (String, String) -> Void) {
+        self.spyLoginView = (true, message)
+        self.spyLoginCancelClosure = cancelHandler
+        self.spyLoginClosure = loginHandler
+    }
+
+    func showLoginAlert(downloadHandler: @escaping () -> Void) {
+        self.spyShowLoginAlert = true
+        self.spyLoginAlertDownloadClosure = downloadHandler
+    }
+
     func presentFeedbackForm() {
         self.spyPresentFeedbackForm = true
+    }
+
+    func topViewController() -> UIViewController? {
+        return nil
     }
 }
