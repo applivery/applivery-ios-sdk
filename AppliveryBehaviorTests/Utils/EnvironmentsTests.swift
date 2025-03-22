@@ -1,13 +1,5 @@
 //
 //  EnvironmentsTests.swift
-//  Applivery
-//
-//  Created by Alejandro on 22/3/25.
-//
-
-
-//
-//  EnvironmentsTests.swift
 //  AppliveryBehaviorTests
 //
 //  Created by Alejandro on 22/3/25.
@@ -96,6 +88,44 @@ final class EnvironmentsTests: XCTestCase {
 
     func test_setHostDownload_withFullDomain_keepsItUnchanged() {
         environments.setHostDownload("custom.tenant.com")
+        let result = environments.getHostDownload()
+        XCTAssertEqual(result, "download-api.custom.tenant.com")
+    }
+
+    // MARK: - Additional Tests for Edge Cases
+
+    func test_setHost_withTrailingSpaces_trimsAndAddsDefaultDomain() {
+        environments.setHost("  customTenant  ")
+        let result = environments.getHost()
+        XCTAssertEqual(result, "sdk-api.customTenant.applivery.io")
+    }
+
+    func test_setHostDownload_withTrailingSpaces_trimsAndAddsDefaultDomain() {
+        environments.setHostDownload("  customTenant  ")
+        let result = environments.getHostDownload()
+        XCTAssertEqual(result, "download-api.customTenant.applivery.io")
+    }
+
+    func test_setHost_withUppercaseCharacters_preservesCase() {
+        environments.setHost("CUSTOMtenant")
+        let result = environments.getHost()
+        XCTAssertEqual(result, "sdk-api.CUSTOMtenant.applivery.io")
+    }
+
+    func test_setHostDownload_withUppercaseCharacters_preservesCase() {
+        environments.setHostDownload("CUSTOMtenant")
+        let result = environments.getHostDownload()
+        XCTAssertEqual(result, "download-api.CUSTOMtenant.applivery.io")
+    }
+
+    func test_setHost_withDomainAndTrailingSpaces_trimsAndKeepsOriginalDomain() {
+        environments.setHost(" custom.tenant.com ")
+        let result = environments.getHost()
+        XCTAssertEqual(result, "sdk-api.custom.tenant.com")
+    }
+
+    func test_setHostDownload_withDomainAndTrailingSpaces_trimsAndKeepsOriginalDomain() {
+        environments.setHostDownload(" custom.tenant.com ")
         let result = environments.getHostDownload()
         XCTAssertEqual(result, "download-api.custom.tenant.com")
     }

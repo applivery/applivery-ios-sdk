@@ -42,12 +42,13 @@ final class Environments: EnvironmentProtocol {
 
     func setHost(_ tenant: String?) {
         let trimmedTenant = tenant?.trimmingCharacters(in: .whitespacesAndNewlines)
-        let baseDomain: String
+        let curatedTenant = trimmedTenant.flatMap { $0.isEmpty ? nil : $0 }
 
-        if let curatedTenant = trimmedTenant, !curatedTenant.isEmpty {
-            baseDomain = curatedTenant.contains(".") ? curatedTenant : "\(curatedTenant).\(defaultDomain)"
+        let baseDomain: String
+        if let curatedTenant = curatedTenant {
+            baseDomain = curatedTenant.contains(".") ? curatedTenant : "\(curatedTenant).applivery.io"
         } else {
-            baseDomain = defaultDomain
+            baseDomain = "applivery.io"
         }
 
         writeValue("sdk-api.\(baseDomain)", forKey: hostKey)
@@ -59,12 +60,13 @@ final class Environments: EnvironmentProtocol {
 
     func setHostDownload(_ tenant: String?) {
         let trimmedTenant = tenant?.trimmingCharacters(in: .whitespacesAndNewlines)
-        let baseDomain: String
+        let curatedTenant = trimmedTenant.flatMap { $0.isEmpty ? nil : $0 }
 
-        if let curatedTenant = trimmedTenant, !curatedTenant.isEmpty {
-            baseDomain = curatedTenant.contains(".") ? curatedTenant : "\(curatedTenant).\(defaultDomain)"
+        let baseDomain: String
+        if let curatedTenant = curatedTenant {
+            baseDomain = curatedTenant.contains(".") ? curatedTenant : "\(curatedTenant).applivery.io"
         } else {
-            baseDomain = defaultDomain
+            baseDomain = "applivery.io"
         }
 
         writeValue("download-api.\(baseDomain)", forKey: hostDownloadKey)
