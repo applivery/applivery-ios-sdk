@@ -10,6 +10,7 @@ import UIKit
 
 class MockUpdateService: UpdateServiceProtocol {
 
+    // MARK: - Spy Properties
     var forceUpdateCalled = false
     var otaUpdateCalled = false
     var downloadLastBuildCalled = false
@@ -17,7 +18,10 @@ class MockUpdateService: UpdateServiceProtocol {
     var checkForceUpdateResponse: Bool = false
     var checkOtaUpdateResponse: Bool = false
     var forceUpdateMessageResponse: String = "Mock force update message"
-    
+    var otaUpdateMessageResponse: String = "Mock OTA update message"
+    var downloadLastBuildResult: UpdateResult?
+
+    // MARK: - Protocol Methods
     func forceUpdate() {
         forceUpdateCalled = true
     }
@@ -26,8 +30,11 @@ class MockUpdateService: UpdateServiceProtocol {
         otaUpdateCalled = true
     }
 
-    func downloadLastBuild() {
+    func downloadLastBuild(onResult: ((Applivery.UpdateResult) -> Void)?) {
         downloadLastBuildCalled = true
+        if let result = downloadLastBuildResult {
+            onResult?(result)
+        }
     }
 
     func isUpToDate() -> Bool {
@@ -44,5 +51,9 @@ class MockUpdateService: UpdateServiceProtocol {
 
     func forceUpdateMessage() -> String {
         return forceUpdateMessageResponse
+    }
+
+    func otaUpdateMessage() -> String {
+        return otaUpdateMessageResponse
     }
 }

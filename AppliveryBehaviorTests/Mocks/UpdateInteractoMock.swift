@@ -1,5 +1,5 @@
 //
-//  UpdateInteractoMock.swift
+//  UpdateServiceMock.swift
 //  AppliverySDK
 //
 //  Created by Alejandro Jiménez on 8/12/15.
@@ -9,77 +9,52 @@
 import Foundation
 @testable import Applivery
 
-
 class UpdateServiceMock: UpdateServiceProtocol {
-    func downloadLastBuild() {
-        //
-    }
-    
-    func isUpToDate() -> Bool {
-        true
-    }
-    
-    func forceUpdateMessage() -> String {
-        ""
-    }
-    
+
+    // MARK: - Spy Properties
+    var forceUpdateCalled = false
+    var otaUpdateCalled = false
+    var downloadLastBuildCalled = false
+    var isUpToDateResponse: Bool = true
+    var checkForceUpdateResponse: Bool = false
+    var checkOtaUpdateResponse: Bool = false
+    var forceUpdateMessageResponse: String = "Mock force update message"
+    var otaUpdateMessageResponse: String = "Mock OTA update message"
+    var downloadLastBuildResult: UpdateResult?
+
+    // MARK: - Protocol Methods
     func forceUpdate() {
-        //
+        forceUpdateCalled = true
     }
-    
+
     func otaUpdate() {
-        //
+        otaUpdateCalled = true
     }
-    
+
+    func downloadLastBuild(onResult: ((UpdateResult) -> Void)? = nil) {
+        downloadLastBuildCalled = true
+        if let result = downloadLastBuildResult {
+            onResult?(result)
+        }
+    }
+
+    func isUpToDate() -> Bool {
+        return isUpToDateResponse
+    }
+
     func checkForceUpdate(_ config: SDKData?, version: String) -> Bool {
-        true
+        return checkForceUpdateResponse
     }
-    
+
     func checkOtaUpdate(_ config: SDKData?, version: String) -> Bool {
-        true
+        return checkOtaUpdateResponse
     }
-    
-//	func isUpToDate() -> Bool {
-//		return false
-//	}
-//	
-//	func checkForceUpdate(_ config: Config?, version: String) -> Bool {
-//		return false
-//	}
-//	
-//	func checkOtaUpdate(_ config: Config?, version: String) -> Bool {
-//		return false
-//	}
-//	
-//	func downloadLastBuild() {
-//		
-//	}
-//	
-//	func authenticatedDownload() {
-//		
-//	}
-//	
-//
-//	var output: UpdateInteractorOutput? // NO NEEDED
-//
-//
-//	// INPUTS
-//	var inForceUpdateMessage: String!
-//	var inOtaUpdateMessage: String!
-//
-//	// OUTPUTS
-//	var outDownloadLastBuildCalled = false
-//
-//
-//	func forceUpdateMessage() -> String {
-//		return self.inForceUpdateMessage
-//	}
-//
-//	func otaUpdateMessage() -> String {
-//		return self.inOtaUpdateMessage
-//	}
-//
-//	func unauthDownload() {
-//		self.outDownloadLastBuildCalled = true
-//	}
+
+    func forceUpdateMessage() -> String {
+        return forceUpdateMessageResponse
+    }
+
+    func otaUpdateMessage() -> String {
+        return otaUpdateMessageResponse
+    }
 }
