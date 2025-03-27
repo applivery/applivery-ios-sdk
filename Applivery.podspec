@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                = "Applivery"
-  s.version             = "3.3.0"
+  s.version             = "3.5.0"
   s.summary             = "Mobile App Distribution"
   s.homepage            = "https://www.applivery.com"
   s.license             = { :type => "MIT", :file => "LICENSE" }
