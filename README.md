@@ -59,7 +59,7 @@ You can get your API TOKEN in your `App -> Settings -> API Auth` section.
 
 (**RECOMMENDED**)
 
-In the Xcode menu, you just need to open “File -> Add Packages...” and enter the Github url: https://github.com/applivery/applivery-ios-sdk.git
+In the Xcode menu, you just need to open “File -> Add Package Dependencies...” and enter the Github url: https://github.com/applivery/applivery-ios-sdk.git
 
 then we recommend to configure the dependency rule as "Up to next major version" (4.0.0 < 5.0.0).
 
@@ -80,7 +80,7 @@ Select `AppliveryDynamic` if you are using Applivery for internal beta testing a
 
 ### Step 1
 
-First add the framework with "Embbed & Sign" flag and be sure that is included in "Build Phases" -> "Embed Frameworks"
+First add the framework with "Embed & Sign" flag (under "<Your Target\>" -> "General" -> "Frameworks, Libraries, and Embedded Content") and be sure that it is included in "Build Phases" -> "Embed Frameworks"
 
 ### Step 2
 
@@ -118,7 +118,7 @@ struct AppliveryWrapper {
 
 The lines between the `#if` macros will not compile (as they wouldn't exists) if you are compiling for a build configuration that has those `Swift Compiler - Custom Flags` (you can add/edit them in the Build settings)
 
-You can find a tutorial about dinamicaly exclude Applivery for an Appstore scheme [here](https://www.applivery.com/docs/troubleshooting/exclude-applivery-ios-sdk/)
+You can find a tutorial about dynamically excluding Applivery for an AppStore scheme [here](https://www.applivery.com/docs/troubleshooting/exclude-applivery-ios-sdk/)
 
 ### Troubleshooting
 
