@@ -20,6 +20,7 @@ final class Environments: EnvironmentProtocol {
     // MARK: - Keys
     private let hostKey: String = "APPLIVERY_HOST"
     private let hostDownloadKey: String = "APPLIVERY_HOST_DOWNLOAD"
+    private let defaultDomain: String = "applivery.io"
 
     // MARK: - Properties
     private let userDefaults: UserDefaults
@@ -40,11 +41,17 @@ final class Environments: EnvironmentProtocol {
     }
 
     func setHost(_ tenant: String?) {
-        guard let tenant = tenant else {
-            writeValue("sdk-api.applivery.io", forKey: hostKey)
-            return
+        let trimmedTenant = tenant?.trimmingCharacters(in: .whitespacesAndNewlines)
+        let curatedTenant = trimmedTenant.flatMap { $0.isEmpty ? nil : $0 }
+
+        let baseDomain: String
+        if let curatedTenant = curatedTenant {
+            baseDomain = curatedTenant.contains(".") ? curatedTenant : "\(curatedTenant).applivery.io"
+        } else {
+            baseDomain = "applivery.io"
         }
-        writeValue("sdk-api.\(tenant).applivery.io", forKey: hostKey)
+
+        writeValue("sdk-api.\(baseDomain)", forKey: hostKey)
     }
 
     func getHostDownload() -> String? {
@@ -52,11 +59,17 @@ final class Environments: EnvironmentProtocol {
     }
 
     func setHostDownload(_ tenant: String?) {
-        guard let tenant = tenant else {
-            writeValue("download-api.applivery.io", forKey: hostDownloadKey)
-            return
+        let trimmedTenant = tenant?.trimmingCharacters(in: .whitespacesAndNewlines)
+        let curatedTenant = trimmedTenant.flatMap { $0.isEmpty ? nil : $0 }
+
+        let baseDomain: String
+        if let curatedTenant = curatedTenant {
+            baseDomain = curatedTenant.contains(".") ? curatedTenant : "\(curatedTenant).applivery.io"
+        } else {
+            baseDomain = "applivery.io"
         }
-        writeValue("download-api.\(tenant).applivery.io", forKey: hostDownloadKey)
+
+        writeValue("download-api.\(baseDomain)", forKey: hostDownloadKey)
     }
 
     // MARK: - Private Helpers
