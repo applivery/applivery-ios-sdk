@@ -3,10 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		26ECD1172D95C08C000B8E32 /* MockEnvironments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26ECD1152D95C08C000B8E32 /* MockEnvironments.swift */; };
+		26ECD1182D95C08C000B8E32 /* MockUpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26ECD1162D95C08C000B8E32 /* MockUpdateService.swift */; };
 		D880104325D00582005490FA /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = D880104225D00582005490FA /* Nimble */; };
 		D880104725D005A5005490FA /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = D880104625D005A5005490FA /* Quick */; };
 		D880104B25D005C9005490FA /* OHHTTPStubs in Frameworks */ = {isa = PBXBuildFile; productRef = D880104A25D005C9005490FA /* OHHTTPStubs */; };
@@ -27,7 +29,6 @@
 		D8F3DE4A25D0066E009E036C /* StartInteractorOutputMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F3DE3425D0066E009E036C /* StartInteractorOutputMock.swift */; };
 		D8F3DE4B25D0066E009E036C /* ConfigPersisterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F3DE3525D0066E009E036C /* ConfigPersisterMock.swift */; };
 		D8F3DE4C25D0066E009E036C /* AppMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F3DE3625D0066E009E036C /* AppMock.swift */; };
-		D8F3DE4D25D0066E009E036C /* StartInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F3DE3725D0066E009E036C /* StartInteractorMock.swift */; };
 		D8F3DE4E25D0066E009E036C /* UpdateInteractorOutputMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F3DE3825D0066E009E036C /* UpdateInteractorOutputMock.swift */; };
 		D8F3DE4F25D0066E009E036C /* FeedbackViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F3DE3925D0066E009E036C /* FeedbackViewMock.swift */; };
 		D8F3DE5025D0066E009E036C /* UpdateViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F3DE3A25D0066E009E036C /* UpdateViewMock.swift */; };
@@ -145,6 +146,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		26ECD1152D95C08C000B8E32 /* MockEnvironments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockEnvironments.swift; sourceTree = "<group>"; };
+		26ECD1162D95C08C000B8E32 /* MockUpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUpdateService.swift; sourceTree = "<group>"; };
 		D8F3DE2725D0066E009E036C /* DeviceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceMock.swift; path = Mocks/DeviceMock.swift; sourceTree = "<group>"; };
 		D8F3DE2825D0066E009E036C /* DownloadDataManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadDataManagerMock.swift; path = Mocks/DownloadDataManagerMock.swift; sourceTree = "<group>"; };
 		D8F3DE2925D0066E009E036C /* FeedbackInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackInteractorMock.swift; path = Mocks/FeedbackInteractorMock.swift; sourceTree = "<group>"; };
@@ -161,7 +164,6 @@
 		D8F3DE3425D0066E009E036C /* StartInteractorOutputMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartInteractorOutputMock.swift; path = Mocks/StartInteractorOutputMock.swift; sourceTree = "<group>"; };
 		D8F3DE3525D0066E009E036C /* ConfigPersisterMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigPersisterMock.swift; path = Mocks/ConfigPersisterMock.swift; sourceTree = "<group>"; };
 		D8F3DE3625D0066E009E036C /* AppMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppMock.swift; path = Mocks/AppMock.swift; sourceTree = "<group>"; };
-		D8F3DE3725D0066E009E036C /* StartInteractorMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartInteractorMock.swift; path = Mocks/StartInteractorMock.swift; sourceTree = "<group>"; };
 		D8F3DE3825D0066E009E036C /* UpdateInteractorOutputMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateInteractorOutputMock.swift; path = Mocks/UpdateInteractorOutputMock.swift; sourceTree = "<group>"; };
 		D8F3DE3925D0066E009E036C /* FeedbackViewMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackViewMock.swift; path = Mocks/FeedbackViewMock.swift; sourceTree = "<group>"; };
 		D8F3DE3A25D0066E009E036C /* UpdateViewMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateViewMock.swift; path = Mocks/UpdateViewMock.swift; sourceTree = "<group>"; };
@@ -326,6 +328,8 @@
 		FA201F7A1E9065BF0090128F /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				26ECD1152D95C08C000B8E32 /* MockEnvironments.swift */,
+				26ECD1162D95C08C000B8E32 /* MockUpdateService.swift */,
 				FA201F7B1E9065C80090128F /* JSON */,
 				FA7F4CD71EE760DD00BA2F52 /* Images */,
 				D8F3DE3625D0066E009E036C /* AppMock.swift */,
@@ -343,7 +347,6 @@
 				D8F3DE2F25D0066E009E036C /* Images */,
 				D8F3DE3325D0066E009E036C /* JSON */,
 				D8F3DE3B25D0066E009E036C /* ScreenshotInteractorMock.swift */,
-				D8F3DE3725D0066E009E036C /* StartInteractorMock.swift */,
 				D8F3DE3425D0066E009E036C /* StartInteractorOutputMock.swift */,
 				D8F3DE2A25D0066E009E036C /* UpdateCoordinatorMock.swift */,
 				D8F3DE2B25D0066E009E036C /* UpdateInteractoMock.swift */,
@@ -815,7 +818,6 @@
 				D8F3DE5125D0066E009E036C /* ScreenshotInteractorMock.swift in Sources */,
 				D8F3DE3D25D0066E009E036C /* DeviceMock.swift in Sources */,
 				D8F3DE4F25D0066E009E036C /* FeedbackViewMock.swift in Sources */,
-				D8F3DE4D25D0066E009E036C /* StartInteractorMock.swift in Sources */,
 				D8F3DE4325D0066E009E036C /* FeedbackServiceMock.swift in Sources */,
 				D8F3DE5225D0066E009E036C /* DownloadServiceMock.swift in Sources */,
 				D8F3DE4725D0066E009E036C /* EventDetectorMock.swift in Sources */,
@@ -825,6 +827,8 @@
 				D8F3DE5025D0066E009E036C /* UpdateViewMock.swift in Sources */,
 				FA9F506F2368F599008D591C /* ConfiguratorMock.swift in Sources */,
 				D8F3DE4425D0066E009E036C /* ImageManagerMock.swift in Sources */,
+				26ECD1172D95C08C000B8E32 /* MockEnvironments.swift in Sources */,
+				26ECD1182D95C08C000B8E32 /* MockUpdateService.swift in Sources */,
 				D8F3DE4E25D0066E009E036C /* UpdateInteractorOutputMock.swift in Sources */,
 				D8F3DE4B25D0066E009E036C /* ConfigPersisterMock.swift in Sources */,
 				FA201F751E9049410090128F /* StartSpecs.swift in Sources */,
@@ -932,7 +936,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				INFOPLIST_FILE = AppliveryBehaviorTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -955,7 +959,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				INFOPLIST_FILE = AppliveryBehaviorTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1102,7 +1106,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = AppliverySDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1135,7 +1139,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = AppliverySDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
