@@ -339,12 +339,14 @@ public class AppliverySDK: NSObject {
      - Since: 3.3
      - Version: 3.3
      */
-    @objc public func start(token: String, tenant: String? = nil) {
+    @objc public func start(token: String, tenant: String? = nil, configuration: AppliveryConfiguration = .empty) {
         self.globalConfig.appToken = token
         host = tenant
         hostDownload = tenant
+        self.globalConfig.configuration = configuration
         self.startInteractor.start()
     }
+
     
     private func showFirstWindow() {
         guard window != nil else {
@@ -463,5 +465,16 @@ public class AppliverySDK: NSObject {
     @objc public func handleRedirectURL(url: URL) {
         let webview = AppliverySafariManager.shared
         webview.urlReceived(url: url)
+    }
+    
+    /**
+     
+     - Parameter forceUpdate: The `forceUpdate`allows ignore or not the postponed time.
+     - Since: 4.1.0
+     - Version: 4.1.0
+     */
+
+    @objc public func checkForUpdates(forceUpdate: Bool = false) {
+        startInteractor.checkUpdate(forceUpdate: forceUpdate)
     }
 }

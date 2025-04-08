@@ -19,10 +19,11 @@ protocol AppProtocol {
 	func getVersion() -> String
 	func getLanguage() -> String
 	func openUrl(_ url: String) -> Bool
-	func showOtaAlert(_ message: String, downloadHandler: @escaping () -> Void)
+    func showOtaAlert(_ message: String, allowPostpone: Bool, downloadHandler: @escaping () -> Void, postponeHandler: @escaping () -> Void)
     func showForceUpdate()
     func showErrorAlert(_ message: String)
     func showLoginAlert(downloadHandler: @escaping () -> Void)
+    func showPostponeSelectionAlert(_ message: String, options: [TimeInterval], selectionHandler: @escaping (TimeInterval) -> Void)
 	func waitForReadyThen(_ onReady: @escaping () -> Void)
 	func presentModal(_ viewController: UIViewController, animated: Bool)
     func presentFeedbackForm()
@@ -40,7 +41,8 @@ extension AppProtocol {
 
 class App: AppProtocol {
 	
-	private lazy var alertOta: UIAlertController = UIAlertController()
+    private lazy var alertOta: UIAlertController = UIAlertController()
+	private lazy var alertPostpone: UIAlertController = UIAlertController()
 	private lazy var alertError: UIAlertController = UIAlertController()
 	private lazy var alertLogin: UIAlertController = UIAlertController()
 	
@@ -119,21 +121,47 @@ class App: AppProtocol {
         topVC?.present(self.alertOta, animated: true, completion: nil)
     }
 	
-	func showOtaAlert(_ message: String, downloadHandler: @escaping () -> Void ) {
+	func showOtaAlert(_ message: String, allowPostpone: Bool, downloadHandler: @escaping () -> Void, postponeHandler: @escaping () -> Void) {
 		self.alertOta = UIAlertController(title: literal(.appName), message: message, preferredStyle: .alert)
 		
 		let actionLater = UIAlertAction(title: literal(.alertButtonLater), style: .cancel, handler: nil)
-		let actionDownload = UIAlertAction(title: literal(.alertButtonUpdate), style: .default) { _ in
+        
+        let actionPostpone = UIAlertAction(title: literal(.alertButtonPostpone), style: .default) { _ in
+            postponeHandler()
+        }
+        let actionDownload = UIAlertAction(title: literal(.alertButtonUpdate), style: .default) { _ in
 			downloadHandler()
 		}
 		
-		self.alertOta.addAction(actionLater)
+        if allowPostpone {
+            self.alertOta.addAction(actionPostpone)
+        }
+        self.alertOta.addAction(actionLater)
 		self.alertOta.addAction(actionDownload)
 		
 		let topVC = self.topViewController()
 		
 		topVC?.present(self.alertOta, animated: true, completion: nil)
 	}
+    
+    func showPostponeSelectionAlert(_ message: String, options: [TimeInterval], selectionHandler: @escaping (TimeInterval) -> Void) {
+        self.alertPostpone = UIAlertController(title: literal(.appName), message: message, preferredStyle: .alert)
+        
+        
+        let optionsView = OptionsListView(title: "Postpone alert for", options: Array(options.prefix(3))) { selectedOption in
+            selectionHandler(selectedOption)
+        }
+
+        let hostingController = UIHostingController(rootView: optionsView)
+
+
+        hostingController.modalPresentationStyle = .overFullScreen
+        hostingController.modalTransitionStyle = .crossDissolve
+
+        let topVC = self.topViewController()
+        
+        topVC?.present(hostingController, animated: true, completion: nil)
+    }
     
     func showForceUpdate() {
         let viewController = UIHostingController(rootView: ForceUpdateScreen())

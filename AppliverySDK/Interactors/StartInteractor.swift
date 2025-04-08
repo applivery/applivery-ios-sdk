@@ -78,22 +78,27 @@ final class StartInteractor {
     
     // MARK: Private Methods
     
-    private func updateConfig() {
+    func updateConfig() {
         self.globalConfig.accessToken = .init(token: try? keychain.retrieve(for: app.bundleId()))
         
         Task {
             do {
                 let updateConfig = try await configService.updateConfig()
-                self.checkUpdate(for: updateConfig)
+                self.checkUpdate(for: updateConfig, forceUpdate: false)
             } catch APIError.statusCode(let statusCode) {
                 if statusCode == 401 {
                     await showLoginAlert()
                 } else {
                     let currentConfig = self.configService.getCurrentConfig()
-                    self.checkUpdate(for: currentConfig)
+                    self.checkUpdate(for: currentConfig, forceUpdate: false)
                 }
             }
         }
+    }
+    
+    func checkUpdate(forceUpdate: Bool = false) {
+        let config = configService.getCurrentConfig()
+        checkUpdate(for: config, forceUpdate: forceUpdate)
     }
     
     @MainActor
@@ -123,14 +128,29 @@ private extension StartInteractor {
         .store(in: &cancellables)
     }
     
-    func checkUpdate(for updateConfig: UpdateConfigResponse) {
-        if self.updateService.checkForceUpdate(updateConfig.config, version: updateConfig.buildNumber) {
-            logInfo("Performing force update...")
-            updateService.forceUpdate()
-        } else if self.updateService.checkOtaUpdate(updateConfig.config, version: updateConfig.buildNumber) {
-            logInfo("Performing OTA update...")
-            updateService.otaUpdate()
+    func checkUpdate(for updateConfig: UpdateConfigResponse, forceUpdate: Bool) {
+        if forceUpdate {
+            if self.updateService.checkForceUpdate(updateConfig.config, version: updateConfig.buildNumber) {
+                logInfo("Performing force update...")
+                updateService.forceUpdate()
+            } else if self.updateService.checkOtaUpdate(updateConfig.config, version: updateConfig.buildNumber) {
+                logInfo("Performing OTA update...")
+                updateService.otaUpdate()
+            }
+        } else {
+            if shouldShowPopup() {
+                if self.updateService.checkForceUpdate(updateConfig.config, version: updateConfig.buildNumber) {
+                    logInfo("Performing force update...")
+                    updateService.forceUpdate()
+                } else if self.updateService.checkOtaUpdate(updateConfig.config, version: updateConfig.buildNumber) {
+                    logInfo("Performing OTA update...")
+                    updateService.otaUpdate()
+                }
+            } else {
+                logInfo("The timeout for showing the popup not exceeded")
+            }
         }
+        
     }
     
     func openAuthWebView() async {
@@ -148,6 +168,18 @@ private extension StartInteractor {
             await MainActor.run {
                 app.showErrorAlert("Error obtaining redirect URL")
             }
+        }
+    }
+    
+    func shouldShowPopup() -> Bool {
+        if let storedDate = UserDefaults.standard.object(forKey: AppliveryUserDefaultsKeys.appliveryLastUpdatePopupShown) as? Date,
+            let interval = UserDefaults.standard.object(forKey: AppliveryUserDefaultsKeys.appliveryPostponeInterval) as? TimeInterval {
+            let elapsedTime = Date().timeIntervalSince(storedDate)
+            logInfo("Elapsed Time: \(elapsedTime) interval: \(interval)")
+            return elapsedTime >= interval
+        } else {
+            logInfo("Elapsed Time or interval not found, showing popup")
+            return true
         }
     }
 }

@@ -69,6 +69,9 @@ public class TextLiterals: NSObject {
     /// "Retry
     @objc public var alertButtonRetry: String
     
+    /// "Postpone
+    @objc public var alertButtonPostpone: String
+    
     /// "OK"
     @objc public var alertButtonOK: String
     
@@ -196,6 +199,7 @@ public class TextLiterals: NSObject {
         alertButtonCancel: String = "Cancel",
         alertButtonRetry: String = "Retry",
         alertButtonOK: String = "OK",
+        alertButtonPostpone: String = "Postpone",
         errorUnexpected: String = "Unexpected error",
         errorInvalidCredentials: String = "Invalid credentials",
         errorDownloadURL: String = "Couldn't start download. Invalid url",
@@ -226,6 +230,7 @@ public class TextLiterals: NSObject {
         self.alertButtonCancel = alertButtonCancel
         self.alertButtonRetry = alertButtonRetry
         self.alertButtonOK = alertButtonOK
+        self.alertButtonPostpone = alertButtonPostpone
         self.errorUnexpected = errorUnexpected
         self.errorInvalidCredentials = errorInvalidCredentials
         self.errorDownloadURL = errorDownloadURL
@@ -264,6 +269,7 @@ enum Literal: CustomStringConvertible {
     case otaUpdateMessage
     case alertButtonLater
     case alertButtonUpdate
+    case alertButtonPostpone
     case forceUpdateMessage
     case buttonForceUpdate
     case feedbackButtonClose
@@ -297,6 +303,7 @@ func literal(_ literal: Literal) -> String? {
     case .alertButtonCancel: return literals.alertButtonCancel
     case .alertButtonRetry: return literals.alertButtonRetry
     case .alertButtonOK: return literals.alertButtonOK
+    case .alertButtonPostpone: return literals.alertButtonPostpone
     case .errorUnexpected: return literals.errorUnexpected
     case .errorInvalidCredentials: return literals.errorInvalidCredentials
     case .errorDownloadURL: return literals.errorDownloadURL
