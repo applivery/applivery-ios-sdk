@@ -26,7 +26,8 @@ final class UpdateService: UpdateServiceProtocol {
     private let downloadService: DownloadServiceProtocol
 	private let app: AppProtocol
     private let loginService: LoginServiceProtocol
-	private let globalConfig: GlobalConfig
+    private let globalConfig: GlobalConfig
+	private let userDefaults: UserDefaultsProtocol = UserDefaults.standard
     var forceUpdateCalled = false
     
     init(
@@ -54,12 +55,18 @@ final class UpdateService: UpdateServiceProtocol {
     
     func otaUpdate() {
         let message = otaUpdateMessage()
+        let postponeIntervals = globalConfig.configuration?.postponedTimeFrames ?? []
         DispatchQueue.main.async { [weak self] in
-            self?.app.showOtaAlert(message) {
+            self?.userDefaults.setValue(Date(), forKey: AppliveryUserDefaultsKeys.appliveryLastUpdatePopupShown)
+            self?.app.showOtaAlert(message, allowPostpone: !postponeIntervals.isEmpty) {
                 self?.downloadLastBuild()
+            } postponeHandler: {
+                self?.app.showPostponeSelectionAlert("Postpone update for:", options: postponeIntervals) { interval in
+                    self?.userDefaults.setValue(interval, forKey: AppliveryUserDefaultsKeys.appliveryPostponeInterval)
+                    logInfo("The popup was postponed for \(interval.formatTimeInterval)")
+                }
             }
         }
-        
     }
 	
 	func forceUpdateMessage() -> String {

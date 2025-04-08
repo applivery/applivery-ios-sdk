@@ -42,4 +42,5 @@ class GlobalConfig {
 	var device: DeviceProtocol = Device()
     var logHandler: AppliveryLogHandler?
     var accessToken: AccessToken?
+    var configuration: AppliveryConfiguration?
 }
