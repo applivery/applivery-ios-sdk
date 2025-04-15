@@ -65,7 +65,9 @@ final class StartInteractor {
             logInfo("App token is empty")
             return
         }
-        self.eventDetector.listenEvent(ScreenRecorderManager.shared.presentPreviewWithScreenshoot)
+        self.eventDetector.listenEvent(
+            ScreenRecorderManager.shared.presentPreviewWithScreenshoot
+        )
         self.updateConfig()
     }
     
@@ -79,7 +81,9 @@ final class StartInteractor {
     // MARK: Private Methods
     
     func updateConfig() {
-        self.globalConfig.accessToken = .init(token: try? keychain.retrieve(for: app.bundleId()))
+        self.globalConfig.accessToken = .init(
+            token: try? keychain.retrieve(for: app.bundleId())
+        )
         
         Task {
             do {
@@ -104,7 +108,10 @@ final class StartInteractor {
     @MainActor
     private func showLoginAlert() {
         logInfo("Presenting login alert")
-        app.showLoginAlert() {
+        app
+            .showLoginAlert(
+                isCancellable: globalConfig.configuration?.enforceAuthentication ?? false
+            ) {
             Task {
                 await self.openAuthWebView()
             }

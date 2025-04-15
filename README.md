@@ -571,3 +571,53 @@ applivery.logLevel = LogLevelInfo;
 - **`funcname`**: The function name from which the log message was sent (for debugging).
 
 You can implement any desired behavior within this handler, such as sending logs to a remote logging service, filtering them by level, or integrating them with an existing logging framework.
+
+## 🔧 `AppliveryConfiguration`
+
+The `AppliveryConfiguration` object allows you to customize the behavior of the SDK at runtime, such as authentication enforcement or delaying update prompts.
+
+### 🧩 Initialization in Swift
+
+```swift
+import Applivery
+
+let config = AppliveryConfiguration(
+    postponedTimeFrames: [60, 300, 600], // Delays in seconds before retrying update prompts
+    enforceAuthentication: true          // Require user authentication before SDK usage
+)
+```
+
+### 🧩 Initialization in Objective-C
+
+If you're using Objective-C, you must use the dedicated `NSNumber`-based initializer:
+
+```objc
+#import <Applivery/Applivery-Swift.h>
+
+NSArray<NSNumber *> *timeFrames = @[@60, @300, @600];
+AppliveryConfiguration *config = [[AppliveryConfiguration alloc] initWithPostponedTimeFramesNSNumber:timeFrames
+                                                                              enforceAuthentication:YES];
+```
+
+### 🛠 Available Properties
+
+| Property                | Type             | Description                                                                |
+|-------------------------|------------------|----------------------------------------------------------------------------|
+| `postponedTimeFrames`   | `[TimeInterval]` | List of time intervals (in seconds) to delay update prompts               |
+| `enforceAuthentication` | `Bool`           | Whether the SDK should enforce user authentication before proceeding      |
+
+> **Note:** When using Objective-C, the initializer is named `initWithPostponedTimeFramesNSNumber:enforceAuthentication:` to avoid conflicts with the Swift-native initializer.
+
+### 🧪 Default Configuration
+
+If no configuration is provided, the SDK will use the default one:
+
+```swift
+let defaultConfig = AppliveryConfiguration()
+```
+
+You can also use the static `empty` property:
+
+```swift
+let config = AppliveryConfiguration.empty
+```

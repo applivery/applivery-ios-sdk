@@ -339,7 +339,11 @@ public class AppliverySDK: NSObject {
      - Since: 3.3
      - Version: 3.3
      */
-    @objc public func start(token: String, tenant: String? = nil, configuration: AppliveryConfiguration = .empty) {
+    @objc public func start(
+        token: String,
+        tenant: String? = nil,
+        configuration: AppliveryConfiguration = .empty
+    ) {
         self.globalConfig.appToken = token
         host = tenant
         hostDownload = tenant

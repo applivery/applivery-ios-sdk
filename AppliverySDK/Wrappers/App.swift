@@ -22,7 +22,7 @@ protocol AppProtocol {
     func showOtaAlert(_ message: String, allowPostpone: Bool, downloadHandler: @escaping () -> Void, postponeHandler: @escaping () -> Void)
     func showForceUpdate()
     func showErrorAlert(_ message: String)
-    func showLoginAlert(downloadHandler: @escaping () -> Void)
+    func showLoginAlert(isCancellable: Bool, downloadHandler: @escaping () -> Void)
     func showPostponeSelectionAlert(_ message: String, options: [TimeInterval], selectionHandler: @escaping (TimeInterval) -> Void)
 	func waitForReadyThen(_ onReady: @escaping () -> Void)
 	func presentModal(_ viewController: UIViewController, animated: Bool)
@@ -105,17 +105,27 @@ class App: AppProtocol {
 		topVC?.present(alert, animated: true, completion: nil)
 	}
     
-    func showLoginAlert(downloadHandler: @escaping () -> Void) {
+    func showLoginAlert(
+        isCancellable: Bool,
+        downloadHandler: @escaping () -> Void
+    ) {
         self.alertOta = UIAlertController(title: literal(.appName), message: literal(.loginMessage), preferredStyle: .alert)
         
         let aceptAction = UIAlertAction(title: literal(.loginButton), style: .default) { _ in
             downloadHandler()
         }
-        let cancelAction = UIAlertAction(title: literal(.alertButtonCancel), style: .cancel, handler: nil)
         
-        self.alertOta.addAction(cancelAction)
         self.alertOta.addAction(aceptAction)
-        
+
+        if isCancellable {
+            let cancelAction = UIAlertAction(
+                title: literal(.alertButtonCancel),
+                style: .cancel,
+                handler: nil
+            )
+            self.alertOta.addAction(cancelAction)
+        }
+
         let topVC = self.topViewController()
         
         topVC?.present(self.alertOta, animated: true, completion: nil)
