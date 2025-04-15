@@ -31,6 +31,7 @@ public class AppliveryConfiguration: NSObject {
         )
     }
 }
+
 extension AppliveryConfiguration {
     public static let empty = AppliveryConfiguration()
 }
