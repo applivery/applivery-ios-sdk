@@ -110,7 +110,7 @@ final class StartInteractor {
         logInfo("Presenting login alert")
         app
             .showLoginAlert(
-                isCancellable: globalConfig.configuration?.enforceAuthentication ?? false
+                isCancellable: !(globalConfig.configuration?.enforceAuthentication ?? false)
             ) {
             Task {
                 await self.openAuthWebView()
