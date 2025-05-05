@@ -42,15 +42,14 @@ struct OptionsListView: View {
             }
             .padding()
             .frame(maxWidth: 300, maxHeight: 250)
-            .background(Color.white)
+            .background(Color(.systemBackground))
             .cornerRadius(10)
-            .shadow(radius: 10)
+            .shadow(color: .secondary, radius: 5)
             .onAppear {
                 if !options.isEmpty {
                     selectedOption = options.first
                 }
             }
-
         }
     }
     
