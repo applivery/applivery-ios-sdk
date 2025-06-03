@@ -342,13 +342,14 @@ public class AppliverySDK: NSObject {
     @objc public func start(
         token: String,
         tenant: String? = nil,
-        configuration: AppliveryConfiguration = .empty
+        configuration: AppliveryConfiguration = .empty,
+        skipUpdateCheck: Bool = false
     ) {
         self.globalConfig.appToken = token
         host = tenant
         hostDownload = tenant
         self.globalConfig.configuration = configuration
-        self.startInteractor.start()
+        self.startInteractor.start(skipUpdateCheck: skipUpdateCheck)
     }
 
     
@@ -383,7 +384,7 @@ public class AppliverySDK: NSObject {
     @objc public func update(onResult: ((UpdateResult) -> Void)? = nil) {
         self.updateService.downloadLastBuild(onResult: onResult)
     }
-    
+
     /**
      Login a user
      
@@ -452,7 +453,7 @@ public class AppliverySDK: NSObject {
         logInfo("Presenting feedback formulary")
         app.presentFeedbackForm()
     }
-    
+
     /**
      Handles a given redirect URL as part of the SAML authentication flow.
      
@@ -479,6 +480,11 @@ public class AppliverySDK: NSObject {
      */
 
     @objc public func checkForUpdates(forceUpdate: Bool = false) {
+        if let postponeDate = globalConfig.configuration?.postponeUpdateUntil,
+           postponeDate > Date() {
+            logInfo("Update postponed until \(postponeDate)")
+            return
+        }
         startInteractor.checkUpdate(forceUpdate: forceUpdate)
     }
 }

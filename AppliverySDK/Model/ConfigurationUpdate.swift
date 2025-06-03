@@ -11,27 +11,34 @@ import Foundation
 public class AppliveryConfiguration: NSObject {
     public let postponedTimeFrames: [TimeInterval]
     public let enforceAuthentication: Bool
+    public var postponeUpdateUntil: Date?
 
     public init(
         postponedTimeFrames: [TimeInterval] = [],
-        enforceAuthentication: Bool = false
+        enforceAuthentication: Bool = false,
+        postponeUpdateUntil: Date?
     ) {
         self.postponedTimeFrames = postponedTimeFrames
         self.enforceAuthentication = enforceAuthentication
+        self.postponeUpdateUntil = postponeUpdateUntil
     }
 
-    @objc(initWithPostponedTimeFramesNSNumber:enforceAuthentication:)
+    @objc(initWithPostponedTimeFramesNSNumber:enforceAuthentication:postponeUpdateUntil:)
     public convenience init(
         postponedTimeFrames nsNumbers: [NSNumber],
-        enforceAuthentication: Bool
+        enforceAuthentication: Bool,
+        postponeUpdateUntil: Date?
     ) {
         self.init(
             postponedTimeFrames: nsNumbers.map { $0.doubleValue },
-            enforceAuthentication: enforceAuthentication
+            enforceAuthentication: enforceAuthentication,
+            postponeUpdateUntil: postponeUpdateUntil
         )
     }
 }
 
 extension AppliveryConfiguration {
-    public static let empty = AppliveryConfiguration()
+    public static var empty: AppliveryConfiguration {
+        .init(postponeUpdateUntil: nil)
+    }
 }
