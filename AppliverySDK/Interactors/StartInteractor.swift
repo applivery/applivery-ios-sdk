@@ -57,7 +57,10 @@ final class StartInteractor {
     
     // MARK: Internal Methods
     
-    func start() {
+    func start(skipUpdateCheck: Bool) {
+        if !skipUpdateCheck {
+            checkUpdate(forceUpdate: false)
+        }
         logInfo("Applivery is starting... ")
         logInfo("SDK Version: \(GlobalConfig.shared.app.getSDKVersion())")
         setupBindings()
