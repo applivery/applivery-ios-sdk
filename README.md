@@ -40,9 +40,18 @@ With Applivery you can massively distribute your iOS Apps (both Ad-hoc or In-Hou
 
 - **Automatic OTA Updates** when uploading new versions to Applivery.
 - **Force update** if App version is lower than the minimum version configured in Applivery.
-- **Send feedback**. Your test users can report a bug or send improvements feedback by simply taking a screenshot (on iOS 15.0+, they can edit or annotate it) or by recording a video to provide more context.
 - **Employee authentication**. You can login yours employees in order to track analytics of installations, block app usage, to know who sent a feedback or report, etc..
+- **Send feedback**. Your test users can report bugs or suggest improvements by:
+  - **Taking a screenshot** (triggers feedback by default). On iOS 15.0+, users can also annotate the screenshot before sending it.
+  - **Recording a video** for better context.
+  
+  A bottom sheet will be displayed allowing the user to choose between sending a screenshot or recording a video. This behavior is enabled by default and managed through the `EventDetector` class, which listens for system screenshot events.
 
+  If you want to disable this feature entirely, you can use:
+  
+  ```swift
+  applivery.disableFeedback()
+  
 # Getting Started
 
 First of all, you should create an account on [Applivery.io](https://dashboard.applivery.io) and then add a new Application.
