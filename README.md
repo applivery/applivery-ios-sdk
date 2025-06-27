@@ -40,7 +40,7 @@ With Applivery you can massively distribute your iOS Apps (both Ad-hoc or In-Hou
 
 - **Automatic OTA Updates** when uploading new versions to Applivery.
 - **Force update** if App version is lower than the minimum version configured in Applivery.
-- **Send feedback**. Your test users can report a bug or send improvements feedback by simply taking a screenshot.
+- **Send feedback**. Your test users can report a bug or send improvements feedback by simply taking a screenshot (on iOS 15.0+, they can edit or annotate it) or by recording a video to provide more context.
 - **Employee authentication**. You can login yours employees in order to track analytics of installations, block app usage, to know who sent a feedback or report, etc..
 
 # Getting Started
