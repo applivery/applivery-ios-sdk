@@ -133,9 +133,7 @@ class App: AppProtocol {
 	
 	func showOtaAlert(_ message: String, allowPostpone: Bool, downloadHandler: @escaping () -> Void, postponeHandler: @escaping () -> Void) {
 		self.alertOta = UIAlertController(title: literal(.appName), message: message, preferredStyle: .alert)
-		
-		let actionLater = UIAlertAction(title: literal(.alertButtonLater), style: .cancel, handler: nil)
-        
+		        
         let actionPostpone = UIAlertAction(title: literal(.alertButtonPostpone), style: .default) { _ in
             postponeHandler()
         }
@@ -146,7 +144,6 @@ class App: AppProtocol {
         if allowPostpone {
             self.alertOta.addAction(actionPostpone)
         }
-        self.alertOta.addAction(actionLater)
 		self.alertOta.addAction(actionDownload)
 		
 		let topVC = self.topViewController()
