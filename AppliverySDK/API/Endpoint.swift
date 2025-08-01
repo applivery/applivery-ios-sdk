@@ -54,10 +54,11 @@ extension Endpoint {
 extension URLRequest {
     func debug() {
         var safeHeaders = [String: String]()
+        let secureKeys: Set<String> = ["Authorization", "x-installation-token", "x-sdk-auth-token"]
         
         if let headers = self.allHTTPHeaderFields {
             for (key, value) in headers {
-                if key == "Authorization" || key == "x-installation-token" {
+                if secureKeys.contains(key) {
                     safeHeaders[key] = "*********"
                 } else {
                     safeHeaders[key] = value

@@ -11,7 +11,7 @@ import UIKit
 
 protocol LoginServiceProtocol {
     func login(loginData: LoginData) async throws
-    func bind(user: User) async throws -> AccessToken
+    func bind(user: User) async throws
     func unbindUser()
     func getRedirectURL() async throws -> URL?
     func requestAuthorization(onResult: ((UpdateResult) -> Void)?)
@@ -96,8 +96,14 @@ final class LoginService: LoginServiceProtocol {
         }
     }
     
-    func bind(user: User) async throws -> AccessToken {
-        try await loginRepository.bind(user: user)
+    func bind(user: User) async throws {
+        do {
+            let userData = try await loginRepository.bind(user: user)
+            store(accessToken: .init(token: userData.data.bearer), userName: userData.data.member.email)
+        } catch {
+            logInfo("Error obtaining redirect URL: \(error)")
+            app.showErrorAlert("Error obtaining redirect URL")
+        }
     }
     
     func unbindUser() {
@@ -146,7 +152,5 @@ private extension LoginService {
                 app.showErrorAlert("Error storing token")
             }
         }
-        
-        
     }
 }
