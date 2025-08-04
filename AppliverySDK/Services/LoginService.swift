@@ -96,13 +96,14 @@ final class LoginService: LoginServiceProtocol {
         }
     }
     
+    @MainActor
     func bind(user: User) async throws {
         do {
             let userData = try await loginRepository.bind(user: user)
             store(accessToken: .init(token: userData.data.bearer), userName: userData.data.member.email)
         } catch {
-            logInfo("Error obtaining redirect URL: \(error)")
-            app.showErrorAlert("Error obtaining redirect URL")
+            logInfo("Error binding user: \(error)")
+            app.showErrorAlert("Error binding user")
         }
     }
     
