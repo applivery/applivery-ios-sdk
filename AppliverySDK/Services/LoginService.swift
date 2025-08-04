@@ -65,7 +65,7 @@ final class LoginService: LoginServiceProtocol {
         do {
             logInfo("Logging in...")
             let accessToken: AccessToken = try await loginRepository.login(loginData: loginData)
-            store(accessToken: accessToken, userName: loginData.payload.user)
+            await store(accessToken: accessToken, userName: loginData.payload.user)
         } catch APIError.statusCode(let errorCode) {
             if errorCode == 401 {
                 logInfo("Access token is not available. Opening auth web view...")
@@ -141,6 +141,7 @@ final class LoginService: LoginServiceProtocol {
 
 private extension LoginService {
     
+    @MainActor
     func store(accessToken: AccessToken, userName: String) {
         logInfo("Fetched new access token: \(accessToken.token ?? "NO TOKEN")")
         if let token = accessToken.token {
