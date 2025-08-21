@@ -18,8 +18,8 @@ struct CustomLoginData: Codable {
 }
 
 struct Member: Codable {
-    let firstName: String
     let id: String
     let email: String
-    let lastName: String
+    let firstName: String?
+    let lastName: String?
 }
