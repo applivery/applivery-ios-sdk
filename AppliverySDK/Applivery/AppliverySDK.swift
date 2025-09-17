@@ -384,7 +384,10 @@ public class AppliverySDK: NSObject {
     }
     
     @objc private func handleAppWillEnterForeground() {
-        print("Abby says hi!")
+        if isCheckForUpdatesBackgroundEnabled {
+            AppliverySDK.shared.checkForUpdates()
+            logInfo("App returned from background, checking for updates...")
+        }
     }
     
     private func showFirstWindow() {
