@@ -278,6 +278,8 @@ public class AppliverySDK: NSObject {
     private let app: AppProtocol
     private let environments: EnvironmentProtocol
     
+    private var isCheckForUpdatesBackgroundEnabled = false
+    private var isForegroundObserverAdded = false
     
     // MARK: Initializers
     override convenience init() {
@@ -348,9 +350,42 @@ public class AppliverySDK: NSObject {
         host = tenant
         hostDownload = tenant
         self.globalConfig.configuration = configuration
+        // Removed observer registration from here
         self.startInteractor.start()
     }
 
+    /**
+     Enable or disable checking for updates when app returns to foreground.
+     - Parameter enabled: Pass true to enable, false to disable.
+     */
+    @objc public func setCheckForUpdatesBackground(_ enabled: Bool) {
+        if enabled {
+            if !isForegroundObserverAdded {
+                NotificationCenter.default.addObserver(
+                    self,
+                    selector: #selector(handleAppWillEnterForeground),
+                    name: UIApplication.willEnterForegroundNotification,
+                    object: nil
+                )
+                isForegroundObserverAdded = true
+            }
+        } else {
+            if isForegroundObserverAdded {
+                NotificationCenter.default.removeObserver(
+                    self,
+                    name: UIApplication.willEnterForegroundNotification,
+                    object: nil
+                )
+                isForegroundObserverAdded = false
+            }
+        }
+        isCheckForUpdatesBackgroundEnabled = enabled
+        logInfo("Check for updates in background is now \(enabled ? "enabled" : "disabled")")
+    }
+    
+    @objc private func handleAppWillEnterForeground() {
+        print("Abby says hi!")
+    }
     
     private func showFirstWindow() {
         guard window != nil else {
