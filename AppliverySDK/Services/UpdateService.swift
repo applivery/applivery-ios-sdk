@@ -7,21 +7,22 @@
 //
 
 import Foundation
+import UIKit
 
 protocol UpdateServiceProtocol {
-	
     func forceUpdate()
     func otaUpdate()
-	func downloadLastBuild(onResult: ((UpdateResult) -> Void)?)
-	func isUpToDate() -> Bool
+    func downloadLastBuild(onResult: ((UpdateResult) -> Void)?)
+    func isUpToDate() -> Bool
     func checkForceUpdate(_ config: SDKData?, version: String) -> Bool
     func checkOtaUpdate(_ config: SDKData?, version: String) -> Bool
     func forceUpdateMessage() -> String
+    func setCheckForUpdatesBackground(_ enabled: Bool)
+    func handleAppWillEnterForeground()
 }
 
 
 final class UpdateService: UpdateServiceProtocol {
-    	
     private let configService: ConfigServiceProtocol
     private let downloadService: DownloadServiceProtocol
 	private let app: AppProtocol
@@ -162,7 +163,43 @@ final class UpdateService: UpdateServiceProtocol {
             return true
         }
         logInfo("ota update not needed")
-		return false
+        return false
+    }
+    
+    func setCheckForUpdatesBackground(_ enabled: Bool) {
+        if enabled {
+            if !globalConfig.isForegroundObserverAdded {
+                NotificationCenter.default.addObserver(
+                    self,
+                    selector: #selector(handleAppWillEnterForeground),
+                    name: UIApplication.willEnterForegroundNotification,
+                    object: nil
+                )
+            }
+            globalConfig.isForegroundObserverAdded = true
+            logInfo("Background updates enabled")
+        } else {
+            if globalConfig.isForegroundObserverAdded {
+                NotificationCenter.default.removeObserver(
+                    self,
+                    name: UIApplication.willEnterForegroundNotification,
+                    object: nil
+                )
+            }
+            globalConfig.isForegroundObserverAdded = false
+            logInfo("Background updates disabled")
+        }
+        globalConfig.isCheckForUpdatesBackgroundEnabled = enabled
+    }
+
+    @objc func handleAppWillEnterForeground() {
+        if globalConfig.isCheckForUpdatesBackgroundEnabled {
+            let config = configService.getCurrentConfig()
+            if checkOtaUpdate(config.config, version: config.buildNumber) {
+                otaUpdate()
+            }
+            logInfo("App returned from background, checking for updates...")
+        }
     }
 }
 

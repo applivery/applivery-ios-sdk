@@ -43,4 +43,6 @@ class GlobalConfig {
     var logHandler: AppliveryLogHandler?
     var accessToken: AccessToken?
     var configuration: AppliveryConfiguration?
+    var isCheckForUpdatesBackgroundEnabled = false
+    var isForegroundObserverAdded = false
 }
