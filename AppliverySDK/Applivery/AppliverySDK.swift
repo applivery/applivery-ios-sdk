@@ -385,7 +385,7 @@ public class AppliverySDK: NSObject {
     
     @objc private func handleAppWillEnterForeground() {
         if isCheckForUpdatesBackgroundEnabled {
-            AppliverySDK.shared.checkForUpdates()
+            checkForUpdates()
             logInfo("App returned from background, checking for updates...")
         }
     }
