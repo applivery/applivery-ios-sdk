@@ -63,21 +63,18 @@ struct ScreenshootPreviewScreen: View {
                 trailing:
                     Button(action: {
                         guard let screenshot = screenshot else { return }
-                        let newScreenShot = viewModel.exportDrawing(
+                        guard let newScreenShot = viewModel.exportDrawing(
                             image: screenshot,
                             lines: imageLines
-                        )
-                        
-                        if let newScreenShot = newScreenShot {
-                            viewModel.sendScreenshootFeedback(
-                                feedback: .init(
-                                    feedbackType: reportType,
-                                    message: description,
-                                    screenshot: imageIsSelected ? .init(image: newScreenShot) : nil,
-                                    videoURL: nil
-                                )
+                        ) else { return }
+                        viewModel.sendScreenshootFeedback(
+                            feedback: .init(
+                                feedbackType: reportType,
+                                message: description,
+                                screenshot: imageIsSelected ? .init(image: newScreenShot) : nil,
+                                videoURL: nil
                             )
-                        }
+                        )
                     }, label: {
                         Image(systemName: "location.fill")
                             .foregroundColor(.blue)
@@ -85,6 +82,7 @@ struct ScreenshootPreviewScreen: View {
                     })
                     .opacity(description.isEmpty ? 0.4 : 1)
                     .disabled(description.isEmpty)
+                    .disabled(viewModel.isReportSended == .loading)
             )
             .onAppear {
                 user = viewModel.loadUserName()
