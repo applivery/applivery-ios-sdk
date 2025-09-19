@@ -68,6 +68,7 @@ struct VideoPreviewScreen: View {
                             .foregroundColor(.blue)
                             .rotationEffect(.degrees(10))
                     })
+                    .disabled(viewModel.isReportSended == .loading)
             )
             .onAppear {
                 user = viewModel.loadUserName()
