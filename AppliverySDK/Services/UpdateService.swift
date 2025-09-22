@@ -21,7 +21,6 @@ protocol UpdateServiceProtocol {
 
 
 final class UpdateService: UpdateServiceProtocol {
-    	
     private let configService: ConfigServiceProtocol
     private let downloadService: DownloadServiceProtocol
 	private let app: AppProtocol

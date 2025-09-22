@@ -119,7 +119,7 @@ public typealias AppliveryLogHandler = @convention(block) (
  */
 public class AppliverySDK: NSObject {
     // MARK: Static Properties
-    internal static let sdkVersion = "4.4.8"
+    internal static let sdkVersion = "4.5.0"
 
     // MARK: Type Properties
     /// Singleton instance
@@ -413,13 +413,8 @@ public class AppliverySDK: NSObject {
             onSuccess(nil)
             return
         }
-        let dict: NSDictionary = [
-            "email": user.email,
-            "firstName": user.firstName ?? "",
-            "lastName": user.lastName ?? "",
-            "tags": user.tags ?? ""
-        ]
-        onSuccess(dict)
+
+        onSuccess(user.dictionary() as NSDictionary)
     }
 
     /**
@@ -483,15 +478,9 @@ public class AppliverySDK: NSObject {
     /**
      - Parameter forceUpdate: The `forceUpdate`allows ignore or not the postponed time.
      - Since: 4.1.0
-     - Version: 4.1.0
+     - Version: 4.5.0
      */
-
     @objc public func checkForUpdates(forceUpdate: Bool = false) {
-        if let postponeDate = globalConfig.configuration?.postponeUpdateUntil,
-           postponeDate > Date() {
-            logInfo("Update postponed until \(postponeDate)")
-            return
-        }
         startInteractor.checkUpdate(forceUpdate: forceUpdate)
     }
 }

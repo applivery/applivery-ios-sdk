@@ -139,28 +139,26 @@ private extension StartInteractor {
     }
     
     func checkUpdate(for updateConfig: UpdateConfigResponse, forceUpdate: Bool) {
-        if forceUpdate {
-            if self.updateService.checkForceUpdate(updateConfig.config, version: updateConfig.buildNumber) {
-                logInfo("Performing force update...")
-                updateService.forceUpdate()
-            } else if self.updateService.checkOtaUpdate(updateConfig.config, version: updateConfig.buildNumber) {
+        let appVersion = app.getVersion()
+        var minVersion = updateConfig.config?.minVersion ?? "-1"
+        minVersion = minVersion.isEmpty ? "-1" : minVersion
+        let otaEnabled = updateConfig.config?.ota ?? false
+        var lastBuildVersion = updateConfig.config?.lastBuildVersion ?? "-1"
+        lastBuildVersion = lastBuildVersion.isEmpty ? "-1" : lastBuildVersion
+
+        if forceUpdate && isVersionNewer(v1: minVersion, than: appVersion) {
+            logInfo("Performing force update...")
+            updateService.forceUpdate()
+        } else if otaEnabled && isVersionNewer(v1: lastBuildVersion, than: appVersion) {
+            if shouldShowPopup() {
                 logInfo("Performing OTA update...")
                 updateService.otaUpdate()
+            } else {
+                logInfo("CheckUpdates finished: Updates were postponed")
             }
         } else {
-            if shouldShowPopup() {
-                if self.updateService.checkForceUpdate(updateConfig.config, version: updateConfig.buildNumber) {
-                    logInfo("Performing force update...")
-                    updateService.forceUpdate()
-                } else if self.updateService.checkOtaUpdate(updateConfig.config, version: updateConfig.buildNumber) {
-                    logInfo("Performing OTA update...")
-                    updateService.otaUpdate()
-                }
-            } else {
-                logInfo("The timeout for showing the popup not exceeded")
-            }
+            logInfo("CheckUpdates finished: No Update needed")
         }
-        
     }
     
     func openAuthWebView() async {
@@ -191,5 +189,21 @@ private extension StartInteractor {
             logInfo("Elapsed Time or interval not found, showing popup")
             return true
         }
+    }
+
+    func isVersionNewer(v1: String, than v2: String) -> Bool {
+        if v1.isEmpty || v1 == "-1" { return false }
+        if v2.isEmpty || v2 == "-1" { return true }
+
+        let v1Parts = v1.split(separator: ".").compactMap { Int($0) }
+        let v2Parts = v2.split(separator: ".").compactMap { Int($0) }
+        let maxCount = max(v1Parts.count, v2Parts.count)
+        for i in 0..<maxCount {
+            let part1 = i < v1Parts.count ? v1Parts[i] : 0
+            let part2 = i < v2Parts.count ? v2Parts[i] : 0
+            if part1 > part2 { return true }
+            if part1 < part2 { return false }
+        }
+        return false // versions are equal
     }
 }
