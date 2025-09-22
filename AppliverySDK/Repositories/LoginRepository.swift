@@ -19,7 +19,6 @@ struct RedirectInfoData: Decodable {
 struct LoginData: Encodable {
     let provider: String
     let payload: UserData
-    
 }
 
 struct UserData: Encodable {
@@ -29,7 +28,7 @@ struct UserData: Encodable {
 
 protocol LoginRepositoryProtocol {
     func login(loginData: LoginData) async throws -> AccessToken
-    func bind(user: User) async throws -> AccessToken
+    func bind(user: User) async throws -> CustomLogin
     func unbindUser()
     func getRedirctURL() async throws -> URL?
 }
@@ -73,10 +72,10 @@ final class LoginRepository: LoginRepositoryProtocol {
         return urlWithSchema
     }
     
-    func bind(user: User) async throws -> AccessToken {
+    func bind(user: User) async throws -> CustomLogin {
         logInfo("Binding user...")
         let endpoint: AppliveryEndpoint = .bind(user)
-        let accessToken: AccessToken = try await client.fetch(endpoint: endpoint)
+        let accessToken: CustomLogin = try await client.fetch(endpoint: endpoint)
         return accessToken
     }
     

@@ -11,7 +11,7 @@ import UIKit
 
 protocol LoginServiceProtocol {
     func login(loginData: LoginData) async throws
-    func bind(user: User) async throws -> AccessToken
+    func bind(user: User) async throws
     func unbindUser()
     func getRedirectURL() async throws -> URL?
     func requestAuthorization(onResult: ((UpdateResult) -> Void)?)
@@ -65,7 +65,7 @@ final class LoginService: LoginServiceProtocol {
         do {
             logInfo("Logging in...")
             let accessToken: AccessToken = try await loginRepository.login(loginData: loginData)
-            store(accessToken: accessToken, userName: loginData.payload.user)
+            await store(accessToken: accessToken, userName: loginData.payload.user)
         } catch APIError.statusCode(let errorCode) {
             if errorCode == 401 {
                 logInfo("Access token is not available. Opening auth web view...")
@@ -96,8 +96,15 @@ final class LoginService: LoginServiceProtocol {
         }
     }
     
-    func bind(user: User) async throws -> AccessToken {
-        try await loginRepository.bind(user: user)
+    @MainActor
+    func bind(user: User) async throws {
+        do {
+            let userData = try await loginRepository.bind(user: user)
+            store(accessToken: .init(token: userData.data.bearer), userName: userData.data.member.email)
+        } catch {
+            logInfo("Error binding user: \(error)")
+            app.showErrorAlert("Error binding user")
+        }
     }
     
     func unbindUser() {
@@ -134,6 +141,7 @@ final class LoginService: LoginServiceProtocol {
 
 private extension LoginService {
     
+    @MainActor
     func store(accessToken: AccessToken, userName: String) {
         logInfo("Fetched new access token: \(accessToken.token ?? "NO TOKEN")")
         if let token = accessToken.token {
@@ -146,7 +154,5 @@ private extension LoginService {
                 app.showErrorAlert("Error storing token")
             }
         }
-        
-        
     }
 }
