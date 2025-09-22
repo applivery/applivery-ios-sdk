@@ -118,20 +118,15 @@ public typealias AppliveryLogHandler = @convention(block) (
  - Copyright: Applivery S.L.
  */
 public class AppliverySDK: NSObject {
+    // MARK: Static Properties
+    internal static let sdkVersion = "4.4.8"
     
-    // MARK: - Static Properties
-    
-    internal static let sdkVersion = "4.3.7"
-    
-    // MARK: - Type Properties
-    
+    // MARK: Type Properties
     /// Singleton instance
     @objc public static let shared = AppliverySDK()
-    
     var window: AppliveryWindow?
     
-    // MARK: - Instance Properties
-    
+    // MARK: Instance Properties
     /**
      Type of Applivery's logs you want displayed in the debug console
      
@@ -268,16 +263,14 @@ public class AppliverySDK: NSObject {
         get { environments.getHostDownload() }
         set { environments.setHostDownload(newValue) }
     }
-    
-    
-    // MARK: - Private properties
+
+    // MARK: Private properties
     private let startInteractor: StartInteractor
     private let updateService: UpdateServiceProtocol
     private let globalConfig: GlobalConfig
     private let loginService: LoginServiceProtocol
     private let app: AppProtocol
     private let environments: EnvironmentProtocol
-    
     
     // MARK: Initializers
     override convenience init() {
@@ -309,10 +302,8 @@ public class AppliverySDK: NSObject {
         self.globalConfig.palette = self.palette
         self.globalConfig.textLiterals = self.textLiterals
     }
-    
-    
-    // MARK: Instance Methods
-    
+
+    // MARK: - Instance Methods
     /**
      Starts Applivery's framework
      
@@ -350,14 +341,6 @@ public class AppliverySDK: NSObject {
         hostDownload = tenant
         self.globalConfig.configuration = configuration
         self.startInteractor.start(skipUpdateCheck: skipUpdateCheck)
-    }
-
-    
-    private func showFirstWindow() {
-        guard window != nil else {
-            window = AppliveryWindow(frame: UIScreen.main.bounds)
-            return
-        }
     }
     
     /**
@@ -486,5 +469,15 @@ public class AppliverySDK: NSObject {
             return
         }
         startInteractor.checkUpdate(forceUpdate: forceUpdate)
+    }
+}
+
+// MARK: - SDK Private methods
+private extension AppliverySDK {
+    func showFirstWindow() {
+        guard window != nil else {
+            window = AppliveryWindow(frame: UIScreen.main.bounds)
+            return
+        }
     }
 }
