@@ -76,26 +76,6 @@ struct UpdateServiceTests {
     }
 
     @Test
-    func setCheckForUpdatesBackground() {
-        // GIVEN
-        let mockUpdateService = MockUpdateService()
-
-        // WHEN
-        mockUpdateService.setCheckForUpdatesBackground(true)
-
-        // THEN
-        #expect(mockUpdateService.setCheckForUpdatesBackgroundCalled == true)
-        #expect(mockUpdateService.setCheckForUpdatesBackgroundEnabled == true)
-
-        // WHEN
-        mockUpdateService.setCheckForUpdatesBackground(false)
-
-        // THEN
-        #expect(mockUpdateService.setCheckForUpdatesBackgroundCalled == true)
-        #expect(mockUpdateService.setCheckForUpdatesBackgroundEnabled == false)
-    }
-
-    @Test
     func setCheckForUpdatesBackground_initialStateAndToggle() {
         // GIVEN
         let mockUpdateService = MockUpdateService()
