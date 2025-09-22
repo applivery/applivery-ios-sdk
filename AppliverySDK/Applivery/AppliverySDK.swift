@@ -334,7 +334,7 @@ public class AppliverySDK: NSObject {
         token: String,
         tenant: String? = nil,
         configuration: AppliveryConfiguration = .empty,
-        skipUpdateCheck: Bool = false
+        skipUpdateCheck: Bool = true
     ) {
         self.globalConfig.appToken = token
         host = tenant
