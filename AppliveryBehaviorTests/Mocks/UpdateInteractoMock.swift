@@ -10,7 +10,6 @@ import Foundation
 @testable import Applivery
 
 class UpdateServiceMock: UpdateServiceProtocol {
-
     // MARK: - Spy Properties
     var forceUpdateCalled = false
     var otaUpdateCalled = false
@@ -21,6 +20,8 @@ class UpdateServiceMock: UpdateServiceProtocol {
     var forceUpdateMessageResponse: String = "Mock force update message"
     var otaUpdateMessageResponse: String = "Mock OTA update message"
     var downloadLastBuildResult: UpdateResult?
+    var setCheckForUpdatesBackgroundCalled: Bool = false
+    var setCheckForUpdatesBackgroundEnabled: Bool? = nil
 
     // MARK: - Protocol Methods
     func forceUpdate() {
@@ -56,5 +57,10 @@ class UpdateServiceMock: UpdateServiceProtocol {
 
     func otaUpdateMessage() -> String {
         return otaUpdateMessageResponse
+    }
+
+    func setCheckForUpdatesBackground(_ enabled: Bool) {
+        setCheckForUpdatesBackgroundCalled = true
+        setCheckForUpdatesBackgroundEnabled = enabled
     }
 }
