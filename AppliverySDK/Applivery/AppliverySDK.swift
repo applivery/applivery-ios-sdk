@@ -278,7 +278,6 @@ public class AppliverySDK: NSObject {
     private let app: AppProtocol
     private let environments: EnvironmentProtocol
     
-    
     // MARK: Initializers
     override convenience init() {
         self.init(
@@ -348,9 +347,17 @@ public class AppliverySDK: NSObject {
         host = tenant
         hostDownload = tenant
         self.globalConfig.configuration = configuration
+        // Removed observer registration from here
         self.startInteractor.start()
     }
 
+    /**
+     Enable or disable checking for updates when app returns to foreground.
+     - Parameter enabled: Pass true to enable, false to disable.
+     */
+    @objc public func setCheckForUpdatesBackground(_ enabled: Bool) {
+        self.updateService.setCheckForUpdatesBackground(enabled)
+    }
     
     private func showFirstWindow() {
         guard window != nil else {
