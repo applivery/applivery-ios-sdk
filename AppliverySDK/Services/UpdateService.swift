@@ -18,7 +18,6 @@ protocol UpdateServiceProtocol {
     func checkOtaUpdate(_ config: SDKData?, version: String) -> Bool
     func forceUpdateMessage() -> String
     func setCheckForUpdatesBackground(_ enabled: Bool)
-    func handleAppWillEnterForeground()
 }
 
 
@@ -191,16 +190,6 @@ final class UpdateService: UpdateServiceProtocol {
         }
         globalConfig.isCheckForUpdatesBackgroundEnabled = enabled
     }
-
-    @objc func handleAppWillEnterForeground() {
-        if globalConfig.isCheckForUpdatesBackgroundEnabled {
-            let config = configService.getCurrentConfig()
-            if checkOtaUpdate(config.config, version: config.buildNumber) {
-                otaUpdate()
-            }
-            logInfo("App returned from background, checking for updates...")
-        }
-    }
 }
 
 private extension UpdateService {
@@ -256,5 +245,15 @@ private extension UpdateService {
         }
         
         return zeroFilledString.joined(separator: ".")
+    }
+
+    @objc func handleAppWillEnterForeground() {
+        if globalConfig.isCheckForUpdatesBackgroundEnabled {
+            let config = configService.getCurrentConfig()
+            if checkOtaUpdate(config.config, version: config.buildNumber) {
+                otaUpdate()
+            }
+            logInfo("App returned from background, checking for updates...")
+        }
     }
 }

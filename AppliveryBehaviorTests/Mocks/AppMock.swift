@@ -10,7 +10,6 @@ import UIKit
 @testable import Applivery
 
 class AppMock: AppProtocol {
-
     // Inputs
     var stubBundleID: String = "NO BUNDLE ID SET"
     var stubSDKVersion: String = "NO VERSION SET"
@@ -75,11 +74,6 @@ class AppMock: AppProtocol {
         self.spyHideLoadingCalled = true
     }
 
-    func showOtaAlert(_ message: String, downloadHandler: @escaping () -> Void) {
-        self.spyOtaAlert = (true, message)
-        self.spyDownloadClosure = downloadHandler
-    }
-
     func showForceUpdate() {
         self.spyForceUpdateCalled = true
     }
@@ -103,16 +97,29 @@ class AppMock: AppProtocol {
         self.spyLoginClosure = loginHandler
     }
 
-    func showLoginAlert(downloadHandler: @escaping () -> Void) {
-        self.spyShowLoginAlert = true
-        self.spyLoginAlertDownloadClosure = downloadHandler
-    }
-
     func presentFeedbackForm() {
         self.spyPresentFeedbackForm = true
     }
 
     func topViewController() -> UIViewController? {
         return nil
+    }
+
+    func showOtaAlert(_ message: String, allowPostpone: Bool, downloadHandler: @escaping () -> Void, postponeHandler: @escaping () -> Void) {
+        self.spyOtaAlert = (true, message)
+        self.spyDownloadClosure = downloadHandler
+        self.spyRetryClosure = postponeHandler
+    }
+
+    func showLoginAlert(isCancellable: Bool, downloadHandler: @escaping () -> Void) {
+        self.spyShowLoginAlert = true
+        self.spyLoginAlertDownloadClosure = downloadHandler
+    }
+
+    func showPostponeSelectionAlert(_ message: String, options: [TimeInterval], selectionHandler: @escaping (TimeInterval) -> Void) {
+        self.spyOtaAlert = (true, message)
+        if let firstOption = options.first {
+            selectionHandler(firstOption)
+        }
     }
 }
