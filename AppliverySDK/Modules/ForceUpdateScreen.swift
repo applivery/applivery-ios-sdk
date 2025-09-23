@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ForceUpdateScreen: View {
     private let pallete = GlobalConfig.shared.palette
-    private let service: UpdateServiceProtocol = UpdateService()
+    private let service: UpdateServiceProtocol = UpdateService(eventDetector: .init())
     @State var isLoading: Bool = false
 
     var body: some View {

@@ -276,7 +276,7 @@ public class AppliverySDK: NSObject, AppliveryService {
         self.init(
             startInteractor: StartInteractor(),
             globalConfig: GlobalConfig.shared,
-            updateService: UpdateService(),
+            updateService: UpdateService(eventDetector: .init()),
             loginService: LoginService(),
             app: App(),
             environments: Environments()

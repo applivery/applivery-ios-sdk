@@ -20,9 +20,6 @@ class ScreenshotDetector: EventDetector {
 
 	func listenEvent(_ onDetection: @escaping () -> Void) {
 		guard GlobalConfig.shared.feedbackEnabled else { return }
-
-		logInfo("Applivery is listening for screenshot event")
-
 		self.observer = NotificationCenter.default
 			.addObserver(
 				forName: UIApplication.userDidTakeScreenshotNotification,
@@ -30,14 +27,37 @@ class ScreenshotDetector: EventDetector {
 				queue: OperationQueue.main) { _ in
 					onDetection()
 		}
+        logInfo("Applivery is listening for screenshot event")
 	}
 
 	func endListening() {
 		guard let observer = self.observer else { return }
-
-		logInfo("Applivery has stopped for screenshot event")
-
 		NotificationCenter.default.removeObserver(observer)
+        logInfo("Applivery has stopped for screenshot event")
 	}
+}
 
+class BackgroundDetector: EventDetector {
+    var observer: AnyObject?
+
+    func listenEvent(_ onDetection: @escaping () -> Void) {
+        guard GlobalConfig.shared.isForegroundObserverAdded == false else { return }
+        self.observer = NotificationCenter.default
+            .addObserver(
+                forName: UIApplication.willEnterForegroundNotification,
+                object: nil,
+                queue: OperationQueue.main) { _ in
+                    onDetection()
+        }
+        GlobalConfig.shared.isForegroundObserverAdded = true
+        logInfo("Background updates enabled")
+    }
+
+    func endListening() {
+        guard GlobalConfig.shared.isForegroundObserverAdded else { return }
+        guard let observer else { return }
+        NotificationCenter.default.removeObserver(observer)
+        GlobalConfig.shared.isCheckForUpdatesBackgroundEnabled = false
+        logInfo("Applivery has stopped for foreground event")
+    }
 }

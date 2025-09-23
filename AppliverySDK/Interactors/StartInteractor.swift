@@ -38,7 +38,7 @@ final class StartInteractor {
         eventDetector: EventDetector = ScreenshotDetector(),
         sessionPersister: SessionPersister = SessionPersister(userDefaults: UserDefaults.standard),
         keychain: KeychainAccessible = Keychain(),
-        updateService: UpdateServiceProtocol = UpdateService(),
+        updateService: UpdateServiceProtocol = UpdateService(eventDetector: .init()),
         webViewManager: AppliverySafariManagerProtocol = AppliverySafariManager.shared,
         loginService: LoginServiceProtocol = LoginService()
     ) {

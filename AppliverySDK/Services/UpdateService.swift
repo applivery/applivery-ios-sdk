@@ -28,6 +28,7 @@ final class UpdateService: UpdateServiceProtocol {
     private let app: AppProtocol
     private let loginService: LoginServiceProtocol
     private let globalConfig: GlobalConfig
+    private let eventDetector: BackgroundDetector
     private let userDefaults: UserDefaultsProtocol = UserDefaults.standard
     var forceUpdateCalled = false
 
@@ -36,13 +37,15 @@ final class UpdateService: UpdateServiceProtocol {
         downloadService: DownloadServiceProtocol = DownloadService(),
         app: AppProtocol = App(),
         loginService: LoginServiceProtocol = LoginService(),
-        globalConfig: GlobalConfig = GlobalConfig.shared
+        globalConfig: GlobalConfig = GlobalConfig.shared,
+        eventDetector: BackgroundDetector
     ) {
         self.configService = configService
         self.downloadService = downloadService
         self.app = app
         self.loginService = loginService
         self.globalConfig = globalConfig
+        self.eventDetector = eventDetector
     }
 
     func forceUpdate() {
@@ -167,29 +170,14 @@ final class UpdateService: UpdateServiceProtocol {
     }
 
     func setCheckForUpdatesBackground(_ enabled: Bool) {
+        let config = configService.getCurrentConfig()
         if enabled {
-            if !globalConfig.isForegroundObserverAdded {
-                NotificationCenter.default.addObserver(
-                    self,
-                    selector: #selector(handleAppWillEnterForeground),
-                    name: UIApplication.willEnterForegroundNotification,
-                    object: nil
-                )
+            eventDetector.listenEvent {
+                self.checkUpdate(for: config, forceUpdate: false)
             }
-            globalConfig.isForegroundObserverAdded = true
-            logInfo("Background updates enabled")
         } else {
-            if globalConfig.isForegroundObserverAdded {
-                NotificationCenter.default.removeObserver(
-                    self,
-                    name: UIApplication.willEnterForegroundNotification,
-                    object: nil
-                )
-            }
-            globalConfig.isForegroundObserverAdded = false
-            logInfo("Background updates disabled")
+            eventDetector.endListening()
         }
-        globalConfig.isCheckForUpdatesBackgroundEnabled = enabled
     }
 
     func checkUpdate(for updateConfig: UpdateConfigResponse, forceUpdate: Bool) {
