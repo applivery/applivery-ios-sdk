@@ -103,6 +103,38 @@ struct UpdateServiceTests {
         // THEN last value is true
         #expect(mockUpdateService.setCheckForUpdatesBackgroundEnabled == true)
     }
+
+    @Test
+    func checkUpdate() {
+        // GIVEN - force = true case
+        let mockUpdateServiceTrue = MockUpdateService()
+        let updateConfigTrue = UpdateConfigResponse(config: nil, version: "1.0.0", buildNumber: "100")
+
+        // initial
+        #expect(mockUpdateServiceTrue.checkUpdateCalled == false)
+        #expect(mockUpdateServiceTrue.checkUpdateConfig == nil)
+        #expect(mockUpdateServiceTrue.checkUpdateForce == nil)
+
+        // WHEN
+        mockUpdateServiceTrue.checkUpdate(for: updateConfigTrue, forceUpdate: true)
+
+        // THEN
+        #expect(mockUpdateServiceTrue.checkUpdateCalled == true)
+        #expect(mockUpdateServiceTrue.checkUpdateConfig?.buildNumber == "100")
+        #expect(mockUpdateServiceTrue.checkUpdateForce == true)
+
+        // GIVEN - force = false case
+        let mockUpdateServiceFalse = MockUpdateService()
+        let updateConfigFalse = UpdateConfigResponse(config: nil, version: "2.0.0", buildNumber: "200")
+
+        // WHEN
+        mockUpdateServiceFalse.checkUpdate(for: updateConfigFalse, forceUpdate: false)
+
+        // THEN
+        #expect(mockUpdateServiceFalse.checkUpdateCalled == true)
+        #expect(mockUpdateServiceFalse.checkUpdateConfig?.version == "2.0.0")
+        #expect(mockUpdateServiceFalse.checkUpdateForce == false)
+    }
 }
 
 struct DownloadTokenMock {

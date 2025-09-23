@@ -21,6 +21,9 @@ class MockUpdateService: UpdateServiceProtocol {
     var downloadLastBuildResult: UpdateResult?
     var setCheckForUpdatesBackgroundCalled: Bool = false
     var setCheckForUpdatesBackgroundEnabled: Bool? = nil
+    var checkUpdateCalled: Bool = false
+    var checkUpdateConfig: UpdateConfigResponse? = nil
+    var checkUpdateForce: Bool? = nil
 
     // MARK: - Protocol Methods
     func forceUpdate() {
@@ -61,5 +64,11 @@ class MockUpdateService: UpdateServiceProtocol {
     func setCheckForUpdatesBackground(_ enabled: Bool) {
         setCheckForUpdatesBackgroundCalled = true
         setCheckForUpdatesBackgroundEnabled = enabled
+    }
+
+    func checkUpdate(for updateConfig: UpdateConfigResponse, forceUpdate: Bool) {
+        checkUpdateCalled = true
+        checkUpdateConfig = updateConfig
+        checkUpdateForce = forceUpdate
     }
 }
