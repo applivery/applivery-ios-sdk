@@ -359,7 +359,7 @@ public class AppliverySDK: NSObject, AppliveryService {
      - firstName: The first name of the user. **Optional**
      - lastName: The last name of the user. **Optional**
      - tags: A list of tags linked to the user with group / categorize purpose. **Optional**
-     - completion: Optional callback executed after binding the user. **Optional**
+     - onComplete: Optional callback executed after binding the user. **Optional**
 
      - SeeAlso: `unbindUser()`
      - Since: 3.0
@@ -405,12 +405,14 @@ public class AppliverySDK: NSObject, AppliveryService {
 
      Programatically logout a user in Applivery from a previous custom login.
 
+     - Parameter onComplete: Optional callback executed after unbinding the user. **Optional**
      - SeeAlso: `bindUser(email:firstname:lastname:tags)`
      - Since: 3.0
      - Version: 3.0
      */
-    @objc public func unbindUser() {
+    @objc public func unbindUser(onComplete: (() -> Void)? = nil) {
         self.loginService.unbindUser()
+        onComplete?()
     }
 
     /**

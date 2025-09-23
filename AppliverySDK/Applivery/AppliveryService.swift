@@ -21,7 +21,7 @@ import Foundation
     func isUpToDate() -> Bool
     func update(onResult: ((UpdateResult) -> Void)?)
     func bindUser(email: String, firstName: String?, lastName: String?, tags: [String]?, onComplete: (() -> Void)?)
-    func unbindUser()
+    func unbindUser(onComplete: (() -> Void)?)
     func getUser(onSuccess: @escaping (NSDictionary?) -> Void)
     func feedbackEvent()
     func handleRedirectURL(url: URL)
