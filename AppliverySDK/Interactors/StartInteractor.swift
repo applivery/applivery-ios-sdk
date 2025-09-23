@@ -67,15 +67,17 @@ final class StartInteractor {
             logInfo("App token is empty")
             return
         }
-        self.eventDetector.listenEvent(
-            ScreenRecorderManager.shared.presentPreviewWithScreenshoot
-        )
         self.updateConfig()
     }
 
-    func disableFeedback() {
-        guard self.globalConfig.feedbackEnabled else { return }
+    func enableFeedback() {
+        self.globalConfig.feedbackEnabled = true
+        eventDetector.listenEvent {
+            ScreenRecorderManager.shared.presentPreviewWithScreenshoot()
+        }
+    }
 
+    func disableFeedback() {
         self.globalConfig.feedbackEnabled = false
         self.eventDetector.endListening()
     }

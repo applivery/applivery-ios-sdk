@@ -23,8 +23,9 @@ import Foundation
     func bindUser(email: String, firstName: String?, lastName: String?, tags: [String]?)
     func getUser(onSuccess: @escaping (NSDictionary?) -> Void)
     func unbindUser()
-    func disableFeedback()
     func feedbackEvent()
     func handleRedirectURL(url: URL)
     func checkForUpdates(forceUpdate: Bool)
+    func disableScreenshotFeedback()
+    func enableScreenshotFeedback()
 }

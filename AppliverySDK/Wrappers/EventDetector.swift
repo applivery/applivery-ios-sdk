@@ -16,7 +16,6 @@ protocol EventDetector {
 }
 
 class ScreenshotDetector: EventDetector {
-
 	var observer: AnyObject?
 
 	func listenEvent(_ onDetection: @escaping () -> Void) {

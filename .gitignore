@@ -17,6 +17,7 @@ xcuserdata
 *.moved-aside
 DerivedData
 .idea/
+.build/
 *.orig
 *Applivery.framework*
 

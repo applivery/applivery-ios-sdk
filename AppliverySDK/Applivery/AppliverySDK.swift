@@ -412,18 +412,6 @@ public class AppliverySDK: NSObject, AppliveryService {
     }
 
     /**
-     Disable Applivery's feedback.
-
-     By default, Applivery will show a feedback formulary to your users when a screenshot is detected. If you want to avoid this, you can disable it calling this method.
-
-     - Since: 1.2
-     - Version: 2.0
-     */
-    @objc public func disableFeedback() {
-        self.startInteractor.disableFeedback()
-    }
-
-    /**
      Present in a modal view the Applivery's feedback.
 
      By default, Applivery will show a feedback formulary to your users when a screenshot is detected. If you want to do it programatically controlled by your app (for example in a shake event), you can call this method. Also you may want to prevent the feedback view to be show when a screenshot event is produced, for that you can call `disableFeedback()` method
@@ -464,6 +452,25 @@ public class AppliverySDK: NSObject, AppliveryService {
     @objc public func checkForUpdates(forceUpdate: Bool = false) {
         startInteractor.checkUpdate(forceUpdate: forceUpdate)
     }
+
+    /**
+     Disables listening for screenshot events to trigger the feedback action
+     - Since 4.5.0
+     - Version 4.5.0
+     */
+    @objc public func disableScreenshotFeedback() {
+        logInfo("Disabled screenshot feedback")
+        startInteractor.disableFeedback()
+    }
+    /**
+     Enables the listener for screenshot events to trigger the feedback action
+     - Since 4.5.0
+     - Version 4.5.0
+     */
+    @objc public func enableScreenshotFeedback() {
+        logInfo("Enabled screenshot feedback")
+        startInteractor.enableFeedback()
+    }
 }
 
 // MARK: - SDK Private methods
@@ -494,5 +501,18 @@ public extension AppliverySDK {
     @available(*, deprecated, renamed: "start(token:)")
     @objc func start(token: String, tenant: String?, appStoreRelease: Bool) {
         self.start(token: token, tenant: tenant)
+    }
+
+    /**
+     Disable Applivery's feedback.
+
+     By default, Applivery will show a feedback formulary to your users when a screenshot is detected. If you want to avoid this, you can disable it calling this method.
+
+     - Since: 1.2
+     - Version: 2.0
+     */
+    @available(*, deprecated, renamed: "disableScreenshotFeedback()")
+    @objc func disableFeedback() {
+        self.startInteractor.disableFeedback()
     }
 }
