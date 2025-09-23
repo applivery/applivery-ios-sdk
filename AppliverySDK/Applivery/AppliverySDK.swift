@@ -442,7 +442,6 @@ public class AppliverySDK: NSObject, AppliveryService {
      - Since: 4.1.0
      - Version: 4.1.0
      */
-
     @objc public func handleRedirectURL(url: URL) {
         let webview = AppliverySafariManager.shared
         webview.urlReceived(url: url)
@@ -474,6 +473,14 @@ public class AppliverySDK: NSObject, AppliveryService {
     @objc public func enableScreenshotFeedback() {
         logInfo("Enabled screenshot feedback")
         startInteractor.enableFeedback()
+    }
+    /**
+     Enables checking for updates automatically when the app returns from background
+     - Since 4.5.0
+     - Version 4.5.0
+     */
+    @objc public func setCheckForUpdatesBackground(_ enabled: Bool) {
+        updateService.setCheckForUpdatesBackground(enabled)
     }
 }
 

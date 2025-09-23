@@ -28,4 +28,5 @@ import Foundation
     func checkForUpdates(forceUpdate: Bool)
     func disableScreenshotFeedback()
     func enableScreenshotFeedback()
+    func setCheckForUpdatesBackground(_ enabled: Bool)
 }
