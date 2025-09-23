@@ -359,12 +359,13 @@ public class AppliverySDK: NSObject, AppliveryService {
      - firstName: The first name of the user. **Optional**
      - lastName: The last name of the user. **Optional**
      - tags: A list of tags linked to the user with group / categorize purpose. **Optional**
+     - completion: Optional callback executed after binding the user. **Optional**
 
      - SeeAlso: `unbindUser()`
      - Since: 3.0
-     - Version: 3.1.1
+     - Version: 4.5.0
      */
-    @objc public func bindUser(email: String, firstName: String? = nil, lastName: String? = nil, tags: [String]? = nil) {
+    @objc public func bindUser(email: String, firstName: String? = nil, lastName: String? = nil, tags: [String]? = nil, onComplete: (() -> Void)? = nil) {
         let compactedTags = tags?.compactMap(removeEmpty) // Example: ["", "aaa", ""] -> ["aaa"]
         let user = User(
             email: email,
@@ -375,6 +376,7 @@ public class AppliverySDK: NSObject, AppliveryService {
         user.log()
         Task {
             try await loginService.bind(user: user)
+            onComplete?()
         }
     }
 

@@ -20,9 +20,9 @@ import Foundation
     func start(token: String, tenant: String?, configuration: AppliveryConfiguration, skipUpdateCheck: Bool)
     func isUpToDate() -> Bool
     func update(onResult: ((UpdateResult) -> Void)?)
-    func bindUser(email: String, firstName: String?, lastName: String?, tags: [String]?)
-    func getUser(onSuccess: @escaping (NSDictionary?) -> Void)
+    func bindUser(email: String, firstName: String?, lastName: String?, tags: [String]?, onComplete: (() -> Void)?)
     func unbindUser()
+    func getUser(onSuccess: @escaping (NSDictionary?) -> Void)
     func feedbackEvent()
     func handleRedirectURL(url: URL)
     func checkForUpdates(forceUpdate: Bool)
