@@ -93,7 +93,6 @@ public typealias AppliveryLogHandler = @convention(block) (
     NSString          // function
 ) -> Void
 
-
 /**
  The Applivery's class provides the entry point to the Applivery service.
 
@@ -117,7 +116,7 @@ public typealias AppliveryLogHandler = @convention(block) (
  - Author: Alejandro Jiménez Agudo
  - Copyright: Applivery S.L.
  */
-public class AppliverySDK: NSObject {
+public class AppliverySDK: NSObject, AppliveryService {
     // MARK: Static Properties
     internal static let sdkVersion = "4.5.0"
 
@@ -309,24 +308,6 @@ public class AppliverySDK: NSObject {
 
      - Parameters:
      - token: Your App Token
-     - appStoreRelease: Flag to mark the build as a build that will be submitted to the AppStore. This is needed to prevent unwanted behavior like prompt to a final user that a new version is available on Applivery.
-     * `true`: Applivery will stop any activity. **Use this for AppStore**
-     * `false`: Applivery will works as normally. Use this with distributed builds in Applivery.
-     - Attention: Since apps with Applivery framework are forbidden in the Appstore, the flag `appStoreRelease` has been removed. You can dinamically exclude Applivery framework while compiling an Appstore build as explained [here](https://github.com/applivery/applivery-ios-sdk#dynamically-exclude-applivery-sdk-for-appstore-schemes)
-     - Warning: This method is **deprecated** from version 3.3. Use `start(appToken:)` instead
-     - Since: 3.0
-     - Version: 3.3
-     */
-    @available(*, deprecated, renamed: "start(token:)")
-    @objc public func start(token: String, tenant: String?, appStoreRelease: Bool) {
-        self.start(token: token, tenant: tenant)
-    }
-
-    /**
-     Starts Applivery's framework
-
-     - Parameters:
-     - token: Your App Token
      - Since: 3.3
      - Version: 3.3
      */
@@ -492,5 +473,26 @@ private extension AppliverySDK {
             window = AppliveryWindow(frame: UIScreen.main.bounds)
             return
         }
+    }
+}
+
+// MARK: - SDK Deprecated methods
+public extension AppliverySDK {
+    /**
+     Starts Applivery's framework
+
+     - Parameters:
+     - token: Your App Token
+     - appStoreRelease: Flag to mark the build as a build that will be submitted to the AppStore. This is needed to prevent unwanted behavior like prompt to a final user that a new version is available on Applivery.
+     * `true`: Applivery will stop any activity. **Use this for AppStore**
+     * `false`: Applivery will works as normally. Use this with distributed builds in Applivery.
+     - Attention: Since apps with Applivery framework are forbidden in the Appstore, the flag `appStoreRelease` has been removed. You can dinamically exclude Applivery framework while compiling an Appstore build as explained [here](https://github.com/applivery/applivery-ios-sdk#dynamically-exclude-applivery-sdk-for-appstore-schemes)
+     - Warning: This method is **deprecated** from version 3.3. Use `start(appToken:)` instead
+     - Since: 3.0
+     - Version: 3.3
+     */
+    @available(*, deprecated, renamed: "start(token:)")
+    @objc func start(token: String, tenant: String?, appStoreRelease: Bool) {
+        self.start(token: token, tenant: tenant)
     }
 }
