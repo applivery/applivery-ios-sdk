@@ -25,6 +25,10 @@ class ScreenshotDetector: EventDetector {
 				forName: UIApplication.userDidTakeScreenshotNotification,
 				object: nil,
 				queue: OperationQueue.main) { _ in
+                    if ScreenRecorderManager.shared.isRecording {
+                        logInfo("A screenshot was detected but the device is also recording video and was ignored.")
+                        return
+                    }
 					onDetection()
 		}
         logInfo("Applivery is listening for screenshot event")
