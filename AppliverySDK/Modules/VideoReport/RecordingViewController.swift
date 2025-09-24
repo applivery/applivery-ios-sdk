@@ -114,8 +114,12 @@ class RecordingViewController: UIViewController {
     }
     
     func presentActionSheet() {
-        actionSheet = UIAlertController()
-        
+        if #available(iOS 27.0, *) {
+            actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+        } else {
+            actionSheet = UIAlertController()
+        }
+
         let screenshotAction = UIAlertAction(title: literal(.sheetScreenshotAction), style: .default) { _ in
             ScreenRecorderManager.shared.presentPreviewWithScreenshoot()
         }
