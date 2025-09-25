@@ -338,15 +338,14 @@ public class AppliverySDK: NSObject, AppliveryService {
      Download newest build available
 
      - Parameters:
-     - onSuccess: Completion handler called when success
-     - onError: Completion handler called when something went wrong. A string whith the reason is passed to this callback.
+     - onDownload: Completion handler called when success/failure downloading the new version
 
-     - Attention: Be sure to call `start(token:appStoreRelease)` before this method.
+     - Attention: Be sure to call `start()` before this method.
      - Since: 3.1
-     - Version: 3.1
+     - Version: 4.5.0
      */
-    @objc public func update(onResult: ((UpdateResult) -> Void)? = nil) {
-        self.updateService.downloadLastBuild(onResult: onResult)
+    @objc public func update(onDownload: ((UpdateResult) -> Void)? = nil) {
+        self.updateService.downloadLastBuild(onResult: onDownload)
     }
 
     /**
@@ -525,5 +524,20 @@ public extension AppliverySDK {
     @available(*, deprecated, renamed: "disableScreenshotFeedback()")
     @objc func disableFeedback() {
         self.startInteractor.disableFeedback()
+    }
+
+    /**
+     Download newest build available
+
+     - Parameters:
+     - onResult: Completion handler called when success/failure downloading the new version
+
+     - Attention: Be sure to call `start()` before this method.
+     - Since: 3.1
+     - Version: 3.1
+     */
+    @available(*, deprecated, renamed: "update(onDownload:)")
+    @objc func update(onResult: ((UpdateResult) -> Void)? = nil) {
+        self.updateService.downloadLastBuild(onResult: onResult)
     }
 }

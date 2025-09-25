@@ -19,7 +19,7 @@ import Foundation
     func setLogHandler(_ handler: AppliveryLogHandler?)
     func start(token: String, tenant: String?, configuration: AppliveryConfiguration, skipUpdateCheck: Bool)
     func isUpToDate() -> Bool
-    func update(onResult: ((UpdateResult) -> Void)?)
+    func update(onDownload: ((UpdateResult) -> Void)?)
     func bindUser(email: String, firstName: String?, lastName: String?, tags: [String]?, onComplete: (() -> Void)?)
     func unbindUser(onComplete: (() -> Void)?)
     func getUser(onSuccess: @escaping (NSDictionary?) -> Void)
