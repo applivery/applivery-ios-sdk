@@ -13,7 +13,7 @@ protocol UpdateServiceProtocol {
     func forceUpdate()
     func otaUpdate()
     func downloadLastBuild(onResult: ((UpdateResult) -> Void)?)
-    func isUpToDate() -> Bool
+    func isUpToDate() async throws -> Bool
     func checkForceUpdate(_ config: SDKData?, version: String) -> Bool
     func checkOtaUpdate(_ config: SDKData?, version: String) -> Bool
     func forceUpdateMessage() -> String
@@ -113,25 +113,31 @@ final class UpdateService: UpdateServiceProtocol {
 
     }
 
-    func isUpToDate() -> Bool {
-        let currentConfig = self.configService.getCurrentConfig()
-
-        if let minVersion = currentConfig.config?.minVersion,
-            let forceUpdate = currentConfig.config?.forceUpdate,
-            forceUpdate,
-            !minVersion.isEmpty {
-            let isOlder = isOlder(currentConfig.version, minVersion: minVersion)
-            logInfo("[isUpToDate] - Force update is available, checking if \(currentConfig.version) is older than \(minVersion), Need update: \(!isOlder)")
-            return !isOlder
+    func isUpToDate() async  -> Bool {
+        let currentConfig = configService.getCurrentConfig()
+        do {
+            let config = try await configService.fetchConfig()
+            let forceUpdate = config.data.sdk.ios.forceUpdate
+            if let minVersion = config.data.sdk.ios.minVersion, forceUpdate, !minVersion.isEmpty {
+                let isOlder = isOlder(currentConfig.version, minVersion: minVersion)
+                logInfo("[isUpToDate] - Force update is available, checking if \(currentConfig.version) is older than \(minVersion), Need update: \(!isOlder)")
+                return !isOlder
+            }
+            if let lastVersion = config.data.sdk.ios.lastBuildVersion, !lastVersion.isEmpty {
+                let isOlder = isOlder(currentConfig.buildNumber, minVersion: lastVersion)
+                logInfo("[isUpToDate] - Last Build version is available, Need update: \(isOlder)")
+                return !isOlder
+            }
+            return true
+        } catch {
+            logInfo("[isUpToDate] - fetchConfig failed: \(error). Falling back to currentConfig minVersion check.")
+            if let minVersion = currentConfig.config?.minVersion, !minVersion.isEmpty {
+                let isOlder = isOlder(currentConfig.version, minVersion: minVersion)
+                logInfo("[isUpToDate] - Fallback: checking if \(currentConfig.version) is older than \(minVersion), Need update: \(!isOlder)")
+                return !isOlder
+            }
+            return true
         }
-
-        if let lastVersion = currentConfig.config?.lastBuildVersion, !lastVersion.isEmpty {
-            let isOlder = isOlder(currentConfig.buildNumber, minVersion: lastVersion)
-            logInfo("[isUpToDate] - Last Build version is available, Need update: \(isOlder)")
-            return !isOlder
-        }
-
-        return true
     }
 
     func checkForceUpdate(_ config: SDKData?, version: String) -> Bool {

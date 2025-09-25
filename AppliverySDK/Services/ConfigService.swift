@@ -9,6 +9,7 @@
 import UIKit
 
 protocol ConfigServiceProtocol {
+    func fetchConfig() async throws -> Config
     func updateConfig() async throws -> UpdateConfigResponse
     func getCurrentConfig() -> UpdateConfigResponse
 }

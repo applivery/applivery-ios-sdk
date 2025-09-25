@@ -328,10 +328,22 @@ public class AppliverySDK: NSObject, AppliveryService {
      Returns if application is updated to the latest version available
 
      - Since: 3.1
-     - Version: 3.1
+     - Version: 4.5
      */
     @objc public func isUpToDate() -> Bool {
-        return self.updateService.isUpToDate()
+        var upToDate: Bool?
+        let semaphore = DispatchSemaphore(value: 0)
+        Task {
+            do {
+                upToDate = try await updateService.isUpToDate()
+            } catch {
+                logInfo("Checking if the app is up to date failed")
+                upToDate = true
+            }
+            semaphore.signal()
+        }
+        semaphore.wait()
+        return upToDate ?? true
     }
 
     /**
@@ -524,20 +536,5 @@ public extension AppliverySDK {
     @available(*, deprecated, renamed: "disableScreenshotFeedback()")
     @objc func disableFeedback() {
         self.startInteractor.disableFeedback()
-    }
-
-    /**
-     Download newest build available
-
-     - Parameters:
-     - onResult: Completion handler called when success/failure downloading the new version
-
-     - Attention: Be sure to call `start()` before this method.
-     - Since: 3.1
-     - Version: 3.1
-     */
-    @available(*, deprecated, renamed: "update(onDownload:)")
-    @objc func update(onResult: ((UpdateResult) -> Void)? = nil) {
-        self.updateService.downloadLastBuild(onResult: onResult)
     }
 }
