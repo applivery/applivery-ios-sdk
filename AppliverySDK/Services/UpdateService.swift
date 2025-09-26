@@ -113,7 +113,7 @@ final class UpdateService: UpdateServiceProtocol {
 
     }
 
-    func isUpToDate() async  -> Bool {
+    func isUpToDate() async -> Bool {
         let currentConfig = configService.getCurrentConfig()
         do {
             let config = try await configService.fetchConfig()
