@@ -16,7 +16,7 @@ protocol LoginServiceProtocol {
     func getRedirectURL() async throws -> URL?
     func requestAuthorization(onResult: ((UpdateResult) -> Void)?)
     func download(onResult: ((UpdateResult) -> Void)?)
-    func getUser() -> User?
+    var user: User? { get }
 }
 
 final class LoginService: LoginServiceProtocol {
@@ -29,6 +29,11 @@ final class LoginService: LoginServiceProtocol {
     let safariManager: AppliverySafariManagerProtocol
     let app: AppProtocol
     let keychain: KeychainAccessible
+    var user: User? {
+        let email = sessionPersister.loadUserName()
+        guard !email.isEmpty else { return nil }
+        return User(email: email, firstName: nil, lastName: nil, tags: nil)
+    }
 
     init(
         loginRepository: LoginRepositoryProtocol = LoginRepository(),
@@ -137,12 +142,6 @@ final class LoginService: LoginServiceProtocol {
                 onResult?(.failure(error: .downloadUrlNotFound))
             }
         }
-    }
-
-    func getUser() -> User? {
-        let email = sessionPersister.loadUserName()
-        guard !email.isEmpty else { return nil }
-        return User(email: email, firstName: nil, lastName: nil, tags: nil)
     }
 }
 

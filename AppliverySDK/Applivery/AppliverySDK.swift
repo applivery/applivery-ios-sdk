@@ -402,7 +402,7 @@ public class AppliverySDK: NSObject, AppliveryService {
      - Version: 4.5
      */
     @objc public func getUser(onSuccess: @escaping (NSDictionary?) -> Void) {
-        guard let user = loginService.getUser() else {
+        guard let user = loginService.user else {
             logInfo("No user is currently bound")
             onSuccess(nil)
             return
