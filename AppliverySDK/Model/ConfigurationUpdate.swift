@@ -11,7 +11,7 @@ import Foundation
 public class AppliveryConfiguration: NSObject {
     public let postponedTimeFrames: [TimeInterval]
     public let enforceAuthentication: Bool
-    public var postponeUpdateUntil: Date?
+    public var postponeUpdateUntil: Date? = nil
 
     public init(
         postponedTimeFrames: [TimeInterval] = [],
