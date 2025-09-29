@@ -28,7 +28,7 @@ final class UpdateService: UpdateServiceProtocol {
     private let app: AppProtocol
     private let loginService: LoginServiceProtocol
     private let globalConfig: GlobalConfig
-    private let eventDetector: BackgroundDetector
+    private let eventDetector: EventDetector
     private let userDefaults: UserDefaultsProtocol = UserDefaults.standard
     var forceUpdateCalled = false
 
@@ -38,7 +38,7 @@ final class UpdateService: UpdateServiceProtocol {
         app: AppProtocol = App(),
         loginService: LoginServiceProtocol = LoginService(),
         globalConfig: GlobalConfig = GlobalConfig.shared,
-        eventDetector: BackgroundDetector
+        eventDetector: EventDetector
     ) {
         self.configService = configService
         self.downloadService = downloadService

@@ -8,10 +8,19 @@
 import Testing
 @testable import Applivery
 
+// Helper to wait for a condition or timeout
+func waitUntil(timeout: TimeInterval = 2.0, interval: TimeInterval = 0.01, _ condition: @escaping () -> Bool) {
+    let start = Date()
+    while !condition() && Date().timeIntervalSince(start) < timeout {
+        RunLoop.main.run(until: Date().addingTimeInterval(interval))
+    }
+}
+
 struct UpdateServiceTests {
     private let client: MockAPIClient
     private let globalConfig: GlobalConfig
     private let sut: DownloadServiceProtocol
+    private let userDefaults = UserDefaults(suiteName: "TestDefaults")
 
     init() {
         self.client = MockAPIClient()
@@ -78,62 +87,87 @@ struct UpdateServiceTests {
     @Test
     func setCheckForUpdatesBackground_initialStateAndToggle() {
         // GIVEN
-        let mockUpdateService = MockUpdateService()
-
-        // initial state
-        #expect(mockUpdateService.setCheckForUpdatesBackgroundCalled == false)
-        #expect(mockUpdateService.setCheckForUpdatesBackgroundEnabled == nil)
+        let eventDetector = EventDetectorMock()
+        let updateService = UpdateService(eventDetector: eventDetector)
 
         // WHEN set to true
-        mockUpdateService.setCheckForUpdatesBackground(true)
-
+        updateService.setCheckForUpdatesBackground(true)
         // THEN
-        #expect(mockUpdateService.setCheckForUpdatesBackgroundCalled == true)
-        #expect(mockUpdateService.setCheckForUpdatesBackgroundEnabled == true)
+        #expect(eventDetector.spyListenEventCalled == true)
 
         // WHEN set to false
-        mockUpdateService.setCheckForUpdatesBackground(false)
-
-        // THEN last value is false
-        #expect(mockUpdateService.setCheckForUpdatesBackgroundEnabled == false)
-
-        // WHEN set to true again
-        mockUpdateService.setCheckForUpdatesBackground(true)
-
-        // THEN last value is true
-        #expect(mockUpdateService.setCheckForUpdatesBackgroundEnabled == true)
+        updateService.setCheckForUpdatesBackground(false)
+        // THEN
+        #expect(eventDetector.spyEndListeningCalled == true)
     }
 
     @Test
     func checkUpdate() {
-        // GIVEN - force = true case
-        let mockUpdateServiceTrue = MockUpdateService()
-        let updateConfigTrue = UpdateConfigResponse(config: nil, version: "1.0.0", buildNumber: "100")
-
-        // initial
-        #expect(mockUpdateServiceTrue.checkUpdateCalled == false)
-        #expect(mockUpdateServiceTrue.checkUpdateConfig == nil)
-        #expect(mockUpdateServiceTrue.checkUpdateForce == nil)
-
+        // GIVEN
+        let appMock = AppMock()
+        let eventDetector = EventDetectorMock()
+        let configService = ConfigServiceMock()
+        let downloadService = DownloadService()
+        let loginService = LoginService()
+        let globalConfig = GlobalConfig()
+        let updateService = UpdateService(
+            configService: configService,
+            downloadService: downloadService,
+            app: appMock,
+            loginService: loginService,
+            globalConfig: globalConfig,
+            eventDetector: eventDetector
+        )
+        // Force update config
+        let forceUpdateConfig = UpdateConfigResponse(
+            config: SDKData(
+                minVersion: "1.0.0",
+                forceUpdate: true,
+                lastBuildId: nil,
+                mustUpdateMsg: nil,
+                ota: false,
+                lastBuildVersion: nil,
+                updateMsg: nil,
+                forceAuth: false
+            ),
+            version: "0.9.0",
+            buildNumber: "100"
+        )
+        configService.currentConfigResponse = forceUpdateConfig
+        appMock.stubVersion = "0.9.0" // ensure app version is older than minVersion
         // WHEN
-        mockUpdateServiceTrue.checkUpdate(for: updateConfigTrue, forceUpdate: true)
-
+        updateService.checkUpdate(for: forceUpdateConfig, forceUpdate: true)
+        // Wait until the async force update is called or timeout
+        waitUntil { appMock.spyForceUpdateCalled }
         // THEN
-        #expect(mockUpdateServiceTrue.checkUpdateCalled == true)
-        #expect(mockUpdateServiceTrue.checkUpdateConfig?.buildNumber == "100")
-        #expect(mockUpdateServiceTrue.checkUpdateForce == true)
+        #expect(appMock.spyForceUpdateCalled == true)
 
-        // GIVEN - force = false case
-        let mockUpdateServiceFalse = MockUpdateService()
-        let updateConfigFalse = UpdateConfigResponse(config: nil, version: "2.0.0", buildNumber: "200")
-
+        // OTA update config
+        let otaUpdateConfig = UpdateConfigResponse(
+            config: SDKData(
+                minVersion: nil,
+                forceUpdate: false,
+                lastBuildId: nil,
+                mustUpdateMsg: nil,
+                ota: true,
+                lastBuildVersion: "2.0.0",
+                updateMsg: nil,
+                forceAuth: false
+            ),
+            version: "1.0.0",
+            buildNumber: "100"
+        )
+        configService.currentConfigResponse = otaUpdateConfig
+        appMock.stubVersion = "1.0.0" // ensure app version is older than lastBuildVersion
+        // Ensure no postpone is set so shouldShowPopup() returns true
+        userDefaults?.removeObject(forKey: AppliveryUserDefaultsKeys.appliveryLastUpdatePopupShown)
+        userDefaults?.removeObject(forKey: AppliveryUserDefaultsKeys.appliveryPostponeInterval)
         // WHEN
-        mockUpdateServiceFalse.checkUpdate(for: updateConfigFalse, forceUpdate: false)
-
+        updateService.checkUpdate(for: otaUpdateConfig, forceUpdate: false)
+        // Wait until the async alert is called or timeout
+        waitUntil { appMock.spyOtaAlert.called }
         // THEN
-        #expect(mockUpdateServiceFalse.checkUpdateCalled == true)
-        #expect(mockUpdateServiceFalse.checkUpdateConfig?.version == "2.0.0")
-        #expect(mockUpdateServiceFalse.checkUpdateForce == false)
+        #expect(appMock.spyOtaAlert.called == true)
     }
 }
 
