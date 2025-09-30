@@ -114,7 +114,7 @@ class RecordingViewController: UIViewController {
     }
     
     func presentActionSheet() {
-        if #available(iOS 27.0, *) {
+        if #available(iOS 26.0, *) {
             actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         } else {
             actionSheet = UIAlertController()
