@@ -22,7 +22,8 @@ struct ConfigMockData {
                     ota: true,
                     lastBuildVersion: "1.0.1",
                     updateMsg: "Update available",
-                    forceAuth: false
+                    forceAuth: false,
+                    lastBuildSize: 300000000
                 )
             ),
             id: "configId",
