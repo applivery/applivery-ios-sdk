@@ -124,7 +124,7 @@ final class LoginService: LoginServiceProtocol {
             return
         }
         do {
-            let freeSpace = try deviceAvailableSpace()
+            let freeSpace = try app.deviceAvailableSpace()
             if freeSpace < (lastConfig.config?.lastBuildSize ?? 0) {
                 onResult?(.failure(error: .noDiskSpaceAvailable))
                 app.showErrorAlert("Insufficient storage")
@@ -169,17 +169,6 @@ private extension LoginService {
                 logError(error as NSError)
                 app.showErrorAlert("Error storing token")
             }
-        }
-    }
-
-    func deviceAvailableSpace() throws -> Int64 {
-        let homeURL = URL(fileURLWithPath: NSHomeDirectory())
-        let resourceKeys: Set<URLResourceKey> = [.volumeAvailableCapacityForImportantUsageKey]
-        let resourceValues = try homeURL.resourceValues(forKeys: resourceKeys)
-        if let availableCapacity = resourceValues.volumeAvailableCapacityForImportantUsage {
-            return availableCapacity
-        } else {
-            throw UpdateError.unableToDetermineFreeSpace
         }
     }
 }
