@@ -2,7 +2,7 @@ name: iOS workflow
 
 on:
   push:
-    branches: [ "feature/apple-51-improve-error-feedback-when-app-install-fails-due-to" ]
+    branches: [ "poc/githubActions" ]
   pull_request:
     branches: [ "main" ]
 
