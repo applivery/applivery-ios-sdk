@@ -9,7 +9,6 @@ import UIKit
 @testable import Applivery
 
 class MockEventDetector: EventDetector {
-    
     var isListening = false
     var onDetection: (() -> Void)?
     

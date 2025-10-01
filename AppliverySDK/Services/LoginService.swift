@@ -16,6 +16,7 @@ protocol LoginServiceProtocol {
     func getRedirectURL() async throws -> URL?
     func requestAuthorization(onResult: ((UpdateResult) -> Void)?)
     func download(onResult: ((UpdateResult) -> Void)?)
+    var user: User? { get }
 }
 
 final class LoginService: LoginServiceProtocol {
@@ -28,7 +29,12 @@ final class LoginService: LoginServiceProtocol {
     let safariManager: AppliverySafariManagerProtocol
     let app: AppProtocol
     let keychain: KeychainAccessible
-    
+    var user: User? {
+        let email = sessionPersister.loadUserName()
+        guard !email.isEmpty else { return nil }
+        return User(email: email, firstName: nil, lastName: nil, tags: nil)
+    }
+
     init(
         loginRepository: LoginRepositoryProtocol = LoginRepository(),
         configService: ConfigServiceProtocol = ConfigService(),
@@ -48,7 +54,7 @@ final class LoginService: LoginServiceProtocol {
         self.app = app
         self.keychain = keychain
     }
-    
+
     func requestAuthorization(onResult: ((UpdateResult) -> Void)?) {
 
         do {
@@ -60,7 +66,7 @@ final class LoginService: LoginServiceProtocol {
             onResult?(.failure(error: .authRequired))
         }
     }
-    
+
     func login(loginData: LoginData) async {
         do {
             logInfo("Logging in...")
@@ -75,17 +81,17 @@ final class LoginService: LoginServiceProtocol {
             logInfo("Access token is not available. \(error)")
         }
     }
-    
+
     func getRedirectURL() async throws -> URL? {
         return try await loginRepository.getRedirctURL()
     }
-    
+
     @MainActor
     func openAuthWebView() async {
         do {
             logInfo("Opening auth web view...")
             let redirectURL = try await loginRepository.getRedirctURL()
-            
+
             if let url = redirectURL,
                let topController = app.topViewController() {
                 safariManager.openSafari(from: url, from: topController)
@@ -95,7 +101,7 @@ final class LoginService: LoginServiceProtocol {
             app.showErrorAlert("Error obtaining redirect URL")
         }
     }
-    
+
     @MainActor
     func bind(user: User) async throws {
         do {
@@ -106,11 +112,11 @@ final class LoginService: LoginServiceProtocol {
             app.showErrorAlert("Error binding user")
         }
     }
-    
+
     func unbindUser() {
         loginRepository.unbindUser()
     }
-    
+
     func download(onResult: ((UpdateResult) -> Void)? = nil) {
         let lastConfig = configService.getCurrentConfig()
         guard let lastBuildId = lastConfig.config?.lastBuildId else {
@@ -140,7 +146,7 @@ final class LoginService: LoginServiceProtocol {
 }
 
 private extension LoginService {
-    
+
     @MainActor
     func store(accessToken: AccessToken, userName: String) {
         logInfo("Fetched new access token: \(accessToken.token ?? "NO TOKEN")")

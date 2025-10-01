@@ -13,13 +13,13 @@ import UIKit
 @objc public enum LogLevel: Int {
     /// No log will be shown. Recommended for production environments.
     case none = 0
-    
+
     /// Only warnings and errors. Recommended for develop environments.
     case error = 1
-    
+
     /// Errors and relevant information. Recommended for test integrating Applivery.
     case info = 2
-    
+
     /// Request and Responses to Applivery's server will be displayed. Not recommended to use, only for debugging Applivery.
     case debug = 3
 }
@@ -57,10 +57,10 @@ import UIKit
 
     /// Indicates that the required download URL for the update was not found.
     case downloadUrlNotFound = 1004
-    
+
     /// Indicates that the app is up to date.
     case isUpToDate = 1005
-    
+
 }
 
 /// Represents the result of an update operation, indicating whether it was successful or if an error occurred.
@@ -93,53 +93,47 @@ public typealias AppliveryLogHandler = @convention(block) (
     NSString          // function
 ) -> Void
 
-
 /**
  The Applivery's class provides the entry point to the Applivery service.
- 
+
  ### Usage
- 
+
  You should use the `shared` property to get a unique singleton instance, then set your `logLevel` configuration and finally call to the method:
- 
+
  start(appToken appToken: String, appId: String, appStoreRelease: Bool)
- 
- 
+
+
  ### Overview
- 
+
  When Applivery's starts, the latests configuration for your build will be retrieved, and the build version of your app will be checked. Then applivery could:
  1. Do nothing if the app is in the latest version or any update is checked in the app configuration.
  2. Shows a cancellable alert if there is a new available update in Applivery, giving the user the chance to update to the latest build.
  3. Shows a modal screen, that user can not dismiss, with the only option to update to the latest build. This will force yours users to update giving them any chance to continue using the app.
- 
+
  - SeeAlso: [Applivery's README on GitHub](https://github.com/applivery/applivery-ios-sdk/blob/master/README.md)
  - Since: 1.0
  - Version: 3.3
  - Author: Alejandro Jiménez Agudo
  - Copyright: Applivery S.L.
  */
-public class AppliverySDK: NSObject {
-    
-    // MARK: - Static Properties
-    
-    internal static let sdkVersion = "4.3.7"
-    
-    // MARK: - Type Properties
-    
+public class AppliverySDK: NSObject, AppliveryService {
+    // MARK: Static Properties
+    internal static let sdkVersion = "4.5.0"
+
+    // MARK: Type Properties
     /// Singleton instance
     @objc public static let shared = AppliverySDK()
-    
     var window: AppliveryWindow?
-    
-    // MARK: - Instance Properties
-    
+
+    // MARK: Instance Properties
     /**
      Type of Applivery's logs you want displayed in the debug console
-     
+
      * **none**: No log will be shown. Recommended for production environments.
      * **error**: Only warnings and errors. Recommended for develop environments.
      * **info**: Errors and relevant information. Recommended for test integrating Applivery.
      * **debug**: Request and Responses to Applivery's server will be displayed. Not recommended to use, only for debugging Applivery.
-     
+
      - Since: 1.0
      - Version: 2.0
      */
@@ -152,14 +146,14 @@ public class AppliverySDK: NSObject {
     @objc public func setLogHandler(_ handler: AppliveryLogHandler?) {
         self.globalConfig.logHandler = handler
     }
-    
+
     /**
      Customize the SDK colors to fit your app
-     
+
      # Examples
-     
+
      You can create a new instance of `Palette` and assign it to this property
-     
+
      ```swift
      Applivery.shared.palette = Palette(
      primaryColor: .orange,
@@ -169,21 +163,21 @@ public class AppliverySDK: NSObject {
      screenshotBrushColor: .green
      )
      ```
-     
+
      The SDK has Applivery's colors by default so, if you only need to change the primary color, yo can do this:
-     
+
      ```swift
      Applivery.shared.palette = Palette(
      primaryColor: .orange,
      )
      ```
-     
+
      Or even directly change the property
-     
+
      ```swift
      Applivery.shared.palette.primaryColor = .orange
      ```
-     
+
      - SeeAlso: `Palette`
      - Since: 2.4
      - Version: 2.4
@@ -191,16 +185,16 @@ public class AppliverySDK: NSObject {
     @objc public var palette: Palette { didSet {
         self.globalConfig.palette = self.palette
     }}
-    
+
     /**
      Customize the SDK string literals to fit your app.
-     
+
      By default, Applivery has english literals.
-     
+
      # Examples
-     
+
      You can create a new instance of `TextLiterals` and assign it to this property
-     
+
      ```swift
      Applivery.shared.textLiterals = TextLiterals(
      appName: "Applivery",
@@ -231,9 +225,9 @@ public class AppliverySDK: NSObject {
      loginSessionExpired: "Your session has expired. Please, log in again"
      )
      ```
-     
+
      The SDK has literals by default so, if you only need to change the update messages, yo can do this:
-     
+
      ```swift
      Applivery.shared.textLiterals = TextLiterals(
      appName: "MyApp",
@@ -241,15 +235,15 @@ public class AppliverySDK: NSObject {
      forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it"
      )
      ```
-     
+
      Or even directly change the property
-     
+
      ```swift
      Applivery.shared.textLiterals.appName: "MyApp"
      Applivery.shared.textLiterals.otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?"
      Applivery.shared.textLiterals.forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it"
      ```
-     
+
      - Important: The default literals are only in english. Consider to set localized strings to fully support all languages your app does.
      - SeeAlso: `TextLiterals`
      - Since: 2.4
@@ -258,7 +252,7 @@ public class AppliverySDK: NSObject {
     @objc public var textLiterals: TextLiterals { didSet {
         self.globalConfig.textLiterals = self.textLiterals
     }}
-    
+
     private var host: String? {
         get { environments.getHost() }
         set { environments.setHost(newValue) }
@@ -268,28 +262,27 @@ public class AppliverySDK: NSObject {
         get { environments.getHostDownload() }
         set { environments.setHostDownload(newValue) }
     }
-    
-    
-    // MARK: - Private properties
+
+    // MARK: Private properties
     private let startInteractor: StartInteractor
     private let updateService: UpdateServiceProtocol
     private let globalConfig: GlobalConfig
     private let loginService: LoginServiceProtocol
     private let app: AppProtocol
     private let environments: EnvironmentProtocol
-    
+
     // MARK: Initializers
     override convenience init() {
         self.init(
             startInteractor: StartInteractor(),
             globalConfig: GlobalConfig.shared,
-            updateService: UpdateService(),
+            updateService: UpdateService(eventDetector: BackgroundDetector()),
             loginService: LoginService(),
             app: App(),
             environments: Environments()
         )
     }
-    
+
     internal init (startInteractor: StartInteractor,
                    globalConfig: GlobalConfig,
                    updateService: UpdateServiceProtocol,
@@ -308,13 +301,215 @@ public class AppliverySDK: NSObject {
         self.globalConfig.palette = self.palette
         self.globalConfig.textLiterals = self.textLiterals
     }
-    
-    
-    // MARK: Instance Methods
-    
+
+    // MARK: - Instance Methods
     /**
      Starts Applivery's framework
-     
+
+     - Parameters:
+     - token: Your App Token
+     - Since: 3.3
+     - Version: 3.3
+     */
+    @objc public func start(
+        token: String,
+        tenant: String? = nil,
+        configuration: AppliveryConfiguration = .empty,
+        skipUpdateCheck: Bool = true
+    ) {
+        self.globalConfig.appToken = token
+        host = tenant
+        hostDownload = tenant
+        self.globalConfig.configuration = configuration
+        self.startInteractor.start(skipUpdateCheck: skipUpdateCheck)
+    }
+
+    /**
+     Returns if application is updated to the latest version available
+
+     - Since: 3.1
+     - Version: 4.5
+     */
+    @objc public func isUpToDate() -> Bool {
+        var upToDate: Bool?
+        let semaphore = DispatchSemaphore(value: 0)
+        Task {
+            do {
+                upToDate = try await updateService.isUpToDate()
+            } catch {
+                logInfo("Checking if the app is up to date failed")
+                upToDate = true
+            }
+            semaphore.signal()
+        }
+        semaphore.wait()
+        return upToDate ?? true
+    }
+
+    /**
+     Download newest build available
+
+     - Parameters:
+     - onDownload: Completion handler called when success/failure downloading the new version
+
+     - Attention: Be sure to call `start()` before this method.
+     - Since: 3.1
+     - Version: 4.5.0
+     */
+    @objc public func update(onDownload: ((UpdateResult) -> Void)? = nil) {
+        self.updateService.downloadLastBuild(onResult: onDownload)
+    }
+
+    /**
+     Login a user
+
+     Programatically login a user in Applivery, for example if the app has a custom login and don't want to use Applivery's authentication to track the user in the platform
+
+     - Parameters:
+     - email: The user email. **Required**
+     - firstName: The first name of the user. **Optional**
+     - lastName: The last name of the user. **Optional**
+     - tags: A list of tags linked to the user with group / categorize purpose. **Optional**
+     - onComplete: Optional callback executed after binding the user. **Optional**
+
+     - SeeAlso: `unbindUser()`
+     - Since: 3.0
+     - Version: 4.5.0
+     */
+    @objc public func bindUser(email: String, firstName: String? = nil, lastName: String? = nil, tags: [String]? = nil, onComplete: (() -> Void)? = nil) {
+        let compactedTags = tags?.compactMap(removeEmpty) // Example: ["", "aaa", ""] -> ["aaa"]
+        let user = User(
+            email: email,
+            firstName: firstName,
+            lastName: lastName,
+            tags: compactedTags
+        )
+        user.log()
+        Task {
+            try await loginService.bind(user: user)
+            onComplete?()
+        }
+    }
+
+    /**
+     Get the currently bound user information
+
+     Retrieves the user information that was previously bound using `bindUser` method. Returns the user info as a dictionary if available, or nil if no user is currently bound.
+
+     - Parameter onSuccess: Callback with NSDictionary containing user info, or nil if no user is bound
+     - SeeAlso: `bindUser(email:firstname:lastname:tags)`
+     - Since: 4.5
+     - Version: 4.5
+     */
+    @objc public func getUser(onSuccess: @escaping (NSDictionary?) -> Void) {
+        guard let user = loginService.user else {
+            logInfo("No user is currently bound")
+            onSuccess(nil)
+            return
+        }
+
+        onSuccess(user.dictionary() as NSDictionary)
+    }
+
+    /**
+     Logout a previously binded user
+
+     Programatically logout a user in Applivery from a previous custom login.
+
+     - Parameter onComplete: Optional callback executed after unbinding the user. **Optional**
+     - SeeAlso: `bindUser(email:firstname:lastname:tags)`
+     - Since: 3.0
+     - Version: 3.0
+     */
+    @objc public func unbindUser(onComplete: (() -> Void)? = nil) {
+        self.loginService.unbindUser()
+        onComplete?()
+    }
+
+    /**
+     Present in a modal view the Applivery's feedback.
+
+     By default, Applivery will show a feedback formulary to your users when a screenshot is detected. If you want to do it programatically controlled by your app (for example in a shake event), you can call this method. Also you may want to prevent the feedback view to be show when a screenshot event is produced, for that you can call `disableFeedback()` method
+
+     - SeeAlso: `disableFeedback()`
+     - Since: 2.7
+     - Version: 2.7
+     */
+    @objc public func feedbackEvent() {
+        showFirstWindow()
+        logInfo("Presenting feedback formulary")
+        app.presentFeedbackForm()
+    }
+
+    /**
+     Handles a given redirect URL as part of the SAML authentication flow.
+
+     When implementing SAML-based authentication, your app may receive a redirect URL
+     after the user completes their authentication on an external SAML identity provider.
+     By calling this method, you pass that redirect URL to `AppliverySafariManager` to
+     proceed with the final steps of the authentication flow.
+
+     - Parameter url: The redirect `URL` returned by the SAML provider.
+     - Since: 4.1.0
+     - Version: 4.1.0
+     */
+    @objc public func handleRedirectURL(url: URL) {
+        let webview = AppliverySafariManager.shared
+        webview.urlReceived(url: url)
+    }
+
+    /**
+     - Parameter forceUpdate: The `forceUpdate`allows ignore or not the postponed time.
+     - Since: 4.1.0
+     - Version: 4.5.0
+     */
+    @objc public func checkForUpdates(forceUpdate: Bool = false) {
+        startInteractor.checkUpdate(forceUpdate: forceUpdate)
+    }
+
+    /**
+     Disables listening for screenshot events to trigger the feedback action
+     - Since 4.5.0
+     - Version 4.5.0
+     */
+    @objc public func disableScreenshotFeedback() {
+        logInfo("Disabled screenshot feedback")
+        startInteractor.disableFeedback()
+    }
+    /**
+     Enables the listener for screenshot events to trigger the feedback action
+     - Since 4.5.0
+     - Version 4.5.0
+     */
+    @objc public func enableScreenshotFeedback() {
+        logInfo("Enabled screenshot feedback")
+        startInteractor.enableFeedback()
+    }
+    /**
+     Enables checking for updates automatically when the app returns from background
+     - Since 4.5.0
+     - Version 4.5.0
+     */
+    @objc public func setCheckForUpdatesBackground(_ enabled: Bool) {
+        updateService.setCheckForUpdatesBackground(enabled)
+    }
+}
+
+// MARK: - SDK Private methods
+private extension AppliverySDK {
+    func showFirstWindow() {
+        guard window != nil else {
+            window = AppliveryWindow(frame: UIScreen.main.bounds)
+            return
+        }
+    }
+}
+
+// MARK: - SDK Deprecated methods
+public extension AppliverySDK {
+    /**
+     Starts Applivery's framework
+
      - Parameters:
      - token: Your App Token
      - appStoreRelease: Flag to mark the build as a build that will be submitted to the AppStore. This is needed to prevent unwanted behavior like prompt to a final user that a new version is available on Applivery.
@@ -326,166 +521,20 @@ public class AppliverySDK: NSObject {
      - Version: 3.3
      */
     @available(*, deprecated, renamed: "start(token:)")
-    @objc public func start(token: String, tenant: String?, appStoreRelease: Bool) {
+    @objc func start(token: String, tenant: String?, appStoreRelease: Bool) {
         self.start(token: token, tenant: tenant)
-    }
-    
-    /**
-     Starts Applivery's framework
-     
-     - Parameters:
-     - token: Your App Token
-     - Since: 3.3
-     - Version: 3.3
-     */
-    @objc public func start(
-        token: String,
-        tenant: String? = nil,
-        configuration: AppliveryConfiguration = .empty
-    ) {
-        self.globalConfig.appToken = token
-        host = tenant
-        hostDownload = tenant
-        self.globalConfig.configuration = configuration
-        // Removed observer registration from here
-        self.startInteractor.start()
     }
 
     /**
-     Enable or disable checking for updates when app returns to foreground.
-     - Parameter enabled: Pass true to enable, false to disable.
-     */
-    @objc public func setCheckForUpdatesBackground(_ enabled: Bool) {
-        self.updateService.setCheckForUpdatesBackground(enabled)
-    }
-    
-    private func showFirstWindow() {
-        guard window != nil else {
-            window = AppliveryWindow(frame: UIScreen.main.bounds)
-            return
-        }
-    }
-    
-    /**
-     Returns if application is updated to the latest version available
-     
-     - Since: 3.1
-     - Version: 3.1
-     */
-    @objc public func isUpToDate() -> Bool {
-        return self.updateService.isUpToDate()
-    }
-    
-    /**
-     Download newest build available
-     
-     - Parameters:
-     - onSuccess: Completion handler called when success
-     - onError: Completion handler called when something went wrong. A string whith the reason is passed to this callback.
-     
-     - Attention: Be sure to call `start(token:appStoreRelease)` before this method.
-     - Since: 3.1
-     - Version: 3.1
-     */
-    @objc public func update(onResult: ((UpdateResult) -> Void)? = nil) {
-        self.updateService.downloadLastBuild(onResult: onResult)
-    }
-    
-    /**
-     Login a user
-     
-     Programatically login a user in Applivery, for example if the app has a custom login and don't want to use Applivery's authentication to track the user in the platform
-     
-     - Parameters:
-     - email: The user email. **Required**
-     - firstName: The first name of the user. **Optional**
-     - lastName: The last name of the user. **Optional**
-     - tags: A list of tags linked to the user with group / categorize purpose. **Optional**
-     
-     - SeeAlso: `unbindUser()`
-     - Since: 3.0
-     - Version: 3.1.1
-     */
-    @objc public func bindUser(email: String, firstName: String? = nil, lastName: String? = nil, tags: [String]? = nil) {
-        let compactedTags = tags?.compactMap(removeEmpty) // Example: ["", "aaa", ""] -> ["aaa"]
-        let user = User(
-            email: email,
-            firstName: firstName,
-            lastName: lastName,
-            tags: compactedTags
-        )
-        user.log()
-        Task {
-            try await loginService.bind(user: user)
-        }
-    }
-    
-    /**
-     Logout a previously binded user
-     
-     Programatically logout a user in Applivery from a previous custom login.
-     
-     - SeeAlso: `bindUser(email:firstname:lastname:tags)`
-     - Since: 3.0
-     - Version: 3.0
-     */
-    @objc public func unbindUser() {
-        self.loginService.unbindUser()
-    }
-    
-    /**
      Disable Applivery's feedback.
-     
+
      By default, Applivery will show a feedback formulary to your users when a screenshot is detected. If you want to avoid this, you can disable it calling this method.
-     
+
      - Since: 1.2
      - Version: 2.0
      */
-    @objc public func disableFeedback() {
+    @available(*, deprecated, renamed: "disableScreenshotFeedback()")
+    @objc func disableFeedback() {
         self.startInteractor.disableFeedback()
-    }
-    
-    /**
-     Present in a modal view the Applivery's feedback.
-     
-     By default, Applivery will show a feedback formulary to your users when a screenshot is detected. If you want to do it programatically controlled by your app (for example in a shake event), you can call this method. Also you may want to prevent the feedback view to be show when a screenshot event is produced, for that you can call `disableFeedback()` method
-     
-     - SeeAlso: `disableFeedback()`
-     - Since: 2.7
-     - Version: 2.7
-     */
-    @objc public func feedbackEvent() {
-        showFirstWindow()
-        logInfo("Presenting feedback formulary")
-        app.presentFeedbackForm()
-    }
-    
-    /**
-     Handles a given redirect URL as part of the SAML authentication flow.
-     
-     When implementing SAML-based authentication, your app may receive a redirect URL
-     after the user completes their authentication on an external SAML identity provider.
-     By calling this method, you pass that redirect URL to `AppliverySafariManager` to
-     proceed with the final steps of the authentication flow.
-     
-     - Parameter url: The redirect `URL` returned by the SAML provider.
-     - Since: 4.1.0
-     - Version: 4.1.0
-     */
-
-    @objc public func handleRedirectURL(url: URL) {
-        let webview = AppliverySafariManager.shared
-        webview.urlReceived(url: url)
-    }
-    
-    /**
-     
-     - Parameter forceUpdate: The `forceUpdate`allows ignore or not the postponed time.
-     - Since: 4.1.0
-     - Version: 4.1.0
-     */
-
-    @objc public func checkForUpdates(forceUpdate: Bool = false) {
-        startInteractor.checkUpdate(forceUpdate: forceUpdate)
     }
 }

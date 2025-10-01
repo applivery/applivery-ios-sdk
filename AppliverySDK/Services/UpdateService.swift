@@ -13,37 +13,41 @@ protocol UpdateServiceProtocol {
     func forceUpdate()
     func otaUpdate()
     func downloadLastBuild(onResult: ((UpdateResult) -> Void)?)
-    func isUpToDate() -> Bool
+    func isUpToDate() async throws -> Bool
     func checkForceUpdate(_ config: SDKData?, version: String) -> Bool
     func checkOtaUpdate(_ config: SDKData?, version: String) -> Bool
     func forceUpdateMessage() -> String
     func setCheckForUpdatesBackground(_ enabled: Bool)
+    func checkUpdate(for updateConfig: UpdateConfigResponse, forceUpdate: Bool)
 }
 
 
 final class UpdateService: UpdateServiceProtocol {
     private let configService: ConfigServiceProtocol
     private let downloadService: DownloadServiceProtocol
-	private let app: AppProtocol
+    private let app: AppProtocol
     private let loginService: LoginServiceProtocol
     private let globalConfig: GlobalConfig
-	private let userDefaults: UserDefaultsProtocol = UserDefaults.standard
+    private let eventDetector: EventDetector
+    private let userDefaults: UserDefaultsProtocol = UserDefaults.standard
     var forceUpdateCalled = false
-    
+
     init(
         configService: ConfigServiceProtocol = ConfigService(),
         downloadService: DownloadServiceProtocol = DownloadService(),
         app: AppProtocol = App(),
         loginService: LoginServiceProtocol = LoginService(),
-        globalConfig: GlobalConfig = GlobalConfig.shared
+        globalConfig: GlobalConfig = GlobalConfig.shared,
+        eventDetector: EventDetector
     ) {
         self.configService = configService
         self.downloadService = downloadService
         self.app = app
         self.loginService = loginService
         self.globalConfig = globalConfig
+        self.eventDetector = eventDetector
     }
-    
+
     func forceUpdate() {
         logInfo("Opening force update screen")
         guard !forceUpdateCalled else { return }
@@ -52,7 +56,7 @@ final class UpdateService: UpdateServiceProtocol {
             self?.app.showForceUpdate()
         }
     }
-    
+
     func otaUpdate() {
         let message = otaUpdateMessage()
         let postponeIntervals = globalConfig.configuration?.postponedTimeFrames ?? []
@@ -68,36 +72,36 @@ final class UpdateService: UpdateServiceProtocol {
             }
         }
     }
-	
-	func forceUpdateMessage() -> String {
-		let currentConfig = self.configService.getCurrentConfig()
-		
+
+    func forceUpdateMessage() -> String {
+        let currentConfig = self.configService.getCurrentConfig()
+
         var message = literal(.forceUpdateMessage) ?? currentConfig.config?.mustUpdateMsg ?? kLocaleForceUpdateMessage
-		
-		if message == "" {
-			message = kLocaleForceUpdateMessage
-		}
-		
-		return message
-	}
-	
-	func otaUpdateMessage() -> String {
-		let currentConfig = self.configService.getCurrentConfig()
+
+        if message == "" {
+            message = kLocaleForceUpdateMessage
+        }
+
+        return message
+    }
+
+    func otaUpdateMessage() -> String {
+        let currentConfig = self.configService.getCurrentConfig()
         var message = literal(.otaUpdateMessage) ?? currentConfig.config?.updateMsg ?? kLocaleOtaUpdateMessage
-		
-		if message == "" {
-			message = kLocaleOtaUpdateMessage
-		}
-		
-		return message
-	}
-	
-	func downloadLastBuild(onResult: ((UpdateResult) -> Void)? = nil) {
+
+        if message == "" {
+            message = kLocaleOtaUpdateMessage
+        }
+
+        return message
+    }
+
+    func downloadLastBuild(onResult: ((UpdateResult) -> Void)? = nil) {
         guard let config = self.configService.getCurrentConfig().config else {
             logInfo("No current config found")
             onResult?(.failure(error: .noConfigFound))
             return
-		}
+        }
 
         if config.forceAuth {
             logInfo("Force authorization is enabled - requesting authorization")
@@ -107,45 +111,51 @@ final class UpdateService: UpdateServiceProtocol {
             loginService.download(onResult: onResult)
         }
 
-	}
-	
-	func isUpToDate() -> Bool {
-        let currentConfig = self.configService.getCurrentConfig()
-        
-        if let minVersion = currentConfig.config?.minVersion,
-            let forceUpdate = currentConfig.config?.forceUpdate,
-            forceUpdate,
-            !minVersion.isEmpty {
-            let isOlder = isOlder(currentConfig.version, minVersion: minVersion)
-            logInfo("[isUpToDate] - Force update is available, checking if \(currentConfig.version) is older than \(minVersion), Need update: \(!isOlder)")
-            return !isOlder
+    }
+
+    func isUpToDate() async -> Bool {
+        let currentConfig = configService.getCurrentConfig()
+        do {
+            let config = try await configService.fetchConfig()
+            let forceUpdate = config.data.sdk.ios.forceUpdate
+            if let minVersion = config.data.sdk.ios.minVersion, forceUpdate, !minVersion.isEmpty {
+                let isOlder = isOlder(currentConfig.version, minVersion: minVersion)
+                logInfo("[isUpToDate] - Force update is available, checking if \(currentConfig.version) is older than \(minVersion), Need update: \(!isOlder)")
+                return !isOlder
+            }
+            if let lastVersion = config.data.sdk.ios.lastBuildVersion, !lastVersion.isEmpty {
+                let isOlder = isOlder(currentConfig.buildNumber, minVersion: lastVersion)
+                logInfo("[isUpToDate] - Last Build version is available, Need update: \(isOlder)")
+                return !isOlder
+            }
+            return true
+        } catch {
+            logInfo("[isUpToDate] - fetchConfig failed: \(error). Falling back to currentConfig minVersion check.")
+            if let minVersion = currentConfig.config?.minVersion, !minVersion.isEmpty {
+                let isOlder = isOlder(currentConfig.version, minVersion: minVersion)
+                logInfo("[isUpToDate] - Fallback: checking if \(currentConfig.version) is older than \(minVersion), Need update: \(!isOlder)")
+                return !isOlder
+            }
+            return true
         }
-        
-        if let lastVersion = currentConfig.config?.lastBuildVersion, !lastVersion.isEmpty {
-            let isOlder = isOlder(currentConfig.buildNumber, minVersion: lastVersion)
-            logInfo("[isUpToDate] - Last Build version is available, Need update: \(isOlder)")
-            return !isOlder
-        }
-        
-        return true
-	}
-	
+    }
+
     func checkForceUpdate(_ config: SDKData?, version: String) -> Bool {
         guard
             let minVersion = config?.minVersion,
             let forceUpdate = config?.forceUpdate,
             forceUpdate
             else { return false }
-        
+
         logInfo("[checkForceUpdate] - Checking if build version: \(version) is older than minBuildVersion: \(minVersion)")
         if self.isOlder(version, minVersion: minVersion) {
             logInfo("[checkForceUpdate] - Application must be updated!!")
             return true
         }
-        
+
         return false
     }
-    
+
     func checkOtaUpdate(_ config: SDKData?, version: String) -> Bool {
         guard
             let lastVersion = config?.lastBuildVersion,
@@ -155,7 +165,7 @@ final class UpdateService: UpdateServiceProtocol {
             logInfo("[checkOtaUpdate] - ota update not needed")
             return false
         }
-        
+
         logInfo("[checkOtaUpdate] - Checking if app version: \(version) is older than last build version: \(lastVersion)")
         if self.isOlder(version, minVersion: lastVersion) {
             logInfo("[checkOtaUpdate] - New OTA update available!")
@@ -164,31 +174,38 @@ final class UpdateService: UpdateServiceProtocol {
         logInfo("ota update not needed")
         return false
     }
-    
+
     func setCheckForUpdatesBackground(_ enabled: Bool) {
+        let config = configService.getCurrentConfig()
         if enabled {
-            if !globalConfig.isForegroundObserverAdded {
-                NotificationCenter.default.addObserver(
-                    self,
-                    selector: #selector(handleAppWillEnterForeground),
-                    name: UIApplication.willEnterForegroundNotification,
-                    object: nil
-                )
+            eventDetector.listenEvent {
+                self.checkUpdate(for: config, forceUpdate: false)
             }
-            globalConfig.isForegroundObserverAdded = true
-            logInfo("Background updates enabled")
         } else {
-            if globalConfig.isForegroundObserverAdded {
-                NotificationCenter.default.removeObserver(
-                    self,
-                    name: UIApplication.willEnterForegroundNotification,
-                    object: nil
-                )
-            }
-            globalConfig.isForegroundObserverAdded = false
-            logInfo("Background updates disabled")
+            eventDetector.endListening()
         }
-        globalConfig.isCheckForUpdatesBackgroundEnabled = enabled
+    }
+
+    func checkUpdate(for updateConfig: UpdateConfigResponse, forceUpdate: Bool) {
+        let appVersion = app.getVersion()
+        // use existing helpers to determine if a force or ota update is needed
+        if forceUpdate && checkForceUpdate(updateConfig.config, version: appVersion) {
+            logInfo("Performing force update...")
+            self.forceUpdate()
+            return
+        }
+
+        if checkOtaUpdate(updateConfig.config, version: appVersion) {
+            if shouldShowPopup() {
+                logInfo("Performing OTA update...")
+                otaUpdate()
+            } else {
+                logInfo("CheckUpdates finished: Updates were postponed")
+            }
+            return
+        }
+
+        logInfo("CheckUpdates finished: No Update needed")
     }
 }
 
@@ -213,18 +230,30 @@ private extension UpdateService {
             }
         }
     }
-    
+
+    func shouldShowPopup() -> Bool {
+        if let storedDate = UserDefaults.standard.object(forKey: AppliveryUserDefaultsKeys.appliveryLastUpdatePopupShown) as? Date,
+           let interval = UserDefaults.standard.object(forKey: AppliveryUserDefaultsKeys.appliveryPostponeInterval) as? TimeInterval {
+            let elapsedTime = Date().timeIntervalSince(storedDate)
+            logInfo("Elapsed Time: \(elapsedTime) interval: \(interval)")
+            return elapsedTime >= interval
+        } else {
+            logInfo("Elapsed Time or interval not found, showing popup")
+            return true
+        }
+    }
+
     func isOlder(_ currentVersion: String, minVersion: String) -> Bool {
         let (current, min) = self.equalLengthFillingWithZeros(left: currentVersion, right: minVersion)
         let result = current.compare(min, options: NSString.CompareOptions.numeric, range: nil, locale: nil)
-        
+
         return result == ComparisonResult.orderedAscending
     }
-    
+
     func equalLengthFillingWithZeros(left: String, right: String) -> (String, String) {
         let componentsLeft = left.components(separatedBy: ".")
         let componentsRight = right.components(separatedBy: ".")
-        
+
         if componentsLeft.count == componentsRight.count {
             return (left, right)
         } else if componentsLeft.count < componentsRight.count {
@@ -237,13 +266,13 @@ private extension UpdateService {
             return (left, rightFilled)
         }
     }
-    
+
     func fillWithZeros(string: [String], length: Int) -> String {
         var zeroFilledString = string
         for _ in 1...length {
             zeroFilledString.append("0")
         }
-        
+
         return zeroFilledString.joined(separator: ".")
     }
 

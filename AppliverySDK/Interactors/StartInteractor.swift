@@ -18,7 +18,6 @@ protocol StartInteractorOutput {
 }
 
 final class StartInteractor {
-        
     private let app: AppProtocol
     private let configService: ConfigServiceProtocol
     private let globalConfig: GlobalConfig
@@ -29,9 +28,9 @@ final class StartInteractor {
     private let safariManager: AppliverySafariManagerProtocol
     private let loginService: LoginServiceProtocol
     private var cancellables = Set<AnyCancellable>()
-    
+
     // MARK: Initializers
-    
+
     init(
         app: AppProtocol = App(),
         configService: ConfigServiceProtocol = ConfigService(),
@@ -39,7 +38,7 @@ final class StartInteractor {
         eventDetector: EventDetector = ScreenshotDetector(),
         sessionPersister: SessionPersister = SessionPersister(userDefaults: UserDefaults.standard),
         keychain: KeychainAccessible = Keychain(),
-        updateService: UpdateServiceProtocol = UpdateService(),
+        updateService: UpdateServiceProtocol = UpdateService(eventDetector: BackgroundDetector()),
         webViewManager: AppliverySafariManagerProtocol = AppliverySafariManager.shared,
         loginService: LoginServiceProtocol = LoginService()
     ) {
@@ -53,11 +52,14 @@ final class StartInteractor {
         self.safariManager = webViewManager
         self.loginService = loginService
     }
-    
-    
+
+
     // MARK: Internal Methods
-    
-    func start() {
+
+    func start(skipUpdateCheck: Bool) {
+        if !skipUpdateCheck {
+            checkUpdate(forceUpdate: false)
+        }
         logInfo("Applivery is starting... ")
         logInfo("SDK Version: \(GlobalConfig.shared.app.getSDKVersion())")
         setupBindings()
@@ -65,46 +67,48 @@ final class StartInteractor {
             logInfo("App token is empty")
             return
         }
-        self.eventDetector.listenEvent(
-            ScreenRecorderManager.shared.presentPreviewWithScreenshoot
-        )
         self.updateConfig()
     }
-    
+
+    func enableFeedback() {
+        self.globalConfig.feedbackEnabled = true
+        eventDetector.listenEvent {
+            ScreenRecorderManager.shared.presentPreviewWithScreenshoot()
+        }
+    }
+
     func disableFeedback() {
-        guard self.globalConfig.feedbackEnabled else { return }
-        
         self.globalConfig.feedbackEnabled = false
         self.eventDetector.endListening()
     }
-    
+
     // MARK: Private Methods
-    
+
     func updateConfig() {
         self.globalConfig.accessToken = .init(
             token: try? keychain.retrieve(for: app.bundleId())
         )
-        
+
         Task {
             do {
                 let updateConfig = try await configService.updateConfig()
-                self.checkUpdate(for: updateConfig, forceUpdate: false)
+                self.updateService.checkUpdate(for: updateConfig, forceUpdate: false)
             } catch APIError.statusCode(let statusCode) {
                 if statusCode == 401 {
                     await showLoginAlert()
                 } else {
                     let currentConfig = self.configService.getCurrentConfig()
-                    self.checkUpdate(for: currentConfig, forceUpdate: false)
+                    self.updateService.checkUpdate(for: currentConfig, forceUpdate: false)
                 }
             }
         }
     }
-    
+
     func checkUpdate(forceUpdate: Bool = false) {
         let config = configService.getCurrentConfig()
-        checkUpdate(for: config, forceUpdate: forceUpdate)
+        updateService.checkUpdate(for: config, forceUpdate: forceUpdate)
     }
-    
+
     @MainActor
     private func showLoginAlert() {
         logInfo("Presenting login alert")
@@ -117,11 +121,9 @@ final class StartInteractor {
             }
         }
     }
-    
 }
 
 private extension StartInteractor {
-    
     func setupBindings() {
         safariManager.tokenPublisher.sink { token in
             guard let token else { return }
@@ -134,32 +136,7 @@ private extension StartInteractor {
         }
         .store(in: &cancellables)
     }
-    
-    func checkUpdate(for updateConfig: UpdateConfigResponse, forceUpdate: Bool) {
-        if forceUpdate {
-            if self.updateService.checkForceUpdate(updateConfig.config, version: updateConfig.buildNumber) {
-                logInfo("Performing force update...")
-                updateService.forceUpdate()
-            } else if self.updateService.checkOtaUpdate(updateConfig.config, version: updateConfig.buildNumber) {
-                logInfo("Performing OTA update...")
-                updateService.otaUpdate()
-            }
-        } else {
-            if shouldShowPopup() {
-                if self.updateService.checkForceUpdate(updateConfig.config, version: updateConfig.buildNumber) {
-                    logInfo("Performing force update...")
-                    updateService.forceUpdate()
-                } else if self.updateService.checkOtaUpdate(updateConfig.config, version: updateConfig.buildNumber) {
-                    logInfo("Performing OTA update...")
-                    updateService.otaUpdate()
-                }
-            } else {
-                logInfo("The timeout for showing the popup not exceeded")
-            }
-        }
-        
-    }
-    
+
     func openAuthWebView() async {
         do {
             logInfo("Opening auth web view...")
@@ -175,18 +152,6 @@ private extension StartInteractor {
             await MainActor.run {
                 app.showErrorAlert("Error obtaining redirect URL")
             }
-        }
-    }
-    
-    func shouldShowPopup() -> Bool {
-        if let storedDate = UserDefaults.standard.object(forKey: AppliveryUserDefaultsKeys.appliveryLastUpdatePopupShown) as? Date,
-            let interval = UserDefaults.standard.object(forKey: AppliveryUserDefaultsKeys.appliveryPostponeInterval) as? TimeInterval {
-            let elapsedTime = Date().timeIntervalSince(storedDate)
-            logInfo("Elapsed Time: \(elapsedTime) interval: \(interval)")
-            return elapsedTime >= interval
-        } else {
-            logInfo("Elapsed Time or interval not found, showing popup")
-            return true
         }
     }
 }

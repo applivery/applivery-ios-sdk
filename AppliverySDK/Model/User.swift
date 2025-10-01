@@ -26,4 +26,13 @@ struct User: Encodable {
 			logInfo(" - TAGS: \(tags)")
 		}
 	}
+
+    func dictionary() -> [String: String] {
+        [
+            "email": email,
+            "firstName": firstName ?? "",
+            "lastName": lastName ?? "",
+            "tags": tags?.joined(separator: ", ") ?? ""
+        ]
+    }
 }
