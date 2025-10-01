@@ -18,8 +18,14 @@ enum KeychainError: Error {
     case itemNotFound
 }
 
+protocol SessionPersisterProtocol {
+    func loadAccessToken() -> AccessToken?
+    func saveUserName(userName: String)
+    func loadUserName() -> String
+    func removeUser()
+}
 
-struct SessionPersister {
+struct SessionPersister: SessionPersisterProtocol {
 	let userDefaults: UserDefaultsProtocol
 	
 //	func save(accessToken: AccessToken?) {
