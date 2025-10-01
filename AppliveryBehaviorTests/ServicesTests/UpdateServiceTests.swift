@@ -128,7 +128,8 @@ struct UpdateServiceTests {
                 ota: false,
                 lastBuildVersion: nil,
                 updateMsg: nil,
-                forceAuth: false
+                forceAuth: false,
+                lastBuildSize: nil
             ),
             version: "0.9.0",
             buildNumber: "100"
@@ -152,7 +153,8 @@ struct UpdateServiceTests {
                 ota: true,
                 lastBuildVersion: "2.0.0",
                 updateMsg: nil,
-                forceAuth: false
+                forceAuth: false,
+                lastBuildSize: nil
             ),
             version: "1.0.0",
             buildNumber: "100"

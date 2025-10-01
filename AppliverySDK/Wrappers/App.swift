@@ -11,7 +11,6 @@ import UIKit
 import SwiftUI
 
 // Wrapper for Application's operation
-
 protocol AppProtocol {
 	func bundleId() -> String
 	func getSDKVersion() -> String
@@ -28,10 +27,10 @@ protocol AppProtocol {
 	func presentModal(_ viewController: UIViewController, animated: Bool)
     func presentFeedbackForm()
     func topViewController() -> UIViewController?
+    func deviceAvailableSpace() throws -> Int64
 }
 
 extension AppProtocol {
-	
 	// Add default argument
 	func presentModal(_ viewController: UIViewController, animated: Bool = true) {
 		self.presentModal(viewController, animated: animated)
@@ -40,81 +39,90 @@ extension AppProtocol {
 
 
 class App: AppProtocol {
-	
     private lazy var alertOta: UIAlertController = UIAlertController()
-	private lazy var alertPostpone: UIAlertController = UIAlertController()
-	private lazy var alertError: UIAlertController = UIAlertController()
-	private lazy var alertLogin: UIAlertController = UIAlertController()
-	
-	
-	// MARK: - Public Methods
-	
-	func bundleId() -> String {
-		guard let bundleId = Bundle.main.bundleIdentifier else {
-			logWarn("No bundle identifier found")
-			return "no_id"
-		}
-		
-		return bundleId
-	}
-	
-	func getBuildNumber() -> String {
-		guard let version = Bundle.main.infoDictionary?["CFBundleVersion"] as? String else {
-			return "NO_VERSION_FOUND"
-		}
-		return version
-	}
-	
-	func getVersion() -> String {
-		guard let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else {
-			return "NO_VERSION_FOUND"
-		}
-		return version
-	}
-	
-	func getSDKVersion() -> String {
-        AppliverySDK.sdkVersion
-	}
-	
-	func getLanguage() -> String {
-		guard let language = (Locale.current as NSLocale).object(forKey: NSLocale.Key.languageCode) as? String else {
-			return "NO_LANGUAGE_FOUND"
-		}
-		
-		return language
-	}
-	
-	func openUrl(_ urlString: String) -> Bool {
-		logInfo("Opening \(urlString)")
-		guard let url = URL(string: urlString) else { return false }
-		UIApplication.shared.open(url)
-		
-		return true
-	}
-	
+    private lazy var alertPostpone: UIAlertController = UIAlertController()
+    private lazy var alertError: UIAlertController = UIAlertController()
+    private lazy var alertLogin: UIAlertController = UIAlertController()
 
-	
-	func showAlert(_ message: String) {
-		let alert = UIAlertController(title: literal(.appName), message: message, preferredStyle: .alert)
-		
-		let actionLater = UIAlertAction(title: literal(.alertButtonOK), style: .cancel, handler: nil)
-		alert.addAction(actionLater)
-		
-		let topVC = self.topViewController()
-		
-		topVC?.present(alert, animated: true, completion: nil)
-	}
-    
+
+    // MARK: - Public Methods
+    func deviceAvailableSpace() throws -> Int64 {
+        let homeURL = URL(fileURLWithPath: NSHomeDirectory())
+        let resourceKeys: Set<URLResourceKey> = [.volumeAvailableCapacityForImportantUsageKey]
+        let resourceValues = try homeURL.resourceValues(forKeys: resourceKeys)
+        if let availableCapacity = resourceValues.volumeAvailableCapacityForImportantUsage {
+            return availableCapacity
+        } else {
+            throw UpdateError.unableToDetermineFreeSpace
+        }
+    }
+
+    func bundleId() -> String {
+        guard let bundleId = Bundle.main.bundleIdentifier else {
+            logWarn("No bundle identifier found")
+            return "no_id"
+        }
+
+        return bundleId
+    }
+
+    func getBuildNumber() -> String {
+        guard let version = Bundle.main.infoDictionary?["CFBundleVersion"] as? String else {
+            return "NO_VERSION_FOUND"
+        }
+        return version
+    }
+
+    func getVersion() -> String {
+        guard let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else {
+            return "NO_VERSION_FOUND"
+        }
+        return version
+    }
+
+    func getSDKVersion() -> String {
+        AppliverySDK.sdkVersion
+    }
+
+    func getLanguage() -> String {
+        guard let language = (Locale.current as NSLocale).object(forKey: NSLocale.Key.languageCode) as? String else {
+            return "NO_LANGUAGE_FOUND"
+        }
+
+        return language
+    }
+
+    func openUrl(_ urlString: String) -> Bool {
+        logInfo("Opening \(urlString)")
+        guard let url = URL(string: urlString) else { return false }
+        UIApplication.shared.open(url)
+
+        return true
+    }
+
+
+
+    func showAlert(_ message: String) {
+        let alert = UIAlertController(title: literal(.appName), message: message, preferredStyle: .alert)
+
+        let actionLater = UIAlertAction(title: literal(.alertButtonOK), style: .cancel, handler: nil)
+        alert.addAction(actionLater)
+
+        let topVC = self.topViewController()
+
+        topVC?.present(alert, animated: true, completion: nil)
+    }
+
     func showLoginAlert(
         isCancellable: Bool,
         downloadHandler: @escaping () -> Void
     ) {
         self.alertOta = UIAlertController(title: literal(.appName), message: literal(.loginMessage), preferredStyle: .alert)
-        
+
         let aceptAction = UIAlertAction(title: literal(.loginButton), style: .default) { _ in
             downloadHandler()
         }
-        
+
         self.alertOta.addAction(aceptAction)
 
         if isCancellable {
@@ -127,34 +135,34 @@ class App: AppProtocol {
         }
 
         let topVC = self.topViewController()
-        
+
         topVC?.present(self.alertOta, animated: true, completion: nil)
     }
-	
-	func showOtaAlert(_ message: String, allowPostpone: Bool, downloadHandler: @escaping () -> Void, postponeHandler: @escaping () -> Void) {
-		self.alertOta = UIAlertController(title: literal(.appName), message: message, preferredStyle: .alert)
-		        
+
+    func showOtaAlert(_ message: String, allowPostpone: Bool, downloadHandler: @escaping () -> Void, postponeHandler: @escaping () -> Void) {
+        self.alertOta = UIAlertController(title: literal(.appName), message: message, preferredStyle: .alert)
+
         let actionPostpone = UIAlertAction(title: literal(.alertButtonPostpone), style: .default) { _ in
             postponeHandler()
         }
         let actionDownload = UIAlertAction(title: literal(.alertButtonUpdate), style: .default) { _ in
-			downloadHandler()
-		}
-		
+            downloadHandler()
+        }
+
         if allowPostpone {
             self.alertOta.addAction(actionPostpone)
         }
-		self.alertOta.addAction(actionDownload)
-		
-		let topVC = self.topViewController()
-		
-		topVC?.present(self.alertOta, animated: true, completion: nil)
-	}
-    
+        self.alertOta.addAction(actionDownload)
+
+        let topVC = self.topViewController()
+
+        topVC?.present(self.alertOta, animated: true, completion: nil)
+    }
+
     func showPostponeSelectionAlert(_ message: String, options: [TimeInterval], selectionHandler: @escaping (TimeInterval) -> Void) {
         self.alertPostpone = UIAlertController(title: literal(.appName), message: message, preferredStyle: .alert)
-        
-        
+
+
         let optionsView = OptionsListView(title: "Postpone alert for", options: Array(options.prefix(3))) { selectedOption in
             selectionHandler(selectedOption)
         }
@@ -166,35 +174,35 @@ class App: AppProtocol {
         hostingController.modalTransitionStyle = .crossDissolve
 
         let topVC = self.topViewController()
-        
+
         topVC?.present(hostingController, animated: true, completion: nil)
     }
-    
+
     func showForceUpdate() {
         let viewController = UIHostingController(rootView: ForceUpdateScreen())
         let navigationController = AppliveryNavigationController(rootViewController: viewController)
-        
+
         self.waitForReadyThen {
             self.presentModal(navigationController)
         }
     }
-	
-	func showErrorAlert(_ message: String) {
-		self.alertError = UIAlertController(title: literal(.appName), message: message, preferredStyle: .alert)
-		
+
+    func showErrorAlert(_ message: String) {
+        self.alertError = UIAlertController(title: literal(.appName), message: message, preferredStyle: .alert)
+
         let actionCancel = UIAlertAction(title: literal(.alertButtonCancel), style: .default, handler: nil)
-				
+
         alertError.addAction(actionCancel)
-		let topVC = self.topViewController()
-		topVC?.present(self.alertError, animated: true, completion: nil)
-	}
-	
-	func presentModal(_ viewController: UIViewController, animated: Bool) {
+        let topVC = self.topViewController()
+        topVC?.present(self.alertError, animated: true, completion: nil)
+    }
+
+    func presentModal(_ viewController: UIViewController, animated: Bool) {
         viewController.modalPresentationStyle = .fullScreen
-		let topVC = self.topViewController()
-		topVC?.present(viewController, animated: animated, completion: nil)
-	}
-    
+        let topVC = self.topViewController()
+        topVC?.present(viewController, animated: animated, completion: nil)
+    }
+
     func presentFeedbackForm() {
         if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let window = scene.windows.filter({ $0 is AppliveryWindow }).first {
@@ -208,35 +216,14 @@ class App: AppProtocol {
             }
         }
     }
-	
-	func waitForReadyThen(_ onReady: @escaping () -> Void) {
-		runInBackground {
-			self.sleepUntilReady()
-			runOnMainThreadAsync(onReady)
-		}
-	}
-	
-	
-	// MARK: - Private Helpers
-	
-	private func sleepUntilReady() {
-		while !self.rootViewIsReady() {
-			sleep(for: 0.1)
-		}
-	}
-	
-	private func rootViewIsReady() -> Bool {
-		var isReady = false
-		// Wait until main thread complete check
-		runOnMainThreadSynced {
-			isReady = UIApplication.shared
-				.keyWindow?
-				.rootViewController?
-				.isViewLoaded ?? false
-		}
-		return isReady
-	}
-	
+
+    func waitForReadyThen(_ onReady: @escaping () -> Void) {
+        runInBackground {
+            self.sleepUntilReady()
+            runOnMainThreadAsync(onReady)
+        }
+    }
+
     func topViewController() -> UIViewController? {
         guard
             let keyWindow = UIApplication.shared
@@ -248,11 +235,31 @@ class App: AppProtocol {
         else {
             return nil
         }
-        
+
         return findTopViewController(from: rootVC)
     }
+}
+// MARK: - Private Helpers
+private extension App {
+	func sleepUntilReady() {
+		while !self.rootViewIsReady() {
+			sleep(for: 0.1)
+		}
+	}
+	
+	func rootViewIsReady() -> Bool {
+		var isReady = false
+		// Wait until main thread complete check
+		runOnMainThreadSynced {
+			isReady = UIApplication.shared
+				.keyWindow?
+				.rootViewController?
+				.isViewLoaded ?? false
+		}
+		return isReady
+	}
 
-    private func findTopViewController(from root: UIViewController) -> UIViewController {
+    func findTopViewController(from root: UIViewController) -> UIViewController {
         if let presentedVC = root.presentedViewController {
             logInfo("Top VC find presented VC")
             return findTopViewController(from: presentedVC)

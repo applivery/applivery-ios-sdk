@@ -41,7 +41,7 @@ import UIKit
 ///
 /// This enumeration is compatible with Objective-C and provides a list of detailed errors that
 /// describe potential failures during the update process.
-@objc public enum UpdateError: Int {
+@objc public enum UpdateError: Int, Error {
 
     /// No error; used to represent a state without errors.
     case noError = 0
@@ -60,6 +60,12 @@ import UIKit
 
     /// Indicates that the app is up to date.
     case isUpToDate = 1005
+
+    /// Indicates there was an error retrieving free space in the device
+    case unableToDetermineFreeSpace = 1006
+
+    /// Indicates there is not enough free space in the device
+    case noDiskSpaceAvailable = 1007
 
 }
 

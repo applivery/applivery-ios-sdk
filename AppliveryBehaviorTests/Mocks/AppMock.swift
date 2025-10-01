@@ -18,6 +18,7 @@ class AppMock: AppProtocol {
     var stubVersionName: String = "NO VERSION SET"
     var stubLanguage: String = "NO LANGUAGE SET"
     var stubOpenUrlResult = false
+    var stubDeviceAvailableSpace: Int64 = 100_000_000_000 // default 100GB
 
     // Outputs
     var spyOpenUrl = (called: false, url: "")
@@ -121,5 +122,9 @@ class AppMock: AppProtocol {
         if let firstOption = options.first {
             selectionHandler(firstOption)
         }
+    }
+
+    func deviceAvailableSpace() throws -> Int64 {
+        return stubDeviceAvailableSpace
     }
 }
