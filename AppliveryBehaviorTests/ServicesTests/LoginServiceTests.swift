@@ -173,7 +173,8 @@ struct LoginServiceTests {
         var result: UpdateResult?
         loginService.requestAuthorization { r in result = r }
         waitUntil { result != nil }
-        #expect(result == .failure(error: .authRequired))
+        #expect(result?.type == .error)
+        #expect(result?.error == .authRequired)
     }
 
     @Test
@@ -210,11 +211,12 @@ struct LoginServiceTests {
             app: app,
             keychain: keychain
         )
-        downloadService.stubbedURL = nil
+        app.stubDeviceAvailableSpace = 1000
         var result: UpdateResult?
         loginService.download { r in result = r }
         waitUntil { result != nil }
-        #expect(result == .failure(error: .noDiskSpaceAvailable))
+        #expect(result?.type == .error)
+        #expect(result?.error == .noDiskSpaceAvailable)
     }
 
     @Test
@@ -241,6 +243,8 @@ struct LoginServiceTests {
             version: "0.9.0",
             buildNumber: "100"
         )
+        app.stubDeviceAvailableSpace = 6000000000
+        app.stubOpenUrlResult = true
         configService.currentConfigResponse = forceUpdateConfig
         let loginService = LoginService(
             loginRepository: loginRepository,
@@ -251,11 +255,11 @@ struct LoginServiceTests {
             app: app,
             keychain: keychain
         )
+
         downloadService.stubbedURL = "https://applivery.com/app.ipa"
         var result: UpdateResult?
         loginService.download { r in result = r }
         waitUntil { result != nil && downloadService.downloadURLCalled }
-
         #expect(result?.type == .success)
         #expect(downloadService.downloadURLCalled)
     }
