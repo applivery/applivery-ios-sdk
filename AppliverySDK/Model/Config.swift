@@ -35,4 +35,5 @@ struct SDKData: Codable {
     let lastBuildVersion: String?
     let updateMsg: String?
     let forceAuth: Bool
+    let lastBuildSize: Int? // Size in bytes
 }
