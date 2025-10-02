@@ -1,14 +1,12 @@
 name: iOS workflow
 
 on:
-  push:
-    branches: [ "feature/apple-51-improve-error-feedback-when-app-install-fails-due-to" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "develop" , "master" ]
 
 jobs:
   build:
-    name: Build and Test default scheme using any available iPhone simulator
+    name: Build and Test AppliveryBehaviorTests scheme using any available iPhone simulator
     runs-on: macos-15
 
     steps:
