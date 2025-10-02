@@ -1,9 +1,6 @@
 name: iOS workflow
 
 on:
-  push:
-    branches: [ "feature/APPLE-49-CI-CD-Tests" ]
-
   pull_request:
     branches: [ "develop" , "master" ]
 
