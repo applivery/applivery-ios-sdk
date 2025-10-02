@@ -1,0 +1,16 @@
+name: CI
+on:
+  push:
+    branches:
+    - master
+jobs:
+  build:
+  runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Publish to CocoaPod register
+      env:
+        COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
+      run: |
+        pod lib lint --allow-warnings
+        pod trunk push --allow-warnings
