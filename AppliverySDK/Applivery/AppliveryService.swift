@@ -12,8 +12,120 @@ import Foundation
 /// - Since 4.5.0
 /// - Version 4.5.0
 @objc internal protocol AppliveryService: AnyObject {
+
+    /**
+     Type of Applivery's logs you want displayed in the debug console
+
+     * **none**: No log will be shown. Recommended for production environments.
+     * **error**: Only warnings and errors. Recommended for develop environments.
+     * **info**: Errors and relevant information. Recommended for test integrating Applivery.
+     * **debug**: Request and Responses to Applivery's server will be displayed. Not recommended to use, only for debugging Applivery.
+
+     - Since: 1.0
+     - Version: 2.0
+     */
     var logLevel: LogLevel { get set }
+
+    /**
+     Customize the SDK colors to fit your app
+
+     # Examples
+
+     You can create a new instance of `Palette` and assign it to this property
+
+     ```swift
+     Applivery.shared.palette = Palette(
+     primaryColor: .orange,
+     secondaryColor: .white,
+     primaryFontColor: .white,
+     secondaryFontColor: .black,
+     screenshotBrushColor: .green
+     )
+     ```
+
+     The SDK has Applivery's colors by default so, if you only need to change the primary color, yo can do this:
+
+     ```swift
+     Applivery.shared.palette = Palette(
+     primaryColor: .orange,
+     )
+     ```
+
+     Or even directly change the property
+
+     ```swift
+     Applivery.shared.palette.primaryColor = .orange
+     ```
+
+     - SeeAlso: `Palette`
+     - Since: 2.4
+     - Version: 2.4
+     */
     var palette: Palette { get set }
+
+    /**
+     Customize the SDK string literals to fit your app.
+
+     By default, Applivery has english literals.
+
+     # Examples
+
+     You can create a new instance of `TextLiterals` and assign it to this property
+
+     ```swift
+     Applivery.shared.textLiterals = TextLiterals(
+     appName: "Applivery",
+     alertButtonCancel: "Cancel",
+     alertButtonRetry: "Retry",
+     alertButtonOK: "OK",
+     errorUnexpected: "Unexpected error",
+     errorInvalidCredentials: "Invalid credentials",
+     errorDownloadURL: "Couldn't start download. Invalid url",
+     otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
+     alertButtonLater: "Later",
+     alertButtonUpdate: "Update",
+     forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it",
+     buttonForceUpdate: "Update now",
+     feedbackButtonClose: "Close",
+     feedbackButtonAdd: "Add Feedback",
+     feedbackButtonSend: "Send Feedback",
+     feedbackSelectType: "Select type",
+     feedbackTypeBug: "Bug",
+     feedbackTypeFeedback: "Feedback",
+     feedbackMessagePlaceholder: "Add a message",
+     feedbackAttach: "Attach Screenshot",
+     loginInputUser: "user",
+     loginInputPassword: "password",
+     loginButton: "Login",
+     loginMessage: "Login is required!",
+     loginInvalidCredentials: "Wrong username or password, please, try again",
+     loginSessionExpired: "Your session has expired. Please, log in again"
+     )
+     ```
+
+     The SDK has literals by default so, if you only need to change the update messages, yo can do this:
+
+     ```swift
+     Applivery.shared.textLiterals = TextLiterals(
+     appName: "MyApp",
+     otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?",
+     forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it"
+     )
+     ```
+
+     Or even directly change the property
+
+     ```swift
+     Applivery.shared.textLiterals.appName: "MyApp"
+     Applivery.shared.textLiterals.otaUpdateMessage: "There is a new version available for download. Do you want to update to the latest version?"
+     Applivery.shared.textLiterals.forceUpdateMessage: "Sorry this App is outdated. Please, update the App to continue using it"
+     ```
+
+     - Important: The default literals are only in english. Consider to set localized strings to fully support all languages your app does.
+     - SeeAlso: `TextLiterals`
+     - Since: 2.4
+     - Version: 2.4
+     */
     var textLiterals: TextLiterals { get set }
 
     func setLogHandler(_ handler: AppliveryLogHandler?)
