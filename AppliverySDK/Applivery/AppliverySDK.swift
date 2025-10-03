@@ -303,14 +303,6 @@ public class AppliverySDK: NSObject, AppliveryService {
     }
 
     // MARK: - Instance Methods
-    /**
-     Starts Applivery's framework
-
-     - Parameters:
-     - token: Your App Token
-     - Since: 3.3
-     - Version: 3.3
-     */
     @objc public func start(
         token: String,
         tenant: String? = nil,
@@ -324,12 +316,6 @@ public class AppliverySDK: NSObject, AppliveryService {
         self.startInteractor.start(skipUpdateCheck: skipUpdateCheck)
     }
 
-    /**
-     Returns if application is updated to the latest version available
-
-     - Since: 3.1
-     - Version: 4.5
-     */
     @objc public func isUpToDate() -> Bool {
         var upToDate: Bool?
         let semaphore = DispatchSemaphore(value: 0)
@@ -346,36 +332,10 @@ public class AppliverySDK: NSObject, AppliveryService {
         return upToDate ?? true
     }
 
-    /**
-     Download newest build available
-
-     - Parameters:
-     - onDownload: Completion handler called when success/failure downloading the new version
-
-     - Attention: Be sure to call `start()` before this method.
-     - Since: 3.1
-     - Version: 4.5.0
-     */
     @objc public func update(onDownload: ((UpdateResult) -> Void)? = nil) {
         self.updateService.downloadLastBuild(onResult: onDownload)
     }
 
-    /**
-     Login a user
-
-     Programatically login a user in Applivery, for example if the app has a custom login and don't want to use Applivery's authentication to track the user in the platform
-
-     - Parameters:
-     - email: The user email. **Required**
-     - firstName: The first name of the user. **Optional**
-     - lastName: The last name of the user. **Optional**
-     - tags: A list of tags linked to the user with group / categorize purpose. **Optional**
-     - onComplete: Optional callback executed after binding the user. **Optional**
-
-     - SeeAlso: `unbindUser()`
-     - Since: 3.0
-     - Version: 4.5.0
-     */
     @objc public func bindUser(email: String, firstName: String? = nil, lastName: String? = nil, tags: [String]? = nil, onComplete: (() -> Void)? = nil) {
         let compactedTags = tags?.compactMap(removeEmpty) // Example: ["", "aaa", ""] -> ["aaa"]
         let user = User(
@@ -391,16 +351,6 @@ public class AppliverySDK: NSObject, AppliveryService {
         }
     }
 
-    /**
-     Get the currently bound user information
-
-     Retrieves the user information that was previously bound using `bindUser` method. Returns the user info as a dictionary if available, or nil if no user is currently bound.
-
-     - Parameter onSuccess: Callback with NSDictionary containing user info, or nil if no user is bound
-     - SeeAlso: `bindUser(email:firstname:lastname:tags)`
-     - Since: 4.5
-     - Version: 4.5
-     */
     @objc public func getUser(onSuccess: @escaping (NSDictionary?) -> Void) {
         guard let user = loginService.user else {
             logInfo("No user is currently bound")
@@ -411,85 +361,38 @@ public class AppliverySDK: NSObject, AppliveryService {
         onSuccess(user.dictionary() as NSDictionary)
     }
 
-    /**
-     Logout a previously binded user
-
-     Programatically logout a user in Applivery from a previous custom login.
-
-     - Parameter onComplete: Optional callback executed after unbinding the user. **Optional**
-     - SeeAlso: `bindUser(email:firstname:lastname:tags)`
-     - Since: 3.0
-     - Version: 3.0
-     */
     @objc public func unbindUser(onComplete: (() -> Void)? = nil) {
         self.loginService.unbindUser()
         onComplete?()
     }
 
-    /**
-     Present in a modal view the Applivery's feedback.
-
-     By default, Applivery will show a feedback formulary to your users when a screenshot is detected. If you want to do it programatically controlled by your app (for example in a shake event), you can call this method. Also you may want to prevent the feedback view to be show when a screenshot event is produced, for that you can call `disableFeedback()` method
-
-     - SeeAlso: `disableFeedback()`
-     - Since: 2.7
-     - Version: 2.7
-     */
     @objc public func feedbackEvent() {
         showFirstWindow()
         logInfo("Presenting feedback formulary")
         app.presentFeedbackForm()
     }
 
-    /**
-     Handles a given redirect URL as part of the SAML authentication flow.
-
-     When implementing SAML-based authentication, your app may receive a redirect URL
-     after the user completes their authentication on an external SAML identity provider.
-     By calling this method, you pass that redirect URL to `AppliverySafariManager` to
-     proceed with the final steps of the authentication flow.
-
-     - Parameter url: The redirect `URL` returned by the SAML provider.
-     - Since: 4.1.0
-     - Version: 4.1.0
-     */
+    
     @objc public func handleRedirectURL(url: URL) {
         let webview = AppliverySafariManager.shared
         webview.urlReceived(url: url)
     }
 
-    /**
-     - Parameter forceUpdate: The `forceUpdate`allows ignore or not the postponed time.
-     - Since: 4.1.0
-     - Version: 4.5.0
-     */
     @objc public func checkForUpdates(forceUpdate: Bool = false) {
         startInteractor.checkUpdate(forceUpdate: forceUpdate)
     }
 
-    /**
-     Disables listening for screenshot events to trigger the feedback action
-     - Since 4.5.0
-     - Version 4.5.0
-     */
+    
     @objc public func disableScreenshotFeedback() {
         logInfo("Disabled screenshot feedback")
         startInteractor.disableFeedback()
     }
-    /**
-     Enables the listener for screenshot events to trigger the feedback action
-     - Since 4.5.0
-     - Version 4.5.0
-     */
+
     @objc public func enableScreenshotFeedback() {
         logInfo("Enabled screenshot feedback")
         startInteractor.enableFeedback()
     }
-    /**
-     Enables checking for updates automatically when the app returns from background
-     - Since 4.5.0
-     - Version 4.5.0
-     */
+    
     @objc public func setCheckForUpdatesBackground(_ enabled: Bool) {
         updateService.setCheckForUpdatesBackground(enabled)
     }
