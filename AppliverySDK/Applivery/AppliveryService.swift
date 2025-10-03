@@ -12,7 +12,6 @@ import Foundation
 /// - Since 4.5.0
 /// - Version 4.5.0
 @objc internal protocol AppliveryService: AnyObject {
-
     /**
      Type of Applivery's logs you want displayed in the debug console
 
