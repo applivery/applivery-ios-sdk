@@ -3,7 +3,6 @@
 ![Version](https://img.shields.io/badge/version-4.1.0-blue.svg)
 ![Minimum iOS Version](https://img.shields.io/badge/iOS-15.0%2B-blue.svg)
 ![Language](https://img.shields.io/badge/Language-Swift-orange.svg)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Applivery.svg)](https://cocoapods.org/pods/Applivery)
 [![Fastlane Plugin](https://img.shields.io/badge/Fastlane_Plugin-available-brightgreen.svg)](https://github.com/fastlane-community/fastlane-plugin-applivery)
 [![Twitter](https://img.shields.io/badge/twitter-@Applivery-blue.svg?style=flat)](https://twitter.com/Applivery)
@@ -19,7 +18,6 @@
 - [Getting Started](#getting-started)
 - [SDK Installation](#sdk-installation)
   - [Using SwiftPM](#using-swift-package-manager)
-  - [Using Carthage](#using-carthage)
   - [Using CocoaPods](#using-cocoapods)
   - [Manual installation](#manual-installation)
   - [Objective-C](#objective-c)
@@ -131,29 +129,9 @@ You can find a tutorial about dynamically excluding Applivery for an AppStore sc
 
 ### Troubleshooting
 
-Beware if you are using a script for removing simulator slices of dynamic frameworks [like this](https://github.com/applivery/applivery-ios-sdk/blob/master/script/applivery_script.sh). Xcode only build the framework for the configuration selected, so when archiving a release configuration, no simulator slice is generated inside the framework and the script may fail or remove the applivery framework itself. You should ignore AppliveryDynamic in this kind of scripts (commonly used with carthage)
+Beware if you are using a script for removing simulator slices of dynamic frameworks [like this](https://github.com/applivery/applivery-ios-sdk/blob/master/script/applivery_script.sh). Xcode only build the framework for the configuration selected, so when archiving a release configuration, no simulator slice is generated inside the framework and the script may fail or remove the applivery framework itself. You should ignore AppliveryDynamic in this kind of scripts
 
 ---
-
-### Using Carthage
-
-(deprecated)
-
-Install carthage with using brew
-
-```bash
-brew update && brew install carthage
-```
-
-Add the following line to your's Cartfile
-
-```bash
-github "applivery/applivery-ios-sdk" ~> 3.3
-```
-
-Run `carthage update` and then drag the built framework into your project.
-
-More info about Carthage [here](https://github.com/Carthage/Carthage#installing-carthage).
 
 ### Using CocoaPods
 
@@ -442,8 +420,6 @@ AppliverySDK.shared.textLiterals.forceUpdateMessage: "Sorry this App is outdated
 _**Important**_: The default literals are only in english. Consider to set localized strings to fully support all languages your app does.
 
 ## Embedded frameworks & ipa generation
-
-If you have installed the SDK with Carthage and as a Dynamic framework, Applivery.framework is built as a fat universal library, that means that you can compile for devices or simulator without any problem, but you can not make an ipa file if it has inside an embedded framework with simulator slices.
 
 In this case, the solution is as simple as add [this script](https://github.com/applivery/applivery-ios-sdk/blob/master/script/applivery_script.sh) in "New Run Script Phase".
 You'll find inside _Build Phases_ tab.
