@@ -1,7 +1,0 @@
-disabled_rules: # rule identifiers to exclude from running
-  - type_body_length
-  - line_length
-  - file_length
-  - force_try
-  - trailing_whitespace
-  - vertical_whitespace
