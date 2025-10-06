@@ -1,0 +1,32 @@
+name: CI
+on:
+  pull_request:
+    branches: [ "master" ]
+jobs:
+  build:
+    name: Build and Test AppliveryBehaviorTests scheme using any available iPhone simulator, then upload to CocoaPods
+    runs-on: macos-15
+    steps:
+      - name: check XCode version
+              run: /usr/bin/xcodebuild -version
+          
+            - name: Checkout
+              uses: actions/checkout@v3
+              
+            - name: Build and Test
+              run: |
+                xcodebuild -project AppliverySDK.xcodeproj \
+                          -scheme AppliveryBehaviorTests \
+                          -sdk iphoneos \
+                          -destination 'platform=iOS Simulator,name=iPhone 17' \
+                          build test \
+                          CODE_SIGN_IDENTITY="" \
+                          CODE_SIGNING_REQUIRED=NO \
+                          CODE_SIGNING_ALLOWED=NO
+      - uses: actions/checkout@v3
+      - name: Publish to CocoaPod register
+        env:
+          COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
+        run: |
+          pod lib lint --allow-warnings
+          pod trunk push --allow-warnings
