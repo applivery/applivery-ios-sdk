@@ -23,11 +23,6 @@ jobs:
                           CODE_SIGN_IDENTITY="" \
                           CODE_SIGNING_REQUIRED=NO \
                           CODE_SIGNING_ALLOWED=NO
-
-
-
-
-    
       - uses: actions/checkout@v3
       - name: Publish to CocoaPod register
         env:
