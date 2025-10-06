@@ -1,0 +1,54 @@
+name: iOS workflow
+
+on:
+  pull_request:
+    types:
+      - closed # It is only triggered when a PR is closed (merged or not).
+    branches:
+      - main   # Only in PRs targeting the ‘main’ branch
+
+jobs:
+  build:
+    name: Create tag when close the PR
+    runs-on: macos-15
+
+    steps:
+    
+      - name: check XCode version
+        run: /usr/bin/xcodebuild -version
+    
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Get branch and  version
+        id: extract
+        run: |
+          # Obtain current branch name (ej: 'release/1.2.3')
+          BRANCH_NAME="${GITHUB_REF##*/}"
+          
+          # Assuming the format ‘release/X.Y.Z’, extract only the version (e.g., ‘1.2.3’).
+          # This removes the prefix 'release/'
+          VERSION=$(echo "$BRANCH_NAME" | sed 's/release\///')
+          
+          echo "release_branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          echo "release_version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Nombre de la rama de release: $BRANCH_NAME"
+          echo "Versión extraída: $VERSION"
+
+      - name: Create and Push Version Tag 🚀
+        id: create_tag
+        env:
+              # We use the GITHUB_TOKEN token that is automatically provided.
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+              # 1. Configuration git
+              git config --global user.email "eduardo.parada@applivery.com"
+              git config --global user.name "EduardoParadaApplivery"
+              
+              # 2. Get version
+              VERSION_TAG="v${{ steps.extract.outputs.release_version }}"
+              
+              echo "Tag created: $VERSION_TAG"
+              
+              git tag -a $VERSION_TAG -m "Release version $VERSION_TAG"
+              git push origin $VERSION_TAG
