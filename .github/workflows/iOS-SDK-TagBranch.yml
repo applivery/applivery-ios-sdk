@@ -1,4 +1,4 @@
-name: iOS workflow
+name: Tag brach
 
 on:
   pull_request:
