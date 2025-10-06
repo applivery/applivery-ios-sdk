@@ -32,8 +32,8 @@ jobs:
           
           echo "release_branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
           echo "release_version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Nombre de la rama de release: $BRANCH_NAME"
-          echo "Versión extraída: $VERSION"
+          echo "Release branch name: $BRANCH_NAME"
+          echo "Version: $VERSION"
 
       - name: Create and Push Version Tag 🚀
         id: create_tag
@@ -47,7 +47,6 @@ jobs:
               
               # 2. Get version
               VERSION_TAG="v${{ steps.extract.outputs.release_version }}"
-              
               echo "Tag created: $VERSION_TAG"
               
               git tag -a $VERSION_TAG -m "Release version $VERSION_TAG"
