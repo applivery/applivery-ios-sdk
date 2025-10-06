@@ -5,7 +5,7 @@ on:
     types:
       - closed # It is only triggered when a PR is closed (merged or not).
     branches:
-      - main   # Only in PRs targeting the ‘main’ branch
+      - develop   # Only in PRs targeting the ‘develop’ branch
 
 jobs:
   build:
@@ -23,8 +23,11 @@ jobs:
       - name: Get branch and  version
         id: extract
         run: |
-          # Obtain current branch name (ej: 'release/1.2.3')
-          BRANCH_NAME="${GITHUB_REF##*/}"
+
+          # Obtain branch name to PR was launched (ej: 'release/1.2.3')
+          SOURCE_BRANCH="${{ github.event.pull_request.head.ref }}"
+          BRANCH_NAME=$SOURCE_BRANCH
+          echo "BRANCH_NAME=$SOURCE_BRANCH" >> $GITHUB_ENV
           
           # Assuming the format ‘release/X.Y.Z’, extract only the version (e.g., ‘1.2.3’).
           # This removes the prefix 'release/'
