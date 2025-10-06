@@ -37,13 +37,11 @@ extension AppProtocol {
 	}
 }
 
-
 class App: AppProtocol {
     private lazy var alertOta: UIAlertController = UIAlertController()
     private lazy var alertPostpone: UIAlertController = UIAlertController()
     private lazy var alertError: UIAlertController = UIAlertController()
     private lazy var alertLogin: UIAlertController = UIAlertController()
-
 
     // MARK: - Public Methods
     func deviceAvailableSpace() throws -> Int64 {
@@ -99,8 +97,6 @@ class App: AppProtocol {
 
         return true
     }
-
-
 
     func showAlert(_ message: String) {
         let alert = UIAlertController(title: literal(.appName), message: message, preferredStyle: .alert)
