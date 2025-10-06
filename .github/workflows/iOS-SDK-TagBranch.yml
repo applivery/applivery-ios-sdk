@@ -44,10 +44,6 @@ jobs:
               # We use the GITHUB_TOKEN token that is automatically provided.
               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-              # 1. Configuration git
-              git config --global user.email "eduardo.parada@applivery.com"
-              git config --global user.name "EduardoParadaApplivery"
-              
               # 2. Get version
               VERSION_TAG="v${{ steps.extract.outputs.release_version }}"
               echo "Tag created: $VERSION_TAG"
