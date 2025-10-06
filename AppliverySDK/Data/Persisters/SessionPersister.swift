@@ -27,12 +27,7 @@ protocol SessionPersisterProtocol {
 
 struct SessionPersister: SessionPersisterProtocol {
 	let userDefaults: UserDefaultsProtocol
-	
-//	func save(accessToken: AccessToken?) {
-//		self.userDefaults.set(accessToken, forKey: kAccessTokenKey)
-//		_ = self.userDefaults.synchronize()
-//	}
-	
+
 	func loadAccessToken() -> AccessToken? {
 		let accessToken: AccessToken? = self.userDefaults.token(forKey: kAccessTokenKey)
 		return accessToken
