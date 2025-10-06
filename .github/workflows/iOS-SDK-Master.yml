@@ -1,28 +1,32 @@
 name: CI
 on:
   pull_request:
-    branches: [ "master" ]
+    branches: [ "develop" ]
 jobs:
   build:
     name: Build and Test AppliveryBehaviorTests scheme using any available iPhone simulator, then upload to CocoaPods
     runs-on: macos-15
+    
+    # Only run the job if the name of the source branch begins with 'release/'
+    if: startsWith(github.head_ref, 'release/')
+    
     steps:
       - name: check XCode version
-              run: /usr/bin/xcodebuild -version
+        run: /usr/bin/xcodebuild -version
+      
+      - name: Checkout
+        uses: actions/checkout@v3
           
-            - name: Checkout
-              uses: actions/checkout@v3
-              
-            - name: Build and Test
-              run: |
-                xcodebuild -project AppliverySDK.xcodeproj \
-                          -scheme AppliveryBehaviorTests \
-                          -sdk iphoneos \
-                          -destination 'platform=iOS Simulator,name=iPhone 17' \
-                          build test \
-                          CODE_SIGN_IDENTITY="" \
-                          CODE_SIGNING_REQUIRED=NO \
-                          CODE_SIGNING_ALLOWED=NO
+      - name: Build and Test
+        run: |
+            xcodebuild -project AppliverySDK.xcodeproj \
+                      -scheme AppliveryBehaviorTests \
+                      -sdk iphoneos \
+                      -destination 'platform=iOS Simulator,name=iPhone 17' \
+                      build test \
+                      CODE_SIGN_IDENTITY="" \
+                      CODE_SIGNING_REQUIRED=NO \
+                      CODE_SIGNING_ALLOWED=NO
       - uses: actions/checkout@v3
       - name: Publish to CocoaPod register
         env:

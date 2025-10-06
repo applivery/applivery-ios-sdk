@@ -11,6 +11,11 @@ jobs:
   build:
     name: Create tag when close the PR
     runs-on: macos-15
+    
+    if: ${{ github.event.pull_request.merged == true }}
+    
+    # Only run the job if the name of the source branch begins with 'release/'
+    if: startsWith(github.head_ref, 'release/')
 
     steps:
     
@@ -44,9 +49,9 @@ jobs:
               # We use the GITHUB_TOKEN token that is automatically provided.
               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-              # 2. Get version
-              VERSION_TAG="v${{ steps.extract.outputs.release_version }}"
-              echo "Tag created: $VERSION_TAG"
+            # 2. Get version
+            VERSION_TAG="v${{ steps.extract.outputs.release_version }}"
+            echo "Tag created: $VERSION_TAG"
               
-              git tag -a $VERSION_TAG -m "Release version $VERSION_TAG"
-              git push origin $VERSION_TAG
+            git tag -a $VERSION_TAG -m "Release version $VERSION_TAG"
+            git push origin $VERSION_TAG
