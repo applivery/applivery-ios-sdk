@@ -3,7 +3,6 @@
 ![Version](https://img.shields.io/badge/version-4.1.0-blue.svg)
 ![Minimum iOS Version](https://img.shields.io/badge/iOS-15.0%2B-blue.svg)
 ![Language](https://img.shields.io/badge/Language-Swift-orange.svg)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Applivery.svg)](https://cocoapods.org/pods/Applivery)
 [![Fastlane Plugin](https://img.shields.io/badge/Fastlane_Plugin-available-brightgreen.svg)](https://github.com/fastlane-community/fastlane-plugin-applivery)
 [![Twitter](https://img.shields.io/badge/twitter-@Applivery-blue.svg?style=flat)](https://twitter.com/Applivery)
@@ -19,7 +18,6 @@
 - [Getting Started](#getting-started)
 - [SDK Installation](#sdk-installation)
   - [Using SwiftPM](#using-swift-package-manager)
-  - [Using Carthage](#using-carthage)
   - [Using CocoaPods](#using-cocoapods)
   - [Manual installation](#manual-installation)
   - [Objective-C](#objective-c)
@@ -131,29 +129,9 @@ You can find a tutorial about dynamically excluding Applivery for an AppStore sc
 
 ### Troubleshooting
 
-Beware if you are using a script for removing simulator slices of dynamic frameworks [like this](https://github.com/applivery/applivery-ios-sdk/blob/master/script/applivery_script.sh). Xcode only build the framework for the configuration selected, so when archiving a release configuration, no simulator slice is generated inside the framework and the script may fail or remove the applivery framework itself. You should ignore AppliveryDynamic in this kind of scripts (commonly used with carthage)
+Beware if you are using a script for removing simulator slices of dynamic frameworks [like this](https://github.com/applivery/applivery-ios-sdk/blob/master/script/applivery_script.sh). Xcode only build the framework for the configuration selected, so when archiving a release configuration, no simulator slice is generated inside the framework and the script may fail or remove the applivery framework itself. You should ignore AppliveryDynamic in this kind of scripts
 
 ---
-
-### Using Carthage
-
-(deprecated)
-
-Install carthage with using brew
-
-```bash
-brew update && brew install carthage
-```
-
-Add the following line to your's Cartfile
-
-```bash
-github "applivery/applivery-ios-sdk" ~> 3.3
-```
-
-Run `carthage update` and then drag the built framework into your project.
-
-More info about Carthage [here](https://github.com/Carthage/Carthage#installing-carthage).
 
 ### Using CocoaPods
 
@@ -174,7 +152,7 @@ project '<Your Project Name>.xcodeproj'
 # platform :ios, '11.0'
 # use_frameworks!  # Starting from v3.2 you can use applivery as a static framework, leave this line commented if you wish
 target '<Your Target Name>' do
-  pod 'Applivery', '~> 3.3'
+  pod 'Applivery', '~> 4.5'
 end
 ```
 
@@ -240,6 +218,112 @@ The compatibility version is as follow:
 | **v3.4**          | 13.x          | 5.X           |
 | **v4.0**          | 13.x          | 5.X           |
 | **v4.0.x**        | 13.x          | 5.X           |
+
+
+# AppliveryService Protocol (SDK API)
+
+The `AppliveryService` protocol defines the core interface for interacting with the Applivery iOS SDK. It is implemented by `AppliverySDK.shared` and provides all the main configuration, update, feedback, and user management features. This protocol is available since version 4.5.0.
+
+## Overview
+
+`AppliveryService` exposes properties and methods to:
+
+- Control log verbosity (`logLevel`)
+- Customize SDK appearance (`palette`)
+- Localize SDK strings (`textLiterals`)
+- Start the SDK and configure it (`start`)
+- Check for updates and trigger update flows
+- Bind/unbind users for analytics and feedback
+- Present feedback UI
+- Handle SAML authentication redirects
+- Enable/disable screenshot feedback
+- Control update checks in background
+
+## Properties
+
+| Property      | Type         | Description |
+|-------------- | ------------ | ----------- |
+| `logLevel`    | `LogLevel`   | Controls the verbosity of Applivery logs. See [Logs and debugging](#logs-and-debugging) for details. |
+| `palette`     | `Palette`    | Customize SDK UI colors. See [Customize SDK's colors](#customize-sdks-colors). |
+| `textLiterals`| `TextLiterals` | Customize SDK string literals. See [Customize string literals](#customize-string-literals). |
+
+## Methods
+
+### setLogHandler(_ handler: AppliveryLogHandler?)
+Set a custom log handler to capture or redirect Applivery logs. See [Custom Log Handler](#custom-log-handler).
+
+### start(token: String, tenant: String?, configuration: AppliveryConfiguration, skipUpdateCheck: Bool)
+Starts the Applivery SDK. Call this early in your app's lifecycle.
+
+**Parameters:**
+- `token`: Your App Token (required)
+- `tenant`: Tenant identifier (optional)
+- `configuration`: `AppliveryConfiguration` object (see [AppliveryConfiguration](#appliveryconfiguration))
+- `skipUpdateCheck`: If true, skips the initial update check
+
+### isUpToDate() -> Bool
+Returns whether the app is up to date with the latest version available.
+
+### update(onDownload: ((UpdateResult) -> Void)?)
+Downloads and installs the newest build available. Call after `start()`.
+
+### bindUser(email: String, firstName: String?, lastName: String?, tags: [String]?, onComplete: (() -> Void)?)
+Programmatically log in a user for analytics and feedback tracking.
+
+### unbindUser(onComplete: (() -> Void)?)
+Logs out a previously bound user.
+
+### getUser(onSuccess: @escaping (NSDictionary?) -> Void)
+Retrieves the currently bound user information as a dictionary, or nil if no user is bound.
+
+### feedbackEvent()
+Presents the Applivery feedback UI (form for bug reports, suggestions, etc). You can call this programmatically (e.g., on shake gesture).
+
+### handleRedirectURL(url: URL)
+Handles a redirect URL as part of the SAML authentication flow. See [Handling SAML Redirect URLs](#handling-saml-redirect-urls).
+
+### checkForUpdates(forceUpdate: Bool)
+Checks for updates and launches the update flow if available. `forceUpdate` ignores postponed time if true.
+
+### disableScreenshotFeedback()
+Disables listening for screenshot events to trigger feedback.
+
+### enableScreenshotFeedback()
+Enables listening for screenshot events to trigger feedback.
+
+### setCheckForUpdatesBackground(_ enabled: Bool)
+Enables or disables automatic update checks when the app returns from background.
+
+## Example Usage
+
+```swift
+import Applivery
+
+let applivery: AppliveryService = AppliverySDK.shared
+applivery.logLevel = .info
+applivery.palette = Palette(primaryColor: .orange)
+applivery.textLiterals = TextLiterals(appName: "MyApp")
+
+applivery.setLogHandler { message, level, filename, line, funcname in
+    print("[Applivery]", message)
+}
+
+applivery.start(token: "YOUR_TOKEN", tenant: nil, configuration: AppliveryConfiguration(), skipUpdateCheck: false)
+
+if !applivery.isUpToDate() {
+    applivery.update { result in
+        // handle update result
+    }
+}
+
+applivery.bindUser(email: "user@email.com", firstName: "John", lastName: "Doe", tags: ["beta"], onComplete: nil)
+applivery.getUser { userInfo in
+    print(userInfo)
+}
+applivery.feedbackEvent()
+```
+
+For more details, see the [AppliveryService protocol documentation](./AppliverySDK/Applivery/AppliveryService.swift).
 
 # Advanced concepts
 
@@ -442,8 +526,6 @@ AppliverySDK.shared.textLiterals.forceUpdateMessage: "Sorry this App is outdated
 _**Important**_: The default literals are only in english. Consider to set localized strings to fully support all languages your app does.
 
 ## Embedded frameworks & ipa generation
-
-If you have installed the SDK with Carthage and as a Dynamic framework, Applivery.framework is built as a fat universal library, that means that you can compile for devices or simulator without any problem, but you can not make an ipa file if it has inside an embedded framework with simulator slices.
 
 In this case, the solution is as simple as add [this script](https://github.com/applivery/applivery-ios-sdk/blob/master/script/applivery_script.sh) in "New Run Script Phase".
 You'll find inside _Build Phases_ tab.
