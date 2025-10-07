@@ -9,7 +9,6 @@ import Foundation
 @testable import Applivery
 
 struct ConfigMockData {
-    
     static let config = Config(
         status: true,
         data: ConfigData(
@@ -22,7 +21,8 @@ struct ConfigMockData {
                     ota: true,
                     lastBuildVersion: "1.0.1",
                     updateMsg: "Update available",
-                    forceAuth: false
+                    forceAuth: false,
+                    lastBuildSize: 300000000
                 )
             ),
             id: "configId",
@@ -31,5 +31,19 @@ struct ConfigMockData {
             name: "TestConfig",
             description: "This is a test config"
         )
+    )
+}
+
+extension SDKData {
+    static let mock = Self.init(
+        minVersion: "1.0.0",
+        forceUpdate: true,
+        lastBuildId: "some-build-id",
+        mustUpdateMsg: nil,
+        ota: false,
+        lastBuildVersion: nil,
+        updateMsg: nil,
+        forceAuth: false,
+        lastBuildSize: 5000000000
     )
 }
