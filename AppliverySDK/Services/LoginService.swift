@@ -127,12 +127,16 @@ final class LoginService: LoginServiceProtocol {
             let freeSpace = try app.deviceAvailableSpace()
             if freeSpace < (lastConfig.config?.lastBuildSize ?? 0) {
                 onResult?(.failure(error: .noDiskSpaceAvailable))
-                app.showErrorAlert("Insufficient storage")
+                DispatchQueue.main.async {
+                    self.app.showErrorAlert("Insufficient storage")
+                }
                 return
             }
         } catch {
             onResult?(.failure(error: .unableToDetermineFreeSpace))
-            app.showErrorAlert("Could not read if there is enough storage in the device")
+            DispatchQueue.main.async {
+                self.app.showErrorAlert("Could not read if there is enough storage in the device")
+            }
             return
         }
         Task {
