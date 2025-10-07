@@ -1,0 +1,62 @@
+name: iOS Release process
+
+on:
+  pull_request:
+    types:
+      - closed # It is only triggered when a PR is closed (merged or not).
+    branches:
+      - develop   # Only in PRs targeting the ‘develop’ branch
+
+jobs:
+  build:
+    name: Create tag when close the PR
+    runs-on: macos-15
+    
+    # Only run the job if the name of the source branch begins with 'release/'
+    if: startsWith(github.head_ref, 'release/')
+
+    steps:
+    
+      - name: check XCode version
+        run: /usr/bin/xcodebuild -version
+    
+      - name: Checkout
+        uses: actions/checkout@v3
+       
+      - name: Publish to CocoaPod register
+        env:
+          COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
+        run: |
+          pod lib lint --allow-warnings
+          pod trunk push --allow-warnings
+        
+      - name: Get branch and  version
+        id: extract
+        run: |
+
+          # Obtain branch name to PR was launched (ej: 'release/1.2.3')
+          SOURCE_BRANCH="${{ github.event.pull_request.head.ref }}"
+          BRANCH_NAME=$SOURCE_BRANCH
+          echo "BRANCH_NAME=$SOURCE_BRANCH" >> $GITHUB_ENV
+          
+          # Assuming the format ‘release/X.Y.Z’, extract only the version (e.g., ‘1.2.3’).
+          # This removes the prefix 'release/'
+          VERSION=$(echo "$BRANCH_NAME" | sed 's/release\///')
+          
+          echo "release_branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          echo "release_version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Release branch name: $BRANCH_NAME"
+          echo "Version: $VERSION"
+
+      - name: Create and Push Version Tag 🚀
+        id: create_tag
+        env:
+              # We use the GITHUB_TOKEN token that is automatically provided.
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+            # 2. Get version
+            VERSION_TAG="v${{ steps.extract.outputs.release_version }}"
+            echo "Tag created: $VERSION_TAG"
+              
+            git tag -a $VERSION_TAG -m "Release version $VERSION_TAG"
+            git push origin $VERSION_TAG
