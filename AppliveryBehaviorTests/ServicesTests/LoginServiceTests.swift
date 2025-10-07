@@ -20,17 +20,7 @@ struct LoginServiceTests {
         let app = AppMock()
         let keychain = MockKeychainManager()
         let forceUpdateConfig = UpdateConfigResponse(
-            config: SDKData(
-                minVersion: "1.0.0",
-                forceUpdate: true,
-                lastBuildId: "some-build-id",
-                mustUpdateMsg: nil,
-                ota: false,
-                lastBuildVersion: nil,
-                updateMsg: nil,
-                forceAuth: false,
-                lastBuildSize: 5000000000
-            ),
+            config: SDKData.mock,
             version: "0.9.0",
             buildNumber: "100"
         )
@@ -60,17 +50,7 @@ struct LoginServiceTests {
         let app = AppMock()
         let keychain = MockKeychainManager()
         let forceUpdateConfig = UpdateConfigResponse(
-            config: SDKData(
-                minVersion: "1.0.0",
-                forceUpdate: true,
-                lastBuildId: "some-build-id",
-                mustUpdateMsg: nil,
-                ota: false,
-                lastBuildVersion: nil,
-                updateMsg: nil,
-                forceAuth: false,
-                lastBuildSize: 5000000000
-            ),
+            config: SDKData.mock,
             version: "0.9.0",
             buildNumber: "100"
         )
@@ -100,17 +80,7 @@ struct LoginServiceTests {
         let app = AppMock()
         let keychain = MockKeychainManager()
         let forceUpdateConfig = UpdateConfigResponse(
-            config: SDKData(
-                minVersion: "1.0.0",
-                forceUpdate: true,
-                lastBuildId: "some-build-id",
-                mustUpdateMsg: nil,
-                ota: false,
-                lastBuildVersion: nil,
-                updateMsg: nil,
-                forceAuth: false,
-                lastBuildSize: 5000000000
-            ),
+            config: SDKData.mock,
             version: "0.9.0",
             buildNumber: "100"
         )
@@ -145,17 +115,7 @@ struct LoginServiceTests {
         let app = AppMock()
         let keychain = MockKeychainManager()
         let forceUpdateConfig = UpdateConfigResponse(
-            config: SDKData(
-                minVersion: "1.0.0",
-                forceUpdate: true,
-                lastBuildId: "some-build-id",
-                mustUpdateMsg: nil,
-                ota: false,
-                lastBuildVersion: nil,
-                updateMsg: nil,
-                forceAuth: false,
-                lastBuildSize: 5000000000
-            ),
+            config: SDKData.mock,
             version: "0.9.0",
             buildNumber: "100"
         )
@@ -187,17 +147,7 @@ struct LoginServiceTests {
         let app = AppMock()
         let keychain = MockKeychainManager()
         let forceUpdateConfig = UpdateConfigResponse(
-            config: SDKData(
-                minVersion: "1.0.0",
-                forceUpdate: true,
-                lastBuildId: "some-build-id",
-                mustUpdateMsg: nil,
-                ota: false,
-                lastBuildVersion: nil,
-                updateMsg: nil,
-                forceAuth: false,
-                lastBuildSize: 5000000000
-            ),
+            config: SDKData.mock,
             version: "0.9.0",
             buildNumber: "100"
         )
@@ -229,17 +179,7 @@ struct LoginServiceTests {
         let app = AppMock()
         let keychain = MockKeychainManager()
         let forceUpdateConfig = UpdateConfigResponse(
-            config: SDKData(
-                minVersion: "1.0.0",
-                forceUpdate: true,
-                lastBuildId: "some-build-id",
-                mustUpdateMsg: nil,
-                ota: false,
-                lastBuildVersion: nil,
-                updateMsg: nil,
-                forceAuth: false,
-                lastBuildSize: 5000000000
-            ),
+            config: SDKData.mock,
             version: "0.9.0",
             buildNumber: "100"
         )
