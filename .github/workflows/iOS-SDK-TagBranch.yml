@@ -1,4 +1,4 @@
-name: Tag brach
+name: iOS Release process
 
 on:
   pull_request:
@@ -12,10 +12,8 @@ jobs:
     name: Create tag when close the PR
     runs-on: macos-15
     
-    if: ${{ github.event.pull_request.merged == true }}
-    
     # Only run the job if the name of the source branch begins with 'release/'
-    if: startsWith(github.head_ref, 'release/')
+    if: ${{ github.event.pull_request.merged == true }} && startsWith(github.head_ref, 'release/')
 
     steps:
     
@@ -24,6 +22,13 @@ jobs:
     
       - name: Checkout
         uses: actions/checkout@v3
+       
+      - name: Publish to CocoaPod register
+        env:
+          COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
+        run: |
+          pod lib lint --allow-warnings
+          pod trunk push --allow-warnings
         
       - name: Get branch and  version
         id: extract

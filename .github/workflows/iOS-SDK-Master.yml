@@ -1,4 +1,4 @@
-name: CI
+name: iOS Test
 on:
   pull_request:
     branches: [ "develop" ]
@@ -27,10 +27,4 @@ jobs:
                       CODE_SIGN_IDENTITY="" \
                       CODE_SIGNING_REQUIRED=NO \
                       CODE_SIGNING_ALLOWED=NO
-      - uses: actions/checkout@v3
-      - name: Publish to CocoaPod register
-        env:
-          COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
-        run: |
-          pod lib lint --allow-warnings
-          pod trunk push --allow-warnings
+
