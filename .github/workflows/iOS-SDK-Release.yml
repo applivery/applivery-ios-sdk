@@ -13,7 +13,7 @@ jobs:
     runs-on: macos-15
     
     # Only run the job if the name of the source branch begins with 'release/'
-    if: ${{ github.event.pull_request.merged == true }} && startsWith(github.head_ref, 'release/')
+    if: startsWith(github.head_ref, 'release/')
 
     steps:
     
