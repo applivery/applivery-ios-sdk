@@ -176,10 +176,19 @@ final class UpdateService: UpdateServiceProtocol {
     }
 
     func setCheckForUpdatesBackground(_ enabled: Bool) {
-        let config = configService.getCurrentConfig()
         if enabled {
             eventDetector.listenEvent {
-                self.checkUpdate(for: config, forceUpdate: false)
+                Task {
+                    do {
+                        // Fetch fresh config from server to ensure we have the latest update information
+                        let freshConfig = try await self.configService.updateConfig()
+                        self.checkUpdate(for: freshConfig, forceUpdate: false)
+                    } catch {
+                        // Fallback to current config if fetch fails
+                        let currentConfig = self.configService.getCurrentConfig()
+                        self.checkUpdate(for: currentConfig, forceUpdate: false)
+                    }
+                }
             }
         } else {
             eventDetector.endListening()
