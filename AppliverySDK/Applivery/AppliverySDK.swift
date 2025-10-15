@@ -118,7 +118,7 @@ public typealias AppliveryLogHandler = @convention(block) (
  */
 public class AppliverySDK: NSObject, AppliveryService {
     // MARK: Static Properties
-    internal static let sdkVersion = "4.5.0"
+    internal static let sdkVersion = "4.5.1"
 
     // MARK: Type Properties
     /// Singleton instance
