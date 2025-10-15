@@ -150,7 +150,7 @@ struct UpdateServiceTests {
                 lastBuildId: nil,
                 mustUpdateMsg: nil,
                 ota: true,
-                lastBuildVersion: "2.0.0",
+                lastBuildVersion: "101",
                 updateMsg: nil,
                 forceAuth: false
             ),
@@ -158,8 +158,6 @@ struct UpdateServiceTests {
             buildNumber: "100"
         )
         configService.currentConfigResponse = otaUpdateConfig
-        appMock.stubVersion = "1.0.0" // ensure app version is older than lastBuildVersion
-        // Ensure no postpone is set so shouldShowPopup() returns true
         userDefaults?.removeObject(forKey: AppliveryUserDefaultsKeys.appliveryLastUpdatePopupShown)
         userDefaults?.removeObject(forKey: AppliveryUserDefaultsKeys.appliveryPostponeInterval)
         // WHEN

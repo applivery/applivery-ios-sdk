@@ -147,7 +147,7 @@ final class UpdateService: UpdateServiceProtocol {
             forceUpdate
             else { return false }
 
-        logInfo("[checkForceUpdate] - Checking if build version: \(version) is older than minBuildVersion: \(minVersion)")
+        logInfo("[checkForceUpdate] - Checking if app version: \(version) is older than min version: \(minVersion)")
         if self.isOlder(version, minVersion: minVersion) {
             logInfo("[checkForceUpdate] - Application must be updated!!")
             return true
@@ -166,7 +166,7 @@ final class UpdateService: UpdateServiceProtocol {
             return false
         }
 
-        logInfo("[checkOtaUpdate] - Checking if app version: \(version) is older than last build version: \(lastVersion)")
+        logInfo("[checkOtaUpdate] - Checking if build number: \(version) is older than last build version: \(lastVersion)")
         if self.isOlder(version, minVersion: lastVersion) {
             logInfo("[checkOtaUpdate] - New OTA update available!")
             return true
@@ -197,6 +197,8 @@ final class UpdateService: UpdateServiceProtocol {
 
     func checkUpdate(for updateConfig: UpdateConfigResponse, forceUpdate: Bool) {
         let appVersion = app.getVersion()
+        let currentConfig = configService.getCurrentConfig()
+        let appBuildNumber = currentConfig.buildNumber
         // use existing helpers to determine if a force or ota update is needed
         if forceUpdate && checkForceUpdate(updateConfig.config, version: appVersion) {
             logInfo("Performing force update...")
@@ -204,7 +206,7 @@ final class UpdateService: UpdateServiceProtocol {
             return
         }
 
-        if checkOtaUpdate(updateConfig.config, version: appVersion) {
+        if checkOtaUpdate(updateConfig.config, version: appBuildNumber) {
             if shouldShowPopup() {
                 logInfo("Performing OTA update...")
                 otaUpdate()
