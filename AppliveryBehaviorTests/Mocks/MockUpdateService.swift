@@ -49,7 +49,7 @@ class MockUpdateService: UpdateServiceProtocol {
         return checkForceUpdateResponse
     }
 
-    func checkOtaUpdate(_ config: SDKData?, version: String) -> Bool {
+    func checkOtaUpdate(_ config: SDKData?, buildNumber: String) -> Bool {
         return checkOtaUpdateResponse
     }
 
