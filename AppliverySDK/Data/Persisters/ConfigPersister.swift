@@ -16,6 +16,7 @@ let kOtaUpdateKey			= "APPLIVERY_OTA_UPDATE_KEY"
 let kLastBuildVersion		= "APPLIVERY_LAST_BUILD_VERSION"
 let kOtaUpdateMessageKey	= "APPLIVERY_OTA_UPDATE_MESSAGE"
 let kForceAuth				= "APPLIVERY_FORCE_AUTH"
+let kLastBuildSize          = "APPLIVERY_LASTBUILDSIZE"
 
 protocol UserDefaultsProtocol {
 	func value(forKey key: String) -> Any?
@@ -43,14 +44,12 @@ class ConfigPersister: NSObject {
 	///  Get the current config stored on disk
 	///  - returns: config object with the data stored. Could be nil if no previus data was saved
     func getConfig() -> SDKData? {
-        
 		guard
 			let forceUpdate			= self.userDefaults.value(forKey: kForceUpdateKey)		as? Bool,
 			let lastBuildId			= self.userDefaults.value(forKey: kLastBuildId)			as? String,
 			let otaUpdate			= self.userDefaults.value(forKey: kOtaUpdateKey)		as? Bool,
 			let lastBuildVersion	= self.userDefaults.value(forKey: kLastBuildVersion)	as? String
 			else { return nil }
-
         let sdkData = SDKData(
             minVersion: self.userDefaults.value(forKey: kMinVersionKey) as? String ?? "",
             forceUpdate: forceUpdate,
@@ -59,7 +58,8 @@ class ConfigPersister: NSObject {
             ota: otaUpdate,
             lastBuildVersion: lastBuildVersion,
             updateMsg: self.userDefaults.value(forKey: kForceUpdateMessageKey) as? String ?? "",
-            forceAuth: self.userDefaults.value(forKey: kForceAuth) as? Bool ?? false
+            forceAuth: self.userDefaults.value(forKey: kForceAuth) as? Bool ?? false,
+            lastBuildSize: self.userDefaults.value(forKey: kLastBuildSize) as? Int
         )
 
 		return sdkData
@@ -74,6 +74,7 @@ class ConfigPersister: NSObject {
         self.userDefaults.setValue(config.lastBuildVersion as AnyObject?, forKey: kLastBuildVersion)
         self.userDefaults.setValue(config.updateMsg as AnyObject?, forKey: kOtaUpdateMessageKey)
 		self.userDefaults.set(config.forceAuth, forKey: kForceAuth)
+        self.userDefaults.setValue(config.lastBuildSize, forKey: kLastBuildSize)
 
 		if self.userDefaults.synchronize() {
 			logInfo("Applivery configuration was updated")
