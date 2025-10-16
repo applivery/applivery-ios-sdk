@@ -15,7 +15,7 @@ protocol UpdateServiceProtocol {
     func downloadLastBuild(onResult: ((UpdateResult) -> Void)?)
     func isUpToDate() async throws -> Bool
     func checkForceUpdate(_ config: SDKData?, version: String) -> Bool
-    func checkOtaUpdate(_ config: SDKData?, version: String) -> Bool
+    func checkOtaUpdate(_ config: SDKData?, buildNumber: String) -> Bool
     func forceUpdateMessage() -> String
     func setCheckForUpdatesBackground(_ enabled: Bool)
     func checkUpdate(for updateConfig: UpdateConfigResponse, forceUpdate: Bool)
@@ -156,7 +156,7 @@ final class UpdateService: UpdateServiceProtocol {
         return false
     }
 
-    func checkOtaUpdate(_ config: SDKData?, version: String) -> Bool {
+    func checkOtaUpdate(_ config: SDKData?, buildNumber: String) -> Bool {
         guard
             let lastVersion = config?.lastBuildVersion,
             let otaUpdate = config?.ota,
@@ -166,8 +166,8 @@ final class UpdateService: UpdateServiceProtocol {
             return false
         }
 
-        logInfo("[checkOtaUpdate] - Checking if build number: \(version) is older than last build version: \(lastVersion)")
-        if self.isOlder(version, minVersion: lastVersion) {
+        logInfo("[checkOtaUpdate] - Checking if build number: \(buildNumber) is older than last build version: \(lastVersion)")
+        if self.isOlder(buildNumber, minVersion: lastVersion) {
             logInfo("[checkOtaUpdate] - New OTA update available!")
             return true
         }
@@ -206,7 +206,7 @@ final class UpdateService: UpdateServiceProtocol {
             return
         }
 
-        if checkOtaUpdate(updateConfig.config, version: appBuildNumber) {
+        if checkOtaUpdate(updateConfig.config, buildNumber: appBuildNumber) {
             if shouldShowPopup() {
                 logInfo("Performing OTA update...")
                 otaUpdate()
@@ -290,7 +290,7 @@ private extension UpdateService {
     @objc func handleAppWillEnterForeground() {
         if globalConfig.isCheckForUpdatesBackgroundEnabled {
             let config = configService.getCurrentConfig()
-            if checkOtaUpdate(config.config, version: config.buildNumber) {
+            if checkOtaUpdate(config.config, buildNumber: config.buildNumber) {
                 otaUpdate()
             }
             logInfo("App returned from background, checking for updates...")
