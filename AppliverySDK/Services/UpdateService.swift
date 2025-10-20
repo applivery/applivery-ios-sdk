@@ -14,8 +14,8 @@ protocol UpdateServiceProtocol {
     func otaUpdate()
     func downloadLastBuild(onResult: ((UpdateResult) -> Void)?)
     func isUpToDate() async throws -> Bool
-    func checkForceUpdate(_ config: SDKData?, version: String) -> Bool
-    func checkOtaUpdate(_ config: SDKData?, version: String, buildNumber: String) -> Bool
+    func checkForceUpdate(_ config: SDKData?, buildNumber: String) -> Bool
+    func checkOtaUpdate(_ config: SDKData?, buildNumber: String) -> Bool
     func forceUpdateMessage() -> String
     func setCheckForUpdatesBackground(_ enabled: Bool)
     func checkUpdate(for updateConfig: UpdateConfigResponse, forceUpdate: Bool)
@@ -119,12 +119,12 @@ final class UpdateService: UpdateServiceProtocol {
              let config = try await configService.fetchConfig()
              let forceUpdate = config.data.sdk.ios.forceUpdate
              if let minVersion = config.data.sdk.ios.minVersion, forceUpdate, !minVersion.isEmpty {
-                 let isOlder = isOlder(version: currentConfig.version, buildNumber: currentConfig.buildNumber, thanVersion: minVersion, thanBuildNumber: "0")
+                 let isOlder = isNewVersionOlder(currentVersion: currentConfig.buildNumber, newVersion: minVersion)
                  logInfo("[isUpToDate] - Force update is available, checking if \(currentConfig.version) is older than \(minVersion), Need update: \(!isOlder)")
                  return !isOlder
              }
              if let lastVersion = config.data.sdk.ios.lastBuildVersion, !lastVersion.isEmpty {
-                 let isOlder = isOlder(version: currentConfig.version, buildNumber: currentConfig.buildNumber, thanVersion: currentConfig.version, thanBuildNumber: lastVersion)
+                 let isOlder = isNewVersionOlder(currentVersion: currentConfig.buildNumber, newVersion: lastVersion)
                  logInfo("[isUpToDate] - Last Build version is available, Need update: \(isOlder)")
                  return !isOlder
              }
@@ -132,7 +132,7 @@ final class UpdateService: UpdateServiceProtocol {
          } catch {
              logInfo("[isUpToDate] - fetchConfig failed: \(error). Falling back to currentConfig minVersion check.")
              if let minVersion = currentConfig.config?.minVersion, !minVersion.isEmpty {
-                 let isOlder = isOlder(version: currentConfig.version, buildNumber: currentConfig.buildNumber, thanVersion: minVersion, thanBuildNumber: "0")
+                 let isOlder = isNewVersionOlder(currentVersion: currentConfig.version, newVersion: minVersion)
                  logInfo("[isUpToDate] - Fallback: checking if \(currentConfig.version) is older than \(minVersion), Need update: \(!isOlder)")
                  return !isOlder
              }
@@ -140,7 +140,7 @@ final class UpdateService: UpdateServiceProtocol {
          }
      }
 
-    func checkForceUpdate(_ config: SDKData?, version: String) -> Bool {
+    func checkForceUpdate(_ config: SDKData?, buildNumber: String) -> Bool {
         guard
             let minVersion = config?.minVersion,
             let forceUpdate = config?.forceUpdate,
@@ -148,8 +148,8 @@ final class UpdateService: UpdateServiceProtocol {
             else { return false }
 
         let currentBuildNumber = configService.getCurrentConfig().buildNumber
-        logInfo("[checkForceUpdate] - Checking if app version: \(version) (build: \(currentBuildNumber)) is older than min version: \(minVersion)")
-        if self.isOlder(version: version, buildNumber: currentBuildNumber, thanVersion: minVersion, thanBuildNumber: "0") {
+        logInfo("[checkForceUpdate] - Checking if buildNumber: \(currentBuildNumber) is older than min version: \(minVersion)")
+        if self.isNewVersionOlder(currentVersion: currentBuildNumber, newVersion: minVersion) {
             logInfo("[checkForceUpdate] - Application must be updated!!")
             return true
         }
@@ -157,7 +157,7 @@ final class UpdateService: UpdateServiceProtocol {
         return false
     }
 
-    func checkOtaUpdate(_ config: SDKData?, version: String, buildNumber: String) -> Bool {
+    func checkOtaUpdate(_ config: SDKData?, buildNumber: String) -> Bool {
         guard
             let lastVersion = config?.lastBuildVersion,
             let otaUpdate = config?.ota,
@@ -166,10 +166,9 @@ final class UpdateService: UpdateServiceProtocol {
             logInfo("[checkOtaUpdate] - ota update not needed")
             return false
         }
-
         // Keep semantic version neutral by using the same version on both sides; compare build numbers
-        logInfo("[checkOtaUpdate] - Checking if app (version: \(version), build: \(buildNumber)) is older than last build version: \(lastVersion)")
-        if self.isOlder(version: version, buildNumber: buildNumber, thanVersion: version, thanBuildNumber: lastVersion) {
+        logInfo("[checkOtaUpdate] - Checking if app (buildNumber: \(buildNumber)), is older than last build version: \(lastVersion)")
+        if self.isNewVersionOlder(currentVersion: buildNumber, newVersion: lastVersion) {
             logInfo("[checkOtaUpdate] - New OTA update available!")
             return true
         }
@@ -198,17 +197,16 @@ final class UpdateService: UpdateServiceProtocol {
     }
 
     func checkUpdate(for updateConfig: UpdateConfigResponse, forceUpdate: Bool) {
-        let appVersion = app.getVersion()
         let currentConfig = configService.getCurrentConfig()
         let appBuildNumber = currentConfig.buildNumber
         // use existing helpers to determine if a force or ota update is needed
-        if forceUpdate && checkForceUpdate(updateConfig.config, version: appVersion) {
+        if forceUpdate && checkForceUpdate(updateConfig.config, buildNumber: appBuildNumber) {
             logInfo("Performing force update...")
             self.forceUpdate()
             return
         }
 
-        if checkOtaUpdate(updateConfig.config, version: appVersion, buildNumber: appBuildNumber) {
+        if checkOtaUpdate(updateConfig.config, buildNumber: appBuildNumber) {
             if shouldShowPopup() {
                 logInfo("Performing OTA update...")
                 otaUpdate()
@@ -256,34 +254,11 @@ private extension UpdateService {
         }
     }
 
-    func isOlder(_ currentVersion: String, minVersion: String) -> Bool {
-        let (current, min) = self.equalLengthFillingWithZeros(left: currentVersion, right: minVersion)
+    func isNewVersionOlder(currentVersion: String, newVersion: String) -> Bool {
+        let (current, min) = self.equalLengthFillingWithZeros(left: currentVersion, right: newVersion)
         let result = current.compare(min, options: NSString.CompareOptions.numeric, range: nil, locale: nil)
 
         return result == ComparisonResult.orderedAscending
-    }
-
-    // New helper to compare semantic version + build number pairs.
-    // Returns true if (version, buildNumber) is older than (thanVersion, thanBuildNumber).
-    func isOlder(version: String, buildNumber: String, thanVersion: String, thanBuildNumber: String) -> Bool {
-        // Compare semantic versions first
-        let leftVersion = version.isEmpty ? "0" : version
-        let rightVersion = thanVersion.isEmpty ? "0" : thanVersion
-        let (leftFilled, rightFilled) = self.equalLengthFillingWithZeros(left: leftVersion, right: rightVersion)
-        let versionComparison = leftFilled.compare(rightFilled, options: .numeric, range: nil, locale: nil)
-
-        switch versionComparison {
-        case .orderedAscending:
-            return true // current version older than target version
-        case .orderedDescending:
-            return false // current version newer than target version
-        case .orderedSame:
-            // If versions are equal, compare build numbers numerically
-            let leftBuild = buildNumber.isEmpty ? "0" : buildNumber
-            let rightBuild = thanBuildNumber.isEmpty ? "0" : thanBuildNumber
-            let buildComparison = leftBuild.compare(rightBuild, options: .numeric, range: nil, locale: nil)
-            return buildComparison == .orderedAscending
-        }
     }
 
     func equalLengthFillingWithZeros(left: String, right: String) -> (String, String) {
@@ -316,7 +291,7 @@ private extension UpdateService {
         if globalConfig.isCheckForUpdatesBackgroundEnabled {
             let config = configService.getCurrentConfig()
             let version = app.getVersion()
-            if checkOtaUpdate(config.config, version: version, buildNumber: config.buildNumber) {
+            if checkOtaUpdate(config.config, buildNumber: config.buildNumber) {
                 otaUpdate()
             }
             logInfo("App returned from background, checking for updates...")
