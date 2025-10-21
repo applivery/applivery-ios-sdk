@@ -289,7 +289,6 @@ private extension UpdateService {
     @objc func handleAppWillEnterForeground() {
         if globalConfig.isCheckForUpdatesBackgroundEnabled {
             let config = configService.getCurrentConfig()
-            let version = app.getVersion()
             if checkOtaUpdate(config.config, buildNumber: config.buildNumber) {
                 otaUpdate()
             }
