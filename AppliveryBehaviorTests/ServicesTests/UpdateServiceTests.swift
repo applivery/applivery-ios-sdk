@@ -9,7 +9,7 @@ import Testing
 @testable import Applivery
 
 // Helper to wait for a condition or timeout
-func waitUntil(timeout: TimeInterval = 50.0, interval: TimeInterval = 0.01, _ condition: @escaping () -> Bool) {
+func waitUntil(timeout: TimeInterval = 20.0, interval: TimeInterval = 0.01, _ condition: @escaping () -> Bool) {
     let start = Date()
     while !condition() && Date().timeIntervalSince(start) < timeout {
         RunLoop.main.run(until: Date().addingTimeInterval(interval))
@@ -197,7 +197,7 @@ struct UpdateServiceTests {
             globalConfig: globalConfig,
             eventDetector: eventDetector
         )
-        let forceUpdateConfig = UpdateConfigResponse(
+        let otaConfig = UpdateConfigResponse(
             config: SDKData(
                 minVersion: nil,
                 forceUpdate: true,
@@ -212,11 +212,11 @@ struct UpdateServiceTests {
             version: "0.9.0",  // <-- This is essentially irrelevant
             buildNumber: "100" // <-- This is the app buildNumber
         )
-        configService.currentConfigResponse = forceUpdateConfig
+        configService.currentConfigResponse = otaConfig
         // WHEN
-        updateService.checkUpdate(for: forceUpdateConfig, forceUpdate: false)
+        updateService.checkUpdate(for: otaConfig, forceUpdate: false)
         // Wait until the async force update is called or timeout
-        waitUntil { appMock.spyForceUpdateCalled }
+        waitUntil { appMock.spyOtaAlert.called }
         // THEN
         #expect(appMock.spyOtaAlert.called == true)
     }
@@ -237,7 +237,7 @@ struct UpdateServiceTests {
             globalConfig: globalConfig,
             eventDetector: eventDetector
         )
-        let forceUpdateConfig = UpdateConfigResponse(
+        let otaConfig = UpdateConfigResponse(
             config: SDKData(
                 minVersion: nil,
                 forceUpdate: true,
@@ -252,11 +252,9 @@ struct UpdateServiceTests {
             version: "0.9.0",  // <-- This is essentially irrelevant
             buildNumber: "102" // <-- This is the app buildNumber
         )
-        configService.currentConfigResponse = forceUpdateConfig
+        configService.currentConfigResponse = otaConfig
         // WHEN
-        updateService.checkUpdate(for: forceUpdateConfig, forceUpdate: false)
-        // Wait until the async force update is called or timeout
-        waitUntil { appMock.spyForceUpdateCalled }
+        updateService.checkUpdate(for: otaConfig, forceUpdate: false)
         // THEN
         #expect(appMock.spyOtaAlert.called == false)
     }
