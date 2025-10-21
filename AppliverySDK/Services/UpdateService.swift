@@ -110,7 +110,6 @@ final class UpdateService: UpdateServiceProtocol {
             logInfo("Force authorization is disabled - downloading last build")
             loginService.download(onResult: onResult)
         }
-
     }
 
     func isUpToDate() async -> Bool {

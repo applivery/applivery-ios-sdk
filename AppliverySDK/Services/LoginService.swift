@@ -25,7 +25,7 @@ final class LoginService: LoginServiceProtocol {
     let configService: ConfigServiceProtocol
     let downloadService: DownloadServiceProtocol
     let globalConfig: GlobalConfig
-    let sessionPersister: SessionPersister
+    let sessionPersister: SessionPersisterProtocol
     let safariManager: AppliverySafariManagerProtocol
     let app: AppProtocol
     let keychain: KeychainAccessible
@@ -40,7 +40,7 @@ final class LoginService: LoginServiceProtocol {
         configService: ConfigServiceProtocol = ConfigService(),
         downloadService: DownloadServiceProtocol = DownloadService(),
         globalConfig: GlobalConfig = GlobalConfig.shared,
-        sessionPersister: SessionPersister = SessionPersister(userDefaults: UserDefaults.standard),
+        sessionPersister: SessionPersisterProtocol = SessionPersister(userDefaults: UserDefaults.standard),
         webViewManager: AppliverySafariManagerProtocol = AppliverySafariManager.shared,
         app: AppProtocol = App(),
         keychain: KeychainAccessible = Keychain()
@@ -123,7 +123,22 @@ final class LoginService: LoginServiceProtocol {
             onResult?(.failure(error: .noConfigFound))
             return
         }
-
+        do {
+            let freeSpace = try app.deviceAvailableSpace()
+            if freeSpace < (lastConfig.config?.lastBuildSize ?? 0) {
+                onResult?(.failure(error: .noDiskSpaceAvailable))
+                DispatchQueue.main.async {
+                    self.app.showErrorAlert("Insufficient storage")
+                }
+                return
+            }
+        } catch {
+            onResult?(.failure(error: .unableToDetermineFreeSpace))
+            DispatchQueue.main.async {
+                self.app.showErrorAlert("Could not read if there is enough storage in the device")
+            }
+            return
+        }
         Task {
             if let url = await downloadService.downloadURL(lastBuildId) {
                 await MainActor.run {
@@ -146,7 +161,6 @@ final class LoginService: LoginServiceProtocol {
 }
 
 private extension LoginService {
-
     @MainActor
     func store(accessToken: AccessToken, userName: String) {
         logInfo("Fetched new access token: \(accessToken.token ?? "NO TOKEN")")
