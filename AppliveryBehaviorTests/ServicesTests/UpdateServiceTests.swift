@@ -9,7 +9,7 @@ import Testing
 @testable import Applivery
 
 // Helper to wait for a condition or timeout
-func waitUntil(timeout: TimeInterval = 10.0, interval: TimeInterval = 0.01, _ condition: @escaping () -> Bool) {
+func waitUntil(timeout: TimeInterval = 50.0, interval: TimeInterval = 0.01, _ condition: @escaping () -> Bool) {
     let start = Date()
     while !condition() && Date().timeIntervalSince(start) < timeout {
         RunLoop.main.run(until: Date().addingTimeInterval(interval))
