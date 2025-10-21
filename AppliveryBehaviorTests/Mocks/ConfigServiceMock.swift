@@ -38,7 +38,8 @@ final class ConfigServiceMock: ConfigServiceProtocol {
                 ota: false,
                 lastBuildVersion: nil,
                 updateMsg: nil,
-                forceAuth: false
+                forceAuth: false,
+                lastBuildSize: nil
             )
             let sdk = SDK(ios: sdkData)
             let configData = ConfigData(
