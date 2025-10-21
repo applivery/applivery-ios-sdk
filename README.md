@@ -262,7 +262,7 @@ Starts the Applivery SDK. Call this early in your app's lifecycle.
 - `skipUpdateCheck`: If true, skips the initial update check
 
 ### isUpToDate() -> Bool
-Returns whether the app is up to date with the latest version available.
+Returns whether the app is up to date with the latest version available. **This only takes into account the build number.**
 
 ### update(onDownload: ((UpdateResult) -> Void)?)
 Downloads and installs the newest build available. Call after `start()`.
@@ -283,7 +283,7 @@ Presents the Applivery feedback UI (form for bug reports, suggestions, etc). You
 Handles a redirect URL as part of the SAML authentication flow. See [Handling SAML Redirect URLs](#handling-saml-redirect-urls).
 
 ### checkForUpdates(forceUpdate: Bool)
-Checks for updates and launches the update flow if available. `forceUpdate` ignores postponed time if true.
+Checks for updates and launches the update flow if available. `forceUpdate` ignores postponed time if true. **This only takes into account the build number.**
 
 ### disableScreenshotFeedback()
 Disables listening for screenshot events to trigger feedback.

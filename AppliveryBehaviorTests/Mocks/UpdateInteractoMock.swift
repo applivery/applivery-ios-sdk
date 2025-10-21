@@ -42,15 +42,15 @@ class UpdateServiceMock: UpdateServiceProtocol {
         }
     }
 
-    func isUpToDate() -> Bool {
+    func isUpToDate() async throws -> Bool {
         return isUpToDateResponse
     }
 
-    func checkForceUpdate(_ config: SDKData?, version: String) -> Bool {
+    func checkForceUpdate(_ config: SDKData?, buildNumber: String) -> Bool {
         return checkForceUpdateResponse
     }
 
-    func checkOtaUpdate(_ config: SDKData?, version: String) -> Bool {
+    func checkOtaUpdate(_ config: SDKData?, buildNumber: String) -> Bool {
         return checkOtaUpdateResponse
     }
 

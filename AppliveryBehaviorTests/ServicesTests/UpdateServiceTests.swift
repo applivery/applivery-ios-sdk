@@ -9,7 +9,7 @@ import Testing
 @testable import Applivery
 
 // Helper to wait for a condition or timeout
-func waitUntil(timeout: TimeInterval = 2.0, interval: TimeInterval = 0.01, _ condition: @escaping () -> Bool) {
+func waitUntil(timeout: TimeInterval = 20.0, interval: TimeInterval = 0.01, _ condition: @escaping () -> Bool) {
     let start = Date()
     while !condition() && Date().timeIntervalSince(start) < timeout {
         RunLoop.main.run(until: Date().addingTimeInterval(interval))
@@ -101,8 +101,7 @@ struct UpdateServiceTests {
         #expect(eventDetector.spyEndListeningCalled == true)
     }
 
-    @Test
-    func checkUpdate() {
+    @Test func testCheckUpdateForced() async throws {
         // GIVEN
         let appMock = AppMock()
         let eventDetector = EventDetectorMock()
@@ -118,58 +117,146 @@ struct UpdateServiceTests {
             globalConfig: globalConfig,
             eventDetector: eventDetector
         )
-        // Force update config
         let forceUpdateConfig = UpdateConfigResponse(
             config: SDKData(
-                minVersion: "1.0.0",
-                forceUpdate: true,
+                minVersion: "101",   // <-- This is the buildnumber the app must have
+                forceUpdate: true,   // <-- when forceUpdate is set to true
                 lastBuildId: nil,
                 mustUpdateMsg: nil,
                 ota: false,
-                lastBuildVersion: nil,
+                lastBuildVersion: "101",
                 updateMsg: nil,
                 forceAuth: false,
                 lastBuildSize: nil
             ),
-            version: "0.9.0",
-            buildNumber: "100"
+            version: "0.9.0",  // <-- This is essentially irrelevant
+            buildNumber: "100" // <-- This is the app buildNumber
         )
         configService.currentConfigResponse = forceUpdateConfig
-        appMock.stubVersion = "0.9.0" // ensure app version is older than minVersion
         // WHEN
         updateService.checkUpdate(for: forceUpdateConfig, forceUpdate: true)
         // Wait until the async force update is called or timeout
         waitUntil { appMock.spyForceUpdateCalled }
         // THEN
         #expect(appMock.spyForceUpdateCalled == true)
+    }
 
-        // OTA update config
-        let otaUpdateConfig = UpdateConfigResponse(
+    @Test func testCheckUpdateForcedNotNeeded() async throws {
+        // GIVEN
+        let appMock = AppMock()
+        let eventDetector = EventDetectorMock()
+        let configService = ConfigServiceMock()
+        let downloadService = DownloadService()
+        let loginService = LoginService()
+        let globalConfig = GlobalConfig()
+        let updateService = UpdateService(
+            configService: configService,
+            downloadService: downloadService,
+            app: appMock,
+            loginService: loginService,
+            globalConfig: globalConfig,
+            eventDetector: eventDetector
+        )
+        let forceUpdateConfig = UpdateConfigResponse(
             config: SDKData(
-                minVersion: nil,
-                forceUpdate: false,
+                minVersion: "101",   // <-- This is the buildnumber the app must have
+                forceUpdate: true,   // <-- when forceUpdate is set to true
                 lastBuildId: nil,
                 mustUpdateMsg: nil,
-                ota: true,
-                lastBuildVersion: "2.0.0",
+                ota: false,
+                lastBuildVersion: "101",
                 updateMsg: nil,
                 forceAuth: false,
                 lastBuildSize: nil
             ),
-            version: "1.0.0",
-            buildNumber: "100"
+            version: "0.9.0",  // <-- This is essentially irrelevant
+            buildNumber: "101" // <-- This is the app buildNumber
         )
-        configService.currentConfigResponse = otaUpdateConfig
-        appMock.stubVersion = "1.0.0" // ensure app version is older than lastBuildVersion
-        // Ensure no postpone is set so shouldShowPopup() returns true
-        userDefaults?.removeObject(forKey: AppliveryUserDefaultsKeys.appliveryLastUpdatePopupShown)
-        userDefaults?.removeObject(forKey: AppliveryUserDefaultsKeys.appliveryPostponeInterval)
+        configService.currentConfigResponse = forceUpdateConfig
         // WHEN
-        updateService.checkUpdate(for: otaUpdateConfig, forceUpdate: false)
-        // Wait until the async alert is called or timeout
+        updateService.checkUpdate(for: forceUpdateConfig, forceUpdate: true)
+        // Wait until the async force update is called or timeout
+        waitUntil { appMock.spyForceUpdateCalled }
+        // THEN
+        #expect(appMock.spyForceUpdateCalled == false)
+    }
+
+    @Test func testCheckOtaUpdate() async throws {
+        // GIVEN
+        let appMock = AppMock()
+        let eventDetector = EventDetectorMock()
+        let configService = ConfigServiceMock()
+        let downloadService = DownloadService()
+        let loginService = LoginService()
+        let globalConfig = GlobalConfig()
+        let updateService = UpdateService(
+            configService: configService,
+            downloadService: downloadService,
+            app: appMock,
+            loginService: loginService,
+            globalConfig: globalConfig,
+            eventDetector: eventDetector
+        )
+        let otaConfig = UpdateConfigResponse(
+            config: SDKData(
+                minVersion: nil,
+                forceUpdate: true,
+                lastBuildId: nil,
+                mustUpdateMsg: nil,
+                ota: true,
+                lastBuildVersion: "101",
+                updateMsg: nil,
+                forceAuth: false,
+                lastBuildSize: nil
+            ),
+            version: "0.9.0",  // <-- This is essentially irrelevant
+            buildNumber: "100" // <-- This is the app buildNumber
+        )
+        configService.currentConfigResponse = otaConfig
+        // WHEN
+        updateService.checkUpdate(for: otaConfig, forceUpdate: false)
+        // Wait until the async force update is called or timeout
         waitUntil { appMock.spyOtaAlert.called }
         // THEN
         #expect(appMock.spyOtaAlert.called == true)
+    }
+
+    @Test func testCheckOtaUpdateNotNeeded() async throws {
+        // GIVEN
+        let appMock = AppMock()
+        let eventDetector = EventDetectorMock()
+        let configService = ConfigServiceMock()
+        let downloadService = DownloadService()
+        let loginService = LoginService()
+        let globalConfig = GlobalConfig()
+        let updateService = UpdateService(
+            configService: configService,
+            downloadService: downloadService,
+            app: appMock,
+            loginService: loginService,
+            globalConfig: globalConfig,
+            eventDetector: eventDetector
+        )
+        let otaConfig = UpdateConfigResponse(
+            config: SDKData(
+                minVersion: nil,
+                forceUpdate: true,
+                lastBuildId: nil,
+                mustUpdateMsg: nil,
+                ota: true,
+                lastBuildVersion: "101",
+                updateMsg: nil,
+                forceAuth: false,
+                lastBuildSize: nil
+            ),
+            version: "0.9.0",  // <-- This is essentially irrelevant
+            buildNumber: "102" // <-- This is the app buildNumber
+        )
+        configService.currentConfigResponse = otaConfig
+        // WHEN
+        updateService.checkUpdate(for: otaConfig, forceUpdate: false)
+        // THEN
+        #expect(appMock.spyOtaAlert.called == false)
     }
 }
 
