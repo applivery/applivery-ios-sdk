@@ -206,7 +206,8 @@ struct UpdateServiceTests {
                 ota: true,
                 lastBuildVersion: "101",
                 updateMsg: nil,
-                forceAuth: false
+                forceAuth: false,
+                lastBuildSize: nil
             ),
             version: "0.9.0",  // <-- This is essentially irrelevant
             buildNumber: "100" // <-- This is the app buildNumber
@@ -245,7 +246,8 @@ struct UpdateServiceTests {
                 ota: true,
                 lastBuildVersion: "101",
                 updateMsg: nil,
-                forceAuth: false
+                forceAuth: false,
+                lastBuildSize: nil
             ),
             version: "0.9.0",  // <-- This is essentially irrelevant
             buildNumber: "102" // <-- This is the app buildNumber
