@@ -120,14 +120,12 @@ final class LoginService: LoginServiceProtocol {
     func download(onResult: ((UpdateResult) -> Void)? = nil) {
         let lastConfig = configService.getCurrentConfig()
         guard let lastBuildId = lastConfig.config?.lastBuildId else {
-            logInfo(" 🗑️ Delete me! No config was found")
             onResult?(.failure(error: .noConfigFound))
             return
         }
         do {
             let freeSpace = try app.deviceAvailableSpace()
             if freeSpace < (lastConfig.config?.lastBuildSize ?? 0) {
-                logInfo("🗑️ Delete me! Insufficient storage")
                 onResult?(.failure(error: .noDiskSpaceAvailable))
                 DispatchQueue.main.async {
                     self.app.showErrorAlert("Insufficient storage")
@@ -135,7 +133,6 @@ final class LoginService: LoginServiceProtocol {
                 return
             }
         } catch {
-            logInfo(" 🗑️ Delete me! Unable to determine free space")
             onResult?(.failure(error: .unableToDetermineFreeSpace))
             DispatchQueue.main.async {
                 self.app.showErrorAlert("Could not read if there is enough storage in the device")
@@ -146,18 +143,15 @@ final class LoginService: LoginServiceProtocol {
             if let url = await downloadService.downloadURL(lastBuildId) {
                 await MainActor.run {
                     if app.openUrl(url) {
-                        logInfo(" 🗑️ Delete me! Success!")
                         onResult?(.success())
                     }
                     else {
-                        logInfo(" 🗑️ Delete me! Error download URL!")
                         let error = NSError.appliveryError(literal(.errorDownloadURL))
                         logError(error)
                         onResult?(.failure(error: .downloadManifestError))
                     }
                 }
             } else {
-                logInfo(" 🗑️ Delete me! URL not found!")
                 let error = NSError.appliveryError(literal(.errorDownloadURL))
                 logError(error)
                 onResult?(.failure(error: .downloadUrlNotFound))
