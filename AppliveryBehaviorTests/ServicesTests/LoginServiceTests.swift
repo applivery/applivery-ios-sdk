@@ -69,48 +69,9 @@ struct LoginServiceTests {
         await loginService.login(loginData: loginData)
         // No assertion for SafariManager side effect since it is now a noop
     }
-    /*
+    
     @Test
     func testRequestAuthorizationWithToken() async {
-        let loginRepository = LoginRepositoryMock()
-        let configService = ConfigServiceMock()
-        let downloadService = DownloadServiceMock()
-        let globalConfig = GlobalConfig.shared
-        let sessionPersister = MockSessionPersister()
-        let app = AppMock()
-        let keychain = MockKeychainManager()
-        let forceUpdateConfig = UpdateConfigResponse(
-            config: SDKData.mock,
-            version: "0.9.0",
-            buildNumber: "100"
-        )
-        configService.currentConfigResponse = forceUpdateConfig
-        let loginService = LoginService(
-            loginRepository: loginRepository,
-            configService: configService,
-            downloadService: downloadService,
-            globalConfig: globalConfig,
-            sessionPersister: sessionPersister,
-            app: app,
-            keychain: keychain
-        )
-        // Ensure bundle ID is set before storing the token
-        app.stubBundleID = "com.applivery.test"
-        try? keychain.store("token", for: app.stubBundleID)
-        downloadService.stubbedURL = "https://applivery.com/app.ipa"
-        var downloadCalled = false
-        loginService.requestAuthorization(onResult: { _ in downloadCalled = true })
-        waitUntil { downloadService.downloadURLCalled && downloadCalled }
-        await MainActor.run {
-            print("downloadService.downloadURLCalled: \(downloadService.downloadURLCalled)")
-            print("downloadCalled: \(downloadCalled)")
-            #expect(downloadService.downloadURLCalled)
-            #expect(downloadCalled)
-        }
-    }
-    */
-    @Test
-    func testRequestAuthorizationWithTokenNUEVO() async {
         let loginRepository = LoginRepositoryMock()
         let configService = ConfigServiceMock()
         let downloadService = DownloadServiceMock()
@@ -140,7 +101,6 @@ struct LoginServiceTests {
         downloadService.stubbedURL = "https://applivery.com/app.ipa"
         var downloadCalled = false
         loginService.requestAuthorization(onResult: { _ in
-            
             DispatchQueue.main.async {
                 downloadCalled = true
                 #expect(downloadService.downloadURLCalled)
@@ -148,61 +108,6 @@ struct LoginServiceTests {
             }
         })
     }
-/*
-    @Test
-    func testRequestAuthorizationWithToken22() async {
-        let loginRepository = LoginRepositoryMock()
-        let configService = ConfigServiceMock()
-        let downloadService = DownloadServiceMock()
-        let globalConfig = GlobalConfig.shared
-        let sessionPersister = MockSessionPersister()
-        let app = AppMock()
-        let keychain = MockKeychainManager()
-        let forceUpdateConfig = UpdateConfigResponse(
-            config: SDKData.mock,
-            version: "0.9.0",
-            buildNumber: "100"
-        )
-        configService.currentConfigResponse = forceUpdateConfig
-        let loginService = LoginService(
-            loginRepository: loginRepository,
-            configService: configService,
-            downloadService: downloadService,
-            globalConfig: globalConfig,
-            sessionPersister: sessionPersister,
-            app: app,
-            keychain: keychain
-        )
-        // Ensure bundle ID is set before storing the u token
-        app.stubBundleID = "com.applivery.test"
-        app.stubOpenUrlResult = true
-        try? keychain.store("token", for: app.stubBundleID)
-        downloadService.stubbedURL = "https://applivery.com/app.ipa"
-        var downloadCalled = false
-       // loginService.requestAuthorization(onResult: { _ in downloadCalled = true })
-
-/*
-        await confirmation("Synchronizer completes") { @MainActor confirm in
-            await MainActor.run {
-                loginService.requestAuthorization { _ in
-                    downloadCalled = true
-                    #expect(downloadService.downloadURLCalled)
-                    #expect(downloadCalled)
-                    confirm()
-                }
-            }
-        }*/
-        await confirmation { confirmation in
-            loginService.requestAuthorization { _ in
-                downloadCalled = true
-                confirmation.confirm()
-            }
-        }
-        #expect(downloadService.downloadURLCalled)
-        #expect(downloadCalled)
-        
-    }
-    */
 
     @Test
     func testRequestAuthorizationWithoutToken() async {
