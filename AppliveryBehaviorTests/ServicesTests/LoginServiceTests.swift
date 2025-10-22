@@ -101,8 +101,10 @@ struct LoginServiceTests {
         var downloadCalled = false
         loginService.requestAuthorization(onResult: { _ in downloadCalled = true })
         waitUntil { downloadService.downloadURLCalled && downloadCalled }
-        #expect(downloadService.downloadURLCalled)
-        #expect(downloadCalled)
+        await MainActor.run {
+            #expect(downloadService.downloadURLCalled)
+            #expect(downloadCalled)
+        }
     }
 
     @Test
