@@ -21,6 +21,8 @@ class DownloadServiceMock: DownloadServiceProtocol {
 
     func downloadURL(_ lastBuildId: String) async -> String? {
         downloadURLCalled = true
+        
+            logInfo(" 🗑️ Delete me! downloadURLCalled: \(downloadURLCalled)")
         return stubbedURL
     }
 }

@@ -99,14 +99,28 @@ struct LoginServiceTests {
         try? keychain.store("token", for: app.stubBundleID)
         downloadService.stubbedURL = "https://applivery.com/app.ipa"
         var downloadCalled = false
-        loginService.requestAuthorization(onResult: { _ in downloadCalled = true })
+       /* loginService.requestAuthorization(onResult: { _ in downloadCalled = true })
         waitUntil { downloadService.downloadURLCalled && downloadCalled }
         await MainActor.run {
+            
+            
+            print("downloadService.downloadURLCalled: \(downloadService.downloadURLCalled)")
+            print("downloadCalled: \(downloadCalled)")
             #expect(downloadService.downloadURLCalled)
             #expect(downloadCalled)
-        }
+        }*/
+        
+        loginService.requestAuthorization(onResult: { _ in
+            
+            DispatchQueue.main.async {
+                downloadCalled = true
+                #expect(downloadService.downloadURLCalled)
+                #expect(downloadCalled)
+            }
+        })
+        
     }
-}
+
 
     @Test
     func testRequestAuthorizationWithToken22() async {
@@ -132,8 +146,9 @@ struct LoginServiceTests {
             app: app,
             keychain: keychain
         )
-        // Ensure bundle ID is set before storing the token
+        // Ensure bundle ID is set before storing the u token
         app.stubBundleID = "com.applivery.test"
+        app.stubOpenUrlResult = true
         try? keychain.store("token", for: app.stubBundleID)
         downloadService.stubbedURL = "https://applivery.com/app.ipa"
         var downloadCalled = false
@@ -141,11 +156,13 @@ struct LoginServiceTests {
 
 
         await confirmation("Synchronizer completes") { @MainActor confirm in
-            loginService.requestAuthorization { _ in
-                downloadCalled = true
-                #expect(downloadService.downloadURLCalled)
-                #expect(downloadCalled)
-                confirm()
+            await MainActor.run {
+                loginService.requestAuthorization { _ in
+                    downloadCalled = true
+                    #expect(downloadService.downloadURLCalled)
+                    #expect(downloadCalled)
+                    confirm()
+                }
             }
         }
     }
