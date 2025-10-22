@@ -64,6 +64,7 @@ class AppMock: AppProtocol {
 
     func openUrl(_ url: String) -> Bool {
         self.spyOpenUrl = (true, url)
+        logInfo("⭐️ Delete me! - openUrl(\(url))")
         return self.stubOpenUrlResult
     }
 

@@ -142,8 +142,11 @@ final class LoginService: LoginServiceProtocol {
             }
             return
         }
+        logInfo("⭐️ Delete me! Print before task")
         Task {
+            logInfo("⭐️ Delete me! Task started")
             if let url = await downloadService.downloadURL(lastBuildId) {
+                logInfo("⭐️ Delete me! Print before main actor, url is \(url)")
                 await MainActor.run {
                     if app.openUrl(url) {
                         logInfo(" 🗑️ Delete me! Success!")
