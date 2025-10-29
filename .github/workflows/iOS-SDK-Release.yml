@@ -60,3 +60,6 @@ jobs:
               
             git tag -a $VERSION_TAG -m "Release version $VERSION_TAG"
             git push origin $VERSION_TAG
+
+      - name: ⚙️ Set script permissions
+        run: chmod +x exclude/build_xcframework.sh
