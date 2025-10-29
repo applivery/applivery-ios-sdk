@@ -10,21 +10,19 @@ jobs:
       - name: check XCode version
         run: /usr/bin/xcodebuild -version
       
-      - name: Checkout
+      - name: ⬇️ Checkout
         uses: actions/checkout@v3
 
       - name: ⚙️ Set script permissions
         run: chmod +x exclude/build_xcframework.sh
 
       - name: 🔨 Build XCFramework
-        # Ejecuta tu script de compilación. 
-        # Este script debería generar un archivo zip, por ejemplo, MyFramework.xcframework.zip
         run: ./exclude/build_xcframework.sh
 
-      - name: 📦 Comprimir XCFramework para distribución
+      - name: 📦 Compress XCFramework
         run: |
             # Reemplaza 'Applivery.xcframework' con el nombre real de tu XCFramework
-            FRAMEWORK_NAME="Applivery.xcframework"
+            FRAMEWORK_NAME="Applivery"
             
             # 1. Verificar que el .xcframework exista
             if [ ! -d "$FRAMEWORK_NAME.xcframework" ]; then
