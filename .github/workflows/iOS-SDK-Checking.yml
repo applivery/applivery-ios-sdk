@@ -21,17 +21,22 @@ jobs:
 
       - name: 📦 Compress XCFramework
         run: |
-            zip -r -X -j Applivery.xcframework.zip xcframeworks/Applivery.xcframework
+            zip -r -x xcframework.zip xcframeworks/Applivery.xcframework
             
       - name: 📦 Find XCFramework zip
         id: find_zip
         run: |
-          ZIP_FILE=$(find . -name "*.xcframework.zip" | head -n 1)
+          ZIP_FILE=$(find . -name "xcframework.zip" | head -n 1)
           if [[ -z "$ZIP_FILE" ]]; then
             echo "::error:: XCFramework.zip not found"
             exit 1
           fi
+          echo "$ZIP_FILE"
           echo "zip_path=$ZIP_FILE" >> $GITHUB_OUTPUT
+
+      - name: Borrar
+        run: |
+          echo "La versión generada es: **${{ steps.find_zip.outputs.zip_path }}**"
 
       - name: 🚀 Create GitHub Release
         id: create_release
