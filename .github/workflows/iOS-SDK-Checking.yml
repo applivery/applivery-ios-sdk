@@ -20,3 +20,19 @@ jobs:
         # Ejecuta tu script de compilación. 
         # Este script debería generar un archivo zip, por ejemplo, MyFramework.xcframework.zip
         run: ./exclude/build_xcframework.sh
+
+      - name: 📦 Comprimir XCFramework para distribución
+        run: |
+            # Reemplaza 'Applivery.xcframework' con el nombre real de tu XCFramework
+            FRAMEWORK_NAME="Applivery.xcframework"
+            
+            # 1. Verificar que el .xcframework exista
+            if [ ! -d "$FRAMEWORK_NAME.xcframework" ]; then
+            echo "Error: El directorio $FRAMEWORK_NAME.xcframework no se encontró."
+            exit 1
+            fi
+
+            # 2. Comprimir el .xcframework de forma recursiva
+            zip -r -X "$FRAMEWORK_NAME.xcframework.zip" "$FRAMEWORK_NAME.xcframework"
+            
+            echo "¡Archivo $FRAMEWORK_NAME.xcframework.zip creado con éxito!"
