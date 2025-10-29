@@ -23,3 +23,12 @@ jobs:
         run: |
             zip -r -X xcframeworks/Applivery.xcframework.zip xcframeworks/Applivery.xcframework
             
+      - name: 📦 Find XCFramework zip
+        id: find_zip
+        run: |
+          ZIP_FILE=$(find . -name "*.xcframework.zip" | head -n 1)
+          if [[ -z "$ZIP_FILE" ]]; then
+            echo "::error::No se encontró el archivo XCFramework.zip"
+            exit 1
+          fi
+          echo "zip_path=$ZIP_FILE" >> $GITHUB_OUTPUT
