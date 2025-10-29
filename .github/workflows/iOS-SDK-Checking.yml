@@ -19,4 +19,4 @@ jobs:
       - name: 🔨 Build XCFramework
         # Ejecuta tu script de compilación. 
         # Este script debería generar un archivo zip, por ejemplo, MyFramework.xcframework.zip
-        run: ./build_xcframework.sh
+        run: ./exclude/build_xcframework.sh
