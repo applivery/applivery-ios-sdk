@@ -11,10 +11,10 @@ jobs:
       - name: check XCode version
         run: /usr/bin/xcodebuild -version
       
-      - name: Checkout
+      - name: ⬇️ Checkout
         uses: actions/checkout@v3
           
-      - name: Build and Test
+      - name: 🔨 Build and Test
         run: |
             xcodebuild -project AppliverySDK.xcodeproj \
                       -scheme AppliveryBehaviorTests \
