@@ -21,7 +21,7 @@ jobs:
 
       - name: 📦 Compress XCFramework
         run: |
-            zip -r -X xcframework.zip xcframeworks/Applivery.xcframework
+            zip -r -X -j Applivery.xcframework.zip xcframeworks/Applivery.xcframework
             
       - name: 📦 Find XCFramework zip
         id: find_zip
