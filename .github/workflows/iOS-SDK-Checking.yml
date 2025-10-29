@@ -28,17 +28,16 @@ jobs:
         run: |
           ZIP_FILE=$(find . -name "*.xcframework.zip" | head -n 1)
           if [[ -z "$ZIP_FILE" ]]; then
-            echo "::error::No se encontró el archivo XCFramework.zip"
+            echo "::error:: XCFramework.zip not found"
             exit 1
           fi
           echo "zip_path=$ZIP_FILE" >> $GITHUB_OUTPUT
 
       - name: 🚀 Create GitHub Release
         id: create_release
-        # Usa la acción preconstruida para crear la release
-        uses: actions/create-release@v1
+        uses: actions/create-release@v1.1.4
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Token automático de GitHub
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         with:
           tag_name: 9.9.9
           release_name: Release 9.9.9
