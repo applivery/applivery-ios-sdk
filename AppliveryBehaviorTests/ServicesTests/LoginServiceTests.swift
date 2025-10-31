@@ -101,8 +101,10 @@ struct LoginServiceTests {
         var downloadCalled = false
         loginService.requestAuthorization(onResult: { _ in downloadCalled = true })
         waitUntil { downloadService.downloadURLCalled && downloadCalled }
-        #expect(downloadService.downloadURLCalled)
-        #expect(downloadCalled)
+        DispatchQueue.main.async {
+            #expect(downloadService.downloadURLCalled)
+            #expect(downloadCalled)
+        }
     }
 
     @Test
@@ -133,8 +135,10 @@ struct LoginServiceTests {
         var result: UpdateResult?
         loginService.requestAuthorization { r in result = r }
         waitUntil { result != nil }
-        #expect(result?.type == .error)
-        #expect(result?.error == .authRequired)
+        DispatchQueue.main.async {
+            #expect(result?.type == .error)
+            #expect(result?.error == .authRequired)
+        }
     }
 
     @Test
@@ -165,8 +169,10 @@ struct LoginServiceTests {
         var result: UpdateResult?
         loginService.download { r in result = r }
         waitUntil { result != nil }
-        #expect(result?.type == .error)
-        #expect(result?.error == .noDiskSpaceAvailable)
+        DispatchQueue.main.async {
+            #expect(result?.type == .error)
+            #expect(result?.error == .noDiskSpaceAvailable)
+        }
     }
 
     @Test
@@ -200,7 +206,9 @@ struct LoginServiceTests {
         var result: UpdateResult?
         loginService.download { r in result = r }
         waitUntil { result != nil && downloadService.downloadURLCalled }
-        #expect(result?.type == .success)
-        #expect(downloadService.downloadURLCalled)
+        DispatchQueue.main.async {
+            #expect(result?.type == .success)
+            #expect(downloadService.downloadURLCalled)
+        }
     }
 }
