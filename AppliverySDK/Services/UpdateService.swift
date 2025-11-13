@@ -198,49 +198,49 @@ final class UpdateService: UpdateServiceProtocol {
     func checkUpdate(for updateConfig: UpdateConfigResponse, forceUpdate: Bool) {
         let currentConfig = configService.getCurrentConfig()
         let appBuildNumber = currentConfig.buildNumber
-        // use existing helpers to determine if a force or ota update is needed
-        if forceUpdate && checkForceUpdate(updateConfig.config, buildNumber: appBuildNumber) {
+
+        if forceUpdate {
+            // Always run update checks immediately when forced
+            if checkForceUpdate(updateConfig.config, buildNumber: appBuildNumber) {
+                logInfo("Performing force update...")
+                self.forceUpdate()
+                return
+            }
+            // If checkForceUpdate has returned false, we check for OTA Update
+            if checkOtaUpdate(updateConfig.config, buildNumber: appBuildNumber) {
+                logInfo("Performing OTA update...")
+                otaUpdate()
+                return
+            }
+
+            logInfo("CheckUpdates finished: No update needed")
+            return
+        }
+
+        // Non-forced path: only proceed if popup should be shown
+        guard shouldShowPopup() else {
+            logInfo("The timeout for showing the popup not exceeded")
+            return
+        }
+
+        if checkForceUpdate(updateConfig.config, buildNumber: appBuildNumber) {
             logInfo("Performing force update...")
             self.forceUpdate()
             return
         }
-
+        // If force update returns false, we check for OTA Update
         if checkOtaUpdate(updateConfig.config, buildNumber: appBuildNumber) {
-            if shouldShowPopup() {
-                logInfo("Performing OTA update...")
-                otaUpdate()
-            } else {
-                logInfo("CheckUpdates finished: Updates were postponed")
-            }
+            logInfo("Performing OTA update...")
+            otaUpdate()
             return
         }
 
-        logInfo("CheckUpdates finished: No Update needed")
+        logInfo("CheckUpdates finished: No update needed")
     }
+
 }
 
 private extension UpdateService {
-    func download(with config: SDKData) {
-        guard let lastBuildId = config.lastBuildId else {
-            return
-        }
-
-        Task {
-            if let url = await downloadService.downloadURL(lastBuildId) {
-                await MainActor.run {
-                    if app.openUrl(url) {
-                    } else {
-                        let error = NSError.appliveryError(literal(.errorDownloadURL))
-                        logError(error)
-                    }
-                }
-            } else {
-                let error = NSError.appliveryError(literal(.errorDownloadURL))
-                logError(error)
-            }
-        }
-    }
-
     func shouldShowPopup() -> Bool {
         if let storedDate = UserDefaults.standard.object(forKey: AppliveryUserDefaultsKeys.appliveryLastUpdatePopupShown) as? Date,
            let interval = UserDefaults.standard.object(forKey: AppliveryUserDefaultsKeys.appliveryPostponeInterval) as? TimeInterval {
