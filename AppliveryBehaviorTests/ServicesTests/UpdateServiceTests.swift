@@ -298,7 +298,9 @@ struct UpdateServiceTests {
         // Wait until the async force update is called or timeout
         waitUntil { appMock.spyForceUpdateCalled }
         // THEN
-        #expect(appMock.spyForceUpdateCalled == true)
+        DispatchQueue.main.async {
+            #expect(appMock.spyForceUpdateCalled == true)
+        }
     }
 
     @Test func testCheckOtaUpdateNotNeeded() async throws {
