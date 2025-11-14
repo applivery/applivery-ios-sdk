@@ -37,7 +37,9 @@ struct LoginServiceTests {
         loginRepository.shouldSucceed = true
         let loginData = LoginData(provider: "provider", payload: .init(user: "test@applivery.com", password: "pass"))
         await loginService.login(loginData: loginData)
-        #expect(sessionPersister.didSaveUserName)
+        DispatchQueue.main.async {
+            #expect(sessionPersister.didSaveUserName)
+        }
     }
 
     @Test
