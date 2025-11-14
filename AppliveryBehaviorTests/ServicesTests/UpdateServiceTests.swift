@@ -338,7 +338,9 @@ struct UpdateServiceTests {
         // WHEN
         updateService.checkUpdate(for: otaConfig, forceUpdate: false)
         // THEN
-        #expect(appMock.spyOtaAlert.called == false)
+        DispatchQueue.main.async {
+            #expect(appMock.spyOtaAlert.called == false)
+        }
     }
 }
 
