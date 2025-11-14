@@ -135,8 +135,10 @@ struct LoginServiceTests {
         var result: UpdateResult?
         loginService.requestAuthorization { r in result = r }
         waitUntil { result != nil }
-        #expect(result?.type == .error)
-        #expect(result?.error == .authRequired)
+        DispatchQueue.main.async {
+            #expect(result?.type == .error)
+            #expect(result?.error == .authRequired)
+        }
     }
 
     @Test

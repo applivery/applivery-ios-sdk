@@ -20,7 +20,7 @@ jobs:
       - name: check XCode version
         run: /usr/bin/xcodebuild -version
     
-      - name: Checkout
+      - name: ⬇️ Checkout
         uses: actions/checkout@v3
        
       - name: Get branch and  version
@@ -61,3 +61,45 @@ jobs:
           pod lib lint --allow-warnings
           pod trunk push --allow-warnings
         
+      - name: ⚙️ Set script permissions
+        run: chmod +x exclude/build_xcframework.sh
+
+      - name: 🔨 Build XCFramework
+        run: ./exclude/build_xcframework.sh
+
+      - name: 📦 Compress XCFramework
+        run: |
+            zip -r -X xcframework.zip xcframeworks/Applivery.xcframework
+            
+      - name: 📦 Find XCFramework zip
+        id: find_zip
+        run: |
+          ZIP_FILE=$(find . -name "xcframework.zip" | head -n 1)
+          if [[ -z "$ZIP_FILE" ]]; then
+            echo "::error:: XCFramework.zip not found"
+            exit 1
+          fi
+          echo "$ZIP_FILE"
+          echo "zip_path=$ZIP_FILE" >> $GITHUB_OUTPUT
+
+      - name: 🚀 Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1.1.4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        with:
+          tag_name: ${{ steps.extract.outputs.release_version }}
+          release_name: Release ${{ steps.extract.outputs.release_version }}
+          draft: false
+          prerelease: false
+
+      - name: ⬆️ Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ steps.find_zip.outputs.zip_path }}
+          asset_name: ${{ steps.find_zip.outputs.zip_path }}
+          asset_content_type: application/zip
+
