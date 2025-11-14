@@ -48,7 +48,7 @@ jobs:
               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
             # 2. Get version
-            VERSION_TAG="v${{ steps.extract.outputs.release_version }}"
+            VERSION_TAG="${{ steps.extract.outputs.release_version }}"
             echo "Tag created: $VERSION_TAG"
               
             git tag -a $VERSION_TAG -m "Release version $VERSION_TAG"
