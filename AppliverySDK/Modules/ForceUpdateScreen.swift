@@ -22,7 +22,9 @@ struct ForceUpdateScreen: View {
                 Button(action: {
                     isLoading = true
                     service.downloadLastBuild(onResult: { _ in
-                        self.isLoading = false
+                        DispatchQueue.main.async {
+                            self.isLoading = false
+                        }
                     })
                 }) {
                     Text(literal(.buttonForceUpdate) ?? "")
