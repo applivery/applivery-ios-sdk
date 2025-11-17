@@ -21,7 +21,9 @@ struct ForceUpdateScreen: View {
                 
                 Button(action: {
                     isLoading = true
-                    service.downloadLastBuild(onResult: nil)
+                    service.downloadLastBuild(onResult: { _ in
+                        self.isLoading = false
+                    })
                 }) {
                     Text(literal(.buttonForceUpdate) ?? "")
                         .foregroundColor(.white)
