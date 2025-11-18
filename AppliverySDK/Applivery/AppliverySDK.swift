@@ -118,12 +118,12 @@ public typealias AppliveryLogHandler = @convention(block) (
 
  - SeeAlso: [Applivery's README on GitHub](https://github.com/applivery/applivery-ios-sdk/blob/master/README.md)
  - Since: 1.0
- - Version: 4.5.3
+ - Version: 4.5.4
  - Copyright: Applivery S.L.
  */
 public class AppliverySDK: NSObject, AppliveryService {
     // MARK: Static Properties
-    internal static let sdkVersion = "4.5.3"
+    internal static let sdkVersion = "4.5.4"
 
     // MARK: Type Properties
     /// Singleton instance
