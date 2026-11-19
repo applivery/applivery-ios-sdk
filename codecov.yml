@@ -16,14 +16,5 @@ coverage:
     - build/**
     - AppliverySDKTests/**
     - AppliveryBehaviorTests/**
-  notify:
-    slack:
-      default:
-        url: https://hooks.slack.com/services/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
-        branches:
-          - master
-          - develop
-        threshold: null
-        attachments: "sunburst, diff"
   status:
     patch: false

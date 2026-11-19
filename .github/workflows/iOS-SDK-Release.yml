@@ -25,10 +25,11 @@ jobs:
        
       - name: Get branch and  version
         id: extract
+        env:
+          SOURCE_BRANCH: ${{ github.event.pull_request.head.ref }}
         run: |
 
           # Obtain branch name to PR was launched (ej: 'release/1.2.3')
-          SOURCE_BRANCH="${{ github.event.pull_request.head.ref }}"
           BRANCH_NAME=$SOURCE_BRANCH
           echo "BRANCH_NAME=$SOURCE_BRANCH" >> $GITHUB_ENV
           
